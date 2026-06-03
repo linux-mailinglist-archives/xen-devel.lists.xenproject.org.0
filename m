@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id M6LvHI46IGqZywAAu9opvQ
+	id jZr6DbE6IGqhywAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:30:38 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:31:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DFF663898F
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55B66389AA
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:31:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=citrix.com (policy=reject)
-Received: from list by lists.xenproject.org with outflank-mailman.1326594.1592011 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326614.1592030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmbx-0007VY-QT; Wed, 03 Jun 2026 14:30:25 +0000
+	id 1wUmcW-0008SJ-Bo; Wed, 03 Jun 2026 14:31:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326594.1592011; Wed, 03 Jun 2026 14:30:25 +0000
+Received: by outflank-mailman (output) from mailman id 1326614.1592030; Wed, 03 Jun 2026 14:31:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmbx-0007TA-Nd; Wed, 03 Jun 2026 14:30:25 +0000
-Received: by outflank-mailman (input) for mailman id 1326594;
- Wed, 03 Jun 2026 14:30:24 +0000
+	id 1wUmcW-0008Q1-8V; Wed, 03 Jun 2026 14:31:00 +0000
+Received: by outflank-mailman (input) for mailman id 1326614;
+ Wed, 03 Jun 2026 14:30:59 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wUmbw-0007T0-Ts
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:30:24 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wUmcU-0008PZ-V8
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:30:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmbw-007VNB-60
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:30:24 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wUmcU-007Vco-Bw
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:30:58 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a203a7a-bab6-0a2a0a5309dd-0a2a4507e73c-18
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:23 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a203a97-bab6-0a2a0a5309dd-0a2a4504c2c2-32
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:57 +0200
+Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a203a7e-229c-0a2a45070019-a0658309e722-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:23 +0200
+ id 6a203a9f-1dec-0a2a45040019-a0658308bfce-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:56 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id BC50E8181B0B;
- Wed,  3 Jun 2026 10:29:04 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id E5E0A4346021;
+ Wed,  3 Jun 2026 10:29:47 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,29 +65,31 @@ Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 0/2] xen/mm: Fix off-by-one for tail merge in reserve_offlined_page()
-Date: Wed,  3 Jun 2026 15:27:20 +0100
-Message-Id: <cover.1780496798.git.bernhard.kaindl@citrix.com>
+Subject: [PATCH v2 1/2] xen/mm: Fix off-by-one preventing tail merge in reserve_offlined_page()
+Date: Wed,  3 Jun 2026 15:27:21 +0100
+Message-Id: <f2ed440fa3d2ca62c77868a60061168630d9fb6d.1780496798.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1780496798.git.bernhard.kaindl@citrix.com>
+References: <cover.1780496798.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1780497023-23175C48-2253BD39/0/0
+X-purgate-ID: tlsNG-ebf023/1780497056-2AB633FF-665CB41B/0/0
 X-purgate-type: clean
-X-purgate-size: 2419
+X-purgate-size: 3140
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -97,7 +99,7 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:from_mime,citrix.com:email,gitlab.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:from_mime,citrix.com:email,suse.com:email];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[9];
@@ -106,14 +108,11 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_SENDER_FORWARDING(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1DFF663898F
+X-Rspamd-Queue-Id: B55B66389AA
 
-After offlining pages, reserve_offlined_page() attempts to grow larger
-buddies between the offlined pages, but due to an off-by-one, this
-fails at the tail end of the span of pages of the containing buddy.
-
-As requested for backporting the fix, the first patch fixes the
-issue while the second patch adds the regression test for it.
+reserve_offlined_page() reserves pages marked for offlining and
+returns free buddies from the remaining healthy tail pages back
+to the free list.
 
 Consider an order-2 buddy (4 pages) with the following layout:
 +---------------+---------------+---------------+---------------+
@@ -140,23 +139,45 @@ early before the tail end of the original buddy and we end up with:
 | == 0          | to the heap   | == 0          | == 0          |
 +---------------+               +---------------+---------------+
 
-You can pull this series with the regression test environment to run it:
-$ git pull git@gitlab.com:bernhardkaindl/xen.git offline-merge-tail-v2
-$ make -C tools/tests/native TARGETS=offline-merge-tail test
+If the offlined page was in a much larger buddy, this would lead
+to much more memory not available for higher order allocations
+requiring the full tail end of the original buddy for allocation.
+
+Fix the growth loop to correctly grow the buddy to the tail end
+to make the full allocation unit available for future allocation.
 
 Fixes: e4865c2315 ('Page offline support in Xen side')
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+v2:
+- Bugfix isolated from the test case for backporting.
+- Removed stray blank from the line that I touch.
+- Title: Replaced stopping with preventing.
+- Title: Added parentheses after reserve_offlined_page().
+---
+ xen/common/page_alloc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Bernhard Kaindl (2):
-  xen/mm: Fix off-by-one preventing tail merge in
-    reserve_offlined_page()
-  tools/tests: Add regression test for tail buddy growth
-
- tools/tests/native/offline-merge-tail.c | 81 +++++++++++++++++++++++++
- xen/common/page_alloc.c                 |  4 +-
- 2 files changed, 84 insertions(+), 1 deletion(-)
- create mode 100644 tools/tests/native/offline-merge-tail.c
-
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 2767376a710b..e01ac3e99c72 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1195,11 +1195,13 @@ static int reserve_offlined_page(struct page_info *head)
+ 
+         next_order = cur_order = 0;
+ 
++        /* Attempt to grow the order (size) of the buddy as much as possible. */
+         while ( cur_order < head_order )
+         {
+             next_order = cur_order + 1;
+ 
+-            if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
++            /* Do not grow to next_order if it would go beyond the buddy. */
++            if ( (cur_head + (1 << next_order)) > (head + (1 << head_order)) )
+                 goto merge;
+ 
+             /* Do not grow to next_order if cur_head is not aligned to it. */
 -- 
 2.39.5
 
