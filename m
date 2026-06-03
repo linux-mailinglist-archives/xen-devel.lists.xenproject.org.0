@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 4hq1MeoWIGqivgAAu9opvQ
+	id fgy7HEEeIGqCwAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:58:34 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 14:29:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F5F637425
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32F6637825
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 14:29:52 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=aGKeSxec;
+	dkim=pass header.d=suse.com header.s=google header.b=TqYZUISU;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326119.1591569 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1326147.1591581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUkEU-0008Gg-D8; Wed, 03 Jun 2026 11:58:02 +0000
+	id 1wUkiF-0004Lh-Qv; Wed, 03 Jun 2026 12:28:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326119.1591569; Wed, 03 Jun 2026 11:58:02 +0000
+Received: by outflank-mailman (output) from mailman id 1326147.1591581; Wed, 03 Jun 2026 12:28:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUkEU-0008Ds-9y; Wed, 03 Jun 2026 11:58:02 +0000
-Received: by outflank-mailman (input) for mailman id 1326119;
- Wed, 03 Jun 2026 11:58:00 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUkES-0008Dm-Gg
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 11:58:00 +0000
+	id 1wUkiF-0004JL-OL; Wed, 03 Jun 2026 12:28:47 +0000
+Received: by outflank-mailman (input) for mailman id 1326147;
+ Wed, 03 Jun 2026 12:28:46 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wUkiE-0004JF-EJ
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 12:28:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUkER-003e51-SW
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:57:59 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wUkiD-006dL6-Cb
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:28:45 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a2016c3-bab6-0a2a0a5309dd-0a2a450a9cd8-24
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:57:59 +0200
-Received: from [209.85.218.53] (helo=mail-ej1-f53.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a2016c7-56b3-0a2a450a0019-d155da35d5f6-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:57:59 +0200
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-becfa735b9aso496569666b.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 04:57:59 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf054e0280asm137406466b.33.2026.06.03.04.57.58
+ (envelope-from <jbeulich@suse.com>)
+ id 6a201def-2eae-0a2a0a5409dd-0a2a450c88b0-38
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 14:28:45 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a201dfc-62f1-0a2a450c0019-d155802ac166-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 14:28:45 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-490b2b037d2so16070895e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 05:28:45 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f2ed944sm7528208f8f.13.2026.06.03.05.28.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 04:57:58 -0700 (PDT)
+ Wed, 03 Jun 2026 05:28:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,251 +61,219 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780487879; x=1781092679; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xHT+gruSkt+wu/6Q4fjjILgFPyipx27zBwtoDDnDwfY=;
-        b=aGKeSxecNwFGpTFZBKk1lDGC/64UcyXQvujGYxsvzeX3BaGQbddpbwWFkrebyejou3
-         wfI8DcjSNsPNWVH3jyMmdaR+OCD1/q2nBBnwfJxWrx+jwNCNYDloAXQ8YZi7H4f82YGS
-         mQcM+ay8MricQvqYFngEaOt3JTXC6UkRh51qs8mYqBHbevMsExyb84DLB9WgnCXQEJYH
-         RxfXQBW1EapFH2ulRoIdCV8qwR4D6nKxJs0SVSexPYC0HaykWeAYIju9CDnlBInpdh+b
-         9uruALDJA3mv5DFECWgIKwzb07GzwH0gjCdxfjq+o2QkgcCYGgbI3a16FCveqm8wnUKS
-         /fWg==
+        d=suse.com; s=google; t=1780489724; x=1781094524; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rP22kDExa/ctfuohdGJtotFhk/gyIcpq1jo8pcUKPWY=;
+        b=TqYZUISUizgM584nmrTEYKEPgO0e1CZJEbG1B7Mw4RYxKhgR5dO4eF2ELZiJOAkcNx
+         Wl6l2FfnuO14WEyfXo0qfvZvNhxOiD5pBsIGUA2DP2RSUpBGSOqwJuS418YC9Vv+cx7C
+         2w5bWS2dltWtbDVn5uwAnzDtuwhqtRKTf6ZClV/E5y8AJDmJ7oCcYdns+U96Oo/SokLl
+         R6ypDt9yjpH3eMQPYLJhLe8ZMlHuM4Xqz+W/PD944n3ddOCw/b+r505yE3HCVBziN66e
+         2d10PKb4BdjHqm5hFPkgOlCKUIqgH2nijQyL32fi9nzOkWqu1cK3mvcJkcOtR4c7p8V9
+         SwuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780487879; x=1781092679;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xHT+gruSkt+wu/6Q4fjjILgFPyipx27zBwtoDDnDwfY=;
-        b=VRYccwC4jKy2luKj3pMAKQ8yoZb+A45G5BgM9LOi65TAypu/GJeRuSdlhxzFEcDofT
-         4iCwEN6gUm1PWFoGaPlyAreX7vHjpJfKFLzbpOPKqwPAF3iFiQmP3PbF+6GVk9lQJ3P5
-         NkjQNy1fYQc0pxgRbzWt/1Be6NhtSlAQR4iia+LuegH5NQ3DEKL1obUMDkvPflrxSteq
-         yqv2I01sS1NrjH9OkuvbnAryIWa2nqQtClEYeMJCCJMrB6MD1X0w/JwovFpUxbtq6yg+
-         Azugfj3fBrFgmK36V/2oQJONdJiBrC+rRx/H0IHKwdychGaIOVBFjd1ckytkppG0nB2T
-         tdQw==
-X-Forwarded-Encrypted: i=1; AFNElJ/ZHYS/I3t6CdUdpE2dy5t7p9+TFQhWlbxMd+gL6eQOBiqDu4Aao5CEZVn1rw3fFgeUGCOLdgqo59I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzGDn0yO9IkujvKj7Pus0dUm18Z5YxcgnzfI6Gw58RzaaLnBCHf
-	mmKHUBDP2Ljf0SkM8hzduet/xwK7uVi+NNdJLf+InUDR06oyjVSvnw4W
-X-Gm-Gg: Acq92OG1hfJA4XvCDlDZzfC/0s0Up/02mYt1gZ3F7ak9q5A7Y1P7PaISBK6Z4Fgtyvv
-	ZgrULVc4Gnqls8eymqDZWts6zVdEbN/2lOqcAsqdLg8ilZwH50nnsAsP7SbcUPksRKIKM59enki
-	zcTU87v/8wONmJ5izq1lFNljX7Qk9qFf9Xf+Tpco5oNh2HpVJC0Dn9dtC60UtJwB71+jNxfGhqB
-	27tKd108bWj9reVvwlka1lszwhGBADiuTwB5IcfMFo7ro81R8WY1ZGWcNJu9nDnZKUXiLXNwkGc
-	WqqT3PH6AS68/zuXVMIXQAux4WmGGDudUU3qzEUXvsUQ+zBUGysjMx4wpZRsRMVRRquJlFAOS3s
-	AADd1upDk6DPDv+dtpMLINDWQqdKYjFsLSzYQXz/7urHw477zWkZlcQEqagr6gZX5WdtztNPUCz
-	DVaISo3U2XnRRJWYempZgIMZtMVV0UhDTzMn2TyL1q3sxuM3dij5d66FRpjpOHFi7798cFo4me+
-	+VhZMEvP7If53en
-X-Received: by 2002:a17:907:7216:b0:bd1:ba38:c724 with SMTP id a640c23a62f3a-bf0aec00855mr127769666b.32.1780487879021;
-        Wed, 03 Jun 2026 04:57:59 -0700 (PDT)
-Message-ID: <ab414833-4a3c-485b-91ce-7a0a91f25182@gmail.com>
-Date: Wed, 3 Jun 2026 13:57:57 +0200
+        d=1e100.net; s=20251104; t=1780489724; x=1781094524;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rP22kDExa/ctfuohdGJtotFhk/gyIcpq1jo8pcUKPWY=;
+        b=Iep1J++FTJDQ+/vsxGOExfqoZjAdbjOif96QMkUHC6qqf0BITUm56Cmgj9wstBD8QO
+         7WmNKwZKMQ97iuIU0VLPWAOrD1IC1813ee8D9VaeHCsPbVbzedhzj0rkUvkvyZB4kQXc
+         As6v21fyy9QIsy6CCP2VW+gO5UrgB/yLHkhmaVXPB88Ws5n+dFfbokOgG7S0uMK0gPiD
+         k6ztv6f4oFOHmjgu1RjoLbBbDwl0OW4jZJXycyP4OTsRrk/7Au48sTmkie9br5gOW7dk
+         LepgfCMQwNg251jsBHztV18eJ6OL03hUKl7qWrayLVdv5ob8ADmVPFD7NF+u4QTqb900
+         qRHQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9AUKb4JRFt+rme2kKdV5VR4iBM7lPlYhr5zQMXEaJ4eKdfy2n73BXxH6pwqRLrKNEg1esoTYbRcBM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxzufov6PHEJGd+6qVDXKL3Ys1WHEb4obh+0wIwtSeVmblVAXAU
+	o1AKfojc9GJNEVw0818Vgv7TC7lQwI31gWcuHmYaZGSkDAsmKYtUJ0e3vg8RSS2gcA==
+X-Gm-Gg: Acq92OGRYf2B0K2Wq2QUqzWi/L8uufB0/qXdJbXNeft+zjoMw0vhtX8qJHbeDd9lW18
+	0UwNIZB5dAGlqAHOvhnHtP+esq7XtOg5zeGpsaRbLf+wPq2B/ZpyGz1dXj4RzP94KKwMVv0x7A2
+	jBABHt2K95IAOp5aCTVDINFr9riU5PCWXqMVY4pE9PM0fCMnle09XWOIpNjosxnjRGYCdAnvf6f
+	GB5Q6v+GaxTWeGgMjl3vCXIIaUcyD/VUcp/4Y/xSQBg6lmf3sYXvgWH4y7jN0Vzk12vDJ6AR5ra
+	UwGXUe5Gkch314KRyNiILsSnk/ryHIfJCKZ4ou0PUEAlREfjGTPzof9mV1FvWInUDbT6XVAXq//
+	SIahsaYt7O/CmF/ZpNips7KpK02/7KfW9lH5u3tbIJLzdAKp8S9cshi4koJtaeTe5zboPonEnrq
+	IudztEbVHrbNE0vmC9ad4E+stWYwkYRvXYGozYRmeaCX0C28JMFolVFuXda/kJ1MoKmHG5+u0RI
+	BUT5QmEb47Uxk+Jgsg4q+hKKg==
+X-Received: by 2002:a05:600c:1392:b0:490:b202:4772 with SMTP id 5b1f17b1804b1-490b5e95f69mr53422555e9.2.1780489724215;
+        Wed, 03 Jun 2026 05:28:44 -0700 (PDT)
+Message-ID: <4f03728e-22a2-435c-8d80-eeccefdf3a31@suse.com>
+Date: Wed, 3 Jun 2026 14:28:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/domain: fix UBSAN null pointer dereference of
- d->shared_info
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v2 4/4] xen/mm: Recall claims when offlining pages if
+ needed
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779712171.git.oleksii.kurochko@gmail.com>
- <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
- <3aef7763-aea3-496a-8c18-d3659f590373@suse.com>
- <fb1b1194-5855-49d9-99fc-d35a3038833c@gmail.com>
- <3eb9ab3d-dc4d-4019-89c8-9f7dbdc528cd@suse.com>
- <9ae22210-6dd5-43e3-918e-f68b1294448d@gmail.com>
- <dc622455-c20f-4b8a-8c80-1e4c0143e8e0@suse.com>
+References: <cover.1776690702.git.bernhard.kaindl@citrix.com>
+ <ebc02ab7b6fe81946ccf5833a44d57fb4a3239a4.1776690702.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <dc622455-c20f-4b8a-8c80-1e4c0143e8e0@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ebc02ab7b6fe81946ccf5833a44d57fb4a3239a4.1776690702.git.bernhard.kaindl@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1780487879-713638B7-0EA9703D/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 5715
+X-purgate-ID: tlsNG-d25034/1780489725-E0766CF5-5528F1A8/0/0
+X-purgate-type: clean
+X-purgate-size: 4027
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:from_mime,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 25F5F637425
+X-Rspamd-Queue-Id: D32F6637825
 
-
-
-On 6/3/26 1:23 PM, Jan Beulich wrote:
-> On 03.06.2026 13:05, Oleksii Kurochko wrote:
->>
->>
->> On 6/3/26 7:54 AM, Jan Beulich wrote:
->>>> --- a/xen/common/event_fifo.c
->>>> +++ b/xen/common/event_fifo.c
->>>> @@ -562,9 +562,10 @@ static void setup_ports(struct domain *d, unsigned
->>>> int prev_evtchns)
->>>>
->>>>             evtchn = evtchn_from_port(d, port);
->>>>
->>>> -        if ( d->shared_info &&
->>>> -             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->>>> +#ifdef CONFIG_HAS_SHARED_INFO
->>>> +        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->>>>                 evtchn->pending = true;
->>>> +#endif
->>> While as per above shared_info() would best not exist when !HAS_SHARED_INFO
->>> (in which case #ifdef may be unavoidable here), an alternative where
->>> IS_ENABLED() could be used here may want at least considering. E.g.
->>> causing a link-time failure when shared_info() is used (and not compiled
->>> out).
->>
->> We still want here to have #ifdef instead of IS_ENABLED() as
->> shared_info() shouldn't exist for arch without 2L support so it will end
->> with linkage error.
+On 20.04.2026 15:19, Bernhard Kaindl wrote:
+> Fix a bug where offlining pages could cause an unsigned underflow
+> in total_avail_pages - outstanding_claims, leading to incorrect
+> claim behavior.
 > 
-> I don't understand this part.
-
-If the change will look like:
-
-   if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) && guest_test_bit(d, port, 
-&shared_info(d, evtchn_pending)) )
-       evtchn->pending = true;
-
-It will help to avoid NULL pointer dereference of shared info page in 
-case of 2L isn't supported. But considering that shared_info() macros 
-will be reworked in the way which will lead to linkage error in the case 
-when it is used and arch doesn't have shared info page support usage of 
-shared_info() in setup_ports() will lead to linkage error what is wanted 
-to be avoid for arch without 2L support.
-
+> This issue arises when outstanding claims are close to the total
+> available pages. It occurse when domain_set_outstanding_claims()
+> and domain_install_claim_set effectively do this:
 > 
->> Considering that setup_ports() will be called for
->> such arch we have to avoid this part from compilation.
->>
->> Alternative is that considering that I suggested in prev emails to
->> introduced stubs for arch which doesn't use 2L:
->>
->> +#ifndef CONFIG_HAS_SHARED_INFO
->> +static void cf_check evtchn_none_set_pending(
->> +    struct vcpu *v, struct evtchn *evtchn) {}
->> +static void cf_check evtchn_none_clear_pending(
->> +    struct domain *d, struct evtchn *evtchn) {}
->> +static void cf_check evtchn_none_unmask(
->> +    struct domain *d, struct evtchn *evtchn) {}
->> +static bool cf_check evtchn_none_is_pending(
->> +    const struct domain *d, const struct evtchn *evtchn) { return false; }
->> +static bool cf_check evtchn_none_is_masked(
->> +    const struct domain *d, const struct evtchn *evtchn) { return true; }
->> +static void cf_check evtchn_none_print_state(
->> +    struct domain *d, const struct evtchn *evtchn) {}
+>  unsigned long avail_pages = total_avail_pages - outstanding_claims;
 > 
-> This set can be shrunk. For example, the same stub can be used for
-> clear-pending and unmask. For is-pending and is-masked, considering
-> that the precise return value shouldn't matter, a single function
-> (returning false) would likely be good enough as well.
+> When this unsigned subtraction underflows, staking claims can succeed
+> even when there is insufficient unclaimed memory for the new claim.
+> This leads to a state where claims always succeed, regardless of
+> actual memory availability.
 > 
->> +static const struct evtchn_port_ops evtchn_port_ops_none = {
->> +    .set_pending   = evtchn_none_set_pending,
->> +    .clear_pending = evtchn_none_clear_pending,
->> +    .unmask        = evtchn_none_unmask,
->> +    .is_pending    = evtchn_none_is_pending,
->> +    .is_masked     = evtchn_none_is_masked,
->> +    .print_state   = evtchn_none_print_state,
->> +};
->> +
->> +static void evtchn_none_init(struct domain *d)
->> +{
->> +    d->evtchn_port_ops = &evtchn_port_ops_none;
->> +}
->> +#endif
->>
->> For arch without 2L supports .is_pending() will return false we can just
->> do the following instead of ifdef:
->>
->> -#ifdef CONFIG_HAS_SHARED_INFO
->> -        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->> -            evtchn->pending = true;
->> -#endif
->> +        if ( evtchn_is_pending(d, evtchn) )
->> +             evtchn->pending = true;
->>
->> Would you be okay with this approach instead of ifdef?
+> To prevent this, recall claims when offlining pages if needed to maintain
+> equilibrium between `total_avail_pages` and outstanding claims for global
+> and for per-NUMA-node claims.
 > 
-> I can't really say ahead of seeing the full result (and without it being
-> made clear why FIFO ops can't be put in place right away, with perhaps a
-> few small adjustments to the handlers). While this isn't going to be
-> used for x86, introduction of new cf_check functions always worries me,
-> at least some.
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 
-I looked at FIFO ops again and it looks like it would be enough just to 
-do the following:
+First: This patch being a bug fix (which, btw, lacks a Fixes: tag), it wants
+to move ahead of the NUMA claims series, to facilitate backporting.
 
---- a/xen/common/event_fifo.c
-+++ b/xen/common/event_fifo.c
-@@ -62,6 +62,9 @@ static inline event_word_t 
-*evtchn_fifo_word_from_port(const struct domain *d,
-       */
-      smp_rmb();
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1575,6 +1575,48 @@ static int reserve_offlined_page(struct page_info *head)
+>          count++;
+>      }
+>  
+> +    if ( count )
 
-+    if ( unlikely(!d->evtchn_fifo) )
-+        return NULL;
-+
-      if ( unlikely(port >= d->evtchn_fifo->num_evtchns) )
-          return NULL;
+Why did you decide to put this in reserve_offlined_page()? The function has
+two callers, yet in one case the extra checking is entirely unneeded afaict.
+While in the other case we further know that it's exactly one page which is
+being offlined.
 
-as evtchn_fifo_word_from_port() is used at the begining of fifo ops and 
-if its NULL then it will just return without execution of the rest of an 
-operation so even something isn't allocated it is still safe.
+> +    {
+> +        long recall_pages;
+> +        struct domain *d;
+> +
+> +        /* Ensure that claims on the node are in line with its free memory. */
+> +        recall_pages = node_outstanding_claims[node] - node_avail_pages[node];
+> +        if ( recall_pages > 0 )
+> +            /*
+> +             * node_avail_pages slipped below node_outstanding_claims.
+> +             * We need to recall claimed pages until the amount of claimed
+> +             * memory is in line with the amount of available memory again.
+> +             */
+> +            for_each_domain ( d )
 
-The changes above are wrong as evtchn_is_pending(d, evtchn) will be 
-called for FIFO's evtchn but the original check is checking if there is 
-any pending interrupt in 2L before final switch to FIFO. So we still 
-want to have:
+Such loops need serializing against domain list modifications. Also we really
+don't want to loop over all domains twice.
 
-+#ifdef CONFIG_HAS_SHARED_INFO
-+        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
-+            evtchn->pending = true;
-+#endif
+> +            {
+> +                if ( d->claims[node] )
+> +                {
+> +                    recall_pages -= deduct_node_claims(d, node, recall_pages);
+> +                    if ( recall_pages <= 0 )
+> +                        break;
+> +                }
+> +            }
 
-And then probably we can d->evtchn_port_op with FIFO ops in the way how 
-it is done now instead of:
+So domains early on the list are penalized over ones later on the list? The
+only truly fair approach I can think of right away looks to be to discard all
+claims, requiring the toolstack to re-establish them. With the observation
+above the next best approach might be to cycle through domains, removing one
+page from their claim and recording where we left off (the per-node part
+would be slightly more involved). However, any reduction of a claim is likely
+to render that claim useless altogether. Hence requiring admin action (to
+re-establish claims) may still be the least bad option.
 
-@@ -1660,7 +1629,7 @@ int evtchn_init(struct domain *d, unsigned int 
-max_port)
-  #ifdef CONFIG_HAS_SHARED_INFO
-      evtchn_2l_init(d);
-  #else
-+    evtchn_fifo_init_ops(d);
-  #endif
-      d->max_evtchn_port = min_t(unsigned int, max_port, INT_MAX);
+Jan
 
-~ Oleksii
+> +        /* Ensure that outstanding claims are in line with available memory. */
+> +        recall_pages = outstanding_claims - total_avail_pages;
+> +        if ( recall_pages > 0 )
+> +            /*
+> +             * total_avail_pages slipped below outstanding_claims.
+> +             * We need to recall claimed pages until the amount of claimed
+> +             * memory is in line with the amount of available memory again.
+> +             */
+> +            for_each_domain ( d )
+> +            {
+> +                if ( d->global_claims )
+> +                {
+> +                    recall_pages -= deduct_global_claims(d, recall_pages);
+> +                    if ( recall_pages <= 0 )
+> +                        break;
+> +                }
+> +            }
+> +    }
+> +
+>      return count;
+>  }
+>  
+
 
