@@ -2,61 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id KzTCHZ86IGqdywAAu9opvQ
+	id NN4xD+46IGq0ywAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:30:55 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:32:14 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 495016389A1
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F976389DE
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:32:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Ysh6PN2Q;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Ysh6PN2Q;
+	dkim=pass header.d=suse.com header.s=google header.b=F9WIsfpf;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326597.1592021 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326654.1592048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmcB-0007tF-2Y; Wed, 03 Jun 2026 14:30:39 +0000
+	id 1wUmdS-0001Co-TF; Wed, 03 Jun 2026 14:31:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326597.1592021; Wed, 03 Jun 2026 14:30:39 +0000
+Received: by outflank-mailman (output) from mailman id 1326654.1592048; Wed, 03 Jun 2026 14:31:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmcA-0007qv-UW; Wed, 03 Jun 2026 14:30:38 +0000
-Received: by outflank-mailman (input) for mailman id 1326597;
- Wed, 03 Jun 2026 14:30:37 +0000
+	id 1wUmdS-0001BH-Oq; Wed, 03 Jun 2026 14:31:58 +0000
+Received: by outflank-mailman (input) for mailman id 1326654;
+ Wed, 03 Jun 2026 14:31:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dfaggioli@suse.com>) id 1wUmc9-0007q8-HF
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:30:37 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wUmdR-00019s-8v
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:31:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmc8-00Fz3M-Tf
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:30:36 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wUmdQ-00CJWQ-Ls
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:31:56 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dfaggioli@suse.com>)
- id 6a203a7a-2eae-0a2a0a5409dd-0a2a450aadfe-44
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:36 +0200
-Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <dfaggioli@suse.com>)
- id 6a203a8c-56b3-0a2a450a0019-c387df8283de-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:36 +0200
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 215966A9E1;
- Wed,  3 Jun 2026 14:30:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ABC02779A7;
- Wed,  3 Jun 2026 14:30:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id /jNuJos6IGoBfwAAD6G6ig
- (envelope-from <dfaggioli@suse.com>); Wed, 03 Jun 2026 14:30:35 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 6a203acb-5cb7-0a2a0a5109dd-0a2a450b86bc-44
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:31:56 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a203aa0-212f-0a2a450b0019-d1558030c5fa-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:30:56 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490ae94a89eso28479645e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 07:30:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490b616fdffsm58568535e9.8.2026.06.03.07.30.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Jun 2026 07:30:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,221 +60,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780497036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Z0OvZLNNBmokUTPLQlQHbQ4dxDW6UtzIgIUujF3UrKg=;
-	b=Ysh6PN2Q5PckRn95B9B7mL3fZUjWS3kiiG9kTTGC3Av/Vx1xSmbWNLea3HnK7ENIMgbqPm
-	K4c5iYUQzFkpch+bkMluWeQIJEdxjSq9l66uMDrhNVUoRXoyVMNuJC9U9pST6yxeRGb2SV
-	w3G5wmfrl1rBjJgAsdMAf+J7xuaNW04=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1780497036; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Z0OvZLNNBmokUTPLQlQHbQ4dxDW6UtzIgIUujF3UrKg=;
-	b=Ysh6PN2Q5PckRn95B9B7mL3fZUjWS3kiiG9kTTGC3Av/Vx1xSmbWNLea3HnK7ENIMgbqPm
-	K4c5iYUQzFkpch+bkMluWeQIJEdxjSq9l66uMDrhNVUoRXoyVMNuJC9U9pST6yxeRGb2SV
-	w3G5wmfrl1rBjJgAsdMAf+J7xuaNW04=
-Message-ID: <456c856e66ed7e481b1bc93051a4535d767efa9b.camel@suse.com>
-Subject: Re: RTDS: Call for [Co]-Maintainers [was: Re: RTDS scheduler
- patches]
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Jan Beulich <jbeulich@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
- Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, Juergen Gross
- <jgross@suse.com>
-Date: Wed, 03 Jun 2026 16:30:26 +0200
-In-Reply-To: <2d0a4c03-319f-4d29-b305-09998a516606@suse.com>
-References: <41d236ba-a93d-446a-b29a-449a1c5f8972@suse.com>
-	 <0b44963bae28d08fcfc14374cfa5e9bcb7c5eaa3.camel@suse.com>
-	 <2d0a4c03-319f-4d29-b305-09998a516606@suse.com>
-Autocrypt: addr=dfaggioli@suse.com; prefer-encrypt=mutual;
- keydata=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
- fkAJ0OEQQ==
-Organization: SUSE Software Solutions Italy S.r.l.
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Y6lmYPkgczP+GTGlg3cg"
-User-Agent: Evolution 3.60.2 (by Flathub.org) 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1780497056; x=1781101856; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YJWtmxlv09eF3pWX3Lg7bfl7CpBG9bFw23A2sksY0vc=;
+        b=F9WIsfpf8fprHDA1Hqo2VGasR03t/ZSyQRnbpKrdzB94f97FDJ3Zu5JRx1G4ptjDAN
+         VcmJBaw1fp6JpzYKjmWCw8q9HFgm9edcDQJVsVerb+XJ9l6PXHf7C/Dw+fQHkvOB5cAw
+         XzS6HVXuVFA4crK3cpvGzXwLbhyfrVMlQd6wTNDtLeHH9I6b8sRuN8E0mr1Ogg4nafim
+         HZl5tI2MiUbuVPolbKn4cgCh7HEcAv++eWIfdFy61jZUdbzonRbd7Y/ge6tbqmdx8/8e
+         uqjTgaPh/rbfglylTk76OZpvTD96/uYTF4X40ZwQQna+hmJnfZ+a5oX7lfe2NhIZezZ2
+         iIzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780497056; x=1781101856;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YJWtmxlv09eF3pWX3Lg7bfl7CpBG9bFw23A2sksY0vc=;
+        b=Xw0RJuBIZiRlvkb5SLeAV4Hoa1+08d4JMlI2tZ9rjTYlidpsMZuLSL3lBryjWAQ+Yf
+         TswIXhswQwNOPgaSVLDBQMso5Tw9VtMpxUApRCwRHWfbcJ97994MhNLcrKKQxjgSF1Mt
+         QRMoJFHssnTcwnpAJiPvYRdOPhqkfb8bFB2Yh/dVYb9sCKIUhyN4feQy2uUXR1Tf3i3g
+         LzKsURkGTKew0aSgdEbf8gVjQ9KgliyKykAe1AZCoEp3pcA5tJA91BCMBjvG1XF2CJmK
+         EqQ4BmeZOeWCcf+p7mwzQ7shegDXaZEmoRor/3b2SztBJjVTO0N3vdJnP8BEwfcxQX4K
+         umjw==
+X-Forwarded-Encrypted: i=1; AFNElJ+HswaSUrlIXrXeMLjA9OPw88VjwOepypKYHxAqwF3L0fwjIysSEDz6zKKXatbzEEjtLlA/yBZdfUc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx6BOFLV+sgvxiAZNsvVkyDkU8y5DP+cBLjQ0Y4cAKVZqeUgKhm
+	pSooK5WVzbwFUMJXTVxiDBHA1LjKaZmW5EgMV4lwxEUCW/twAq+DAYp1F+daWRkZJA==
+X-Gm-Gg: Acq92OH18t17ubjWVh5NlVXQRV50UJeXPUzcZ4oFNSZ8h+mICztCmdwNg3oCegJzBLV
+	NbdMf9b8MqVc07qWmLOzSWeAmKkZ1ctkw0wbqNvZ9a/MRbE5zVOrE75CUWzQCB+wzDHjFIej0r9
+	fO3mZWNHdsQnIz7+uwSOjFlagVjx+BkBqiHIpz3urj+9n7WmwSnlJvcNJpYcVFmgcAAg6lb7FoD
+	r8sOEK3W513Ve6rFS2PQrPEqK2Lc4+dcAqVuFZObYOsjnzjRdh7m6q4eFOLT/xsZHoROLmZtpfH
+	ZFi9JQq1K3LwWlUcnWbE35wUzB5OXYoy1IOkTG+LjRmUo8u/rjOp34uYcYx7wYs4D/lWCmmKw7e
+	xykzgFoAMjG11T04H1fYzipYdiG+ynC/MGOaM6jIe05J95N79jF/rA5EH1LV1sCTaxN4Rbr6/zN
+	31dJJCvOOwYM9CxEi0HwYX/dh7Xn/Q8IqHaG8intk8YIxveMMyHWeSvHDXNfsm3M6gK3nBJ/ocT
+	wmJBWj844sCIXaEcfo8qnvDHWVLP/XgQn66
+X-Received: by 2002:a05:600c:5394:b0:490:b0e0:3de2 with SMTP id 5b1f17b1804b1-490b60f9e98mr64242305e9.33.1780497055981;
+        Wed, 03 Jun 2026 07:30:55 -0700 (PDT)
+Message-ID: <a78c20d0-e894-467e-9eb8-4486bbdd1ac9@suse.com>
+Date: Wed, 3 Jun 2026 16:30:54 +0200
 MIME-Version: 1.0
-X-Spam-Flag: NO
-X-Spam-Score: -6.40
-X-Spam-Level: 
-X-purgate-ID: tlsNG-4011c0/1780497036-70D608B7-2BAB68BB/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen/page_alloc: verify buddy alignment in
+ reserve_offlined_page()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Bernhard Kaindl <bernhard.kaindl@citrix.com>
+References: <cover.1780495548.git.bernhard.kaindl@citrix.com>
+ <6eaed95df4e5cb369a91281051ca9b5a2be564f9.1780495548.git.bernhard.kaindl@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6eaed95df4e5cb369a91281051ca9b5a2be564f9.1780495548.git.bernhard.kaindl@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1780497056-13374F3B-E0635D49/13/0
 X-purgate-type: clean
-X-purgate-size: 2971
+X-purgate-size: 2123
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.29 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[about.me:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:url];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mengxu@cis.upenn.edu,m:xen-devel@lists.xenproject.org,m:Oleksii_Moisieiev@epam.com,m:jgross@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:email,citrix.com:email];
 	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	HAS_ORG_HEADER(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dfaggioli@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dfaggioli@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 495016389A1
+X-Rspamd-Queue-Id: 17F976389DE
 
+On 03.06.2026 16:17, Bernhard Kaindl wrote:
+> reserve_offlined_page() fails to verify alignment when growing
+> buddies around offlined pages. Consequently, misaligned buddies
+> may be constructed from non-offlined page ranges and returned to
+> the free lists.
+> 
+> After a particular sequence of allocations and frees, pages
+> from such a misaligned buddy may be allocated more than once,
+> eventually triggering a Xen BUG() in alloc_heap_pages().
+> 
+> Fixes: e4865c2315 ('Page offline support in Xen side')
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---=-Y6lmYPkgczP+GTGlg3cg
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Oleksii, thoughts towards 4.22?
 
-On Wed, 2026-06-03 at 16:15 +0200, Jan Beulich wrote:
-> On 03.06.2026 16:08, Dario Faggioli wrote:
-> > I'm happy to continue to try to help but, as this thread clearly
-> > demonstrates, I can't be the single point of contact for RTDS
-> > patches
-> > any longer.
->=20
-> As to concrete action: From the above I conclude that simply removing
-> the "RTDS SCHEDULER" section from ./MAINTAINERS might be a fair first
-> step.
->  That would still make you one of its maintainers, along with
-> J=C3=BCrgen. Which may not be intended either, judging from what you say.
->
-That would be fine for me, but I believe it would, at least
-potentially, increase the burden on Juergen.
+Jan
 
-I mean, he's already reviewing the RTDS patches anyway, so maybe it's
-fine... But I'd like to hear from him whether it actually is. :-)
+> ---
+> v2:
+> - Updated the title for clarity.
+> - Bugfix isolated from the test case for backporting.
+> - Removed excess parentheses from the alignment check if() expression.
+> - Simplified the alignment check to use '& (1UL << cur_order)'. Because
+>   the covering buddy head is size-aligned, cur_head is also aligned to
+>   cur_order, making this reduction safe (verified against extended tests).
+> - Updated the inline code comment to accurately state that only the upper
+>   half of the next_order range is checked for offlined pages.
+> ---
+>  xen/common/page_alloc.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 2c4ff2c34c70..2767376a710b 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1202,6 +1202,11 @@ static int reserve_offlined_page(struct page_info *head)
+>              if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
+>                  goto merge;
+>  
+> +            /* Do not grow to next_order if cur_head is not aligned to it. */
+> +            if ( mfn_x(page_to_mfn(cur_head)) & (1UL << cur_order) )
+> +                goto merge;
+> +
+> +            /* Check for offlined pages in upper half of next_order range. */
+>              for ( i = (1 << cur_order), pg = cur_head + (1 << cur_order );
+>                    i < (1 << next_order);
+>                    i++, pg++ )
 
-> Might be best if you sent a patch updating ./MAINTAINERS to what you
-> think you're going to be capable of doing, in a sustainable way.
-> Which
-> may be as small a change as converting the two M: to R:. Thoughts?
->
-Yeah, so, the alternatives I see are:
-- the one you suggest above, if Juergen is fine with it
-- leave RTDS separate (with me either as M: or R:, probably the
-latter), if someone else steps up.
-
-> (Imo it's always better for people to make such adjustments for
-> themselves, then for somebody else to do them, possibly giving the
-> impression that the person is being "kicked out".)
->=20
-Sure, I'm find doing the change myself, as soon as we decide which path
-we take.
-
-Thanks and Regards,
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-Y6lmYPkgczP+GTGlg3cg
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmogOoIACgkQFkJ4iaW4
-c+684g//TdV5dqPaknyRmQsfv7qSFXyahMzqfx7E4zkjKKCn6iHagLD3Z0NB3nNx
-utJ1v8p5Y9hAE+4ZcJl4OaAK0YB4Ba/TlH+q2mepbINS4KKxMo3Ih/taMIT/ABjw
-UJ/KRRrQ+E2QrJPQZrRg5KhxcACWU27P5bTM+Eg4C3GMdtewXhEBIFWyQePgpd5p
-Zn/zV/MjBeYYGYqMerxA/G5dLnqqKP7RAezAVadkmdv9A0YfU1aIpV3R6CTxJmVB
-/hiXipSeyDftYBRvSg+n00JlHLjOEL5osC987L7urDZ7kt8jfBDGqb4MSNop7z6B
-qkI4MSSODZ3RUDO+LKYmjLZVXXuE56SwmxPaA0okmG16Xghmn8tgghdCsOdj7Mim
-e8MtHBSdypjp/2ZAVKldUfjPFcUDQmPD6gOTAd+kmkizHdCfVqe8XFuQEqR3hgCX
-4GraMvLHhokhOUas6ojvqclmCOSLf2mCfFCpYpAk7asa4Xh/lQdS1WXobT6VdQ+d
-aY2QzsAM3nT3ep/oWbALrAg3NJ/JgRFLQqJqdVbnGr/4JjLDesIhBqrl8rMlo71G
-2C7fBfUv/A7EGHanvp6vgtxWai26p5Oz+8gtsUlQofQFl6Qd2YQhpNoa7nUledR0
-h9xvaY5LiW3idQVVy8y+FKnVMpKG05WE5gRNzYy3j31hAj08UQs=
-=L0ZI
------END PGP SIGNATURE-----
-
---=-Y6lmYPkgczP+GTGlg3cg--
 
