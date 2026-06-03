@@ -2,72 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 7ga5AWU0IGpMygAAu9opvQ
+	id PpDfCDA1IGpjygAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:04:21 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:07:44 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6396C6385F5
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:04:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB8E63864F
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:07:43 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=vUFQu1yJ;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=taBoFk4J;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=amd.com;
+	dmarc=pass (policy=reject) header.from=citrix.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1326434.1591877 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326444.1591886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmCT-0002to-0t; Wed, 03 Jun 2026 14:04:05 +0000
+	id 1wUmFn-0003Z4-Fp; Wed, 03 Jun 2026 14:07:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326434.1591877; Wed, 03 Jun 2026 14:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 1326444.1591886; Wed, 03 Jun 2026 14:07:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmCS-0002rA-UH; Wed, 03 Jun 2026 14:04:04 +0000
-Received: by outflank-mailman (input) for mailman id 1326434;
- Wed, 03 Jun 2026 14:04:03 +0000
+	id 1wUmFn-0003V3-Ch; Wed, 03 Jun 2026 14:07:31 +0000
+Received: by outflank-mailman (input) for mailman id 1326444;
+ Wed, 03 Jun 2026 14:07:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Jason.Andryuk@amd.com>) id 1wUmCR-0002r2-7j
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:04:03 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wUmFm-0003UY-Ji
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:07:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmCQ-00467Z-E5
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:04:02 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wUmFl-0017nw-T6
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:07:29 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a20343a-5cb7-0a2a0a5109dd-0a2a4507d266-44
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:04:01 +0200
-Received: from [40.93.194.55]
- (helo=SN4PR0501CU005.outbound.protection.outlook.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a203450-229c-0a2a45070019-285dc237d65a-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:04:01 +0200
-Received: from SJ0PR13CA0143.namprd13.prod.outlook.com (2603:10b6:a03:2c6::28)
- by IA1PR12MB6577.namprd12.prod.outlook.com (2603:10b6:208:3a3::20)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a203511-bab6-0a2a0a5309dd-0a2a450c834e-26
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:07:29 +0200
+Received: from [40.107.200.8]
+ (helo=CH5PR02CU005.outbound.protection.outlook.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a20351d-62f1-0a2a450c0019-286bc808c716-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:07:26 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by MW4PR03MB6347.namprd03.prod.outlook.com (2603:10b6:303:11e::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 14:03:55 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::2a) by SJ0PR13CA0143.outlook.office365.com
- (2603:10b6:a03:2c6::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
- Jun 2026 14:03:54 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 14:03:54 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
- 2026 09:03:53 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
- 2026 07:03:53 -0700
-Received: from [172.18.181.126] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 3 Jun 2026 09:03:53 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 3 Jun 2026
+ 14:07:23 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 14:07:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -80,222 +64,188 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EHIl9oYmS4DKY/4SzFtBhlMM8JQT47zLP+qnyFNUETUjZ6hDLqKsI0CLfpuDUC1DwYW8ldL/XgK4Bd5T6HR+PTshDxiF98Oqt39+ia8s1WG3zKJxv261WYijVrA8XaHkUEbH3Ra2trAjA9QjBX5C8ZT5IcDYP8yx3Sk8Zqa3bUmG6BXUwCgjEoBZ1H/cUnyb+6L5NwjtHL+g4vd/d1e/lBfkoH3K2aIOPaPA7o5j4rcmMwr2hgiMUJDNdqUjWPCAhUPzmjLKdVBMLDfu49POfMXnf2QACpkXkRnwhVQH91PFEYPODAAVLqcV6Uur0+RoPsA98ZdJNyHEMBY8SyLcxA==
+ b=rX+W1x+sb9j9PLI0qUyORYarnSDFrKXVNVLHUHuPOAljcUx/uFo8mBOnCwI6+zSl234XJupSK2AKi8lb4h3CDit89f/0rjMevQx1ScSVK4+ycmF6P0whafIWC30b0WR65eQj0nx3h7NboYpk7qeBKktk51ftJEH7rhTBbNxkptn8bDprfQE0vVCBlHTZeYMh5bMn0c2RreXpNs1/13RzS1suGcc+/sdEEGd2sNjryLT4VJWDZ/8B7h5IDXGhAfSWtmXvUM7bdp1Epr8lSHH0YS1X3l2AiY3juuY4RFBv6Ogd84s0zsJMENH9/69TOxYVEApbZTBwlMW6sB1Jh15FLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GtUQ7dI8GYYjwXRow9TBh9EOBLUJfW3qGKPhhNc4IXk=;
- b=jgi4sPUdI04BMDVV4Z2sXfo8CBUggsSXj04MFD+23oL6kNfI+orwHa67L73uLsfhjYTUQp+5WZyP2vAQig+O8M1xiVB+B0p3VU32o262u1DEoMWbqu7DOmdkim1BLP2t9a1AkUMpvLQ0c+s0idbNJIAzFoWtU3MA791qKO/mhDegOrWSu7QmBoV5qdqAqmTgp9243qQbSIPmvpIjH+fq45D7MuX6JakeSoc1XxRvlbBlE5hGILbkD+uMLiX5K68xh909MuEm1u6kfTMuAWrREKYdeTTjlyjCYVQuuqbAC+L9PlX+UNGpwVIOIMsBnEPHm5x4FVOcTFL382q1zIdjNA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=CKr6ru4MsD0YxQZPKp1WKVyPj7BVm0CrpkmzwdT7r94=;
+ b=Fw3XOrdKm34uw+MQ8Zi87wMwBlj75y8S2CvZ+GT9cupXzE7Xvyq3TiBboh9pPXe88TzdpqXOjVWcXvoWjLSQsApG3chKz5239LOaZN9C7GQZF7KZUCVIshSxDnHK9DpzOIwklle2k4GZsCR8skZea8LGulsZgd0jNS4eHx4mv2yX5SWr4SEJaffx/4cNc0UqKYtLFpUVw16h+tG5ZsIKjU4yqtsx7pujeZGl2L7AluZ+8dcOucDL7/+OSPrSdWQtSkVMm0sUdS6v3Y3rfmkMYXrzZoAv+FdnvhrHqPobnq2ORPb8LbYRmTUFZhltPfStxVVJnPOTfEyiIutKQm7PmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GtUQ7dI8GYYjwXRow9TBh9EOBLUJfW3qGKPhhNc4IXk=;
- b=vUFQu1yJ6a/mtxxtnP1G6QTMzbJnM7z/GPz5LvBN5kyMVDx9dX11jBV/bNsabe4p7N+0e1p73Tu+LzOsdV0BAsHZgB9kR3TShr4UqH9D9eHLiHfJ/GPXLo4DUpIG4FxbJWWAE1rJBQG4kT4fM5rB5YLaJvUjAZf5kjWiZNJPh+o=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <cf275fef-27fb-4d73-bbc8-9a75c1836608@amd.com>
-Date: Wed, 3 Jun 2026 10:03:53 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Change stub page freeing to fix smt=0
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
-References: <20260526203114.40882-1-jason.andryuk@amd.com>
- <ah26nl95MgqhPPAi@macbook.local>
- <5cdfca65-50f8-487a-a146-86e1a68f459c@amd.com>
- <ah5_0vvipY2Wch-x@macbook.local>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <ah5_0vvipY2Wch-x@macbook.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+ bh=CKr6ru4MsD0YxQZPKp1WKVyPj7BVm0CrpkmzwdT7r94=;
+ b=taBoFk4JkkQShiMCfFhFMKrfhMjYSHdTGn8XZbkDCas40Ct3g8i+xpxpoXggoPlgVjCqrWnnE0d7fikmdeWUnw3YbDBoutYbMaofnlLpL9LU7FKsuw5aOvZzhM37MGd1qzhFwsDfViERegEFfV0YqGUDJF2qFWJiW3KcGdLFVT4=
+Date: Wed, 3 Jun 2026 16:07:19 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.22 4/5] tests/numa: add unit tests for NUMA setup
+ logic
+Message-ID: <aiA1F9cBbzqVUQpR@macbook.local>
+References: <20260601154332.30797-1-roger.pau@citrix.com>
+ <20260601154332.30797-5-roger.pau@citrix.com>
+ <2b1df2c6-ccbb-402c-b65a-7f3beefdeb0d@suse.com>
+ <aiAwDo3EWi1oghm2@macbook.local>
+ <75ee595a-6443-4b3f-827d-2dc4ac60866f@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+In-Reply-To: <75ee595a-6443-4b3f-827d-2dc4ac60866f@suse.com>
+X-ClientProxiedBy: MA4P292CA0015.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:2d::8) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|IA1PR12MB6577:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcab0520-a2ee-422d-1b9e-08dec178f28d
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MW4PR03MB6347:EE_
+X-MS-Office365-Filtering-Correlation-Id: d924804e-8e26-4561-7e4a-08dec1796ee2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|56012099006|5023799004|4143699003|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|6133799003|11063799006|56012099006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	6fw9MBgJdW0UpQw9BhcCsXRqq/uCd2W92gLZm5AG3RENULYG8m4FB3/KfOs15n576wO75AsNu6AvNLa7voNFpC7uyG3BUmy1ZTJL9mj/aC1dC1C1mFzTuqAt/Mq85EcqXJBxRpVcxFyGMPbM/WT0xjDCXMUF0NKFmoT1V26Y6Iob7o10QPAj/D8RAqcggqLZP9A6/nAhUyNw+FIhkvvJLYGu8jYURlVNNnFbcoGHT8EbhT+qyTsf4CV+BXnIdWJzEG0DV5nJ0xNte2rbWUl2OXizKRl2eTFvUU487zkvY5L5cjVGgaQYe1rjKbPd0brnHWB+RH1rMSTRmENH1s4D2sFLvzs5XSl6xoRP5mUu45R+nvCNuJ2H4WDYybMLvscctj/EiUV3sCTeOn13+lN9q7/rSPzmvCcvTjPVcqn3uE1KqBZ6GIT37AmhATz3gaRa50ejlr2hrWDUOBm+8l87Uf8guAfRTuT9gPM+bM/fuOBsGkuy5nXz+ARLoxUu5N3GWP3GMhgZiODSQSt1jI/Jn/xnSKsF2W7lu+H+79xbA+60YBwBma+loXRoVkCdqUu8hcsK7XwDdc+QiJPh286YilNKCUb5r3pe6HK+hjHKPtHixqrOGbNRlJn2w4/HKExRQJr8pXDxiC1aMahaT6VLpKgVyCTewlwCu3PnV3iG6MIeryvjM5peVkizinAKduqFYH6fw5nD3hegRADdqJ8yvc/TX5ZkLCOwGbfSnVkoMXQ=
+	ClhX9lRvRsuTLmnGwFf7/fNGJslzQ7cUilmv7qU9t6a+cA4kVaGNOR2I/psW15RFn9KdEeaGSIDJBqVhDCCHzm0DuqberpVWvu5l35RgMR3E6tFdAS83EqeRXQXeHy5xXK74QYDN2og40KZiq+XcOG5Tt4Ndq5gq4Z4XRiC7/obpR2ZmUzdwGY/yr2xx6mTxWV+JMaPuzJ7Fo/4BM2OCEESGBY5FK8u2rZ2Zj2ST6djXIRWLuwp6rHRFvLtDJrxuxXChQyfbEUU2aYqUBuXEgeiMtMxzUt0CEVvx22USws5TwS+h3H5kZtI9GqGRcGg/wtpYvaEnKIHlVGEz9paDXPgtUv9eSWpljMJrf/p7Akzqh/alsxYZD6xVMIdZekzIzlUBkw6S3ticZdw+xGrgjmdlKwgrZzeXyIR/TSv5Q3MjjQiTQb79QKRzDgODNNLCaOU4mW5z19X7z+xuT3WAn8XNBHMmEB4Mco8P3jEF2EOsEilOs97FAivM0oZRXoNO+IUgTiayF6LBq5utniRm/Y7SmV8nkmQxp9wdPDBt+k4RQCXHGIDq70thX8H/HAn1MSXKo32BA6sxy07aumQfJ1G7zMQePItP0uAJuTIvAog8fJU+8Pyx7HReO+uZyBCZ1jcR1ud/mYl2zO6C0ybFfaYFWNBCINmf4DJRJ1UFVPLlLdggFVfTPf3SMiXBwInp
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(6133799003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	sQROONdT9dtGKQvw6qwUm+1mK2I6ClZ2DPBc9TUHmeOTdegZwhUr76sj1qgxykmSuCcbZ9dD9KtbhZX3D8VDXkVYoLT5PxLPrRww/SRducU7t5FcnH+METBN9Ud5H/QVDA2ZYhR6XJPgM06lE5Hw20VB/GMzeXgTdl7fr+GcdUj/LHnJR6C/WoIVejt2J1v46wC/2/VugXpFx1qwmgoy+HeJjkO+8zVDb8mwbEjAbWD8sb3wFllTM5cjk5xCedrukByQ09RElKQNBLr1S2EieDCQTBeuYgvXeigvl9RY8EI/V9jEo86FB1cj8E9c1rhNWIJKVxytFtaASVukpG66qXGu6xLbqC7JTF6GlxkmnM9Op6VjjKQw2wrD/zIulcGIj0vYuMOdL4A3q42GUFKe/1WzcIvqOZ78zKBP/oNhaVRdOmguMC2JRIRa45oW5uBL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:03:54.2103
+	=?utf-8?B?eXhsYXNMb3ZLQTQ3ZE9tUEFVVSs3OTIrVGdrQnc1RDZmbkxZY3Z1aGk3enho?=
+ =?utf-8?B?SzVmZnczeS9rUHF5dTRPMFBnRC84RDZBbkZZUmkzZFFLaTNtRFhkbXh3M0dI?=
+ =?utf-8?B?bnExbFp0M2pTcW5admRmVHQxaFdLK1hPa0dwWmQxdXVYQmZOSm05QkxjMWJs?=
+ =?utf-8?B?NXdjdWd5SlE4MlkvV2hKUmF2SzMraHJYRGRSdXFTMGRMQUhMdTFJMXk3ZHNP?=
+ =?utf-8?B?Qk5sdWR6KzlnYUpBY21tME1mdSt0aElHR0FVb2JiTWVZcUdtcy81cUJyekFz?=
+ =?utf-8?B?TUl6TVViVXFPaVVBUVdrTG42TEttUStQSmJDY0ZtSXpCVHJOTzd4U2ozZ3lk?=
+ =?utf-8?B?VlVldG4vbmNhVEFldTYrTm8rY3o3QXozaEdVR3VaSEl0bExHNTVCd1JqeWQ0?=
+ =?utf-8?B?Qzl2ZWdlQ3FJZU1mRG1scjY1dEFqWEp4SnZ1Y3hlVXpCaitqSHZQZ29wM2g2?=
+ =?utf-8?B?eThFZExsRThKaGdPeXMvQzBIY2M4QTRwdm9PT1dpZmhVREkwOHo3WWI4azRC?=
+ =?utf-8?B?YmFHUW4wUmVIOC85cEROdHdud3ZQbGc5OTltK0lrb0I1M3lGa2JwNWNqcEtq?=
+ =?utf-8?B?V1AzckxNaVBnL1hubU8zcmFLYnFPdGVndDNmMnZnVnA0MUdud05LakJqMExQ?=
+ =?utf-8?B?ZWJEZnJYYlBVRVJwdzB0dDJpa1AyR1RPb0hBMkpscVh3aTZYWlNnRWpuUW9z?=
+ =?utf-8?B?QWxvTGtlWk9VazlVVzM3THVObWFMN2FnRHZuNFJqR0RkTjAwVkE0azBvQnR3?=
+ =?utf-8?B?Zjk2Vit6UWVRUkpuOXE3QlJtbElmb08vUXoxcHRsazNGVlhqc3l0SFIyTnc5?=
+ =?utf-8?B?aVBDYVpWTmpkNFhETEQ0ajhmeDVFR0tWSU5tTEFFTlpmazlyYUVxSmZQc1FN?=
+ =?utf-8?B?QlMvRElxblpUYTZ1UmNHMHBBdE1xSDdoWk1xLy9OTFQ1RXBtR2oza3Y3d0N5?=
+ =?utf-8?B?OHVhSlBiRmxDYkNyVkVrVHRyTU52R0txRXdtZ3pXeW55RmxtaGZVOHJLSGtO?=
+ =?utf-8?B?WkVTUWk3aXhhcGZhZENvNE96Y2FmT1BkblplUmJIS1EreDdKL0ExZzlVZ2FK?=
+ =?utf-8?B?ZjRWN1V6eFF3UGhva2dOaldwU1FyQWhNTEkwRkN0T2E4aERnWnNaMDVLTWFI?=
+ =?utf-8?B?dlVBTWw0T3NCeWJTOG1oYWFVOWl2UXhrUjFFUHoxNXhFRjYwVS9WZHYxZ1Zn?=
+ =?utf-8?B?VWJ3NlBYeENJMkxBUlgyeVVmRmgxU0JwZXpGUkhQU3FtV1NobjJIdXE1RFI4?=
+ =?utf-8?B?OERGZ1ErbVRwNi9PMTJoVTMvZk5CK0JJWVdiMUE3cEVPSU5GbmpTeDloREJB?=
+ =?utf-8?B?TFJUVUptVHVJUzZxaHgzSVpZMGxJTGpFV3dmVVVSZnBDVWY0NjA3OVF4YVhx?=
+ =?utf-8?B?d3RRWlhCZkp0ZlZ1K0pSZFVvRzRqaW91c2FWMDZPMFBoRG9NaXY5Uks1aUxx?=
+ =?utf-8?B?VUNiSzM0SWNZNWZ5NHUzODJnTURJMVBaOC9GRFFjbGMvSWF0elR2RVJiUDV0?=
+ =?utf-8?B?RlJwUExaZUptOFNtZmdYejNPQnRqZEJjVE8xeHhXSW13Uk41VjFSWUpjUnB6?=
+ =?utf-8?B?MG9CNzNCekU2ZTdVa3VCN3VWeW1xQ2pmUm12NVlMcXBnNDA1cmpZYjJQYnRj?=
+ =?utf-8?B?Z0MvcGR4TFNBYk96MDVQcG5Oa1FzUjcvSVNGVm5ZTU81aTJIT01hRFJPNjNk?=
+ =?utf-8?B?a2w3eUl5QzhBZ2ZUUFJsQ0VWNTFCSFBRNHp5U0ZvZndoelQ0TDNhM29NcEU1?=
+ =?utf-8?B?dE42NnozZCs3cXZYTTByTDNSMEo0WHlxZ0o5aDhydDlLUnlTeWlBM2hWMWlR?=
+ =?utf-8?B?Mk95dkJzZnJOOWtjZmRtQzlHdFVTQUlEZkFpazVlazZXSUNER3crSjd6QndX?=
+ =?utf-8?B?V0RXVnB5WkRXWUtsT1RPRGE2QS93cE5sQWpGS0pYM1NhT0t2ZnVLZVZBbGpx?=
+ =?utf-8?B?a1dkK0hraDF2SXhhOUdIeEY5Um9hK2ZzTi9iYUd4Rm9tRXpBeTcvY295Uk93?=
+ =?utf-8?B?WDBaLzdRYUQ1NkRydnJxY0lJMVR1enMwMG9ueFFFOW5sNCtPZlIvdnVVejda?=
+ =?utf-8?B?d2pEalMyNjArNjlBWEhSTEhMUk5qVjNIWEtqZm9iWlczMElqajdoNjM3S2N3?=
+ =?utf-8?B?KzdISzlZZzVoTytGVVhqMzBKdUp6NFhISTdhYVJMZXJBWW1vS2NRTkRKNE5n?=
+ =?utf-8?B?YUNLVXRkbTNyUWEwSFFWNkMrM3o4TzU1TkhxK0JHc1NQeWVkZE8yL2NSRllZ?=
+ =?utf-8?B?V2o3ZVBVMkRpWWxQSHVMUkpaVGd5RUZtdXMrNm1TMXZ0K1NTVVZDS25HYVFu?=
+ =?utf-8?B?Ti9kaUJqQWh3QWVVenlkMExDenNCamN5ZExDL01vUHVUTEEzWENQUT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d924804e-8e26-4561-7e4a-08dec1796ee2
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:07:23.1296
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcab0520-a2ee-422d-1b9e-08dec178f28d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE19.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6577
-X-purgate-ID: tlsNG-ef75cf/1780495441-2377AC48-23AFE7A6/0/0
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P93Zhx4D7VJshAtvSWoT5GOC+i3czIydPXFvuVTUfpQ4xMPFAbuiaU5CqMrv9jVv5bJH0i8BmA+WZyxvf++oYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6347
+X-purgate-ID: tlsNG-d25034/1780495647-E1360CF5-60712529/0/0
 X-purgate-type: clean
-X-purgate-size: 5546
+X-purgate-size: 1385
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[gmail.com,vates.tech,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:from_mime,citrix.com:dkim];
+	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:from_mime,amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6396C6385F5
+X-Rspamd-Queue-Id: 7FB8E63864F
 
-On 2026-06-02 03:01, Roger Pau Monné wrote:
-> On Mon, Jun 01, 2026 at 05:07:52PM -0400, Jason Andryuk wrote:
->> On 2026-06-01 13:00, Roger Pau Monné wrote:
->>> On Tue, May 26, 2026 at 04:31:14PM -0400, Jason Andryuk wrote:
->>>> A single stubs page is initialized with 0xcc and re-used, with multiple
->>>> CPUs each using a portion of the shared page.  In cpu_smpboot_free(),
->>>> each stubs area is checked against 0xcc.  When all are set to 0xcc, the
->>>> page is freed.
->>>>
->>>> Booting a system with smt=0, CPU0 is initially setup, allocating the
->>>> stubs page and initializing to 0xcc.  When more CPUs are brought up,
->>>> CPU1 is initialized and then immediately brough offline as it is the
->>>> sibling of CPU0.  Since the page was initially memset with 0xcc,
->>>> cpu_smpboot_free() finds all stubs as 0xcc and frees the page.
->>>> However, the page is still assigned to CPU0 and continues to be assigned
->>>> to other CPUs.
->>>>
->>>> Meanwhile the page can be reallocated, which can lead to misbehavior.
->>>> The particular instance was the stubs page re-used as a page table which
->>>> later faulted when the entry was all 0xcc.
->>>>
->>>> Change to initializing the page as 0xd6/STUB_BUF_FREE, and initializing
->>>> individual stubs as 0xcc/STUB_BUF_USED.  0xd6 now indicates unused, and
->>>> 0xcc indicates used/assigned.  When freeing a CPU, the stub is set to
->>>> 0xd6, and the page is freed if all stubs are 0xd6.  Initializing with
->>>> STUB_BUF_FREE lets cpu_smpboot_free() a page that was only ever
->>>> partially used.
->>>>
->>>> 0xd6/UDB is a 1 byte invalid opcode, which is similar to the existing
->>>> use of 0xcc.  0xd6 is used to identify bug frames, but the stub addr
->>>> (e.g. 0xffff82d07fffe000) fails the is_active_kernel_text() check.  It
->>>> should be okay to use here.
->>>>
->>>> Fixes: 7a66ac8d1633 ("x86: move syscall trampolines off the stack")
->>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>> ---
->>>> It would be nice to use get_page()/put_page() to let count_info handle
->>>> reference counting, but they require an owning domain.
->>>>
->>>> The listed Fixes introduced the use of 0xcc, but the smt commit may have
->>>> made it more problematic.
->>>> Fixes: d8f974f1a646 ("x86: command line option to avoid use of secondary hyper-threads")
->>>
->>> Speaking with Andrew, we believe it might be easier to simply forego
->>> the freeing of the page, possibly something like:
->>>
->>> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
->>> index ff05955bae40..62c6cbf4b561 100644
->>> --- a/xen/arch/x86/smpboot.c
->>> +++ b/xen/arch/x86/smpboot.c
->>> @@ -990,19 +990,12 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
->>>        {
->>>            mfn_t mfn = _mfn(per_cpu(stubs.mfn, cpu));
->>>            unsigned char *stub_page = map_domain_page(mfn);
->>> -        unsigned int i;
->>>            memset(stub_page + STUB_BUF_CPU_OFFS(cpu), 0xcc, STUB_BUF_SIZE);
->>> -        for ( i = 0; i < STUBS_PER_PAGE; ++i )
->>> -            if ( stub_page[i * STUB_BUF_SIZE] != 0xcc )
->>> -                break;
->>>            unmap_domain_page(stub_page);
->>>            destroy_xen_mappings(per_cpu(stubs.addr, cpu) & PAGE_MASK,
->>>                                 (per_cpu(stubs.addr, cpu) | ~PAGE_MASK) + 1);
->>>            per_cpu(stubs.addr, cpu) = 0;
->>> -        per_cpu(stubs.mfn, cpu) = 0;
->>> -        if ( i == STUBS_PER_PAGE )
->>> -            free_domheap_page(mfn_to_page(mfn));
->>>        }
->>>        if ( IS_ENABLED(CONFIG_PV32) )
+On Wed, Jun 03, 2026 at 03:54:39PM +0200, Jan Beulich wrote:
+> On 03.06.2026 15:45, Roger Pau Monné wrote:
+> > On Wed, Jun 03, 2026 at 10:38:52AM +0200, Jan Beulich wrote:
+> >> On 01.06.2026 17:43, Roger Pau Monne wrote:
+> >>> --- /dev/null
+> >>> +++ b/tools/tests/numa/.gitignore
+> >>> @@ -0,0 +1,2 @@
+> >>> +/numa.h
+> >>> +/test-numa
+> >>
+> >> Why the leading slashes?
+> > 
+> > This is the format of the .gitignore that we use in the pdx, numa and
+> > rengeset testing.  The slashes denote that the pattern is relative to
+> > the particular .gitignore itself, but won't match any level below the
+> > .gitignore.
 > 
-> I think I've made an oversight in the code above: if all 32 CPUs
-> sharing the same stubs page are offlined, the reference to the stubs
-> page is possibly lost (if CPUs are not parked) and a new stubs page
-> would be allocated if any of those CPUs is brought back online, thus
-> leaking the previous allocation.  The simplest way to solve this would
-> be to introduce an array that indexes the stub pages, and replace the
-> logic in cpu_smpboot_alloc() that figures out whether stubs.mfn is set
-> for adjacent CPUs.
+> Hmm, before replying I checked a few other .gitignore files under tests/,
+> and none had leading slashes. For the purposes here either way is likely
+> fine, but really we'd better be consistent overall. (Which isn't a request
+> for you to change or do anything, merely a remark.)
 
-Right, but I thought Andrew's point was that offlining 32 CPUs is 
-unrealistic, so don't even bother tracking.  If CPUs are offlined (and 
-you somehow keep running), you can leak the page.
+% cat tools/tests/*/.gitignore
+test-cpu-policy
+generated
+test-domid
+test-mem-claim
+/numa.h
+/test-numa
+test-paging-mempool
+/pdx.h
+/test-pdx-mask
+/test-pdx-offset
+/list.h
+/rangeset.c
+/rangeset.h
+/test-rangeset
+test-resource
+test-tsx
+test-xenstore
 
->>> (there might be further cleanup possible if the page is not freed, the
->>> above chunk is untested).
->>>
->>> It's a single page shared between 32 CPUs, and offlining 32 adjacent
->>> CPUs seems very unlikely.  IMO the extra complexity of having to deal
->>> with the freeing overshadows the very small memory gain we get from
->>> it.
->>
->> Hi Roger,
->>
->> Yes, I made and tested the same change locally last week.  Well, I retained:
->>       per_cpu(stubs.mfn, cpu) = 0;
->>
->> Maybe it would be good to save the mfn in case the CPU returns?  But I
->> thought per-cpu vars are cleared, so it wouldn't be available anyway?
-> 
-> Depends on whether the CPUs are parked or not (see park_offline_cpus).
-> I think leaving stubs.mfn is fine, in the parked case we avoid part of
-> the setup logic by already having the mfn cached (no big deal either
-> way).
+Some have, some doesn't.  Using the slash is IMO more accurate
+matching, but I'm not going to adjust the others either unless I have
+to modify them for other reasons possibly.
 
-Right.
-
->> Also, I was waiting to see if anyone chimed in with other ideas.
-> 
-> Maybe you could assign the page to dom_xen and then use
-> {get,put}_page(), but again it seems overly complicated.
-
-Code-wise this doesn't look bad, but it blows up:
-
-(XEN) d[IDLE]v0 Over-allocation for d[XEN]: 1 > 0
-
-I don't think we should pursue that.
-
-Regards,
-Jason
+Thanks, Roger.
 
