@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id eE+kIEQ4IGrsygAAu9opvQ
+	id +yRdOlc4IGr3ygAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:20:52 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:21:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 491DE6387FF
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:20:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 972D3638808
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:21:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=citrix.com (policy=reject)
-Received: from list by lists.xenproject.org with outflank-mailman.1326504.1591949 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326526.1591957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmSb-00025P-G5; Wed, 03 Jun 2026 14:20:45 +0000
+	id 1wUmSr-0002Y1-OA; Wed, 03 Jun 2026 14:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326504.1591949; Wed, 03 Jun 2026 14:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 1326526.1591957; Wed, 03 Jun 2026 14:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmSb-00023L-Bz; Wed, 03 Jun 2026 14:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 1326504;
- Wed, 03 Jun 2026 14:20:43 +0000
+	id 1wUmSr-0002Vg-Kl; Wed, 03 Jun 2026 14:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 1326526;
+ Wed, 03 Jun 2026 14:21:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wUmSZ-00021M-6D
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:20:43 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wUmSr-0002VM-3Y
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:21:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmSY-007Z4T-JH
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:20:42 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wUmSq-007ZEB-G3
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:21:00 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a203832-e002-0a2a0a5209dd-0a2a4509a1ce-16
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:20:42 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a20384c-5cb7-0a2a0a5109dd-0a2a4507de02-2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:21:00 +0200
+Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a203839-2497-0a2a45090019-a0658309b3f8-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:20:42 +0200
+ id 6a20384b-229c-0a2a45070019-a0658308ab14-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:21:00 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id C9F038246340;
- Wed,  3 Jun 2026 10:19:23 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id CEB3A4345DCB;
+ Wed,  3 Jun 2026 10:19:52 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,24 +58,18 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 1/2] xen/page_alloc: verify buddy alignment in reserve_offlined_page()
-Date: Wed,  3 Jun 2026 15:17:26 +0100
-Message-Id: <6eaed95df4e5cb369a91281051ca9b5a2be564f9.1780495548.git.bernhard.kaindl@citrix.com>
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v2 2/2] tools/tests: Regression test checking unaligned pages after offlining
+Date: Wed,  3 Jun 2026 15:17:27 +0100
+Message-Id: <65cdc02f719eb9a3c72c9d5905d8387479c25e51.1780495548.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1780495548.git.bernhard.kaindl@citrix.com>
 References: <cover.1780495548.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1780496442-43979A53-E9B451E9/0/0
+X-purgate-ID: tlsNG-ef75cf/1780496460-21165C48-1A858566/0/0
 X-purgate-type: clean
-X-purgate-size: 1963
+X-purgate-size: 3766
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
@@ -87,71 +81,118 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:from_mime,citrix.com:email,suse.com:email];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:from_mime,citrix.com:email];
+	RCPT_COUNT_THREE(0.00)[3];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_RCPT(0.00)[xen-devel];
 	R_DKIM_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_FORWARDING(0.00)[]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 491DE6387FF
+X-Rspamd-Queue-Id: 972D3638808
 
-reserve_offlined_page() fails to verify alignment when growing
-buddies around offlined pages. Consequently, misaligned buddies
-may be constructed from non-offlined page ranges and returned to
-the free lists.
+Add a regression test to check that offlining pages does not return
+a misaligned buddy like to the free lists after reseving the first
+offlined sub-page from a buddy and returning the healthy  to the free list:
 
-After a particular sequence of allocations and frees, pages
-from such a misaligned buddy may be allocated more than once,
-eventually triggering a Xen BUG() in alloc_heap_pages().
+   +---------------+-----------------+-----------------+----------------+
+   | offlined page |     head page with a tail page    | single page    |
+   +---------------+-----------------+-----------------+----------------+
 
-Fixes: e4865c2315 ('Page offline support in Xen side')
+After a seres of allocations and frees, such an unaligned buddy would
+trigger a Xen BUG if this state is reached when the tail is allocated:
+
+  +---------------+-----------------+-----------------+
+  | offlined page |    head page         tail page    |
+  +---------------+-----------------+-----------------+----------------+
+                                    |   in-use page   |   in-use page  |
+                                    +-----------------+----------------+
+
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2:
-- Updated the title for clarity.
-- Bugfix isolated from the test case for backporting.
-- Removed excess parentheses from the alignment check if() expression.
-- Simplified the alignment check to use '& (1UL << cur_order)'. Because
-  the covering buddy head is size-aligned, cur_head is also aligned to
-  cur_order, making this reduction safe (verified against extended tests).
-- Updated the inline code comment to accurately state that only the upper
-  half of the next_order range is checked for offlined pages.
----
- xen/common/page_alloc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ tools/tests/native/offline-unaligned.c | 60 ++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
+ create mode 100644 tools/tests/native/offline-unaligned.c
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 2c4ff2c34c70..2767376a710b 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -1202,6 +1202,11 @@ static int reserve_offlined_page(struct page_info *head)
-             if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
-                 goto merge;
- 
-+            /* Do not grow to next_order if cur_head is not aligned to it. */
-+            if ( mfn_x(page_to_mfn(cur_head)) & (1UL << cur_order) )
-+                goto merge;
+diff --git a/tools/tests/native/offline-unaligned.c b/tools/tests/native/offline-unaligned.c
+new file mode 100644
+index 000000000000..198bf952ba7d
+--- /dev/null
++++ b/tools/tests/native/offline-unaligned.c
+@@ -0,0 +1,60 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Regression test offlining to not return misaligned buddies to free lists.
++ * Copyright (C) 2026 Cloud Software Group
++ */
++#include "harness/native.h"
 +
-+            /* Check for offlined pages in upper half of next_order range. */
-             for ( i = (1 << cur_order), pg = cur_head + (1 << cur_order );
-                   i < (1 << next_order);
-                   i++, pg++ )
++/*
++ * Verify that offlining the head page of an order-2 buddy does not return
++ * a misaligned buddy to the free list, and the pages returned to the free
++ * list are usable for allocations.
++ */
++static void test_unaligned_buddy_merge(int start_mfn)
++{
++    struct page_info *pg = frame_table + start_mfn;
++    uint32_t status = 0;
++
++    /*
++     * Prepare a valid order-2 buddy (4 pages) with this layout:
++     * +---------------+-----------------+-----------------+----------------+
++     * | head page     | tail page 1     | tail page 2     | tail page 3    |
++     * +---------------+-----------------+-----------------+----------------+
++     */
++    test_page_list_add_buddy(pg, order2);
++
++    /* Act */
++    offline_page(page_to_mfn(pg), 0, &status);
++    CHECK(status & PG_OFFLINE_OFFLINED, "Page should be offlined");
++
++    /*
++     * The expected free list state after offlining the buddy head is:
++     * +---------------+---------------+----------------+---------------+
++     * | offlined page |  single page  |    head page with a tail page  |
++     * +---------------+---------------+----------------+---------------+
++     */
++    CHECK(page_aligned(pg + 1), "The buddy #%lu is not aligned to order-%d",
++          mfn_x(page_to_mfn(pg + 1)), PFN_ORDER(pg + 1));
++
++    /* Allocate and free a page to trigger buddy merging on free. */
++    free_domheap_pages(alloc_domheap_pages(dom1, order0, 0), order0);
++    CHECK((pg = alloc_domheap_pages(dom1, order1, 0)), "Alloc the order-1 pg");
++
++    /* Inspect the predecessor (pg is the tail of the unaligned buddy) */
++    CHECK(page_aligned(pg - 1), "The buddy #%lu is not aligned to order-%d!",
++          mfn_x(page_to_mfn(pg - 1)), PFN_ORDER(pg - 1));
++
++    /* Test allocating the remaining page */
++    alloc_domheap_pages(dom1, order0, 0);
++}
++
++int main(int argc, char *argv[])
++{
++    if ( !parse_args(argc, argv, "Test offlining to return aligned buddies") )
++        return EXIT_FAILURE;
++
++    init_page_alloc_tests();
++    RUN_TESTCASE("TUBM", test_unaligned_buddy_merge, 4);
++
++    return test_complete();
++}
 -- 
 2.39.5
 
