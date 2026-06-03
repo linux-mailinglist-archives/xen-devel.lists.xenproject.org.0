@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HQP1OlFAIGoWzQAAu9opvQ
+	id 4UMIHZFBIGpjzQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:55:13 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:00:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C004638D49
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:55:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4657638E32
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:00:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=gM79nS8Y;
+	dkim=pass header.d=suse.com header.s=google header.b=OoPHmPNR;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326759.1592093 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326765.1592102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmzl-0001sO-Sn; Wed, 03 Jun 2026 14:55:01 +0000
+	id 1wUn4k-0003un-Gi; Wed, 03 Jun 2026 15:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326759.1592093; Wed, 03 Jun 2026 14:55:01 +0000
+Received: by outflank-mailman (output) from mailman id 1326765.1592102; Wed, 03 Jun 2026 15:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmzl-0001pa-P1; Wed, 03 Jun 2026 14:55:01 +0000
-Received: by outflank-mailman (input) for mailman id 1326759;
- Wed, 03 Jun 2026 14:55:00 +0000
+	id 1wUn4k-0003t8-Bo; Wed, 03 Jun 2026 15:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 1326765;
+ Wed, 03 Jun 2026 15:00:08 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wUmzk-0001pS-JI
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:55:00 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wUn4i-0003o4-L5
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:00:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmzj-00GKrf-Vu
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:54:59 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wUn4i-001HYX-1Y
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:00:08 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a204035-2eae-0a2a0a5409dd-0a2a4504de10-26
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:54:59 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a204177-2eae-0a2a0a5409dd-0a2a450ac452-2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:00:07 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a204043-1dec-0a2a45040019-d1558029d8b2-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:54:59 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-490b9318997so6216945e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 07:54:59 -0700 (PDT)
+ id 6a204177-56b3-0a2a450a0019-d155802ce0cb-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:00:07 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-49050ff7cbdso120095745e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 08:00:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2e4004sm8149044f8f.9.2026.06.03.07.54.58
+ 5b1f17b1804b1-490b6162289sm64593715e9.6.2026.06.03.08.00.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 07:54:58 -0700 (PDT)
+ Wed, 03 Jun 2026 08:00:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,49 +61,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780498499; x=1781103299; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1780498807; x=1781103607; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qj+PwHHlGq/ImfDVyjeim+1I3WXkpQ4SAfsILTiGNVI=;
-        b=gM79nS8Yre/nkB7G8X2UYSslz+FchfxjKfAWsC6JBr43UQ6SKWwUNi63osiMCqIGtr
-         ILwyNBi6xZfq+CrcMdobLquZEoAkCbGtL4+qtgLmDzvOq2H8+qQnFk2T7YddizZcxv9S
-         HA2CqTN1V7VEPkz6E7vvMdJOeDDWfxrePFTgK+jDZ+7OtaAscwCKhdCw0QjlcMO/Qyox
-         T7yY1sKvLCk0bdMJ152dMtfE1thvcJZ29CV4x3EWFbBD2Ce8ZCtfRC8cfiJrUWVqvscp
-         noWZ5Qrj3Szb8fY8hSXXowxeOcJl7HlrlQiWbL3chdgdc/p4gSaaGQuBr5KZ41+F+p5b
-         3a5g==
+        bh=h4qiwD+fIY+UkkXj6tpEfx9hA8Hx1mkSUF/YM6TkV7I=;
+        b=OoPHmPNRVNS2oDg6TNXjAzH/pGYznsap3LHI76cB8a6vyO1FiF24Cxap/XTdzxsPQv
+         TLqkRfLLZcd1IJsRQl/7rMaV5rYgp6LDmeidNTAIo3IFZiP5LjGDCbUtrk7F8Kg+S5O/
+         xGs9qOMzL3Pmf58oi/yHMVg1AyrbaLR5ez11Cl+xmA3qf4quV2XvtaLO+pIDAMFnaYZk
+         AFkSiqhOi7GIEb6kzI7mmhYu19vHuNc3s2w22cV0r6CQVLk4NFLsx7D0ZZY/B4Wxx4W7
+         ipBe+LZCJep02bUqE0tVUyB484I5rLHws94PM1n1tQlAzCyHi9yt7cwiYrQ/TqZ8DwJw
+         de8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780498499; x=1781103299;
+        d=1e100.net; s=20251104; t=1780498807; x=1781103607;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qj+PwHHlGq/ImfDVyjeim+1I3WXkpQ4SAfsILTiGNVI=;
-        b=GpuX1pZkrvj4LOFxMdy7Poa8EcYksNOZydoxKyHszzuMIPL/ki1epKw7eFHb+CxQgv
-         MYl9r/koVebHbhH115tFhK6ArH3IDLpzX6+ljlun1cjUlCFYMhHIrP5twpIU+8UL8Muw
-         GIYn1dqAdXdkPnE09L7CKrViU/fY/rfIqbVp1ARJlDsm+u70tlP5gzGuSCbHb+CpX18l
-         adSoj7oqfkmF5L+aRaqH3yoK/kvHxfcIK0QK9dx4+GKHqSptK0rXf2kr2hJ3mu1Sct99
-         dJ+bKOsOjgsFZotTeCTg8w7QWDwPr/uuIG2PDprcC9VIpGNPFNbKDbbwx/vK85BqzS9i
-         Aejg==
-X-Forwarded-Encrypted: i=1; AFNElJ/5NgPrDEaFX0zx/q/txeC2BbL4SJqcRVl4ULQl/N4W3AWhQSjhk/GcscRkFvEBjqwEW97kZDEPyD4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFKT9lbVKJbY8r92zPm4d+8mJ84lck+IPpLw4X6RL9UB0qjNtz
-	FwbG2xh8vr/etkiHmczoYS5gSZe4s4TZyKgnQeekO66OWzuG2E99KTX1KgseWrQ5ew==
-X-Gm-Gg: Acq92OEzsc+/AIAdbKzBR+W8/Nfr8B39LJhONJuXxGs/3DAugwXvA3aofM9/4wgqLym
-	n8jLNDkUneNYw/uwD/AqlhhMhvcSj0IDimuElpYaJxk2w5horKFL2mEMDrDfWLa4J4bxurHhsHy
-	4KjVWXRQQdKsbw/YP3Ufcg0ZvihODxxJK68KSrgbUtZoMo/K3B9+jRfty6thIuMHxjB7hGP+dQ2
-	avwkh2AEKYIaAednFCalt1Zb1DidGmTcd7xPNuvqTxSycHaWCjgHsl1z6e0LDI7H+FmLh/wn9hK
-	hrBuDImGyCqYrpkwiUgl7VsK3edHKFl/50ND4zTmTooiXF08cqIcUC9mW1MvB687Y9oeIZ4rn1L
-	p9J/9gCru6j/HCnCJ1ZV1C3VaCw0QXv3kKnxJ0reiwq4NlaloSuMaHhuw7wKgqk8lrE/j07neVi
-	S2RVJVz+MLkuRbiF727hrhzEZNB/ypkXCquQO8EDJYokMH14as5IQ8QFxI12Gi7ravrtPdqU9io
-	UXVWS4hsPFf4zJpojYfNGMkwQ==
-X-Received: by 2002:a05:600c:c4b8:b0:490:b591:b5a3 with SMTP id 5b1f17b1804b1-490b60e9af0mr63964635e9.32.1780498499219;
-        Wed, 03 Jun 2026 07:54:59 -0700 (PDT)
-Message-ID: <6ec9620d-7224-49d4-860c-6e447e0534e3@suse.com>
-Date: Wed, 3 Jun 2026 16:54:57 +0200
+        bh=h4qiwD+fIY+UkkXj6tpEfx9hA8Hx1mkSUF/YM6TkV7I=;
+        b=IB94thvjadpCIxJLKBw/zZwlP+zX3RfEyJUrVeY5JfxaVoSBw27NtOsDkIYB3GBYBm
+         6e+j2na01kmd2apSk98XFeRiAfsBxj1b8gBG6b2GwkFaeXP2xB2g/a9sfYix/ZIQ2CPq
+         X8Gp0OlV0dwZsoF3Yeyif4zvzySnxXzps9ClXsGyL2SmCVNPuFr1oheBQzVecm/IO7+s
+         7gr2hgm0fDZN+s5pazCisC95sMX/St4+FtzQXIpfgclPGdQ5KGAHQh3BPzZph/lsqGct
+         N3vlQ1O8msQeq7t/vxb98wy5PdBjj6/EvCAyObWUH8YzBdSwprJCSBinCoScNOC8Dz7v
+         GTGw==
+X-Forwarded-Encrypted: i=1; AFNElJ/CH9mtFMT1EUMXjlYXRXVKybPfsAJhEuSzeUXQrLrgyVjsMe2jUH8LJALaKAfrWn2lDCTeAHvE7HM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyuZZFjZWEvMJz2Ih+ow13T5361Sc8bXyk/XHmFO4vNbKZHwAYN
+	hw+M9IuAddkjtGqkPWGMQ31Hq091cJGYNBXFP6vKnPc56vfkBOQ8WEcDfcnBzOzOqQ==
+X-Gm-Gg: Acq92OEKDTmGxpxFYM3wQFAlxyUFarUOH05kim8mO8OYdpZ6035NKaLeymON+9fojjj
+	mSwoZh79AhnQRoEZVEF2pQJLw9Z54tUVTbqDylCtovQ2C2APHBKLStEr7+0Q3oUySpQlrbjXu8O
+	mTPz/U7YElTFEia0fViHkit+g3Evjnzp/f+m+WSPwPaNclXRiFTdnPDLtoHt8OtzcTIhKZZE03p
+	Bpj7uGFByq7BZW/PtXNY4KSR71/i9KeRDrLlXb1HXL0hmAMkPG6WUA5gVdYQkGuG+hUEErrBssm
+	utPyaubHpl9Dal9JidLtgzmL7FBfdG6yOJ7aIjFFCFUE3Un8ylBTnOIyZatIVtBBC9v/PvY0fXd
+	SrwzGfLsubFI5J2Y0gGXudo07yqrHfJ1zlN5FcCnyWp+ppgaJ6wkdktFYw4uI8zpoHiXJ57fGt9
+	Y3zCSAs5DPOJ4pTq+9yoNB6VQh7zq9hVMKUeeClm2DImpjfwc+GSZUBSvZiBt8Ai/kQFczoZdJK
+	hARsXZ16h8jQWwSqfxq9tipGw==
+X-Received: by 2002:a05:600c:46ce:b0:490:abef:dae6 with SMTP id 5b1f17b1804b1-490b5eb0aeemr58045555e9.19.1780498807322;
+        Wed, 03 Jun 2026 08:00:07 -0700 (PDT)
+Message-ID: <b95f7093-9ae8-4461-95d5-3c4b8a69c62d@suse.com>
+Date: Wed, 3 Jun 2026 17:00:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/26] xen/riscv: add very early virtual APLIC (vAPLIC)
- initialization support
+Subject: Re: [PATCH v2 15/26] xen/riscv: introduce (de)initialization helpers
+ for vINTC
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -114,7 +114,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <220cf09814744b8b8136b1e3c35ab982226d3f6f.1778250616.git.oleksii.kurochko@gmail.com>
+ <fc5560cd49a2b952ce7724c23e41da3368833d9f.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,12 +140,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <220cf09814744b8b8136b1e3c35ab982226d3f6f.1778250616.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <fc5560cd49a2b952ce7724c23e41da3368833d9f.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1780498499-409723FF-EFC66997/0/0
+X-purgate-ID: tlsNG-4011c0/1780498807-71F698B7-C0E631B9/0/0
 X-purgate-type: clean
-X-purgate-size: 5534
+X-purgate-size: 1459
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -165,7 +165,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:from_mime,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -182,203 +182,64 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4C004638D49
+X-Rspamd-Queue-Id: B4657638E32
 
 On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/aplic.c
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -295,6 +295,11 @@ static void cf_check aplic_set_irq_type(struct irq_desc *desc,
->      spin_unlock(&aplic.lock);
->  }
->  
-> +static unsigned int cf_check aplic_irq_num(void)
-> +{
-> +    return aplic_info.num_irqs;
-> +}
-> +
->  static const hw_irq_controller aplic_xen_irq_type = {
->      .typename     = "aplic",
->      .startup      = aplic_irq_startup,
-> @@ -309,6 +314,7 @@ static const struct intc_hw_operations aplic_ops = {
->      .host_irq_type       = &aplic_xen_irq_type,
->      .handle_interrupt    = aplic_handle_interrupt,
->      .set_irq_type        = aplic_set_irq_type,
-> +    .irq_nums            = aplic_irq_num,
-
-Hook handler names and respective field names would preferably match up. It's
-unclear why the field uses some kind of plural(?), while the function uses
-singular.
-
-> --- a/xen/arch/riscv/domain.c
-> +++ b/xen/arch/riscv/domain.c
-> @@ -11,6 +11,7 @@
->  #include <asm/bitops.h>
->  #include <asm/cpufeature.h>
->  #include <asm/csr.h>
-> +#include <asm/intc.h>
->  #include <asm/riscv_encoding.h>
->  #include <asm/vtimer.h>
->  
-> @@ -155,14 +156,10 @@ int arch_vcpu_create(struct vcpu *v)
->      if ( (rc = vcpu_vtimer_init(v)) )
->          goto fail;
->  
-> -    /*
-> -     * As interrupt controller (IC) is not yet implemented,
-> -     * return an error.
-> -     *
-> -     * TODO: Drop this once IC is implemented.
-> -     */
-> -    rc = -EOPNOTSUPP;
-> -    goto fail;
-> +    ASSERT(v->domain->arch.vintc->ops->vcpu_init);
-> +
-> +    if ( (rc = v->domain->arch.vintc->ops->vcpu_init(v)) )
-
-I don't understand this model of the use of ASSERT(). As previously said
-(more than once) - you'll crash anyway if any of the involved pointers is
-NULL. If you really think an up-front check is better, then why would you
-check only the leaf of the pointer chain, and not also vintc and ops?
-(Once you do you'll then likely notice that there are more assertions
-than actual code.)
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/vaplic.h
-> @@ -0,0 +1,34 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * xen/arch/riscv/vaplic.c
-> + *
-> + * Virtual RISC-V Advanced Platform-Level Interrupt Controller support
-> + *
-> + * Copyright (c) Microchip.
-> + */
-> +
-> +#ifndef ASM__RISCV__VAPLIC_H
-> +#define ASM__RISCV__VAPLIC_H
-> +
-> +#include <xen/kernel.h>
-> +#include <xen/types.h>
-> +
-> +#include <asm/intc.h>
-> +
-> +struct domain;
-> +
-> +#define to_vaplic(d) container_of(d->arch.vintc, struct vaplic, vintc)
-
-d wants parenthesizing here.
-
 > --- a/xen/arch/riscv/intc.c
 > +++ b/xen/arch/riscv/intc.c
-> @@ -78,6 +78,13 @@ void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
->      intc_set_irq_priority(desc, priority);
->  }
+> @@ -11,6 +11,7 @@
 >  
-> +unsigned int intc_irq_nums(void)
-> +{
-> +    ASSERT(intc_hw_ops && intc_hw_ops->irq_nums);
-> +
-> +    return intc_hw_ops->irq_nums();
-> +}
-
-You use this to set domains' properties. As indicated before, I view it as
-wrong to do so for any domain, besides perhaps Dom0 / hwdom. If you want to
-do so nevertheless, at the very least I'd expect something to be said about
-such a decision in the description.
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/vaplic.c
-> @@ -0,0 +1,78 @@
-> +/* SPDX-License-Identifier: MIT */
-> +/*
-> + * xen/arch/riscv/vaplic.c
-> + *
-> + * Virtual RISC-V Advanced Platform-Level Interrupt Controller support
-> + *
-> + * Copyright (c) Microchip.
-> + * Copyright (c) Vates
-> + */
-> +
-> +#include <xen/errno.h>
-> +#include <xen/sched.h>
-> +#include <xen/xvmalloc.h>
-> +
-> +#include <asm/aia.h>
-> +#include <asm/imsic.h>
-> +#include <asm/intc.h>
+>  #include <asm/aia.h>
+>  #include <asm/intc.h>
 > +#include <asm/vaplic.h>
+>  
+>  static const struct intc_hw_operations *__ro_after_init intc_hw_ops;
+>  
+> @@ -94,3 +95,38 @@ int __init make_intc_domU_node(struct kernel_info *kinfo)
+>  
+>      return -EOPNOTSUPP;
+>  }
 > +
-> +#include "aplic-priv.h"
-> +
-> +#define VAPLIC_NUM_SOURCES 96
-> +
-> +static int cf_check vcpu_vaplic_init(struct vcpu *v)
+> +int domain_vintc_init(struct domain *d)
 > +{
-> +    int rc = 0;
+> +    int ret = -EOPNOTSUPP;
+> +    const enum intc_version ver = intc_hw_ops->info->hw_version;
 
-Nit: Pointless initializer.
+Again - why would what the underlying hardware has control what all domains
+get?
 
-> +    unsigned int vgein_id;
-> +
-> +    rc = vcpu_imsic_init(v);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( !(vgein_id = vgein_assign(v)) )
+> +    switch ( ver )
 > +    {
-> +        printk("Software interrupt files aren't supported\n");
-> +        rc = -EOPNOTSUPP;
-> +        goto fail;
+> +    case INTC_APLIC:
+> +        ret = domain_vaplic_init(d);
+> +        break;
+> +
+> +    default:
+> +        printk("vintc (ver:%d) isn't implemented\n", ver);
+
+If we take this path for whatever reason, ...
+
+> +        break;
 > +    }
 > +
-> +    imsic_set_guest_file_id(v, vgein_id);
-> +
-> +    return rc;
-> +
-> + fail:
-> +    vcpu_imsic_deinit(v);
-> +
-> +    return rc;
+> +    return ret;
 > +}
 > +
-> +static const struct vintc_ops vintc_ops = {
-> +    .vcpu_init = vcpu_vaplic_init,
-> +};
-> +
-> +int __init domain_vaplic_init(struct domain *d)
-
-Why __init, and why is there no caller? Plus why is the vCPU-init a hook,
-but the domain init is not? Either you mean to allow for other ICs, or
-you you don't.
-
+> +void domain_vintc_deinit(struct domain *d)
 > +{
-> +    struct vaplic *vaplic = xvzalloc(struct vaplic);
+> +    const enum intc_version ver = intc_hw_ops->info->hw_version;
 > +
-> +    if ( !vaplic )
-> +        return -ENOMEM;
+> +    switch ( ver )
+> +    {
+> +    case INTC_APLIC:
+> +        domain_vaplic_deinit(d);
+> +        break;
 > +
-> +    d->arch.vintc = &vaplic->vintc;
-> +    d->arch.vintc->ops = &vintc_ops;
-> +
-> +    vaplic->regs.domaincfg = APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM;
-> +
-> +    d->arch.vintc->irq_nums = min(intc_irq_nums(),
-> +                                  VAPLIC_NUM_SOURCES + 0U);
-> +
-> +
-> +    return 0;
-> +}
-> +
-> +void __init domain_vaplic_deinit(struct domain *d)
-> +{
-> +    struct vaplic *vaplic = to_vaplic(d);
-> +
-> +    xvfree(vaplic);
-> +}
+> +    default:
+> +        printk("vintc (ver:%d) isn't implemented\n", ver);
 
-And d->arch.vintc turns into a dangling pointer. The way you arrange data
-types, you can't use XVFREE() here, but imo you really want to make sure
-the function is idempotent.
+... we're also going to take this path (very quickly afterwards), just to
+get the same message twice without it being clear why it appears twice.
 
 Jan
 
