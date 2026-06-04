@@ -2,50 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id wuQgEAcaIWq1/AAAu9opvQ
+	id ym/tHvVIIWocCgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 08:24:07 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 11:44:21 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92D2963D3D9
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 08:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CFE963EA31
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 11:44:21 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=ron1bsGr;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=bugseng.com (policy=none);
-	arc=pass ("bugseng.com:s=openarc:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1327429.1592390 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1327563.1592398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV1Ug-0007bv-Dm; Thu, 04 Jun 2026 06:23:54 +0000
+	id 1wV4bg-0004Mr-Hv; Thu, 04 Jun 2026 09:43:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1327429.1592390; Thu, 04 Jun 2026 06:23:54 +0000
+Received: by outflank-mailman (output) from mailman id 1327563.1592398; Thu, 04 Jun 2026 09:43:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV1Ug-0007Z7-AR; Thu, 04 Jun 2026 06:23:54 +0000
-Received: by outflank-mailman (input) for mailman id 1327429;
- Thu, 04 Jun 2026 06:23:52 +0000
+	id 1wV4bg-0004K6-B9; Thu, 04 Jun 2026 09:43:20 +0000
+Received: by outflank-mailman (input) for mailman id 1327563;
+ Thu, 04 Jun 2026 09:43:19 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <nicola.vetrini@bugseng.com>) id 1wV1Ue-0007Z1-NC
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 06:23:52 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wV4bf-0004K0-Dn
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 09:43:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV1Ud-008nzz-K1
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 08:23:51 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wV4be-009jD4-N3
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 11:43:18 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <nicola.vetrini@bugseng.com>)
- id 6a2119c5-2eae-0a2a0a5409dd-0a2a4506d7a6-44
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:23:51 +0200
-Received: from [162.55.131.47] (helo=support.bugseng.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <nicola.vetrini@bugseng.com>)
- id 6a2119f7-7371-0a2a45060019-a237832fc464-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:23:51 +0200
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id EB02C4EE441E;
- Thu,  4 Jun 2026 08:23:50 +0200 (CEST)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2148b2-5cb7-0a2a0a5109dd-0a2a4505a642-10
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 11:43:18 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2148b6-aaa8-0a2a45050019-d1558034d0c7-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 11:43:18 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4903d730b1fso5321885e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 02:43:18 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f3529e0sm14937855f8f.28.2026.06.04.02.43.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Jun 2026 02:43:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,188 +59,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1780554231;
-	b=QBZADWzZfxFlRVOJgKJZfL3xmGDipvoilkebsOjT+9LFDHx/uJQgvZTEvVzmSxd/3NMk
-	 UqOUkdLdvkpVs/y2z3QIbworoq59cLkw1oib1UXiUj18McQqCvNoP+gOAxFbH2bDYLTB6
-	 lnUrzKwvqFKsiQ+SfcADiGWMuKhQnZwHhx0WpSe8GKFPXDbbtu5FJceZIYAtr6/r3Bygs
-	 iM5Ffk/MUIrth/lmm2LF/ZntqnOYM4IUZVDyVdCSwbxy3+g8K54qmjmY80bBh7pYidtNx
-	 8jFftXpdZh6SHJh1VjIIxxPWHer6VJx7Vdpigdt3OIPcxZLmgw0udwbGE9EdYYQGZrDPf
-	 NhBVZ1qWSEWrN42LkhAGJquzRIRtWk7+fGutYZhF6Ogp92ALg4YHgnNMqFHYkEuHGzxO/
-	 zfXDXxk0pK3ysMsxDRoJ0XQWILNPZVNjHlKrLo69P7mgStO5f57CWK0BHaGKM8NJELYVr
-	 hiLEMgAPmvKNsaNwUFKS36aiwyWQukMUeAT+bUPxqx+vyHGuRB6nRseUha1XSpfyCoM+1
-	 PLGBKywQNDXWb3u81duiCLvZWeOOWNtutwTGYO6t64wTmJrH/MvD/akHh9k1JtH/QUbxI
-	 XbjBtiu8nb0f96nrYnXixOyn+4TEFKRiAWqM0QnrrRUyb2L3xdZDzNSmJr3MRPk=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1780554231;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wpRW8U+4ZquNMOfcE/qcP8H4Q49TTxFxWiEPQcHVf4I=;
-	b=Isf5qnWmR4D9sBE8kHCuGr3HFFGf33y6mgIn3gpWgQFeO4Z4+dGIR09+y+1zcIAmrj7r
-	 y1ujjVQxPV/CDkO6zwA3JW881VxKzLyvAnVfahmHx9OjPSdKt7pzFzzTEv/BR17i2mXdW
-	 FWqQmNRflqYC4kiPPlv1dVyYBidZ5M6JuwKbhv55a9vnQq4h9CEw+9Fqa/hu0eFdRgL3F
-	 1dv3yom8Rl0gemg3j1ZdAIplUr5vks7jqMkxgAm7OCwnQQJe+bMW2N0TD5zmXmytFjdVJ
-	 F/Wwk2CKiBAVH/qwQ8dCOSinrtWLXYDkEZ9nPhD5qSqOCvyZ9IwxtXGW5+zr6P9nrxNVq
-	 gmiUvD/IwhbcDS+q3TZhoOPjXzyiEBjY4pNty0N7E0lCo+W8I6XBdmOIaA5wP/GlkIiGr
-	 tRAqrWvw98BamRxWnBxc1AFUPIxC6ZU07iWrQR0xXSzYmeWjz5f5iBT7mlxJE37D78sEn
-	 OV5e/sBkf95x/jQoInwCwuzuvtcoEurqD2wvpsqAdJOID8Q2v94SjtQnH0tZXq1F/nZdb
-	 0PqFAgS89qsvTKj5h7CkiTnXLJrc14Pw4PIftm+lmIs9TQ/MeaR46Amk5q32vpKFXsKHJ
-	 8PaI13RLaBH18gH7W66Cg7NOW2OBwHl8cWEmp8sFFqgaOJkn37VLYXONiv1w4Zk=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780566198; x=1781170998; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RbOAcJp2nqPFni4qEom1A6eLui9QB8SNcMm42yDoNEU=;
+        b=ron1bsGrLcNR7OTHqs8mED9fu5ALQH+5EMdnBhIy2FjczP/cdTIQp1k/Yq9hfJ/gDn
+         xlWlDwjEJU68qoZNzq0lAh7cSlC6t/QUjlzVrGqDcONhuoUinVu/fOiOSnw+82dV7U7D
+         2zGiAw9LS6lzzNQbM4SCcqWQPZyfRwczO9LLr3n3cWINvqY9VzJ0U+BO4rw/c62ZO3c3
+         86YAzmsTV7qK1/aq3ZN/I072zIuSlAKRbOaO8iGEsd1TNXHcNFiUJhm5jDJNuOScSaql
+         qUydICnOt8w9mSV9qzpi0SawLl6jl5qnyPzHJlntcBbWwb4bLUfg77ajQHiIdW4exXEP
+         vtUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780566198; x=1781170998;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=RbOAcJp2nqPFni4qEom1A6eLui9QB8SNcMm42yDoNEU=;
+        b=M0AIHfwjgZpe0MVvmtP270jAb237FsBbN4efhSOZi5106/Ap1sY1Jpb3YjA218ilLX
+         bK2BWQEchRCQOHxaj9MoXGH56gmQnD11aYHgWQteMseYako1sXVVTZ1AQAG3CP1i1JAl
+         3ebO7Xp0v3cBgfISxyXZhqM6iJGNPZDjQ9ZfiPyEcYNP/soDF1OvPLg0tCdWszQBs0zh
+         mWwvRIoylB1s5eIuQJOGIj7LfWQSD9/raL+VVc31LoxOdEiMt/RsBahjDQpICIWT6YoS
+         egKzDKoQNLD1LsYq9r58PKmjeDvTE65dIrx/cJ2CLtAaeO8lPO0ihYX/0Kzg5xOQGxrf
+         M8HA==
+X-Forwarded-Encrypted: i=1; AFNElJ8AZwoeygzzlZXPKkPoyVM3lKShq6A9gfJ51tcalieGz8eZmqpdzO2Mk3wfd1+pzrexeAMHdiW67zs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxSLtCFy8ciuTufCGrJuO3UOncW6G77ezu9gO/PSrhlWrorV1+7
+	e1GuUIeIO4byUKB1P+QGQ0RCdwYrCxKVsYTl97uVf4vuyI3W+L32znSv
+X-Gm-Gg: Acq92OFRYNOZDIwMM6+jxQ2su26LaHsCYrU4kIHQkV00MRZ4UW80j5E12mzSmErZBFh
+	6g1/IBRvL4YH5b8RM1kC+vGxmo7MwZRK4l50JMUoOarusJCWhEnFTxD5oUMtcX469nI67HSKMh7
+	DyiPCK9v3ahhnxuJpsnbtNkS3ZbtpfIk3M6LkgD9/1mYV0CPP9Y/Ks/eW+HG3Rxg8jKZBCFwC3a
+	JJmB+9Kp3dW18E0CJN+s9ac6/vZEq9zw59kG1WUvP8vIh6KYanlbEJ9HJ1623SUZmGczh+XnXZV
+	inL4g+bdFlD4zRn7vwv5V11LTDKVbhH0opjike8ZUpXhUhFyF0OE7USK22RuC5physp1F1meFUw
+	lbxeOQytey9ULupFqnvIjiqoh7AzaYiPBqp7iDKv6X0XgKQjpG3gAHP3MzCS3SeKbE88IBMITYl
+	zLljndcykyf7jpBf23nUvhyFpfqiWw13K7LI+ke9Mnm6HUiUprDpbhKIehKg7zhC2EqS5/RQWDC
+	uUeyhJSw66urtLP
+X-Received: by 2002:a05:600c:3490:b0:48a:7a10:4f17 with SMTP id 5b1f17b1804b1-490b5e732f4mr109464735e9.6.1780566197719;
+        Thu, 04 Jun 2026 02:43:17 -0700 (PDT)
+Message-ID: <ff4ecb07-7e97-4858-bdec-d85f25ad232d@gmail.com>
+Date: Thu, 4 Jun 2026 11:43:15 +0200
 MIME-Version: 1.0
-Date: Thu, 04 Jun 2026 08:23:50 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Subject: Re: [PATCH 3/3] misra: deviate MISRA C Rule 5.5 for ARM SMMU fault
- handlers
-In-Reply-To: <9a9f7757613143c1b1e9806a134df7b3afb5ca54.1779709902.git.dmytro_prokopchuk1@epam.com>
-References: <cover.1779709902.git.dmytro_prokopchuk1@epam.com>
- <9a9f7757613143c1b1e9806a134df7b3afb5ca54.1779709902.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <6c3253f01170f436d388718b124c2340@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen/page_alloc: verify buddy alignment in
+ reserve_offlined_page()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Bernhard Kaindl <bernhard.kaindl@citrix.com>
+References: <cover.1780495548.git.bernhard.kaindl@citrix.com>
+ <6eaed95df4e5cb369a91281051ca9b5a2be564f9.1780495548.git.bernhard.kaindl@citrix.com>
+ <a78c20d0-e894-467e-9eb8-4486bbdd1ac9@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <a78c20d0-e894-467e-9eb8-4486bbdd1ac9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1780554231-85B6DD75-46EF229F/0/0
-X-purgate-type: clean
-X-purgate-size: 4402
+X-purgate-ID: tlsNG-c201ff/1780566198-DB36C443-0979016E/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2457
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.39 / 15.00];
-	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[bugseng.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,bugseng.com:mid,bugseng.com:from_mime,bugseng.com:url,linkedin.com:url,b.sc:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[nicola.vetrini@bugseng.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	R_DKIM_NA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 92D2963D3D9
+X-Rspamd-Queue-Id: 2CFE963EA31
 
-On 2026-05-25 14:05, Dmytro Prokopchuk1 wrote:
-> MISRA C Rule 5.5 states: "Identifiers shall be distinct from macro
-> names".
-> 
-> Update ECLAIR configuration to deviate intentional identifier and
-> macro name clashes by specifying the macros that should be ignored.
-> This includes 'arm_smmu_global_fault' and 'arm_smmu_context_fault',
-> where the original ARM SMMU handler returns irqreturn_t, while the
-> same-named macro redirects later uses to a Xen wrapper with the
-> void interrupt-handler signature expected by Xen 'request_irq()'.
-> 
-> Update deviations.rst and rules.rst accordingly.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 6 ++++++
->  docs/misra/deviations.rst                        | 7 +++++++
->  docs/misra/rules.rst                             | 4 ++++
->  3 files changed, 17 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl 
-> b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index 7aa64796ba..419a23ce8e 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -144,6 +144,12 @@ ARM SMMU driver calls by reordering the handler 
-> and flags arguments."
->  
-> -config=MC3A2.R5.5,ignored_macros+="name(request_irq)&&loc(file(^xen/drivers/passthrough/arm/smmu\\.c$))"
->  -doc_end
-> 
-> +-doc_begin="Clashes between ARM SMMU fault handler functions and macro 
-> names in 'xen/drivers/passthrough/arm/smmu.c' are deliberate.
-> +The original ARM SMMU handler returns irqreturn_t, while the macro 
-> redirects later uses to a Xen wrapper with the
-> +void interrupt-handler signature expected by Xen 'request_irq()'."
-> +-config=MC3A2.R5.5,ignored_macros+="name(arm_smmu_global_fault||arm_smmu_context_fault)&&loc(file(^xen/drivers/passthrough/arm/smmu\\.c$))"
-> +-doc_end
-> +
->  -doc_begin="The type \"ret_t\" is deliberately defined multiple times,
->  depending on the guest."
->  
-> -config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(text(^.*ret_t.*$)))"}
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 01f141b73f..15c88b82f4 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -192,6 +192,13 @@ Deviations related to MISRA C:2012 Rules:
->         reordering the handler and flags arguments.
->       - ECLAIR has been configured to ignore this macro.
-> 
-> +   * - R5.5
-> +     - Clashes between the ARM SMMU fault handler functions and macro 
-> names are
-> +       intentional. The original ARM SMMU handler returns irqreturn_t, 
-> while
-> +       the macro redirects later uses to a Xen wrapper with the void
-> +       interrupt-handler signature expected by Xen 'request_irq()'.
-> +     - ECLAIR has been configured to ignore these macros.
-> +
->     * - R5.6
->       - The type ret_t is deliberately defined multiple times depending 
-> on the
->         type of guest to service.
-> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> index 097c20432e..88d2c5fa7c 100644
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -230,6 +230,10 @@ maintainers if you want to suggest a change.
->         the macro is a local compatibility wrapper that adapts ARM SMMU 
-> driver
->         call to Xen's request_irq() argument order.
-> 
-> +       Clashes between ARM SMMU fault handler functions and macro 
-> names are
-> +       allowed because the macros redirect ARM SMMU driver uses to a 
-> Xen interrupt
-> +       wrapper with the handler signature expected by request_irq().
-> +
->     * - `Rule 5.6 
-> <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_06.c>`_
->       - Required
->       - A typedef name shall be a unique identifier
 
-Seeing the growing number of exceptions for R5.5 and 5.6 for one reason 
-or another in deviations.ecl, I wonder whether a more structured 
-approach to the configuration would be better (e.g., a JSON file that is 
-then processed just before the build to produce an ECL file fragment 
-evaluated in the the right place). The change itself is fine, but I 
-think this would tidy up a bit the file from these targeted exceptions.
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+On 6/3/26 4:30 PM, Jan Beulich wrote:
+> On 03.06.2026 16:17, Bernhard Kaindl wrote:
+>> reserve_offlined_page() fails to verify alignment when growing
+>> buddies around offlined pages. Consequently, misaligned buddies
+>> may be constructed from non-offlined page ranges and returned to
+>> the free lists.
+>>
+>> After a particular sequence of allocations and frees, pages
+>> from such a misaligned buddy may be allocated more than once,
+>> eventually triggering a Xen BUG() in alloc_heap_pages().
+>>
+>> Fixes: e4865c2315 ('Page offline support in Xen side')
+>> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> Oleksii, thoughts towards 4.22?
+
+I've waited for v2 of this patch series to R-Ack, I see patches 
+separately but they aren't grouped into one patch series for some reason.
+
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+~ Oleksii
+
+> 
+> Jan
+> 
+>> ---
+>> v2:
+>> - Updated the title for clarity.
+>> - Bugfix isolated from the test case for backporting.
+>> - Removed excess parentheses from the alignment check if() expression.
+>> - Simplified the alignment check to use '& (1UL << cur_order)'. Because
+>>    the covering buddy head is size-aligned, cur_head is also aligned to
+>>    cur_order, making this reduction safe (verified against extended tests).
+>> - Updated the inline code comment to accurately state that only the upper
+>>    half of the next_order range is checked for offlined pages.
+>> ---
+>>   xen/common/page_alloc.c | 5 +++++
+>>   1 file changed, 5 insertions(+)
+>>
+>> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+>> index 2c4ff2c34c70..2767376a710b 100644
+>> --- a/xen/common/page_alloc.c
+>> +++ b/xen/common/page_alloc.c
+>> @@ -1202,6 +1202,11 @@ static int reserve_offlined_page(struct page_info *head)
+>>               if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
+>>                   goto merge;
+>>   
+>> +            /* Do not grow to next_order if cur_head is not aligned to it. */
+>> +            if ( mfn_x(page_to_mfn(cur_head)) & (1UL << cur_order) )
+>> +                goto merge;
+>> +
+>> +            /* Check for offlined pages in upper half of next_order range. */
+>>               for ( i = (1 << cur_order), pg = cur_head + (1 << cur_order );
+>>                     i < (1 << next_order);
+>>                     i++, pg++ )
+> 
+
 
