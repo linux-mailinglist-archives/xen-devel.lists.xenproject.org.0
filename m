@@ -2,72 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xqWuCrcRImqwSAEAu9opvQ
+	id jDx+OQsPImoJSAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 02:00:55 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 01:49:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F98644132
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 02:00:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56A12644016
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 01:49:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=oBUDndcL;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=VA9MU6tI;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=amd.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1328786.1593113 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1328761.1593086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVHzK-0008DO-Dm; Fri, 05 Jun 2026 00:00:38 +0000
+	id 1wVHoO-0003DL-B0; Thu, 04 Jun 2026 23:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328786.1593113; Fri, 05 Jun 2026 00:00:38 +0000
+Received: by outflank-mailman (output) from mailman id 1328761.1593086; Thu, 04 Jun 2026 23:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVHzK-0008An-Ad; Fri, 05 Jun 2026 00:00:38 +0000
-Received: by outflank-mailman (input) for mailman id 1328786;
- Fri, 05 Jun 2026 00:00:36 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wVHoO-0003AW-7p; Thu, 04 Jun 2026 23:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 1328761;
+ Thu, 04 Jun 2026 23:49:18 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Jason.Andryuk@amd.com>) id 1wVHzI-0008Ah-N8
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 00:00:36 +0000
+ (envelope-from <dimitri.daskalakis1@gmail.com>) id 1wVHoM-0003AM-Kx
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 23:49:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVHzI-005jwN-3j
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 02:00:36 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wVHoL-002qJl-RB
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 01:49:17 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a22118a-5cb7-0a2a0a5109dd-0a2a450ae7ce-48
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 02:00:35 +0200
-Received: from [52.101.48.71]
- (helo=MW6PR02CU001.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a2211a1-56b3-0a2a450a0019-3465304704a8-3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 02:00:35 +0200
-Received: from MW4P220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::24)
- by PH8PR12MB6794.namprd12.prod.outlook.com (2603:10b6:510:1c5::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Fri, 5 Jun 2026
- 00:00:26 +0000
-Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
- (2603:10b6:303:115:cafe::a4) by MW4P220CA0019.outlook.office365.com
- (2603:10b6:303:115::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 00:00:25 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 00:00:25 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 19:00:24 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 19:00:24 -0500
-Received: from fedora.mshome.net (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 4 Jun 2026 19:00:23 -0500
+ (envelope-from <dimitri.daskalakis1@gmail.com>)
+ id 6a220e78-2eae-0a2a0a5409dd-0a2a4502c2bc-46
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 01:49:17 +0200
+Received: from [209.85.128.169] (helo=mail-yw1-f169.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dimitri.daskalakis1@gmail.com>)
+ id 6a220efc-af86-0a2a45020019-d15580a9ac5a-3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 01:49:17 +0200
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-7dee6b76a73so12931017b3.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 16:49:17 -0700 (PDT)
+Received: from [192.168.4.45] (76-224-22-216.lightspeed.sntcca.sbcglobal.net.
+ [76.224.22.216]) by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-7ea23492a24sm42082017b3.27.2026.06.04.16.49.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Jun 2026 16:49:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -79,183 +60,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D3gyqK7Xmw7Y32add8NOPcpJPD+yTaGRSuBa2Ml5a6drXLg+ZKa8C1zIB40c1TTtixdKU0rN074pQhrZtmxy6V0l6HlUCjrVuswpcofAQrhGG7rEF7gl72/AZyxg1yK+tCW9FKwkwrD6CYVtCfPGp5sKVl3dFAnQ1LHjUlk21hVu+7i688XrrYJl+EMydRwgCeMWLBp4uy5OqRK8AiCRZa2+woXbEjBGS/zEKWxzHZ7F08JWR6Xtc1J3YdURCyLw790AJZCV3y7dsno7sG9knC2T1LzfWuECZLBfKyVIiU9HugCJRce2MPu4m6vlFRE9MeJEfSrGS+pJZNzpYSIyXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q3ZAX5zHzltcsneFLuRK9xQYApH/8L0XRz3ExNJ6YiI=;
- b=rhXGIff6dnj1JlXaRDdPR+kj2RTwgYX97keRE9FRurlFQMUnh1L14I1sNSKcY1/WljlXRqqYnUAmJpxlZpfZwxNwgQTvV9v8D91hl+acV3fVxKoYbnAAF+ILxV6Y/UUozT6c3yO4HHGDYxQFifbvLj+23LtlBfCNbdw0VcSh5QlfHmVWnm9pmGkenNDhg05BqZRdQVPsvoLEFElxVSTkAkfsabTrIfRCuWbFU+uJE5uvjR7PhyCUXlnAMRwPKCx6S9cLxs100pgReuBANi6Jg02bAn8xxMHCLeEXmmfcDA6dL1jze7J/q0PzL6tLfi+KajZ6wHIrG8pGBozkABFDCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q3ZAX5zHzltcsneFLuRK9xQYApH/8L0XRz3ExNJ6YiI=;
- b=oBUDndcLuJvTKF013+T+nGf4jBWCFnoPe+ZjL2nhFHbmdWVvAS3fWaHNk81XI6emPIrASKJ8A+ea9D7xi7EJ3pcDwvCHB6ltH0EVwlLJKaKGiEGZY7yYpCMto1HafIEYorB4b3lZtcGcUyAa6JY9GDJRFMTag5KqgdJY9xQIf+U=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] automation: Add C xenstored and stubdom tests
-Date: Thu, 4 Jun 2026 19:33:28 -0400
-Message-ID: <20260604233328.805829-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.54.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780616956; x=1781221756; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FnTnrGN1rDoPr2XWYDmMjIU6l0/cMGNmMp999cHq+3Y=;
+        b=VA9MU6tIOCNaW80oMKrwTuOgz5Q/ZNSHJVVu2Ss7BSl1ztntWtK+A0Ttz1Ta0ML4ez
+         77QTW4BHpphTETHHpw6CXHgxl3QK9O3lH8kf/k4deQhoLhYrv0dB1XMl00NZVDoEyZ42
+         YbtNer8AYbNP3cUG0LvRURepMwNfAJd1k1aHca9iJXZDx0Z9LPVv7EW9exKJTmunICQC
+         Q5rIostjMYw5v3GR+m8ubxv4EzTaQV85smrASvJFG+ACsTNYmEoQ4dKC7hXxfFBfYWWb
+         l9Qulgkb+nOMb/3gKOImiAi/HZcdQrMM1XxyOnBk2NSRheeULaX0WQZ3XeypOv08JYU9
+         uiag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780616956; x=1781221756;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FnTnrGN1rDoPr2XWYDmMjIU6l0/cMGNmMp999cHq+3Y=;
+        b=eXP+eHAU28b6/LdpgfgBOXtEaYm8W2Ueb3yljP27BsmpyupJLl58N0GUQsXenuXBip
+         e6Irjn2t2qHewf4JAhi/LTeLOdpvsdUXCVIGubkZ8qHDbEaAr2FOow0NkLZvWPnlupLM
+         oyb1svExDH3aTM8mmlIYB4cXApmPPS6WA08VwTvsTet/CLr+1NHdk11V7QeAH8EGnVaA
+         7bFd+xCkyxYQY0YtgFa+kE7DkPEesqujSjx3PHCMLd/MiK3CyhIKTu6a/dAWK5PLqjzR
+         apRKuPeD9YVGul59W8Tt9QZuBDcnZQCbDXxFXrVE0i3vNz8KG4MJHPDW3BadsVbPXnjd
+         dp6w==
+X-Forwarded-Encrypted: i=1; AFNElJ8WINk/44DFyu43kc71j8EISSe3QMxY5d0aVKjt54Xc7qp8rWssdEncCUB6p2q3fZ0INDG5mTk+0II=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYjAc93FZXlx3+dtwJrWv39TtH3gVNwm9SfYIjsjSqTfZkBrUU
+	tAZ3SMXlXIglz59v1Hel18uZeHwMp2E3tg5Ri/lnRHvISkP8u9Ly/KfZ
+X-Gm-Gg: Acq92OFJLi1BtckCb5ykS4yjbJOSuApAEMy347Vreu51iAai+dEhkpP6oKGXpp/QlQI
+	gAIBnMiFzlo+fSjscFi/bge4l+csYIARQM7u2ulgc8Pfl4c1UU7hosobfhtS1acNUPt4mVypGLA
+	L+8FdjzMReN8IkPZMqbAdKUpueZCDiukEteJHeEyGUVihNFyg+6AGQxUNpjGzovnJ2gggk1XBhL
+	M5JrLgjR+MM39D1q5rRq63EzfYZgD1Riv1NGS8gVmFl73VoR5Q6gLvqY8+IsgYwkBINuXlw2P9N
+	oaj+2sYfoDdweMyV5WVyTP+OMxvF6nkD7nyP22MNNbYmSoEn0ghdY6MRVZ1xxtKx7RQrm4HHsD4
+	OWyvDl7WP646mLufPkYDgvy/7fgbKFuDJF5DZdPRns1Kx9wM6Oohf6R6nAkWdIQoBCBaqG9BZTL
+	qv7drAtQ5fNwsB81lgdjnOCYpjCO+TFHVwB5GOSgZ5VfYOWXhe8KKuGPysyxvDVUsp0UN/e88Ai
+	WSyoKO5hGGlNY6PFvXJjpM70W7qes8qdUcIHrZvXAEE
+X-Received: by 2002:a05:690c:c4e6:b0:7ec:5c2c:1d27 with SMTP id 00721157ae682-7ed0afadc30mr12160017b3.15.1780616956146;
+        Thu, 04 Jun 2026 16:49:16 -0700 (PDT)
+Message-ID: <a07763e2-aff3-4468-83c2-d50a9e1605c8@gmail.com>
+Date: Thu, 4 Jun 2026 16:49:05 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|PH8PR12MB6794:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfb72e32-d7fc-442f-66b5-08dec2957258
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Z0bTijIZe8vd0sdWXr12r2iBm4W/GxVIcENLsZof155H0jlcuqdriBsYCRWog6Yoc0BjlZND+md3tnpHHKaQf5RiA4TGgw6wXlYe9jQR5nHk/7VdEUARyPE8G2svuiBkGBLvj3sZhMeXADKazCUXCaMZ7pRKV13zaNE8sc7jjIGZYT20j15Xo649iPFbylG7DzRlEvuspFMeKnrW5eCSfTcqGiBg5YeL/t4XVcpQqeQnRlkrsPdlZB1Ir/KrU533feGiFcE4Yk0YFhYsFi7kFxwH1opc+N5tcicyao6hhz7zEkHg5hlk7PyxtwN2qlHTOqiL2v9Fx/4V6pmmu/BwJPDVw0b03Gxm7m8W6pnteaFuYCBYoZ21u4ANF/5w4dPDBbfNW2qoXdaCeaQL9lEXYpa0mSuBGzYUWwcgGDjgCDfQN9vCFjW/+kLcYqxmtDTlTvxZv1ysOS31ldGn7wYC5Bvcii9JZ7JGAo2XHBYhGq02J+pdRgC9afTFP92nvWafU+PpJg853lNZ2g8b72pNPuklymEGRMeKS7jOPnTizRYYuQJLrpLlaq8F0C7t26LyFOWM/rapLqMtZB11bzzYrK2pKNP/KMtIq8Ok8K81Z8qhIBsQQ0cU7F6jb6AIdYSKZt7hkXb+iayx9nHZlV4bCYHWfSkCeIYGw1imkmVT7Rar/oC6KwTR3KwSUnFvsYvQk5NsH2vfyaLysN6HqBBfU6XQRqX6eeiUm0/NTVinPbY=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	M3gyea7wQCaTSd2F99AoUlbNtVcO4TRlaye8eEcgK9Y49wQC0J72yul+Ghv+6X3OVAWLppQKWn069ceD8C83SlQPVwhpWzW+qpWJSVEZ7fqfilcP0T7xzbA//yWkUDK0KfVNHOBZIzjThJk8ojzusGBaPbzvQrRPhAG64quDLqJNEcUkVhmgkDQlnJV6Cg+fqY1kArlnFzCKHnd8g2DHjUcSVZY9n+M7ZoWuTgWGkwpGQE2Rn252hu9R4HcUHyEHrYhXSY5Fbbu8vPDcv9sJjU/TPnOTd76EwiQgI0YN3EaSG211Ep8gH8q4apvJmN6PzWA/wTHNciQh8yi1VqgjropZ/leWIG7a//QBpsBMbr736hGgCmssY+qVSYwewVKLSjwZDQT6qXeJnUoZKu9buvLtczwy/Yy92fyDi3M7Fx1BdnoKCDPnGwETb/QwmuiR
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 00:00:25.6173
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfb72e32-d7fc-442f-66b5-08dec2957258
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C618B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6794
-X-purgate-ID: tlsNG-4011c0/1780617635-7C67F8B7-09FBC061/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 00/12] PCI: Add support for Scalable I/O Virtualization
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+ Oliver O'Halloran <oohall@gmail.com>,
+ Niklas Schnelle <schnelle@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Alex Williamson <alex@shazbot.org>,
+ Kevin Tian <kevin.tian@intel.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Keith Busch <kbusch@kernel.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ Jakub Kicinski <kuba@kernel.org>, Dimitri Daskalakis <daskald@meta.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+References: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
+ <20260604182031.GB2487554@ziepe.ca>
+Content-Language: en-US
+From: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
+In-Reply-To: <20260604182031.GB2487554@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-720697/1780616957-82B68161-72CD5EEF/0/0
 X-purgate-type: clean
-X-purgate-size: 2352
+X-purgate-size: 1842
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jason.andryuk@amd.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
+	RCPT_COUNT_TWELVE(0.00)[31];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jgg@ziepe.ca,m:bhelgaas@google.com,m:linux-pci@vger.kernel.org,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:mahesh@linux.ibm.com,m:oohall@gmail.com,m:schnelle@linux.ibm.com,m:gerald.schaefer@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:alex@shazbot.org,m:kevin.tian@intel.com,m:ankita@nvidia.com,m:leon@kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:kbusch@kernel.org,m:alexanderduyck@fb.com,m:kuba@kernel.org,m:daskald@meta.com,m:linuxppc-dev@lists.ozlabs.org,m:linux-s390@vger.kernel.org,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[google.com,vger.kernel.org,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,shazbot.org,intel.com,nvidia.com,suse.com,epam.com,fb.com,meta.com,lists.ozlabs.org,lists.xenproject.org];
+	FORGED_SENDER(0.00)[dimitridaskalakis1@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dimitridaskalakis1@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FROM_HAS_DN(0.00)[]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 81F98644132
+X-Rspamd-Queue-Id: 56A12644016
 
-Expand testing to include C xenstored and xenstore stubdom tests.  OCaml
-oxenstored is run by default.
 
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
-Pipeline
-https://gitlab.com/xen-project/people/jandryuk-amd/xen/-/pipelines/2577925467
-C Xenstored job
-https://gitlab.com/xen-project/people/jandryuk-amd/xen/-/jobs/14704763517
-Stubdom job
-https://gitlab.com/xen-project/people/jandryuk-amd/xen/-/jobs/14704763518
+On 6/4/26 11:20 AM, Jason Gunthorpe wrote:
+> On Thu, Jun 04, 2026 at 08:01:41AM -0700, Dimitri Daskalakis wrote:
+>> With this patchset core enumarates the SIOV capability and can identify
+>> SIOV PFs. But there is no central mechanism to allocate/manage SIOV VFs.
+>> To support device pass through, devices will need to add a vfio-mdev
+>> driver with IOMMUFD support (or something similar).
+> 
+> There is an enormous amount of missing work to do something useful
+> with the SIOVr2 stuff. IIRC there is even supposed to be BIOS
+> components in this plan and there are some missing PCI SIG topics too
+> IIRC.
+> 
+> So, I'm not sure how much value there is in merging just the cap
+> discovery without a roadmap for the missing parts..
+> 
+> Also, I'm quite surprised to see this out of the blue, there is an OCP
+> workstream that was building out a standard that outlines how all the
+> different components have to act to successfully implement it.  What
+> is in PCI SIG was just some minor foundational adjustments without any
+> context on how to form them into a solution.
+> 
+> I think it is extremely premature to merge anything related to SIOV to
+> the kernel. Join the OCP work stream if you are interested. I think
+> the general feeling was there is not sufficient interest in the
+> industry to do this and it has gone quiet.
+> 
+> Jason
 
- automation/gitlab-ci/test.yaml           | 16 ++++++++++++++++
- automation/scripts/qemu-alpine-x86_64.sh | 20 ++++++++++++++++++++
- 2 files changed, 36 insertions(+)
+Hey Jason, thanks for the feedback. We (at Meta) are definitely
+interested in SIOV-like capabilities for device passthrough to containers.
 
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 1722800c15..dfe5555154 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -656,6 +656,22 @@ qemu-alpine-x86_64-gcc:
-     - *x86-64-test-needs
-     - alpine-3.18-gcc
- 
-+qemu-alpine-x86_64-gcc-cxenstored:
-+  extends: .qemu-x86-64
-+  script:
-+    - ./automation/scripts/qemu-alpine-x86_64.sh cxenstored 2>&1 | tee ${LOGFILE}
-+  needs:
-+    - *x86-64-test-needs
-+    - alpine-3.18-gcc
-+
-+qemu-alpine-x86_64-gcc-xenstore-stubdom:
-+  extends: .qemu-x86-64
-+  script:
-+    - ./automation/scripts/qemu-alpine-x86_64.sh xenstore-stubdom 2>&1 | tee ${LOGFILE}
-+  needs:
-+    - *x86-64-test-needs
-+    - alpine-3.18-gcc
-+
- qemu-smoke-x86-64-gcc:
-   extends: .qemu-smoke-x86-64
-   script:
-diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
-index 242ffca693..0105a3b001 100755
---- a/automation/scripts/qemu-alpine-x86_64.sh
-+++ b/automation/scripts/qemu-alpine-x86_64.sh
-@@ -2,6 +2,25 @@
- 
- set -ex -o pipefail
- 
-+test_variant=$1
-+
-+xenstore_selection=""
-+
-+case "${test_variant}" in
-+    xenstore-stubdom)
-+        xenstore_selection='echo "XENSTORETYPE=domain" > /etc/default/xencommons'
-+        ;;
-+    cxenstored)
-+        xenstore_selection='echo "XENSTORED=/usr/sbin/xenstored" > /etc/default/xencommons'
-+        ;;
-+    "")
-+        ;;
-+    *)
-+        echo "Unrecognised test_variant '${test_variant}'" >&2
-+        exit 1
-+        ;;
-+esac
-+
- # DomU Busybox
- cd binaries
- mkdir -p initrd
-@@ -49,6 +68,7 @@ echo "#!/bin/bash
- 
- set -x
- 
-+$xenstore_selection
- bash /etc/init.d/xencommons start
- 
- xl list
--- 
-2.54.0
+For those scenarios, having PCIe transactions per RID plus IOMMU
+isolation is enough, but I can imagine hypervisors/VMs requiring more
+platform support.
 
+I hear you on the broader support story being premature. But on the
+other hand, this series unblocks experimentation at the driver level
+for basic data path validation.
 
