@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id eosHLe6UIWpBJQEAu9opvQ
+	id Hc7NMPGUIWpPJQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:30 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 440766413AD
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58F946413D1
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=IOcZNkdm;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="NGs/1A+c";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1328041.1592744 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1328043.1592752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9gE-000668-9t; Thu, 04 Jun 2026 15:08:22 +0000
+	id 1wV9gE-0006H1-Sh; Thu, 04 Jun 2026 15:08:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328041.1592744; Thu, 04 Jun 2026 15:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 1328043.1592752; Thu, 04 Jun 2026 15:08:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9gD-0005zn-HN; Thu, 04 Jun 2026 15:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 1328041;
- Thu, 04 Jun 2026 15:02:13 +0000
+	id 1wV9gE-00065O-4Z; Thu, 04 Jun 2026 15:08:22 +0000
+Received: by outflank-mailman (input) for mailman id 1328043;
+ Thu, 04 Jun 2026 15:02:15 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dimitri.daskalakis1@gmail.com>) id 1wV9aH-0004B2-32
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:02:13 +0000
+ (envelope-from <dimitri.daskalakis1@gmail.com>) id 1wV9aJ-0004Cn-4y
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:02:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV9aG-00ALgh-Fd
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:02:12 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wV9aI-00AZZ2-Hf
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:02:14 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <dimitri.daskalakis1@gmail.com>)
- id 6a21936d-bab6-0a2a0a5309dd-0a2a45078eda-38
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:12 +0200
-Received: from [209.85.214.172] (helo=mail-pl1-f172.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a21936e-e002-0a2a0a5209dd-0a2a4502ae98-10
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:14 +0200
+Received: from [209.85.214.176] (helo=mail-pl1-f176.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <dimitri.daskalakis1@gmail.com>)
- id 6a219373-229c-0a2a45070019-d155d6acb425-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:12 +0200
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2c0c1e0b0faso6078675ad.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:02:11 -0700 (PDT)
-Received: from localhost ([2a03:2880:7ff:1::])
+ id 6a219375-af86-0a2a45020019-d155d6b0d44d-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:14 +0200
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2bf3781ca51so9119965ad.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:02:13 -0700 (PDT)
+Received: from localhost ([2a03:2880:7ff:5::])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c16609df79sm62219485ad.42.2026.06.04.08.02.08
+ d9443c01a7336-2c16609df79sm62220215ad.42.2026.06.04.08.02.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 08:02:08 -0700 (PDT)
+ Thu, 04 Jun 2026 08:02:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,41 +61,41 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780585330; x=1781190130; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1780585332; x=1781190132; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DQ5QlRlqJf2BWfjEpgZtMhqYoBzzggdHeyuHigzWBDQ=;
-        b=IOcZNkdmJQuDr7JHH+JExjDNRdKXBZJ6jbrpGw6VSMmEYZ95rilPkA7twiDZBzhxW+
-         Xbom02EC93Xf2KvYEGvMUnzHzqKZ/LY43Ea9RhNfVAZAon2U0Iz51kp6Mx4UamRNi94Y
-         7c37Fdxtwb4bVPo3NrNRiaDfnc062M1DPeOk2V6yInMIEKaSUePGKiNYinFRljjsqrtf
-         xyPurDnKkZX8be1piPqCOFg+TCqc+fiJfuj5gU0RGrnivuX7xgHvJRzL8AzwzVNNliqn
-         9dXOSBNllP856xNPmc9TNN85E86sLHXmUdti2RUx+DgHEO52PXPqNwwK0VsFR1bzCOgM
-         TnVA==
+        bh=2Bo6bv9IyO26QNTtP+PpQ5foOOUKiHlTonbwk1FrZVg=;
+        b=NGs/1A+cs2sIyLFDBz5fnQuvhzOYCo5ovnsB2+GRjMpsCskoXh5zthUxygX84zxquI
+         TKq99qxiX+eOrRSmHLmbOaD2fnufyXXCHkgiy0Vrr8cNU3skBsXhOhozMa7Y9zC/SDwO
+         PWmAMMYnTNAMXFCxJScwmzSOYQrsmlQMltnhsq5HAkKVedFhXeBQXyvaQoyPk/qKrfoN
+         DP1ppDRlARPVFBFerxGqrjNw6X0XGuvefWXtMiVCXY71VXWjHP27YTvAv1DS4MpEoBWH
+         uYIm0JqB7qjDGWw46aQVDMMY4dK+80CSQjTLNt7Lvn/AZ1WTRJD7sZ9sU8nyg7cdHs5f
+         AlAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780585330; x=1781190130;
+        d=1e100.net; s=20251104; t=1780585332; x=1781190132;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DQ5QlRlqJf2BWfjEpgZtMhqYoBzzggdHeyuHigzWBDQ=;
-        b=rvWqdHz6AM8hLj+zo/L0mM65sLKbaRX8CiL1pYkyyxBPM1Y679XlfogLDubRQ3Nk56
-         pwg5nQb/oGUJjo+4zGNzuhJ/vJhTIqdJqZvZx8d3F3qKchdLbJf7YOqoSXwD7l+QzajE
-         XGNgOpfWBBIpKek42HsenG/A2mL16aE9iLTiEHfjJDyJMsCrGqIIXzWzcXZN3bnvdGc1
-         qIpwka+3PqgJzD0Y2F+CeiFeeHKPp8O8Vl8T3vXu5tt9Inyk/SYTuqc1ew0vdreMSYxX
-         UHKhys5QSGXlbRkk1iQQcOVuZWDnBaGc/0rMwGHvpRb3XomxYx376Jik7LaEhzic96wO
-         l2Qg==
-X-Forwarded-Encrypted: i=1; AFNElJ+hA32efAg5hUUQrcvCCO3eZwtgh6N+vFmJN3C2tBdN1iB+ak/6e2658Wvr5PmPg2XSehEIBJNUgyo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywc3HEGkPRKCPZHYxHugyddPnajmE4TnqbSiaNo1CX4xVHgAjNQ
-	6PtYHzQGvA4iHr2kI2XCrTB72LlfmnhMAZUHRJWg/hZljdcO/J3ZqoQU
-X-Gm-Gg: Acq92OEbBq5gP+3o7aJwYhYB5AFyBN5NT7ZgAFPTTMOXEKKT5iIMN9DzWuVBFMZze98
-	RRDw9dmsMSLqol07/sNl08Lq4pJEVvi+g+W4EwZuCVfst5o10ETpNeqJrlITnpf+9zB3/AcDm8g
-	z+BcXY7+6m/atICO4bcvrj6S6ggN86zVpXRcAPAN255AlxtUsMXqDyelgsQhq9aDORwZY09LEpU
-	a9VHD7j9+Uw8YvbexftAthsyY0f1mY9aGezBfb/yzx9bJOokBSHK9BafTXOStnzO5MOJ14IgF7p
-	UfW9WHEt16WJwyxDH1/1eFBnv9PvyXMBnuWQ7krEb/lSTd4xpR1p7yMXn+uC9MF60RCv7R9xf5Z
-	6n8kH0DJtT/KmPpaao+tV1aQqZ7i9tAzWRCHTWB8AhQNTLIiiR1Ej8f2fjbAo8Eqi9o8wrw1qn2
-	kgM6lJEuCGSuvudBcHIDAwORhPwGuTuyWudqVtvIpnL/aSKxYQ
-X-Received: by 2002:a17:903:1b07:b0:2c0:eee2:fc45 with SMTP id d9443c01a7336-2c163a28b9fmr86640905ad.4.1780585329440;
-        Thu, 04 Jun 2026 08:02:09 -0700 (PDT)
+        bh=2Bo6bv9IyO26QNTtP+PpQ5foOOUKiHlTonbwk1FrZVg=;
+        b=Ii6U0L7RYo2Z88crszAgSB3Hj4hXm68KNfJHlo8nTuqkpcn/hTx+0d0hD7VTICF+00
+         TTzfSxKXDJ1xio4+VsHS3yEjhVO+3dS/lrOqJWQCIJOxsAHmXfYxo6IkjLxOfHa+Vs83
+         OxOpxEb+ewjFjYjLDkOVORU/HqilUuMRw8gVzdiGgyW40RfWukDUzCcL4DNUW8x77zs/
+         97f26WWnaPpJL+phwqFZCIBWuYnTI5jcQk8BmZxLDnsA5vullclpCjAWauf2ZUXeCsv/
+         wMVlxLKhNNjnWE+qIu5J4jN7v9WOtkA5SK1xeIqaDJCOjJS/52r+4peQtqUad0vvmhEv
+         /p2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/IquKsMnZvNLbchlROiQ7uH0D516U8p8sIQ4eSuW96P8vsR4R1m9akMdfiB4TlqSXGPNlaquHDJkc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjZ7VrLYCTajLs1NJOrsBPaCPmS1DtkuhFjS5cDX2GTzOqfgXj
+	VLMnkTODa/mXCXuccq/QDhDubwvD1/R5mLKO67b7+jGvTtUiTR3r64BI
+X-Gm-Gg: Acq92OF8E+WthHsVKST1npNG0nfJ2twhQlhLJkYWkMWujn8ZIU7h+sJ7BFKvc8Vox7U
+	iLkEOCdpNE43lPXpHC0kCi4jcMKYsq2wsrCrzi98+8F9UiQPrqBIWTmw/hmXQ9gQF8UmhBMOtuU
+	8onPxAeBJoQ93C2ICLgOFKRghdC0OYah2oEhOwdABj3Mfvr3teTdejpMDZtHEB+jfa33OuDR4DD
+	7eXADouGlLtb55nfdfZaHEHl+oLmr01YvVIJSp7Bz50RZ7XXB/vt6xSYnI+hD76a/h/oaSCR3/O
+	MKtfT+EPOUP9/OpwfZ9XfNPXKYvDHRCP64kdWV681M4/RWzKNtnqEiv4DLC/3XvvqN4qlAcO1NQ
+	Ma1F33qwAOIM+pfUZVNBZC84nApVxnt5QKuvYsxv1dLPW2AtjQtH3cG0VYpmZNpgR66W5NBtVqv
+	KQu2d/RRiniKgf6hbr7YDLfcLM3hoD7fMwwkYoQNJyf32JfUlX
+X-Received: by 2002:a17:902:ced1:b0:2bd:5ab:af95 with SMTP id d9443c01a7336-2c1634f9212mr84880605ad.0.1780585331912;
+        Thu, 04 Jun 2026 08:02:11 -0700 (PDT)
 From: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
 To: Bjorn Helgaas <bhelgaas@google.com>
 Cc: linux-pci@vger.kernel.org,
@@ -128,17 +128,17 @@ Cc: linux-pci@vger.kernel.org,
 	linux-s390@vger.kernel.org,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [RFC 09/12] PCI: Add helper to compute VF Routing ID to pci.h
-Date: Thu,  4 Jun 2026 08:01:50 -0700
-Message-ID: <20260604150153.3619662-10-dimitri.daskalakis1@gmail.com>
+Subject: [RFC 10/12] PCI: Add Scalable I/O Virtualization data structure definitions
+Date: Thu,  4 Jun 2026 08:01:51 -0700
+Message-ID: <20260604150153.3619662-11-dimitri.daskalakis1@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
 References: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1780585332-08F66C48-6AC9C3F4/0/0
+X-purgate-ID: tlsNG-720697/1780585334-83563161-2F912A0A/0/0
 X-purgate-type: clean
-X-purgate-size: 2035
+X-purgate-size: 5705
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
@@ -174,70 +174,160 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 440766413AD
+X-Rspamd-Queue-Id: 58F946413D1
 
 From: Dimitri Daskalakis <daskald@meta.com>
 
-The VF RID computation is identical for SR-IOV and SIOV. Add a common
-helper so we can share the logic across both.
+Define the PCIe SIOV extended capability registers per the PCIe 7.0
+spec, and introduce the kernel-internal data structures needed to track
+SIOV state on a Physical Function. PCI-SIG members can access the spec
+here https://members.pcisig.com/wg/PCI-SIG/document/previewpdf/22464.
 
-No functional changes.
+The PCI_SIOV kconfig selects PCI_ATS rather than attempting to decouple
+the sriov/physfn union within struct pci_dev from CONFIG_PCI_ATS. If
+desired this can be done in the future, since ATS is optional
+for SR-IOV and SIOV.
+
+Inspired by struct pci_sriov, struct pci_siov records the
+capability position, total SDI count, routing ID offset/stride, and
+driver-configurable limits.
+
+Add an is_siov bit to struct pci_dev along with helpers to identify
+SIOV PFs/VFs.
 
 Assisted-by: Claude:claude-opus-4.7
 Signed-off-by: Dimitri Daskalakis <daskald@meta.com>
 ---
- drivers/pci/iov.c |  8 ++++----
- drivers/pci/pci.h | 12 ++++++++++++
- 2 files changed, 16 insertions(+), 4 deletions(-)
+ drivers/pci/Kconfig           | 11 +++++++++++
+ drivers/pci/pci.h             | 13 +++++++++++++
+ include/linux/pci.h           | 16 +++++++++++++++-
+ include/uapi/linux/pci_regs.h | 12 +++++++++++-
+ 4 files changed, 50 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-index 4aed4f6a42c3..5d65413ce98d 100644
---- a/drivers/pci/iov.c
-+++ b/drivers/pci/iov.c
-@@ -25,16 +25,16 @@ int pci_iov_virtfn_bus(struct pci_dev *dev, int vf_id)
- {
- 	if (!pci_is_sriov_physfn(dev))
- 		return -EINVAL;
--	return dev->bus->number + ((dev->devfn + dev->sriov->offset +
--				    dev->sriov->stride * vf_id) >> 8);
-+	return pci_virtfn_routing_id(dev, dev->sriov->offset,
-+				  dev->sriov->stride, vf_id) >> 8;
- }
+diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+index 33c88432b728..930231835c40 100644
+--- a/drivers/pci/Kconfig
++++ b/drivers/pci/Kconfig
+@@ -164,6 +164,17 @@ config PCI_IOV
  
- int pci_iov_virtfn_devfn(struct pci_dev *dev, int vf_id)
- {
- 	if (!pci_is_sriov_physfn(dev))
- 		return -EINVAL;
--	return (dev->devfn + dev->sriov->offset +
--		dev->sriov->stride * vf_id) & 0xff;
-+	return pci_virtfn_routing_id(dev, dev->sriov->offset,
-+				  dev->sriov->stride, vf_id) & 0xff;
- }
- EXPORT_SYMBOL_GPL(pci_iov_virtfn_devfn);
+ 	  If unsure, say N.
  
++config PCI_SIOV
++	bool "PCI Scalable IOV support"
++	select PCI_ATS
++	help
++	  Scalable I/O Virtualization is a PCIe feature that allows devices
++	  to expose lightweight Scalable Device Interfaces (SDIs). Unlike
++	  SR-IOV Virtual Functions, SDIs have no config space or BARs and
++	  rely on software to compose the control path.
++
++	  If unsure, say N.
++
+ config PCI_NPEM
+ 	bool "Native PCIe Enclosure Management"
+ 	depends on LEDS_CLASS=y
 diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 73b913bcb87a..45411960fd2e 100644
+index 45411960fd2e..fd7c04e26c16 100644
 --- a/drivers/pci/pci.h
 +++ b/drivers/pci/pci.h
-@@ -1017,6 +1017,18 @@ static inline int pci_resource_num_to_vf_bar(int resno)
- }
- #endif /* CONFIG_PCI_IOV */
+@@ -683,6 +683,19 @@ struct pci_sriov {
+ 	bool		drivers_autoprobe; /* Auto probing of VFs by driver */
+ };
  
-+#if defined(CONFIG_PCI_IOV) || defined(CONFIG_PCI_SIOV)
-+/*
-+ * Compute the Routing ID (bus/devfn) for a VF or SDI under @pf, given the
-+ * capability's offset and stride.
-+ */
-+static inline u16 pci_virtfn_routing_id(struct pci_dev *pf, u16 offset,
-+				     u16 stride, int id)
-+{
-+	return (pf->bus->number << 8) + pf->devfn + offset + stride * id;
-+}
-+#endif
++/* Scalable I/O Virtualization */
++struct pci_siov {
++	struct pci_dev	*self;		/* This PF */
++	u32		cap;		/* SIOV Capabilities */
++	u16		pos;		/* Capability position */
++	u16		total_SDIs;	/* Total SDIs associated with the PF */
++	u16		num_SDIs;	/* Number of SDIs currently enabled */
++	u16		offset;		/* First SDI Routing ID offset */
++	u16		stride;		/* Following SDI stride */
++	u16		driver_max_SDIs;/* Max num SDIs driver supports */
++	u8		max_SDI_buses;	/* Max buses consumed by SDIs */
++};
 +
- #ifdef CONFIG_PCIE_TPH
- void pci_restore_tph_state(struct pci_dev *dev);
- void pci_save_tph_state(struct pci_dev *dev);
+ #ifdef CONFIG_PCI_DOE
+ void pci_doe_init(struct pci_dev *pdev);
+ void pci_doe_destroy(struct pci_dev *pdev);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index ca84f66425b2..eba562474017 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -480,6 +480,7 @@ struct pci_dev {
+ 	unsigned int	is_physfn:1;
+ 	unsigned int	is_virtfn:1;
+ 	unsigned int	is_sriov:1;		/* SR-IOV is enabled on this device (PF or VF) */
++	unsigned int	is_siov:1;		/* SIOV is enabled on this device (PF or VF/SDI) */
+ 	unsigned int	is_hotplug_bridge:1;
+ 	unsigned int	is_pciehp:1;
+ 	unsigned int	shpc_managed:1;		/* SHPC owned by shpchp */
+@@ -549,6 +550,9 @@ struct pci_dev {
+ 	u16		ats_cap;	/* ATS Capability offset */
+ 	u8		ats_stu;	/* ATS Smallest Translation Unit */
+ #endif
++#ifdef CONFIG_PCI_SIOV
++	struct pci_siov	*siov;		/* PF: Scalable IOV info */
++#endif
+ #ifdef CONFIG_PCI_PRI
+ 	u16		pri_cap;	/* PRI Capability offset */
+ 	u32		pri_reqs_alloc; /* Number of PRI requests allocated */
+@@ -598,7 +602,7 @@ struct pci_dev {
+ 
+ static inline struct pci_dev *pci_physfn(struct pci_dev *dev)
+ {
+-#ifdef CONFIG_PCI_IOV
++#if defined(CONFIG_PCI_IOV) || defined(CONFIG_PCI_SIOV)
+ 	if (dev->is_virtfn)
+ 		dev = dev->physfn;
+ #endif
+@@ -615,6 +619,16 @@ static inline bool pci_is_sriov_virtfn(const struct pci_dev *dev)
+ 	return dev->is_virtfn && dev->is_sriov;
+ }
+ 
++static inline bool pci_is_siov_physfn(const struct pci_dev *dev)
++{
++	return dev->is_physfn && dev->is_siov;
++}
++
++static inline bool pci_is_siov_virtfn(const struct pci_dev *dev)
++{
++	return dev->is_virtfn && dev->is_siov;
++}
++
+ struct pci_dev *pci_alloc_dev(struct pci_bus *bus);
+ 
+ #define	to_pci_dev(n) container_of(n, struct pci_dev, dev)
+diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+index 14f634ab9350..0f81c8c72b05 100644
+--- a/include/uapi/linux/pci_regs.h
++++ b/include/uapi/linux/pci_regs.h
+@@ -763,7 +763,8 @@
+ #define PCI_EXT_CAP_ID_DEV3	0x2F	/* Device 3 Capability/Control/Status */
+ #define PCI_EXT_CAP_ID_IDE	0x30    /* Integrity and Data Encryption */
+ #define PCI_EXT_CAP_ID_PL_64GT	0x31	/* Physical Layer 64.0 GT/s */
+-#define PCI_EXT_CAP_ID_MAX	PCI_EXT_CAP_ID_PL_64GT
++#define PCI_EXT_CAP_ID_SIOV	0x38	/* Scalable I/O Virtualization */
++#define PCI_EXT_CAP_ID_MAX	PCI_EXT_CAP_ID_SIOV
+ 
+ #define PCI_EXT_CAP_DSN_SIZEOF	12
+ #define PCI_EXT_CAP_MCAST_ENDPOINT_SIZEOF 40
+@@ -1005,6 +1006,15 @@
+ #define  PCI_SRIOV_VFM_AV	0x3	/* Active.Available */
+ #define PCI_EXT_CAP_SRIOV_SIZEOF 0x40
+ 
++/* Scalable I/O Virtualization */
++#define PCI_SIOV_CAP		0x04	/* SIOV Capabilities */
++#define PCI_SIOV_TOTAL_SDI	0x08	/* Total SDIs */
++#define PCI_SIOV_STATUS		0x0B	/* SIOV Status */
++#define PCI_SIOV_STATUS_ENABLED 0x01	/* At least one SDI is enabled */
++#define PCI_SIOV_SDI_OFFSET	0x0C	/* First SDI Offset */
++#define PCI_SIOV_SDI_STRIDE	0x0E	/* SDI Stride */
++#define PCI_EXT_CAP_SIOV_SIZEOF	0x10
++
+ #define PCI_LTR_MAX_SNOOP_LAT	0x4
+ #define PCI_LTR_MAX_NOSNOOP_LAT	0x6
+ #define  PCI_LTR_VALUE_MASK	0x000003ff
 -- 
 2.52.0
 
