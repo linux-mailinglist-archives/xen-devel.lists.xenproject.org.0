@@ -2,57 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ILdNHN6WIWruJQEAu9opvQ
+	id Z6dVGk6bIWpFJwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:16:46 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:35:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D2564153D
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:16:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F4D6417E5
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:35:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=Z6RSvDg+;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=p7igQWnl;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1328162.1592825 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1328183.1592833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9o8-0005Sj-AQ; Thu, 04 Jun 2026 15:16:32 +0000
+	id 1wVA5m-0001pM-TF; Thu, 04 Jun 2026 15:34:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328162.1592825; Thu, 04 Jun 2026 15:16:32 +0000
+Received: by outflank-mailman (output) from mailman id 1328183.1592833; Thu, 04 Jun 2026 15:34:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9o8-0005QM-6r; Thu, 04 Jun 2026 15:16:32 +0000
-Received: by outflank-mailman (input) for mailman id 1328162;
- Thu, 04 Jun 2026 15:16:30 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wV9o5-0005PB-Hz
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:16:30 +0000
+	id 1wVA5m-0001mb-QP; Thu, 04 Jun 2026 15:34:46 +0000
+Received: by outflank-mailman (input) for mailman id 1328183;
+ Thu, 04 Jun 2026 15:32:58 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wVA41-0001lH-MU
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:32:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV9o4-00Abfi-Ub
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:16:28 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wVA40-0029Mz-W4
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:32:57 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e9334fd34000701b@swg.vates.tech>)
- id 6a2196b0-e002-0a2a0a5209dd-0a2a4503a70e-46
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:16:28 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e93441eed000701b@swg.vates.tech>)
+ id 6a219aa2-2eae-0a2a0a5409dd-0a2a4508d140-14
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:32:56 +0200
 Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e9334fd34000701b@swg.vates.tech>)
- id 6a2196cc-672d-0a2a45030019-b9ff1c12b177-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:16:28 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e93441eed000701b@swg.vates.tech>)
+ id 6a219aa8-63b5-0a2a45080019-b9ff1c12ae69-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:32:56 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
  by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19e9334fd34000701b.006 for <xen-devel@lists.xenproject.org>
+ 19e93441eed000701b.006 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Thu, 04 Jun 2026 15:16:23 +0000
-Received: from [192.168.0.158]
- (cpc92322-cmbg19-2-0-cust1759.5-4.cable.virginm.net [86.26.38.224])
- (Authenticated sender: andriy.sultanov)
- by mail2.vates.fr (Postfix) with ESMTPSA id 21F6486F09;
- Thu,  4 Jun 2026 17:16:23 +0200 (CEST)
+ Thu, 04 Jun 2026 15:32:55 +0000
+Received: from [37.26.189.201] (mail2.vates.fr [37.26.189.201])
+ (Authenticated sender: guillaume.thouvenin@835de637.internal)
+ by mail2.vates.fr (Postfix) with ESMTPSA id B16E286E9D;
+ Thu,  4 Jun 2026 17:32:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,175 +64,115 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=meok2LmgGXDlovvPVNiotix9Lf62VF1tzS0Nyj+HvXI=;
+ q=dns/txt; s=selector1; bh=gmMKWYZN6y0dHOpnTpuxaFTG46NwN0zLmynpQTw5JJ4=;
  h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=Z6RSvDg+Hy3nTfoZpwzy3Rt7VRXkgtrSIPk2HASdrB/O0bO+j3HhOA82fUUb7x+cUy4CN+sWF
- QpfD11yFN52z/+4BFzH+rQ2KIrftD0dlfcPkY3Vcu1BUwoZsGMy4iy51PYbdN053oYu7BPrP8vC
- aiqKBH6uMS/75Hb4rYpBc87mWqrIb7fFibbvUoz91cFg8Wft9PDLZ18wgy9+yEOS5Jjmstu7HpX
- 0e1L3j9TywWfyveJSdDW+M3idNP/ktmH99mFKCsheH7yRi8DwjQ9GAhRoR8wOtLQc0Cgd9Tz9vp
- UvlSp8qxjFNLiuVnNqxIcUzKsbNMDr5sHPnsYWyFaH/A==
-X-Zone-Loop: 255deee48cb4ba2c5f341e638fb7b76cf5910d610e85
+ b=p7igQWnlEmFvRN5E1zTHPKGwKPJxKvP45Ra9/P3naNkyr7IXLYAAptTPPXMFcLQ8mWekbAnDG
+ kfinFv8SgmORtfOiyP1e0GOOXIGIuCuyeIcrb1MhmW4UNBuULENUu6znLfWZUCwzkAHqY3JHmTe
+ OY4sL7DA6E+NH/QNODrhhU1zzHHQdO9GMWpRCKbbcXzMez2ogvcEdl374vxEIrVBxSsXn0BI5o/
+ hQP8JAtdw4fYhKBrj/ZvH8ZYWc/C5G5DO+RS7WW2/n0ow/e/zSvOYkDmBrg62ilCx1CTKLZZenL
+ rSNIIeofcEOn8cqWkGDAcdCww+OtYnDQHz1J+LjKDrtA==
+X-Zone-Loop: 40cc344d7873651c4338097d2fa277e43b58eb3f5734
 x-campaign-type: default
-x-transaction-id: b809b82a-0df2-4c2d-bcc8-f43a0d789b1b
-x-swg-uid: 01-85b784c6-cdc5-48ba-89ab-557ca831a6e1
+x-transaction-id: bca2d859-8c40-4a2e-8bc5-a8a7a50a3435
+x-swg-uid: 01-c9f69e16-092e-466e-8226-ad97247c86b6
 X-Mailer: Sweego
 Message-ID:
- <1780586184.8631fc262581453bbf619ec5b2062170.19e9334fd34000701b@vates.tech>
-x-swg-bid: 1780586184.8631fc262581453bbf619ec5b2062170.19e9334fd34000701b
+ <1780587175.8631fc262581453bbf619ec5b2062170.19e93441eed000701b@vates.tech>
+x-swg-bid: 1780587175.8631fc262581453bbf619ec5b2062170.19e93441eed000701b
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
 X-Originating-IP: [37.26.189.201]
-Date: Thu, 4 Jun 2026 16:16:22 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+Date: Thu, 4 Jun 2026 15:32:28 +0000
 Subject: Re: [PATCH] MAINTAINERS: Update Ocaml maintainers
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Guillaume Thouvenin <guillaume.thouvenin@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>,
+In-Reply-To: <20260604151303.2720636-1-andrew.cooper3@citrix.com>
+References: <20260604151303.2720636-1-andrew.cooper3@citrix.com>
+From: Guillaume Thouvenin <guillaume.thouvenin@vates.tech>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Andrii Sultanov
+ <andriy.sultanov@vates.tech>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ Julien Grall <julien@xen.org>, =?ISO-8859-1?Q?Roger_Pau_Monn=E9?=
  <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <20260604151303.2720636-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Andrii Sultanov <andriy.sultanov@vates.tech>
-In-Reply-To: <20260604151303.2720636-1-andrew.cooper3@citrix.com>
+X-Bm-Parsing-Options: encoded-parts
 X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="------------baT20wMkHDqweF7A3hDnYGdt"
+Content-Type: multipart/alternative; boundary="-=Part.1221c.89a0c9d2a71c5e86.19e9343b4ee.d8bd75ef67866f83=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1780586183519
-X-purgate-ID: tlsNG-33051d/1780586188-4066C938-73ED391A/10/73395122804
+X-Bm-Transport-Timestamp: 1780587175196
+X-purgate-ID: tlsNG-c1860d/1780587176-BF370DB1-046DDB2B/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 51421
+X-purgate-size: 53536
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
+X-Spamd-Result: default: False [0.32 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[multipart/alternative,text/plain,multipart/related];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[guillaume.thouvenin@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_MUA_MAILLIST(0.00)[];
 	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:guillaume.thouvenin@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[andriy.sultanov@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,vates.tech,amd.com,suse.com,xen.org,citrix.com,kernel.org,gmail.com];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[vates.tech,amd.com,suse.com,xen.org,citrix.com,kernel.org,gmail.com];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:andriy.sultanov@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andriy.sultanov@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[guillaume.thouvenin@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 85D2564153D
+X-Rspamd-Queue-Id: 88F4D6417E5
 
-This is a multi-part message in MIME format.
---------------baT20wMkHDqweF7A3hDnYGdt
+---=Part.1221c.89a0c9d2a71c5e86.19e9343b4ee.d8bd75ef67866f83=-
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Andrii Sultanov<andriy=2Esultanov@vates=2Etech>
+Acked-by: Guillaume Thouvenin <guillaume=2Ethouvenin@vates=2Etech>
 
-On 6/4/26 16:13, Andrew Cooper wrote:
-> Christian has just left Citrix, and Dave almost a decade ago=2E
->
-> Andrii (a XAPI committer) has worked on oxenstored before and has agreed=
- to
-> step up as a maintainer, and Guillaume wishes to get involved and learn =
-too=2E
-> In practice I do a lot of the bindings work, so lets make things officia=
-l=2E
->
-> Signed-off-by: Andrew Cooper<andrew=2Ecooper3@citrix=2Ecom>
-> ---
-> CC: Andrii Sultanov<andriy=2Esultanov@vates=2Etech>
-> CC: Guillaume Thouvenin<guillaume=2Ethouvenin@vates=2Etech>
-> CC: Anthony PERARD<anthony=2Eperard@vates=2Etech>
-> CC: Michal Orzel<michal=2Eorzel@amd=2Ecom>
-> CC: Jan Beulich<jbeulich@suse=2Ecom>
-> CC: Julien Grall<julien@xen=2Eorg>
-> CC: Roger Pau Monn=C3=A9<roger=2Epau@citrix=2Ecom>
-> CC: Stefano Stabellini<sstabellini@kernel=2Eorg>
-> CC: Oleksii Kurochko<oleksii=2Ekurochko@gmail=2Ecom>
-> ---
->   MAINTAINERS | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 77f72e52f46d=2E=2Eb62ea7c47753 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -453,8 +453,9 @@ F:	xen/arch/arm/include/asm/linflex-uart=2Eh
->   F:	xen/drivers/char/linflex-uart=2Ec
->  =20
->   OCAML TOOLS
-> -M:	Christian Lindig<christian=2Elindig@citrix=2Ecom>
-> -M:	David Scott<dave@recoil=2Eorg>
-> +M:	Andrii Sultanov<andriy=2Esultanov@vates=2Etech>
-> +M:	Andrew Cooper<andrew=2Ecooper3@citrix=2Ecom>
-> +R:	Guillaume Thouvenin<guillaume=2Ethouvenin@vates=2Etech>
->   S:	Supported
->   F:	tools/ocaml/
->  =20
->
-> base-commit: 0b03d963730b4c3df5b4583c054e2cd0d99758c2
 
 -- 
-Andriy Sultanov | Vates XCP-ng Developer
+Guillaume Thouvenin | Vates XCP-ng Developer
 
-XCP-ng & Xen Orchestra - Vat=
-es solutions
+XCP-ng & Xen Orchestra -=
+ Vates solutions
 
 web: https://vates=2Etech
---------------baT20wMkHDqweF7A3hDnYGdt
-Content-Type: multipart/related;
- boundary="-=Part.1e56.a5e15e548b7a6796.19e9334fb5f.59ecbfaaffb2aa64=-"
+Le jeudi 04/06/2026 17:13, Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom> a=
+ =C3=A9crit :
 
----=Part.1e56.a5e15e548b7a6796.19e9334fb5f.59ecbfaaffb2aa64=-
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<!doctype html>
-<html>
- <head>
-  <meta http-equiv=3D"Content-Type" content=
-=3D"text/html; charset=3DUTF-8">
- </head>
- <body>
-  <pre id=3D"b">Acked-by:=
- Andrii Sultanov <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:andriy=
-=2Esultanov@vates=2Etech">&lt;andriy=2Esultanov@vates=2Etech&gt;</a>
-</pre>
-  <div class=3D"moz-cite-prefix">
-   On 6/4/26 16:13, Andrew Cooper=
- wrote:
-   <br>
-  </div>
-  <blockquote type=3D"cite" cite=3D"mid:2026060415=
-1303=2E2720636-1-andrew=2Ecooper3@citrix=2Ecom">
-   <pre wrap=3D"" class=3D=
-"moz-quote-pre">Christian has just left Citrix, and Dave almost a decade ag=
-o=2E
+De : Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom>
+Envoy=C3=A9 le : jeudi 04/06/2026 17:13
+=C3=80 : Xen-devel <xen-devel@lists=2Exenproject=2Eorg>
+Cc : Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom>, Andrii Sultanov <andri=
+y=2Esultanov@vates=2Etech>, Guillaume Thouvenin <guillaume=2Ethouvenin@vate=
+s=2Etech>, Anthony PERARD <anthony=2Eperard@vates=2Etech>, Michal Orzel <mi=
+chal=2Eorzel@amd=2Ecom>, Jan Beulich <jbeulich@suse=2Ecom>, Julien Grall <j=
+ulien@xen=2Eorg>, Roger Pau Monn=C3=A9 <roger=2Epau@citrix=2Ecom>, Stefano =
+Stabellini <sstabellini@kernel=2Eorg>, Oleksii Kurochko <oleksii=2Ekurochko=
+@gmail=2Ecom>
+Objet : [PATCH] MAINTAINERS: Update Ocaml maintainers
+Christian has just left Citrix, and Dave almost a decade ago=2E
 
 Andrii (a XAPI committer) has worked on oxenstored before and has agreed t=
 o
@@ -242,29 +181,17 @@ o=2E
 In practice I do a lot of the bindings work, so lets make things official=
 =2E
 
-Signed-off-by: Andrew Cooper <a class=3D"moz-txt-link-rfc2396E" href=3D"ma=
-ilto:andrew=2Ecooper3@citrix=2Ecom">&lt;andrew=2Ecooper3@citrix=2Ecom&gt;</=
-a>
+Signed-off-by: Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom>
 ---
-CC: Andrii Sultanov <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:andr=
-iy=2Esultanov@vates=2Etech">&lt;andriy=2Esultanov@vates=2Etech&gt;</a>
-CC: Guillaume Thouvenin <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:=
-guillaume=2Ethouvenin@vates=2Etech">&lt;guillaume=2Ethouvenin@vates=2Etech&=
-gt;</a>
-CC: Anthony PERARD <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:antho=
-ny=2Eperard@vates=2Etech">&lt;anthony=2Eperard@vates=2Etech&gt;</a>
-CC: Michal Orzel <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:michal=
-=2Eorzel@amd=2Ecom">&lt;michal=2Eorzel@amd=2Ecom&gt;</a>
-CC: Jan Beulich <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:jbeulich=
-@suse=2Ecom">&lt;jbeulich@suse=2Ecom&gt;</a>
-CC: Julien Grall <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:julien@=
-xen=2Eorg">&lt;julien@xen=2Eorg&gt;</a>
-CC: Roger Pau Monn=C3=A9 <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto=
-:roger=2Epau@citrix=2Ecom">&lt;roger=2Epau@citrix=2Ecom&gt;</a>
-CC: Stefano Stabellini <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:s=
-stabellini@kernel=2Eorg">&lt;sstabellini@kernel=2Eorg&gt;</a>
-CC: Oleksii Kurochko <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:ole=
-ksii=2Ekurochko@gmail=2Ecom">&lt;oleksii=2Ekurochko@gmail=2Ecom&gt;</a>
+CC: Andrii Sultanov <andriy=2Esultanov@vates=2Etech>
+CC: Guillaume Thouvenin <guillaume=2Ethouvenin@vates=2Etech>
+CC: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+CC: Michal Orzel <michal=2Eorzel@amd=2Ecom>
+CC: Jan Beulich <jbeulich@suse=2Ecom>
+CC: Julien Grall <julien@xen=2Eorg>
+CC: Roger Pau Monn=C3=A9 <roger=2Epau@citrix=2Ecom>
+CC: Stefano Stabellini <sstabellini@kernel=2Eorg>
+CC: Oleksii Kurochko <oleksii=2Ekurochko@gmail=2Ecom>
 ---
  MAINTAINERS | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
@@ -277,85 +204,214 @@ index 77f72e52f46d=2E=2Eb62ea7c47753 100644
  F:	xen/drivers/char/linflex-uart=2Ec
 =20
  OCAML TOOLS
--M:	Christian Lindig <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:chr=
-istian=2Elindig@citrix=2Ecom">&lt;christian=2Elindig@citrix=2Ecom&gt;</a>
--M:	David Scott <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:dave@rec=
-oil=2Eorg">&lt;dave@recoil=2Eorg&gt;</a>
-+M:	Andrii Sultanov <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:andr=
-iy=2Esultanov@vates=2Etech">&lt;andriy=2Esultanov@vates=2Etech&gt;</a>
-+M:	Andrew Cooper <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:andrew=
-=2Ecooper3@citrix=2Ecom">&lt;andrew=2Ecooper3@citrix=2Ecom&gt;</a>
-+R:	Guillaume Thouvenin <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:=
-guillaume=2Ethouvenin@vates=2Etech">&lt;guillaume=2Ethouvenin@vates=2Etech&=
-gt;</a>
+-M:	Christian Lindig <christian=2Elindig@citrix=2Ecom>
+-M:	David Scott <dave@recoil=2Eorg>
++M:	Andrii Sultanov <andriy=2Esultanov@vates=2Etech>
++M:	Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom>
++R:	Guillaume Thouvenin <guillaume=2Ethouvenin@vates=2Etech>
  S:	Supported
  F:	tools/ocaml/
 =20
 
 base-commit: 0b03d963730b4c3df5b4583c054e2cd0d99758c2
-</pre>
-  </blockquote>
-  <div class=3D"x-disclaimer-68254132">
-   <div>&nb=
-sp;</div>
-   <div>
+--=20
+2=2E39=2E5
+
+
+
+---=Part.1221c.89a0c9d2a71c5e86.19e9343b4ee.d8bd75ef67866f83=-
+Content-Type: multipart/related;
+ boundary="-=Part.1e69.9986927cd8889097.19e93441d1c.570d6dadc58ac7ee=-"
+
+---=Part.1e69.9986927cd8889097.19e93441d1c.570d6dadc58ac7ee=-
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+ <head></head>
+ <body>
+  <div>
+   <br>
+   <span style=3D"font-family=
+: Montserrat, montserrat, Source Sans, Helvetica Neue, Helvetica, Arial, sa=
+ns-serif; font-size: 10pt; color: rgb(0, 0, 0);">Acked-by: Guillaume Thouve=
+nin &lt;guillaume=2Ethouvenin@vates=2Etech&gt;</span>
+  </div>
+  <div>
+   <=
+br>
+  </div>
+  <div class=3D"x-disclaimer57043178">
+   <div>&nbsp;</div>
+  =
+ <div>
     --
     <br>
     <table>
      <tbody>
       <tr>
-    =
-   <td style=3D"font-size: 10pt;">&nbsp;</td>
-       <td style=3D"font-size=
-: 10pt; padding-left: 20px; border-left-color: #b42626; border-left-style: =
-solid; border-left-width: 1px;">
+       <td style=
+=3D"font-size: 10pt;">&nbsp;</td>
+       <td style=3D"font-size: 10pt; padd=
+ing-left: 20px; border-left-color: #b42626; border-left-style: solid; borde=
+r-left-width: 1px;">
         <div>
-         <strong> Andriy Sul=
-tanov | Vates XCP-ng Developer</strong>
+         <strong> Guillaume Thouvenin | =
+Vates XCP-ng Developer</strong>
         </div>
         <div>
-      =
-   <strong></strong>
+         <stro=
+ng></strong>
         </div>
         <div>
          <div>
-          =
-<strong></strong>
+          <strong>=
+</strong>
          </div>
         </div>
         <div>
-         <st=
-rong>XCP-ng &amp; Xen Orchestra - </strong>Vates solutions
+         <strong>XCP=
+-ng &amp; Xen Orchestra - </strong>Vates solutions
         </div>
- =
-       <div>
+        <=
+div>
          <strong> 
           <br> web: 
-         </strong> htt=
-ps://vates=2Etech
+         </strong> https://vat=
+es=2Etech
         </div>
         <div>
-         <img style=3D"float=
-: left;" src=3D"cid:x-disclaimer-68254132-1780586183519=2Epng@bm-disclaimer=
-" alt=3D"" width=3D"174" height=3D"159">
+         <img style=3D"float: left;"=
+ src=3D"cid:x-disclaimer57043178-1780587175195=2Epng@bm-disclaimer" alt=3D"=
+" width=3D"174" height=3D"159">
         </div>
        </td>
-      =
-</tr>
-     </tbody>
+      </tr>
+   =
+  </tbody>
     </table>
    </div>
   </div>
+  <div>
+   <br>
+  </div>
+  <div =
+class=3D"data-bm-reply-separator collapsed" data-bm-content-name=3D"previou=
+s_message" contenteditable=3D"false">
+   <p>Le jeudi 04/06/2026 17:13, Andr=
+ew Cooper &lt;andrew=2Ecooper3@citrix=2Ecom&gt; a =C3=A9crit :</p>
+   <bloc=
+kquote style=3D"margin-left: 1rem; padding-left: 1rem;">
+    <span style=3D=
+"font-weight: 600;">De &nbsp;: </span>Andrew Cooper &lt;andrew=2Ecooper3@ci=
+trix=2Ecom&gt;
+    <br>
+    <span style=3D"font-weight: 600;">Envoy=C3=A9 l=
+e &nbsp;: </span>jeudi 04/06/2026 17:13
+    <br>
+    <span style=3D"font-we=
+ight: 600;">=C3=80&nbsp;: </span>Xen-devel &lt;xen-devel@lists=2Exenproject=
+=2Eorg&gt;
+    <br>
+    <span style=3D"font-weight: 600;">Cc&nbsp;: </span>=
+Andrew Cooper &lt;andrew=2Ecooper3@citrix=2Ecom&gt;, Andrii Sultanov &lt;an=
+driy=2Esultanov@vates=2Etech&gt;, Guillaume Thouvenin &lt;guillaume=2Ethouv=
+enin@vates=2Etech&gt;, Anthony PERARD &lt;anthony=2Eperard@vates=2Etech&gt;=
+, Michal Orzel &lt;michal=2Eorzel@amd=2Ecom&gt;, Jan Beulich &lt;jbeulich@s=
+use=2Ecom&gt;, Julien Grall &lt;julien@xen=2Eorg&gt;, Roger Pau Monn=C3=A9 =
+&lt;roger=2Epau@citrix=2Ecom&gt;, Stefano Stabellini &lt;sstabellini@kernel=
+=2Eorg&gt;, Oleksii Kurochko &lt;oleksii=2Ekurochko@gmail=2Ecom&gt;
+    <br=
+>
+    <span style=3D"font-weight: 600;">Objet&nbsp;: </span>[PATCH] MAINTAI=
+NERS: Update Ocaml maintainers
+    <br>
+    <br>
+    <pre><div>Christian ha=
+s just left Citrix, and Dave almost a decade ago=2E
+
+Andrii (a XAPI committer) has worked on oxenstored before and has agreed t=
+o
+step up as a maintainer, and Guillaume wishes to get involved and learn to=
+o=2E
+In practice I do a lot of the bindings work, so lets make things official=
+=2E
+
+Signed-off-by: Andrew Cooper &lt;<a href=3D"mailto:andrew=2Ecooper3@citrix=
+=2Ecom" target=3D"_blank" class=3D"linkified">andrew=2Ecooper3@citrix=2Ecom=
+</a>&gt;
+---
+CC: Andrii Sultanov &lt;<a href=3D"mailto:andriy=2Esultanov@vates=2Etech" =
+target=3D"_blank" class=3D"linkified">andriy=2Esultanov@vates=2Etech</a>&gt=
+;
+CC: Guillaume Thouvenin &lt;<a href=3D"mailto:guillaume=2Ethouvenin@vates=
+=2Etech" target=3D"_blank" class=3D"linkified">guillaume=2Ethouvenin@vates=
+=2Etech</a>&gt;
+CC: Anthony PERARD &lt;<a href=3D"mailto:anthony=2Eperard@vates=2Etech" ta=
+rget=3D"_blank" class=3D"linkified">anthony=2Eperard@vates=2Etech</a>&gt;
+CC: Michal Orzel &lt;<a href=3D"mailto:michal=2Eorzel@amd=2Ecom" target=3D=
+"_blank" class=3D"linkified">michal=2Eorzel@amd=2Ecom</a>&gt;
+CC: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse=2Ecom" target=3D"_blan=
+k" class=3D"linkified">jbeulich@suse=2Ecom</a>&gt;
+CC: Julien Grall &lt;<a href=3D"mailto:julien@xen=2Eorg" target=3D"_blank"=
+ class=3D"linkified">julien@xen=2Eorg</a>&gt;
+CC: Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger=2Epau@citrix=2Ecom" t=
+arget=3D"_blank" class=3D"linkified">roger=2Epau@citrix=2Ecom</a>&gt;
+CC: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel=2Eorg" tar=
+get=3D"_blank" class=3D"linkified">sstabellini@kernel=2Eorg</a>&gt;
+CC: Oleksii Kurochko &lt;<a href=3D"mailto:oleksii=2Ekurochko@gmail=2Ecom"=
+ target=3D"_blank" class=3D"linkified">oleksii=2Ekurochko@gmail=2Ecom</a>&g=
+t;
+---
+ MAINTAINERS | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 77f72e52f46d=2E=2Eb62ea7c47753 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -453,8 +453,9 @@ F:	xen/arch/arm/include/asm/linflex-uart=2Eh
+ F:	xen/drivers/char/linflex-uart=2Ec
+
+ OCAML TOOLS
+-M:	Christian Lindig &lt;<a href=3D"mailto:christian=2Elindig@citrix=2Ecom=
+" target=3D"_blank" class=3D"linkified">christian=2Elindig@citrix=2Ecom</a>=
+&gt;
+-M:	David Scott &lt;<a href=3D"mailto:dave@recoil=2Eorg" target=3D"_blank"=
+ class=3D"linkified">dave@recoil=2Eorg</a>&gt;
++M:	Andrii Sultanov &lt;<a href=3D"mailto:andriy=2Esultanov@vates=2Etech" =
+target=3D"_blank" class=3D"linkified">andriy=2Esultanov@vates=2Etech</a>&gt=
+;
++M:	Andrew Cooper &lt;<a href=3D"mailto:andrew=2Ecooper3@citrix=2Ecom" tar=
+get=3D"_blank" class=3D"linkified">andrew=2Ecooper3@citrix=2Ecom</a>&gt;
++R:	Guillaume Thouvenin &lt;<a href=3D"mailto:guillaume=2Ethouvenin@vates=
+=2Etech" target=3D"_blank" class=3D"linkified">guillaume=2Ethouvenin@vates=
+=2Etech</a>&gt;
+ S:	Supported
+ F:	tools/ocaml/
+
+
+base-commit: 0b03d963730b4c3df5b4583c054e2cd0d99758c2
+--
+2=2E39=2E5
+
+</div></pre>
+   </blockquote>
+  </div>
+  <div>
+   <br>
+  </div>
  </body>
-</html>
----=Part.1e56.a5e15e548b7a6796.19e9334fb5f.59ecbfaaffb2aa64=-
+<=
+/html>
+---=Part.1e69.9986927cd8889097.19e93441d1c.570d6dadc58ac7ee=-
 Content-Type: image/png; charset=utf-8;
- name="x-disclaimer-68254132-1780586183519.png"
+ name="x-disclaimer57043178-1780587175195.png"
 Content-Transfer-Encoding: base64
-Content-ID: <x-disclaimer-68254132-1780586183519.png@bm-disclaimer>
+Content-ID: <x-disclaimer57043178-1780587175195.png@bm-disclaimer>
 Content-Disposition: inline;
- filename="x-disclaimer-68254132-1780586183519.png"
-Content-Description: x-disclaimer-68254132-1780586183519.png
+ filename="x-disclaimer57043178-1780587175195.png"
+Content-Description: x-disclaimer57043178-1780587175195.png
 
 iVBORw0KGgoAAAANSUhEUgAAAK4AAACfCAYAAABgKuLmAAAm4XpUWHRSYXcgcHJvZmlsZSB0eXBl
 IGV4aWYAAHjatZxpkmSpcoX/swotgXlYDuBgph1o+foOkVmva2jZa8lU1VWZFRlxL+DuZ3C47c5/
@@ -923,7 +979,8 @@ WKlgjIJSBtZqEHjogIzTsuWejJvc0+VOOzuM3Sq4+qFo3/Gh0REeXrGSsuMjwYMuAB6Umojv+TGX
 HwHuW8Xof8sCKm070pFjYWqlOPS/OjQ68t3HlDmbR1iWLfP/x0DDk0lGwYgCX6AjJE8o7eAQU+oy
 0vJkklEwokpcRuiIwR9yp9wBBiwyY5u0u3MAAAAASUVORK5CYII=
 
----=Part.1e56.a5e15e548b7a6796.19e9334fb5f.59ecbfaaffb2aa64=---
+---=Part.1e69.9986927cd8889097.19e93441d1c.570d6dadc58ac7ee=---
 
---------------baT20wMkHDqweF7A3hDnYGdt--
+---=Part.1221c.89a0c9d2a71c5e86.19e9343b4ee.d8bd75ef67866f83=---
+
 
