@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id jT15DxeKIWrCIQEAu9opvQ
+	id bhK6IDWMIWq3IgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 16:22:15 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 16:31:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D554640CCC
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 16:22:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEF81640E75
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 16:31:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=PKna+1K4;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=joJjcUMl;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1327933.1592617 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1327945.1592627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV8wb-0001M4-Sc; Thu, 04 Jun 2026 14:21:13 +0000
+	id 1wV967-0003WM-Rl; Thu, 04 Jun 2026 14:31:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1327933.1592617; Thu, 04 Jun 2026 14:21:13 +0000
+Received: by outflank-mailman (output) from mailman id 1327945.1592627; Thu, 04 Jun 2026 14:31:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV8wb-0001JQ-Pl; Thu, 04 Jun 2026 14:21:13 +0000
-Received: by outflank-mailman (input) for mailman id 1327933;
- Thu, 04 Jun 2026 14:21:13 +0000
+	id 1wV967-0003TX-OV; Thu, 04 Jun 2026 14:31:03 +0000
+Received: by outflank-mailman (input) for mailman id 1327945;
+ Thu, 04 Jun 2026 14:31:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wV8wa-0001JK-UA
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 14:21:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper@citrix.com>) id 1wV966-0003TP-CL
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 14:31:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV8wa-001lIp-0v
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 16:21:12 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wV965-001muy-Dt
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 16:31:01 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a2189cb-5cb7-0a2a0a5109dd-0a2a450bc5b4-24
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 16:21:11 +0200
-Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a2189d7-212f-0a2a450b0019-d155dd34d14c-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 16:21:11 +0200
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-46019b190b6so617840f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 07:21:11 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f34413csm16365680f8f.21.2026.06.04.07.21.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jun 2026 07:21:10 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a218c17-5cb7-0a2a0a5109dd-0a2a4508821c-24
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 16:31:01 +0200
+Received: from [40.107.200.52]
+ (helo=CH5PR02CU005.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a218c23-63b5-0a2a45080019-286bc8343b72-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 16:31:00 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by PH7PR03MB7161.namprd03.prod.outlook.com (2603:10b6:510:2b7::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
+ 14:30:53 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
+ 14:30:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,280 +63,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780582871; x=1781187671; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FcH4qN9D31BjNUk/uOBK+MmqYSc/pf9UxEHjvzOWjcs=;
-        b=PKna+1K45Qcgg+b3FCvYtb/sZUArlDxfjsyLvSFLH4G30DLYH2R4I1LtfI9oL1faAa
-         cUI03IGNM7FOWtWAAbg0uy8mbK+pU8hNZsPCvd9Y4pihsgQQyl5JB2gOy2WFLc/GkInb
-         VrVRB0gYWIM4tVPI5jlKL3Aw3aXpwx88P1ie5rttepDY25uaGH2Oq3wIpm572Saczzsm
-         b752aBrKaDOpAoRiicBzvu2pORu58GiJwg4FHWbka4+OQYKxLHmAalbPDqQSeuKuahte
-         wt+cvXRozwQEX3GWyz00t1m9KCnndCaspAL6mHwu86xQkjcU+8572WGKpSVnFtAbIbFw
-         /ijg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780582871; x=1781187671;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FcH4qN9D31BjNUk/uOBK+MmqYSc/pf9UxEHjvzOWjcs=;
-        b=RknpMnuQ/j1esaY1ZSKy/CMdzBUvRXP4jDLPRPqnbHBaD3RPgMQqrxZJ4lfg4kLFP0
-         gmcY4ALj1YkFlwfTAez+arPSHWXwWU4ZcraCMNpaKJ/+KaHrh1zwQfhPLtH4wg08tViO
-         fg74y5qvbGyZjWBSK+sOGLMoI7tH1V/NlOn3dS2Abeze3XbXYSzO6qypZKtLKfk726+U
-         hiXY3h4tbe86cr/bRPkL9IJNG+UDMv5Wk1u/iS6jxR3NwLuO7xAEvTtl4AsVsImTZoHJ
-         Qj6HJF8eDlGXaURqkvdclfyfuBlgz6BewbYDM/0VzWxhPXqLZqhYBcuoJ9nU3BWLNzzB
-         6tgQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+9OibzxHS8j/arHS/f747bwshEM/z4StiIYL+poJDbcnWxeOeD7z4AY5QSLhhAtN952Tx4o8izZyk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyG1k0PRda4nzoZERah389hePC3JO3AwH0rNNC10MVAIr6/j3Lu
-	59w42s6SLKzCEoCRGFimWL4tPLjtunivDSnNa7bmVRtQpNUtLMtLsNEL
-X-Gm-Gg: Acq92OGYiFIjMcafNS2EcMIy1qz4vG7XgsQyiXBcnWNzin2cC1BUZvLh5hpfbDvV675
-	HCmfH1d8DFbKg9aSse6arlPDi66BZQDZfLAEFMRQD0LXTkmnKsw6+6Vv/1cxlN9rd6gwqq5/XWj
-	WPveJRremGrBgxnz4CYnDhtJzI7fpk72Yb3HFRaQp9E6ZC9R+q0SfqM/R86gWIAr+eNYBv60VWC
-	bGADp2JOI3j5CHOz9Wne/u3uoyOBZ3TfPNj35AoPqSOZU4a/hE5KzR4yY6JgEUetgRHtZWaagfu
-	/b87XwbCrviaDnQ+MAV+sbxC5m6nc2W6cMTy61tC5AQE/O4TYf+pfOhOMC1AqS7tfMBm0gIh2x6
-	D9xEvmscl2soS1ueVF1R8ptsKE7WiFrGZBAFSDfmyoDqL3kIikwsS8buOMQH+mxLSbRt3E6eGOp
-	NcCL3L8yiN+DG4gVsVLbpIELOBq3zM+A6EkiM2qnsJW+ym6WDFmymCvDyo/3I/rKwOBK+IxYlC9
-	eBz1RvriXrAh7X1
-X-Received: by 2002:adf:ffcb:0:b0:45e:f381:cd8c with SMTP id ffacd0b85a97d-46021959c5bmr9419907f8f.30.1780582871128;
-        Thu, 04 Jun 2026 07:21:11 -0700 (PDT)
-Message-ID: <f4d899ba-8a27-48dd-a724-55557b345647@gmail.com>
-Date: Thu, 4 Jun 2026 16:21:09 +0200
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cKWg/7WK+/nDHQzWkVh8J+0Uyj3kH8Tr7OiCv+AOV7LyoJT9+tsWG+psGiTQf41RReR3KmGNksVy2HJa+r3fFPnERpdo04DyiRT+o3tJ0kmzRyIfKrPx2BQUazpLgEoQ97n5zJJQ7i0EHwyE3DnxprHwTsAEt9L8AoJWRmoP6Fp8vZw6SNgXBVdGbyQOX+2t/zTTDuBCwfg6eGuto1bKtywDsDfijKlexCKIu5gyR6x8YpGEVMuKIzYDB3FWOVEjvRwxxjBd70gY2wbO3nPZkxtZkRB1+6ooooHf9wANkX2T0uc/6zQvuSNZMTcVJI0gRqQi6e6joeMbsx8iokf9DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BphbvABJUryfPhCaykGoNgNi+Q/lBSliHIJosekGqJY=;
+ b=v638Dd35g3Y4iCGhcF9E45nAT8Oajp8LVlQdo0GAofarSUaYKlUCpatLyMjh6PP8oBn0a43qpd18EfqkKul4srOhoeuYm2nuOy54/G9RAE0VzBGnsK+bsQ/nCMAlorN3FNkcNjZr/ZpTrsnC2w/Gi49UrljIEXJ5IOZGpMEGRz9jTYgqwcMA1Ae61huEX4gT+FhN/VYev8TYXVZULuTJK30o3MCUlLH31CQv7Q7xaMI1Db7mVMECTeGwVkxGgRq4adl4dYPBYt0ew2y3Q6TbUoA3RllGCAnt4DwJZ064KON3B1EFTb60qdmVH3//RULVAcG3yzu+J+QVskec5RJcAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BphbvABJUryfPhCaykGoNgNi+Q/lBSliHIJosekGqJY=;
+ b=joJjcUMl4CF7NOR9Ol23RPNPX44a5OFshqDEmns9+C6lvwkxRfUUefXtcG1KYZxlktZmtoJTnWGjx3AY0lEwd4IMJwh+5oCj2AOqLc0J7EwwCmBFwhbJTLGQlzFwOMCaEmzwOOEqThYBgnjr5cQK9Ycr9AyIIXnYPt5x3OKKyzI=
+Message-ID: <9859bb92-d532-4169-9b0d-1d7543491d6c@citrix.com>
+Date: Thu, 4 Jun 2026 15:30:49 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/26] xen/riscv: generate IMSIC DT node for guest
- domains
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <19d30d3c34a6ac9aeb668e1fc56301620b177db0.1778250616.git.oleksii.kurochko@gmail.com>
- <3da2f796-4dc7-408a-9ec9-f0e8bb02b1a9@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3da2f796-4dc7-408a-9ec9-f0e8bb02b1a9@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1780582871-20A7EF3B-11003ED1/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 6086
+ Teddy Astie <teddy.astie@vates.tech>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 3/6] x86/efi: discard .text.header for PE binary
+To: Frediano Ziglio <freddy77@gmail.com>, Jan Beulich <jbeulich@suse.com>
+References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
+ <20260529153531.1341542-4-frediano.ziglio@cloud.com>
+ <35a67929-aaef-4b1f-8370-7dcdf096fbb1@suse.com>
+ <CAHt6W4fXPy9o2VzO-E+PkNv+VA2FcRPTzJzH6gAyqwXuV6ytmg@mail.gmail.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <CAHt6W4fXPy9o2VzO-E+PkNv+VA2FcRPTzJzH6gAyqwXuV6ytmg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PA7P264CA0279.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:373::20) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB7161:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92707fff-6f7a-45d7-6e6d-08dec245e1a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|56012099006|4143699003|3023799007|5023799004|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	aikCUGI73vu5RO/diMHBHAvhW/1GNMD7qu+d5Uo/B5ZTV6c0Ffo4ZcWsHFkpoiQggQHag5FFCCe667RFJgAqqTolmrZSfzjG39KqHDqgEtddsb3QVvfgPWmjNYr674lATuVSAygZnAx2dtz3vEUQdSKf09J3Oker3GPu6USHxG3HuL20+C1Zt79AUFrifcza9tOv3iWDLPHf5beLyratkTLfPZGNH0ivKrYA6EOIYLPXjDoSgKkp7ZkAHkHgl789ItqjuSkg7uDfcgEclkGf+vg28DBYE/5WJf0iyvu99fo3r9Ptu9Vm/OmM7J4HrOM+xmY6YD6RyBTmztUG71cJxKQqDNG5bKwFQrAuMvFpAQrdm15FYP6PesYs1TCe/AyWYNxQW7i6YuRkzkwaPl216vFdtLX8+CZJDiZgiVYBXWgox5zl7gzI8AGfuOMJQH6nVRyDIHHgvH0g6G6OHciqdW0zDJcEESG4sttORLlrve9Cr5Pgw6DTZZwn0qWN+S0wKtCFL6oHQweArRdPL+Izq4yCNdXEUucz6oAVbyVOTlOHiq+U5yt+VgL1lh4MUkTSolg9YCj2ZuPWnpedrHq1L7hKBF1ecZTMQjBB1juOS58Q2pjJQWue8poVVFcbv06cTB67Uq2gdSgRoGa2cI49AZ44CL8//ZU4RaVRUTOmRfCIb92eOoxCUrBuhYxIB/tu
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(56012099006)(4143699003)(3023799007)(5023799004)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OVd3YXFDSlg5enFTVERKdS9wL3VOVXIralZJZVNrRTlSajFETkU2WnZTYkJV?=
+ =?utf-8?B?dDJTL0haam03eTVFdzJjQWN3anNZdnBBcnJzMVRRRW1YaVQ3VUsrTVZkbHBL?=
+ =?utf-8?B?RndITjltUVAxN1lyMUYrQ2lQSmt3dGxISGIvUEtOMVJvb2svSVoxZDFRbHlR?=
+ =?utf-8?B?SE44QnRubzRyN09DRGc5aWJYMndOWVhXRnhxR3U0RWpiK0RLNG13b0V4bGlJ?=
+ =?utf-8?B?RHJvaVJvUFdaNFRQaHBuOTZJOHJCVVFVbmtOaEVqZkpIYThVTWUvelRCcEZ0?=
+ =?utf-8?B?YVMvRHBLazhIenBjcHZnMWxvZHJrWnFzQUhVTmVwVFhBL3g4UkhVUWFvVXFJ?=
+ =?utf-8?B?RldteFBlTnFtUVVIU1RjOXhVYmZ2Q1ZGVlJKV3czWUVyZnYwT2o2NGJabTNm?=
+ =?utf-8?B?ODgxbjhublREQXhCV21JMWlXL3NkSjRHRVdNTUU3elNqNVU1Z09JWjFLaVFT?=
+ =?utf-8?B?Y3FqTTlZQ2d5VFY4ZG4rOFJhTG8zNUVCbW5kWmdFeERPMDZyeCtNTGNwdEY5?=
+ =?utf-8?B?V2h1Z09CdTRIZTNaMDZBTEJ3cGxZZ21KcEtjUVpySEtqa2lKQXN6V1lVRm85?=
+ =?utf-8?B?Nm1KOXMyZVlqL0lJbk1OVENtOFlrbE8xdi9QWVBnWnEreHFCUXd0UlRyZDBw?=
+ =?utf-8?B?TU1pMHVxL040bDNnb1Izdnh1c1d2YVdLc09zam5rL3BQV0dVblhoWDB4Ylk4?=
+ =?utf-8?B?dlZybWRTeEFla1kxNmNlUVJZVFpCREFXRW9ubTR0cjd5VUJPSlVoeTBIaVZk?=
+ =?utf-8?B?QXpwSjRJcC9RWnU1NUFOZHZUZnNKRThxbnBReWpUbU9tS1pkNk9TK1JvWTl2?=
+ =?utf-8?B?eTlmbDRiYlZGbG9BVkk2V24wbU9ONW55aVBnTG9BRGNhNmVFRmp0RXRQYk8z?=
+ =?utf-8?B?bFRFbkY0SFhteVZZQnN3Z1lUZmJZcnFLd2lzellDK2JzTlZxQUpPUndDaVRS?=
+ =?utf-8?B?Y3A3VDg0V0N6S1ZwWGlQN05zQXF3eVNHNzRtOWhKNUJUYWkzd1F6UUdZcEZL?=
+ =?utf-8?B?WXplUHR4N1htd3U4VG1sWkp2Z1E3SXpjZGY5dS9KVjAvSzVPcFhZL3dUaVp2?=
+ =?utf-8?B?N1o5Rk01VVVaeG9PSG43WFk0NVJkb1RuQlVBNE1EdXg3Tkg1UDZRVGg0OGxN?=
+ =?utf-8?B?cXZ4OXZEM1h3MUcrWk91VTFHVzhCblVIbHhzT0lCUmlyV1N4SEN6RjNoajVI?=
+ =?utf-8?B?c0NzTnZGeHljalhweTYrRXZMS2s4VXVzcEQrVXRzLzIxUWxaMjFTcXhoWWNM?=
+ =?utf-8?B?ZHZlMkk1OFY5WkN0ZmNjNmY4N1ZmUFJCSk9tbU1QRUJKY0NmN3JLdnM5RTdE?=
+ =?utf-8?B?aTc2WW8yOFRTVkxmWUpxdXFQMlduOUJ4Lzl3VDBCdG55VWgzNnVBdUFxWXZ2?=
+ =?utf-8?B?NW9vWGQzUEkwek54M3RxRmROYnRxdFE5UEgwQ0d4SmxyYUF6SGMxT3p6dEdz?=
+ =?utf-8?B?OXIvUTBTU1A0QzBSZldYdHJ1aGpjK1pLdEo2MUluQ2MyNGdNaEd3NHlGWGtB?=
+ =?utf-8?B?a0RsRWpJdG5QMW03TzVZNDY5VWdkY0gxNGEzQWRaVnhEOWh5MWtRZ2ZQdEJm?=
+ =?utf-8?B?VkdYSjY4OW8yMHpabkpxdSsyNFo0Y2xOVDduNEFTeVY0eVgzams4WFplZnZM?=
+ =?utf-8?B?bnZkQ1doMldoNGFYR3F5TmhUOTM0ZUtRNEFIUndOY0NxeUJnbGFoQkFwcjdn?=
+ =?utf-8?B?SjI1QW1KVlZvaWJBSGppS0J1RlBGQnZUaTFZOXdwOGxiQzdObC9QN09hYkR0?=
+ =?utf-8?B?OXFXeW9acEIzb2J5ZlpxUmJXUzY3ZUFURWlHYm9nSEdVMHdBWDBOeWFuYW40?=
+ =?utf-8?B?azFPY0F3YW5ub25PZVNhakkyK0RDRzl6L3RFMHFFQ1NPaEpBci9SL0ZRdWVY?=
+ =?utf-8?B?V3VpR1RxTHl3YWIxZEVCYm9ZdFd4WmljUTJZSWhtVEN2UmJJNW9sRjJRNXFa?=
+ =?utf-8?B?Z2xWYWgxbFJzaVI4b2NCVVdqajZ6MS90MVMreTJoNm5MN1RveGp2aWVhK25a?=
+ =?utf-8?B?V1gydUx5RFpRV1NuTzBwWVRNS05hTjF5RHdjREY2bEhYNjk2MmJUTTRub1VP?=
+ =?utf-8?B?anp2ZENFUkZYMGF1MWV2bUNHL2hZZlZLNXBPTEdieHl4KzdyMjFJb2J2R1F3?=
+ =?utf-8?B?SmhGODcybmsyK05tRXkvMERoZXhHc0YyNVJwNU41OXRYbmR2T2NQVWxJdnBl?=
+ =?utf-8?B?OFdxNTVlUkY2L0NJNnB1WHNrYzV6NG5SeThEU3M4cW9VNjNNNnBmLzBEV0N3?=
+ =?utf-8?B?VGhLTm1ycGFJQVhFWjdlTW9SZGVaU0ZwZWlpazFkakNqUTdvWFVRRktCaFR3?=
+ =?utf-8?B?ZUEwcHh6ZDU5a0Jha05pVHV2bjhMbUJBdkhBYkVxSXJTRzFGUFRVbmVhcTVN?=
+ =?utf-8?Q?DzjXcoD4QUvKVaFo=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92707fff-6f7a-45d7-6e6d-08dec245e1a7
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 14:30:52.8520
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PTD7+L46UwhdyJmXm4TIzYT159R4auY8CjdPZhjolO4MaDYjdI76/APBoPsJzU6KwqxMKzbJYul9BhnTguPJOfpdwSyCh3TedHOh6CnIk18=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7161
+X-purgate-ID: tlsNG-c1860d/1780583461-BE169DB1-8F913A40/0/0
+X-purgate-type: clean
+X-purgate-size: 1402
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[microchip.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,m:freddy77@gmail.com,m:jbeulich@suse.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:from_mime,citrix.com:dkim,suse.com:email];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,suse.com];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8D554640CCC
+X-Rspamd-Queue-Id: DEF81640E75
 
-
-
-On 6/3/26 5:21 PM, Jan Beulich wrote:
-> On 08.05.2026 16:43, Oleksii Kurochko wrote:
->> Guests using the IMSIC interrupt controller require a corresponding
->> Device Tree description.
+On 04/06/2026 11:28 am, Frediano Ziglio wrote:
+> On Tue, 2 Jun 2026 at 13:15, Jan Beulich <jbeulich@suse.com> wrote:
+>>> --- a/xen/arch/x86/xen.lds.S
+>>> +++ b/xen/arch/x86/xen.lds.S
+>>> @@ -57,6 +57,9 @@ SECTIONS
+>>>    __image_base__ = .;
+>>>  #else
+>>>    . = __image_base__;
+>>> +  /DISCARD/ : {
+>>> +    *(.text.header)
+>>> +  }
+>>>  #endif
+>> We already have DISCARD_SECTIONS, so I think it needs clarifying why that
+>> can't be used / extended.
 >>
->> Add support for generating an IMSIC node when building the guest DT.
->> This allows guests to discover and use the IMSIC interrupt controller.
->>
->> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Changes in v2:
->>   - s/imsic_make_reg_property/guest_imsic_make_reg_property.
->>   - s/imsic_set_interrupt_extended_prop/guest_imsic_set_interrupt_extended_prop.
->>   - Use initalizer for regs[] array in imsic_make_reg_property().
->>   - Move buf[] insde the for() loop.
->>   - Correct check of returned phandle.
->>   - Drop local variable len.
->>   - /s/XVFREE/xvfree in imsic_set_interrupt_extended_prop().
->>   - Drop initializer for local variable data.
->>   - s/uint32_t/unsinged int for pos and cpu in imsic_set_interrupt_extended_prop().
->>   - Drop next_phandle as it is now in common code.
->>   - Introduce vcpu_imsic_deinit.
->>   - Refactor vimsic_make_domu_dt_node() to avoid usage of host IMSIC dt node.
->> ---
->>   xen/arch/riscv/imsic.c                    | 127 +++++++++++++++++++++-
->>   xen/arch/riscv/include/asm/guest-layout.h |   2 +
->>   2 files changed, 128 insertions(+), 1 deletion(-)
->>
->> diff --git a/xen/arch/riscv/imsic.c b/xen/arch/riscv/imsic.c
->> index ceea6778d9dc..19cbacdf96e1 100644
->> --- a/xen/arch/riscv/imsic.c
->> +++ b/xen/arch/riscv/imsic.c
->> @@ -13,9 +13,12 @@
->>   #include <xen/const.h>
->>   #include <xen/cpumask.h>
->>   #include <xen/device_tree.h>
->> +#include <xen/domain.h>
->>   #include <xen/errno.h>
->> +#include <xen/fdt-domain-build.h>
->>   #include <xen/fdt-kernel.h>
->>   #include <xen/init.h>
->> +#include <xen/libfdt/libfdt.h>
->>   #include <xen/macros.h>
->>   #include <xen/sched.h>
->>   #include <xen/smp.h>
->> @@ -35,6 +38,11 @@ static struct imsic_config imsic_cfg = {
->>       .lock = SPIN_LOCK_UNLOCKED,
->>   };
->>   
->> +static unsigned int __ro_after_init guest_num_msis;
-> 
-> How come this is __ro_after_init, when it's ...
-> 
->> @@ -291,6 +299,11 @@ static int imsic_parse_node(const struct dt_device_node *node,
->>           return -ENOENT;
->>       }
->>   
->> +    if ( dt_property_read_u32(node, "riscv,num-guest-ids", &tmp) )
->> +        guest_num_msis = tmp;
->> +    else
->> +        guest_num_msis = imsic_cfg.nr_ids;
-> 
-> ... written by a non-__init function?
+> Yes, this can be done that way. Roger, do you agree on this ?
 
-__ro_after_init should be dropped. I will use __read_mostly instead.
+You'll need to add a general ARCH_DISCARD_SECTIONS, and have x86 fill in
+{ELF,EFI}_DISCARD_SECTIONS conditionally.
 
-  Plus are you again inheriting a host
-> property into guests without saying why?
+Also you need to fold this hunk.
 
-Based on the discussion for similar place around vAPLIC code in the 
-previous patch I will add here or the comment why or introduce 
-VIMISC_NR_IDS and use it instead.
+diff --git a/docs/hypervisor-guide/x86/how-xen-boots.rst b/docs/hypervisor-guide/x86/how-xen-boots.rst
+index 8b3229005cca..b6d852050a0c 100644
+--- a/docs/hypervisor-guide/x86/how-xen-boots.rst
++++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
+@@ -82,12 +82,6 @@ When a PEI-capable toolchain is found, the objects are linked together and a
+ PE32+ binary is created.  It can be run directly from the EFI shell, and has
+ ``efi_start`` as its entry symbol.
+ 
+-.. note::
+-
+-   xen.efi does contain all MB1/MB2/PVH tags included in the rest of the
+-   build.  However, entry via anything other than the EFI64 protocol is
+-   unsupported, and won't work.
+-
+ 
+ Boot
+ ----
 
-> 
->> @@ -524,8 +537,120 @@ int __init imsic_init(const struct dt_device_node *node)
->>       return rc;
->>   }
->>   
->> +static int __init guest_imsic_make_reg_property(struct domain *d, void *fdt)
-> 
-> Same question again as to __init throughout here.
 
- From Arm code I understood that libxl creates the interrupt controller 
-node in userspace before handing the FDT to Xen so this and related 
-functions won't be called by userspace.
 
-And for dom0's it is a separate *_make_hdwom_dt_node() (took it from Arm 
-code base) which can expose the real hardware MMIO regions to dom0 
-(since dom0 may need direct hardware access - if it isn't strict 
-requirement then the current one way to create node could be re-used).
-
-So if for dom0/hwdom it should be created separate node then we will 
-have similar separate function for IMSIC node here and then it looks 
-fine to keep __init.
-
-> 
->> +{
->> +    paddr_t base_addr = GUEST_IMSIC_S_BASE;
-> 
-> So you make a local variable for a constant, ...
-> 
->> +    __be32 regs[4] = {
->> +        cpu_to_be32(base_addr >> 32),
->> +        cpu_to_be32(base_addr),
->> +        cpu_to_be32((IMSIC_MMIO_PAGE_SZ * d->max_vcpus) >> 32),
->> +        cpu_to_be32(IMSIC_MMIO_PAGE_SZ * d->max_vcpus),
-> 
-> ... but this non-constant expression is spelled out twice.
-
-I will use instead of base_addr GUEST_IMSIC_S_BASE directly and 
-introduce local variable for:
-   paddr_t size = IMSIC_MMIO_PAGE_SZ * d->max_vcpus;
-
-> 
->> +static int __init guest_imsic_set_interrupt_extended_prop(struct domain *d,
->> +                                                          void *fdt)
->> +{
->> +    unsigned int cpu, pos = 0;
->> +    uint32_t phandle;
->> +    uint32_t *irq_ext;
-> 
-> Doesn't this want to be __be32, seeing ...
-> 
->> +    int res;
->> +
->> +    irq_ext = xvzalloc_array(uint32_t, d->max_vcpus * 2);
->> +    if ( !irq_ext )
->> +        return -ENOMEM;
->> +
->> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
->> +    {
->> +        char buf[64];
->> +
->> +        snprintf(buf, sizeof(buf), "/cpus/cpu@%u/interrupt-controller", cpu);
->> +        phandle = fdt_get_phandle(fdt, fdt_path_offset(fdt, buf));
->> +
->> +        if ( !phandle )
->> +        {
->> +            res = -ENODEV;
->> +            goto out;
->> +        }
->> +
->> +        irq_ext[pos++] = cpu_to_be32(phandle);
->> +        irq_ext[pos++] = cpu_to_be32(IRQ_S_EXT);
-> 
-> ... this?
-
-Agree, __be32 should be added for definition of irq_ext.
-
-> 
-> Also, just like "buf", "phandle" can be local to this loop's body.
-> 
->> --- a/xen/arch/riscv/include/asm/guest-layout.h
->> +++ b/xen/arch/riscv/include/asm/guest-layout.h
->> @@ -5,6 +5,8 @@
->>   
->>   #define GUEST_APLIC_S_BASE 0xd000000
->>   
->> +#define GUEST_IMSIC_S_BASE 0x28000000
->> +
->>   #define GUEST_RAM_BANKS   2
-> 
-> Is this going to become an unannotated collection of (seemingly) random
-> numbers?
-
-Could you please clarify what kind of annotation you would expect to see 
-here? It's just an address, which is typically used for IMSIC by QEMU, 
-so I chose the same notation for the guest address as well.
-
-Thanks.
-
-~ Oleksii
+~Andrew
 
