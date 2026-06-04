@@ -2,72 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id aVzZN8XHIWqhNQEAu9opvQ
+	id F6ucFYjIIWrZNQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:45:25 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:48:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B44E642A73
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:45:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4462642AC5
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:48:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=rROKI7EO;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=Ry+31Ekb;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=amd.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1328365.1592870 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1328372.1592879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVD3P-0000G0-2R; Thu, 04 Jun 2026 18:44:31 +0000
+	id 1wVD7H-0000lv-HG; Thu, 04 Jun 2026 18:48:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328365.1592870; Thu, 04 Jun 2026 18:44:31 +0000
+Received: by outflank-mailman (output) from mailman id 1328372.1592879; Thu, 04 Jun 2026 18:48:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVD3O-0000Cz-VG; Thu, 04 Jun 2026 18:44:30 +0000
-Received: by outflank-mailman (input) for mailman id 1328365;
- Thu, 04 Jun 2026 18:44:29 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wVD7H-0000jm-EC; Thu, 04 Jun 2026 18:48:31 +0000
+Received: by outflank-mailman (input) for mailman id 1328372;
+ Thu, 04 Jun 2026 18:48:29 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Jason.Andryuk@amd.com>) id 1wVD3M-0000Ct-Mw
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 18:44:29 +0000
+ (envelope-from <Jason.Andryuk@amd.com>) id 1wVD7F-0000jg-BU
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 18:48:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVD3L-002Ks0-M6
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 20:44:27 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wVD7E-00B034-HM
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 20:48:28 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Jason.Andryuk@amd.com>)
- id 6a21c77a-5cb7-0a2a0a5109dd-0a2a4503d1a4-8
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:44:27 +0200
-Received: from [52.101.53.65]
- (helo=BL0PR03CU003.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a21c86d-e002-0a2a0a5209dd-0a2a4502c088-12
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:48:28 +0200
+Received: from [52.101.46.55]
+ (helo=CO1PR03CU002.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Jason.Andryuk@amd.com>)
- id 6a21c789-672d-0a2a45030019-346535411f70-4
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:44:26 +0200
-Received: from BL1PR13CA0250.namprd13.prod.outlook.com (2603:10b6:208:2ba::15)
- by DM4PR12MB9070.namprd12.prod.outlook.com (2603:10b6:8:bc::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 4 Jun 2026
- 18:44:22 +0000
-Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
- (2603:10b6:208:2ba::4) by BL1PR13CA0250.outlook.office365.com
- (2603:10b6:208:2ba::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Thu, 4
- Jun 2026 18:44:22 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ id 6a21c879-af86-0a2a45020019-34652e375eb0-4
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:48:27 +0200
+Received: from BL0PR0102CA0026.prod.exchangelabs.com (2603:10b6:207:18::39) by
+ CY8PR12MB7097.namprd12.prod.outlook.com (2603:10b6:930:51::17) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 18:44:21 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.92.7; Thu, 4 Jun 2026 18:48:21 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:207:18:cafe::24) by BL0PR0102CA0026.outlook.office365.com
+ (2603:10b6:207:18::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Thu, 4
+ Jun 2026 18:48:19 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Thu, 4 Jun 2026 18:48:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 13:44:21 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 4 Jun
- 2026 13:44:21 -0500
-Received: from fedora.mshome.net (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 4 Jun 2026 13:44:20 -0500
+ 2026 13:48:14 -0500
+Received: from [172.18.181.126] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 4 Jun 2026 13:48:13 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -80,128 +76,117 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kVvT8ekMT9ibvOBKoz8nQ+PQcphqCKgronx00tfgrTduJN0a9qvhringc9RLDF2nf3lF0jaowSDDzFPnWztD+OrYyvPjg8Wz64Q/l+Ug0vna62QcJ1+DgUfc/umabb+o+q3NPSDe1OhjrSyuks8WBqcJ+3bCAAexSZT43haEEUR9iqU+082hnkpOuN1LqbGyJEt2TbyqlM3TBlaDdjL9PUILOCFVcUVxYAu77GKSv1Fh95VheTuGiwbPK0yE6MbBajzLQiZ+Y2R7dr/wla+KGl+vwRKUpEAskj5pYbqskqqB6gcGzpjDEJ1t2JjkakU61bbX2dpE4hP5sPH3sobeuQ==
+ b=D1/inizJKZfeDT/JuF4IBRwupK8o0hXUmlGUC10dlFY+qpz7J7oLyakB23Rd4iz7oE2cIyHpEIdf+AVB5KSeumx/OyuyD6eaO+uhpF7pAudaGuFzYeW2Xi/LiM6yaGqAgSZPqY129wx9MKosvUflDeEBSW/qyZGTjLWk4nNNRGtsYjkDF5UXERKur2EHhd988M+6ivhFvrzn2EpbTOPV1Hk8JnbbN23UolEksBnK0JgBnIxVRhuPiGIZXUkDiQPt7SoxFIA+VwjtY7/BJdieB3C/TDBiGay0u98XzMn9/OjWqDnxeioMfDrCwp3dj69lKQf3vOZww9AX3yNrYxxwFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T05BAHbXJoUUxyLi9HwBzgDewcCQqsV6oDq9ZSW7PyM=;
- b=qDeUS6/5/+eyNMfBRluLh5Zms8N1O2VoKIYCHVIBmVE5wl58elzLz2PdXUx5rp5tDkcOqKSLj2c3QLYqKNDXf2QvtewpJulQ3aRvWd2uF8gJt2S/0dXnAerHEd1t7uhH3TM4w4Njih2HBDtpG9Y/0GHfgtJ+AijzabHzDxIhoS6mERVeh2s6tNCr2HXscUrYewXxc3F76OGWfwZ0/EX82J9V++F4+AFPYILLXnNjLFd37udoUsvhwZ1sBmNfl9BeMIxN/DAisjtSpPS4m9n0DE4ZLfdzid//L7KpjI/PbIl4r0WS0tSWFgqGZ0Rg7ET3RRNfRCuiY+evrrUHN+tcRw==
+ bh=1zFpOqM9+eOSPJDt7W/rGDCzXqRj/mENuJ2i7bDt32c=;
+ b=D2E4/RlzN8SEYHy6WClpHOWX4McYtHskpl8MDi3n0/WrCw32YHByx3VgJgfLE1Y7gluz/gtVZOGJ2QWlX+vD9YwjbwW0RCMjBRtXnn85VzYY6a3Aem9MTXiH81YyldcRQCf8ziqasGKGwNv6uW8ZqUJwCnXaNbtA1YgYDYT5inFdyA7NiVH786n7UCCndYUFQ9aEirnh/aDLCsTC3I1s2MDeS64DzuwXUNVI4bilI9CXclJrqHJ3vK1hgXK2pKKwiGXro6MZQBvxCLKtZfA8NvjdWtrW+YEU8Uh+KJeREhFjLKGOPHrMbUfb0gU9UMMc0xzdoUYOfGhN2ebnFNerTw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ 165.204.84.17) smtp.rcpttodomain=ford.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T05BAHbXJoUUxyLi9HwBzgDewcCQqsV6oDq9ZSW7PyM=;
- b=rROKI7EOhaHElHqj9wX0hoz5GGzMV9w0pVNqDPgNaWHtMw+KiGGbPCFH+8vUx7LwkmIWB67DZOyBn0wkIzDyjFFaJOtw/8Fhmo6nelWa8+7YDPmWETRig8eJZJywD1K8wSWe78QPWSMZYNqqUBRTHj74lWbA8ok7vq8fXKUJJwo=
+ bh=1zFpOqM9+eOSPJDt7W/rGDCzXqRj/mENuJ2i7bDt32c=;
+ b=Ry+31EkbvFOWPjlvDpOr/Nc3/1YaDCxhZ4cdjltshLzp6S8xz8QmY/xcoKoAjjq3JEnzLRsB4fL/ioSYSm6TrImKhmeWQ2ZaPv4r0I5zibmYWvqaH3CjknvJTX3BS8KxRKIaF+7A11ggAV63L7xCU0gwbFnnnPbfKbO1syMaBfY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Christopher Clark <christopher.w.clark@gmail.com>, "Daniel P . Smith"
-	<dpsmith@apertussolutions.com>, Jason Andryuk <jason.andryuk@amd.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH] MAINTAINERS: Add myself as an Argo reviewer
-Date: Thu, 4 Jun 2026 14:44:13 -0400
-Message-ID: <20260604184413.788910-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.54.0
+Message-ID: <c6979a2e-397c-4089-9790-503652a1ac2a@amd.com>
+Date: Thu, 4 Jun 2026 14:48:08 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/6] argo: lower level of noisy connection-refused log
+To: <dmukhin@ford.com>, <xen-devel@lists.xenproject.org>
+CC: <andrew.cooper3@citrix.com>, <anthony.perard@vates.tech>,
+	<jbeulich@suse.com>, <julien@xen.org>, <michal.orzel@amd.com>,
+	<roger.pau@citrix.com>, <sstabellini@kernel.org>, Mykola Kvach
+	<mykola_kvach@epam.com>
+References: <20260603060539.1181809-1-dmukhin@ford.com>
+ <20260603060539.1181809-2-dmukhin@ford.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20260603060539.1181809-2-dmukhin@ford.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|DM4PR12MB9070:EE_
-X-MS-Office365-Filtering-Correlation-Id: de6bda60-f8b1-4b5c-b6b0-08dec2694afd
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|CY8PR12MB7097:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5704f7c1-a30a-4666-2f2b-08dec269d883
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|18002099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|4143699003|56012099006|22082099003|18002099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	oowxnLxBqGkttMllmIbmsHUuz4PnlDnF3WJqMDt1TR8SpBiHi1RSymglbj6RIxKxLA6fKiE4VG0vnv9qjVS0+W8zQae0SJK5AVLM/kC37nu3bNRHiY/zgP44FnCtdAucQkdJoZuGQ3bG69b+1S1Hvo6JkCUeCJbCgHprvk+UGbMDg0MVe3+Yp/ol8uyJe3TpsZ7f5eAiRuQ1CTZFqnJrinZ8Uz663xB65QMsbDhLsn9TAiNcwS+rcLND9nKIMUw6ua6hJEi3loLQtnAMVYCxSkbE4jZVo5jOVZue0hLD7ZuiCoqxDiH30xhhW0wCk4+alQsFT8qyzagejJtbfLBLtKFyoavrH5UbpvJXY6wiMY29Fj/aPGkhkpBzaV9nRproDKjcyBzxg+MTAb2sk7Hfjyw6OXkk/YNL1A+mbTTihBLFbxU3mWElVOMtE1F730yNaAwWAK5E2272spYGtjZ6ptO6+Q5iWq00Ph2QsJ20CG+8if/zGr3fMJjFgHmubqW6emtPNPDcrGK+1a79mxl7/M0l9+8PAIK+MpYbYuHsvykJiDH41V5W4Cvlv4A07MVqFHha1TZefDFJdgABQoq0gYhaA3c2ZfLmrr4ROw5D3/bQXrAVxK/i5E4CimNQ4LV4R3uVddRjbiz/kojC4YZqwB3ytwbcj/BCAvMoT5YYawTw1RiNBpdO2KPpxuW2WXszo/Z0gc1kCW4fMMS6XqbP2260e6uQ7vz0uJzuigc1Drc=
+	jCWLu3I6whzpPl/MrhGb/uHKfbiwULn4j/4RCUFpSFT9EcSxR7IKmYxvfjIBWy6bTOiR0zjPpiPROQoZ7z/vqotZ814TWtSGpEbeaCki+MByGlib2XbuvK2UtXhZzRtnvOIXTsULzeTzuiFdAxqOjKgYLV6BD9TxzfWthv1N27CvAd385bku966fOXSqHh9WVtX+dGjlRhBnnxRyFpftsI6vCK9kJjyVru2zsLmQY8G2GIPY0r1BYa08Dc/FNSceKL6AJsgVoxbfJXjH7ZxOLldqdUTEqEBpVv/1iq8112rHrMnKujnzl7c3FlQp9SayjRXhlCyJ43S95TwxlpSfn7B8m0J1GnhfNhXhcLvnLEhl7pmnTSyQ4XT7fQybuPo3d32zpt/Mzt5ZbVMPYMW6AF/ILG+K8WfsuzKCNRSYd9RYVyNhdNpn2fOX9bMT7cKnhy3+d/QdVLTlVMAtldannEyCgYADaqpJaiEyX151ul3VEXnQ7ZOprc7BnVPuffwhfXBO9RLdmcljyrW9+IvWpg2oO8/V2uYX6cqn4DML1A9qNCW9NA+se7RmZL1HHjvPNsDb6+11oO44WQIFPtjPFXmbjCFeTEpRShY8xvmgvKD2R0CK1Q6w99ik3mIcjl46hNjyml+vX6w20MXClR7cLH3PToZNec3GtZ+9xKrIpzY1LicYN1jywzNt2/XsbSGEpfjp83H7Ivc5yOb26vBB03geJFtItP2RPM4KfhBx774=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(4143699003)(56012099006)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	AcazFXKaTZSTbUAWbwl9R420w4Jwhxp0sqi8pBNSXnX5DYXHbx6pckrQdTlAhfNEshsnNN92TMahbXvMwwmLiDW3dbwEkqp4iaBwIFidsG0X2ed1FVgtQznD20BGzUMC0QGo0ajHODJ8RPKmFTRziWR8R3lMtgolA6tieiCiuyQGPJ7Vmahi9GU70GRrVMSEhsgJaVL1XJerYEshR27QJR0X35CkjJn/N45LY+eRVl1GC30JI1G+52aRICNBIdIay6iNeegfMHgx4CD0tbcWU+4/YnSKlj7g8NZO5aRgmt8YcJy4ccBpLOHUQvAAyniE3LuzY4BYislY3WaCyCdHDTwKrhz7aZIcyQV/Q6Nv10b1KjLlnfo10Qqzjm598QWfvVQUkGumvL93IfVlX40P18OJFaRvSIDmUr0fBgVfkq+DhltJxMzdlEGZd5rJ057m
+	BP2bruDEAtn6G81xSzyHBa4QI1D/sU5EwJGkJXi1rMaGskrwwdqn+GCOycTq5YDiMMCegMeH62C9oE5UxPG3xqkXHFtkcG9PK/SpKVtgWEfB+Wo5aXjX+Zpq4ZfyqctA7K/sKRj2WGN9nkBg71QS0cDTH+3JxDAAyNagRNAw2G0hS8ByAmYpWLU7XEoE73gCYC7vqgoopyBqPCkVYnYamvU7QKspKudn31BPmU+3Ot5KWLyByavgmKl8pczjUkl3HCIAe9efaeWkWYDT2n5GAU9L27/D5uAvYG49lALO6h5v6vA9mLv8E6Rm4X9WXpFG6STnV3/5ypjcY4+BfToj0pafF6vDK4xHbZISRmnjpPZlbww5VQse7TKkQj3sHJRa5OJBKOSm06EHuI+lVr7IhrJbvmprfexkr0B2tTPyQLU4ScwF2WEaDlZkC/KLf4Kl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 18:44:21.8250
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 18:48:19.2574
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: de6bda60-f8b1-4b5c-b6b0-08dec2694afd
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5704f7c1-a30a-4666-2f2b-08dec269d883
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FB.namprd03.prod.outlook.com
+	BL02EPF0001A0FD.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9070
-X-purgate-ID: tlsNG-33051d/1780598667-4279C938-876F7E6A/0/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7097
+X-purgate-ID: tlsNG-720697/1780598908-8276A161-44902D2B/0/0
 X-purgate-type: clean
-X-purgate-size: 551
+X-purgate-size: 595
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,apertussolutions.com,amd.com,citrix.com,vates.tech,suse.com,xen.org,kernel.org];
-	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:christopher.w.clark@gmail.com,m:dpsmith@apertussolutions.com,m:jason.andryuk@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:christopherwclark@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:mykola_kvach@epam.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[amd.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:from_mime,amd.com:email,apertussolutions.com:email]
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:from_mime,amd.com:email,ford.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4B44E642A73
+X-Rspamd-Queue-Id: B4462642AC5
 
-I'd like to help with reviews of Argo.
+On 2026-06-03 02:05, dmukhin@ford.com wrote:
+> Switch the log line to argo_dprintk() so it is enabled only in debug
+> environments, as it can spam the logs when a dom0 service using the Argo
+> hypercall tries to communicate with a domain that is still starting up.
+> 
+> Note that this also lowers the log level to debug when the argo_dprintk()
+> facility is enabled.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> Reviewed-by: Mykola Kvach <mykola_kvach@epam.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 77f72e52f4..b3c33317d9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -242,6 +242,7 @@ F:	xen/arch/x86/include/asm/hvm/svm/
- 
- ARGO
- M:	Christopher Clark <christopher.w.clark@gmail.com>
-+R:	Jason Andryuk <jason.andryuk@amd.com>
- R:	Daniel P. Smith <dpsmith@apertussolutions.com>
- S:	Maintained
- F:	xen/include/public/argo.h
--- 
-2.54.0
-
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
