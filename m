@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id N/DGN/OUIWpTJQEAu9opvQ
+	id HxMHCvGUIWpLJQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:35 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 862D46413DC
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4796413C7
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 17:08:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=PV1D9kLE;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=oUfZtYvK;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1328049.1592768 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1328054.1592778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9gG-0006q3-Q3; Thu, 04 Jun 2026 15:08:24 +0000
+	id 1wV9gH-000755-Vd; Thu, 04 Jun 2026 15:08:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328049.1592768; Thu, 04 Jun 2026 15:08:24 +0000
+Received: by outflank-mailman (output) from mailman id 1328054.1592778; Thu, 04 Jun 2026 15:08:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV9gG-0006XT-54; Thu, 04 Jun 2026 15:08:24 +0000
-Received: by outflank-mailman (input) for mailman id 1328049;
- Thu, 04 Jun 2026 15:02:28 +0000
+	id 1wV9gH-0006ou-68; Thu, 04 Jun 2026 15:08:25 +0000
+Received: by outflank-mailman (input) for mailman id 1328054;
+ Thu, 04 Jun 2026 15:02:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dimitri.daskalakis1@gmail.com>) id 1wV9aW-0004Ef-C4
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:02:28 +0000
+ (envelope-from <dimitri.daskalakis1@gmail.com>) id 1wV9b0-0004G8-Qj
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:02:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV9aV-00226c-Oy
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:02:27 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wV9b0-007lC5-7F
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:02:58 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <dimitri.daskalakis1@gmail.com>)
- id 6a219379-e002-0a2a0a5209dd-0a2a4503ab38-46
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:27 +0200
-Received: from [209.85.210.176] (helo=mail-pf1-f176.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a21939b-bab6-0a2a0a5309dd-0a2a4505d594-24
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:58 +0200
+Received: from [209.85.221.171] (helo=mail-vk1-f171.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <dimitri.daskalakis1@gmail.com>)
- id 6a219382-672d-0a2a45030019-d155d2b0dc37-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:27 +0200
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-8423efad617so455198b3a.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:02:27 -0700 (PDT)
+ id 6a2193a1-aaa8-0a2a45050019-d155ddabe126-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 17:02:58 +0200
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-59c9b666822so552106e0c.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 08:02:57 -0700 (PDT)
 Received: from localhost ([2a03:2880:7ff:51::])
  by smtp.gmail.com with ESMTPSA id
  d2e1a72fcca58-8428291a837sm6331464b3a.60.2026.06.04.08.02.14
@@ -61,39 +61,39 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780585344; x=1781190144; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1780585377; x=1781190177; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
         bh=xRdDzAJ66h/qKzlMtNZ7QYJac4Hlkm37yqxsR8KWCKU=;
-        b=PV1D9kLEVa1a0aZ5/QwKDLXHRYxM18P8DLf9q/TeeQKCwwibt+q/wMwwwWEbJw0bat
-         vKwPWTi1AK4/Rzwu5cIP5aQo7xcnXaAaq0ERsjSRf6ax4boVpIx0Bl8ufQdxNI+BA0og
-         gJ8MnjzB9Ze2+1pGDyUhFG33W84kIgLXZMxZWcPiAaatueeicb9g7awIJydMe9eBQouI
-         altx9v/18q+goRIflDo0ysQUq0zfjUhN448i2/1TqVwCt2LmRFl2So9yQ6OVIg0UsiDw
-         FUoo/UjwcxqHjTpE8XwAT4BPw6x1k6hZoXzkEZyAMzQXHNSkfb+RlzG7vwkw2brd+IQM
-         HK2w==
+        b=oUfZtYvKlpaVeaaEzGPr5Z5k9SglbnrqSdw0ipnhKlBApyFVl2MUGcu2F5K4jSpSug
+         6PEbkxcbUxOE+6DvX23RKjqh0Hx+pOHgBw9fjMpsqHoUw35Cs4/pr4dY9oQMo3iP3AP8
+         9X86AH7aJuAvX2q+BqmNN59e8TFAm7xOeagjaeTq/xTJhgrH9giDLpZFx0xH9CszJUni
+         EJVL5U6GWCpRL7gj3aQYKSmoV+cHZ6qsemX+M3S+nBX2NQGkqNeh3e9lZH4KTf/tHxVc
+         AQHiTpdyUUTr3lma23X/pQqzo5bLKCC3PJGMLlxgMSnKmAylGnh8sX+PBOxIBnV0hX9i
+         EtXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780585344; x=1781190144;
+        d=1e100.net; s=20251104; t=1780585377; x=1781190177;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
         bh=xRdDzAJ66h/qKzlMtNZ7QYJac4Hlkm37yqxsR8KWCKU=;
-        b=ive/sUWcUaMybrBIHF9XC/VwiExML8Mog4xwSVELgbuvc+SZ+WdF6iTnV50m5SN6Vc
-         bGA1Y/cChhmwR5UtjsOuSOOwHU4CcpMl38VMp5+xTib53EgREdz72G1l3OwhscJHL5uH
-         YYTpCC5aegiMlngambGcuIoyN6SQ2nMHaBulXjFK8XsU6IP2c5H1evMDFaMoueu0t9CD
-         30+RuFq9z8ENifl+o0oht1ubJrAfX9x0duCDbesdBNBQGYRO8ZJXwl14rgVw88w4LNU6
-         JzwGQlfqt0LY6vrEbI51A8KfC8C5GafGUzJZZH7wymZ+We8TgHMPwcaW3yc78uk9IXr3
-         q/bw==
-X-Forwarded-Encrypted: i=1; AFNElJ/HHSn0X8KNgML5oIaP9BbFsfvg6ui+Mew63EpMrCrim8SIT7khnT3cRaRRaxJQG8WdJtED0iE8AXU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxg8F7frwd2mPqSjiX3t1fkzwhUrd/7m/3BW5Yt7Nb+GN2ZSBf2
-	e8E3oFP90ljbTKjq6H0Qjki4C7t6eucZn/2tavFqaSPsmf2Y9DiqHkRn
-X-Gm-Gg: Acq92OGn1T8eqKpKFFmcyiHNXVz6nhWNITG0ZJJ7hU2P4/W+lPGaEtMEwWR95dUm8th
-	zPHi/ViM8uIyW4CzCLy47eA0ntqXqzfhbDGEEE/jfWkKqOn23S2EqbqDJ2jPndSDRhgl9KuKZ2H
-	/Tf0ha8VMTUrnNwxY7CeKLp2JqA6WAYXG/89EQ3RNl7A+NV0s2vU8Qjrix4OdEGTAQgjGylqSuv
-	7IoS/k2Ohikqp8wWyCYB6R846sela4/lJ9LvCjahtSlVRnkMfVbIFKRCaY72BO7J0UB0t7MbWAT
-	Ik8/yaulD+mYWLLPGF0LdqtTmbpn3+AlSVPoq7z2ZpGmIZTqT2vhal1/ztXhCMTHgUS+N4wrI1l
-	Zbh6tGsdaRS4wTXdEVx7yeddrW2t39clmJkE7qwEFlMzvNJ4+dlelosKj5OIPaE9fo/gLWGthBv
-	cmQ6He5s66f4Y5mrzCzifULDp8m17YFw1lkCkPu9U3nw+sg7bfkQ==
+        b=UR6FMUYn3QvgLbWfs9cLmIRPM8BihqpFXUJ6k4++iTutVz/25+yhXVvllt7V8bpETR
+         FA8DcN6NNXk41kUwo+jcWaJ6YcfXor9I73xSHjm0OzzDZFJdOhusnRK3T36EONH2v7YE
+         XewBQjLKf3iuYHUTZ8OtySgQj4MJzkNgTiDtvRDs3Fd2xpLZurPMA7veRGHENmTtXzzr
+         MJaN6ehMPjUDfOB+zGmSdHCi+RI4wqnQL+kgf0JgvQuK4O2Hi8p0dOgsHE5LfhfM4MV2
+         4RHISHsfLk+27Wps66QGqhkMUZvsY/BWLYZ2twMyqNPt/2yXAIbHc6XzKPwP1PBXVjsj
+         pOcA==
+X-Forwarded-Encrypted: i=1; AFNElJ+Bj0he9nrjQAT1Zrn9DO8liukS2lS1efS4DacKACjT81dZAqqZWqIOk4wifONAJZoLmyr+Bj+xsik=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywxk0VFkllnSbUAEsyc600O/0xfwQNeM2NQXh9RQNfhyAxiaBqq
+	h8TALIthS4tAp9pq9AHiBG+k2+BgOgJJiCOtm1uhTyixDz3014CI9/p90G2zkg==
+X-Gm-Gg: Acq92OFnAYgCrHmcdAw/51KgRbScroToyS1QlSKIp4+zb/hfByMaB4AvrXtjfvXhOvP
+	UQu1KymD9uHbseKLRj9iV2D/8wH87CNc6yRJpSdjbdxaxz1RNUDoJB/B5+pddOhraWGAnvrzp/1
+	dRAYS2D/BwlmiaG8i8ML0/hffsV3z5Mqx7bQCKuBETdJ6/wG0oxFyclZTGlNRo1Hj9dGe9yDGFE
+	xFlQM1pMENAH0cZTEZNz+arqbbzrRtDdlgSsA6bMTfHJoAP7xX1jpL7SJBj+d9jB4GVGGqb9UaR
+	eqgbYiSpz4r2WFny0GtkbmAj0vAznWiwQEhxMb7zfu7cTyqfMCj/WrgVAB7OjbIHjg4uyXxsyRO
+	VrGYulVPF/EkgJLtTWnGppuZPjvBguAsNVYWuVrzcJQp58meGEdJ6llP7Yh8FoAPEDXDSJipO7D
+	wfMpBemskkxBGKcD3eNK0xv/lR/2pg8euYNeTxcKY=
 X-Received: by 2002:a05:6a00:218e:b0:842:5ad6:2d3 with SMTP id d2e1a72fcca58-84284ef2c41mr8159937b3a.38.1780585335784;
         Thu, 04 Jun 2026 08:02:15 -0700 (PDT)
 From: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
@@ -136,7 +136,7 @@ In-Reply-To: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
 References: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1780585347-3977E938-F3BE14D3/0/0
+X-purgate-ID: tlsNG-c201ff/1780585378-D8F7E443-070AF77C/0/0
 X-purgate-type: clean
 X-purgate-size: 2550
 X-Rspamd-Action: no action
@@ -174,7 +174,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 862D46413DC
+X-Rspamd-Queue-Id: CA4796413C7
 
 From: Dimitri Daskalakis <daskald@meta.com>
 
