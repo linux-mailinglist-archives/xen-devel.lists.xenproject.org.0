@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hE8NLgB2IWpOGwEAu9opvQ
+	id Pd1UGHR8IWoeHQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 14:56:32 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 15:24:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA246401A1
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 14:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD579640496
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 15:24:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=RHhceAU1;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=nGr9nbQn;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1327793.1592534 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1327825.1592546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV7bk-0007m3-3Q; Thu, 04 Jun 2026 12:55:36 +0000
+	id 1wV82p-0004c9-6A; Thu, 04 Jun 2026 13:23:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1327793.1592534; Thu, 04 Jun 2026 12:55:36 +0000
+Received: by outflank-mailman (output) from mailman id 1327825.1592546; Thu, 04 Jun 2026 13:23:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wV7bk-0007kO-0H; Thu, 04 Jun 2026 12:55:36 +0000
-Received: by outflank-mailman (input) for mailman id 1327793;
- Thu, 04 Jun 2026 12:55:34 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wV7bi-0007kI-Ad
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 12:55:34 +0000
+	id 1wV82p-0004ZL-2w; Thu, 04 Jun 2026 13:23:35 +0000
+Received: by outflank-mailman (input) for mailman id 1327825;
+ Thu, 04 Jun 2026 13:23:33 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger.pau@citrix.com>) id 1wV82n-0004ZF-No
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 13:23:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wV7bh-009x3A-DO
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 14:55:33 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wV82n-007TEE-4F
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 15:23:33 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a2175a8-2eae-0a2a0a5409dd-0a2a4504e80e-46
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 14:55:33 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a2175c5-1dec-0a2a45040019-d155802eedd2-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 14:55:33 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490ac357c55so8362025e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 05:55:33 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
- [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490bc3b5b06sm63302045e9.3.2026.06.04.05.55.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 05:55:32 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a217c4c-5cb7-0a2a0a5109dd-0a2a45018746-34
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 15:23:33 +0200
+Received: from [40.107.208.49]
+ (helo=PH0PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a217c53-c1f2-0a2a45010019-286bd031230c-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 15:23:32 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by DM4PR03MB6032.namprd03.prod.outlook.com (2603:10b6:5:393::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 4 Jun 2026
+ 13:23:29 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.007; Thu, 4 Jun 2026
+ 13:23:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,328 +63,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1780577733; x=1781182533; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GOex6cUH76+5UO2A6nOut6BRNcxrNo78P3qFnuIkBHg=;
-        b=RHhceAU1ZMtrmgXVZ0ZkAvhH2bI/DHDAqRI5ZOFQ+XgDcOkkWYhTfuKTg7NsSnOlmY
-         8Lp4/yb3LcHsIBzA+EPXPeAcOHHBFWB4SsLg5WNtGTRbjcXnCDo37dkeQqyYlcg8iTOk
-         6BcovvHYqPjHf4ZLDKDCv+UB56EZvNbg2uUyo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780577733; x=1781182533;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GOex6cUH76+5UO2A6nOut6BRNcxrNo78P3qFnuIkBHg=;
-        b=caMnbOoBLqjr3XYpyPmcY8oaWCRVtKP9mUUpG3MJKtUwSn746Nj1s2U5RMcH5N60QQ
-         4JT3rHqIYUem5FOsTxALv+eimiSRJsux79yjiJ4lzTHHo7WoXwBMr7l4VjT/eQt1ynuV
-         Z6AeeZ21vDYp3cTCvMvzeF+tei7KMjq8eIsUFcuDqe4IkzpbnaDR8G12CKbcikDbDfZb
-         x1ZhUrlwTYp9ZU0V/6KYXmDJNEigk3W1VtbubpIDeLYdc8pK2IY+j8qhtYSDdMwV6ghv
-         VFNKcBrO4my447BbhtIES0v+GTQXlCQHNrBW6MWhlxvk8C9AM35/XgiwJ/pi0C2RLQlq
-         LjOg==
-X-Gm-Message-State: AOJu0YyV/TZcK/TtaTcHBbg+jmMKA01Y6lvwa9PzaHnViRmuJIbkmbJK
-	9JvJomptQiLpWDpJnSJ7l3p+h2UliWoIGZWQiyUSlLbPDrdmeqIUl65d0Pp7TNSrdXzCFEQLXsM
-	f7FEM
-X-Gm-Gg: Acq92OGdbthvXP7ngQYDO1Eqf/KfdFYJJSYzkOht1AbxkIivjoHb0BBcb23rSG2ZWHB
-	qIb7NV3Aj7uvoNAI+bAtfbD7Eb9VIUruf96GRjCXkxXdKMSaJDcqztJB/nwtmEeT8O3kis8pjrO
-	R9TEAtJyihFkw56e3i84MrN16VCM3kjLQ0G5ziVGG59HQA/NV4jh4Sd1E63rRS3SVrQ25GnTmTp
-	tO0WH4f7dLi9H9ZksYOXJtutcyLRSW8DrJ1ricyAtcxRoeI7Ld8vZjPDlmsnMYvs122LPYAEUq+
-	k0/KvjrNIrH+jzD9jvaMHVUb/HT2fD1lrRHSauaznPlCIsuUwRL3agFy06Qc8SjvVY2M0OMFv3q
-	8X4J1rRsz3vi8QdSZiBMDTWLKxiiHKGui9eMxZeS0+Q99fiuQWKlASO7niJGb2jW1qbj/GKK3u4
-	RlEWNKMBJLT7+GWDB5NdcJhECTet8f1xig8SeFFlRa4Dt8fq6POGTAxv1arA+DPhwdrAFUC1I+7
-	BXIhw0GIe9XW/w=
-X-Received: by 2002:a05:600c:4ec6:b0:490:b8e2:6380 with SMTP id 5b1f17b1804b1-490b8e264c9mr116497775e9.12.1780577732485;
-        Thu, 04 Jun 2026 05:55:32 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH] CI: Remove .cirrus.yml now that CirrusCI has shut down
-Date: Thu,  4 Jun 2026 13:55:30 +0100
-Message-Id: <20260604125530.2718761-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RUmLwcSPaDkgQMc1yo45tpmhfZiGnIRutSROe6ow0e3HE8aZj20pn8afFMeJweZTSRtPr9+E+SEFN5lq+WAGxdA+aeGjey9QF3o/N2Quo2l4UAN+wu3lEdCGeLdVHKtKHH9c5pxzqvbcjVXMYg5DHaenl4RH/PUGAHmfwKBI26/S6z+mVs6XjUhl8I8cahFBoP66QGwjm6AGHF2D2wSa6St6nydnMdeQdI7EDLrtNGKRvOCZNi3xaeLIdpcuP9BnpCzMD8cg5+nHTYxXPAUWRuR9mfmWhDz+f2w0/h0LlAYWopz+DicJVjkEGW8zoVaTmOTuOt1ltJXjso7ouOe1XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lj3ABC5OISg7ZNV7TW34OkFC8pBPXFaniSWfi9HmYbo=;
+ b=nofk0IsrTEEljIHaww6RbcvVbKtA1NdgxryoVix7UqAHI3aqJrkHx0VTZYt7oE+D9uE3odL0aOQ66j7wQ2sPexmpjGEDPdjMM8u67RYRAmwNLmrvlalb/4lxlV3JhXeF35LZnANm1F/pSqLL4HWleoXuQj0SF9LEucB4zabLFxhVCfaiOatz9VnTmNJ5chtHXxo+M+JDtAVXCDy/tkieqp6XjyPnj+2G4tRi5juWRHunVWGL1q8XbLjWi0YCCbG4GFqiPtusPZNAUOvo6AvBxcKtSY6U4G645SbXHzbYMnovUBobM2wKAdNYfLpnksPaESeNU6jWp0UjR66aldxrfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lj3ABC5OISg7ZNV7TW34OkFC8pBPXFaniSWfi9HmYbo=;
+ b=nGr9nbQnGhxTib4zIn7TbD6hYDFpKselnMy7kyXsQeBOCtJzRGXQZNusPjbrLDELTGjawfyssKXzqOhbqGRUgcfYXyY5cyu766SgnbcHWsmaQAmxNqzaSeZAdavbOti9r0p8uyu8AXJcLnLWK+nsWT0jyeYiizZAOxGOanPo4D0=
+Date: Thu, 4 Jun 2026 15:23:26 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [PATCH for-4.22 2/2] x86/mcfg: relax memory map checks on newer
+ firmware
+Message-ID: <aiF8TlCNRxuojjP0@macbook.local>
+References: <20260604104605.92516-1-roger.pau@citrix.com>
+ <20260604104605.92516-3-roger.pau@citrix.com>
+ <f72e590e-0e81-4bc4-8097-fe83ab5d945b@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1780577733-28D743FF-7E33B57B/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 6750
+In-Reply-To: <f72e590e-0e81-4bc4-8097-fe83ab5d945b@citrix.com>
+X-ClientProxiedBy: BN9PR03CA0552.namprd03.prod.outlook.com
+ (2603:10b6:408:138::17) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DM4PR03MB6032:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05069a04-b6e0-42ad-8b7a-08dec23c7733
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|6133799003|22082099003|18002099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	x8T1cClHcoF07UnzFSKcsLVmqBky90Jlg96hwGKqsI0tFvNegtvXhO9+xKu9p3c2ar6OTKTEVPun2XqbHC/WeqawmIqunTdOOKYe09pks4+TFzaAq3dT6hWPV+YUGtz7kZPp4XJ2FgRwNYcblYp4uXxVLqNvjkU84VWtU15IAHeb93il8TIQcZo1dE2ni9oUdTyq+6dhfMslOa3qrpc4/IXOLr7IpaJkLq0NUDDVuAwbF07MP+FWVb80OralM71uyZfXjwOsl6WAOTgE2o5l45t5IrhlSUlvIq6fbjwMvzWdS//Xi5Ho3mOVe0CgXlA/KlLkDmjjNtovIcpKoeAeNNxwyc4hxCB7V0K8D/YmjzbO5b3Phld8CBELU6x6FH1UzxxGLd2wCFbT1j1WCeTMd4AS0n8mBZQZ1wZflOu4xOmzltv95MskTvvJUUpCwtaAh4OwlMc2xUBJGuiGix95780AyFTLYcAzcBrNFmqi2Uuu1ivhOZkOnuiZK2DwMVY4XIL+nBK1OotPQWh4epxaoG5KUR5YA7wsRm0L1VCnmOzh8PSlMgKEanZQ8aYW03D9C6akpHkYt3dDQzIpr5Jy5noZdLUBj48t/+8smRICk4LAMrw1LJtADO4gPMLzQych22wOcs4MEF9iydagzDGHhIN91Lx8WYMfSMeQaXN4TcnfPEHxNVS7R6pCBjVlSlVa
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RUVRcEgvdWMwdkxWK2loWDBpTjhLVmgrcmlxdjZJNkF1Rmo5ZXYybmpBL3U5?=
+ =?utf-8?B?eWowQ1RjcGVLNmdXQVIzRUY1MmlBL2RWN25acU9qR0h0aGEyM1NPc1FzVS9N?=
+ =?utf-8?B?QzE2NWdiQk5QZk4vKzlyOXZ0eXphUUVFcHVMK21rMTZaMWo0bTJDckp4NFlw?=
+ =?utf-8?B?aXBBVWFGRE1BTXIyRStwUWxyQ0tsU29BZjROR0l3QzBodEg4SFUwUGJaTGY5?=
+ =?utf-8?B?SkltRzlxTEZrUlhMR1hQc0ZCZ2ROajNlZXl3bmNoWVROZTl6TU04azJGN3dn?=
+ =?utf-8?B?MnF1NlNTakZiM1l0MlJxYmhWejBvVU84UitYTEt5M0prRG5tOVI2WVgyMmZW?=
+ =?utf-8?B?OXlmOWdaQWVzQlJHVEJKV1FJV3JwTFlJYnRHZXhDdFZ1OS9vdWNvTDJrVm9M?=
+ =?utf-8?B?ZUhlUVdsalppWWNvMUpCdHI2VXVOK0VqaTBXM0M3N3RPVndTNWdIaFppNUJp?=
+ =?utf-8?B?bGVhNi8wRnBObXFHRS9iUU0rbkg5anBwTk5ENWEvTlhjenZoS2p4b0QzNkVY?=
+ =?utf-8?B?dWw2L3p4TS9LVnZVb0JRQytXeEN1TXMwMnMvKzVxQm9EZGlVZnpUTzV5bzVy?=
+ =?utf-8?B?R3ZQY0twOUZnZlpGWkZ6eUZpazNYUmZMSDZ1cmRBQlNnTHo5Q1kzUnF0WTF5?=
+ =?utf-8?B?VWtLYmpCWGFIUlUrMFZLMUNsU0FlaUF3Zm1vUEhCNG1DODBnVG1oYnRwV25u?=
+ =?utf-8?B?SFpDMG5wdUh1KzBtT2MzUmZUcWpmdkVPTlA0djZFb0FFNzhVWXd5b0Rzaml1?=
+ =?utf-8?B?MHBQL25NYkVEcG5meVZxWWRReElzYzFqd2llK0JhSTF1NEZEbGVqOFFldk01?=
+ =?utf-8?B?bE9sL1RoUlJ0S0FvUzdMelpxZWFHeEVnZmR4eS9qMkVuVTFjVk5QMjlQTDNM?=
+ =?utf-8?B?NW9kTzlGQTk1aE9VT0xCb09hT2kzQmhhTm1YRHJjOGV5RjkzandJUnRmTzJU?=
+ =?utf-8?B?cms0NjNtK3hxVEozbVBURHBZSFZFY3hkYUozd2JqSVA5RjljVXR4MFRKTW14?=
+ =?utf-8?B?eUM3V1hYVnJWTkpXZjlmVW84UW5OQWdpRVNSWlZkYUdsRGttTVBlNzVhMXhD?=
+ =?utf-8?B?Mmd2TnBZajc5ZytpaFFyVEU1RGNDOVdJN1FrZW0xVW4zbU5lRDZyWjJLS0V0?=
+ =?utf-8?B?Q2JhUW55Z1ZKVTNoSnVxUWVLY0xpSzdnM0ptbkpZZTlTc3pZclFsSFhzOGFO?=
+ =?utf-8?B?ejZ1VGU3eXdaa0pqZ1o4WGVtSXJuc0xmdmY0aDRQSHVaNEpheUg2eDltd21V?=
+ =?utf-8?B?bzFYNEh0M0RLaUo3NFBXVGhHQmxrczIrQi81WWV3Ti8zNlA2SUordGl1Mkds?=
+ =?utf-8?B?SCtpSE9TQktiQ3FBOG05OEpYWkNGdTVraGVBUGhwaHpJaEtJK1owV1RZYmxw?=
+ =?utf-8?B?NE1tRndMRWliV09GUHdKUVFtMFRQMGw3aTRocXhwR2Jzd2JLMXk5a2M5ZmRl?=
+ =?utf-8?B?NHppM3Y0QmcxRUFxSXNlSk01VFVCS3V6ZWlDc1pBVTFMVW1MNHJJa25maGVz?=
+ =?utf-8?B?WjBreDNJbHJyUFpaemMwQjZOSGtCQWdnYzAwajU0RGtzakgxbHpQZFpFVHZn?=
+ =?utf-8?B?ZEdSalFoUXVsaGVMaHYzT0VUeHdEOU1CVFZjYVg5UklOSlBxajB6My8rSG9T?=
+ =?utf-8?B?anZwaW5paFJCZ0FKOHBxU1lYWHJsTm10MkNWam5lRkYzdmxGRTNoTjhoS1lk?=
+ =?utf-8?B?SHdKeFlNWGxNUEZ4KzBKUnQ0Rkx4SSs3V1JKMk1iRzlMUHhSdHp3TFNOZVhE?=
+ =?utf-8?B?M3QzbEI2VU15d1ExTUI2WGE4NHQ4VERGeTQvZVJLWU0wNFo4NXdEWEVVamNX?=
+ =?utf-8?B?MVZtbFdzeUNjVmxneCtXaWlTa01VL1BmaGVqUFVFR1RFSTdQRGhnTFh1c2Jz?=
+ =?utf-8?B?Wm1mTnFURzliQlMyeFlBc29mUUltRnNCWEwxakxqY3hkd0RtYzU0eUJzSkdG?=
+ =?utf-8?B?eXE2Tk9lLy9ISGZ0UjkzMUY1NHZiakZaNGNldElvQXJ6LzZ1K2c4VVNESUFC?=
+ =?utf-8?B?WmxxOGMxbnZGUEMvbnlSZ2F1S2sva3ducXNZaHFjLzdYcWxSUFdnVWpjWDFa?=
+ =?utf-8?B?a2lvRjdRSWdVdDlKUUl5OGl5NlZsRHhXR2xESU1lendBQXY4cXgvMTgyN0hK?=
+ =?utf-8?B?Q1dXaHlKZFZ6b25tbkNnUHM0NVFsa1ZieS9kQWZpeC84U0l6d3NqUHc5NU8v?=
+ =?utf-8?B?YjhVQlczS2JRUDZtTHJqUTBXbTV0Y25TbVRXOTVnVE8vV0lhWFZyRjVqMENj?=
+ =?utf-8?B?S0F4ZFQ1a3MrN2Y5Qk8vVEdYSWxFdHVwbVJ0bGUyQmJ0SkZsOWRlbXRIdEx5?=
+ =?utf-8?B?UlFLTU5nKy95aWpJWEp2ajM0b0JXUVZtcVBNb01haGV6RnJFZThwZz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05069a04-b6e0-42ad-8b7a-08dec23c7733
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 13:23:28.9636
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EC25d7/YmlIHvmbdO/1+AaEiM0m+mXH53kiWlVlrakPjFkGgUmAPahRTw5lMvkA2oQFmSTwQAj0uqm41GZD1dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6032
+X-purgate-ID: tlsNG-d62444/1780579413-AF754FF4-1A025F0D/0/0
+X-purgate-type: clean
+X-purgate-size: 4734
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.31 / 15.00];
+X-Spamd-Result: default: False [-0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,vates.tech,kernel.org,amd.com,cardoe.com,gmail.com];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:roger.pau@citrix.com,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:jbeulich@suse.com,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,suse.com,vates.tech];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0EA246401A1
+X-Rspamd-Queue-Id: AD579640496
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- .cirrus.yml | 212 ----------------------------------------------------
- 1 file changed, 212 deletions(-)
- delete mode 100644 .cirrus.yml
+On Thu, Jun 04, 2026 at 12:08:30PM +0100, Andrew Cooper wrote:
+> On 04/06/2026 11:46 am, Roger Pau Monne wrote:
+> > Per PCI Firmware 3.3 specification, section 4.1.2, ECAM space must be
+> > reserved by declaring a motherboard resource, but there's no requirement to
+> > mention it in E820, so we shouldn't look at E820 to validate the ECAM space
+> > described by MCFG.  The specification additionally states that: the
+> > resources can optionally be returned in Int15 E820h or EFIGetMemoryMap as
+> > reserved memory.
+> 
+> I'd take out the ", so we shouldn't ..." clause.  I see it came from the
+> Linux commit, but it wasn't great there either.  It's a piece of opinion
+> in the middle of quotes from a spec.
+> 
+> Then, I think you want a new paragraph between these two, saying
+> explicitly that some Lenvovo systems do not mark MMCFG in the memory map.
 
-diff --git a/.cirrus.yml b/.cirrus.yml
-deleted file mode 100644
-index 839c25149c9e..000000000000
---- a/.cirrus.yml
-+++ /dev/null
-@@ -1,212 +0,0 @@
--## FreeBSD Build Jobs
--
--# https://cirrus-ci.org/guide/tips-and-tricks/#sharing-configuration-between-tasks
--freebsd_versions: &FREEBSD_VERSIONS
--  env:
--    FREEBSD_LEGACY:     freebsd-13-5
--    FREEBSD_PRODUCTION: freebsd-14-3
--    FREEBSD_CURRENT:    freebsd-15-0-amd64-ufs
--
--# Build jobs
--
--freebsd_template: &FREEBSD_ENV
--  environment:
--    APPEND_LIB: /usr/local/lib
--    APPEND_INCLUDES: /usr/local/include
--    CIRRUS_CLONE_DEPTH: 1
--    CIRRUS_LOG_TIMESTAMP: true
--
--freebsd_template_latest: &FREEBSD_ENV_PRODUCTION
--  << : *FREEBSD_VERSIONS
--  freebsd_instance:
--    image_family: $FREEBSD_PRODUCTION
--  << : *FREEBSD_ENV
--
--freebsd_configure_artifacts: &FREEBSD_CONFIGURE_ARTIFACTS
--  always:
--    rename_script:
--      - cp xen/.config xen-config
--    config_artifacts:
--      path: xen-config
--      type: text/plain
--
--task:
--  name: 'FreeBSD: full build'
--
--  # It's not possible to use the matrix keyword in YAML aliases, as they
--  # keyword usage is restricted to task, docker_builder or pipe.  Attempting to
--  # use a YAML alias with the duplicated keys doesn't work either. Use an env
--  # variable so the version can also be appended to the task alias.
--  << : *FREEBSD_VERSIONS
--  env:
--    matrix:
--      FREEBSD_VERSION: $FREEBSD_LEGACY
--      FREEBSD_VERSION: $FREEBSD_PRODUCTION
--      FREEBSD_VERSION: $FREEBSD_CURRENT
--
--  alias: freebsd_full_$FREEBSD_VERSION
--  freebsd_instance:
--    image_family: $FREEBSD_VERSION
--
--  << : *FREEBSD_ENV
--
--  install_script: pkg install -y seabios gmake ninja bash
--                                 pkgconf bison perl5
--                                 json-c lzo2 pixman argp-standalone
--                                 libxml2 glib git python3 libinotify
--
--  configure_script:
--    - cc --version
--    - ./configure --with-system-seabios=/usr/local/share/seabios/bios.bin
--                  --with-extra-qemuu-configure-args="--extra-ldflags=-L${APPEND_LIB} --extra-cflags=-I${APPEND_INCLUDES}"
--    - gmake -j`sysctl -n hw.ncpu` -C xen clang=y defconfig
--
--  << : *FREEBSD_CONFIGURE_ARTIFACTS
--
--  build_script:
--    - gmake -j`sysctl -n hw.ncpu` clang=y
--
--  xen_artifacts:
--    path: xen/xen
--    type: application/octet-stream
--
--  debug_artifacts:
--    path: xen/xen-syms
--    type: application/octet-stream
--
--task:
--  name: 'FreeBSD: randconfig build'
--
--  # It's not possible to use the matrix keyword in YAML aliases, as they
--  # keyword usage is restricted to task, docker_builder or pipe.  Attempting to
--  # use a YAML alias with the duplicated `image_family` keys doesn't work
--  # either. Abstract the version numbers at least.
--  << : *FREEBSD_VERSIONS
--  freebsd_instance:
--    matrix:
--      image_family: $FREEBSD_LEGACY
--      image_family: $FREEBSD_PRODUCTION
--      image_family: $FREEBSD_CURRENT
--
--  << : *FREEBSD_ENV
--
--  install_script: pkg install -y gmake python3 bison
--
--  configure_script:
--    - cc --version
--    - gmake -j`sysctl -n hw.ncpu` -C xen clang=y \
--            KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
--
--  << : *FREEBSD_CONFIGURE_ARTIFACTS
--
--  build_script:
--    - gmake -j`sysctl -n hw.ncpu` build-xen clang=y
--
--task:
--  name: 'FreeBSD: XTF build'
--  alias: xtf
--
--  << : *FREEBSD_ENV_PRODUCTION
--
--  clone_script:
--    - pkg install -y git
--    - git clone --depth 1 https://xenbits.xen.org/git-http/xtf.git
--
--  install_script: pkg install -y gmake
--
--  build_script:
--    - cd xtf
--    - cc --version
--    - git rev-parse HEAD
--    - gmake -j`sysctl -n hw.ncpu` LLVM=y
--
--  xtf_artifacts:
--    path: xtf/tests/selftest/test-*-selftest
--    type: application/octet-stream
--
--## macOS Build Jobs
--
--task:
--  name: 'macOS: hypervisor build'
--
--  env:
--    matrix:
--      ARCH: x86_64
--      ARCH: aarch64
--
--  alias: macos-$ARCH
--  macos_instance:
--    image: ghcr.io/cirruslabs/macos-runner:sonoma
--
--  environment:
--    CIRRUS_CLONE_DEPTH: 1
--    CIRRUS_LOG_TIMESTAMP: true
--
--  install_script:
--    - brew install $ARCH-elf-gcc $ARCH-elf-binutils
--
--  build_script:
--    - make -j`sysctl -n hw.ncpu`
--           XEN_TARGET_ARCH=`echo $ARCH | sed -e s/aarch64/arm64/`
--           CROSS_COMPILE=$ARCH-elf- HOSTCC=clang -C xen
--
--  xen_artifacts:
--    path: xen/xen
--    type: application/octet-stream
--
--  debug_artifacts:
--    path: xen/xen-syms
--    type: application/octet-stream
--
--## Test Jobs
--
--task:
--  name: 'XTF selftest'
--
--  << : *FREEBSD_ENV_PRODUCTION
--
--  env:
--    matrix:
--      BUILD: freebsd_full_$FREEBSD_LEGACY
--      BUILD: freebsd_full_$FREEBSD_PRODUCTION
--      BUILD: freebsd_full_$FREEBSD_CURRENT
--      BUILD: macos-x86_64
--
--  depends_on:
--    - $BUILD
--    - xtf
--
--  install_script: pkg install -y qemu-nox11 expect
--
--  env:
--    matrix:
--      XTF_ARCH: hvm32
--      XTF_ARCH: hvm32pae
--      XTF_ARCH: hvm32pse
--      XTF_ARCH: hvm64
--      XTF_ARCH: pv64
--
--  fetch_script:
--    - fetch https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/xtf/xtf.zip
--    - fetch https://api.cirrus-ci.com/v1/artifact/build/$CIRRUS_BUILD_ID/$BUILD/xen.zip
--    - unzip xtf.zip
--    - unzip xen.zip
--
--  test_script: |
--    case "$XTF_ARCH" in \
--      *hvm*) \
--        XEN_EXTRA_CMD="dom0=pvh dom0-iommu=none" \
--        ;; \
--    esac
--    export TEST_CMD="qemu-system-x86_64 -kernel xen/xen -initrd xtf/tests/selftest/test-${XTF_ARCH}-selftest \
--                                        -append \"loglvl=all console=com1 noreboot console_timestamps=boot dom0=verbose ${XEN_EXTRA_CMD}\" \
--                                        -m 512 -nographic -monitor none -serial stdio"
--    export TEST_LOG="serial-${FREEBSD_BUILD}-${XTF_ARCH}.txt"
--    export PASSED="Test result: SUCCESS"
--    export TEST_TIMEOUT=120
--    ./automation/scripts/console.exp 2>&1 | sed 's/\r\+$//'
--
--  always:
--    serial_artifacts:
--      path: serial-*.txt
--      type: text/plain
+OK, I will move the last paragraph here then.
 
-base-commit: 0b03d963730b4c3df5b4583c054e2cd0d99758c2
--- 
-2.39.5
+> > The more strict logic was introduced in Linux in 2006 as 946f2ee5c731
+> > ("[PATCH] i386/x86-64: Check that MCFG points to an e820 reserved area").
+> > This was picked up by Xen when MCFG support was added in 3b35911d709e
+> > ("Enable pci mmcfg and ATS for x86_64").  Apply the same approach that
+> > Linux has done in 199f968f1484 ("x86/pci: Skip early E820 check for ECAM
+> > region") and relax the strict reserved region checking so it's only done
+> > for firmware manufactured prior to 2016.
+> >
+> > When dom0 is booted it can always prevent access to misconfigured MCFG
+> > regions by using the PHYSDEVOP_pci_mmcfg_reserved hypercall.  This brings
+> > Xen's early usage of MCFG (prior to ACPI AML parsing) in line with the
+> > implementation in Linux.
+> >
+> > This fixes an issue with detection of extended capabilities when running
+> > Xen on a Lenovo system that doesn't list the MCFG area as an
+> > EfiMemoryMappedIO region in the EFI memory map.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > I'm not sure what's the best way to attribute the logic here with the
+> > Linux commit that introduced this, more than referencing it in the commit
+> > message text.  The code is too different for me to attempt to label this
+> > change as a backport of the original Linux commit.
+> 
+> I think your commit message is adequate.  It does provide all the reasoning.
+> 
+> > ---
+> >  xen/arch/x86/x86_64/mmconfig-shared.c | 12 +++++++++++-
+> >  1 file changed, 11 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/xen/arch/x86/x86_64/mmconfig-shared.c b/xen/arch/x86/x86_64/mmconfig-shared.c
+> > index d0cbc151705d..e24a78c8d1d3 100644
+> > --- a/xen/arch/x86/x86_64/mmconfig-shared.c
+> > +++ b/xen/arch/x86/x86_64/mmconfig-shared.c
+> > @@ -13,6 +13,7 @@
+> >   */
+> >  
+> >  #include <xen/acpi.h>
+> > +#include <xen/dmi.h>
+> >  #include <xen/init.h>
+> >  #include <xen/mm.h>
+> >  #include <xen/param.h>
+> > @@ -369,12 +370,15 @@ static bool __init pci_mmcfg_reject_broken(void)
+> >      typeof(pci_mmcfg_config[0]) *cfg;
+> >      int i;
+> >      bool valid = true;
+> > +    int year;
+> >  
+> >      if ((pci_mmcfg_config_num == 0) ||
+> >          (pci_mmcfg_config == NULL) ||
+> >          (pci_mmcfg_config[0].address == 0))
+> >          return 0;
+> >  
+> > +    dmi_get_date(DMI_BIOS_DATE, &year, NULL, NULL);
+> > +
+> >      for (i = 0; i < pci_mmcfg_config_num; i++) {
+> >          u64 addr, size;
+> >  
+> > @@ -390,7 +394,13 @@ static bool __init pci_mmcfg_reject_broken(void)
+> >                 (unsigned int)cfg->start_bus_number,
+> >                 (unsigned int)cfg->end_bus_number);
+> >  
+> > -        if ( !is_mmconf_reserved(addr, size, i, cfg) ||
+> > +        /*
+> > +         * For firmware from 2016 or later relax the checking and also consider
+> > +         * MCFG regions in holes on the memory map as valid.
+> > +         */
+> > +        if ( ((year < 2016 || !is_memory_hole(maddr_to_mfn(addr),
+> > +                                              maddr_to_mfn(addr + size - 1))) &&
+> > +              !is_mmconf_reserved(addr, size, i, cfg)) ||
+> 
+> This comment is half stale already, as "relax" is really only relevant
+> to the prior behaviour.
+> 
+> "For firmwares prior to 2016, confirm that MMCFG is marked as reserved. 
+> For 2016 and later, also allow MMCFG being in a hole."
+> 
+> It's also worth saying that this fix is different to Linux's.  Linux
+> simply ignores the E820 on anything newer than 2016.  Personally I
+> prefer the more cautious approach of saying reserved-or-hole, but this
+> should be called out in the commit message, I think.
 
+I've adjusted the in-code comment and reworded the commit message to
+notice this divergence with Linux.
+
+Thanks, Roger.
 
