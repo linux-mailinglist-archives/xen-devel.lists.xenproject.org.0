@@ -2,55 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RwcUOBu4IWq4MQEAu9opvQ
+	id Q+kJJRbCIWp8NAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 19:38:35 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:21:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EA3764258C
-	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 19:38:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8DDF6428EF
+	for <lists+xen-devel@lfdr.de>; Thu, 04 Jun 2026 20:21:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=VVmaNpge;
+	dkim=pass header.d=ziepe.ca header.s=google header.b=RIkbs3Jl;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1328323.1592851 (Exim 4.92)
+	dmarc=none
+Received: from list by lists.xenproject.org with outflank-mailman.1328354.1592861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVC0b-0006vq-Py; Thu, 04 Jun 2026 17:37:33 +0000
+	id 1wVCgI-0004lA-5K; Thu, 04 Jun 2026 18:20:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1328323.1592851; Thu, 04 Jun 2026 17:37:33 +0000
+Received: by outflank-mailman (output) from mailman id 1328354.1592861; Thu, 04 Jun 2026 18:20:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVC0b-0006tj-NG; Thu, 04 Jun 2026 17:37:33 +0000
-Received: by outflank-mailman (input) for mailman id 1328323;
- Thu, 04 Jun 2026 17:37:32 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wVCgH-0004iJ-UJ; Thu, 04 Jun 2026 18:20:37 +0000
+Received: by outflank-mailman (input) for mailman id 1328354;
+ Thu, 04 Jun 2026 18:20:35 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wVC0a-0006td-3e
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 17:37:32 +0000
+ (envelope-from <jgg@ziepe.ca>) id 1wVCgF-0004iD-BU
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 18:20:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVC0Z-00AsAf-GU
- for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 19:37:31 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wVCgE-002iDj-OM
+ for xen-devel@lists.xenproject.org; Thu, 04 Jun 2026 20:20:34 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a21b7ce-2eae-0a2a0a5409dd-0a2a4507e370-26
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 19:37:31 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a21b7da-229c-0a2a45070019-d155802ad877-3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 19:37:30 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-490b9318997so7531015e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 10:37:30 -0700 (PDT)
-Received: from ?IPV6:2003:ca:b70d:308e:3155:8a4b:4216:92be?
- (p200300cab70d308e31558a4b421692be.dip0.t-ipconnect.de.
- [2003:ca:b70d:308e:3155:8a4b:4216:92be])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f35eae5sm18347851f8f.33.2026.06.04.10.37.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jun 2026 10:37:29 -0700 (PDT)
+ (envelope-from <jgg@ziepe.ca>)
+ id 6a21c1e1-5cb7-0a2a0a5109dd-0a2a45048300-30
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:20:34 +0200
+Received: from [209.85.222.177] (helo=mail-qk1-f177.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 6a21c1f1-1dec-0a2a45040019-d155deb1ecc3-3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 20:20:34 +0200
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-91563382bcfso124984485a.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jun 2026 11:20:34 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8cecd051d61sm58430626d6.29.2026.06.04.11.20.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 11:20:32 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wVCgB-00000008erz-2jW4;
+ Thu, 04 Jun 2026 15:20:31 -0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,153 +65,142 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780594650; x=1781199450; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MdP50khVa6wThE2mHxlZaqZqL9TAV0Eh8bSJD0Kp4JQ=;
-        b=VVmaNpgeP+zBNrXrd3GXOd5uNOzGz+VqQphQ5KCZQVo5jhdIHfbd70mDgp2cKjiTc7
-         /kkC7q9fLbmsG3+isyU5HUmSdV62x77F6Y8SHq1g77njARRMbQkJueXBnUygR4qKImn5
-         irnQbqh6sU3aApoFak0e+NqaoaeFnE3t3blRr5Cb4Dr+D517ezyG6lITXaofx24ZhOPO
-         Lvl/zpSPpiqHQSyVB9cJfrhGAIzQkaIUaVaG3zMKrO3IDA5MlAO//i+THVa8nt+Psvfr
-         2iomklw89YAfarDxP0A/j5/tW2pZE7XZuGtcqX52AQU3J/Mlac0ICRsO3pMs1g3MAK50
-         c9Ng==
+        d=ziepe.ca; s=google; t=1780597233; x=1781202033; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=cznawapF5vO4PWrDdsZF/fc6qNY58JTcnmMkw1TddjY=;
+        b=RIkbs3JlXWvNKahtggVwuLugifk325yJCv3HC09LzZA7G2nLFk4I/kxKm5npS+I+zn
+         J+8SL686ba6b4NJGKao7HTyxFNpjCmK0xk3re6m/G31RzywpmTmJebtJarARZkG3jJi1
+         jvQ7koo9WfUSfNwHV/6JL2UqTJlXU/OzhpnOfvEBROo0+4b2CZAABgSvum78WXc2D0R8
+         +XdH6iQJcd3UivKroUbrhJOyHghxh8pXQbIoLtfLJy3X9kQJFtECG0ti94RnzZ1lxnEe
+         E1GR8bNcQ4IH82HD8kdrDim6X+xGdXUy1GwY++aNint79PZQaEunH+TyHg+26CPW9dCB
+         UqUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780594650; x=1781199450;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MdP50khVa6wThE2mHxlZaqZqL9TAV0Eh8bSJD0Kp4JQ=;
-        b=mDC763IEzUJFCVih+58EDnCb4seUbHZjmQmRU9UaJKwYt8FuiSixC1Ip2R8MZt8P9I
-         JxouHiyp6a/9LSL8YPgfebXzQNCQMyv4vx0P1RnOnI+h8LEUKzIfVPKJE7hW5U0HRoCu
-         psslXhl869mA0p00w+CU2OoBQo7PbCnEFDTll8dOfBe6y2TEU3/6YOw20qZ7Mi5GLnfF
-         yx+X5Ai8KjbkgXJomzW+cJ8c7pwnRe9KoCbLo4VRLO5JRmh+vQt7L76Gr+he2OaOuEdw
-         CiWFXkrQCBud3OWlojeIe/1EwkgAT2Ja6tQMB/O/ZmOUV641WZiRWdMT0wx2vCek7hyG
-         apNg==
-X-Forwarded-Encrypted: i=1; AFNElJ/p3GcugAT+c7Ahi1LPhm1aJUeLjvv0Ai3FtUQfrcfYbjw1tl0XNVt+5/6P6BjYhf2OZY9Ka+4ybS0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxoxZnpHin6CpY4MEGA51ixZA69BDhNnXAXtGArcB3YHvD3YOz1
-	6pk3jbfusbZeGYC6fWfdALjv1Q87PzmDRwCWP/x3zakwxROTuqXtEyweJhmiVq6XCw==
-X-Gm-Gg: Acq92OH+em/TKPwncttVteo31sQx/UawrOPiKzdD7EcJMMxj1aZrcVfPTko7Kv6R2cS
-	PSZYjy/CzooPLHZvQyRupobWxihnWv3g4rbNE5rOWmSGYL6Dwvzc73UPOlBuJZa/M474CyiKk19
-	SKXFYzagFuXHmcthWR/xsYPtD43WloCIWCo68K7Ueu54jRLx4wWA+c2qrSI5RMHRGX3NmjIGJcf
-	5s1W/ydLJbEsWmv/jDpPFrYu4sqjC38ixdsQ1DESBtAP4miHuRuaPSoU6qRkKu3+q9ve9/tXjrG
-	2cufQFEXerzxwq+l4wKeOPBUn/d0l10trdEMOHOIydkhmT83hDtrlDi7oNomJtbwOT+0oh4KRiQ
-	+bT45po5zKnS56VN9rQa94V9dlwlm6hJMhNFD3OY77TT5noTMpHnvH5YjdwtlOkKs9fyciAfSE1
-	sVxlKvg04ct+Ajv0ZJgBR1bKoiv03qGmxlmYTqitX+TeRUlubW4yVyKMifoo0gUKVY7nFvJ2S/M
-	a0LpOpVjNWjUw5qRdgwlUZI6u1h47+IS7kOUu2f9oFabpOrlZduh2PSOEDuEg1t9Aj5+pM=
-X-Received: by 2002:a05:600c:458b:b0:490:9804:afdc with SMTP id 5b1f17b1804b1-490b5fda3c3mr160175635e9.23.1780594650203;
-        Thu, 04 Jun 2026 10:37:30 -0700 (PDT)
-Message-ID: <34ddb2d2-d3ec-4042-a57c-7095513c099c@suse.com>
-Date: Thu, 4 Jun 2026 19:37:28 +0200
+        d=1e100.net; s=20251104; t=1780597233; x=1781202033;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cznawapF5vO4PWrDdsZF/fc6qNY58JTcnmMkw1TddjY=;
+        b=QB9q2vObIsApwAdc3bsTswKZTnzquR/l6Rmx13blUifcBh/WJM5u+796eh06dzEXBO
+         tfqvyOt9dLFF9O9x3F78pHkkQ6pN0xWEeQsHuTOkN922jyFdwciYK1qdEmQtwEeC0g9Q
+         Qn99NvBtwDGecyco/Gy7QXi1jBV9xHCcYsDow5Q81/aqP6GKEtkwnU+EKG9besnKxh+8
+         krbsu/wEtdG8rGmYtcXxnW5LD0Sc4RXnaLriHwsoVAtOBmvaXA1ET0qnUvbhC4bFnnnm
+         02XElf66RKQAED4pnrK9ppKew4/JeYbUsUT5sKELY6uDqHec/mHXmfpYrr/cgU4Op15S
+         PjCw==
+X-Forwarded-Encrypted: i=1; AFNElJ9Yi8RUANcQOWn5Bx7b1+fcWSKpRhKsy/BVJ+euYYfK2Kb4jvMgsxf7zBIBpg9J7WFqyaGCaOeSRow=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUlKP+TVu7DInCqTMmp8eKlj24EJEqvy2guCKg+2BzjH5LdnRY
+	JDGjnzcmVpwZVT2/ksKOBpqDJbROO2+OO1skTWP5rpAQq/kkg4pIjwQV9Mw+fCmOYAY=
+X-Gm-Gg: Acq92OE267bFDiILvD1VLrVImC0QxQTHQajG42feIxoFuEFoKJf3qJSjcWEYJDx2Mdw
+	GQWUmhbsUPEx6y2XkcHHxAnJmVm+q8zLdNPs3NBt+vwc/s2yq1E+dLMhL77WYKS/nmda9Fk/bb9
+	+jnukd9oocPZXcWtqxGHSX4iaO9kEZHFH+BiH81++eiJphH/FsHCAMB4Nyx40M1tYxnY3hBjETR
+	uWXe1u/N8q09/jvoH6UJIWZgMI5sOBOA674DRSWAR38cLFSJkBb8soigVVfLKK7O8Zaf9ipamv3
+	BuamvBbPSK8LWgsA6VwzG+9DYHQMosIXOM9WAzWt2dgz7Y+uACDAtiM+8LWknsZRqqpa8akhy1f
+	v6+WlVpNSSNYDAgh0hp/3PzfhiuaIAFui2c0nyjfqOiH/OnAi1cI2NvF8WiEjGiMG/2HLOllLvh
+	aR+TVQrBEO5KTW4qJPung1/jnADNert7YHf+RuGuBDJIpty+s3gPyNh+OgpVMKYeg5PJkk4Xw/J
+	HRQgW6LYq54f0eX
+X-Received: by 2002:a05:620a:a414:20b0:914:afc1:c66d with SMTP id af79cd13be357-915a9c75c96mr40356185a.11.1780597232897;
+        Thu, 04 Jun 2026 11:20:32 -0700 (PDT)
+Date: Thu, 4 Jun 2026 15:20:31 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Oliver O'Halloran <oohall@gmail.com>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Dimitri Daskalakis <daskald@meta.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
+	kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [RFC 00/12] PCI: Add support for Scalable I/O Virtualization
+Message-ID: <20260604182031.GB2487554@ziepe.ca>
+References: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] argo: introduce CONFIG_ARGO_DEBUG
-To: dmukhin@ford.com
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-References: <20260603194131.1468654-1-dmukhin@ford.com>
- <20260603194131.1468654-6-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260603194131.1468654-6-dmukhin@ford.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1780594651-23F7EC48-A832AA0C/0/0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604150153.3619662-1-dimitri.daskalakis1@gmail.com>
+X-purgate-ID: tlsNG-ebf023/1780597234-411763FF-FF99618F/0/0
 X-purgate-type: clean
-X-purgate-size: 1039
+X-purgate-size: 1273
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[ziepe.ca:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dimitri.daskalakis1@gmail.com,m:bhelgaas@google.com,m:linux-pci@vger.kernel.org,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:mahesh@linux.ibm.com,m:oohall@gmail.com,m:schnelle@linux.ibm.com,m:gerald.schaefer@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:alex@shazbot.org,m:kevin.tian@intel.com,m:ankita@nvidia.com,m:leon@kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:kbusch@kernel.org,m:alexanderduyck@fb.com,m:kuba@kernel.org,m:daskald@meta.com,m:linuxppc-dev@lists.ozlabs.org,m:linux-s390@vger.kernel.org,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:dimitridaskalakis1@gmail.com,s:lists@lfdr.de];
+	DMARC_NA(0.00)[ziepe.ca];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jgg@ziepe.ca,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[31];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_CC(0.00)[google.com,vger.kernel.org,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,shazbot.org,intel.com,nvidia.com,suse.com,epam.com,fb.com,meta.com,lists.ozlabs.org,lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jgg@ziepe.ca,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[ziepe.ca:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3EA3764258C
+X-Rspamd-Queue-Id: E8DDF6428EF
 
-On 03.06.2026 21:41, dmukhin@ford.com wrote:
-> Add Kconfig knob to enable traces for Argo debugging.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v4:
-> - fixed dependency on a new Kconfig knob on ARGO
-> 
-> Changes since v3:
-> - dropped uneeded "If unsure, say N." from new Kconfig description
-> ---
->  xen/common/Kconfig | 6 ++++++
->  xen/common/argo.c  | 3 +--
->  2 files changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 5ff71480eebe..7676a78dca71 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -491,6 +491,12 @@ config ARGO
->  
->  	  If unsure, say N.
->  
-> +config ARGO_DEBUG
-> +	bool "Argo: enable debug traces (UNSUPPORTED)" if ARGO
+On Thu, Jun 04, 2026 at 08:01:41AM -0700, Dimitri Daskalakis wrote:
+> With this patchset core enumarates the SIOV capability and can identify
+> SIOV PFs. But there is no central mechanism to allocate/manage SIOV VFs.
+> To support device pass through, devices will need to add a vfio-mdev
+> driver with IOMMUFD support (or something similar).
 
-Why is the "if ARGO" still there? That's fully redundant with ...
+There is an enormous amount of missing work to do something useful
+with the SIOVr2 stuff. IIRC there is even supposed to be BIOS
+components in this plan and there are some missing PCI SIG topics too
+IIRC.
 
-> +	depends on ARGO
+So, I'm not sure how much value there is in merging just the cap
+discovery without a roadmap for the missing parts..
 
-... this. I said the v4 issue could be fixed while committing. Now you've
-posted another version (adding to overall mail volume) and an adjustment
-still needs doing.
+Also, I'm quite surprised to see this out of the blue, there is an OCP
+workstream that was building out a standard that outlines how all the
+different components have to act to successfully implement it.  What
+is in PCI SIG was just some minor foundational adjustments without any
+context on how to form them into a solution.
 
-Jan
+I think it is extremely premature to merge anything related to SIOV to
+the kernel. Join the OCP work stream if you are interested. I think
+the general feeling was there is not sufficient interest in the
+industry to do this and it has gone quiet.
+
+Jason
 
