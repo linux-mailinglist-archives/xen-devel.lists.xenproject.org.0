@@ -2,50 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id NDtyMgfDImp0dQEAu9opvQ
+	id sd/DNW3gImrOegEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 14:37:27 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 16:42:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 688036483A1
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 14:37:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1AC9648EFC
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 16:42:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=YEmTZWq3;
+	dkim=pass header.d=citrix.com header.s=google header.b=lEbEqnhH;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1329452.1593582 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com
+Received: from list by lists.xenproject.org with outflank-mailman.1329553.1593607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVTna-0003PK-Ot; Fri, 05 Jun 2026 12:37:18 +0000
+	id 1wVVka-0000OS-BA; Fri, 05 Jun 2026 14:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1329452.1593582; Fri, 05 Jun 2026 12:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 1329553.1593607; Fri, 05 Jun 2026 14:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVTna-0003MW-Lb; Fri, 05 Jun 2026 12:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 1329452;
- Fri, 05 Jun 2026 12:37:16 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wVVka-0000LN-88; Fri, 05 Jun 2026 14:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 1329553;
+ Fri, 05 Jun 2026 14:42:19 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <tglx@kernel.org>) id 1wVTnY-0003MG-Uc
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 12:37:16 +0000
+ (envelope-from <andrew.cooper3@citrix.com>) id 1wVVkZ-0000LD-15
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 14:42:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVTnW-009rQn-Ky
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 14:37:14 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wVVkY-007rPg-11
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 16:42:18 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <tglx@kernel.org>)
- id 6a22c2de-5cb7-0a2a0a5109dd-0a2a450b9c38-42
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 14:37:14 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <tglx@kernel.org>)
- id 6a22c2f9-212f-0a2a450b0019-ac6904fecc5e-3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 14:37:14 +0200
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 529DF601F5;
- Fri,  5 Jun 2026 12:37:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17B0B1F00893;
- Fri,  5 Jun 2026 12:37:11 +0000 (UTC)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a22e03a-5cb7-0a2a0a5109dd-0a2a4505b646-28
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 16:42:17 +0200
+Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a22e049-aaa8-0a2a45050019-d155dd2eede9-3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 16:42:17 +0200
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-45eeba68948so1318226f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 07:42:17 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
+ [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f3444fesm27983183f8f.20.2026.06.05.07.42.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jun 2026 07:42:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,98 +60,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780663032;
-	bh=5W6FiCPw6sX6Mb9wMs7Y8uennTDZr6e1xX3L0BW5MJY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=YEmTZWq3dmUMH12jc/DFu/P4OzcULMgWKzk+y8GZ2rhlb8n7qhyCDBCHw3xHKlFm9
-	 KVFiUJuI8WqYf4gVlg0KIfDVESYWvU9coOvSXxaaEpQGfqw86+RrMazwrYVG7phoWz
-	 8ULdotuRnveudrTehApXe/p3rsX97IhOHfDklWPuNSP8QP7jgjeqf9ReklwS9qgISR
-	 s6UYCikKByY1nzH3/pR4dS8lA5/wXlDQiziSmJdE2KUBdAvlGGUFeSOJ/pgA9SUGOA
-	 QKppWOWpDZWGMhV4kceQk+T/u8V6Uy/xLJZAj2+XZUEShBrRSDpJ+Eq5uMTH3UgVmT
-	 lWqJi0DUTsDgQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Kiryl Shutsemau <kas@kernel.org>, Sean Christopherson <seanjc@google.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
- <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
- <decui@microsoft.com>, Long Li <longli@microsoft.com>, Ajay Kaher
- <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Jan Kiszka <jan.kiszka@siemens.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, John Stultz
- <jstultz@google.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Rick Edgecombe
- <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, linux-hyperv@vger.kernel.org,
- virtualization@lists.linux.dev, xen-devel@lists.xenproject.org, David
- Woodhouse <dwmw@amazon.co.uk>, Tom Lendacky <thomas.lendacky@amd.com>,
- Nikunj A Dadhania <nikunj@amd.com>, David Woodhouse <dwmw2@infradead.org>,
- Michael Kelley <mhklinux@outlook.com>
-Subject: Re: [PATCH v4 02/47] x86/tsc: Add a standalone helpers for getting
- TSC info from CPUID.0x15
-In-Reply-To: <20260529144435.704127-3-seanjc@google.com>
-References: <20260529144435.704127-1-seanjc@google.com>
- <20260529144435.704127-3-seanjc@google.com>
-Date: Fri, 05 Jun 2026 14:37:09 +0200
-Message-ID: <87cxy55fka.ffs@fw13>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1780670537; x=1781275337; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=h5vYZ/rkpgKfFpxFCKmaZZBwe24StYh9tUaWXPqFAVM=;
+        b=lEbEqnhHhFFb+jWS1E09Q8U3bvIYkbGM0JGdIjNrkv7vl0fWiAztI/dLhKyv22CkT4
+         J0UbZEArfyl+rAgXcskgtWayzaco2E2Knxqy5wz01AdzWruNSM6RnwKy8uxvWEmI4oYP
+         uVQ2hTiWnNeUTF9pSXRi9v3SNY8zVAV2uea4U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780670537; x=1781275337;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h5vYZ/rkpgKfFpxFCKmaZZBwe24StYh9tUaWXPqFAVM=;
+        b=FP9ev5zjNL8DjuXD8OeJKWNd4nv1zEYypMwtkK39QJ/1ucunkPo2ctweqCCX5r6cbN
+         UnFTAK/g2AZzf6NR+4O3CY35ZCcbSH5PGPepBtDYf08Hs3YN+4vCbZC4Iqj7VUcbghfb
+         BfNOXoBguALGXWglu294QS3F/IXmcWVlN0XYckvTJbsiDWcOPO478B2oAdoN08czGRlq
+         Axtq65/lsibkBeFNaDbp/KJ3B4J8nOCeox8PnyLYfrJXBbB7DJXzpKkdZ9xETgieknm3
+         E44mGi48eq0MJ3KCxVr5A1A74WSYkCW4nDWNWfDn7Ln/aJZjnrJLGMLg25VhXLEbEkOv
+         oXhg==
+X-Gm-Message-State: AOJu0YzDOpdfx2n71oMc0+9YxFyXDzZG0zBjWxWhDgQW3yUT1HESIOti
+	lU2ZEl6ZRnunuct8mnqcZ+kwCSGCV8K/+mj3/iQXl+JlcAdFwbUHtc0pUSDkCvDz2jDl/ZCxGdn
+	JuN5k
+X-Gm-Gg: Acq92OHLqEtDBR7a2jEjRUIpjaHEU2qY7SIk4f6Hvmvql2RbetxEgL7AXBf0Oe/QkpT
+	yt4ChQJzG7Yfr4tyZH3qw/hf4CE0WR9XlgYAG1yk5LKMQcNaVjoBg9Gif9kzpNcHTceXFnVT/QW
+	qo2cyrgd9kcTSHVk+dnP0qCjZu1i+Wx1R1oOVaCOL6K8y0na9Q/PhbMhJBrJ3XIVeio+x/gLbXu
+	vTdGf7EnXOuQVjx9V28msfSmFp/MmITj65IoRwz8bKcB0eMjVtSOfr6jMJgpvMs9tIqwVsnvz2q
+	Ft5sqHqHcdcc3mjNz+1KKxohSanSpgN3HZ+UDC3bVE6SPpwPS1L8EuOm8Hrn66rPXm1t8RCMN+u
+	Ac1yrxnHTVOz3XajCxpVdzlcZtS40nTkY+PnZK5f+EfNr5J5z/YI1IzPWYJhDBpq4+PmM7Dk4qQ
+	sb3drde6ZaGGXM9qDZtCijLQ9CxuX+opw+J52TaURmEjZm5lgwYS08D6A9PA1Q2k0nsaeYilKEh
+	W2OUgBlYJznAjY=
+X-Received: by 2002:a05:6000:468e:b0:460:2477:2284 with SMTP id ffacd0b85a97d-46030630b07mr4204560f8f.39.1780670536811;
+        Fri, 05 Jun 2026 07:42:16 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.22 0/6] CI: Update distros for build tests
+Date: Fri,  5 Jun 2026 15:42:07 +0100
+Message-Id: <20260605144213.2749656-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain
-X-purgate-ID: tlsNG-42698a/1780663034-22D77F3B-0CF458A2/0/0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-c201ff/1780670537-D9772443-3F6BB843/0/0
 X-purgate-type: clean
-X-purgate-size: 362
+X-purgate-size: 1518
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.31 / 15.00];
+X-Spamd-Result: default: False [1.32 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_MISSING_CHARSET(0.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FREEMAIL_CC(0.00)[zytor.com,intel.com,redhat.com,broadcom.com,oracle.com,kernel.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org,amazon.co.uk,amd.com,infradead.org,outlook.com];
-	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,vates.tech,kernel.org,amd.com,cardoe.com,suse.com,gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[tglx@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:pbonzini@redhat.com,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:kas@kernel.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:jstultz@google.com,m:hpa@zytor.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:kvm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:dwmw@amazon.co.uk,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:dwmw2@infradead.org,m:mhklinux@outlook.com,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[fw13:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tglx@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:jgross@suse.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 688036483A1
+X-Rspamd-Queue-Id: B1AC9648EFC
 
-On Fri, May 29 2026 at 07:43, Sean Christopherson wrote:
->  		cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx, &ecx, &edx);
-> -		crystal_khz = eax_base_mhz * 1000 *
-> -			eax_denominator / ebx_numerator;
-> +		info.crystal_khz = eax_base_mhz * 1000 *
-> +			info.denominator / info.numerator;
+Refresh which distros we do build testing with
 
-Please get rid of this ugly line break. You have 100 characters.
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2579549654
+
+Andrew Cooper (6):
+  CI: Drop test-artefacts/Makefile
+  CI: Swap ocaml-nox for ocaml in newer Debian/Ubuntu
+  CI: Drop Ubuntu 16.04
+  CI: Add Ubuntu 26.04
+  CI: Update Fedora to 43
+  CI: Update Opensuse 15.6 to 16.0
+
+ automation/build/debian/12-arm64v8.dockerfile |  2 +-
+ automation/build/debian/12-x86_32.dockerfile  |  2 +-
+ automation/build/debian/12-x86_64.dockerfile  |  2 +-
+ automation/build/debian/13-arm64v8.dockerfile |  2 +-
+ automation/build/debian/13-x86_32.dockerfile  |  2 +-
+ automation/build/debian/13-x86_64.dockerfile  |  2 +-
+ ...x86_64.dockerfile => 43-x86_64.dockerfile} |  4 +-
+ ...dockerfile => leap-16.0-x86_64.dockerfile} | 16 ++----
+ .../build/ubuntu/22.04-x86_64.dockerfile      |  2 +-
+ .../build/ubuntu/24.04-x86_64.dockerfile      |  2 +-
+ ..._64.dockerfile => 26.04-x86_64.dockerfile} | 15 ++++-
+ automation/gitlab-ci/build.yaml               | 57 ++++++++++---------
+ automation/tests-artifacts/Makefile           | 19 -------
+ 13 files changed, 59 insertions(+), 68 deletions(-)
+ rename automation/build/fedora/{41-x86_64.dockerfile => 43-x86_64.dockerfile} (95%)
+ rename automation/build/opensuse/{leap-15.6-x86_64.dockerfile => leap-16.0-x86_64.dockerfile} (84%)
+ rename automation/build/ubuntu/{16.04-x86_64.dockerfile => 26.04-x86_64.dockerfile} (81%)
+ delete mode 100644 automation/tests-artifacts/Makefile
+
+-- 
+2.39.5
 
 
