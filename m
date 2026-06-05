@@ -2,53 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ZbcPHgWHImrnZgEAu9opvQ
+	id vwunH42HImr7ZgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 10:21:25 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 10:23:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7EBB64658D
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 10:21:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8C86465C4
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 10:23:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=emVikud8;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=WXZ+EhFK;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1329184.1593391 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1329194.1593400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVPnR-0003iz-KZ; Fri, 05 Jun 2026 08:20:53 +0000
+	id 1wVPq0-0004Qv-4I; Fri, 05 Jun 2026 08:23:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1329184.1593391; Fri, 05 Jun 2026 08:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 1329194.1593400; Fri, 05 Jun 2026 08:23:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVPnR-0003gB-H0; Fri, 05 Jun 2026 08:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 1329184;
- Fri, 05 Jun 2026 08:20:52 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wVPq0-0004Ov-1P; Fri, 05 Jun 2026 08:23:32 +0000
+Received: by outflank-mailman (input) for mailman id 1329194;
+ Fri, 05 Jun 2026 08:23:30 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wVPnP-0003g5-Vx
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 08:20:52 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wVPpy-0004Op-LH
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 08:23:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVPnP-00D87V-5W
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 10:20:51 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wVPpy-003zIc-1e
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 10:23:30 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2286d1-e002-0a2a0a5209dd-0a2a4509e5d8-48
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 10:20:51 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2286e2-2497-0a2a45090019-d155802ef00e-3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 10:20:51 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490af320e2aso18921805e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 01:20:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f0a43e9sm23684624f8f.0.2026.06.05.01.20.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jun 2026 01:20:49 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a22877e-e002-0a2a0a5209dd-0a2a4507a53a-16
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 10:23:29 +0200
+Received: from [209.85.208.173] (helo=mail-lj1-f173.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a228781-229c-0a2a45070019-d155d0ade454-3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 10:23:29 +0200
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-396770cdcfdso16808521fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 01:23:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,238 +56,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+ARC-Seal: i=1; a=rsa-sha256; t=1780647809; cv=none;
+        d=google.com; s=arc-20240605;
+        b=gFYJsy/vWxt3K7J0q48JGLvkf9D0hfDWx6eRGDESQcijqp9k8XKKs7zEjXCmJd065h
+         ZN9fDS4Nz/3Sot61Isn8lYEES31+XrZI1+85oRy0BamwaxcRCm8hvivGjy0Qph2SdgYh
+         EJ5Ou7k6tCQzWelCfwm1g5OHz9SU+ieoy6yyqDxQbHtYxzHyXvlThSGHHJv4iWZcyjTf
+         YF2eArTuIrusuhqoQfGhTAjHdfNt3Z++Wxa4/zA5sfV3rigpTH8eZ7v/bgx0Pp4fgl3o
+         igaTGPXZF00wxTwR0JVQEVzjbsIVO8t7X5MvTd4WTdOtMUVm9WkHUbBy6egJJ1dXFRFW
+         zpmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tMDJNO+H26meIgoJlkClBW7xpC2Ar2hog1WpEgzBnsg=;
+        fh=Y5QS2FhfJ5DVfRnDS0fbDMy8TA07saVqHmV0gu+ovF0=;
+        b=bg2Bwyhspz0uzx1Qnx0utIf+sP7q8bCZVgwbM8ap4p5LCLJfz9da0S60cLKEFqjhiz
+         ggaQZvQtMt0BTQ608kHFl+TyhJEj4cE0GXk3F89+xYTdOyYdTjA7wC8dtHpbNQJbCFbv
+         rxE47O2XHnbnzm7yfr96a0bOjFXECyrXTXHhjxRVmMxE/HEqg+wyCr7RejagqWZia20v
+         GrIwYoyOrcqUZnELFt611Rhv6EEDEfcKy2ctYH5H+uBXsKL9lDdgEIaK181NM7DXOnl2
+         t9F8OIi8lIDKXrwYXmqPL4dFyCsqAmFsVS4NZDjZu7k058KmpL32nlgVNn6MQp5/BsNY
+         eNLw==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780647650; x=1781252450; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M9IpzdkwkHfJE5qDuN0Vfq+eW0x5cRaS0RwCFOoxuPE=;
-        b=emVikud85IVfOvI/upcBZnmToUcM+QBK4K7uk8NkyUI+u0y9kK8qUyRmu57PgSdtGu
-         HdKyZdvd+Wyn+XKEyQfXFDj0NisXeM1dCfIUSB2TtAOLAHy5jGyVkLxGNaQxds15qsih
-         73A5gLdArq4T0zrgMRWrzZxRT/tGhr+IKZX15xMnpIFReK6kFUd9SIc97zMpL/xLASXc
-         DDB1dorSohWiMv8tDnSVkvC78UZur5uqb0uGvfK6UExjVz5EijEeuQrCe9u0HSY+rj0+
-         WslWwzJXXE414QaRouxHeH/cXijd/SZOormo++O7i1LF2ukg/ym1Pwr7gSkvC6YN3BEK
-         SynA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780647650; x=1781252450;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780647809; x=1781252609; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=M9IpzdkwkHfJE5qDuN0Vfq+eW0x5cRaS0RwCFOoxuPE=;
-        b=axd7GidbubWNBc2BEv5XxKDK+AAp8GUihGpybXTR0XFF9u+fhW/gFJ6eZnpo2coHJI
-         Mvf5mwQ2kxdY/MTtH12H/pWGMnfLyQuWMX9f79WT+IAPQt1NI4evHhzvjxZ6Uox/gmLG
-         iTc1Co0zHShNgabDhaCbrmqa1OM5ppXDDADvjmAwPW+vaZ0AyFmVCraBrXWBOcWCrAPv
-         L7QdSlodrgtlWCt17Ke0kYiI1ay+ZFMzd6XzacyAar+9BZJV4pi9XrQrRcVLSLaCDJfD
-         XgwQOA2Uso4WFRck67pVTRIJJ5lqoiAf26+c6BhUnBfp3VfazIX87jqbwlIk3vnFZ33f
-         kNcA==
-X-Forwarded-Encrypted: i=1; AFNElJ+YpFi1tcrKQQQIhfX2XtkZAxlgLErhm8c+qC8cRFjaBbBBiWfQr3spVfrdvC2Ltk0R0l/ZoAIyS4w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz7VEYOA6Z/GLVMlHRISiBf0JY3GsICRUEdq6Vtq9YeBrTfPr9X
-	M2EDIfSr8OFkMOyYGnSXN8u/H5nDDMaMm0sU6Bt4ESX9MonnReuyANkZCc8xRetbcg==
-X-Gm-Gg: Acq92OFmb1jwxvRwjZSzOm0Nbmx3pDHeutiYCILm2yaSFelIdiRaCut4Z/FOe3zA14B
-	/lSUbEfNzZ/D12aYbSHwD3QZMGrRKe5q/IjEnVbo+aV29W94rZzLE45omnwyaH6f/DIBICVX2kc
-	FpW/y+y7gZ9tnNNwKcZRjZkp1AAueyZmvyYKA+T109UrbGAHrfDGBvx270b1hozM4SnnzPdmso7
-	ASpdi9kgU5WlIMOw591bKGjajCVvEG+Te18Z3dkfmnX/S/jWj+wYcu7gy7RtcTpvBHYwQ+wTmJ9
-	Nta/f5MhfzfKl2Hp4ciYxOe57HzlYduJHquwZ+2Uxr9EXSZr6z5gWW9NFM18MuGNJOc7mJtEqvx
-	dyHJkHRw7K/Zzmaw4xKNERWkNt+geTKHXPQr8PXEc1OrIG8Pt/7ApybCytLnEEEjO7MQv6v0MkV
-	NHZc1+IPMUJOrxfRs7Dn8rNHxmpCg4y/TQGallRckvsQpeYuWac/quYGRodhE1PCIV3nPHesB1b
-	pe3G6XStbycMJABoKpKIDAW3zIn8eFnCp5i
-X-Received: by 2002:a05:600c:83c3:b0:48f:d612:3c59 with SMTP id 5b1f17b1804b1-490c25a21a9mr40291635e9.9.1780647650394;
-        Fri, 05 Jun 2026 01:20:50 -0700 (PDT)
-Message-ID: <f4d1b7a0-2e5e-4a63-ae82-f765d2743334@suse.com>
-Date: Fri, 5 Jun 2026 10:20:50 +0200
+        bh=tMDJNO+H26meIgoJlkClBW7xpC2Ar2hog1WpEgzBnsg=;
+        b=WXZ+EhFKd2KTxRo70Y/zhGMlDkCOW07HrKqm3JY8ms0VUrFpeYecP//VUMc9fowIRe
+         qveLNpiLqGjz/kd9qccqrUED58ZMWPkS02C0+sYELElT+vFFyXHnWZ5SZ7J+rihIk6CW
+         VWW7wl4vJzaA/at4MJH+vzVBYa7b2GCaO0Qj4rTP0U9SrkoZK2tZ4IVGmfMvxqRBPIw4
+         k+KTxnEm5H3248yke2jvKOx9jdvo3YVO1dPDEpj6B/nyvz3fBqIPQ22ZhNXxvBK0GhSu
+         tIh40oQrV46g3C07i2TKBkDETvRYTFLDUvzLZ/4DOElnrEibi/+nFw0var1AyNt13zN0
+         GkTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780647809; x=1781252609;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tMDJNO+H26meIgoJlkClBW7xpC2Ar2hog1WpEgzBnsg=;
+        b=EWHK37wwFtKXJNXTf+JG5N4LUL0didUtcyKSh3vVII45CHXx06EYoQwMmyu6cR/Con
+         As+PFINrkAVYBCBhBNCV3SlQ/mScC+7zhYZ9xCdPZ5TrlQusZDm22e9c1m/V59FboX9u
+         Kp3XroSIaRczCVR3OQzY/rQsWh3XFVD0bLGQhVpFMAr/RjlW6pub6n84r8kmlJf+INzm
+         2c5ASKv9MoAN8xIBDjWM7BSEzSwHIqgO//xrc7fv0+ehUjiIQGZhSKNPwMxFFDtbbhf6
+         viQjNBhOa5tPJq5TV9wDekxNJstjFX/oZhB0bo/dZdCYZhqlWM5UXdOs2B+/TrqyxHCl
+         wgEw==
+X-Gm-Message-State: AOJu0Ywp6B572Xile1dEbMdVqM12in7OXG9UalHXZKdrzHszKwP7OzDX
+	C65cuTvZFFq57ue5F3z7dw/N2ukf1x8nM3/fuJsXesbnm1dfL/VvwhmJItzokBUHcJqnL+GJD/E
+	PduAxZiVKLb2RGscqG4wxvUIfIcAMBpo=
+X-Gm-Gg: Acq92OFBk6yF+JC1g5f7qmbQ2KH9LEWk/xi7x+zfQ6lKeDG7c8dHDKIR9XEcwNeYGET
+	IiCavuQg9lEZed18cvh8vdVAc9dAv4ECDZ1nzDsFhHcl0VPudoQYqdAvJO8NuROJ/PLEddyCW23
+	DV+CnwkTXx5jgemahE5CM97WkvsDazdnj0avhSDwmc3Nw7nhAVo2jxPEs3Oyd5Sj0fmyjaAGvCt
+	WuRGNHEYFJjXJZxBu03nrjQ+LJBHfb8JhqSdOj21dmgFJGFU+hKXts1Lk8KSKaESqAqeIprwQil
+	g23DJB7yG0rz98ez
+X-Received: by 2002:a05:6512:3347:b0:5a8:9f6f:3212 with SMTP id
+ 2adb3069b0e04-5aa87b88f32mr737887e87.34.1780647808680; Fri, 05 Jun 2026
+ 01:23:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vPCI: resolve MISRA R10.1 boolean arithmetic type
- violation
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e23266191a366abe66d8104783d97578aa8734a4.1779428826.git.dmytro_prokopchuk1@epam.com>
- <984c91b8-3d2c-4431-bdf1-4a333ac341d1@suse.com>
- <alpine.DEB.2.22.394.2605261508390.182011@ubuntu-linux-20-04-desktop>
- <62abdafd-a49c-46e0-b529-0646a8d2425a@suse.com>
- <alpine.DEB.2.22.394.2606021840110.550703@ubuntu-linux-20-04-desktop>
- <b443469b-01fe-4196-a79f-811bfb6e17d8@suse.com>
- <aiAj7duOGUAkbB05@macbook.local>
- <616db16e-3c3e-4000-b6ea-d2703f5a848b@suse.com>
- <alpine.DEB.2.22.394.2606031341070.1200252@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2606031341070.1200252@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1780647651-88F71A53-401C4413/0/0
+References: <cover.1780602987.git.mykola_kvach@epam.com> <11537d2b05a6c36d4ba0d852efadeba91d9f6225.1780602987.git.mykola_kvach@epam.com>
+ <a026d572-f0f7-4797-819a-ff3490ba14c8@amd.com>
+In-Reply-To: <a026d572-f0f7-4797-819a-ff3490ba14c8@amd.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Fri, 5 Jun 2026 11:23:17 +0300
+X-Gm-Features: AVHnY4KEUDUVtnkdurNARgnu0aRXt7TBlFVmL0kJYtvvJtgIAWDc80WW-3-r35M
+Message-ID: <CAGeoDV_oHtY9VPN13UHwRtPd36LruAv740=op6iYXgPah8DBeA@mail.gmail.com>
+Subject: Re: [PATCH for-4.22 v2 1/2] xen/arm: split DTB/initrd placement helpers
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-ef75cf/1780647809-20F66C48-891C9F1E/0/0
 X-purgate-type: clean
-X-purgate-size: 5431
+X-purgate-size: 6640
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,epam.com,kernel.org,xen.org,arm.com,gmail.com];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:from_mime,suse.com:dkim];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:roger.pau@citrix.com,m:dmytro_prokopchuk1@epam.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C7EBB64658D
+X-Rspamd-Queue-Id: DD8C86465C4
 
-On 03.06.2026 22:43, Stefano Stabellini wrote:
-> On Wed, 3 Jun 2026, Jan Beulich wrote:
->> On 03.06.2026 14:54, Roger Pau Monné wrote:
->>> On Wed, Jun 03, 2026 at 08:04:25AM +0200, Jan Beulich wrote:
->>>> On 03.06.2026 03:41, Stefano Stabellini wrote:
->>>>> On Tue, 2 Jun 2026, Jan Beulich wrote:
->>>>>> On 27.05.2026 00:12, Stefano Stabellini wrote:
->>>>>>> On Fri, 22 May 2026, Jan Beulich wrote:
->>>>>>>> (extending Cc list)
->>>>>>>>
->>>>>>>> On 22.05.2026 08:13, Dmytro Prokopchuk1 wrote:
->>>>>>>>> --- a/xen/drivers/vpci/header.c
->>>>>>>>> +++ b/xen/drivers/vpci/header.c
->>>>>>>>> @@ -586,7 +586,7 @@ static void cf_check bar_write(
->>>>>>>>>          if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
->>>>>>>>>              gprintk(XENLOG_WARNING,
->>>>>>>>>                      "%pp: ignored BAR %zu write while mapped\n",
->>>>>>>>> -                    &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
->>>>>>>>> +                    &pdev->sbdf, bar - pdev->vpci->header.bars + (hi ? 1 : 0));
->>>>>>>>>          return;
->>>>>>>>>      }
->>>>>>>>>  
->>>>>>>>> @@ -647,7 +647,7 @@ static void cf_check guest_mem_bar_write(const struct pci_dev *pdev,
->>>>>>>>>          if ( guest_addr != bar->guest_addr )
->>>>>>>>>              gprintk(XENLOG_WARNING,
->>>>>>>>>                      "%pp: ignored guest BAR %zu write while mapped\n",
->>>>>>>>> -                    &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
->>>>>>>>> +                    &pdev->sbdf, bar - pdev->vpci->header.bars + (hi ? 1 : 0));
->>>>>>>>>          return;
->>>>>>>>>      }
->>>>>>>>>      bar->guest_addr = guest_addr;
->>>>>>>>
->>>>>>>> Well. If I'm not mistaken we had discussed situations like this (long ago).
->>>>>>>> Imo the added verbosity gets in the way of readability. If we absolutely
->>>>>>>> cannot or don't want to deviate such constructs (of which I expect we have
->>>>>>>> more), then we ought to consider alternatives (like changing the variables'
->>>>>>>> types in the case here).
->>>>>>>>
->>>>>>>> As to deviating: rules.rst, according to my reading, says that &, |, ^, or
->>>>>>>> shifts would be okay to use with a bool operand. What's wrong with also
->>>>>>>> permitting this for other operators?
->>>>>>>
->>>>>>> In my opinion, if we are going to treat bool as its own type, it makes
->>>>>>> sense not to silently mix bools into arithmetic with int types. I also
->>>>>>> do not find this patch less readable -- I actually find it more
->>>>>>> readable, since it makes it more obvious that hi is a bool.
->>>>>>
->>>>>> Well, okay, we have different opinions there. This reply of yours applies
->>>>>> to the first paragraph of my earlier reply though, despite its placement.
->>>>>> What about the aspect mentioned in the second paragraph?
->>>>>
->>>>> You mean "then we ought to consider alternatives (like changing the
->>>>> variables' types in the case here)" ?
->>>>
->>>> That's another option, but not what I meant. I simply don't understand why
->>>> some operators are okay to use with booleans while others aren't. Adding
->>>> (for example) booleans can be quite helpful. Take this example from gas
->>>> sources as example:
->>>>
->>>>       if (overlap.bitfield.imm8
->>>> 	  + overlap.bitfield.imm8s
->>>> 	  + overlap.bitfield.imm16
->>>> 	  + overlap.bitfield.imm32
->>>> 	  + overlap.bitfield.imm32s
->>>> 	  + overlap.bitfield.imm64 != 1)
->>>>
->>>> And then see how the added verbosity would hamper readability:
->>>>
->>>>       if ((overlap.bitfield.imm8 ? 1 : 0)
->>>> 	  + (overlap.bitfield.imm8s ? 1 : 0)
->>>> 	  + (overlap.bitfield.imm16 ? 1 : 0)
->>>> 	  + (overlap.bitfield.imm32 ? 1 : 0)
->>>> 	  + (overlap.bitfield.imm32s ? 1 : 0)
->>>> 	  + (overlap.bitfield.imm64 ? 1 : 0) != 1)
->>>>
->>>>> Other alternatives could be OK, but also this patch as-is is OK to me.
->>>>
->>>> I'm not going to veto it (not being a maintainer of the code I really
->>>> can't), but as per above the transformation imo is setting a bad example.
->>>
->>> What about getting the BAR index based on the register value, and
->>> hence avoiding the pointer arithmetic plus the boolean type addition?
->>> I think that's clear and doesn't violate any MISRA rules, it would
->>> obviously not settle the discussion about boolean type abuse as
->>> integers, but would be fine to solve the specific issue in vPCI IMO.
->>
->> For the case here - sure, that should be fine. But I specifically
->> wanted to understand (generally) why we are limiting ourselves, as
->> surely other cases are going to show up.
-> 
-> My view on this is that booleans should be treated as booleans, and we
-> should not rely on implicit conversions to int types. I prefer the
-> second form because it makes it clear these are booleans. The added
-> verbosity helps me see at a glance that these are booleans and should be
-> treated as such. The first form is more dangerous because I might forget
-> they are booleans, assume they are int types, and use them in an
-> operation that would result in undefined or implementation-specific
-> behavior.
+Hi Michal,
 
-Can you give a realistic example of such? Default conversion (to int,
-with well-known false => 0, true => 1 values) should take care of most
-if not all issues. Oddities I can think of are ++ or -- on boolean
-variables (perhaps similarly += etc with the lhs being boolean), but
-those we could indeed exclude if so desired.
+Thanks for the review.
 
-Jan
+On Fri, Jun 5, 2026 at 10:32=E2=80=AFAM Orzel, Michal <michal.orzel@amd.com=
+> wrote:
+>
+> We are in the RC phase, so please CC Oleksii (release manager) as we need=
+ his
+> tags for fixes. Adding him now.
+
+Ack, I will keep Oleksii Cc'ed for this series.
+
+>
+> On 05-Jun-26 07:19, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > The Arm zImage loader currently computes the kernel load address and
+> > places the DTB/initrd in one local flow. The hardware-domain memory
+> > allocator needs to reuse those placement rules before it chooses bank 0=
+,
+> > but open-coding the same calculations there would make the fix harder t=
+o
+> > audit.
+> >
+> > Split the existing logic into small helpers:
+> > - kernel_zimage_place_in_bank() computes the zImage load address for a
+> >   given bank.
+> > - first_bank_can_fit_modules() checks the aggregate first-bank
+> >   footprint.
+> > - find_dtb_initrd_placement() chooses the DTB/initrd location within a
+> >   known bank and kernel range.
+> >
+> > Rename place_modules() to place_dtb_initrd() so the code distinguishes
+> > the kernel image from the DTB/initrd placement area. Also update the
+> > stale xg_dom_arm.c path in the placement comment.
+> >
+> > The caller still panics in the same cases as before, so this is intende=
+d
+> > to be behavior preserving.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v2:
+> > - New patch split out from the hardware-domain first-bank fix.
+> > - Rename the DTB/initrd placement helpers to avoid treating the kernel
+> >   and DTB/initrd as the same kind of module.
+> > - Pass the RAM end address to find_dtb_initrd_placement() instead of
+> >   recomputing it from the RAM size.
+> > - Update the stale xg_dom_arm.c reference in the placement comment.
+> > ---
+> >  xen/arch/arm/kernel.c                 | 147 ++++++++++++++++----------
+> >  xen/common/device-tree/domain-build.c |   6 +-
+> >  2 files changed, 97 insertions(+), 56 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> > index b72585b7fe..d1be4d8074 100644
+> > --- a/xen/arch/arm/kernel.c
+> > +++ b/xen/arch/arm/kernel.c
+> > @@ -40,27 +40,59 @@ struct minimal_dtb_header {
+> >      /* There are other fields but we don't use them yet. */
+> >  };
+> >
+> > -static void __init place_modules(struct kernel_info *info,
+> > -                                 paddr_t kernbase, paddr_t kernend)
+> > +static paddr_t __init
+> > +kernel_zimage_place_in_bank(const struct kernel_info *info,
+> > +                            paddr_t bank_start, paddr_t bank_size)
+> >  {
+> > -    /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte al=
+ignment */
+> > -    const struct boot_module *mod =3D info->bd.initrd;
+> > -    const struct membanks *mem =3D kernel_info_get_mem(info);
+> > -    const paddr_t initrd_len =3D ROUNDUP(mod ? mod->size : 0, MB(2));
+> > -    const paddr_t dtb_len =3D ROUNDUP(fdt_totalsize(info->fdt), MB(2))=
+;
+> > -    const paddr_t modsize =3D initrd_len + dtb_len;
+> > +    paddr_t load_addr;
+> >
+> > -    /* Convenient */
+> > -    const paddr_t rambase =3D mem->bank[0].start;
+> > -    const paddr_t ramsize =3D mem->bank[0].size;
+> > -    const paddr_t ramend =3D rambase + ramsize;
+> > +#ifdef CONFIG_HAS_DOMAIN_TYPE
+> > +    if ( (info->type =3D=3D DOMAIN_64BIT) && (info->image.start =3D=3D=
+ 0) )
+> > +        return bank_start + info->image.text_offset;
+> > +#endif
+> > +
+> > +    /*
+> > +     * If start is zero, the zImage is position independent, in this
+> > +     * case Documentation/arm/Booting recommends loading below 128MiB
+> > +     * and above 32MiB. Load it as high as possible within these
+> > +     * constraints, while also avoiding the DTB.
+> > +     */
+> > +    if ( info->image.start =3D=3D 0 )
+> > +    {
+> > +        paddr_t load_end;
+> > +
+> > +        load_end =3D bank_start + bank_size;
+> > +        load_end =3D MIN(bank_start + MB(128), load_end);
+> > +
+> > +        load_addr =3D load_end - info->image.len;
+> > +        /* Align to 2MB */
+> > +        load_addr &=3D ~(MB(2) - 1);
+> For the future mechanical changes, you should not be making even such tin=
+y
+> changes like s/(2 << 20)/MB(2) without mentioning them in commit msg. For=
+ today,
+> it's ok.
+
+Got it.
+
+>
+> > +    }
+> > +    else
+> > +        load_addr =3D info->image.start;
+> > +
+> > +    return load_addr;
+> > +}
+> > +
+> > +static bool __init first_bank_can_fit_modules(paddr_t ramsize,
+> > +                                              paddr_t kernbase, paddr_=
+t kernend,
+> > +                                              paddr_t dtb_initrd_size)
+> > +{
+> >      const paddr_t kernsize =3D ROUNDUP(kernend, MB(2)) - kernbase;
+> > -    const paddr_t ram128mb =3D rambase + MB(128);
+> >
+> > -    paddr_t modbase;
+> > +    /*
+> > +     * Check only the aggregate kernel + DTB/initrd footprint. The act=
+ual
+> > +     * DTB/initrd location is selected by find_dtb_initrd_placement().
+> > +     */
+> > +    return dtb_initrd_size + kernsize <=3D ramsize;
+> > +}
+> >
+> > -    if ( modsize + kernsize > ramsize )
+> > -        panic("Not enough memory in the first bank for the kernel+dtb+=
+initrd\n");
+> > +static bool __init find_dtb_initrd_placement(paddr_t rambase, paddr_t =
+ramend,
+> > +                                             paddr_t kernbase, paddr_t=
+ kernend,
+> > +                                             paddr_t dtb_initrd_size,
+> > +                                             paddr_t *dtb_base)
+> > +{
+> > +    const paddr_t ram128mb =3D rambase + MB(128);
+> >
+> >      /*
+> >       * DTB must be loaded such that it does not conflict with the
+> > @@ -77,55 +109,64 @@ static void __init place_modules(struct kernel_inf=
+o *info,
+> >       * just before the kernel.
+> >       *
+> >       * If changing this then consider
+> > -     * tools/libxc/xc_dom_arm.c:arch_setup_meminit as well.
+> > +     * tools/libs/guest/xg_dom_arm.c:meminit as well.
+> This fixes the kernel.c -> tools pointer, but the reverse comment in
+> xg_dom_arm.c:meminit still points at place_modules. This needs to be fixe=
+d.
+>
+> I think this can be done on commit, therefore:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+Ack on the reverse pointer in xg_dom_arm.c. It should point at
+place_dtb_initrd() now. I am fine with this being fixed on commit, but
+since I will send a new revision for the comments on patch 2, I will
+fold this update into patch 1 as well.
+
+Best regards,
+Mykola
 
