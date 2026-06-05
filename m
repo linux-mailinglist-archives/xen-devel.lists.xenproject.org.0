@@ -2,52 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ioyuM27gImrTegEAu9opvQ
+	id 3OEOEwLnImr+ewEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 16:42:54 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 17:10:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E967648F0D
-	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 16:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6B29649261
+	for <lists+xen-devel@lfdr.de>; Fri, 05 Jun 2026 17:10:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=NbI0fW+K;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=Fd0qw+LD;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1329559.1593661 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1329626.1593670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVVkj-0001mF-5I; Fri, 05 Jun 2026 14:42:29 +0000
+	id 1wVWBr-0000dj-4u; Fri, 05 Jun 2026 15:10:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1329559.1593661; Fri, 05 Jun 2026 14:42:29 +0000
+Received: by outflank-mailman (output) from mailman id 1329626.1593670; Fri, 05 Jun 2026 15:10:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wVVkj-0001id-1d; Fri, 05 Jun 2026 14:42:29 +0000
-Received: by outflank-mailman (input) for mailman id 1329559;
- Fri, 05 Jun 2026 14:42:27 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wVVkh-0001Xd-7A
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 14:42:27 +0000
+	id 1wVWBr-0000bS-1i; Fri, 05 Jun 2026 15:10:31 +0000
+Received: by outflank-mailman (input) for mailman id 1329626;
+ Fri, 05 Jun 2026 15:10:29 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e9855de55000701b@swg.vates.tech>)
+ id 1wVWBp-0000bM-EG
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 15:10:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wVVkg-00DUvd-D4
- for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 16:42:26 +0200
-Received: from [10.42.69.6] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a22e02e-5cb7-0a2a0a5109dd-0a2a4506a73e-48
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 16:42:26 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a22e052-7371-0a2a45060019-d155dd2ca9fa-3
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 16:42:26 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-45ee5cdbd28so1931761f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 07:42:26 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
- [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f3444fesm27983183f8f.20.2026.06.05.07.42.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 07:42:24 -0700 (PDT)
+ id 1wVWBo-007ull-Q3
+ for xen-devel@lists.xenproject.org; Fri, 05 Jun 2026 17:10:28 +0200
+Received: from [10.42.69.2] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e9855de55000701b@swg.vates.tech>)
+ id 6a22e6d2-e002-0a2a0a5209dd-0a2a4502e84a-30
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 17:10:28 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e9855de55000701b@swg.vates.tech>)
+ id 6a22e6e4-af86-0a2a45020019-b9ff1c1299b9-3
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jun 2026 17:10:28 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19e9855de55000701b.002 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 05 Jun 2026 15:10:24 +0000
+Received: from l14 (unknown [82.67.99.167])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 343D586F95;
+ Fri,  5 Jun 2026 17:10:24 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,216 +65,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1780670546; x=1781275346; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LZlz51O0t73OlCkZ0qZkry3ZqTRl8BuEeVV/fnWcWO4=;
-        b=NbI0fW+KuHBa177EAHlWfoXH9ZKzXB52JROWW0ycVHVC2xwVAEJizizkTubvWcl5R3
-         SsizimqGl4tviz3+61HjJpHlA8hIlH1zzjPOKEGlTjS/C4lr6z3EjIPeVD6GjXE9LBd0
-         6y/8V/HnmTbckODi1sg//EqVsgSgc/ckWDtiE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780670546; x=1781275346;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LZlz51O0t73OlCkZ0qZkry3ZqTRl8BuEeVV/fnWcWO4=;
-        b=Tlef6lfQBHH4244VOlM8NHPeY+d+c9fwpADjAjzE7ItGOeNrcwH63BFLxr90hguojZ
-         T++9sK8xDJWMCJa35l242Pm3EtgJOx+ZotGHW/5et05Dl5FIDTzQSzNIN3WVS7Eh1r8Q
-         kdM/UNCxQEx+jl1LIINdI7XTtJFDDEZaRctfDfbAJjYPFQ4MrsyCqqvW7rszANufF5rc
-         ZnEJLWEUED25ieiA887xdTwSlPywYbarD0TJ/I+ne5Kb/YXqhicLousajwmHUWyDK/c6
-         MQWl0KD8zFa1YH7/cKPbfrTgrCJFHzMEKORjoj3S5cFgrqjRBM0XULN251IwLytD4G+m
-         jx7g==
-X-Gm-Message-State: AOJu0Yz8enwoQcQDPRZ3OIgVLmo/MtYlcXziPNtCJQqXRVu2dfTchaV4
-	cmmm6M0AFdVo3BKoLmxi07yBk9aPVnHfUvrktuPkDfOnHINei/HXH1jlsUgoXVuG6UCjP48NEYV
-	GW7IO
-X-Gm-Gg: Acq92OFgoY200nrz5V6JoTQ2/GSsyEv3+/L0U/x4hnW+hz7iE3vlxUxQ3DU5AzKcqOr
-	cgYKt1HKpHxKkPHZE0pxdfrWpUVn6GRoUPI2IMk+A+HQt+WmI5aMVjehieJcOL5dqIaOGMeaZxC
-	Y+VfqlKnVFSLDkM/zFlEdX3LQu4HL3Prq7FeQb9pAGtAt4AGpLNdUOXoWBF+BAiTW28yd7xUH+B
-	jgwhC0R6ufeHJOPxzwtJJLqV7gJnDwOfF16tMJ6j0h8h121GWQPUiNh6NfcRB6vKfTSjp+CkAT6
-	dorMjS4qhvU0Fu/pxjuMm2p33O/WUzyrPWWYpN6JNJXPckbLUF5VvA8jeK1daziRCZbS7/675V2
-	2W3Z46eSYhq6S9z+i/u2wpLGNiZpUjPZIqtxHz7NYuQNCFrhHcheGiWNaIK7jlAIdnVpNldpUsL
-	TqdAEyowOs/MvrNsdNkUnKGa2IV/3u4M6IlgwRxCXoHgt2tK8l+2DeAs95c89feYTGdU1B3lnLX
-	bdtwf9IPvI9fNpsGIIoARPnHw==
-X-Received: by 2002:a05:6000:2994:10b0:45e:8edc:dacc with SMTP id ffacd0b85a97d-46032dcf608mr3670650f8f.27.1780670545208;
-        Fri, 05 Jun 2026 07:42:25 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH 6/6] CI: Update Opensuse 15.6 to 16.0
-Date: Fri,  5 Jun 2026 15:42:13 +0100
-Message-Id: <20260605144213.2749656-7-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260605144213.2749656-1-andrew.cooper3@citrix.com>
-References: <20260605144213.2749656-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=3Gd497NwynVuYnx1wxip5K73NBAkHHiDcX66soXhUVw=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=Fd0qw+LDYsDs5SCATEPcuBYUAae+e2SSMK7l3zAdlWjs3Mb30RULWiSuyrQICnx7h54oupsZx
+ FyKpyEBzHXI1FtFkolywQFn2lrgLEZnuVj8fvYSaazCZmjJSvN1OE2kPA8PEa4M2YNn11Mg/r1w
+ SQolgJ4F+uwAqPIdN3ewxrn29IGI7ufpMtVJPiVt1/QeDQVhdR9M6I4jJTnJTV2s8K+t24/pS+e
+ a6YTTpkm1c/ziTcL4Mj3SmbdrxhRuFlAmPxIefau4TIGOzwZiDibWDFzzaRIbgX/HAZ5g5/EUVE
+ mfVZZOYH3U+ZYV2dwqanKOFVh8kLmZtEN9TMOYcGCFuw==
+X-Zone-Loop: 346f52ea2103883e3466676fddd0429c59b79abdaea0
+x-campaign-type: default
+x-transaction-id: 8f41960a-1bf4-498d-9654-3883c0dce58a
+x-swg-uid: 01-b9569bf7-a03f-410c-969e-c80de46f7c59
+X-Mailer: Sweego
+Message-ID:
+ <1780672224.8631fc262581453bbf619ec5b2062170.19e9855de55000701b@vates.tech>
+x-swg-bid: 1780672224.8631fc262581453bbf619ec5b2062170.19e9855de55000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 5 Jun 2026 17:10:23 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.22 v2 4/5] tests/numa: add unit tests for NUMA
+ setup logic
+References: <20260603191836.77955-1-roger.pau@citrix.com>
+ <20260603191836.77955-5-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1780670546-8576FD75-42794E0E/10/63158204843
-X-purgate-type: spam
-X-purgate-size: 3694
+Content-Disposition: inline
+In-Reply-To: <20260603191836.77955-5-roger.pau@citrix.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.20a1.395280c869809a50.19e9855dc1d.df5c4d7d81352596=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1780672224286
+X-purgate-ID: tlsNG-720697/1780672228-81B70161-0B45548D/0/0
+X-purgate-type: clean
+X-purgate-size: 2068
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.32 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,vates.tech,kernel.org,amd.com,cardoe.com,suse.com,gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	XM_UA_NO_VERSION(0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWO(0.00)[2];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:jgross@suse.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,amd.com:email,vates.tech:email,cardoe.com:email,xenproject.org:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:email,vates.tech:from_mime,vates.tech:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7E967648F0D
+X-Rspamd-Queue-Id: E6B29649261
 
-The default version of python is 3.13, so drop the 3.11 overrides.
+---=Part.20a1.395280c869809a50.19e9855dc1d.df5c4d7d81352596=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Swap yajl for json-c, given the deprecation of the former.
+On Wed, Jun 03, 2026 at 09:18:35PM +0200, Roger Pau Monne wrote:
+> diff --git a/tools/tests/numa/Makefile b/tools/tests/numa/Makefile
+> new file mode 100644
+> index 000000000000=2E=2E5235f9d6297f
+> --- /dev/null
+> +++ b/tools/tests/numa/Makefile
+> +
+> +=2EPHONY: uninstall
+> +uninstall:
+> +	$(RM) -- $(patsubst %,$(DESTDIR)$(LIBEXEC)/tests/%,$(TARGETS))
 
-bin86/dev86 are no longer available.
+There's a simpler way to write this, with
+    $(addprefix $(DESTDIR)$(LIBEXEC)/tests/,$(TARGETS))
+But that's ok to=2E
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Doug Goldstein <cardoe@cardoe.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Juergen Gross <jgross@suse.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- ...64.dockerfile => leap-16.0-x86_64.dockerfile} | 16 ++++++----------
- automation/gitlab-ci/build.yaml                  | 16 ++++++++--------
- 2 files changed, 14 insertions(+), 18 deletions(-)
- rename automation/build/opensuse/{leap-15.6-x86_64.dockerfile => leap-16.0-x86_64.dockerfile} (84%)
+> +
+> +numa=2Eh: $(XEN_ROOT)/xen/include/xen/numa=2Eh
+> +	sed -e '/^#[[:space:]]*include/d' <$< >$@
+> +
+> +CFLAGS +=3D -D__XEN_TOOLS__
+> +CFLAGS +=3D $(APPEND_CFLAGS)
+> +CFLAGS +=3D $(CFLAGS_xeninclude)
+> +
+> +test-numa: test-numa=2Ec numa=2Eh
+> +	$(CC) $(CPPFLAGS) $(CFLAGS) $(CFLAGS_$*=2Eo) -o $@ $< $(APPEND_CFLAGS)
 
-diff --git a/automation/build/opensuse/leap-15.6-x86_64.dockerfile b/automation/build/opensuse/leap-16.0-x86_64.dockerfile
-similarity index 84%
-rename from automation/build/opensuse/leap-15.6-x86_64.dockerfile
-rename to automation/build/opensuse/leap-16.0-x86_64.dockerfile
-index 33db3ecd634b..f88866bb8740 100644
---- a/automation/build/opensuse/leap-15.6-x86_64.dockerfile
-+++ b/automation/build/opensuse/leap-16.0-x86_64.dockerfile
-@@ -1,9 +1,8 @@
- # syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 opensuse/leap:15.6
-+FROM --platform=linux/amd64 opensuse/leap:16.0
- LABEL maintainer.name="The Xen Project"
- LABEL maintainer.email="xen-devel@lists.xenproject.org"
- 
--ENV PYTHON=python3.11
- ENV XEN_TARGET_ARCH=x86_64
- 
- RUN <<EOF
-@@ -26,7 +25,7 @@ RUN <<EOF
-         gawk
-         gcc
-         make
--        python311
-+        python3
- 
-         # Tools (general)
-         cpio
-@@ -46,17 +45,14 @@ RUN <<EOF
-         acpica
-         # libxl
-         'pkgconfig(uuid)'
--        'pkgconfig(yajl)'
--        # RomBIOS
--        bin86
--        dev86
-+        'pkgconfig(json-c)'
-         # Header Check
-         gcc-c++
-         # xentop
-         'pkgconfig(ncurses)'
-         # Python bindings
--        python311-devel
--        python311-setuptools
-+        python3-devel
-+        python3-setuptools
-         # Ocaml bindings/oxenstored
-         ocaml
-         ocaml-findlib
-@@ -70,7 +66,7 @@ RUN <<EOF
-         ninja
-         'pkgconfig(glib-2.0)'
-         'pkgconfig(pixman-1)'
--        python311-packaging
-+        python3-packaging
-     )
- 
-     zypper install -y --no-recommends "${DEPS[@]}"
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 061977872f5b..acd4acf13138 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -677,25 +677,25 @@ ubuntu-26.04-x86_64-gcc-debug:
-   variables:
-     CONTAINER: ubuntu:26.04-x86_64
- 
--opensuse-leap-15.6-clang:
-+opensuse-leap-16.0-clang:
-   extends: .clang-x86-64-build
-   variables:
--    CONTAINER: opensuse:leap-15.6-x86_64
-+    CONTAINER: opensuse:leap-16.0-x86_64
- 
--opensuse-leap-15.6-clang-debug:
-+opensuse-leap-16.0-clang-debug:
-   extends: .clang-x86-64-build-debug
-   variables:
--    CONTAINER: opensuse:leap-15.6-x86_64
-+    CONTAINER: opensuse:leap-16.0-x86_64
- 
--opensuse-leap-15.6-gcc:
-+opensuse-leap-16.0-gcc:
-   extends: .gcc-x86-64-build
-   variables:
--    CONTAINER: opensuse:leap-15.6-x86_64
-+    CONTAINER: opensuse:leap-16.0-x86_64
- 
--opensuse-leap-15.6-gcc-debug:
-+opensuse-leap-16.0-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-   variables:
--    CONTAINER: opensuse:leap-15.6-x86_64
-+    CONTAINER: opensuse:leap-16.0-x86_64
- 
- opensuse-tumbleweed-clang:
-   extends: .clang-x86-64-build
+$* should be undefined here=2E
+So we have $(CFLAGS_=2Eo), but that variable doesn't exit either=2E
+You could remove $(CFLAGS_$*=2Eo), it's not use here=2E
+
+Also, $(APPEND_CFLAGS) is added twice, once via $(CFLAGS) and a second
+time on the command line=2E I think the one added to $(CFLAGS) should be
+removed=2E
+
+> diff --git a/tools/tests/numa/test-numa=2Ec b/tools/tests/numa/test-numa=
+=2Ec
+> new file mode 100644
+> index 000000000000=2E=2Ebced68d4d7f1
+> --- /dev/null
+> +++ b/tools/tests/numa/test-numa=2Ec
+> +
+> +        for ( j =3D 0;
+> +              j < ARRAY_SIZE(tests[i]=2Eaffinity) && tests[i]=2Eaffinit=
+y[j]=2Eend;
+
+Why do you test the value `=2Eend` ? ARRAY_SIZE is likely enough as the
+test array is static=2E Same thing later, with the `ram` array=2E
+
+
+Anyway, it's all look good enough to me:
+Reviewed-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+
+Thanks,
+
+
 -- 
-2.39.5
+Anthony Perard | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.20a1.395280c869809a50.19e9855dc1d.df5c4d7d81352596=---
 
