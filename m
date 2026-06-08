@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id d9sRJ+PXJmqBlgIAu9opvQ
+	id 4l5vDurXJmqJlgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 16:55:31 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 16:55:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D51C657A10
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 16:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E4C2657A2E
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 16:55:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=infradead.org header.s=casper.20170209 header.b=RGeLi7Gj;
+	dkim=pass header.d=infradead.org header.s=desiato.20200630 header.b=jdSWb0Ow;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=infradead.org
-Received: from list by lists.xenproject.org with outflank-mailman.1331708.1594322 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1331718.1594396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWbNm-0002mI-Ut; Mon, 08 Jun 2026 14:55:18 +0000
+	id 1wWbNx-00052v-Sb; Mon, 08 Jun 2026 14:55:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1331708.1594322; Mon, 08 Jun 2026 14:55:18 +0000
+Received: by outflank-mailman (output) from mailman id 1331718.1594396; Mon, 08 Jun 2026 14:55:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWbNm-0002VL-Hj; Mon, 08 Jun 2026 14:55:18 +0000
-Received: by outflank-mailman (input) for mailman id 1331708;
- Mon, 08 Jun 2026 14:55:14 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wWbNw-0004id-IU; Mon, 08 Jun 2026 14:55:28 +0000
+Received: by outflank-mailman (input) for mailman id 1331718;
+ Mon, 08 Jun 2026 14:55:18 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+89cebe4ba06156b53a55+8324+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wWbNg-0001Ob-GY
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 14:55:14 +0000
+ <BATV+614c7b1bd25833f05746+8324+infradead.org+dwmw2@desiato.srs.infradead.org>)
+ id 1wWbNk-000290-ED
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 14:55:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWbNf-00EcD6-TP; Mon, 08 Jun 2026 16:55:11 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wWbNj-008Spg-QH; Mon, 08 Jun 2026 16:55:15 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+89cebe4ba06156b53a55+8324+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a26d7c5-5cb7-0a2a0a5109dd-0a2a4504aa90-26
- for <multiple-recipients>; Mon, 08 Jun 2026 16:55:11 +0200
-Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <BATV+614c7b1bd25833f05746+8324+infradead.org+dwmw2@desiato.srs.infradead.org>)
+ id 6a26d7c9-e002-0a2a0a5209dd-0a2a450c8386-40
+ for <multiple-recipients>; Mon, 08 Jun 2026 16:55:15 +0200
+Received: from [90.155.92.199] (helo=desiato.infradead.org)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <BATV+89cebe4ba06156b53a55+8324+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a26d7ce-1dec-0a2a45040019-5a9b32229a8c-3
- for <multiple-recipients>; Mon, 08 Jun 2026 16:55:10 +0200
+ <BATV+614c7b1bd25833f05746+8324+infradead.org+dwmw2@desiato.srs.infradead.org>)
+ id 6a26d7d2-62f1-0a2a450c0019-5a9b5cc7ae94-3
+ for <multiple-recipients>; Mon, 08 Jun 2026 16:55:15 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wWbNR-0000000DtxF-3M66; Mon, 08 Jun 2026 14:54:58 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+ id 1wWbNU-00000001Afy-2NZe; Mon, 08 Jun 2026 14:55:00 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.2 #2 (Red
- Hat Linux)) id 1wWbNR-00000000NFK-45z6;
- Mon, 08 Jun 2026 15:54:57 +0100
+ Hat Linux)) id 1wWbNS-00000000NFO-03tL;
+ Mon, 08 Jun 2026 15:54:58 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
 	Cc:Content-Type:Content-ID:Content-Description;
-	bh=kzo7us9axLE6O2exw0Cl6U5WHgHBbewVPWCB3bErZOE=; b=RGeLi7GjoSXYplCK7Jkv0M+NUZ
-	d3RESPAK3OJqd9O/Y6CBJzjRWyo+LmbRbYXU17ZRiNIF5jRN/1AelT3Pp7TCUWDm2bDspYBdl8om3
-	K5LV2Wpn+lijtTE0bITDN+lqpHd8EGL9BOTxPTq0oHdwHicvt6BAUUIY8oE4emduAdzw1OFQ4x7YQ
-	Pe7emlltLqC6oNqj+gHa2Ex8FZ2suXd+M4Yo5H3xQUFch1KSl8iFV/oRtJO0+igNGXiPQ63poo9UT
-	0+em0x8c/zUkuqgc+gKdNziudceC23aF8P+fHaZHRCFsOTBdkmb9hsvqPKzYnchYajaEz0ZrhRJya
-	q4GZk7fA==;
+	bh=i/yoO3HDR7YLqjov478325pvAUsRGQQgqZ9ev5HV2o8=; b=jdSWb0OwqtV+/2hdzov+bkf+X9
+	a3t28sQxckXLw/lCD+sO7y7wSauhODpuY3bxOVM7opTEgJm0VRb+ei4hzNmgi8Q54A7RAqn9y7J39
+	c3bD3LfUDHVO9Oe6jgJZjjrPOdwOkYPT6Rv2LSxp0mssjpfs1EJ/5b+afZRhN2Z5HBSP7yn4sZ6vE
+	3/2kzUC3X9oMWIxm9ICfZJqKZNGUqesh1s/WVS/SPtGBrGfm20Y8PEeiwqHeRux8qeMJ6icISAd3l
+	K/VT8djYMmJvgWQ0trv4zu1JyVDGixCCaPcm+KIcB2qjQukfufGCs5P9Mr4e+oXYLttQxyYLmeVD0
+	cJhJ0bEw==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -96,25 +96,25 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v5 13/34] KVM: x86: Use get_kvmclock() in kvm_get_wall_clock_epoch()
-Date: Mon,  8 Jun 2026 15:47:54 +0100
-Message-ID: <20260608145455.89187-14-dwmw2@infradead.org>
+Subject: [PATCH v5 14/34] KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
+Date: Mon,  8 Jun 2026 15:47:55 +0100
+Message-ID: <20260608145455.89187-15-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260608145455.89187-1-dwmw2@infradead.org>
 References: <20260608145455.89187-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-ebf023/1780930511-427613FF-7D56AF36/0/0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-d25034/1780930515-E2368CF5-90131852/0/0
 X-purgate-type: clean
-X-purgate-size: 3112
+X-purgate-size: 1721
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
-	R_DKIM_ALLOW(-0.20)[infradead.org:s=casper.20170209];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -141,101 +141,55 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4D51C657A10
+X-Rspamd-Queue-Id: 1E4C2657A2E
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Now that get_kvmclock() correctly handles TSC scaling and captures both
-wallclock and kvmclock from the same TSC reading,
-kvm_get_wall_clock_epoch() can simply call it instead of duplicating
-the pvclock computation.
+The compute_guest_tsc() function computes the guest TSC at a given
+kernel_ns timestamp. When the master clock reference point
+(master_kernel_ns) is earlier than vcpu->arch.this_tsc_nsec, the delta
+is negative. Since pvclock_scale_delta() takes a u64, the negative
+value wraps to a huge positive number, producing a wildly wrong result.
 
-This eliminates the last instance of the "definition C" kvmclock
-calculation that computed nanoseconds directly from the host TSC
-without accounting for guest TSC scaling.
+Handle negative deltas explicitly by negating the delta, scaling it,
+and subtracting from this_tsc_write.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/x86.c | 59 +++++++---------------------------------------
- 1 file changed, 9 insertions(+), 50 deletions(-)
+ arch/x86/kvm/x86.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 7ae6a7705353..fc9366b83912 100644
+index fc9366b83912..8aae22401046 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -3494,63 +3494,22 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
-  * wallclock and kvmclock times, and subtracting one from the other.
-  *
-  * Fall back to using their values at slightly different moments by
-- * calling ktime_get_real_ns() and get_kvmclock_ns() separately.
-+ * calling ktime_get_real_ns() and get_kvmclock() separately.
-  */
- uint64_t kvm_get_wall_clock_epoch(struct kvm *kvm)
+@@ -2588,11 +2588,21 @@ static int kvm_set_tsc_khz(struct kvm_vcpu *vcpu, u32 user_tsc_khz)
+ 
+ static u64 compute_guest_tsc(struct kvm_vcpu *vcpu, s64 kernel_ns)
  {
--#ifdef CONFIG_X86_64
--	struct pvclock_vcpu_time_info hv_clock;
--	struct kvm_arch *ka = &kvm->arch;
--	unsigned long seq, local_tsc_khz;
--	struct timespec64 ts;
--	uint64_t host_tsc;
--
--	do {
--		seq = read_seqcount_begin(&ka->pvclock_sc);
--
--		local_tsc_khz = 0;
--		if (!ka->use_master_clock)
--			break;
--
--		/*
--		 * The TSC read and the call to get_cpu_tsc_khz() must happen
--		 * on the same CPU.
--		 */
--		get_cpu();
--
--		local_tsc_khz = get_cpu_tsc_khz();
--
--		if (local_tsc_khz &&
--		    !kvm_get_walltime_and_clockread(&ts, &host_tsc))
--			local_tsc_khz = 0; /* Fall back to old method */
--
--		put_cpu();
--
--		/*
--		 * These values must be snapshotted within the seqcount loop.
--		 * After that, it's just mathematics which can happen on any
--		 * CPU at any time.
--		 */
--		hv_clock.tsc_timestamp = ka->master_cycle_now;
--		hv_clock.system_time = ka->master_kernel_ns + ka->kvmclock_offset;
-+	struct kvm_clock_data data;
- 
--	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
-+	get_kvmclock(kvm, &data);
- 
- 	/*
--	 * If the conditions were right, and obtaining the wallclock+TSC was
--	 * successful, calculate the KVM clock at the corresponding time and
--	 * subtract one from the other to get the guest's epoch in nanoseconds
--	 * since 1970-01-01.
-+	 * If get_kvmclock() captured both wallclock and kvmclock from the
-+	 * same TSC reading, use them for a precise epoch calculation.
- 	 */
--	if (local_tsc_khz) {
--		kvm_get_time_scale(NSEC_PER_SEC, local_tsc_khz * NSEC_PER_USEC,
--				   &hv_clock.tsc_shift,
--				   &hv_clock.tsc_to_system_mul);
--		return ts.tv_nsec + NSEC_PER_SEC * ts.tv_sec -
--			__pvclock_read_cycles(&hv_clock, host_tsc);
--	}
--#endif
--	return ktime_get_real_ns() - get_kvmclock_ns(kvm);
-+	if (data.flags & KVM_CLOCK_REALTIME)
-+		return data.realtime - data.clock;
+-	u64 tsc = pvclock_scale_delta(kernel_ns-vcpu->arch.this_tsc_nsec,
+-				      vcpu->arch.virtual_tsc_mult,
+-				      vcpu->arch.virtual_tsc_shift);
+-	tsc += vcpu->arch.this_tsc_write;
+-	return tsc;
++	s64 delta_ns = kernel_ns - vcpu->arch.this_tsc_nsec;
++	u64 tsc;
 +
-+	return ktime_get_real_ns() - data.clock;
++	/* Handle negative deltas gracefully (master clock ref may be earlier) */
++	if (delta_ns < 0) {
++		tsc = pvclock_scale_delta(-delta_ns,
++					  vcpu->arch.virtual_tsc_mult,
++					  vcpu->arch.virtual_tsc_shift);
++		return vcpu->arch.this_tsc_write - tsc;
++	}
++
++	tsc = pvclock_scale_delta(delta_ns,
++				  vcpu->arch.virtual_tsc_mult,
++				  vcpu->arch.virtual_tsc_shift);
++	return vcpu->arch.this_tsc_write + tsc;
  }
  
- /*
+ #ifdef CONFIG_X86_64
 -- 
 2.54.0
 
