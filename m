@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id uJhLEZg0J2oytQIAu9opvQ
+	id VCScMTM5J2oOtgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 23:31:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 23:50:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF58D65AADF
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 23:31:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7329E65AC10
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 23:50:43 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=cHotO+HY;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=haEGDpza;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1332088.1594733 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1332096.1594742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWhXn-00076I-F9; Mon, 08 Jun 2026 21:30:03 +0000
+	id 1wWhrH-0004fi-WF; Mon, 08 Jun 2026 21:50:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1332088.1594733; Mon, 08 Jun 2026 21:30:03 +0000
+Received: by outflank-mailman (output) from mailman id 1332096.1594742; Mon, 08 Jun 2026 21:50:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWhXn-000721-Bh; Mon, 08 Jun 2026 21:30:03 +0000
-Received: by outflank-mailman (input) for mailman id 1332088;
- Mon, 08 Jun 2026 21:30:02 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wWhrH-0004da-TJ; Mon, 08 Jun 2026 21:50:11 +0000
+Received: by outflank-mailman (input) for mailman id 1332096;
+ Mon, 08 Jun 2026 21:50:10 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <tglx@kernel.org>) id 1wWhXm-0006lE-9X
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 21:30:02 +0000
+ (envelope-from <christopher.w.clark@gmail.com>) id 1wWhrF-0004dE-R5
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 21:50:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWhXl-00FIbv-5n
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 23:30:01 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wWhrE-00BCOO-30
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 23:50:08 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <tglx@kernel.org>)
- id 6a273423-2eae-0a2a0a5409dd-0a2a45059266-14
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 23:30:00 +0200
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <tglx@kernel.org>)
- id 6a273457-aaa8-0a2a45050019-aceafc1fc4a6-3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 23:30:00 +0200
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A3ECC417E3;
- Mon,  8 Jun 2026 21:29:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0BEC1F00893;
- Mon,  8 Jun 2026 21:29:57 +0000 (UTC)
+ (envelope-from <christopher.w.clark@gmail.com>)
+ id 6a27390f-bab6-0a2a0a5309dd-0a2a450688ee-2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 23:50:07 +0200
+Received: from [209.85.208.173] (helo=mail-lj1-f173.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <christopher.w.clark@gmail.com>)
+ id 6a27390f-7371-0a2a45060019-d155d0adc9cb-3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 23:50:07 +0200
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-39657d28132so35733031fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 14:50:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,119 +56,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780954198;
-	bh=10Ge8gkdRT2r2MB4nZOmsq7A7oBUPMVrH/EAt53EHDw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=cHotO+HYT6KnftYtwqtcC1eOb0CiIjpQDNAtr0eiW9Spfg+ZKZoEsPPnjzbyBsnvl
-	 3aO7kALqnRkhd9MuYISWiOJsWqEl33m8z7H9e3tLQ8kIiNaTwe7yoTRbRBpAQoQTGY
-	 aLBTbHiJ2o73r9gx5sAyHcHiQCzsYEmDsORsQ4IUhxPpN5Ed8M+DyVyqa5nEuijFqP
-	 K0XjdaxMc6d5Nm/JjrnVeHqYH6ID6h/SbThmr9fNmZc8FP6U0ONRKmVBi7Ch3l64Ds
-	 w8sYstQvc3bmYUv+HI/uC6qG/9l/Dfcq5n0fdimIWtTMYDeSn4S41bVAN1C0/2U2Cr
-	 /CO2im1u1GyyA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Teddy Astie <teddy.astie@vates.tech>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, regressions@lists.linux.dev
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Olivier Lambert
- <olivier.lambert@vates.tech>
-Subject: Re: [REGRESSION][BISECTED] Long boot time with Xen HVM guests
- during PV spinlock initialization
-In-Reply-To: <87ldcp3w16.ffs@fw13>
-References: <1780914594.8631fc262581453bbf619ec5b2062170.19ea6c8227b000701b@vates.tech>
- <87ldcp3w16.ffs@fw13>
-Date: Mon, 08 Jun 2026 23:29:55 +0200
-Message-ID: <87ik7s4t64.ffs@fw13>
+ARC-Seal: i=1; a=rsa-sha256; t=1780955407; cv=none;
+        d=google.com; s=arc-20240605;
+        b=V6ArYF4OxUll/1flyCzsMUFlWTYR/qXTVfBCa4oVQ4fwHiuLls1IZuEcE1KOddMw78
+         +DRQP66IwzzBQ+XFtuWfF3Afrc6WzgdRRW3R9mUxAQNtmCcDKMp3PhXPI2k5s+JTq3ej
+         gT/4k2j5tQGA1XlgdmbEbUHBH4UbwAqrKfCq9pCmKtYL6CYSZDqJq6iGQqZJq0GJ0Bhl
+         WmCvMBpEOWy0Ij0YLkhBh2Gf89JZ/FCH5xv/j8OhQozO6kRh7SNHYOnHEo3hcQGNk3c2
+         0M7XZyW+W/5HAPNSPEpk3Za0YtroAJvzyvBoMT3EDQtDFGHzPIWUGExmKfTnQWEocEFj
+         nI5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rRLqoe3PRwiBX+LZoF2hWq/GWXsduoGHC3UALByTuxs=;
+        fh=dRSkxqPvTetkPp3v17QXS+rXFtq5bHj5r4fmpM1UWX0=;
+        b=A7Hjl3cy3HCCjdKtuCTGwHuB0SqZrUIFFlXszB3A9HXJQ0clYiPoXq9d3RDNlVkAt6
+         ZsLfQqjLzAAy6+Yaayxm8vYy3OUFGdUEPnNjEnlFaQzBYhVYh7UOeieks1nsktfNN1Jp
+         Vq9n7rjOIqGvLpAcGAxBpAqsvI1OLUqzQPkALoMY04WnUXZYoCZLv2Z9Fx2kbOuN8jHD
+         Fx/gJGmT/0W+lLDg2z6cDqva6MrNlZXbb3rNMAueFWBABlt6GyHZjTIscyw5aWaY13k1
+         z4NBusX05mBA5avDqUfegbYbBDpJCFr1f+ES1KgGDj59VHtnTn8XviQ9lwSTRdpjO143
+         Tfkw==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780955407; x=1781560207; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rRLqoe3PRwiBX+LZoF2hWq/GWXsduoGHC3UALByTuxs=;
+        b=haEGDpzar50WfV/wcd60XAITm2+z2IlbaPBXHCycnfVhuC7EFHo7uJiX8UVwQMUjOu
+         N0g2/M2fRfoTvBKswMmBI2HsDri3BgU+tVCXUuLTIS6T79N+A1dRvvkYPz6+hny5SEKl
+         THOQ75YIxP7tOnKL2TJfmrl19Z/Qfa3EwGWDrYd6zJPsu0PpF9jTu4GB1OHRFQvuAblm
+         cAsBdtLJPrW4DAXkQs5tTuN6220FInNtx0O8l1Y9uxx9XI9PqEbnymJXLvx1rEbjtn/5
+         ubGwJtqZitKbu8KJmYrbDcQ3KGkhZ841dqAEcLD5GVJrWWS+Q4+HOsd38aueofGx1jt+
+         PoJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780955407; x=1781560207;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=rRLqoe3PRwiBX+LZoF2hWq/GWXsduoGHC3UALByTuxs=;
+        b=Z1wYEIihEb2LvCM0gerzjmikV18U7RjxmrMpdfqeyOIpagxsgTAIqS6dd4RWqqeZnQ
+         P5S+pQBr/tOpfrNlNvgcM2a0/FlPvo7Ywe8ooXL0E4JitRJgztabe/aGlb8rNYVWz9mi
+         TEmvJuLKgRIlIDkeH69P1yBwqlVfXP10FYuPGKfG83mdcMbaQEyNSLaK+x0qYlATr7Fs
+         TmSqO5sK6lAGXVUFV1Q+jxUcNUjMDTTZwOl67dIh88zHO2KtgcyJUUCllMPJdAnKX8DS
+         jCP3I2FYPh7Jp48bY7VZ+gBUoQWmLhDTHNKbd0SBkq3XYsPyPxKF25N34QpLyr03xJIK
+         WFDw==
+X-Gm-Message-State: AOJu0Yy3Za+cAx2xQ9EQk1AZnqWGpznECfIUwJ93ODVgWGEEeAX1iTzw
+	+D2svyKYz7Wh9NC4+fgPRs+aUUGHwXxFqM8zEVZBKBoNoNgz+0jvRmBOMZeCxlAKaL1CIiWq5Gh
+	WBOBxSYxgrjW84oyxfT6NAFcEuvoI8d8=
+X-Gm-Gg: Acq92OGYYzZmJ51YJnt9qekD+SIj5hDf3FD+9uzqST6E9wk5ZfSbzrImlhXhgGDGaNr
+	fyt5pq0A/qQniDugrTcpDK76rDpzKoSKJcjBCMxV9Qj6MPmzr0zwtB+lu+MrbNreOBkkKIEXdob
+	LEsVDRNwEJtGKe/IfYBoGmmXSA3wdHw0YfzGbCDql1Ghk4OwdvpZ+S9i3n2Kf9Jy+FlXzsQGjy7
+	mQxTf6HO7eUjtNKaskAp2RMvbfeMdApcI4IBklpGV2nH/gER3Wcrz1akEPJz9adAXUyMHOIFNtP
+	ReMusOBYLS6tfgR9yqfh9RIBLpquL1yLio1SW/snCRcIwiJ5LxfI1O/c15MemiH80HYYo0tvGFH
+	daA==
+X-Received: by 2002:a05:651c:18c4:b0:38e:e29c:9dc0 with SMTP id
+ 38308e7fff4ca-396d097ae4cmr49894991fa.20.1780955406966; Mon, 08 Jun 2026
+ 14:50:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-purgate-ID: tlsNG-c201ff/1780954200-E0867443-6C602DC8/0/0
+References: <20260604214926.1735194-1-dmukhin@ford.com>
+In-Reply-To: <20260604214926.1735194-1-dmukhin@ford.com>
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Mon, 8 Jun 2026 22:49:55 +0100
+X-Gm-Features: AVVi8Cdb6-6Y2lkt52IFDacclyOQm1Wb0vbMz-PWKMTu_TqzvFyLr0-b7lDBafE
+Message-ID: <CACMJ4GZW26MGYr9RbCw=tO9rvrpL1u-PAHG9BaFvyg6RnDDfAQ@mail.gmail.com>
+Subject: Re: [PATCH v6 0/6] argo: few log fixes
+To: dmukhin@ford.com
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+	michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+	Daniel Smith <dpsmith@apertussolutions.com>, "Andryuk, Jason" <Jason.Andryuk@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-16d1c6/1780955407-8C47CD75-64F3AE67/0/0
 X-purgate-type: clean
-X-purgate-size: 1890
+X-purgate-size: 476
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:linux-kernel@vger.kernel.org,m:regressions@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:olivier.lambert@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[tglx@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:Jason.Andryuk@amd.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,ford.com:email];
+	FORGED_SENDER(0.00)[christopherwclark@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[fw13:mid];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tglx@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[christopherwclark@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CF58D65AADF
+X-Rspamd-Queue-Id: 7329E65AC10
 
-On Mon, Jun 08 2026 at 17:13, Thomas Gleixner wrote:
-> On Mon, Jun 08 2026 at 12:29, Teddy Astie wrote:
->> In 6.12.5+ kernels on AMD CPUs, we observe abnormally long boot times 
->> where the guest is struggling on PV spinlock initialization.
->>
->> This occurs starting with 6.12.5, and also on more recent kernels on 
->> Intel platforms, but that hasn't been fully investigated at this time 
->> (but I assume it's a variant of the same issue).
->>
->> This occurs since a backport of 76031d9 ("clocksource: Make negative 
->> motion detection more robust").
->>
->> Some (claude-based) analysis made appears to relate that to the lack of 
->> proper max_raw_delta in the jiffies clocksource which appears to make 
->> the clock fail to progress meaningfully.
->>
->> Here is a raw summary of the analysis
->>  > We tracked it down to a single stable backport in 6.12.5: commit 
->> 1a678f6829a8 ("clocksource: Make negative motion detection more robust", 
->> upstream 76031d9536a0). It introduces a max_raw_delta field on struct 
->> clocksource but never initializes it for the default boot timekeeper 
->> (the jiffies clocksource), so clocksource_delta() clamps every delta to 
->> 0 and CLOCK_MONOTONIC freezes while that clocksource is active.
+On Thu, Jun 4, 2026 at 10:49=E2=80=AFPM <dmukhin@ford.com> wrote:
 >
-> Bah. jiffies clocksource is registered way _after_ timekeeping started to
-> use it.
->
-> The untested below should fix that.
+> This series corrects Argo module tracing.
 
-That obviously needs to be:
+This series has been committed to staging.
 
---- a/kernel/time/jiffies.c
-+++ b/kernel/time/jiffies.c
-@@ -60,15 +60,9 @@ EXPORT_SYMBOL(get_jiffies_64);
- 
- EXPORT_SYMBOL(jiffies);
- 
--static int __init init_jiffies_clocksource(void)
--{
--	return __clocksource_register(&clocksource_jiffies);
--}
--
--core_initcall(init_jiffies_clocksource);
--
- struct clocksource * __init __weak clocksource_default_clock(void)
- {
-+	__clocksource_register(&clocksource_jiffies);
- 	return &clocksource_jiffies;
- }
- 
+The maintainers were not CC'd on the series, and did not provide an ack.
+
+Patch 1 is rejected as an inappropriate change.
+
+Therefore it needs reverting.
+
+> Patch 1 lowers the verbosity of a spammy log message.
+
+Please see the review comment provided by Daniel on the v3 version.
+
+thanks
+
+Christopher
 
