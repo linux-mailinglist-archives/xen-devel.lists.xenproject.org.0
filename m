@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id sBuBFtUhJ2qIsQIAu9opvQ
+	id Wju6OsgjJ2oXsgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 22:11:01 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 22:19:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0312765A4BF
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 22:11:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B37C65A5E2
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 22:19:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=apertussolutions.com header.s=zoho header.b=Vrvmoxgz;
+	dkim=pass header.d=apertussolutions.com header.s=zoho header.b=ZVmtPel1;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=none;
 	arc=pass ("zohomail.com:s=zohoarc:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1332072.1594714 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1332078.1594723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWgIq-0001lx-P5; Mon, 08 Jun 2026 20:10:32 +0000
+	id 1wWgRB-0004Rd-Hm; Mon, 08 Jun 2026 20:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1332072.1594714; Mon, 08 Jun 2026 20:10:32 +0000
+Received: by outflank-mailman (output) from mailman id 1332078.1594723; Mon, 08 Jun 2026 20:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWgIq-0001jE-MI; Mon, 08 Jun 2026 20:10:32 +0000
-Received: by outflank-mailman (input) for mailman id 1332072;
- Mon, 08 Jun 2026 20:10:31 +0000
+	id 1wWgRB-0004Q4-Eu; Mon, 08 Jun 2026 20:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 1332078;
+ Mon, 08 Jun 2026 20:19:08 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1wWgIp-0001j6-9l
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 20:10:31 +0000
+ (envelope-from <dpsmith@apertussolutions.com>) id 1wWgRA-0004Pf-1o
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 20:19:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWgIo-00DuLB-Mv
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 22:10:30 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wWgR9-00B2md-0g
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 22:19:07 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2721ae-e002-0a2a0a5209dd-0a2a4501ae18-18
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 22:10:30 +0200
+ id 6a2723a8-bab6-0a2a0a5309dd-0a2a4506a996-14
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 22:19:05 +0200
 Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2721b4-c1f2-0a2a45010019-888fbc3352cb-3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 22:10:29 +0200
-Received: by mx.zohomail.com with SMTPS id 1780949417670124.47952518789407;
- Mon, 8 Jun 2026 13:10:17 -0700 (PDT)
+ id 6a2723b7-7371-0a2a45060019-888fbc33527b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 22:19:05 +0200
+Received: by mx.zohomail.com with SMTPS id 1780949931284788.3710999714295;
+ Mon, 8 Jun 2026 13:18:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,44 +55,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1780949419; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1780949934; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=h1AND7Ipg6X2AcxohHsw0HQ1rvbOdMVr9uruVSzQTIzlcM+3fVHWIEuK3iw8RMNbbnHNT3bqMIAUbC6SDwhEUxn6UlTYOq1kpw7HjviVI1t6yr7VHqzq2mC1BOj/PbIy7yydn5NUnu06oSaxg3BsqLnR4EZgusfqUt5JaJa2duA=
+	b=nFMMNusW8iNFhpCXAYBsdOC9e0r/c3y8Gq613U2PYCHLfx43TfKVAd5eOFf/4JHj5xTJdAxj1jxQ77iFT7KmNdoh6ThMw/hI9EwTCjhf+zmkf/KJSdFtDFRWKPqrsEKxKivqD7QwWaASBnR9pBFprDCY/cBEaFArfW6g9sH/Y/4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1780949419; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yE1FsJxJLRLOFfknqD9j5IwP4RjeqKaC1BrzJQDPey4=; 
-	b=C7sEW9EbC97xXrMcko9CG/WsumdVBgdehf0BJ8g3pvdOgto1K5S9f83uFAud/d+/S+JJUly1kcJErA9jnu21tz4PXQHrOEHYE5+/cW6iMOcxeNAYqApY/8i4jeHLkUugnQ5hy9rUryyTMMp0i3xeg7wDALNeCUeSC6GAeCh0Rvg=
+	t=1780949934; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=45UdOykV39QgLWCIyvgO03AZPBdshS1eGbFhct3aEzY=; 
+	b=SO5asRHGXftnudaSX+KJrDx5tDPUyapcO6aPQeUyWkQ2rRZa5zZWMUoZT7m7DckJwE/YGg4dQu+YcGrIcNalBuJdO+bWL7KM3egJvAK9XpIxC2AV1IvMXBCRc5YOQpPmtAt0FekMMog2ITMo/A2e684H6DkwaV/XVnGZAURh/Is=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780949419;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780949934;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=yE1FsJxJLRLOFfknqD9j5IwP4RjeqKaC1BrzJQDPey4=;
-	b=VrvmoxgzklNt+w2fcHd4hYAnUxGHOAtQp1uyEoAjJqVfeHC0gJF4c+93l8+2aJGI
-	lbajENv4WTCLCPWRUrBV3am5fLJ6JSFbevLpAlIyRPj9mXdU2T1D6vvgRWlECCgbG7M
-	gbwLkMxMsnE6D4T+o3R9Hhv2xbjhjWJwkXio0gUA=
-Message-ID: <c067e641-ab05-4dd9-b7e1-b7ea952de809@apertussolutions.com>
-Date: Mon, 8 Jun 2026 16:10:15 -0400
+	bh=45UdOykV39QgLWCIyvgO03AZPBdshS1eGbFhct3aEzY=;
+	b=ZVmtPel1a38ALznDRSx0w9zyh98vYC6/At9P7AK1aEdzFvwnWkEb4jcibaYb9kKA
+	mW4vCMOdt4FILU/1G8xgYNQ3z2KPZhUJ6KHfmqNOO0zTDNuB/dLQNnTsw+S10pb+MVy
+	ZJzS9n2MenE+byW67+qZYdOGU9evnUAxWU09H70s=
+Message-ID: <e087af10-4fee-4fea-92fa-5a647524af80@apertussolutions.com>
+Date: Mon, 8 Jun 2026 16:18:49 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] argo: introduce CONFIG_ARGO_DEBUG
+Subject: Re: [PATCH v3 6/6] automation: enable Argo debugging in CI
 To: dmukhin@ford.com, xen-devel@lists.xenproject.org
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com,
  julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
  sstabellini@kernel.org, christopher.w.clark@gmail.com
 References: <20260526215823.1452619-1-dmukhin@ford.com>
- <20260526215823.1452619-6-dmukhin@ford.com>
+ <20260526215823.1452619-7-dmukhin@ford.com>
 Content-Language: en-US
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <20260526215823.1452619-6-dmukhin@ford.com>
+In-Reply-To: <20260526215823.1452619-7-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
-X-purgate-ID: tlsNG-d62444/1780949430-B454DFF4-40BF0971/0/0
+X-purgate-ID: tlsNG-16d1c6/1780949945-84767D75-285A654A/0/0
 X-purgate-type: clean
-X-purgate-size: 1861
+X-purgate-size: 1101
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -104,7 +104,7 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	FREEMAIL_CC(0.00)[citrix.com,vates.tech,suse.com,xen.org,amd.com,kernel.org,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[apertussolutions.com:dkim,apertussolutions.com:mid,apertussolutions.com:from_mime,ford.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[apertussolutions.com:dkim,apertussolutions.com:mid,apertussolutions.com:from_mime,ford.com:email,gitlab.com:url];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:christopher.w.clark@gmail.com,m:christopherwclark@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
@@ -127,63 +127,39 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0312765A4BF
+X-Rspamd-Queue-Id: 8B37C65A5E2
 
 
 
 On 5/26/26 5:58 PM, dmukhin@ford.com wrote:
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Add Kconfig knob to enable traces for Argo debugging.
+> Enable extra Argo traces in CI to help analyze any potential Argo issues.
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
 > Changes since v2:
 > - new patch
+> - example verbose log: https://gitlab.com/xen-project/people/dmukhin/xen/-/jobs/14552079442
 > ---
->   xen/common/Kconfig | 7 +++++++
->   xen/common/argo.c  | 3 +--
->   2 files changed, 8 insertions(+), 2 deletions(-)
+>   automation/gitlab-ci/build.yaml | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 5ff71480eebe..adcdc51dd21b 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -491,6 +491,13 @@ config ARGO
->   
->   	  If unsure, say N.
->   
-> +config ARGO_DEBUG
-> +	bool "Argo: enable debug traces (UNSUPPORTED)" if ARGO
-> +	help
-> +	  Enables extra debug traces for Argo debugging.
-> +
-> +	  If unsure, say N.
-> +
->   source "common/sched/Kconfig"
->   
->   config CRYPTO
-> diff --git a/xen/common/argo.c b/xen/common/argo.c
-> index 3c38a51d09a2..b9b362064e7e 100644
-> --- a/xen/common/argo.c
-> +++ b/xen/common/argo.c
-> @@ -318,10 +318,9 @@ static DEFINE_RWLOCK(L1_global_argo_rwlock); /* L1 */
->       ((LOCKING_Read_L1 && spin_is_locked(&(d)->argo->send_L2_lock)) || \
->        LOCKING_Write_L1)
->   
-> -#define ARGO_DEBUG 0
->   #define argo_dprintk(fmt, args...)                      \
->       do {                                                \
-> -        if ( ARGO_DEBUG )                               \
-> +        if ( IS_ENABLED(CONFIG_ARGO_DEBUG) )            \
->               gprintk(XENLOG_DEBUG, "argo: " fmt, ##args);\
->       } while ( 0 )
->   
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index 7f5b5938e851..5f9192e53d63 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -319,6 +319,7 @@ alpine-3.18-gcc-debug:
+>         CONFIG_EXPERT=y
+>         CONFIG_UNSUPPORTED=y
+>         CONFIG_ARGO=y
+> +      CONFIG_ARGO_DEBUG=y
+>         CONFIG_UBSAN=y
+>         CONFIG_UBSAN_FATAL=y
+>         CONFIG_MICROCODE_SCAN_DEFAULT=y
 
-Is a Kconfig really desired here? This such a trivial knob and one that 
-is really only intended for tuning by the developers. Exposing it as a 
-Kconfig option means you intend for this to be tuned by distro builders 
-and wanting to see it exercised by the CI RandConfig.
+Why not just set up a job with the variable ARGO_DEBUG=1 and not have to 
+introduce the first and only Kconfig option turning on a debug logging flag?
 
 V/r,
 Daniel P. Smith
