@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Nn18IbWdJmp6ZwIAu9opvQ
+	id LmjqC6aeJmrRZwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 12:47:17 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 12:51:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A06066554F1
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 12:47:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB5C65554C
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 12:51:17 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=fX9d4d1x;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=C11PE+77;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1331559.1594127 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1331575.1594135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWXVa-00043U-Kz; Mon, 08 Jun 2026 10:47:06 +0000
+	id 1wWXZQ-00066C-5u; Mon, 08 Jun 2026 10:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1331559.1594127; Mon, 08 Jun 2026 10:47:06 +0000
+Received: by outflank-mailman (output) from mailman id 1331575.1594135; Mon, 08 Jun 2026 10:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWXVa-00040y-Gk; Mon, 08 Jun 2026 10:47:06 +0000
-Received: by outflank-mailman (input) for mailman id 1331559;
- Mon, 08 Jun 2026 10:47:05 +0000
+	id 1wWXZQ-00063j-3D; Mon, 08 Jun 2026 10:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 1331575;
+ Mon, 08 Jun 2026 10:51:02 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wWXVY-00040f-UQ
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 10:47:05 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wWXZO-00063d-HD
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 10:51:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWXVY-003cmh-3P
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 12:47:04 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wWXZN-003dfJ-UC
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 12:51:01 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a269da2-5cb7-0a2a0a5109dd-0a2a450a9828-18
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 12:47:03 +0200
-Received: from [40.107.201.59]
- (helo=CH4PR04CU002.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a269da5-56b3-0a2a450a0019-286bc93b69f1-3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 12:47:03 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CO1PR03MB5875.namprd03.prod.outlook.com (2603:10b6:303:90::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
- 10:46:58 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
- 10:46:58 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a269e94-e002-0a2a0a5209dd-0a2a45059ace-2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 12:51:01 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a269e95-aaa8-0a2a45050019-d1558030e0a9-3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 12:51:01 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490be29c1c5so53402015e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 03:51:01 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490bc3c183asm388884985e9.6.2026.06.08.03.51.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jun 2026 03:51:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,243 +59,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B4D5q8Qb6eshsmkfeLK4zCBaTzMway4GMxWZycTyjI4zH5ctGKN8zMkFGvlFzG2l0ozy+3/7iuamYH/dTA4S33QVDkitaSrh4lSnSMekYB9NQ/Z01iYlneM3oX2cu9OBoVuQQUoNcrvWS9hIyXjMYW3vknSH/8PSnHBqVdXnbz3bfE6CtocYmQWlzE1vuZC9bEtpvk1iPcP/W/fDqk5ftnEKnomuo9qHYiWTTVBch1a1wKqvMQSzGjZdedOxxU6rExMmJTK6p/RVY4CkwFmOz6yVDYy1fCBAEIch2BoTUQ81B9Y+lFMmAx8eRVxN9nacE7ZPSBFcQKWEvS3nB6OMbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qPtM5S/75X63cQbTUUUI8cGLXi5Cl4Dz+M5yCPendeU=;
- b=wmvTSM9fvvWra8ywxP5ep8RD/EwhCRQogqPlDAXLK4uOhfqMT+Gf4KDfV0r3mT4dxl3S2tI5xUtIcsEaFZ7QOZgx/+8Kd7jknBBMjENhMFnzcyokWiHk8vmxlVUkACZgT0pARGIKsTOEG/aKn8difyBY3csMXSIxqHGq1mlsHAtk5iYkWJAGJEgdDbQcQZSgVF70EmzGYPXtQrGbTBWshStBSev63ZBPcG+fTGDOdHR4X8WmxgGFpW16KdO0VNowGGE2vvIMKoSJm1PffcqT9k9yXBaSS1rYAHllZItp0YJm2hxMB52n8dseE1KPKLrM9oxsBNH6BydkGVIrWCJSdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qPtM5S/75X63cQbTUUUI8cGLXi5Cl4Dz+M5yCPendeU=;
- b=fX9d4d1xC36Rk/rPRTq30j8Dp075bcwJ0gzTNhz+9EYHowqHOUkmgrUPYy/BKS074kiGX80kM9tVpBwu86282JkezaVCUuO9UjG24BvVbjs8bt100doyXZGNW0+sxe/XatX7f8QPBbRbOVUkZxhJsz3RKVvZiJbtzsD84ciIMiE=
-Date: Mon, 8 Jun 2026 12:46:55 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 2/2] tools/libs/guest: Use the system liblz4 in the
- bzimage loader
-Message-ID: <aiadn_Gaf9IfkrUu@macbook.local>
-References: <20260603085331.2704108-1-andrew.cooper3@citrix.com>
- <20260603085331.2704108-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260603085331.2704108-3-andrew.cooper3@citrix.com>
-X-ClientProxiedBy: MA4P292CA0012.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780915861; x=1781520661; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=u/Xqfhlw+w9rTAfqBhZvGTdz1oijNj+H86PttYjTp0c=;
+        b=C11PE+77N6jwKUY0MC6LYg41GbnabUtVjxCukLDoCC8eo54QKuqdnblNH9dzka5V6q
+         9g/0PQzdSh3WbxYMgqQZBfyLr5HoFnl9GIYAMbropH0Y7i/HCkj5fh6ifOfIAKQuKZ8L
+         ByzRx3qbdt3JTsWwor8dmYM326bnPPAX0a1BgmpOCYsy/PpYlVeT5zDBAxsjjTkzTOjY
+         uUpf6JvbNDni1s8GkGrfNC+CFlQGR+E7P1jCLtvsEzF0biQp2YXgbfAHU4yIlyIt5g0Z
+         ASkHfNCM6eHDw/7Ef04UAMBS2NCL5mmWb2jjeS82CVbDZoBc1e0NkVgsnJwEFBXIRI1O
+         3gww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780915861; x=1781520661;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=u/Xqfhlw+w9rTAfqBhZvGTdz1oijNj+H86PttYjTp0c=;
+        b=J+7E3wRRpnZ7bBIMIOLlEJLMhtK55NOxW90HtKcaMn6gxsG1BWjCs8hHlGsH9a02Cx
+         TBPpgSd3ah9J0Ogim+GZi3UpZL6JTdE/zOSp8D1K34ZRQ/k7+RPNw15L5VJI+e2ZuYNf
+         UphTiCTiNP1RZMIwO7/kUnfj5opVYK/J+csBluBsAEVUIx6/jAaRMUfHPQmw0o7YvEvC
+         n3bwjoYiMIThbVV0SplMEywdkzJEn/CEA6hYPzUgpKR0zp9oKmLXBOgsVtKeUmhhIC3v
+         rVBzDu9wmhdKm29tEytfNDaovPLkYXXwQnJpj7xxP2A/BeVhc0eU88URH3ZN4rUl4cg9
+         op9w==
+X-Forwarded-Encrypted: i=1; AFNElJ/sp5iJFt9cwdifs1uoAcztUtCglWsY5ZPBPMr3P+buF1FzwqTTk+lDxX784vAw6W4fp22FmVqXX4U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxswnrZ9bubEQ0MwVQqxSk3cgmtnCJBZ5lsMkOtVumIsUPSDDuU
+	c4PHbFpkNaxA2kbtp2cXlSr8S0+DCjPiwRycNBheTSy65WvIEFDwET+mNOa1AA==
+X-Gm-Gg: Acq92OEKWS/qqnnoKJI9bmEw4AfmQJiHWqwN+QY+IDd0Oc53broUya787sjramtDimF
+	Dtbz8oJNix4RDskPoFVl7DJRAMJFNGhZC8TCtkWhrgfIEVMWIutSee/I6QGMWoG6FdMq5+Q/DqX
+	v1nfoGJCznn0pcxgT3urs8tnIDEMijkhQEsVexgNW2cYQw6yWU2fom353f+LXzDkx6IZFNO2UUa
+	w1goyBo9Tt4xy1VAZQ9oksbpn5eSjGZGit33BRdzFcfLbLC94oBJFVV01xdI4mr3zCnEPJLKlVL
+	2kYCofzAk14nkXI8HyvV/QrOaF9hcA2dFrrNn1v0i8IguBVQaz+sTcyqu17YhMrxcAodL9fBSJO
+	ssm16lMU1m1LUtvYK9kT1Y11Od0+kKbHNqmJEPLCCyGj+0WW/cjiC+gTx/TPjgNY/8/wHMgLXCy
+	PY9NCjWiavdI2bvkLuHL2dsEzNIVJhzDhsX77TXPAhh7aFa07jEg3e1c3AcuCLAw968Ldsyux6P
+	KAez+yusOYUfQ8J
+X-Received: by 2002:a05:600c:8183:b0:490:958c:46dc with SMTP id 5b1f17b1804b1-490c25b0a60mr226035785e9.17.1780915861004;
+        Mon, 08 Jun 2026 03:51:01 -0700 (PDT)
+Message-ID: <2e6bc1ba-72d6-4b4d-ba1a-226eb74fab0f@gmail.com>
+Date: Mon, 8 Jun 2026 12:51:00 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CO1PR03MB5875:EE_
-X-MS-Office365-Filtering-Correlation-Id: a69f919a-61ca-4d60-3b40-08dec54b43ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|6133799003|3023799007|18002099003|22082099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HRhMk/JihfrbFC0Qyh8VC3WY8ZV7p2EzbkylwokEalkOGwN9zIbHHqQIetWFsInk+kL/FJfg7PTJGDZWV1d2f3yd7iDQ+8YpuRpaVoiMt7xmC80LJe0QWazOa9StC1UuAahguRPg4wN//PUE4gtQaw8YYVXZWLfb0+B2wDLkj06GxjYb7Gh4gkNpboGN2jpFU5vg1F7E8cYpQVcf8FPLcoYSwCMIZ4WytCtRbHuPtvXrvVakXB4hjxFVkl2YQwiAJWbPq/V7HfEKSV6hkA4INjLZl3mB5cnh9hDPTdQLh4NGy22669OEMyUPikL8/4tRzUnyUwkJfWtnbiKacTMPovCsy8empoGgTKjgtWiNcCnlNUtjWvcfWXTKu+RT37nytRIlUVqzSGacpuFfjWLIAWJzbO0klb3GKjfmLsO0pTxvYBEknQ/KV3dX0u8uyu5oKVd83rRFzzEowmj0QwRlAytgCyoKCdArnS5yF2iltsBZfvFCEAdt+B85062T28ECOqC/yKuOhQ9aJ1i3OsLyEeyPW0YM8o6OELhIlMIyW+CjiR/ktbDww5L3uXoNhOXeIGKm/mfxopaYf6hhnpqJBgq3nn6I7x3ysDVpoIxmCNrdkUiUpPZ5rcH0fb9O9K4LkSilnHmrj+sbuUUcIS9tnx4mZjvZiQyaoUW1GQh0HZ0bpD9xCAD1Ccxt12tW6IQu
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(6133799003)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZUxYS2dWbEtaeU5oYXBSNE1XWStSU2kwei9qM0VURlcxZk8wVmFZUEo1RWJ3?=
- =?utf-8?B?MzZHSHVQM21tV1VCYkt6b2lwT0xEYzlUVXlYT3FYLzRkYnJPc29hYnh4cCtR?=
- =?utf-8?B?Tkx5K3owVnBtSUN0eEZQUFh2WFZJTmF6NjVhRmZqUVBGY0N3eU96TFNzdjVR?=
- =?utf-8?B?RmFjc2VuNEEvcjRqeS9Id2M4bVg4QVM1UkptYUlQbGZVRXo4TWlVWUtPYm1X?=
- =?utf-8?B?b3FPcnJsNGFtdUNCVGdEK3ZnM0ZZZDNyWEtHSlN5T2tXUWJJaTZzZ3QwbVlC?=
- =?utf-8?B?YnpaWjF3QWRnbE9CQmtZNTVUcGdhbDB2c0NqYXZSdFFhNytZQjBIRzNvSFB4?=
- =?utf-8?B?NkJtazV4bXoxRkx4MTJRdnZ5ZzJ3ZEs3YndSY25tQkNYd1Y3Wm5ZVG01Zity?=
- =?utf-8?B?MXV4c2wxKzlZQzE4aFdjUUJITG15Q3dMR0RTajFFVlA0UHA3TVdDV0tTWThz?=
- =?utf-8?B?Nklpa3YxZUFYdzA5UHk2ZWRTUldBWVdYQ2U2dkd0dlBXdmpGSlNEOCtYcWhh?=
- =?utf-8?B?bTljRWM1SGZKazZaLysxTHFwWDN3WHFDSWd4NGdUOG1vVm5XZDdpS3kwK2hG?=
- =?utf-8?B?VWUxcThzNVdydHVULys1NDBIa1RUWVBNTFhRTU9CcGY2dkc5RUQ0VDZUeW42?=
- =?utf-8?B?VVpUVDNJOFpJZUFldWJFYTE4MWR1dzNNZEh3VzM2a29OU0JTRWpFR0I3anNl?=
- =?utf-8?B?WS9vWGZURE0wTjN0Y0UyblA3dzhKRnh5M0NlTlV1aXBaZTgvdFdlU05wQ3RJ?=
- =?utf-8?B?YzNkaGp1MWI4MUtwai9xQWYvQzBmaU5MOVRYRWFUZE5KYmoxWFkzMEhwR21Q?=
- =?utf-8?B?U3haUFlrc2FJWldhdmtFUnRITGRidCt2OEptVzFHUHhkclIxbVJlMlY4eHNX?=
- =?utf-8?B?WFRPUElLcTNVOTBQYjI0QkZGUEx2TmVRZUJWZW9QeWNlNlRvamI5VG1mSm9C?=
- =?utf-8?B?THZqbTl5c1BTK3hnYlFMTUVTY011RWlxRkwzd0J5K2dqVWg4d3Vzb2dDSmw4?=
- =?utf-8?B?VWlBUnY4Ui9yRlJkOHB1T0ZCakxURU5RNzJ5b0VIODhmUzRpTU1raU03azdP?=
- =?utf-8?B?VVpGQ3piL2hqWm5zbDFVU3pQM2dvUmNHTXRxWUFnanJwWmJSUmtHMi84b3By?=
- =?utf-8?B?OCsxNU9STnJpVUxBcTRXdnpmV1NYWVlpMG1zSU9LSlo0SmxubDdycWRlVExC?=
- =?utf-8?B?TVhuL2VlYXVFZjBxN2J4Skl5eXpqTzl2c2RxbDU1bFFZWDgzSlUyYUtwaVBC?=
- =?utf-8?B?a0VGREpucFFXRlFGNkgzSHBjRVZQM0U4SmdsVXZTd0kzaStCeGg5dFlPcjht?=
- =?utf-8?B?STlBcWNIamgwSFdhSko1QXY3bkhxdGVjSjlVZ2ZPcUtsSy9MTHEyQTFaM0Nx?=
- =?utf-8?B?YXR1YTBlWjBVSzZhM2p0K1hVSElQN1FleXdZeFhTQkc3TkdlQ3V3eXVPZ0pS?=
- =?utf-8?B?Q00zTC85cXYyczBYd0pjbVZlMlYxSWtlR2s0SHh4eUREK0NxNVd5OEYvNkto?=
- =?utf-8?B?bEs3SURiRGxzSDE4V3lSOUpNUmhocTdoakRPdmhNSXRwOUpYczRncGpkb0FK?=
- =?utf-8?B?dG02OWF4eE9nRFJKRFBFZ0IzNk1NK0pjSDc4czJ4ZFlkYXg1aHFYWlJobVJT?=
- =?utf-8?B?L1YzenlQNnpUd2VSU2dkOHhoS2FhRkIxbWxjMUdyM1lqZmVpaU9SWXltQ2NS?=
- =?utf-8?B?Z1ZXckcyZmVwL0JpcUp2VzRwRFVIVjZtOGl1S3F2a1RHR2xPemdWVG11emww?=
- =?utf-8?B?azhKUURnVHJ0dzF6c2pSTEFYdVMvR1RPRkhaRHBDN1B6WEFERm5zdDZxd2lj?=
- =?utf-8?B?MmlobWI3MGlDSFgxV1ArdVArYXRzWUpRMGdGRElIZDhKcjh5M3NhKzU0WmJa?=
- =?utf-8?B?dm1sek8vS2lpdGVTWHJOaG44VzRablVaMUxXSDJxUkVsWTAxK1RoVTZlNG41?=
- =?utf-8?B?TmV2UnZXSjY5b1VGVGIzOW03aUZZQ0xqWmlKTkZtdHhmcllPeTBuKzlZaWcw?=
- =?utf-8?B?M3Z2bHFFaXVZQXV1T0ZRaFJ0LzRZYUttWDdBb0dxUGdVQ0wrSW1nalR5V2Ni?=
- =?utf-8?B?VktLZVVacEt1VGNjMERWTk5UVWlJbjdWN3FRb0Y4YW96L2lyR3NJODJRSlIr?=
- =?utf-8?B?c3FwUVlOcjFzQ0UveFVqaysreDJ5bEJ1Vm1mWFIrNzYydVlDQVA1NGk1NEwv?=
- =?utf-8?B?Z1YvNHcweUx4VW9OSS8xYmZSZTNBZ3dKNndnOTJZbUtWMThJWnllQUkxQm52?=
- =?utf-8?B?dE9UUkNxbXJTOXIvMUEvNmhFdmpJRm9ma0ZHYWRZUzRNY3NvS0ZLcUk2MytF?=
- =?utf-8?B?RUIrL2tINEZXZER6cnVSb1VjVkJWR2JqQXo0SzZncERpc1Bkd2ZGQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a69f919a-61ca-4d60-3b40-08dec54b43ca
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2026 10:46:58.5462
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JVaYhVZ2X+p+xrck35O+Gcnazhak2BcWHuir/PySfLGEUdRGvz3x4PSE3o4xVCCzuG3eD+qtymdfCv7zw65LPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5875
-X-purgate-ID: tlsNG-4011c0/1780915623-7DD828B7-7C2C2226/10/73395122804
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22(?) 0/2] tools: Use the system liblz4 package
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260603085331.2704108-1-andrew.cooper3@citrix.com>
+ <4818e5b8-21e9-4f2b-9977-8fc4c9a4889b@suse.com>
+ <23167e00-685b-4033-aa8c-6c44c705448c@gmail.com>
+Content-Language: en-US
+In-Reply-To: <23167e00-685b-4033-aa8c-6c44c705448c@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c201ff/1780915861-D9F76443-89BE72F4/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3941
+X-purgate-size: 1404
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	SUBJECT_HAS_QUESTION(0.00)[];
 	TO_DN_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,vates.tech,suse.com,gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email,citrix.com:dkim,citrix.com:from_mime,citrix.com:email,vates.tech:email,macbook.local:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A06066554F1
+X-Rspamd-Queue-Id: BEB5C65554C
 
-On Wed, Jun 03, 2026 at 09:53:31AM +0100, Andrew Cooper wrote:
-> Right now lz4, unlike every other compression scheme, unconditionally uses
-> Xen's unsafe decompressor.  Make it consistent with all other compression
-> schemes by using liblz4.
+
+
+On 6/3/26 3:01 PM, Oleksii Kurochko wrote:
 > 
-> The unsafe decompression is still required for the MiniOS build, so rename
-> xg_dom_decompress_lz4.c to xg_dom_decompress_unsafe_lz4.c and drop the
-> non-MiniOS content.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  tools/libs/guest/Makefile.common              |   2 +-
->  tools/libs/guest/xg_dom_bzimageloader.c       | 128 +++++++++++++++-
->  tools/libs/guest/xg_dom_decompress.h          |   6 -
->  tools/libs/guest/xg_dom_decompress_lz4.c      | 143 ------------------
->  tools/libs/guest/xg_dom_decompress_unsafe.h   |   2 +
->  .../libs/guest/xg_dom_decompress_unsafe_lz4.c |  39 +++++
->  6 files changed, 169 insertions(+), 151 deletions(-)
->  delete mode 100644 tools/libs/guest/xg_dom_decompress.h
->  delete mode 100644 tools/libs/guest/xg_dom_decompress_lz4.c
->  create mode 100644 tools/libs/guest/xg_dom_decompress_unsafe_lz4.c
+> On 6/3/26 11:16 AM, Jan Beulich wrote:
+>> On 03.06.2026 10:53, Andrew Cooper wrote:
+>>> Switch to using the system liblz4.
+>>>
+>>> This brings libxenguest's lz4 decompression in line all the others, 
+>>> rather
+>>> than using the unsafe decompressor from Xen (itself a port of Linux's 
+>>> unsafe
+>>> decompressor).
 > 
-> diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.common
-> index b928a4a246a9..86b1f160e536 100644
-> --- a/tools/libs/guest/Makefile.common
-> +++ b/tools/libs/guest/Makefile.common
-> @@ -46,7 +46,6 @@ OBJS-y                 += xg_dom_core.o
->  OBJS-y                 += xg_dom_boot.o
->  OBJS-y                 += xg_dom_elfloader.o
->  OBJS-$(CONFIG_X86)     += xg_dom_bzimageloader.o
-> -OBJS-$(CONFIG_X86)     += xg_dom_decompress_lz4.o
->  OBJS-$(CONFIG_X86)     += xg_dom_hvmloader.o
->  OBJS-$(CONFIG_ARM)     += xg_dom_armzimageloader.o
->  OBJS-y                 += xg_dom_binloader.o
-> @@ -59,6 +58,7 @@ OBJS-$(CONFIG_ARM)     += xg_dom_arm.o
->  ifeq ($(CONFIG_LIBXC_MINIOS),y)
->  OBJS-y                 += xg_dom_decompress_unsafe.o
->  OBJS-y                 += xg_dom_decompress_unsafe_bzip2.o
-> +OBJS-y                 += xg_dom_decompress_unsafe_lz4.o
->  OBJS-y                 += xg_dom_decompress_unsafe_lzma.o
->  OBJS-y                 += xg_dom_decompress_unsafe_lzo1x.o
->  OBJS-y                 += xg_dom_decompress_unsafe_xz.o
-> diff --git a/tools/libs/guest/xg_dom_bzimageloader.c b/tools/libs/guest/xg_dom_bzimageloader.c
-> index 1fb4e5a1f728..32b3c682a447 100644
-> --- a/tools/libs/guest/xg_dom_bzimageloader.c
-> +++ b/tools/libs/guest/xg_dom_bzimageloader.c
-> @@ -32,7 +32,6 @@
->  #include <inttypes.h>
->  
->  #include "xg_private.h"
-> -#include "xg_dom_decompress.h"
->  
->  #include <xen-tools/common-macros.h>
->  
-> @@ -623,6 +622,133 @@ static int xc_try_zstd_decode(
->  
->  #endif
->  
-> +#if defined(HAVE_LZ4)
-> +
-> +#include <lz4.h>
-> +
-> +#define ARCHIVE_MAGICNUMBER 0x184C2102
-> +
-> +static int xc_try_lz4_decode(struct xc_dom_image *dom, void **blob, size_t *size)
-> +{
-> +    size_t outsize, insize;
-> +    unsigned char *outbuf = NULL, *inp = *blob, *outp;
-> +    uint32_t chunksize;
-> +
-> +    /* Magic, descriptor byte, and trailing size field. */
-> +    if ( *size <= 8 )
-> +    {
-> +        DOMPRINTF("LZ4: insufficient input data");
-> +        goto err;
-> +    }
-> +
-> +    insize = *size - 4;
-> +    outsize = get_unaligned_le32(*blob + insize);
-> +
-> +    if ( xc_dom_kernel_check_size(dom, outsize) )
-> +    {
-> +        DOMPRINTF("LZ4: output too large");
-> +        goto err;
-> +    }
-> +
-> +    outbuf = malloc(outsize);
+> Generally, the patch series looks straightforward and low risk, so I am 
+> comfortable taking it for this release. Considering that...
+> 
+>>
+>> As stated in 84f04d8f0dbf ("libxc: add LZ4 decompression support"), 
+>> there was
+>> no shared library available at the time (and on the SLES versions I 
+>> worked
+>> with). Later a shared library appeared, but the -devel package still 
+>> wasn't
+>> there. On my main dev system (intentionally a relatively old SLES 
+>> version) I
+>> therefore wouldn't be able to build/test LZ4 anymore if we went this 
+>> route.
+>> (FTAOD this isn't an outright objection, as the goal of the series is
+>> certainly good. It is mainly a data point to consider.)
+> 
+> ...does not consider this an outright objection. While this may become 
+> an issue sooner or later on older dev systems, if the change is accepted 
+> into staging, we could switch to the shared library approach in 4.22.
 
-I would use calloc() or memset() the buffer, just in case part of it
-is (wrongly) left uninitialized, as this is copied into guest memory.
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I see this is code moment, so possibly better to adjust afterwards if
-anything.
-
-Thanks, Roger.
+~ Oleksii
 
