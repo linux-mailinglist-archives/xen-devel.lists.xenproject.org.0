@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 1v2mCaT8Jmr4pAIAu9opvQ
+	id 6gLoDLQZJ2oMrwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 19:32:20 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 21:36:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7621C65944A
-	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 19:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82FEC65A192
+	for <lists+xen-devel@lfdr.de>; Mon, 08 Jun 2026 21:36:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=hM3BXIb3;
+	dkim=pass header.d=epam.com header.s=selector1 header.b=sORFrdG0;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1332006.1594648 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=epam.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1332030.1594661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWdoh-0007WR-Dy; Mon, 08 Jun 2026 17:31:15 +0000
+	id 1wWfkm-0002UX-15; Mon, 08 Jun 2026 19:35:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1332006.1594648; Mon, 08 Jun 2026 17:31:15 +0000
+Received: by outflank-mailman (output) from mailman id 1332030.1594661; Mon, 08 Jun 2026 19:35:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWdoh-0007US-B3; Mon, 08 Jun 2026 17:31:15 +0000
-Received: by outflank-mailman (input) for mailman id 1332006;
- Mon, 08 Jun 2026 17:31:13 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wWdof-0007T2-Ms
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 17:31:13 +0000
+	id 1wWfkl-0002SR-Tr; Mon, 08 Jun 2026 19:35:19 +0000
+Received: by outflank-mailman (input) for mailman id 1332030;
+ Mon, 08 Jun 2026 19:35:19 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wWfkk-0002SL-U0
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 19:35:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWdoe-0039XG-BO
- for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 19:31:12 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wWfkh-003oIN-1R
+ for xen-devel@lists.xenproject.org; Mon, 08 Jun 2026 21:35:15 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a26fc4e-5cb7-0a2a0a5109dd-0a2a4505af64-22
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 19:31:12 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a26fc60-aaa8-0a2a45050019-d155802bb48b-3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 19:31:12 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4908b92904fso53485875e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 10:31:12 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
- [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490c2d2d11asm355238855e9.1.2026.06.08.10.31.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2026 10:31:10 -0700 (PDT)
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a271972-5cb7-0a2a0a5109dd-0a2a4502eca2-2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 21:35:14 +0200
+Received: from [52.101.69.117]
+ (helo=AM0PR83CU005.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a271972-af86-0a2a45020019-346545759631-3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jun 2026 21:35:14 +0200
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
+ by AS8PR03MB7318.eurprd03.prod.outlook.com (2603:10a6:20b:2ea::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Mon, 8 Jun 2026
+ 19:35:12 +0000
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba]) by AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba%3]) with mapi id 15.21.0092.011; Mon, 8 Jun 2026
+ 19:35:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,300 +63,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1780939871; x=1781544671; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=emdv5XAKXcHLSKQQjRjcb4jErQOPpUfK6czq6IDDt94=;
-        b=hM3BXIb3d7uKgVIP1HZUGWJMc4IwSBYOF27wgRnJ64XfgyqnQ6WDE7Iikm91/Qk6cn
-         AeY19jelJcKkoM22NVxltP6JXTKtgrAq97SiqobG5M4DFqlw2Rvy4hne95KQOwuZIpMx
-         NhLbU5WL45KU9hH6Au/LauGvlWnBQdbPUc4Hs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780939871; x=1781544671;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=emdv5XAKXcHLSKQQjRjcb4jErQOPpUfK6czq6IDDt94=;
-        b=hCVwxJdqyAbEHUr6qsdQ2q8Qs1As5Xy9n1PgllLm2DDYESJwvjyKk4E5Oi0B5TwRqZ
-         Miul7kRT17csUmo9dk2i/s6h5RpOD6XzwAHrbJdznSgkKH0fXZ3KZVPY5cpybdhXRJI3
-         ied1Jm59UqmnWhTd0WQ1r+QRDDA5N1zTavVs2NUUj7EwqPku6QoCurET8qfgD+B0tAKi
-         Fatp1GlmJFiLpnEUTrr5jJWbCj1Xdne4BdxuNP5HppnDAh1J6hKa2N924lmrD4LtDYZa
-         EqVnCLJKXcJPf1SEfUcRo5taFf4fAxgj9U9CdK4C81iXbiYBGpaIk/ujyTBW0uh+3zoG
-         sF3Q==
-X-Gm-Message-State: AOJu0Yyirhj7zEuduiEFS4AufZroccpfVsEqoNxItwvGW+hL16WyH1rn
-	YN+CkUvPAUGrH+2eOvCQFvJXA894dP8ojcNZC8Rt5tHNgAuHh/x7fQzRB+c7roI7Rv76jqCktot
-	No0pQ
-X-Gm-Gg: Acq92OFQOW525j4i5sHlC0bpMUa/g8zL19YW+pYjhODxNczdDfZ0ysiaXGnFp5A/esC
-	7IwtfgMmk/KeKQolWUia/gG7A07Pav2FlHwv7i+K6sHPrb/WElc+K+BfxxmSIDJ+XPMSwFJ90Yo
-	G3zt+sqg1ZbT8ong2wyjZH9jO7lhlb59oXALxpUd1iw19m8McGi1jxacyqBg/ZJBh3ukRJ6y4NZ
-	VsYhZ3rNMOc5/wojqUW3rNEJ/EJga82K0ruc/7l0amJJ1WvabsnyGu7IMREBq2i2o+rLxXW+aR4
-	GVf3WRP9fM+mdQQaNEUPDCWTv3YUhZ/Byix+1QEYby4sOHsoDnLiqxE/b4mTC5JvcIOEqhPKSeK
-	hMWz/RbNIBYfUlZf2a/jQrKT9FRSLax9nK6s7N05g5Snr8+WCxY/gpRPmLpTti+otzE2g16+A80
-	ml9lJiSbYy5hOrNjErMImAJZp/S2u1nSSCWa/HldHmKYZXog0vEIan5h5fkWMcCNru7tETEvCja
-	pn+gXthsKeA3bY=
-X-Received: by 2002:a05:600c:34c7:b0:490:bb45:79ee with SMTP id 5b1f17b1804b1-490c2525299mr284333175e9.0.1780939871376;
-        Mon, 08 Jun 2026 10:31:11 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH for-4.22] xen/x86: Always strip xen.efi
-Date: Mon,  8 Jun 2026 18:31:08 +0100
-Message-Id: <20260608173108.2848469-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FhGwSkvpGHV0kUchm/Gp9yHJtLfDdVDD+5ZAzcigOE0pcOp1P2EbEHb7SjPu3hcnq4QAaOBwGRfsvlA31JEUUbjqBPmmFstvrJBSdkK84vjs6yO/4RtpfqLBXdcINwNSgLg9M4dNR5leR8U1D75NZE2gYrHPBQD5kl81ZSNnvBqM5KKpanzFwy61eZew8rbD0clnq38fz0bQyYe06i5V/PGmlwmGo9HCONgoC5fVuoX4X4MrvljqFxbmAxTQWLRx9H3cMKLnxB5zZP3Mt7W5KnWVbgNto9g6ZCyx9vpLpP6Zp5Tv4nXDROyqbjoptlJrMWm0hr5ytOa+4cKFzoR23g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gM/uJWznb4zSkV5by61LyWNXqXZ7xUU/M2EgvsQx6Zk=;
+ b=DsqSEYLBLTN9zd260Vg0sX5lWa0fpvLrE7pskgyrKxO2TIh56P/5jMlPjT5UaMIX3vllG8wrtpoWrpwAj9WSf4mnhEkYOW+/m6bBrsSMHxi1jkpr1YurVhQn8bS5R0hiJ74+jp7ChuBTJspitfAbhzvz0BtYUu0WYhwarY6oXEPZZKGDmM1HkMgNennwL2+TR1ObHax9+liB3t5/bp8GE/LRT1/3eHQgy0YCCdzk4vHtUQmg27vqYIcSD2MPZUDbPjr3ytLrlbVxUqZBVQXecYaO77S4qLApYDfdfBOGp2XZu+1XW8o9uUYBgDvjCaFg0evp//TYqf/Fj9LwGqxu6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gM/uJWznb4zSkV5by61LyWNXqXZ7xUU/M2EgvsQx6Zk=;
+ b=sORFrdG0vVwIwrRHjV0iJ3rXyX0fUrbFFOhQt4xQQFTJDuuHQeTVo1HN+3Q3d+UBq9aMNUV4lKEfKpDt1J3ft1NXFdkaMV2+nxavOrY0xhO1qdBHJJP5mhF99DlQq4vVKY3A0A3g1WiGGKCoYL/nylEuw1lsVgbnd3+sVWsXrGNMZPXwi4HA5GGfVGqfCHPCvVCSA7T37nNM9O2mHmAAbqdXQSIdu6eu5zkr2cqyAUuWvt2Jtis7bnbjxH/HDdF8Y1Y7RtIsw6s1tJ1UyoGywXv4Fmj6WdINMDj0nrHmjWMM8UuUbSrRe0geHbnf6ZcAZZozxlHDfORjmKboWX6BMA==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3] xen/decompress: resolve MISRA R5.5 identifier/macro name
+ conflicts
+Thread-Topic: [PATCH v3] xen/decompress: resolve MISRA R5.5 identifier/macro
+ name conflicts
+Thread-Index: AQHc933sqAgjoPjitEesqeqMnsJ02w==
+Date: Mon, 8 Jun 2026 19:35:12 +0000
+Message-ID:
+ <f73e440f0ec5aeaa5f1bceaf1fd1403099df57bc.1780946676.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|AS8PR03MB7318:EE_
+x-ms-office365-filtering-correlation-id: 066b30b0-aa6e-451f-ac49-08dec5950f04
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|42112799006|376014|366016|38070700021|18002099003|3023799007|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ ZuLb9gen1+n0uDNhTLrvIAPWMC7KcqjuAP148wD5KWSXW3M40o4tkjul+ETHll2jMTbg8p42mrEWpgXswYAulk6+O11Ja6DGQpLJ/6+l00QHlXRsHFW6JBzmZjSydv5K6YvCuGzrAevWuVlAmTiCdVRN++Y5v5nQOxUTFRsIXeWuzQDrBQT01fd9u8/106UVroUiEgEhXZWh4sIl4QSMEDIPYhN9QRRfpZSGyOd+qo3sFy1I2NhVSmA227w/cB/hLURoy36EF9FV7amLfkomc/+dFtLcwUdP/9EIEfb+Iavzhz9ajtNR6Fo/PXq341ao0QI68QXDsKqBfwifrhe/ZSZ2fC9+e3Ng2stQR+kRFEknSIDoxMUDfOyKWiE0d/2deKUUpxx8YF9RZU3EMrHABbKylp1Rfpy+uV8bafoKjJyCi4QWNKUWmSV0HZYEpmpdL0UKDbnki+2UC9tqd1cY//JEYWwcZ6S3CrmnOw1qlZVbqbNhZnlkh+QgI/vtKZ1Jp60gD+D4t0yHQ5dT5L7qgXtCFvXX2HnVW7GrQ7+rLG3Cej/295yYa1G3xOYs0jsflaPepfDxSZKa/UXOlqSdCKeM8OcIGJlUNZsA8nGjC9oChRb+q2DCn5GaG+aVxhPhxjaGpOH6u/96m90OJBoYbKvngN29UY1ATDb72UNtX9r5/9jvlph2qKG8Vs44d/nppPsJJfVN/4Pk7ymlWB37WA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(42112799006)(376014)(366016)(38070700021)(18002099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?MbfCDtSBOg/Nv0IQKE9vaQT3xEt+XyFVTlu5L3FtcUd4Te1oTPz7jIgsh3?=
+ =?iso-8859-1?Q?u9htilbO/yni80LEHB2edRToLiWXv722/MQUK1SuRVY0OwlsQawemY/Wbo?=
+ =?iso-8859-1?Q?t9PCYgHSFHtzQXcGpp5ZA17OymkeTkTihR/E+GPlX65VbTHdO7ZzbJCRfx?=
+ =?iso-8859-1?Q?R5YioFm0IFIUqbJvQNn1n3x7cZNqVk/OWFfBclPuY3DX3fOLzAMGZxxjlg?=
+ =?iso-8859-1?Q?44HolNjpqd7h5zJacvWlRqpS09L3IQQOv25Dl7mxWTiKObk55RKy1LR/F4?=
+ =?iso-8859-1?Q?owavdjux7wETebSHrUOSYOkUlzbkjbqeUftEM7iQ7QZbSc6t2nu1dz7Sfm?=
+ =?iso-8859-1?Q?+gTFw2yggijyRfqxHm7iUtmQNo4v2im8sflIjoJp94j+7d2Kbr5YvvHyx5?=
+ =?iso-8859-1?Q?GC6PcbbEtK0VtYbOmNounO+Vaei7ZV/YK0VFT5JBxoBTBNeEcjrbqU5gI7?=
+ =?iso-8859-1?Q?L2HYO5baR3lfkfX9iFLPkkbVyMmOCBQ/3qC5EGIBwM82TPY/Efg+CNijFg?=
+ =?iso-8859-1?Q?i7WfEjbqBLnKFWZz/yF4h6/9QfN8fLE/luwBzamWLC1qGFS/z2rh7meLUS?=
+ =?iso-8859-1?Q?TZyeW7xNBYULZYgmFgo2x56GmY7Jg6eohXQoIwOMOUGCVBKp7vfLGFZ2uS?=
+ =?iso-8859-1?Q?rWpUQ/9m3vfHgzKHOven6CDmqnM5RmbpM8hpL5WwzzfH2hAfZKB8dfX8xw?=
+ =?iso-8859-1?Q?UJsZbVltejOluZW6vZGAN5uPDQxyFlUCHyJOcBrrwHa6GnNLpVXsjpUBm6?=
+ =?iso-8859-1?Q?jIr/gx5RpV5I7u+Inciw6Ksz1N3fihey6oMtG0dwcJK1I50WG5lceo8tCr?=
+ =?iso-8859-1?Q?eHCQz764dQ6UZhQWbaW4OnXIFBE05hUPLGmLEM9uBKKBFlMLnRQanLLUQA?=
+ =?iso-8859-1?Q?CrCANXjBHv0SeTJjHi3hOC3tDome7lDYu7CDWWflIeqDqEATQVJDbeTyg6?=
+ =?iso-8859-1?Q?/GZjp6dFT3xnjW9q/NU7DkeUZdndRneJD2+SpaoB+V91WdHryknmoygJPB?=
+ =?iso-8859-1?Q?xqk/AcWX0C48YBDQHiYuZF2h/zi2PVYJSDlliwFUG3ijRg8bAI6sRDtKW3?=
+ =?iso-8859-1?Q?QOT3Ay82JABvjcNiWM/bwsPS2cTxh4tWsGHUyruGxgRzsblN1XUxUSOPCK?=
+ =?iso-8859-1?Q?lTqsDc9JfJ5OftWwWq7AfReIAMHZKHBTSPlPo7rX+jVowCJN+5iYEehjDu?=
+ =?iso-8859-1?Q?T5gLSdGnlF9DgR0qansSAE6vjiJIZnfnviPrXJwPXdNl1q370WLGRWLoL6?=
+ =?iso-8859-1?Q?u7vKNyeQjEQ1j5Zko69iPffd0/hhem9pcUOSDq1wBAkB2lMtxdw2U7FSI6?=
+ =?iso-8859-1?Q?zk9ituLg89XcAvG2r/5EJNGkt4bGXrKvD5mFTW64XCvezt+sIB4w0UDcNo?=
+ =?iso-8859-1?Q?FMmbr4h3iCaRNcESWDchK9v886hquqb+73FiQjAX1d/Jpz8HeNneArNHAi?=
+ =?iso-8859-1?Q?9s6K6uMUsHliipoB6uNrSk/aOQlL4VQYc/ihOSy056y6epGU2UZ3YVTlXo?=
+ =?iso-8859-1?Q?5xvbcPCrxUQelRO4XKnp2j9ZpAByzTm63Kc/uS1yrtoE2Yt1834BGdGc6s?=
+ =?iso-8859-1?Q?6LEdSPE+in+XgK5HHpvDiYDemSvC3gmlghPxLm8iuJ/iUpHaXMWdvmPMvk?=
+ =?iso-8859-1?Q?E9U+HWZPtOY/Zn7/3nGVCdpbbUNlhgRRh1bUYSG/dhe7VekwC+Kmx90cO0?=
+ =?iso-8859-1?Q?cuuKrKB2+c1nF/ZQ8QHG0GqYn4RAuK95LnjaTc1+J5Ib845zAPA77ZbrLK?=
+ =?iso-8859-1?Q?7RidaCh3efiHcbrz+HSK8LHFzFfE0BURCVQkyWlIm5S+mNVDu8TxevAAAw?=
+ =?iso-8859-1?Q?Ff06s8kOxM+VgzaaRCE2uLTs7KhtQpQ=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1780939872-E2790443-E7A527F3/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 8815
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 066b30b0-aa6e-451f-ac49-08dec5950f04
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Jun 2026 19:35:12.5319
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /ZZUl+EWWE8th6nKJttQe198NZq5YogEyydIZglaouP3pbMCCc6FF4JK4ZyWATBvy6LjKTfsi5qTm9XZ+cQaENHpz5vXJu6teBeN2rBiPnY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7318
+X-purgate-ID: tlsNG-720697/1780947314-ABF66161-923E9453/0/0
+X-purgate-type: clean
+X-purgate-size: 2160
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,suse.com,vates.tech,gmail.com,invisiblethingslab.com,apertussolutions.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[keepachangelog.com:url,apertussolutions.com:email,changelog.md:url,vates.tech:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dmytro_prokopchuk1@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[epam.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7621C65944A
+X-Rspamd-Queue-Id: 82FEC65A192
 
-From: Frediano Ziglio <frediano.ziglio@citrix.com>
+Convert 'free' macro in 'decompress.h' from object-like to function-like
+form.
 
-xen.efi with debugging symbols is ~45MB, down to ~9.3MB when stripped.
-Multiple firmwares (as seen by QubesOS, Trenchboot, and XenServer) are unable
-to boot xen.efi when debugging symbols are included.
+The object-like macro '#define free xfree' performs unconditional text
+replacement, causing conflicts with identifiers named 'free', such as
+struct fields in 'page_info' unions defined in 'xen/arch/arm/include/asm/mm=
+.h'.
+Function-like macros only match when followed by parentheses, allowing
+'free' to be used both as a macro and as a struct field without conflicts.
 
-Either way, having debug symbols by default is abnormal and contrary to how
-the non-EFI path works.
+Applying function-like form to 'malloc', 'large_malloc' and 'large_free'
+ensures consistent macro style.
 
-Produce xen-syms.efi unconditionally, just like xen-syms.  If
-CONFIG_DEBUG_INFO is enabled, these will contain debug symbols, and if not,
-then not.  When xen-syms is processed by mkelf32, the debug symbols are simply
-discarded.  For xen-syms.efi, call $(STRIP) to produce xen.efi.
+Additionally moved 'large_{malloc,free}' past the #endif to reduce
+redundancy.
 
-Some old versions of binutils ld managed to produce efi files which the
-matching version of strip couldn't process.  This includes Binutils 2.26
-included in Ubuntu 16.04.  Delete the workaround for this bug, and require a
-less broken toolchain.
+While function-like macros prevent uses where the underlying function
+identifier is needed directly, such as taking a function pointer, no
+such uses exist in the current Xen codebase.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Teddy Astie <teddy.astie@vates.tech>
-CC: Frediano Ziglio <frediano.ziglio@citrix.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-
-For 4.22.  This was posted previously as
-
-  https://lore.kernel.org/xen-devel/20251208133945.61375-1-frediano.ziglio@citrix.com/T/#u
-
-but merged the two patches and rewritten the commit message to make it clear
-that failing to strip xen.efi is causing boot failures.
-
-Previously xen.efi.elf was produced but it's unclear why, and unnecessaerily
-different, so I've dropped it.
-
-While this does want backporting, it can't be.  Xen 4.21 and older still build
-test with Ubuntu 16.04 and choke
+Changes in v3:
+- updated wording of the last paragraph in the commit message
+- large_{malloc,free} moved past the #endif
+- changed macro parameters naming ('s', 'p')
+- added Jan's Acked-by
+Link to v2:
+- https://patchew.org/Xen/025bc771fe1339dfae476037af86c6bfa1048382.17796541=
+14.git.dmytro._5Fprokopchuk1@epam.com/
+Changes in v2:
+- converted other macros for consistency
+- updated commit message wording
 ---
- .gitignore            |  1 +
- CHANGELOG.md          |  3 +++
- docs/misc/efi.pandoc  |  8 +-------
- xen/Kconfig.debug     |  9 ++-------
- xen/Makefile          | 19 -------------------
- xen/arch/x86/Makefile | 11 ++++-------
- xen/arch/x86/arch.mk  |  7 -------
- 7 files changed, 11 insertions(+), 47 deletions(-)
+ xen/common/decompress.h | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index bfc7bdf043c3..49e2c6961768 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -224,6 +224,7 @@ tools/flask/policy/xenpolicy-*
- xen/xen
- xen/suppression-list.txt
- xen/xen-syms
-+xen/xen-syms.efi
- xen/xen-syms.map
- xen/xen.*
- 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 5cf19372a361..71d1e9ab8c69 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -14,6 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - On x86:
-    - Enable pf-fixup option by default for PVH dom0.
-    - The libxenguest bzImage loader now uses the system liblz4 library.
-+   - The install-time environment variable INSTALL_EFI_STRIP no longer exists.
-+     xen.efi is always stripped, while the symbols remain available in
-+     xen-syms.efi.
- 
- ### Added
-  - Support for per-domain Xenstore quota in C xenstored (includes
-diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
-index 8198a7f063cf..0a3fd67076fc 100644
---- a/docs/misc/efi.pandoc
-+++ b/docs/misc/efi.pandoc
-@@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot modules are found.
- Once built, `make install-xen` will place the resulting binary directly into
- the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
- `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot/efi` not
--match your system). When built with debug info, the binary can be quite large.
--Setting `INSTALL_EFI_STRIP=1` in the environment will cause it to be stripped
--of debug info in the process of installing. `INSTALL_EFI_STRIP` can also be set
--to any combination of options suitable to pass to `strip`, in case the default
--ones don't do. The xen.efi binary will also be installed in `/usr/lib64/efi/`,
--unless `EFI_DIR` is set in the environment to override this default. This
--binary will not be stripped in the process.
-+match your system).
- 
- The binary itself will require a configuration file (names with the `.efi`
- extension of the binary's name replaced by `.cfg`, and - until an existing
-diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index d900d926c555..fcd3fc3d36cf 100644
---- a/xen/Kconfig.debug
-+++ b/xen/Kconfig.debug
-@@ -147,12 +147,7 @@ config DEBUG_INFO
- 	  Say Y here if you want to build Xen with debug information. This
- 	  information is needed e.g. for doing crash dump analysis of the
- 	  hypervisor via the "crash" tool.
--	  Saying Y will increase the size of the xen-syms and xen.efi
--	  binaries. In case the space on the EFI boot partition is rather
--	  limited, you may want to install a stripped variant of xen.efi in
--	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
--	  docs/misc/efi.pandoc for more information - when not using
--	  "make install-xen" for installing xen.efi, stripping needs to be
--	  done outside the Xen build environment).
-+	  Saying Y will increase the size of the xen-syms and xen-syms.efi
-+	  binaries.
- 
- endmenu
-diff --git a/xen/Makefile b/xen/Makefile
-index 1f11610b5f68..0f9b56fc399d 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -493,22 +493,6 @@ endif
- .PHONY: _build
- _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
- 
--# Strip
--#
--# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
--# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s) below
--# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
--# option(s) to the strip command.
--ifdef INSTALL_EFI_STRIP
+diff --git a/xen/common/decompress.h b/xen/common/decompress.h
+index 034c833665..b347d91980 100644
+--- a/xen/common/decompress.h
++++ b/xen/common/decompress.h
+@@ -9,11 +9,8 @@
+ #include <xen/types.h>
+ #include <xen/xmalloc.h>
+=20
+-#define malloc xmalloc_bytes
+-#define free xfree
 -
--ifeq ($(INSTALL_EFI_STRIP),1)
--efi-strip-opt := --strip-debug --keep-file-symbols
--else
--efi-strip-opt := $(INSTALL_EFI_STRIP)
--endif
+-#define large_malloc xmalloc_bytes
+-#define large_free xfree
++#define malloc(s) xmalloc_bytes(s)
++#define free(p) xfree(p)
+=20
+ #else
+=20
+@@ -21,9 +18,9 @@
+ #define __init
+ #define __initdata
+=20
+-#define large_malloc malloc
+-#define large_free free
 -
--endif
--
- .PHONY: _install
- _install: D=$(DESTDIR)
- _install: T=$(notdir $(TARGET))
-@@ -535,9 +519,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
- 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
- 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
- 		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
--			$(if $(efi-strip-opt), \
--			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
--			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
- 			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
- 		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
- 			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index 47dd6c50fe88..01ed7302202e 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -196,10 +196,7 @@ note_file_option ?= $(note_file)
- 
- extra-$(XEN_BUILD_PE) += efi.lds
- ifeq ($(XEN_BUILD_PE),y)
--$(TARGET).efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc
--ifeq ($(CONFIG_DEBUG_INFO),y)
--	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
--endif
-+$(TARGET)-syms.efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc
- 	$(objtree)/tools/symbols $(all_symbols) --source-name=$(@F).S --empty \
- 		> $(dot-target).0s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).0s.o
-@@ -233,10 +230,10 @@ endif
- 	$(NM) -pa --format=sysv $@ \
- 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
- 		> $@.map
--ifeq ($(CONFIG_DEBUG_INFO),y)
--	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
--endif
- 	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+ #endif
+=20
++#define large_malloc(s) malloc(s)
++#define large_free(p) free(p)
 +
-+$(TARGET).efi: $(TARGET)-syms.efi
-+	$(STRIP) $< -o $@
- ifeq ($(CONFIG_XEN_IBT),y)
- 	$(SHELL) $(srctree)/tools/check-endbr.sh $@
- endif
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index cd0602a79aaf..199adc1a0967 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -95,13 +95,6 @@ EFI_LDFLAGS := $(patsubst -m%,-mi386pep,$(LDFLAGS)) --subsystem=10 --enable-long
- LD_PE_check_cmd = $(call ld-option,$(EFI_LDFLAGS) --image-base=0x100000000 -o $(efi-check).efi $(efi-check).o)
- XEN_BUILD_PE := $(LD_PE_check_cmd)
- 
--# If the above failed, it may be merely because of the linker not dealing well
--# with debug info. Try again with stripping it.
--ifeq ($(CONFIG_DEBUG_INFO)-$(XEN_BUILD_PE),y-n)
--EFI_LDFLAGS += --strip-debug
--XEN_BUILD_PE := $(LD_PE_check_cmd)
--endif
--
- ifeq ($(XEN_BUILD_PE),y)
- 
- # Check if the linker produces fixups in PE by default
-
-base-commit: 37df17d2f903503c619713eb01e488f2cb1a257f
--- 
-2.39.5
-
+ #endif /* DECOMPRESS_H */
+--=20
+2.43.0
 
