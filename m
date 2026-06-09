@@ -2,56 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id kUowJb3mJ2qa4QIAu9opvQ
+	id 5RMUKpD4J2rm6QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 12:11:09 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 13:27:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F12DE65EC24
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 12:11:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0423365F758
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 13:27:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=gEUyAiv+;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=j9XNjEvO;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1332589.1595055 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1332603.1595076 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWtQ0-0001H4-N5; Tue, 09 Jun 2026 10:10:48 +0000
+	id 1wWub3-0005XM-UA; Tue, 09 Jun 2026 11:26:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1332589.1595055; Tue, 09 Jun 2026 10:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 1332603.1595076; Tue, 09 Jun 2026 11:26:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWtQ0-0001FW-Jv; Tue, 09 Jun 2026 10:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 1332589;
- Tue, 09 Jun 2026 10:10:46 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1wWtPy-0001EL-KZ
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 10:10:46 +0000
+	id 1wWub3-0005Vc-Qc; Tue, 09 Jun 2026 11:26:17 +0000
+Received: by outflank-mailman (input) for mailman id 1332603;
+ Tue, 09 Jun 2026 11:26:16 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wWub1-0005VG-PC
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 11:26:16 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWtPx-003v1O-GW
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 12:10:45 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wWub0-00H6zX-Gi
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 13:26:14 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a27e69d-e002-0a2a0a5209dd-0a2a4503d93a-36
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 12:10:45 +0200
-Received: from [40.107.209.17]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a27e6a3-672d-0a2a45030019-286bd11143f0-3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 12:10:45 +0200
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by SA6PR03MB7615.namprd03.prod.outlook.com (2603:10b6:806:43d::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
- 10:10:38 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
- 10:10:38 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a27f848-2eae-0a2a0a5409dd-0a2a4508b04c-40
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 13:26:14 +0200
+Received: from [209.85.167.53] (helo=mail-lf1-f53.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a27f855-63b5-0a2a45080019-d155a735a842-3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 13:26:14 +0200
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5aa61503fdaso5560832e87.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 04:26:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,194 +55,489 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HnNDqS/QuarfcMAXW3l0PXYgpzrbk68lUkeC0MStfdcfg5lx+4hqrW06LAgwP2HcYcYHsD0cGIPBmIb+CHxbUWqdCr2anRCG3JV4zFEFrY4zqpk/v2jvSFOTkNXw4Af4c9oyfHWGUfHnq0lal3bGLQYAt9XW/dW+dlwZcgjX61/f3R7bv0NpDZlg17Nt2BY+0sm5E7BoDA0PyMjwePWLCMnTvZe898YklF5MuX0Dkh2vFZkxeWUSrEoO7/f+gPea0Yk4faEk0g12HX0NJ4VH9f+kxobk0/UodTXl/vMYz61aeLFOmHxyPqToFbnYW730/l4C/vq8uk2auTTxrFAn4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F27M/NQeVPs2O3bFwXwxmbXKM5/VuTuJ1zs+P55GCQ4=;
- b=Gsn8VGZ/XcAt78b83GtwSsCAx8ahTXxbs27IdeuCsU/iJiNwRGp2QsjLSqXQCEbaIsKlgX5Rb/zXsWmtHZIXD5jo9S8Dj7AvIX5cTrY0l7zzxwmvcHUp+eRQNmgrramTDduc0/Ta2iI60+Ch5yTFp0YBOygMkbdC3dBilYHwKJH6u17D8+ZYvx/bAtelZCshXvpa98vp3bK4dV2REbr6d2JTST9Q7GKLIdhi1GHOQ+2F3GnOAYC3FVkWFxr2L9M2VWyeZaz8SkvdFIRB6sDEt76GhqKJD2AZ81/NAqKTjsNXyZebDXW0k8eibKe4JuMpuV6cn+8S6Rh/qIIt2IblVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F27M/NQeVPs2O3bFwXwxmbXKM5/VuTuJ1zs+P55GCQ4=;
- b=gEUyAiv+I+GoscU/7ChnqAkT1QHRjF8uxYg/FtlGwwpXxUWd1hMc+IVTJyu7Q9sD9keJtZVi4d/3rZ2RfUu7WIC6IIdrWx/UHmH8N3hcQN4tZZmndqpj/U8RNuJGAtFHIkiYYfGZdeSyQVadTaWwKmqybrPPXQG/n3KdnHdql7s=
-Message-ID: <00f87295-eb9f-4e7f-98c3-bd59b9137efe@citrix.com>
-Date: Tue, 9 Jun 2026 11:10:35 +0100
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Frediano Ziglio <frediano.ziglio@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v4 07/16] libs/guest: avoids using 2 indexes
-To: Frediano Ziglio <freddy77@gmail.com>, xen-devel@lists.xenproject.org
-References: <20260603130603.776452-1-frediano.ziglio@cloud.com>
- <20260603130603.776452-8-frediano.ziglio@cloud.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20260603130603.776452-8-frediano.ziglio@cloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO6P123CA0011.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:338::15) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ARC-Seal: i=1; a=rsa-sha256; t=1781004373; cv=none;
+        d=google.com; s=arc-20240605;
+        b=PDfukmvhytkWAbDmDPn0lwpra6stT/RfH5VzIVXbQH4nk+A9ubC4fr7kdKqg4fYGUR
+         Y9Cm6EuEVzc3kSkq+eAOUNH6oRhqUyamQbig7jwQiPQDjKU898hIgKLL26i8/Vx7GFex
+         njgBhoNIoNN2nimXMOllSfSHAo5nk6hJCVijDWG5tMrQ/PV0pj624rqkkc4e7pz94+0Z
+         HNKPUPOZjHyRHB2Sv+HJwdRqdTDOwr0T3iqUVXc8EJJ4lEUeZYnl9NgoHJPRz4jDA+Zo
+         JJcpQ/dKg+f5VEEbMopxOG7ksWpKXaLpq/+4vvbavO5lr1o1MlYLf/Ws0t5cz/vNqyvV
+         Dmpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WLYcPfWt9uMVLfZgYj04XzkulV5XoWd3hFIn8YeqBwk=;
+        fh=zk+JGOYQjpPuYyxRR8v3OZOsXfYFHag6LUjq1VldQ2M=;
+        b=T1LtuURQWrapEpNV4AT+ci7DQnxqQsKhfLjpeXcDCysm+AvmFvvNqjPR4VshwBoZ00
+         4Gk0NdL21II4Ta8ES0RR9lP4InXv4P5h4ItcnldgnYFFePmgRxyXZ+yZGIPgxO0Z2MZo
+         0xWV0ycWhcwy3RIWyDpolJi0tVshQqelyAADnhFyEuwzSYIP0gvF9hws4akzL80/9Cuh
+         J+d8b1I4liLVedPTxsDYmsKvPT5pvuyarKAcPpxCdVkUE5OFMTLDiYv1Ye6tM7C5ziNt
+         +BNQGMcrhUT39nGAkopmUwoklzVfBEY86E6sA0z8+UqW62W00vdj+3WS2caKJ2xIATar
+         4WFQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781004373; x=1781609173; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WLYcPfWt9uMVLfZgYj04XzkulV5XoWd3hFIn8YeqBwk=;
+        b=j9XNjEvO2j5/mz/iOZsJz5AoeekEEO0CWbd7nVXaZbsV4fuWNDQ39JLgNScsrMX8Ot
+         zUzkUAinSGx3lV04QnzHcgYnqJoVXV0GQWPxHvel+DHs05g1VTQsWR8jHZz3p3EEz7/W
+         Qe9EtLG1L/U9J9YBuM1VMjSCe11cvqdnBlKPbfBqYPfLEwOIJscng5S/OY2Nx2ugC9iN
+         R6wYkZxTyAKbOU/lsGjRBOzgI2Hj6D46zSJGF3TN/Af3g8yA0Qu+09IaY3RHcFEJQVPW
+         JTUezuS1eWeXHoavoyROe6TQ0l4J4R1akpfdR0ZJynyJ/b/izGuEj7S3JAZC5y10rJq3
+         lIGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781004373; x=1781609173;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=WLYcPfWt9uMVLfZgYj04XzkulV5XoWd3hFIn8YeqBwk=;
+        b=j5cM7fZziAVKb4SoURZ6Y0W1znRzQs9yFus0Uwe+ZqzJXSW228wS9SwSj6ML3B6nFS
+         FlLs73g9LhQghxoASM+QBrsH/h/Bu7sfW0WMYgR4SY5Odtiq0govF6xS9cIVmw7X3Q+U
+         98UIRR1IQ3i9XoiYEDw5OyDU1mE2OdYWWuStep04POCq1Ms/Myvw4rBtrU7M2PMHpMAq
+         2vjffiGGiICCweM2k8hLK+XcQgdY+XWsa4Dm2l9cr91ybcPQV8ps+CHWi/CCx4y6lkZV
+         F+cqWPaMUwZBCFbDd/5z9+pQXA+HlXRn37a2OFTx9Uv1on0quI+fZrfdwZrVXG8bpM/a
+         pFqg==
+X-Gm-Message-State: AOJu0YzqbA4ZVZURXlGvzDV8KzHhua8ELrsg16LtfB0a6KrrZXx43ZLb
+	ULjSWY5n2za3bi2hiKhR9EOn7OSumHbHJd2rVunREaFASM+VFFR34oSYi7Ya1VbZrWW08MIwAEG
+	UVswgJV/TlEBMOFubHUvsYaraZmaMO4M=
+X-Gm-Gg: Acq92OEwkJVQO5aEPUVvu0FhM0LWL99uimjD2hgnpDIM55ogmJXjCMLQdgcaaJwQrfw
+	tsPfuu2yZcXhKasfeXwGvloeKQy2jz0qo840GBoq0iVkhTSfN7vZNw+6qPpgLe8/uwA7ZsE0waD
+	lr6eHim7w6eHo/0kw8DxWQhvGle7H6zABNee7i5esjMFOKw45mlanMJKsaYo+nRmJXbPbznmCS2
+	SKVCNE9t5aizD7rW7gTY0MnJmAMq4Rt2dqpqMwmT6x4Zgq/X5MJup1hqBQLCF74IR+5S/Q/ZxIB
+	J7iYIQFnItHn3omF
+X-Received: by 2002:a05:6512:31c8:b0:5a8:73c2:c90b with SMTP id
+ 2adb3069b0e04-5aa886eac86mr5533347e87.20.1781004373010; Tue, 09 Jun 2026
+ 04:26:13 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA6PR03MB7615:EE_
-X-MS-Office365-Filtering-Correlation-Id: cedb5c6c-cfdd-4413-73f8-08dec60f5af0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|18002099003|22082099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	33KX0doi8tXpaZu2dOt17v3wYylyKNaXaeWhC9MqWeB/SUZYE2h0wcI2rv5vCjgn5u9iVcTsX+4bIbYbvR+oCp+RY38DJV7hsJB8qwXkP+kasy4BVt0DeuKn65lu5LyYitC296sQKqQKclPROrMagWlP6/F0dJaNaqPkP0EKWW61MdWiVyS32DZbm/5sOFRjJfZRza3zrDubnGbKC39GnNyzNjdl1ej7DKnKpdhf7SzYykR4P9Ka3muof6Zdp3u+MuzVjbTCo6qRjZfvZr7alOds3F2eAfFt/d5F+/lVmy5YQYzVqGDe5/vvNDsNIgy0JCY6mXcBrOS8jyyXEYsX8nIirBMpDK/yX+kbxLijP5HcsLXUkOpTwN2cwMZmiDpb+rWBEoKEBTsOABxmFSxzMOHvY+s3PhV83AtfFMHrgviJ8iqHoPzV/junzKEqA+Ia3mHFHs2mFdayq7neCHB4dxXWZ65h5WGm2mMaKTvY8Lv7dSwEk8aDgqv/KHoKxyfLrmR5pS89pFzCKLvso9Zr4zjxFbG3Tp3iL1bhHpYB+78PfSY/3E/cjei0bQtR4yDmrUrbkTD/6dT0X0ltRLKYDfndXoUuzMhyc81xOfSrrIwoVhKXbGUVjay8BZif2r9lUDujcLor15fJnYKtpWKrfgbwmk2zU+A3mLk7dReFztvRZvVphLAcmws89/kZfu6Z
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NFpLK2QzME14Y1E5anB2RmRzUTBOQUVWTnk3RG4rU0ZyQUk3YjJFTGpQVGFy?=
- =?utf-8?B?YmY3R2xKRjNhWkt4Q1N2VDNpSllwazZrNmdva01yQ3ZZVGZUNi9zUy9ZZnc4?=
- =?utf-8?B?NEt2L3NrbHB0SlFYNjJoSWdzUE5MeWY2ejJmaE5QYmx1bStCbkJHTlhEWnFa?=
- =?utf-8?B?WEtDWDFMd3Z3bzVHRXpxR0lVYU82RldNTUJRVEFqMVdiZWIwSXc5anltckxu?=
- =?utf-8?B?NTV2U0kwM05BQ3FBamFJaEtkVkQxd3NHanV2NTBFYlc4Yzg2RlJFSDM4YitF?=
- =?utf-8?B?NzZYMVFHSmptcUNVNmFxa01HVjdDMjV6NUI3OTkxNDRuUEdjUFV6YTlEQlVS?=
- =?utf-8?B?YmNRSlAxUlBrK0w3WXJIOGdWODZNN09KSE1MVEh2RVNIdng2TlhFSUVlUEZo?=
- =?utf-8?B?Z1hBZStncy9aYnNMYnEySWJYVzdsS1A4Tjl5Zi94VnI0MlIrUHQ0MnRIbUpS?=
- =?utf-8?B?RzAzRDdBT3ZhKzFoZXRBU2JMLzhrZVlxeU1XaWFEeGwwUldGcTk0Tm1LOHRN?=
- =?utf-8?B?bUhodU9nYW1sTmNZenp0dERiQXZudGk3S25pc0h2RmozUmxMZFhtMDU0cTNE?=
- =?utf-8?B?SUxRa3ZxeHU1LzVwZXJHZERpcnBUZzlTY2NqaC9zNThXa2FZS2M5VmxvNnV2?=
- =?utf-8?B?cnhGZU1QakFOanNUbE1Rd2dQL2FGdDNCc2ZzSXJic09pa1lMcnYzYmhRRndm?=
- =?utf-8?B?M3YzZE85OExFVWszc1BkVk5aZlBoQVpvdW5SSW5WV1Jva3M2aEJ2WVRFWW9B?=
- =?utf-8?B?TDRaNWYxN2lGL0VjQnN1Z3ArMGQrMGh5bG9DS1ZWMEpZMDRQZE5oWjIzcjR4?=
- =?utf-8?B?M3pEUkJ2V3Vmb3pqekt4bVNvUHkvNHJFendaQUNNcE1QRnhqdW5sY0ZvN2hl?=
- =?utf-8?B?clkxQTY2cXhzR0hodElER0FVVkd4cCtVUlhweDQ5ZCtLYzJQWDlBcEFDN1lx?=
- =?utf-8?B?SDhUWnNsdzJWa3ExRlBiNnJpcEx0N3FkTlpuNVgvckpTd1oranV2OWhWZ3Nm?=
- =?utf-8?B?WVVqOHhKQXhKaWdsbXptUWlHTEdiQldhNis2MHo1ZnYzMDY4cjFrR0JnSFZm?=
- =?utf-8?B?TVFDcTRYRi9BaTBnam1xRHBZdUZiWnNxdVMyUUg0NGh6dXdaeEFFTnU4MnZQ?=
- =?utf-8?B?YWIxWHd3L2kwMXM1Njl1VENMRkdERm5hWEw0eG4xNmxNeXB3NTdrRkVNNHBx?=
- =?utf-8?B?WTRjTHk0WmI5V3hVMkhHVElTNW1VRzk3ZGxsem55Z0dabjI4ZHdHRHhjZTlo?=
- =?utf-8?B?RldreUFId0Q1Q3ZYUjRhMWs1cDA1eDNKMDNjdHFnUEUzYmMyV3JpSGQzaEc2?=
- =?utf-8?B?c2FJVDlsaW5XMWY1RXQwUjdXYjdNQXJhTm5CRGJxbnQxVEpPOUJwUkNseXQv?=
- =?utf-8?B?YXJrSDFWb1oyQTNZY1JYV1JBY1h2Q1JpL1c4MXBKb25YcDZJMzhrT2RvS0xr?=
- =?utf-8?B?RTJTTGtRQnBSSEl2YzNtRVV1WnlwYllhZklwYjZRTS9RTGpGRkY4Nm56OGRv?=
- =?utf-8?B?Mk04QTViNVdGVnFrWW9TcHowaWh1MGQyQkhlNVNLcWJZdHlhMHN5VkkyTTFZ?=
- =?utf-8?B?WDE5MllDVGpDMzkwTHg4SUhGMHFWaDRobDRKc3RKZm9MVExWTk1aS1YxK0tE?=
- =?utf-8?B?bFh2UzdzTDBpaVF1YU1HL01rRjYzRG9QcHU3ajV3N0I1amFFbDN0MEw5UDNy?=
- =?utf-8?B?NEsrNGIwcFR4M1ByaDhZemVDZlBVSStiQnpQZStCTXU2VUcxbDlFdnhjcjRQ?=
- =?utf-8?B?clFaZkI5MXpVU04wcXJtdW1yY2dYbjIzbHZycHlKbU9WbjZIRExUaDg4L0Uv?=
- =?utf-8?B?Rk94WENZWmJpL3greWZXMkxHSitVZkp2YzVNOC8xcWd6UGFXWnZjK21vei81?=
- =?utf-8?B?aTcwb0ZhRkdvbXpwZ3VyN0RRSVpHajdKN09UNit2WW1OZmdlWVZQQk10TU95?=
- =?utf-8?B?NEZHa05EM2U4VHRzOVhrNFc5YzkxaWtRYWNZVmVDUVUwcnRSK0JMZGdVSW9l?=
- =?utf-8?B?VjJzckNlcytZKzJUd3hReGRxTW1qVHRxMTg0cCtCcmJTN2tmRWZuQkdudW5R?=
- =?utf-8?B?b2ZHdHNoOUlReWFRUm5JMjBFNDRhQ0FheG9XV3VXM2RpOWdEMU5rb05WblpO?=
- =?utf-8?B?enpXaUVtbk81MXpCRUVGaHhmVHhwcU40Sm5zcWx1K0hqc1RXWTAxRzJ3eDZs?=
- =?utf-8?B?eis1Wkoza3pzZG0vaFdqSW1CVTB6NWJDajNMMlVLTmZLT1owajJ5Yy9BRlNO?=
- =?utf-8?B?eG1TaGErcGpsUldoaG5ZenFLdHl6MFJEd2dnMXVla1g2MVkzeTIzbGg4b0ZK?=
- =?utf-8?B?OFFiQldlRGVzWGZPWkhNanFNczNzUUJLaUlXd1NWSC96UmVOSmFrbEVBbWN3?=
- =?utf-8?Q?Zc+TttBOUQSEbZeA=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cedb5c6c-cfdd-4413-73f8-08dec60f5af0
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 10:10:38.6483
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ejq6baQ8qELxZRRAU3Y8ie5z/tQBblcZA7BDqQ5Bk/uXc+0ZdzzMIPd4zXHaAh1YC+l2yzY+BwkKE8UKejWGTHUO87l/yKSLYAZ8AYZl+IM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7615
-X-purgate-ID: tlsNG-33051d/1780999845-37F4A938-BACB86F3/0/0
-X-purgate-type: clean
-X-purgate-size: 369
+References: <cover.1780896733.git.mykola_kvach@epam.com> <916609a0c6e66dd24e4435d31a165a1326fe5281.1780896733.git.mykola_kvach@epam.com>
+ <03bca529-419a-4c14-b229-7e47e8e36e7a@amd.com>
+In-Reply-To: <03bca529-419a-4c14-b229-7e47e8e36e7a@amd.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 9 Jun 2026 14:26:01 +0300
+X-Gm-Features: AVVi8CcLwMU7AA8UIEIfji0bxOX8svmDEy8e9BBxKUmR3zGprKaqfC08x_ayY5k
+Message-ID: <CAGeoDV-SOWiHq46wy1Lwc-PNO=Mh+wm03SHwWxFzeNxC8s9Bbg@mail.gmail.com>
+Subject: Re: [PATCH for-4.22 v3 2/2] device-tree: validate hwdom bank 0 boot placement
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-c1860d/1781004374-B6F72DB1-4DD709D3/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 14090
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,epam.com,kernel.org,xen.org,arm.com,citrix.com,vates.tech,suse.com,gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,mail.gmail.com:mid,amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: F12DE65EC24
+X-Rspamd-Queue-Id: 0423365F758
 
-On 03/06/2026 2:05 pm, Frediano Ziglio wrote:
-> From: Frediano Ziglio <frediano.ziglio@citrix.com>
->
-> Simplify code, after the first scan of the various arrays we don't need to
-> keep original types and PFNs but only the ones having data.
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
+Hi Michal,
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Thanks for the review.
+
+On Tue, Jun 9, 2026 at 10:32=E2=80=AFAM Orzel, Michal <michal.orzel@amd.com=
+> wrote:
+>
+>
+>
+> On 08-Jun-26 07:39, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > With LLC coloring enabled, the hardware domain memory is allocated by
+> > allocate_hwdom_memory() rather than by using the fixed direct-map layou=
+t.
+> >
+> > Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
+> > DMA") made that allocator prefer lower host regions. The first-bank
+> > filter, however, still only checked the old 128MB heuristic. A low regi=
+on
+> > can satisfy that heuristic but still be too small, or otherwise
+> > unsuitable, for the hardware-domain kernel and the DTB/initrd area to f=
+it
+> > in bank 0 according to the Arm placement rules.
+> >
+> > Keep the existing first-bank size policy and add an architecture-specif=
+ic
+> > candidate check. On Arm, compute the kernel load address for the
+> > candidate bank using the same logic as kernel_zimage_place(), verify th=
+at
+> > the kernel range is covered by that bank, and then reuse the same
+> > DTB/initrd placement helper as place_dtb_initrd(). The FDT is generated
+> > later, so use the hardware-domain FDT allocation size as a conservative
+> > upper bound for the final DTB size.
+> >
+> > Check the candidate after capping the host region by the remaining
+> > unassigned hardware-domain memory, so the validation is performed again=
+st
+> > the size that would actually become bank 0.
+> >
+> > This keeps the DMA-oriented allocation policy from de99f3263555 while
+> > preventing a too-small bank 0 from reaching place_dtb_initrd().
+> >
+> > Make kernel_zimage_place_in_bank() return INVALID_PADDR when a
+> > position-independent zImage cannot be placed in the supplied bank; the
+> > real load path turns this into a panic, while the hwdom candidate check
+> > uses it to reject the bank.
+> >
+> > Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for =
+DMA")
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > Changes in v3:
+> > - Rename the architecture hook to
+> >   arch_hwdom_first_bank_can_fit_modules() and document its contract.
+> > - Drop the redundant post-alignment zImage load-address check.
+> > - Drop the dead kernel range overflow check.
+> > - Make the candidate-bank coverage condition explicit.
+> >
+> > Changes in v2:
+> > - Split the behavior-preserving placement refactoring into the previous
+> >   patch.
+> > - Reuse the refactored Arm kernel and DTB/initrd placement helpers for
+> >   the first-bank candidate check.
+> >
+> > Link to v1:
+> >   https://patchew.org/Xen/4f862bb2dc323914b8120b0f16af7516140cf42b.1780=
+065103.git.mykola._5Fkvach@epam.com/
+> >
+> > Changes since RFC:
+> > - Do not keep the RFC scalar minimum-size check.  It can both reject va=
+lid
+> >   layouts and accept layouts which still fail later.  Instead, validate
+> >   the candidate bank using the same kernel and DTB/initrd placement rul=
+es
+> >   as the load path.
+> > - Replace the scalar minimum-size check with arch_hwdom_first_bank_ok()=
+.
+> > - Validate fixed-address and AArch32 start =3D=3D 0 kernel placement ag=
+ainst
+> >   the candidate bank.
+> > - Check the candidate after capping the host region by the remaining
+> >   unassigned hardware-domain memory.
+> > - Treat the hardware-domain FDT allocation size as a conservative upper
+> >   bound because the final FDT is generated later.
+> >
+> > Link to RFC: https://patchew.org/Xen/9ae4f7dd49f5b1f761193adae573c2675c=
+92e883.1779051035.git.mykola._5Fkvach@epam.com/
+> >
+> > Why the RFC scalar approach was not kept:
+> >
+> > A simple minimum-size check is not sufficient here because the validity
+> > of the first bank depends on the actual Arm placement rules, not only o=
+n
+> > the aggregate size of the kernel, DTB and initrd. The DTB/initrd area m=
+ay
+> > fit before a 64-bit Image loaded with a text offset, while an AArch32
+> > position-independent kernel may leave no valid module location even whe=
+n
+> > the aggregate size appears to fit. Fixed-address kernels also need the
+> > candidate bank start to be considered.
+> > ---
+> >  xen/arch/arm/acpi/domain_build.c        |  2 -
+> >  xen/arch/arm/domain_build.c             |  8 ++++
+> >  xen/arch/arm/include/asm/domain_build.h |  4 ++
+> >  xen/arch/arm/include/asm/kernel.h       | 10 +++++
+> >  xen/arch/arm/kernel.c                   | 53 ++++++++++++++++++++++++-
+> >  xen/common/device-tree/domain-build.c   | 25 ++++++++----
+> >  xen/include/xen/fdt-kernel.h            | 14 +++++++
+> >  7 files changed, 105 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domai=
+n_build.c
+> > index 249d899c33..db16f7fa94 100644
+> > --- a/xen/arch/arm/acpi/domain_build.c
+> > +++ b/xen/arch/arm/acpi/domain_build.c
+> > @@ -26,8 +26,6 @@
+> >  #undef virt_to_mfn
+> >  #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
+> >
+> > -#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> > -
+> >  static int __init acpi_iomem_deny_access(struct domain *d)
+> >  {
+> >      acpi_status status;
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index 1efddc60ef..550617f152 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, co=
+nst char *e)
+> >                               (IS_ENABLED(CONFIG_STATIC_SHM) ?         =
+\
+> >                                (NR_SHMEM_BANKS * (160 + 16)) : 0))
+> >
+> > +paddr_t __init hwdom_get_fdt_alloc_size(void)
+> > +{
+> > +    if ( acpi_disabled )
+> > +        return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_S=
+IZE;
+> > +
+> > +    return ACPI_DOM0_FDT_MIN_SIZE;
+> > +}
+> > +
+> >  unsigned int __init dom0_max_vcpus(void)
+> >  {
+> >      if ( opt_dom0_max_vcpus =3D=3D 0 )
+> > diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/inc=
+lude/asm/domain_build.h
+> > index df8b361b3d..85cf46a958 100644
+> > --- a/xen/arch/arm/include/asm/domain_build.h
+> > +++ b/xen/arch/arm/include/asm/domain_build.h
+> > @@ -19,6 +19,10 @@ int prepare_acpi(struct domain *d, struct kernel_inf=
+o *kinfo);
+> >
+> >  int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *da=
+ta);
+> >
+> > +#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> > +
+> > +paddr_t hwdom_get_fdt_alloc_size(void);
+> > +
+> >  #if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+> >  /* Utility function to determine if an Armv8-R processor supports VMSA=
+. */
+> >  bool has_v8r_vmsa_support(void);
+> > diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/a=
+sm/kernel.h
+> > index 21f4273fa1..b86c7337fe 100644
+> > --- a/xen/arch/arm/include/asm/kernel.h
+> > +++ b/xen/arch/arm/include/asm/kernel.h
+> > @@ -8,12 +8,22 @@
+> >
+> >  #include <asm/domain.h>
+> >
+> > +#include <xen/types.h>
+> > +
+> > +struct kernel_info;
+> > +
+> >  struct arch_kernel_info
+> >  {
+> >      /* Enable pl011 emulation */
+> >      bool vpl011;
+> >  };
+> >
+> > +#define arch_hwdom_first_bank_can_fit_modules \
+> > +        arch_hwdom_first_bank_can_fit_modules
+> > +bool arch_hwdom_first_bank_can_fit_modules(const struct kernel_info *i=
+nfo,
+> > +                                           paddr_t bank_start,
+> > +                                           paddr_t bank_size);
+> > +
+> >  #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+> >
+> >  /*
+> > diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> > index d1be4d8074..47229644b2 100644
+> > --- a/xen/arch/arm/kernel.c
+> > +++ b/xen/arch/arm/kernel.c
+> > @@ -64,6 +64,9 @@ kernel_zimage_place_in_bank(const struct kernel_info =
+*info,
+> >          load_end =3D bank_start + bank_size;
+> >          load_end =3D MIN(bank_start + MB(128), load_end);
+> >
+> > +        if ( load_end - bank_start < info->image.len )
+> > +            return INVALID_PADDR;
+> > +
+> >          load_addr =3D load_end - info->image.len;
+> >          /* Align to 2MB */
+> >          load_addr &=3D ~(MB(2) - 1);
+> > @@ -164,9 +167,55 @@ static void __init place_dtb_initrd(struct kernel_=
+info *info,
+> >  static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+> >  {
+> >      const struct membanks *mem =3D kernel_info_get_mem(info);
+> > +    paddr_t load_addr;
+> > +
+> > +    load_addr =3D kernel_zimage_place_in_bank(info, mem->bank[0].start=
+,
+> > +                                            mem->bank[0].size);
+> > +    if ( load_addr =3D=3D INVALID_PADDR )
+> > +        panic("Unable to find suitable location for the kernel\n");
+> > +
+> > +    return load_addr;
+> > +}
+> > +
+> > +bool __init arch_hwdom_first_bank_can_fit_modules(const struct kernel_=
+info *info,
+> > +                                                  paddr_t bank_start,
+> > +                                                  paddr_t bank_size)
+> > +{
+> > +    const struct boot_module *initrd =3D info->bd.initrd;
+> > +    /*
+> > +     * place_dtb_initrd() rounds the DTB and initrd placement to 2MB b=
+oundaries;
+> > +     * use the same granularity when checking whether the first bank c=
+an hold
+> > +     * them.
+> > +     */
+> > +    const paddr_t initrd_len =3D ROUNDUP(initrd ? initrd->size : 0, MB=
+(2));
+> > +    /*
+> > +     * The hardware domain FDT has not been generated yet. Use the all=
+ocation
+> > +     * size as a conservative upper bound for the final DTB size.
+> > +     */
+> > +    const paddr_t dtb_len =3D ROUNDUP(hwdom_get_fdt_alloc_size(), MB(2=
+));
+> > +    const paddr_t rambase =3D bank_start;
+> > +    const paddr_t ramsize =3D bank_size;
+> > +    const paddr_t dtb_initrd_size =3D initrd_len + dtb_len;
+> > +    const paddr_t ramend =3D rambase + ramsize;
+> > +    paddr_t kernbase;
+> > +    paddr_t kernend;
+> > +    paddr_t dtb_base;
+> > +
+> > +    kernbase =3D kernel_zimage_place_in_bank(info, bank_start, bank_si=
+ze);
+> > +    if ( kernbase =3D=3D INVALID_PADDR )
+> > +        return false;
+> > +
+> > +    kernend =3D kernbase + info->image.len;
+> > +
+> > +    if ( (kernbase < rambase) || (kernend > ramend) )
+> > +        return false;
+> > +
+> > +    if ( !first_bank_can_fit_modules(ramsize, kernbase, kernend,
+> > +                                     dtb_initrd_size) )
+> > +        return false;
+> >
+> > -    return kernel_zimage_place_in_bank(info, mem->bank[0].start,
+> > -                                       mem->bank[0].size);
+> > +    return find_dtb_initrd_placement(rambase, ramend, kernbase, kernen=
+d,
+> > +                                     dtb_initrd_size, &dtb_base);
+> >  }
+> >
+> >  static void __init kernel_zimage_load(struct kernel_info *info)
+> > diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-=
+tree/domain-build.c
+> > index f3ba496f1e..30a59abfa7 100644
+> > --- a/xen/common/device-tree/domain-build.c
+> > +++ b/xen/common/device-tree/domain-build.c
+> > @@ -299,20 +299,31 @@ static bool __init allocate_hwdom_memory(struct k=
+ernel_info *kinfo)
+> >
+> >      for ( i =3D 0; (kinfo->unassigned_mem > 0) && (i < nr_banks); i++ =
+)
+> >      {
+> > -        paddr_t bank_size;
+> > +        const paddr_t bank_start =3D hwdom_free_mem->bank[i].start;
+> > +        paddr_t bank_size =3D hwdom_free_mem->bank[i].size;
+> > +
+> > +        /*
+> > +         * Check the size that would actually be assigned, not just th=
+e size
+> > +         * of the host region.
+> > +         */
+> > +        bank_size =3D min(bank_size, kinfo->unassigned_mem);
+> >
+> >          /*
+> >           * The first bank must be large enough for place_dtb_initrd() =
+to
+> >           * fit the kernel, DTB and initrd.  Skip small regions to avoi=
+d
+> >           * ending up with a tiny first bank.
+> >           */
+> > -        if ( !mem->nr_banks && (hwdom_free_mem->bank[i].size < min_ban=
+k_size) )
+> > -            continue;
+> > +        if ( !mem->nr_banks )
+> > +        {
+> > +            if ( bank_size < min_bank_size )
+> > +                continue;
+> > +
+> > +            if ( !arch_hwdom_first_bank_can_fit_modules(kinfo, bank_st=
+art,
+> > +                                                        bank_size) )
+> > +                continue;
+> > +        }
+> >
+> > -        bank_size =3D MIN(hwdom_free_mem->bank[i].size, kinfo->unassig=
+ned_mem);
+> > -        if ( !allocate_bank_memory(kinfo,
+> > -                                   gaddr_to_gfn(hwdom_free_mem->bank[i=
+].start),
+> > -                                   bank_size) )
+> > +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), ba=
+nk_size) )
+> >          {
+> >              xfree(hwdom_free_mem);
+> >              return false;
+> > diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.=
+h
+> > index 00c37be101..61721d22a2 100644
+> > --- a/xen/include/xen/fdt-kernel.h
+> > +++ b/xen/include/xen/fdt-kernel.h
+> > @@ -93,6 +93,20 @@ kernel_info_get_mem_const(const struct kernel_info *=
+kinfo)
+> >      return container_of(&kinfo->mem.common, const struct membanks, com=
+mon);
+> >  }
+> >
+> > +/*
+> > + * Return whether the proposed hardware-domain first RAM bank can cont=
+ain the
+> To `contain a placement` reads weird. I think `satisfy` would be a better=
+ word
+> that clearly denotes the purpose i.e. check if the bank satsifies the pla=
+cement
+> requirements (we can also add `requirements` word to the end of the comme=
+nt).
+
+I agree that "satisfy the placement requirements" reads better here.
+
+>
+> Can be done on commit (it looks like there are some ECLAIR issues, so we =
+need to
+> wait a bit to merge the series).
+
+I have retriggered the ECLAIR tests and the pipeline is green now:
+
+https://gitlab.com/xen-project/people/mykola_kvach/xen/-/pipelines/25838764=
+33
+
+I am OK with this comment being adjusted on commit.
+
+Best regards,
+Mykola
 
