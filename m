@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id UzKyJ+9NKGqfBwMAu9opvQ
+	id LJ5dIe9NKGqeBwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 19:31:27 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78374662F9B
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 19:31:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5248662F99
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 19:31:26 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=JpCsr+om;
+	dkim=pass header.d=citrix.com header.s=google header.b="XF/gsP8W";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1333724.1596886 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1333725.1596895 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wX0I8-0003em-5x; Tue, 09 Jun 2026 17:31:08 +0000
+	id 1wX0I9-0003qt-C6; Tue, 09 Jun 2026 17:31:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1333724.1596886; Tue, 09 Jun 2026 17:31:08 +0000
+Received: by outflank-mailman (output) from mailman id 1333725.1596895; Tue, 09 Jun 2026 17:31:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wX0I8-0003cd-3K; Tue, 09 Jun 2026 17:31:08 +0000
-Received: by outflank-mailman (input) for mailman id 1333724;
- Tue, 09 Jun 2026 17:31:06 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1wX0I6-0003cX-T5
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 17:31:06 +0000
+	id 1wX0I9-0003pU-9O; Tue, 09 Jun 2026 17:31:09 +0000
+Received: by outflank-mailman (input) for mailman id 1333725;
+ Tue, 09 Jun 2026 17:31:08 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wX0I8-0003ci-4v
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 17:31:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wX0I6-000VFH-2r
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 19:31:06 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wX0I7-005Nrm-Hu
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 19:31:07 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a284dc4-e002-0a2a0a5209dd-0a2a4505d884-24
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 19:31:06 +0200
-Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a284dd9-2eae-0a2a0a5409dd-0a2a450cb48e-2
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 19:31:07 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a284dd9-aaa8-0a2a45050019-d155802dc190-3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 19:31:05 +0200
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-490b2b037d2so51294395e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 10:31:05 -0700 (PDT)
+ id 6a284dda-62f1-0a2a450c0019-d1558030ccd3-3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 19:31:06 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490b8a97b11so64327575e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 10:31:06 -0700 (PDT)
 Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
  [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f351ac0sm113509696f8f.27.2026.06.09.10.31.03
+ ffacd0b85a97d-4601f351ac0sm113509696f8f.27.2026.06.09.10.31.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jun 2026 10:31:04 -0700 (PDT)
+ Tue, 09 Jun 2026 10:31:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,38 +60,39 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1781026265; x=1781631065; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=H/V8Oj+z9badLK0MAxAfwjiv5BFEHOLvaoYDxB7qvSk=;
-        b=JpCsr+omOIfMrRelBwVpCJ4kFmi9BjPYJ+c0Sf9ICxjaIjkQs1uJMgPN03AmYiw6l8
-         dtOeZIX2oQUjBGAQrqUmSkg3gg0IQTlF5aTeIBVGU8IuEan1+ze1lmark2bmGJjSloZv
-         87EUChlH40YvRLKC3E6MgI6m/wIx9SRrJ6fSk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781026265; x=1781631065;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1781026266; x=1781631066; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H/V8Oj+z9badLK0MAxAfwjiv5BFEHOLvaoYDxB7qvSk=;
-        b=dBNCAMZGupslJt/TSgllslIRYw26fxgYipZPW+jkMXMjvFAdWc2LR03Wx3gG5zclJn
-         kVRc9ag9XjN2BbUwPn/kHkPQdJfPK2h18t5YCG3ktK4OkstL6WRbuXg915szLP7czVHL
-         beDt+JL4KaVhOYrRtAgTpajDU0Gi94YnH008bOmS8Iz23n5JZq2wGkCoQ2ckkZ+wfdkN
-         ERKky6zTlOSuWcilyUYeKry+yzKutjADoHb/IOJm1hClX0UaDrXDQ4yndbrIpTdu21sI
-         GLyQtGGZ1q7arUKvr0K+mK1BTwwwrkCVFYQuUm6pGkMI5vaNbaZAJkiAV9bZtyrGV+uS
-         ETYg==
-X-Gm-Message-State: AOJu0YyYmKPKic0jh8jtTdH8vINFiRFZF+UygsT7DU7IZ3L4MmsWx2Cx
-	f/ZOdFNquQUFsYlQlOgBEimCNsdG2u9j3ufbR+6wvY+SV2TOkkw9epemUbVIZOf4WQVe8ixm/6U
-	gW+qu
-X-Gm-Gg: Acq92OFDhYCil8Q27JORlQoM7XKmsf8U8tfvlMs4IEGjJIn34JE+cZlKfdqZCKDiSAw
-	CudBKRCClaQZOlEF42l8FwcblAwcZS4GtuOgrBiuB5n53thZtJHtM2Ubh70kQSmMJECB/DUT6Nx
-	Xe/SrdHjd2LGgh0SJcGMGPvZwWDc6NomJiaViCyf4aWQDQ8sOzHVc4VS86NZ5nbzdGdt+/xrhuZ
-	DfQ/MTbB4EI9YVKODb7S7bDJUlHO67UxwTa0nNwGYsEUBP9DUO91FVNkWKmWo3O/EA3wTY7j/aq
-	1glOa5KVpoXyEzxYfQKs/P8H7FfZmNh0xkohzm2uWydODvlFZmTAwSFERG0Jpv4YTUdVjSxhNwL
-	vZt8p+Leo79kKU0RmJQXByTQjC85YGBHJ2JeyGLseRN3jQh3Ne1n/ncURbP/qVcevPKUdhp9A0c
-	c3v7fGsjjIOXbF161gsB/zx0JecUH3uTefrN10NlL4/beOtJ3Eq24HnlClFVgGMil8RZRryWEKy
-	4Ul2vAPlUS++oQ=
-X-Received: by 2002:a05:600c:8b6a:b0:490:bb19:b110 with SMTP id 5b1f17b1804b1-490c26216ddmr326440775e9.27.1781026265368;
-        Tue, 09 Jun 2026 10:31:05 -0700 (PDT)
+        bh=M9XiKbIS7n67HdmfB7W1QPCM8I8PH63mcFkD09L83Oo=;
+        b=XF/gsP8W/GppIyMVC0k+q64VE5VrPLt0yk51WYZO7Zsv1p0pKrhvt8I9hHYDYYBpTR
+         01Svty9fQNBIFTJ7q3uameAfUJOLx5ReZnyZLT53vGONcO+StXvm7/IM06emMnKvrK1Y
+         UzrSbusQguZHl3v0jNSgImcZhntQsBzuG8uaQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781026266; x=1781631066;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=M9XiKbIS7n67HdmfB7W1QPCM8I8PH63mcFkD09L83Oo=;
+        b=mjBhZLrw+DLCWWsQQCtBNjgrnKUeEKHptT/3C2R0qLdMWVVVGFuCpnAs4x7EicrdRj
+         byBCX/tGvAN2QHd8B4Hs7mg9zBJsYL9svQ+i5g0akrpfyOW2uWrdjehgZB4AKpjX2ZgT
+         8anKt3626D6EFRCRYMlXbbmAJiiKVWqrWRIHNnNCfQa5wIPS0xg7lvNy2b3QawDkfKWk
+         dc+FGEoq0hkJ2fooyst4Q9BvqWy+355YTGKcaZcDYodZ+LiW3QfZabX0JCiwLXuiXmA/
+         nP93rbokq8ufecpQhDxR9KFdHBPN0rEB7V86jVq8aGjQSPbV4L0H0czH8rp6Df/akzEo
+         N1AA==
+X-Gm-Message-State: AOJu0YzsvlesWypB0hzT0hTR3E4R/kTbExzjRGac0CyFm+QnwcPbfivf
+	OqxRYsMX3piLgSm0xVJ6Bgj2hN1srMTT5e5CnUKfjMFJAHs7VZRpvevrq+ZbFaNA64mhlWUvgEh
+	UV1WY
+X-Gm-Gg: Acq92OGIvjB84RNNQVx9S49OQwwkyhlPA5LILZlW5xmwfnoZIOqC1lO1cQsY+bDSYJj
+	YwNr+pR8m82wa7MZ7Tc/auTBPFN+T1kFsLv7hoz9bVww/jTs9JtlRjPmjJPuQ0lNGwRjDOih8VE
+	pRppkOE/mhkarplMq6xPPayO5peOBVbJkFCwisD21iv2rQ7X46Kw8XwzZQ8o+qEIUYXJGTJCrVZ
+	SL7r2nDQK4IDC5virpm/aTVmTjPK359Nk76INXKyoyykmU+2TcX6+HyeY1JJuh+lc6TCGM4Pcxu
+	1gzwQoeOU8L9XHyat7WcN6v4fr4Y5aXtd+Og6OUdpDivjCi2l32ALWljZcX/ybHamQrg43iAszc
+	f+SHexXViAVvSLJg6qxol+xzSmkpnVFQFdepQQ44mCDhP4kRLIRQaOxkNnQ7F62hDZMMRrvGqHD
+	8tDIYx7HQ9O75WRzQdqToVABYgYnz6g4AQStHKI+4nhHaIl1CqhZ770hJYPiUsUnmw2suV88Mkg
+	IlaaPyezWWvbM0=
+X-Received: by 2002:a05:600c:34d3:b0:490:bd66:e526 with SMTP id 5b1f17b1804b1-490c261391fmr359348995e9.32.1781026266222;
+        Tue, 09 Jun 2026 10:31:06 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -103,23 +103,25 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.22 0/4] CI: Disentangle hardware runner containers
-Date: Tue,  9 Jun 2026 18:30:58 +0100
-Message-Id: <20260609173102.2908514-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/4] CI: Fixes to containerize
+Date: Tue,  9 Jun 2026 18:30:59 +0100
+Message-Id: <20260609173102.2908514-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260609173102.2908514-1-andrew.cooper3@citrix.com>
+References: <20260609173102.2908514-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1781026266-E3788443-534F815F/0/0
-X-purgate-type: clean
-X-purgate-size: 1289
+X-purgate-ID: tlsNG-d25034/1781026266-DB97DCF5-C058AD17/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2254
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.32 / 15.00];
+X-Spamd-Result: default: False [1.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -128,11 +130,11 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,amd.com:email,vates.tech:email,cardoe.com:email,invisiblethingslab.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -148,34 +150,53 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 78374662F9B
+X-Rspamd-Queue-Id: E5248662F99
 
-... and fix archlinux as I happened to get around to it.
+These were missed from prior changes.
 
-There's a query on patch 3 which affects how we proceed.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ automation/scripts/containerize | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Andrew Cooper (4):
-  CI: Fixes to containerize
-  CI: Rename xenial-xilinx to xilinx-hw-runner
-  CI: Introduce new qubes-hw-runner.dockerfile
-  CI: Rework the archlinux container
-
- .../build/alpine/qubes-hw-runner.dockerfile   | 21 ++++++++
- .../build/archlinux/current-x86_64.dockerfile | 33 ++++++++++++
- automation/build/archlinux/current.dockerfile | 53 -------------------
- .../build/ubuntu/xenial-xilinx.dockerfile     | 27 ----------
- .../build/ubuntu/xilinx-hw-runner.dockerfile  | 32 +++++++++++
- automation/gitlab-ci/build.yaml               |  8 +--
- automation/gitlab-ci/containers.yaml          |  4 +-
- automation/gitlab-ci/test.yaml                |  6 +--
- automation/scripts/containerize               |  9 ++--
- 9 files changed, 99 insertions(+), 94 deletions(-)
- create mode 100644 automation/build/alpine/qubes-hw-runner.dockerfile
- create mode 100644 automation/build/archlinux/current-x86_64.dockerfile
- delete mode 100644 automation/build/archlinux/current.dockerfile
- delete mode 100644 automation/build/ubuntu/xenial-xilinx.dockerfile
- create mode 100644 automation/build/ubuntu/xilinx-hw-runner.dockerfile
-
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 8bd2a847aac0..70494645e09f 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -27,8 +27,7 @@ case "_${CONTAINER}" in
+     _alpine) CONTAINER="${BASE}/alpine:3.18" ;;
+     _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.18-arm64v8" ;;
+     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+-    _centos7) CONTAINER="${BASE}/centos:7" ;;
+-    _fedora) CONTAINER="${BASE}/fedora:41-x86_64";;
++    _fedora) CONTAINER="${BASE}/fedora:43-x86_64";;
+     _bullseye-ppc64le) CONTAINER="${BASE}/debian:11-ppc64le" ;;
+     _bookworm-ppc64le) CONTAINER="${BASE}/debian:12-ppc64le" ;;
+     _trixie-ppc64le) CONTAINER="${BASE}/debian:13-ppc64le" ;;
+@@ -42,13 +41,13 @@ case "_${CONTAINER}" in
+     _bookworm-arm64v8) CONTAINER="${BASE}/debian:12-arm64v8" ;;
+     _bookworm-cppcheck) CONTAINER="${BASE}/debian:12-arm64v8-cppcheck" ;;
+     _trixie-arm64v8) CONTAINER="${BASE}/debian:13-arm64v8" ;;
+-    _opensuse-leap|_leap) CONTAINER="${BASE}/opensuse:leap-15.6-x86_64" ;;
++    _opensuse-leap|_leap) CONTAINER="${BASE}/opensuse:leap-16.0-x86_64" ;;
+     _opensuse-tumbleweed|_tumbleweed) CONTAINER="${BASE}/opensuse:tumbleweed-x86_64" ;;
+-    _xenial) CONTAINER="${BASE}/ubuntu:16.04-x86_64" ;;
+     _bionic) CONTAINER="${BASE}/ubuntu:18.04-x86_64" ;;
+     _focal)  CONTAINER="${BASE}/ubuntu:20.04-x86_64" ;;
+     _jammy)  CONTAINER="${BASE}/ubuntu:22.04-x86_64" ;;
+     _noble)  CONTAINER="${BASE}/ubuntu:24.04-x86_64" ;;
++    _resolute) CONTAINER="${BASE}/ubuntu:26.04-x86_64" ;;
+ esac
+ 
+ # Use this variable to control whether root should be used
 -- 
 2.39.5
 
