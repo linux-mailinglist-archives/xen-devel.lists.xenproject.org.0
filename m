@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id BMWhKx01KGqtAAMAu9opvQ
+	id 9x2hCeE/KGoPBAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 17:45:33 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 18:31:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607BF661F06
-	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 17:45:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B9CA662664
+	for <lists+xen-devel@lfdr.de>; Tue, 09 Jun 2026 18:31:28 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=or43tL16;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=wnEjJOcx;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=citrix.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1333593.1596717 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1333667.1596843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWydq-0001wL-HE; Tue, 09 Jun 2026 15:45:26 +0000
+	id 1wWzLm-0006qJ-4f; Tue, 09 Jun 2026 16:30:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1333593.1596717; Tue, 09 Jun 2026 15:45:26 +0000
+Received: by outflank-mailman (output) from mailman id 1333667.1596843; Tue, 09 Jun 2026 16:30:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wWydq-0001rR-Dn; Tue, 09 Jun 2026 15:45:26 +0000
-Received: by outflank-mailman (input) for mailman id 1333593;
- Tue, 09 Jun 2026 15:45:24 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <kevin.lampis@citrix.com>) id 1wWydo-0001l2-Qe
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 15:45:24 +0000
+	id 1wWzLl-0006nS-V2; Tue, 09 Jun 2026 16:30:49 +0000
+Received: by outflank-mailman (input) for mailman id 1333667;
+ Tue, 09 Jun 2026 16:30:49 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wWzLl-0006nK-1U
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 16:30:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wWydo-00DRr1-7C
- for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 17:45:24 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wWzLk-005ED9-EI
+ for xen-devel@lists.xenproject.org; Tue, 09 Jun 2026 18:30:48 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <kevin.lampis@citrix.com>)
- id 6a28350a-e002-0a2a0a5209dd-0a2a4507d5a0-24
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 17:45:24 +0200
-Received: from [40.107.209.48]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <kevin.lampis@citrix.com>)
- id 6a28350d-229c-0a2a45070019-286bd130e868-5
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 17:45:23 +0200
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
- by CH7PR03MB7785.namprd03.prod.outlook.com (2603:10b6:610:24f::8)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a283fa4-2eae-0a2a0a5409dd-0a2a45099e70-44
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 18:30:48 +0200
+Received: from [52.101.56.71]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a283fb7-2497-0a2a45090019-3465384720db-4
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 18:30:48 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by SA0PR03MB5546.namprd03.prod.outlook.com (2603:10b6:806:bb::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Tue, 9 Jun 2026
- 15:45:21 +0000
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07%3]) with mapi id 15.21.0113.011; Tue, 9 Jun 2026
- 15:45:21 +0000
+ 16:30:45 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
+ 16:30:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,182 +63,336 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VTk47K9I/PRYcV+dll7d7BwxlGryrM2lsb3bkc7CgE59rNseIX2G1tuTrPTvNs8FhmGSLyPxjWDExfED10ECSy6sFRQvgtwEN1lR5raFRbWoTvd6E2sAdv9pBG2kCWruW3pWdwn2ZDBPHWxvHvvfoCC9yJEki8qerpD7qAu2s3dSzJ2/8yGXtET/VmyaLHStA6VTGKxg5InZbhNl+ZHnuv7ftQXbE7EXxAoZGXBFm88S/aazubI0WfESLuwdktSSSSvi75UuWIoGDSv/R0Q5If+FXAm0SbpqCZ8SM9n/20HrGIliq4gMZd5gi3nGD/1oLCz1De8i5n4qYE2cuBzV9A==
+ b=stDTKF+ta5z2wsyt9yj8r/XOq0lkLMzwDjdMCJHZkhSmWrciHQqm46psGT+JjON4aa+OnLrSYtYLTZCpkBOhX4YFiVY/+fgzTWGLA8sXjjtOC07xd5oa/0/XjFXLA+kd0Ac0I7Evca1o/ByP8NceSdiXhYb2PowwjBLMe0BxuPdNofH2BNkZU+snhdCOXl4LPkrqQ0H0NC2hci4Sq+4S3b3qu2e2K/TU65Aw58+Bo4ffsFw0mqgHYieN9k72sHh/TCnfEcHczzjfG93eotfmf4ThH1rJ6kpKnWNowhIE/QD+qKQmHAnYNGGbssPRXc4d6lJR+uKx+7KYwulGy4aF1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mX8n3a47dmyiQ43p+mrCyQsl4Ss0tUYDgsOf9iF4SZ8=;
- b=t/IwFyNgPB5vn4y5ftGwCMTiWdZ3C2jXF6uIX6J849k+2cjY1hPvSsSyTjvghgT/ORGd7mrriiB2Hk1cOlVq53ZC3H1xYD3fCP0+zhzo8yvFYEzM7dFhNxYFzuIAtunRJpU9h3nAbtIppnRGa4/21P2QSH51GYmOIIKLJSl8IJgnQ6H4wTMUgf2MSjVLxv54K0fsmEbFMZ+5Xg55hmfnChixPZ38KeZb3KYqXXvfSrNOR9AjQrnj31OmdlB6sRBlBcyI+hZAUdkz1+QPyyHH0TGcBiVeD2FQ0Pe4vSX51M4d1Bp7hfoY3tICgXA5LakJ9nPAIldUtOFDTJD2a5M6mA==
+ bh=IjH3sAuizMS53IN1fY8dPGGLXNVAjqiVjVWBh1c4/nY=;
+ b=tcus/kF1od/jJgt7OXY2z+Xnn9REqEZUcaAZYq5ohnFeReLY+6f2YBd3YZOJqsInihGxTN57P5ZBTuLbcqKxXoP2Lb0ePBYu7Ae2gG/BXnu+nYO0QRaQPx+pzfl7jBWh6bZJmXXQ494zP0s0ztKK8NezUMLPpI7cBGGax1rvGSjyjCQb76DUtBxVVZXkfArpdHL3rkRbyElbV63Tg1s2iE6N6Psjvo0gL2U3SktkSfwECbQqPvIW41gfx6gkIydUuD4h9QhOExQ9QxBBrZ/U/gGhgSWrV+8823dHe++HkhU+UTsv9gwDzIrdT5DkvdBNV9w1EcbDXbSbxv/6xNB2VQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mX8n3a47dmyiQ43p+mrCyQsl4Ss0tUYDgsOf9iF4SZ8=;
- b=or43tL16AdMOL59FaiCzXS9VNfQPgQLfRDnZYO29+wH75qZhys+kt98Q/cl7NVF8iOYQ7Iqvtik+1InjAnfkT40chQLcwAeegVDlJmH2a6PV13Yt7RNvViTF7QI930y4SoYNr0Uzu6GR5bYbeTORjGKza7OXRmzos/u4YwP7T/Y=
-From: Kevin Lampis <kevin.lampis@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Kevin Lampis <kevin.lampis@citrix.com>,
-	Kevin Lampis <klampis@citrix.com>
-Subject: [PATCH 7/7] x86/kexec: Zero general purpose registers
-Date: Tue,  9 Jun 2026 16:45:18 +0100
-Message-ID: <20260609154518.779757-8-kevin.lampis@citrix.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260609154518.779757-1-kevin.lampis@citrix.com>
-References: <20260609154518.779757-1-kevin.lampis@citrix.com>
+ bh=IjH3sAuizMS53IN1fY8dPGGLXNVAjqiVjVWBh1c4/nY=;
+ b=wnEjJOcxyQ5ON+s1BqD2Atwi842CU5YN729//9n6rfng8JzuFt14Slmw9XU/Xrd05y3UsOWcN0t8iOkEzmjbrnPGkl2tOb671fHFj56tX3wOrh3VaPgy1dDTh9q2n9I/0z7PtMQwgjQEnKa2sgKZQZLQg9ktTFoFlwt/Gu0G7KA=
+Date: Tue, 9 Jun 2026 18:30:40 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Frediano Ziglio <frediano.ziglio@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH for-4.22] xen/x86: Always strip xen.efi
+Message-ID: <aig_sPP3MpBbddXr@macbook.local>
+References: <20260608173108.2848469-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0220.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:33a::18) To BY1PR03MB7996.namprd03.prod.outlook.com
- (2603:10b6:a03:5b2::8)
+In-Reply-To: <20260608173108.2848469-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: MR1P264CA0146.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:54::7) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|CH7PR03MB7785:EE_
-X-MS-Office365-Filtering-Correlation-Id: a28493b5-cda9-4324-40b0-08dec63e1d0f
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA0PR03MB5546:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1c717865-7ba2-4492-4d73-08dec644743f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|18002099003|22082099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|366016|1800799024|376014|11063799006|3023799007|56012099006|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	4YQKk2hPXzsaipMxsx6jZWT+Dzm4i2xf/VWE1z1y2D1K5QrO8hwNWTv2rHzSy0xc/uigHhi6v1tl7qGvz53V/vA6IK72MnbqPqm8pxd2Diz9uprlfrWBsrGMcbsTkn0JCdMlgSbh5ysTlF58EE3Qts2Z9oKH9irvycM6OAqVbAUGXrf3qDakW1xofhjoUO12HE9mmZC0QbhW1uUPKAbrHrrwwK/HoI5XifOxoZ/g69lg9JrAbtxoK/ADpSrzaDnwJeFRozURG73SXkO3b8Ujo9lUr38537pnE+oioDvoG0hxZPXbwaByEbdq6m9z5loIPGagvc8AZZFOnfb3TkB7yGBTWPGHOHoRufSYc2wQw/Nl40hsmkZqLI9pV9twoKESlfSQkpngR7G22neRiJoIYVnn/Js5IXBG+P6/eq9ANE0BJex1mcqxJMdzIgAs9SydAO+vKgTy3iaMhin+qj6iwrxR34jfBP69XZr04Gi3wuAwYb9wB+Co5JlegNN91lniEsj5ZfPVycptiuGalNfetHjj0tpCTptyDHpGbj94I9LtoQvo5280nw/rWTQd/8jWq64YU5yUxbkOy5O0eh/3BdjDhEYaz/IKxisGfCjapWKPhe4TLJcEDXDQP3+Bno7Oue8NK8A0hNiQxanUT5p8DeKv5Vqk8XfcF6/4rbqrigHuRTbt9Zyxl99/LuTrd43v
+	9Pf4RXEjM0B6HLmehhsyHjFa084og1mbwTB3pSxO4IdKEuRGrtpQk6yo0G0VwZH8lJRGZWrsJH8CgAzR2hY9nx7oKKacAyBnn/M8vdfIcQ6bhAvWMRqBdJ6SObdKOXYpxh7mReoTpBeeKff7GlP6YWUzCLsoWYOvdqi7QoYxkyGbZ8scfNYTCQBUucFYV68XyeEKA4tlfB+f10OfqRkE2Y5tKvEIuvbKqtnHBvHS+GGtkIqIOZiWM9Y/LxkEOazFxvEJR4y4ppo9IF1gkPh9SDbMpuWpq5NO2pokIMtGcgqp2MNvZkrCD0/cBGLGAFB/5A9kHdsdU9QJ4DPqd5fYu5BqmqyOa2sKVT4PFiSkq5bq06XI5h9Oa2QkLM7NP5iBCEzqICanTZdAhFM5Wa4p37pWjcNwEWJwOwkMMEmk/L3spzKMHZr7e9zwEwIZKBNwRBLe9OMFjiknA9b7yMAkFjc/DCwsszWxDztMJHPSJ0d4oPeQM4eaMegVO2zJTEiPkbWkfis0G+UIgE36rt/P0CNZ4xKJAX57kcTAcxsQvL+vXwsY5Yk3rp4fFqIOhxJORBu0Chm0EZFTC6Nn7AkCYQTU8wdQusLuB5oRbD+xiDpy5pkbwXjUGoKCpL4XIjyxst7zlnt9gDdoqlnkMhuGMQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(11063799006)(3023799007)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GtSefAIIcQ3MwD9wJEPrMXIiJq3bICvdbltG7oh2AtZjbI4PgdzKqHOLSza2?=
- =?us-ascii?Q?c6AqFZxwdrSP0IkJy6XMMm7H9V89PYO+WDJ8WUEiSOItxnsG9I+wB4g4Sk1W?=
- =?us-ascii?Q?oH2KfYqWEgjeYNwRhJ0XnseRyl672Ke0bOszYMVvSK2jzngEOm4TW+O5pOnX?=
- =?us-ascii?Q?UV6bHcnFr22r86JWBeXP7yekdeCnIHu5xPtrqc+xdysBJZ0XgFl/Fu3e+Py4?=
- =?us-ascii?Q?rbD5tLW//9zsPkbNoNBMQZdKG7ArJY4rOSz6enhhakH42f03JJr5FpdHpeM9?=
- =?us-ascii?Q?4j7pMtp+tx/rFupyeByYh8OH9/16SGHnOG3QcNoizUeTXp5OERzSSSJ9p9GD?=
- =?us-ascii?Q?761qD78kCrxLSH607RqPWCx7rkqCyWrxyTn4sRDLxcSad5x8fwq4IZl8Xixm?=
- =?us-ascii?Q?UaAXk1xxNRChS8SBORF1MwdFD+blbOMGgBIwolk11sy6nvrXJqJy2+Fc8Hhr?=
- =?us-ascii?Q?1Yqd9siYz4uKqIESirz9FqRzY3jptcw/lqS3sGtcmrj7tn/AdQZVvbd2teQR?=
- =?us-ascii?Q?JKh/6wcpkfxyLixDkplomXVMLzMLG63Z+bhFpQjdOgaSnjS0C9HPT4jbaUFQ?=
- =?us-ascii?Q?F+XlSb5hnt+giKsLzIy2/ZZBJInNzWcI+EawjbXVFiBvH7kliQp61vxFk9au?=
- =?us-ascii?Q?3CSk7KYhtBrWTsjpi/7g2AtXlC/sDt4kQ6vyq1Ac5+HQCPcnDztRqXHNKBsN?=
- =?us-ascii?Q?BaIcATY4h9iGCHOo+I63rApCLkOFrCTgJBHTpEvz5TtioksIJpovxdC/C0kD?=
- =?us-ascii?Q?ljt1jN+oIrWocfT4dOH6w1VJECMq1f4CU/6P1PDclNuC9YDi4Y+FVX1BIYeY?=
- =?us-ascii?Q?RAsJ2vYnHiWLcHav3ZaFwJdHsNdD4xtPRIJdDHI8Hxjqfc0hI8DKnD/wp0zB?=
- =?us-ascii?Q?NwwiAzHs1ojDm+dazwsSpHU32OsYW6k15rkC/Wk3tXzfP5KKo6C1Q550Z/yZ?=
- =?us-ascii?Q?czr9ZDvH/UCck2XQTcJ+B9RHdZ/LP07Fl3QosF82vZJIerscMHeJZftZBoJD?=
- =?us-ascii?Q?sc0xbeu4jS/aa3hxd0z3NVKKCxiGtqTU6Z/gqpOEBr1xAM9cZJ7iWL7Azo0A?=
- =?us-ascii?Q?DmtX0F4cGESmbtxW+SyBCxX5g0i/y/qutswV7DxVxkZSGspORsj3FA6UN/XU?=
- =?us-ascii?Q?IWueAdDJ+fneP8z2KNCIscxWK+8ZNYDM8YSVnNNrxQ6VGcNpIYXMnpIosaVB?=
- =?us-ascii?Q?XaXgE3a5VBh5dnTiAgLtNjDvI/JIoH9xFwEAnAY4NY/tuO0/pL4ns3V+HQY6?=
- =?us-ascii?Q?mhd5da3AqNpmiKVRu6BF8pp7/sB1yyOZWbut9wkPTPA7SyCeTJEtqK3v97vc?=
- =?us-ascii?Q?oa+PRZAAngDwKdc4LhuVt1t6HB67Tx2+VAEJBY7WMnZ1ji0hwKpVM2WvLQry?=
- =?us-ascii?Q?H8AsxMf7cF6IHAkiTV31bNjMNefykMAJkZfoEkGFpt5pJSJphjrraZrZBOZY?=
- =?us-ascii?Q?W10oLMtufNPkIZUi8DHDen+Z0CjjpCMqiEgveZb3bN2mqfftKWEsyJKzaKfL?=
- =?us-ascii?Q?oHKXSxqYEF2IyaZZclTfxN6e+Zaiw4kKD7Udae9fIQnpAWL9EjCVwXty7h+p?=
- =?us-ascii?Q?zgMrIybfpBrTe1CEvbJrnlvsrYN6+R4MdSq0/JNSz4Jke6fA+qzT2/NLJKpQ?=
- =?us-ascii?Q?8rDTbNKgp7rg2DKXTOsVMP/QmQhdG6XZaYM3Gy3FYOYbmhGBLBPXk0dYFrhG?=
- =?us-ascii?Q?YhS60s5zzsoA4pbhIF4ibRd3tNhvd0sKeuhc7ZYuIzwRyfrTB/0XjQDDtOTq?=
- =?us-ascii?Q?b5iY8Q20JA=3D=3D?=
+	=?utf-8?B?R1NSelQ0UTgzd0VVSjRRV0diS2dWK3F1b2c1V2E2d0ZlTGsyd3dBOGFqdHZL?=
+ =?utf-8?B?V2NRU0t2dTBYOTUyT3kxNDhQUHdwaEZma3pmNENCVUpuMjZrUEdwTGlQTjh3?=
+ =?utf-8?B?WlNtc0ptNmJ5MzFIblI4ZlBDYndzOUxHQ1FjejdoclNWS2w4VlVlaVBMQUhz?=
+ =?utf-8?B?aFQ0UnAwTkM4dkRaeXhhZHNVcmZFWlJtWm5Tc2lUL0p0bnB5QzhkN0UzNnBr?=
+ =?utf-8?B?SEZGQ1VoS2VocFJMWU8xSnhObEZ1cVFFWjh4a2R1MElyWnRlaG1TZ0hLK3Nn?=
+ =?utf-8?B?dTR5VDZvL3U5Z2tQcGVCcHBsUGE0M3Y3a25jdWZYUEl1ZjRlNnRReG91Tjcx?=
+ =?utf-8?B?aSt6dnJTbmlNOW9xSHdHTEpSNVZERFJLRThKV1QydXlwanFBR0VmS2xXK1BR?=
+ =?utf-8?B?TlA5VmVvSC84TEdjZ2RMNUhjMnU5VXFneW9pT3QvZkZIWW9oQW95ZzZKeXJ5?=
+ =?utf-8?B?eEZ4Q05QOUovVEFEb25RejlXOU41U3YvZTVrZzZ2N1BTbUdjZzZFSWtCZ1ZT?=
+ =?utf-8?B?aWRsT21TdzhlMWNWVUJ2VHZrQ0VUTUlaMFZjNXlpai9qUFZIYmtYVzhUL1lh?=
+ =?utf-8?B?Sy9IV29pL1drQ3JoME1YK212dGxtV0xsRmZZSjJYempBQVFhNUNwUEthMnNW?=
+ =?utf-8?B?S0ExeHJQRjdHNUxkM3VlcGRDeGI5ejhPSVR4dWxXOVkzTW0yMEFjdW81OUpX?=
+ =?utf-8?B?bHVLTmdKOGhETE1OcVp3QnkzQm8vMlNRYzNzSzFQT3hVNW5qZ3Z2Rk5vUEs5?=
+ =?utf-8?B?bXZBUm81dDV1eURxNFllZUF2Y0xKRmJNYjJZV1p1dEdUanFQSUlERnVvQmJ4?=
+ =?utf-8?B?S1BnZXVPSXFqQnQyVmloeVltVy9tQmowS3RQZ0pqMnJMNjl2VkEzQ0o4UEJO?=
+ =?utf-8?B?Nld1eFJCS3ErYkJvRXAxTjhDay8ycUtxdzVna3ZuQ1JUYnlKVktEVEg1c1JB?=
+ =?utf-8?B?K3NyMWFKc3orUjcxRmxaQmdWSFpqQ082czcwQ3BxWmxKdzRFdXJLbFRySjBW?=
+ =?utf-8?B?QVVsOU9yTnpvVDJTMlB6N25Ta1N5RkU2eE83YnRVN0g1UHV2ZytjYzBaZ2JC?=
+ =?utf-8?B?Z0plL016YVJpODBPblEvQVNtWmZIZ0FTc1Evd2gvTmIrZ3RYajZtWnJSZy9X?=
+ =?utf-8?B?ckJGZUdmZlJtRDQzN3ZVQUlCbEdEWXQxekZvb0Z1UmxTdGFQdXlMZTg5Vzlt?=
+ =?utf-8?B?akhKRkJUeUt3M1BXNzcvMWdpUzVvc1B6VHYrSGpHVVVmYVI3QnZDSDM1MGts?=
+ =?utf-8?B?Y3dvSmQwV3ZJQXlHMWdraHJIaWdBOGNEV2paVUxmTDAySGh1RnBYMFh4SXMw?=
+ =?utf-8?B?WTAycHlYRzJCL2dUdHNKRXZZQTBldWVqVCt1bHJSODVOTVNKU0FkRjM4amF5?=
+ =?utf-8?B?dzUyWVorZmRZaHkzV2Fsdm1CZW9INUJvb0J1Zm1PaW96Slh0ZjhERGZHOGxk?=
+ =?utf-8?B?UDcvTzlqVTRWeVMrQ0tqRldpVXNkOGIvSkRXWE9YVXM2KytURGppM3RNSHJ3?=
+ =?utf-8?B?dEpKQnZXV2FUUXA2TlNFM3pCUzJjSjlUc2orYUFYUUdPaVZ3bDREZEFPTlV2?=
+ =?utf-8?B?cXNPaktqMy84cW1yQzBjMEkxM013VHRlVGk2Mk5oQURaVGc4ZzNYSjI5VkN4?=
+ =?utf-8?B?OERpMWxWL0pGZHVBYm93VU44UUNEM0o0YmI5di9yQkRLaVREZ0V3UEpaVHM5?=
+ =?utf-8?B?blVWNW0rOWFOU1VmWDRQOTB0R1U3ZGVORlFPekEvMkg1NVRjYnJKZkN2NWVI?=
+ =?utf-8?B?T2xXcDFCa09mMlUrYUJTS01ZWnNzUnZvTmJ1bUNhUTJWR0ZyTnNQU3kzOTBC?=
+ =?utf-8?B?emx1N3NZbVdGR1FqT1FmdlRXdDVwNEtrNHZGR0RHaEJQVmN1cW1pQVRScjNh?=
+ =?utf-8?B?YVBMVGtYSi9hTDFHL0FJNy9iWitkOEZBVVk5VEJXU0Y0T1lDaEI4bmZ3QUFr?=
+ =?utf-8?B?eDljWlFrQ0tZQk9zUURHYjZBMDRnZU5xbUJ2dWRrbXVTSEVQVEh0OUs1SExv?=
+ =?utf-8?B?WGlJRitWSWwzbEZBSFhoekRDLzgwYXovNko4djZna29ROGMyQ29TL1hsdmpr?=
+ =?utf-8?B?OFc0VEhQWXJKZUc3V2RtZmNiSDgvdWlHclJzWHFGZ3RtS0lxYUpkYU5IOWZ6?=
+ =?utf-8?B?aVAwZ3BDN3FDYlByalFRczNtOXVyOStJMTR6cFBCYUs1QVB2V21xTUZRcllq?=
+ =?utf-8?B?YmNBQmNJQm5PNmNySHJJTkY1b2dlc1VyT2g2L0JRK3AvMjEwWmI2VUF6dnA4?=
+ =?utf-8?B?eHBRQVBLRmwxZFozRkV0eVhEaFczMHZBUjVReG1MZncxNHdtc2pNVXh5T2NU?=
+ =?utf-8?B?RkNPNWZrbWd5NGQwV3dETTU2cCt3UnVUZ3lwRFoxN0UrandiZDRNQT09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a28493b5-cda9-4324-40b0-08dec63e1d0f
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c717865-7ba2-4492-4d73-08dec644743f
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 15:45:21.4734
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 16:30:44.7003
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ABwN6uVU41g18xGFx1sfwHrVsPtHt5v0WoSEjtH9/A2GtWmQ8jyolhmwcju3rnxmcPXJNQuVQ7lREG+wnbcXJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH7PR03MB7785
-X-purgate-ID: tlsNG-ef75cf/1781019924-0A36CC48-933FDABC/0/0
-X-purgate-type: clean
-X-purgate-size: 1493
+X-MS-Exchange-CrossTenant-UserPrincipalName: guBHdrCFhRyvdb39Jqubem19r/lxd6OuHGXqBrG1WzBy6IMI+Mvq9mLxJOl05tyGeBdz/AKVAmHDzz2G/WBA0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5546
+X-purgate-ID: tlsNG-bad1c0/1781022648-43979A53-B9896A55/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 8749
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,citrix.com,suse.com,vates.tech,gmail.com,invisiblethingslab.com,apertussolutions.com];
+	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,vates.tech:email,citrix.com:dkim,citrix.com:email,citrix.com:from_mime];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,m:klampis@citrix.com,s:lists@lfdr.de];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,citrix.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[citrix.com:+];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 607BF661F06
+X-Rspamd-Queue-Id: 3B9CA662664
 
-Purgatory zeros these general purpose registers before jumping to the
-new kernel. When doing kexec on an EFI kernel there is no purgatory so
-we need to zero the registers here instead. This change shouldn't affect
-the functionality of legacy kexec.
+On Mon, Jun 08, 2026 at 06:31:08PM +0100, Andrew Cooper wrote:
+> From: Frediano Ziglio <frediano.ziglio@citrix.com>
+> 
+> xen.efi with debugging symbols is ~45MB, down to ~9.3MB when stripped.
+> Multiple firmwares (as seen by QubesOS, Trenchboot, and XenServer) are unable
+> to boot xen.efi when debugging symbols are included.
+> 
+> Either way, having debug symbols by default is abnormal and contrary to how
+> the non-EFI path works.
+> 
+> Produce xen-syms.efi unconditionally, just like xen-syms.  If
+> CONFIG_DEBUG_INFO is enabled, these will contain debug symbols, and if not,
+> then not.  When xen-syms is processed by mkelf32, the debug symbols are simply
+> discarded.  For xen-syms.efi, call $(STRIP) to produce xen.efi.
+> 
+> Some old versions of binutils ld managed to produce efi files which the
+> matching version of strip couldn't process.  This includes Binutils 2.26
+> included in Ubuntu 16.04.  Delete the workaround for this bug, and require a
+> less broken toolchain.
 
-Signed-off-by: Kevin Lampis <klampis@citrix.com>
+We should then bump the minimum required GNU binutils version in the
+README, as strip is also part of the binutils suite itself?
 
----
- xen/arch/x86/x86_64/kexec_reloc.S | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+> 
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Teddy Astie <teddy.astie@vates.tech>
+> CC: Frediano Ziglio <frediano.ziglio@citrix.com>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> 
+> For 4.22.  This was posted previously as
+> 
+>   https://lore.kernel.org/xen-devel/20251208133945.61375-1-frediano.ziglio@citrix.com/T/#u
+> 
+> but merged the two patches and rewritten the commit message to make it clear
+> that failing to strip xen.efi is causing boot failures.
+> 
+> Previously xen.efi.elf was produced but it's unclear why, and unnecessaerily
+> different, so I've dropped it.
+> 
+> While this does want backporting, it can't be.  Xen 4.21 and older still build
+> test with Ubuntu 16.04 and choke
+> ---
+>  .gitignore            |  1 +
+>  CHANGELOG.md          |  3 +++
+>  docs/misc/efi.pandoc  |  8 +-------
+>  xen/Kconfig.debug     |  9 ++-------
+>  xen/Makefile          | 19 -------------------
+>  xen/arch/x86/Makefile | 11 ++++-------
+>  xen/arch/x86/arch.mk  |  7 -------
+>  7 files changed, 11 insertions(+), 47 deletions(-)
+> 
+> diff --git a/.gitignore b/.gitignore
+> index bfc7bdf043c3..49e2c6961768 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -224,6 +224,7 @@ tools/flask/policy/xenpolicy-*
+>  xen/xen
+>  xen/suppression-list.txt
+>  xen/xen-syms
+> +xen/xen-syms.efi
+>  xen/xen-syms.map
+>  xen/xen.*
+>  
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 5cf19372a361..71d1e9ab8c69 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -14,6 +14,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>   - On x86:
+>     - Enable pf-fixup option by default for PVH dom0.
+>     - The libxenguest bzImage loader now uses the system liblz4 library.
+> +   - The install-time environment variable INSTALL_EFI_STRIP no longer exists.
+> +     xen.efi is always stripped, while the symbols remain available in
+> +     xen-syms.efi.
 
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index 6a2c839b83..be9e487f7a 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -78,6 +78,20 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
-         jnz     .L_call_32_bit
- 
-+        xor %edi, %edi
-+        xor %eax, %eax
-+        xor %ebx, %ebx
-+        xor %ecx, %ecx
-+        xor %edx, %edx
-+        xor %r8d,  %r8d
-+        xor %r9d,  %r9d
-+        xor %r10d, %r10d
-+        xor %r11d, %r11d
-+        xor %r12d, %r12d
-+        xor %r13d, %r13d
-+        xor %r14d, %r14d
-+        xor %r15d, %r15d
-+
-         /* Jump to the image entry point */
-         jmp     *%rbp
- 
-@@ -94,6 +108,13 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         lea     compatibility_mode(%rip), %rax
-         push    $0x10
-         push    %rax
-+
-+        xor %edi, %edi
-+        xor %eax, %eax
-+        xor %ebx, %ebx
-+        xor %ecx, %ecx
-+        xor %edx, %edx
-+
-         lretq
- END(kexec_reloc)
- 
--- 
-2.52.0
+This is not x86-only, AFAICT ARM also seems to have a rune to generate
+a xen.efi image, which will be affected by the removal of
+INSTALL_EFI_STRIP?
 
+>  
+>  ### Added
+>   - Support for per-domain Xenstore quota in C xenstored (includes
+> diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+> index 8198a7f063cf..0a3fd67076fc 100644
+> --- a/docs/misc/efi.pandoc
+> +++ b/docs/misc/efi.pandoc
+> @@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot modules are found.
+>  Once built, `make install-xen` will place the resulting binary directly into
+>  the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+>  `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot/efi` not
+> -match your system). When built with debug info, the binary can be quite large.
+> -Setting `INSTALL_EFI_STRIP=1` in the environment will cause it to be stripped
+> -of debug info in the process of installing. `INSTALL_EFI_STRIP` can also be set
+> -to any combination of options suitable to pass to `strip`, in case the default
+> -ones don't do. The xen.efi binary will also be installed in `/usr/lib64/efi/`,
+> -unless `EFI_DIR` is set in the environment to override this default. This
+> -binary will not be stripped in the process.
+> +match your system).
+>  
+>  The binary itself will require a configuration file (names with the `.efi`
+>  extension of the binary's name replaced by `.cfg`, and - until an existing
+> diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+> index d900d926c555..fcd3fc3d36cf 100644
+> --- a/xen/Kconfig.debug
+> +++ b/xen/Kconfig.debug
+> @@ -147,12 +147,7 @@ config DEBUG_INFO
+>  	  Say Y here if you want to build Xen with debug information. This
+>  	  information is needed e.g. for doing crash dump analysis of the
+>  	  hypervisor via the "crash" tool.
+> -	  Saying Y will increase the size of the xen-syms and xen.efi
+> -	  binaries. In case the space on the EFI boot partition is rather
+> -	  limited, you may want to install a stripped variant of xen.efi in
+> -	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
+> -	  docs/misc/efi.pandoc for more information - when not using
+> -	  "make install-xen" for installing xen.efi, stripping needs to be
+> -	  done outside the Xen build environment).
+> +	  Saying Y will increase the size of the xen-syms and xen-syms.efi
+> +	  binaries.
+>  
+>  endmenu
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 1f11610b5f68..0f9b56fc399d 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -493,22 +493,6 @@ endif
+>  .PHONY: _build
+>  _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+>  
+> -# Strip
+> -#
+> -# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
+> -# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s) below
+> -# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
+> -# option(s) to the strip command.
+> -ifdef INSTALL_EFI_STRIP
+> -
+> -ifeq ($(INSTALL_EFI_STRIP),1)
+> -efi-strip-opt := --strip-debug --keep-file-symbols
+> -else
+> -efi-strip-opt := $(INSTALL_EFI_STRIP)
+> -endif
+> -
+> -endif
+> -
+>  .PHONY: _install
+>  _install: D=$(DESTDIR)
+>  _install: T=$(notdir $(TARGET))
+> @@ -535,9 +519,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+>  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
+>  		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+>  		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
+> -			$(if $(efi-strip-opt), \
+> -			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
+> -			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+>  			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
+>  		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
+>  			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 47dd6c50fe88..01ed7302202e 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -196,10 +196,7 @@ note_file_option ?= $(note_file)
+>  
+>  extra-$(XEN_BUILD_PE) += efi.lds
+>  ifeq ($(XEN_BUILD_PE),y)
+> -$(TARGET).efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc
+> -ifeq ($(CONFIG_DEBUG_INFO),y)
+> -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
+> -endif
+> +$(TARGET)-syms.efi: $(objtree)/prelink.o $(note_file) $(obj)/efi.lds $(obj)/efi/relocs-dummy.o $(obj)/efi/mkreloc
+>  	$(objtree)/tools/symbols $(all_symbols) --source-name=$(@F).S --empty \
+>  		> $(dot-target).0s.S
+>  	$(MAKE) $(build)=$(@D) .$(@F).0s.o
+> @@ -233,10 +230,10 @@ endif
+>  	$(NM) -pa --format=sysv $@ \
+>  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+>  		> $@.map
+> -ifeq ($(CONFIG_DEBUG_INFO),y)
+> -	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
+> -endif
+>  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+> +
+> +$(TARGET).efi: $(TARGET)-syms.efi
+> +	$(STRIP) $< -o $@
+
+I'm not that good with Makefiles, but don't we need a similar
+adjustment to strip the .efi generated for ARM?
+
+Thanks, Roger.
 
