@@ -2,41 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RHNsNBKQKWqPZgMAu9opvQ
+	id ECEcF4mSKWpwZwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 18:25:54 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 18:36:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C78F66B72B
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 18:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBCC666B894
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 18:36:24 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=xen.org header.s=20200302mail header.b=nTU5yekw;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=dYINVrSZ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=none
-Received: from list by lists.xenproject.org with outflank-mailman.1334575.1597546 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=kernel.org
+Received: from list by lists.xenproject.org with outflank-mailman.1334599.1597555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXLjb-0004T2-9Q; Wed, 10 Jun 2026 16:24:55 +0000
+	id 1wXLuT-0006Ym-Bu; Wed, 10 Jun 2026 16:36:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1334575.1597546; Wed, 10 Jun 2026 16:24:55 +0000
+Received: by outflank-mailman (output) from mailman id 1334599.1597555; Wed, 10 Jun 2026 16:36:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXLjb-0004QH-5i; Wed, 10 Jun 2026 16:24:55 +0000
-Received: by outflank-mailman (input) for mailman id 1334575;
- Wed, 10 Jun 2026 16:24:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1wXLuT-0006W0-9F; Wed, 10 Jun 2026 16:36:09 +0000
+Received: by outflank-mailman (input) for mailman id 1334599;
+ Wed, 10 Jun 2026 16:36:08 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1wXLjZ-0004QB-Bc
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 16:24:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wXLjZ-003Izl-0T;
- Wed, 10 Jun 2026 16:24:52 +0000
-Received: from [2a02:8012:3a1:0:187b:85f9:f7d:a6e9]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wXLjY-006be7-1C;
- Wed, 10 Jun 2026 16:24:52 +0000
+ (envelope-from <kbusch@kernel.org>) id 1wXLuR-0006Vu-Un
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 16:36:07 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1wXLuR-00389q-A7
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 18:36:07 +0200
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <kbusch@kernel.org>)
+ id 6a299269-2eae-0a2a0a5409dd-0a2a4508a4d4-26
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 18:36:07 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <kbusch@kernel.org>)
+ id 6a299275-63b5-0a2a45080019-aceafc1fe91c-3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 18:36:06 +0200
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6EF3743DF2;
+ Wed, 10 Jun 2026 16:36:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E40111F00893;
+ Wed, 10 Jun 2026 16:36:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,133 +57,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=MLfufS7vnJdcPtGUWss2ymmmIB5z1a5HUldodTCEOQc=; b=nTU5yekw+S6Uofujd7twxOfjWY
-	p9+6MGBWQUD7F5jArthA4mjTr+fpxnPeDTYgiwXvnVPnBZoAP4F5a9CoQMR/hj3+LfGTK1KKynPan
-	4QDNSE0kd7Gb1MCWGa642yFIMAGcCOFQSEze0dVLvBBfqpM1aAXfcA1CP+5rqhQ+fjew=;
-Message-ID: <bd0588e3-2824-4c2a-a1cc-6ff62fed7f62@xen.org>
-Date: Wed, 10 Jun 2026 17:24:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1781109364;
+	bh=nh8wY943fEj9O68DsnnpwY2/V+toQvePmwkX7p5hMSw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dYINVrSZftHL1+14yqMRRxzqdHQ5Aru2hX4Xj5usxEkwHzPmZX+0xwOsW6Dztp5wP
+	 buvP2PuA+QV5xPj78OletWBvmwhb43jqvV5GFsrZnuZuAMghgSwQoh0S8sgN+S9BTm
+	 ixgW2hKOY1IFxC79EBrsQJFmBJhTgHzktayoDV1vYQ6PUatVZ8z/Tcr6XFUKU/a9/Z
+	 pheURjB4DZFygToELeoT3p6Kl+8pJ6zz/rbZLD4ZtWjHEo3RFM2sDUxPLErYC7D1UE
+	 E752J6xO3yZ8ppjwDDHNoD60M4V39r80G3RPynl7+S0nx3QFq8NW+mgS9cg+pAi3HA
+	 Rq8MlrT88sswQ==
+Date: Wed, 10 Jun 2026 10:35:59 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Sumit Saxena <sumit.saxena@broadcom.com>
+Cc: Christoph Hellwig <hch@infradead.org>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
+	Adam Radford <aradford@gmail.com>,
+	Khalid Aziz <khalid@gonehiking.org>,
+	Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Hannes Reinecke <hare@suse.com>,
+	"Juergen E . Fischer" <fischer@norbit.de>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org,
+	Finn Thain <fthain@linux-m68k.org>,
+	Michael Schmitz <schmitzmic@gmail.com>,
+	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+	Oliver Neukum <oliver@neukum.org>, Ali Akcaagac <aliakc@web.de>,
+	Jamie Lenehan <lenehan@twibble.org>,
+	Ram Vegesna <ram.vegesna@broadcom.com>,
+	target-devel@vger.kernel.org,
+	Bradley Grove <linuxdrivers@attotech.com>,
+	Satish Kharat <satishkh@cisco.com>,
+	Sesidhar Baddela <sebaddel@cisco.com>,
+	Karan Tilak Kumar <kartilak@cisco.com>,
+	Yihang Li <liyihang9@h-partners.com>,
+	Don Brace <don.brace@microchip.com>, storagedev@microchip.com,
+	HighPoint Linux Team <linux@highpoint-tech.com>,
+	Tyrel Datwyler <tyreld@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	linuxppc-dev@lists.ozlabs.org, Brian King <brking@us.ibm.com>,
+	Lee Duncan <lduncan@suse.com>, Chris Leech <cleech@redhat.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	open-iscsi@googlegroups.com, Justin Tee <justin.tee@broadcom.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Kashyap Desai <kashyap.desai@broadcom.com>,
+	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
+	Chandrakanth Patil <chandrakanth.patil@broadcom.com>,
+	megaraidlinux.pdl@broadcom.com,
+	Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Ranjan Kumar <ranjan.kumar@broadcom.com>,
+	MPT-FusionLinux.pdl@broadcom.com, Daniel Palmer <daniel@thingy.jp>,
+	GOTO Masanori <gotom@debian.or.jp>,
+	YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>,
+	Jack Wang <jinpu.wang@cloud.ionos.com>,
+	Geoff Levand <geoff@infradead.org>, Michael Reed <mdr@sgi.com>,
+	Nilesh Javali <njavali@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	Narsimhulu Musini <nmusini@cisco.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, linux-hyperv@vger.kernel.org,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Eugenio Perez <eperezma@redhat.com>, virtualization@lists.linux.dev,
+	Vishal Bhakta <vishal.bhakta@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: Re: [PATCH v3 3/4] block: drop shared-tag fairness throttling
+Message-ID: <aimSb9I0Vl-68hy9@kbusch-mbp>
+References: <20260609121806.2121755-1-sumit.saxena@broadcom.com>
+ <20260609121806.2121755-4-sumit.saxena@broadcom.com>
+ <aikAs4X-2NWTuwCc@infradead.org>
+ <CAL2rwxr1uGshb1o=jvP2OnBffNz2cKXj8tHuAUCN5HFuy2vB_g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/23] xen/arm: smmuv3: Add support for stage-1 and
- nested stage translation
-To: Milan Djokic <milan_djokic@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1774305918.git.milan_djokic@epam.com>
- <cb8a2cb5df50128f4c49d34a7ab8faa4e73f83c6.1774305918.git.milan_djokic@epam.com>
- <56a7c116-4ecb-4dfc-a7dd-774d53041fe9@xen.org>
- <87a04781-5765-43b6-8b21-cb993609bd91@epam.com>
- <cd2c76a2-7a13-4bbf-9c29-5dcf3ae06fc0@xen.org>
- <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
- <e489f44e-ef61-425c-bd0e-0a992c32f7cf@xen.org>
- <f258e2e5-f7ba-4183-8b33-c3a169dc1d7c@epam.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <f258e2e5-f7ba-4183-8b33-c3a169dc1d7c@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAL2rwxr1uGshb1o=jvP2OnBffNz2cKXj8tHuAUCN5HFuy2vB_g@mail.gmail.com>
+X-purgate-ID: tlsNG-c1860d/1781109366-BC567DB1-2770D79F/0/0
+X-purgate-type: clean
+X-purgate-size: 1026
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,kbusch-mbp:mid];
+	FREEMAIL_CC(0.00)[infradead.org,oracle.com,kernel.dk,hansenpartnership.com,vger.kernel.org,gmail.com,gonehiking.org,microsemi.com,suse.com,norbit.de,armlinux.org.uk,lists.infradead.org,linux-m68k.org,qlogic.com,neukum.org,web.de,twibble.org,broadcom.com,attotech.com,cisco.com,h-partners.com,microchip.com,highpoint-tech.com,linux.ibm.com,ellerman.id.au,kernel.org,lists.ozlabs.org,us.ibm.com,redhat.com,googlegroups.com,thingy.jp,debian.or.jp,netlab.is.tsukuba.ac.jp,cloud.ionos.com,sgi.com,marvell.com,microsoft.com,lists.linux.dev,epam.com,lists.xenproject.org,acm.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:bertrand.marquis@arm.com,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	DMARC_NA(0.00)[xen.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:dkim,xen.org:mid,xen.org:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:sumit.saxena@broadcom.com,m:hch@infradead.org,m:martin.petersen@oracle.com,m:axboe@kernel.dk,m:James.Bottomley@hansenpartnership.com,m:linux-scsi@vger.kernel.org,m:linux-block@vger.kernel.org,m:aradford@gmail.com,m:khalid@gonehiking.org,m:aacraid@microsemi.com,m:willy@infradead.org,m:hare@suse.com,m:fischer@norbit.de,m:linux@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:fthain@linux-m68k.org,m:schmitzmic@gmail.com,m:anil.gurumurthy@qlogic.com,m:sudarsana.kalluru@qlogic.com,m:oliver@neukum.org,m:aliakc@web.de,m:lenehan@twibble.org,m:ram.vegesna@broadcom.com,m:target-devel@vger.kernel.org,m:linuxdrivers@attotech.com,m:satishkh@cisco.com,m:sebaddel@cisco.com,m:kartilak@cisco.com,m:liyihang9@h-partners.com,m:don.brace@microchip.com,m:storagedev@microchip.com,m:linux@highpoint-tech.com,m:tyreld@linux.ibm.com,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:brking@us.ibm.com,m:lduncan
+ @suse.com,m:cleech@redhat.com,m:michael.christie@oracle.com,m:open-iscsi@googlegroups.com,m:justin.tee@broadcom.com,m:paul.ely@broadcom.com,m:kashyap.desai@broadcom.com,m:shivasharan.srikanteshwara@broadcom.com,m:chandrakanth.patil@broadcom.com,m:megaraidlinux.pdl@broadcom.com,m:sathya.prakash@broadcom.com,m:sreekanth.reddy@broadcom.com,m:mpi3mr-linuxdrv.pdl@broadcom.com,m:suganath-prabu.subramani@broadcom.com,m:ranjan.kumar@broadcom.com,m:MPT-FusionLinux.pdl@broadcom.com,m:daniel@thingy.jp,m:gotom@debian.or.jp,m:yokota@netlab.is.tsukuba.ac.jp,m:jinpu.wang@cloud.ionos.com,m:geoff@infradead.org,m:mdr@sgi.com,m:njavali@marvell.com,m:GR-QLogic-Storage-Upstream@marvell.com,m:nmusini@cisco.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:linux-hyperv@vger.kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:pbonzini@redhat.com,m:stefanha@redhat.com,m:eperezma@redhat.com,m:virtualization@lists.linux.dev,m:vishal.bhakta@bro
+ adcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:bvanassche@acm.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[xen.org:+];
+	FORGED_SENDER(0.00)[kbusch@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[kbusch@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[83];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5C78F66B72B
+X-Rspamd-Queue-Id: BBCC666B894
 
-
-
-On 08/06/2026 10:25, Milan Djokic wrote:
-> Hi Julien,
-
-Hi Milan,
-> On 5/24/26 13:00, Julien Grall wrote:
->> Hi Milan,
->>
->> On 28/04/2026 11:16, Milan Djokic wrote:
->>>>> The original idea was to also allow stage-1-only support. But I'm not
->>>>> sure if stage-1-only usecase is useful or even valid for Xen.. I will
->>>>> update the patch series with the missing parts for stage-1-only 
->>>>> support,
->>>>> pointed out by Luca, but the question remains if this is needed at 
->>>>> all.
->>>>> If not, I can revert to original state where stage-2 was always
->>>>> required.
->>>>
->>>> By "stage-1 only" support, do you mean Xen would use the stage-1 in
->>>> replacement of the stage-2? Or do you mean the guest will use the
->>>> stage-1 page-table and there will be no isolation from Xen?
->>>>
->>>> If the former, then I believe the page tables don't have the exact same
->>>> format. Today, the page-tables are shared between the CPU and IOMMU, so
->>>> this would need to be duplicated. For now, I am not sure this is worth
->>>> to do.
->>>>
->>>> If the latter, this would require the guest to be directly mapped (i.e.
->>>> IPA == PA) but it would also open a big hole. So I would want to
->>>> understand the exact use case first.
->>>>
->>>
->>> The latter. In this case, the guest would configure stage-1 while
->>> stage-2 translation is not used, so there is no additional isolation
->>> enforced by Xen. This would only be intended for specific usecases with
->>> trusted domains. But yes, this opens a significant hole if used with
->>> untrusted guests. If there is no strong usecase, we could restrict the
->>> implementation to always require stage-2.
->>
->> It is still unclear what would be the exact use-case. Is it a system
->> where the SMMU doesn't support stage-2? Performance reason?
->>
+On Wed, Jun 10, 2026 at 09:16:11PM +0530, Sumit Saxena wrote:
+> The motivation for this change stems from performance issue we
+> encountered due to false sharing of the 'nr_active_requests_shared_tags'
+> counter
+> on certain CPU architectures. I initially submitted a patch to move that
+> counter to
+> its own cache line to avoid conflicts with 'nr_requests' and other hot
+> fields
+> (see:
+> https://patchwork.kernel.org/project/linux-scsi/patch/20260402074637.92417-3-sumit.saxena@broadcom.com/
+> ).
 > 
-> This primarily targets systems where the SMMU does not support Stage-2 
-> translation.
-> If we decide to keep this code, I will address the associated security 
-> considerations and document the corresponding AoU in the design. 
-> Otherwise, we can fall back to supporting only the "nested" translation 
-> case.
+> During the review, Bart shared his work, which eliminates the
+> counter entirely by removing the fairness throttling. My testing confirmed
+> that
+> this approach resolved the performance issues and improved IOPS.
+> This patch is part of a larger set, and I have reported the cumulative
+> performance
+> improvements in the cover letter.
 
-Thanks for the feedback. I think for such setup, I would consider 
-whether we can use the stage-1 in Xen to protect the device. AFAIK, this 
-what Linux will do.
-
-I would be interested to hear what the other maintainers think.
-
-Cheers,
-
--- 
-Julien Grall
-
+So the problem is just the atomic operation accounting overhead? I
+previously thought the device just really needed to consume all the tags
+to hit performance.
 
