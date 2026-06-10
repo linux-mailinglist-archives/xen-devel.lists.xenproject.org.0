@@ -2,56 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id bbUfEvf5KGqMOQMAu9opvQ
+	id 76Y5MqL/KGqLOgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 07:45:27 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 08:09:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2971665FED
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 07:45:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A9C666173
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 08:09:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b="OoQ/KkcK";
+	dkim=pass header.d=suse.com header.s=google header.b=Oq6Yi9gY;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=amd.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1333945.1597049 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1333955.1597058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXBkZ-0001KU-2A; Wed, 10 Jun 2026 05:45:15 +0000
+	id 1wXC7s-0005yZ-0k; Wed, 10 Jun 2026 06:09:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1333945.1597049; Wed, 10 Jun 2026 05:45:15 +0000
+Received: by outflank-mailman (output) from mailman id 1333955.1597058; Wed, 10 Jun 2026 06:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXBkY-0001Hi-Vl; Wed, 10 Jun 2026 05:45:14 +0000
-Received: by outflank-mailman (input) for mailman id 1333945;
- Wed, 10 Jun 2026 05:45:13 +0000
+	id 1wXC7r-0005xB-TR; Wed, 10 Jun 2026 06:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 1333955;
+ Wed, 10 Jun 2026 06:00:05 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Zhao.Jiaqing@amd.com>) id 1wXBkX-0001HT-O0
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 05:45:13 +0000
+ (envelope-from <hare@suse.com>) id 1wXByv-0004OL-2v
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 06:00:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXBkX-00FkEo-4V
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 07:45:13 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wXByr-00FnDB-NC
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 08:00:01 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Zhao.Jiaqing@amd.com>)
- id 6a28f9c4-bab6-0a2a0a5309dd-0a2a4506de24-44
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 07:45:12 +0200
-Received: from [52.101.52.8]
- (helo=BL2PR02CU003.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Zhao.Jiaqing@amd.com>)
- id 6a28f9e7-7371-0a2a45060019-34653408db19-3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 07:45:12 +0200
-Received: from DSWPR12MB999151.namprd12.prod.outlook.com (2603:10b6:8:36b::21)
- by SA1PR12MB6872.namprd12.prod.outlook.com (2603:10b6:806:24c::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 05:45:07 +0000
-Received: from DSWPR12MB999151.namprd12.prod.outlook.com
- ([fe80::1d57:8e0c:c16d:15e2]) by DSWPR12MB999151.namprd12.prod.outlook.com
- ([fe80::1d57:8e0c:c16d:15e2%6]) with mapi id 15.21.0092.007; Wed, 10 Jun 2026
- 05:45:07 +0000
+ (envelope-from <hare@suse.com>)
+ id 6a28fd5c-5cb7-0a2a0a5109dd-0a2a450ce3a2-14
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 08:00:01 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <hare@suse.com>)
+ id 6a28fd61-62f1-0a2a450c0019-d1558031e103-3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 08:00:01 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490b211ee6aso48962635e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jun 2026 23:00:01 -0700 (PDT)
+Received: from ?IPV6:2001:a62:1439:d001:a0af:1164:c6fd:8c51?
+ ([2001:a62:1439:d001:a0af:1164:c6fd:8c51])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f35eae5sm69552212f8f.33.2026.06.09.22.59.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 09 Jun 2026 23:00:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,168 +61,285 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kUlzQjiyS6BtfycrHD1/XJw2IzDJA0ClUe1b6z00FLNVUWQO77bKOxPSCnxwDIOBZxDhyFal7ollmUvsYjO00BM8Hcv1zHYCTSnORYC4hZHoJltkxwI7nAZF06XbOtth8OQkU1NlqLUQ4xQngZX8yAPwD16wsTgPBtfAEU+XXsx3RGem5MgWvu3u9pnBSOFR2yUwXN0bZWFjjJwiXE+CQv43yHBXDu0Q5KrYTOq0LMH5Tf+9TCNsWbyXdry+DC+CpIHClyOkg2oNYQs9WBYHyQ5NFFiE+lHONFvC9FAzeBDRGVaLxjVqjxJZ1pasbxjnxNH0XstLnZYPJJklZOb+2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/88MLSk8k51BOoLeV7E3T7rLWEmS6HwaqlDk2upVJEM=;
- b=u62FhFkoLarrUrSfZ82bGsLvTSxStjCsFjjTdUryUTzw4V1y+AzQYN/D+5KTsuMAXVfZaPnk8XNO12ZVek/Jbi74dQZzFmnb+CDJ+Ulv+iGyOrleqBZy/Xq9xxgBn9iuYNS0+TxLMrd+LjOQYvZLfWp6KQZVbIy9jTLavz9hhalxj7T8z8g0jIja0bo2vS2F14JKblDtHFLRj5Pd1R+IvdAoRaI/Sh0FinDcvlho4hjW5bzK1crcLnpx7xCJ3AB1IhiipSJ7R8WpCh//CveFcJGIZb7H+1gO1yQKI8XosB9t6cPYcdlJNNXZIDzujgNgkq+Ra491U9i1cgH9r7Q8ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/88MLSk8k51BOoLeV7E3T7rLWEmS6HwaqlDk2upVJEM=;
- b=OoQ/KkcKZCedoPudRaEzw4HpHn0hZv8zDnJJySjkJGk9nhppd9kx9JgpatXM03FhkNMhKV+cAXb2/j63ee3er5Bti9exOwC/ZmTJu5MK1HeNy2wg++ZUHr7jMkbpdo6ntRzNpiJrMEIhJLrHTHAneRZ50o6eLrlF107g4/ISE1I=
-Message-ID: <8fb0441d-a75e-4457-812b-7f8c61dc4e97@amd.com>
-Date: Wed, 10 Jun 2026 13:44:59 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] ns16550: add support for WCH CH382 and ASIX
- AX99100
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20260602053421.773149-1-Zhao.Jiaqing@amd.com>
- <ced10c25-2970-4ba3-96fd-3bc5df4c4797@suse.com>
-Content-Language: en-US
-From: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
-In-Reply-To: <ced10c25-2970-4ba3-96fd-3bc5df4c4797@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0020.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::10) To DSWPR12MB999151.namprd12.prod.outlook.com
- (2603:10b6:8:36b::21)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781071201; x=1781676001; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0eeq4qUemue69ATVH9Hc0G+s1EX6SM4VcPKiJpjYoUk=;
+        b=Oq6Yi9gYxam7qKXUF86+rujHGMTrb9lHIeFEW3HfYurcNcdAlshBSf5G1N86J6auNb
+         ywDj34ftw3rtT+g+RlUgD8j/OzUugwb34V14gbLiu9h5u9FaY3YCxo7P0tHjsT5WN69L
+         p/9tRN/9iK8gWyD+L9/G6PtS/14okO/jS0cwzioj2saNEgolTFsuOTxzx7Q+blTgn1IB
+         La/zaKivanePNBC/g4/IcUv2Xq/9phZ+g7NtZZ1PnPerIqz/3WjrR1ps3TKzEiC3rinq
+         Sk3m3rnYPNIxZsvybstmyoKnjV0mwA239hyEOJ+adN/k+osJZOKYsikhraDGE0hYSIiQ
+         YaZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781071201; x=1781676001;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0eeq4qUemue69ATVH9Hc0G+s1EX6SM4VcPKiJpjYoUk=;
+        b=NYjl3ZwoGs45Sqtk8P5lJTTiTBL46/ZOCnhfEQKHyPf6xNAqXYLNJ9sQ8/JndWiWNh
+         7NF70EAkpHV1/n0mzNwrhIiQQpPPUjdfJlkutEtCybiSOwpTTyE9X5XeU0jF7c84kMOo
+         B88jKcdmCDrEY9yKIlt1nNkIpYLamXL3HqUXPuj+dazplIg//sXEc3UDoWyzRhwJiK6f
+         APKRtv6T8x9dHXRLBt1X34WuNH//g3eaKHcUAUnwe90Ln0dXr82Un6knDXuWaiyWwv2e
+         QerTV7ljJw9Yaw9NDTk7Z7ERZRFhteUayiev3ST2tDTpvc3Mqyl9456hSc3V4qqYZI3P
+         cx6w==
+X-Forwarded-Encrypted: i=1; AFNElJ8gtM/DR9oQ0yTnZtU4weFNXk9PMXCMtTB49+f96wD8KBBLcI6FejeqI7i4DMdzrhRBtBP+yVndmhw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyweW5xx/mysOf2GHEgXXp2enYiEx+tBe5r6V65IRr/1j9tZ6y
+	6U3B8LTZXWFf/8SHyKDGW+9xsD3dU5Z151heiYYXIMopgrtvjH+fNTCl1mZaMAG2pIM=
+X-Gm-Gg: Acq92OG6DepFoAxxNBg6hJWdciaox8RSrKESazb4BYRiH7tKivwCGFXA9INPcqrBk3g
+	Md9FuGvMTtwmIg9ounN19BweOx9tScc25Q7EDUDgKGZqabxKK4gF1HhyheK8vZku9J0SHEZqG0N
+	bJqSL25NjbKYnQnUraU8uzOqo1w++V4VhqoN3l2UhAf6UrubSKoq4dFFVjWTY1ZRDfTMQK9SNLk
+	WRqKYqp0ZL1Bzb2np6u6FANc0Dqotkabhz2Y8DbDd+vMmuUpURJ5MaCZ/GQwIgBkFSTCPvBRAyv
+	R+Rh37FnAHWsYlIv4Qi8Wh3qVqoEv/EVCEMRF7WQHxCJmRlusSgl22ISJHp1YD+ovBJfTrpTFw7
+	XGU8D87WA1E/twLTLjtWByRJm+asE1E8RtXrWbsRHK6BUQ+yzyka/uU0z215R1oBUBvqJLythM7
+	IxAMAp1ixujwOrZtTP+re0sg52dcsCfqpZjYSCMV/s14keKDsoPpe/hd+iGpsiM2H2iU3quS0=
+X-Received: by 2002:a05:600c:8285:b0:490:abef:dae6 with SMTP id 5b1f17b1804b1-490c25b09bcmr392960895e9.19.1781071200857;
+        Tue, 09 Jun 2026 23:00:00 -0700 (PDT)
+Message-ID: <e2a61373-0c27-41c3-b0ca-836a4727a3b5@suse.com>
+Date: Wed, 10 Jun 2026 07:59:57 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSWPR12MB999151:EE_|SA1PR12MB6872:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a9160c4-f0f7-4ea3-8cde-08dec6b36d52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|11063799006|4143699003|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	FVnrp7ehmI9rwNyrZ5k/FCzuZJ5sXiA9Hgui5r6m5PSop0162xhZKOdn0XLnpIkyJUR8Xl+Oo+Jl0reus9oVQwiR5Qq4d1at3sG8DcouBkcFTLqH4FmcwqxvVEx8W9sW894dgkSLJcj/LVJQoL5cxezOCBXJ5Q2l9MHvALpAUp3CUjqimi+Lgi9o7c69iP40quHIPH0OIj9DgZgSAFEsFat6HVVirKYQffeJggxcQae8lcfwpoFbkLHYZDO5PsawoChil7zZJbEgSxkDKCPQm9mQYOaQE62T9A5XUKp+FFOQQr3hxvZ0PEr3rnekKSI44CS6qdHLOE1UNUIOj+ueNRumXeDwp9A5dq1rjnCcA99gqRLXXEP2pAif5Kb2mQBTSH+/CUppiCI/VyJPDegU5XAWtzo0eDNGc56trmNdRs4erVMBEEJmxvYPQU/avWVlkXYWaNT7Jitd9YfQzlsV/RSg+aBMPA5S3zfrzoD6kQdde/KizsTDWNEMv0UbQNzSudRUmaI+aAieS3ASvy+bv53kxtv5znh9AYl86M6BKOx9dmBSp84ZR/6wDjws9o65Lns8EmvMabowF4p0/+CL9nr3IklCK89sSDm7QJCdbJlg6cnJRX5d8OHlY5y+xkXfQfPdbAJbuHkWSEuTVqrDPVvE/FDuz6SIVMviAazfuEB9jPYqm61MU6Nu5M2SE2xg
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSWPR12MB999151.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(11063799006)(4143699003)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YmxudW52U2dhd3l3N1BFV2tQNWVBUzMxNGhPejFwdUFnTGFrTmZEMDdkUWNZ?=
- =?utf-8?B?ZGh6S1FJTmVBQ2JDcTl4dm50a3V3UHUvWjllNVl4WDBMZ0FRYmZVc1k3eXhN?=
- =?utf-8?B?UlFQWnNTM1lieUNtUzNRZStranFGcFp1TnJHUUNCS1l1Qi9HSGxLcDJzUkYy?=
- =?utf-8?B?ajc2MVYrYkhvQ3RuWG9kUWx5dG9RTEo0d2FtYjlOSEJVeTYzM1B3VC8zQzVp?=
- =?utf-8?B?c25PQ1YyNmdUWDEyZk41bTY5UTdwS00zZnNJT0xxbHpvZDkxYTdmeGpqbVRZ?=
- =?utf-8?B?VFQzTDdabWd4L2JuSW9aSDlIazN6ZW1NcEVMdTdkWGwrRnBFQmkwNEVKNjA4?=
- =?utf-8?B?aW02MldYa0l4RmJmTktmWFdPZ0F3UEh4Vng2ZThOWDR5dFE2NDBJOElNQmdz?=
- =?utf-8?B?ZmZQNmJ4OFB4bXMzUEdwUFVEUEVjdUFkdVltOWRxZGFPZFRDdk45M3VqbG80?=
- =?utf-8?B?dmJmRk9PSW9FUGlCWWJ4b1hnRlVNdm5lcDVwZ1pLVHc4emtQYURHYzdlSndD?=
- =?utf-8?B?eW1tVVkxKyt3UG5LcWtJL3pwZUx5V3praklZMWtRK1ZRUXFnMys2ZEJ6ZXAv?=
- =?utf-8?B?RWx6MjZuUW5VZm9lL1lJb2RKSTBZazVGUXBhazNmRTBtWGdOZTFGQnYwcm80?=
- =?utf-8?B?YmZJZkJkOGRMSFFKcDRQZEdtalkvTmxHTmlURXFYNEpOUXp0cHhCa2VmbkRS?=
- =?utf-8?B?WVE5b3huN3hFRFRiZ2sxZXg2WE1Sb01DUittN0ZIVW5aNTJKRTkyZWpjemJi?=
- =?utf-8?B?M3d3MkIvVHd0K1JwV1VRMENmNzZPUTFSSmhYK2IyaEdoSVl5Nm5PV3F2b1hT?=
- =?utf-8?B?a2tkRmdlZmlQSCswK0UvVWpGQ1gzMTNRL0tCakNIMDZ1OEl5aUhscG5tYUZo?=
- =?utf-8?B?R2ZFMkxOYlFKeWNPdWZhd2Z2cTZhOE9hQXhDbW02aVZSdHh3Sk9QVGc0UmRv?=
- =?utf-8?B?YkpyTENxZGdLZWRpelAyWXNZaS9pQ0JGcGVRTExmWVZ6YkhCdVRuU2poZFFZ?=
- =?utf-8?B?c0RBc0QyeXVJZS9JTmxzOE42b0pmU0lLZVI1RlEwOWxyOGR5d2pmVEg3ZXZt?=
- =?utf-8?B?djFMak1iTDRMRW1US1EveWhYRGNBaXc4MWs0T2VlOCtnM2ZCOGgrMUw5WS9n?=
- =?utf-8?B?VDF3MlhOTlZSUlhmbXFQZEJ0NEt6OEgrZWlvOEVaMnd4Vm12ZURIQUltT1ox?=
- =?utf-8?B?SW1MNUNjNVVTcVpoSFRhN1d2RStYT0toMWdZSUxjb3hqWnFrejRoSzk2Z0k5?=
- =?utf-8?B?ZkM5YjV4N0dEUE95c1pNWk9VaUlwTTlyOE1qZllKTmZQNUZwa3VOSUh6Ukth?=
- =?utf-8?B?bU51cWZhU3U2U0dwLzBYOWM0U3g2VnJGYms5N2NPdHRaNHRSaVA1Sk4rQXRi?=
- =?utf-8?B?cnAzUk1MY0ZDOC85bTdVK3ZtQ1RMZUN1ajVBaXlra2dmNmNUeFFBQUhlSTY3?=
- =?utf-8?B?K3Q3MVg3T2xQUFQ4a25xQUJXT1ExdTA3M2pDUk9oTkh6clVFeDhWNTEzelov?=
- =?utf-8?B?N3ZQTU8vTlkzOVdSa1dwS1UycGxVb3ZlSnl6T0d5UjliQXNYWk9yQTdpQTFQ?=
- =?utf-8?B?dlBSUUIvT2hVbkpNQkpCb09nWG1SWmFRYWwvMVgycGZqU0ZVN3UzMktvVlN3?=
- =?utf-8?B?dnRhS0lLNm5BMVBpZDdmMWtKaVNadmxFZXh1UWg4NE14WnVQR1RZR3JxcW50?=
- =?utf-8?B?cjBObE4rNWZXVmpYNXRoRUo5TFVqWXdyOTk4a3owWTZTTVU4a3dhYVVWZkJ2?=
- =?utf-8?B?T0xHaDA1anNrOGJCanhmQmN1UzJaMjc0T0tuOUhwSE12ZTFCa2ZqbUcyNFJM?=
- =?utf-8?B?MHFIeEFZNks5Qzh4dHlsNkU1ZDdDNUZkT3c3VEpJTkliNTJyQ0ZYVXZOVDRR?=
- =?utf-8?B?bllOWlNUeGpSVDJiSm5jd1liTGFBL014aEsvTkExYTJqd1RTS3BqMWpqRE40?=
- =?utf-8?B?QWVHZG9zNEdIVHE2NlNwZ0pST3hmRVlhV1EvT3R4ZG1QTWtrNHNEZCtOQ2lS?=
- =?utf-8?B?ZnQxTUFwdHloQjJWUWJPVERkZnJTb1VPVjVuSHNybnZrcUpJK3c2d2x3Q0Rz?=
- =?utf-8?B?cG11WUtJZVczZ3lxYnBIay9yeWhjbkpiN2dlRjhtdTViQlh1Yi9OcGhsYmxs?=
- =?utf-8?B?bTlmTGpTUEhuQ3pWUFJjNFZhR1F6b1J5RW1UbzlpejNsNVZjTVcvMCtzZHVt?=
- =?utf-8?B?N21WS3BRZWxXTEFQam9ZdVYzRzQ2TmVtWVVWRmdiZExxVjgrN3FoNWVUcEFB?=
- =?utf-8?B?ODJNbEY0bUU5S3hWR1k0NWJ1QjhmZ2FIN1VUZWIwZTIvdDVyY2ttSWlMSkh5?=
- =?utf-8?B?Nm04UGFqNFVsVk1qWlJHbk10anczQ25DK0s4U2o3WGI0Q0lIcEJtdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a9160c4-f0f7-4ea3-8cde-08dec6b36d52
-X-MS-Exchange-CrossTenant-AuthSource: DSWPR12MB999151.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 05:45:07.1457
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x/QQaC5D+oRXdnAEEUUu6Q/wBLLet7bzUWhaFcAMsH1cD4t2dKc+EprijcAUpnX6Y3ub0zw/lr3eJT6k2P5cwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6872
-X-purgate-ID: tlsNG-16d1c6/1781070312-8556ED75-5D2E8F4F/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/4] scsi: host: allocate struct Scsi_Host on the NUMA
+ node of the host adapter
+To: Sumit Saxena <sumit.saxena@broadcom.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-scsi@vger.kernel.org, linux-block@vger.kernel.org,
+ Adam Radford <aradford@gmail.com>, Khalid Aziz <khalid@gonehiking.org>,
+ Adaptec OEM Raid Solutions <aacraid@microsemi.com>,
+ Matthew Wilcox <willy@infradead.org>, "Juergen E . Fischer"
+ <fischer@norbit.de>, Russell King <linux@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, Finn Thain <fthain@linux-m68k.org>,
+ Michael Schmitz <schmitzmic@gmail.com>,
+ Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
+ Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
+ Oliver Neukum <oliver@neukum.org>, Ali Akcaagac <aliakc@web.de>,
+ Jamie Lenehan <lenehan@twibble.org>, Ram Vegesna <ram.vegesna@broadcom.com>,
+ target-devel@vger.kernel.org, Bradley Grove <linuxdrivers@attotech.com>,
+ Satish Kharat <satishkh@cisco.com>, Sesidhar Baddela <sebaddel@cisco.com>,
+ Karan Tilak Kumar <kartilak@cisco.com>, Yihang Li
+ <liyihang9@h-partners.com>, Don Brace <don.brace@microchip.com>,
+ storagedev@microchip.com, HighPoint Linux Team <linux@highpoint-tech.com>,
+ Tyrel Datwyler <tyreld@linux.ibm.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ Brian King <brking@us.ibm.com>, Lee Duncan <lduncan@suse.com>,
+ Chris Leech <cleech@redhat.com>, Mike Christie
+ <michael.christie@oracle.com>, open-iscsi@googlegroups.com,
+ Justin Tee <justin.tee@broadcom.com>, Paul Ely <paul.ely@broadcom.com>,
+ Kashyap Desai <kashyap.desai@broadcom.com>,
+ Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
+ Chandrakanth Patil <chandrakanth.patil@broadcom.com>,
+ megaraidlinux.pdl@broadcom.com,
+ Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>,
+ Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ mpi3mr-linuxdrv.pdl@broadcom.com,
+ Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+ Ranjan Kumar <ranjan.kumar@broadcom.com>, MPT-FusionLinux.pdl@broadcom.com,
+ Daniel Palmer <daniel@thingy.jp>, GOTO Masanori <gotom@debian.or.jp>,
+ YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>,
+ Jack Wang <jinpu.wang@cloud.ionos.com>, Geoff Levand <geoff@infradead.org>,
+ Michael Reed <mdr@sgi.com>, Nilesh Javali <njavali@marvell.com>,
+ GR-QLogic-Storage-Upstream@marvell.com, Narsimhulu Musini
+ <nmusini@cisco.com>, "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ linux-hyperv@vger.kernel.org, "Michael S . Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Eugenio Perez <eperezma@redhat.com>,
+ virtualization@lists.linux.dev, Vishal Bhakta <vishal.bhakta@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org, John Garry <john.g.garry@oracle.com>
+References: <20260609121806.2121755-1-sumit.saxena@broadcom.com>
+ <20260609121806.2121755-3-sumit.saxena@broadcom.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.com>
+In-Reply-To: <20260609121806.2121755-3-sumit.saxena@broadcom.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d25034/1781071201-E2577CF5-CC3E1A74/0/0
 X-purgate-type: clean
-X-purgate-size: 1056
+X-purgate-size: 7035
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[Zhao.Jiaqing@amd.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[amd.com:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,amd.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[HansenPartnership.com,vger.kernel.org,gmail.com,gonehiking.org,microsemi.com,infradead.org,norbit.de,armlinux.org.uk,lists.infradead.org,linux-m68k.org,qlogic.com,neukum.org,web.de,twibble.org,broadcom.com,attotech.com,cisco.com,h-partners.com,microchip.com,highpoint-tech.com,linux.ibm.com,ellerman.id.au,kernel.org,lists.ozlabs.org,us.ibm.com,suse.com,redhat.com,oracle.com,googlegroups.com,thingy.jp,debian.or.jp,netlab.is.tsukuba.ac.jp,cloud.ionos.com,sgi.com,marvell.com,microsoft.com,lists.linux.dev,epam.com,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,broadcom.com:email,oracle.com:email];
+	FORGED_RECIPIENTS(0.00)[m:sumit.saxena@broadcom.com,m:martin.petersen@oracle.com,m:axboe@kernel.dk,m:James.Bottomley@HansenPartnership.com,m:linux-scsi@vger.kernel.org,m:linux-block@vger.kernel.org,m:aradford@gmail.com,m:khalid@gonehiking.org,m:aacraid@microsemi.com,m:willy@infradead.org,m:fischer@norbit.de,m:linux@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:fthain@linux-m68k.org,m:schmitzmic@gmail.com,m:anil.gurumurthy@qlogic.com,m:sudarsana.kalluru@qlogic.com,m:oliver@neukum.org,m:aliakc@web.de,m:lenehan@twibble.org,m:ram.vegesna@broadcom.com,m:target-devel@vger.kernel.org,m:linuxdrivers@attotech.com,m:satishkh@cisco.com,m:sebaddel@cisco.com,m:kartilak@cisco.com,m:liyihang9@h-partners.com,m:don.brace@microchip.com,m:storagedev@microchip.com,m:linux@highpoint-tech.com,m:tyreld@linux.ibm.com,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:brking@us.ibm.com,m:lduncan@suse.com,m:cleech@redhat.com,m:mich
+ ael.christie@oracle.com,m:open-iscsi@googlegroups.com,m:justin.tee@broadcom.com,m:paul.ely@broadcom.com,m:kashyap.desai@broadcom.com,m:shivasharan.srikanteshwara@broadcom.com,m:chandrakanth.patil@broadcom.com,m:megaraidlinux.pdl@broadcom.com,m:sathya.prakash@broadcom.com,m:sreekanth.reddy@broadcom.com,m:mpi3mr-linuxdrv.pdl@broadcom.com,m:suganath-prabu.subramani@broadcom.com,m:ranjan.kumar@broadcom.com,m:MPT-FusionLinux.pdl@broadcom.com,m:daniel@thingy.jp,m:gotom@debian.or.jp,m:yokota@netlab.is.tsukuba.ac.jp,m:jinpu.wang@cloud.ionos.com,m:geoff@infradead.org,m:mdr@sgi.com,m:njavali@marvell.com,m:GR-QLogic-Storage-Upstream@marvell.com,m:nmusini@cisco.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:linux-hyperv@vger.kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:pbonzini@redhat.com,m:stefanha@redhat.com,m:eperezma@redhat.com,m:virtualization@lists.linux.dev,m:vishal.bhakta@broadcom.com,m:bcm-kernel-feedback-list
+ @broadcom.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:john.g.garry@oracle.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[hare@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Zhao.Jiaqing@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[hare@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[81];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	REDIRECTOR_URL(0.00)[aka.ms];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A2971665FED
+X-Rspamd-Queue-Id: 33A9C666173
 
-Sorry I missed this mail. Please ignore my latest v6...
+On 6/9/26 14:18, Sumit Saxena wrote:
+> scsi_host_alloc() used kzalloc(), which always picks an arbitrary node.
+> Extend the function to accept a 'struct device *dev' parameter and use
+> kzalloc_node() with dev_to_node(dev) so the Scsi_Host struct lands on
+> the same NUMA node as the HBA, mirroring the treatment already applied
+> to struct scsi_device, struct scsi_target, and shost_data.
+> 
+> When dev is NULL (legacy ISA/platform drivers without a dma_dev) the
+> allocation falls back to NUMA_NO_NODE, preserving existing behaviour.
+> 
+> Update all in-tree callers:
+>    - PCI-based HBA drivers pass &pdev->dev (or the equivalent struct
+>      member such as &phba->pcidev->dev, &h->pdev->dev, &ha->pdev->dev)
+>      so their host struct is placed on the adapter's node.
+>    - Non-PCI drivers (ISA, Amiga, ARM PCMCIA, virtio, Hyper-V, PS3, …)
+>      pass NULL.
+>    - libfc's libfc_host_alloc() inline helper passes NULL; FC drivers
+>      that want NUMA awareness can open-code the call with their pdev.
+> 
+> Suggested-by: John Garry <john.g.garry@oracle.com>
+> Signed-off-by: Sumit Saxena <sumit.saxena@broadcom.com>
+> ---
+>   drivers/scsi/3w-9xxx.c                    | 2 +-
+>   drivers/scsi/3w-sas.c                     | 2 +-
+>   drivers/scsi/3w-xxxx.c                    | 2 +-
+>   drivers/scsi/53c700.c                     | 2 +-
+>   drivers/scsi/BusLogic.c                   | 2 +-
+>   drivers/scsi/a100u2w.c                    | 2 +-
+>   drivers/scsi/a2091.c                      | 2 +-
+>   drivers/scsi/a3000.c                      | 2 +-
+>   drivers/scsi/aacraid/linit.c              | 2 +-
+>   drivers/scsi/advansys.c                   | 6 +++---
+>   drivers/scsi/aha152x.c                    | 2 +-
+>   drivers/scsi/aha1542.c                    | 2 +-
+>   drivers/scsi/aha1740.c                    | 2 +-
+>   drivers/scsi/aic7xxx/aic79xx_osm.c        | 2 +-
+>   drivers/scsi/aic7xxx/aic7xxx_osm.c        | 2 +-
+>   drivers/scsi/aic94xx/aic94xx_init.c       | 2 +-
+>   drivers/scsi/am53c974.c                   | 2 +-
+>   drivers/scsi/arcmsr/arcmsr_hba.c          | 3 ++-
+>   drivers/scsi/arm/acornscsi.c              | 2 +-
+>   drivers/scsi/arm/arxescsi.c               | 2 +-
+>   drivers/scsi/arm/cumana_1.c               | 2 +-
+>   drivers/scsi/arm/cumana_2.c               | 2 +-
+>   drivers/scsi/arm/eesox.c                  | 2 +-
+>   drivers/scsi/arm/oak.c                    | 2 +-
+>   drivers/scsi/arm/powertec.c               | 2 +-
+>   drivers/scsi/atari_scsi.c                 | 2 +-
+>   drivers/scsi/atp870u.c                    | 2 +-
+>   drivers/scsi/bfa/bfad_im.c                | 2 +-
+>   drivers/scsi/csiostor/csio_init.c         | 4 ++--
+>   drivers/scsi/dc395x.c                     | 2 +-
+>   drivers/scsi/dmx3191d.c                   | 2 +-
+>   drivers/scsi/elx/efct/efct_xport.c        | 4 ++--
+>   drivers/scsi/esas2r/esas2r_main.c         | 2 +-
+>   drivers/scsi/fdomain.c                    | 2 +-
+>   drivers/scsi/fnic/fnic_main.c             | 2 +-
+>   drivers/scsi/g_NCR5380.c                  | 2 +-
+>   drivers/scsi/gvp11.c                      | 2 +-
+>   drivers/scsi/hisi_sas/hisi_sas_main.c     | 2 +-
+>   drivers/scsi/hisi_sas/hisi_sas_v3_hw.c    | 2 +-
+>   drivers/scsi/hosts.c                      | 6 ++++--
+>   drivers/scsi/hpsa.c                       | 2 +-
+>   drivers/scsi/hptiop.c                     | 2 +-
+>   drivers/scsi/ibmvscsi/ibmvfc.c            | 2 +-
+>   drivers/scsi/ibmvscsi/ibmvscsi.c          | 2 +-
+>   drivers/scsi/imm.c                        | 2 +-
+>   drivers/scsi/initio.c                     | 2 +-
+>   drivers/scsi/ipr.c                        | 2 +-
+>   drivers/scsi/ips.c                        | 2 +-
+>   drivers/scsi/isci/init.c                  | 2 +-
+>   drivers/scsi/jazz_esp.c                   | 2 +-
+>   drivers/scsi/libiscsi.c                   | 2 +-
+>   drivers/scsi/lpfc/lpfc_init.c             | 2 +-
+>   drivers/scsi/mac53c94.c                   | 2 +-
+>   drivers/scsi/mac_esp.c                    | 2 +-
+>   drivers/scsi/mac_scsi.c                   | 2 +-
+>   drivers/scsi/megaraid.c                   | 2 +-
+>   drivers/scsi/megaraid/megaraid_mbox.c     | 2 +-
+>   drivers/scsi/megaraid/megaraid_sas_base.c | 2 +-
+>   drivers/scsi/mesh.c                       | 2 +-
+>   drivers/scsi/mpi3mr/mpi3mr_os.c           | 2 +-
+>   drivers/scsi/mpt3sas/mpt3sas_scsih.c      | 4 ++--
+>   drivers/scsi/mvme147.c                    | 2 +-
+>   drivers/scsi/mvsas/mv_init.c              | 2 +-
+>   drivers/scsi/mvumi.c                      | 2 +-
+>   drivers/scsi/myrb.c                       | 2 +-
+>   drivers/scsi/myrs.c                       | 2 +-
+>   drivers/scsi/ncr53c8xx.c                  | 2 +-
+>   drivers/scsi/nsp32.c                      | 2 +-
+>   drivers/scsi/pcmcia/nsp_cs.c              | 2 +-
+>   drivers/scsi/pcmcia/qlogic_stub.c         | 2 +-
+>   drivers/scsi/pcmcia/sym53c500_cs.c        | 2 +-
+>   drivers/scsi/pm8001/pm8001_init.c         | 2 +-
+>   drivers/scsi/pmcraid.c                    | 2 +-
+>   drivers/scsi/ppa.c                        | 2 +-
+>   drivers/scsi/ps3rom.c                     | 2 +-
+>   drivers/scsi/qla1280.c                    | 2 +-
+>   drivers/scsi/qla2xxx/qla_mid.c            | 2 +-
+>   drivers/scsi/qla2xxx/qla_os.c             | 2 +-
+>   drivers/scsi/qlogicfas.c                  | 2 +-
+>   drivers/scsi/qlogicpti.c                  | 2 +-
+>   drivers/scsi/scsi_debug.c                 | 2 +-
+>   drivers/scsi/sgiwd93.c                    | 2 +-
+>   drivers/scsi/smartpqi/smartpqi_init.c     | 2 +-
+>   drivers/scsi/snic/snic_main.c             | 2 +-
+>   drivers/scsi/stex.c                       | 2 +-
+>   drivers/scsi/storvsc_drv.c                | 2 +-
+>   drivers/scsi/sun3_scsi.c                  | 2 +-
+>   drivers/scsi/sun3x_esp.c                  | 2 +-
+>   drivers/scsi/sun_esp.c                    | 2 +-
+>   drivers/scsi/sym53c8xx_2/sym_glue.c       | 2 +-
+>   drivers/scsi/virtio_scsi.c                | 2 +-
+>   drivers/scsi/vmw_pvscsi.c                 | 2 +-
+>   drivers/scsi/wd719x.c                     | 2 +-
+>   drivers/scsi/xen-scsifront.c              | 2 +-
+>   drivers/scsi/zorro_esp.c                  | 2 +-
+>   include/scsi/libfc.h                      | 2 +-
+>   include/scsi/scsi_host.h                  | 3 ++-
+>   97 files changed, 107 insertions(+), 103 deletions(-)
+> 
+Quite a lot of churn for such a (relatively) simple change.
 
-On 2026-06-02 18:15, Jan Beulich wrote:
-> [You don't often get email from jbeulich@suse.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> On 02.06.2026 07:34, Jiaqing Zhao wrote:
->> This series adds ns16550 support for two PCIe serial adapters found on
->> market:
->>
->>  - WCH (Nanjing Qinheng Microelectronics) CH382, available as
->>    CH382 2S [1c00:3253] and CH382 2S1P [1c00:3250].
->>  - ASIX AX99100 PCIe to Multi-I/O Controller [125b:9910].
->>
->> Both chips expose 16550-compatible UARTs through PCI I/O BAR0 and
->> work with the existing ns16550 driver once a matching device table
->> entry and parameter set are added.
->>
->> v4:
->>  - Add Reviewed-by from Stefano.
-> 
-> There's no need to re-submit just for this. Mail volume is already high
-> enough. The fact that this wasn't merged yet doesn't indicate any need
-> to re-submit: This series simply needs to wait until the tree re-opens
-> for the 4.23 dev cycle.
-> 
-> Jan
+I think it might be better to introduce a new function
+(scsi_host_alloc_node() ?) with the additional parameter,
+and make scsi_host_alloc() a wrapper around that.
 
+That will reduce the size of this patch immensely.
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.com                               +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
 
