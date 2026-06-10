@@ -2,54 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id DvOfH84xKWrOSAMAu9opvQ
+	id P1sIJY8zKWotSQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 11:43:42 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 11:51:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC6A4667F2A
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 11:43:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C6C66801D
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jun 2026 11:51:10 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=fW21IiPf;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=g4Fs9Xyv;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1334089.1597193 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1334099.1597201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXFSu-000879-8m; Wed, 10 Jun 2026 09:43:16 +0000
+	id 1wXFaF-0001jK-19; Wed, 10 Jun 2026 09:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1334089.1597193; Wed, 10 Jun 2026 09:43:16 +0000
+Received: by outflank-mailman (output) from mailman id 1334099.1597201; Wed, 10 Jun 2026 09:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXFSu-00084d-4H; Wed, 10 Jun 2026 09:43:16 +0000
-Received: by outflank-mailman (input) for mailman id 1334089;
- Wed, 10 Jun 2026 09:43:14 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wXFaE-0001gn-Ui; Wed, 10 Jun 2026 09:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 1334099;
+ Wed, 10 Jun 2026 09:50:49 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wXFSs-00084X-MK
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 09:43:14 +0000
+ (envelope-from <ross.lagerwall@citrix.com>) id 1wXFaD-0001gh-6U
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 09:50:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXFSq-008h1W-Tb
- for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 11:43:12 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wXFaC-00B6nW-JG
+ for xen-devel@lists.xenproject.org; Wed, 10 Jun 2026 11:50:48 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2931a3-e002-0a2a0a5209dd-0a2a4507d054-30
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 11:43:12 +0200
-Received: from [209.85.208.49] (helo=mail-ed1-f49.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2931b0-229c-0a2a45070019-d155d031d981-3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 11:43:12 +0200
-Received: by mail-ed1-f49.google.com with SMTP id
- 4fb4d7f45d1cf-68852b58d87so12059912a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 02:43:12 -0700 (PDT)
-Received: from [192.168.178.22]
- (dslb-002-205-069-250.002.205.pools.vodafone-ip.de. [2.205.69.250])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf055308063sm1162843766b.48.2026.06.10.02.43.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jun 2026 02:43:11 -0700 (PDT)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 6a293377-5cb7-0a2a0a5109dd-0a2a4501cf4a-4
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 11:50:48 +0200
+Received: from [40.93.201.27]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 6a293376-c1f2-0a2a45010019-285dc91bb7da-4
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jun 2026 11:50:48 +0200
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by PH8PR03MB989184.namprd03.prod.outlook.com (2603:10b6:510:3b2::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
+ 2026 09:50:44 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.21.0092.011; Wed, 10 Jun 2026
+ 09:50:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,203 +63,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781084592; x=1781689392; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=h2n+Di/Xd5l9GTr0XiN4Ix0zlTO1tRT+Y3xoH/ywzVw=;
-        b=fW21IiPf3whB+zn8SX0Lro6qstuU/TVhuvKrh5Gl9hG4JapxR6BIVeymfHnrLW3N3Y
-         oKXitWWDFZxHIk2W/06ochQSzEISapWdwz68G00YUasQSQxtPajsEP6IfbFZ4zjTEF75
-         7QmTiWlcGy20ySiWm1YtNbEYCRlut5mVrSHLDG+NcM/DG9ly8EPS9DdiikyGcxNQm8YQ
-         sonoL2omzGdUN8zNoDN5hatn0Y2V/aMZ9mnoI5U/Lls6W7Dyx6qogKWwoFs3j3Y9ljb8
-         P3zSkgXNFUBUYoVlRmA3cQGNQToEOA2wCUjZgiPMN6pwqG1b0AH09lVCNFCUUyjrmw52
-         6epA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781084592; x=1781689392;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=h2n+Di/Xd5l9GTr0XiN4Ix0zlTO1tRT+Y3xoH/ywzVw=;
-        b=dRxzIGSnnY0+cN88x+fvlYcMsx14nC7pNM4TICkHEfOaj7kyL29UBrC+kBu0cP0LC3
-         5MB23JnHil6EQphqYcA9HkzaDGX+JTEXSwdGDxW/IdqvK+dINSl8f02fATGXbmY7/J8t
-         T/3eRgDB3dCsMpjFh0R8SwOJ76U/hG6M2s2RLridD4oxFdVIgriXE3XN6md0pPVYYNj3
-         OC0GRQDa6fpmUm1bN1hIBdIO59FIOF5qSdWI0HqLTbw1iJ95T8cM2av/7lZerk6KRieH
-         T86+G64q343k6+GVeEetZ+2mlpOmSHMwhU6M3+SW5xGpfIazPvLGTVt6Rn1qfLIIDoJj
-         mZDg==
-X-Forwarded-Encrypted: i=1; AFNElJ/gJPNSxXwFsOmPilsK1+x6jhSudqOImvxSWhvoualPZ9kGR+oiOZgumBi/2UdqkEUam8dRlawm4VY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxqiLuRkMLgFKlFgHwbEaCQ9U65pT4r5io3IJrXx28WLdgEDmmJ
-	oC0IA5SRn8NXHr0vmpVu/qkzhxfxyIwswyZJQhIaKl8GW0NjHLXpd1LNsFTiU37clQ==
-X-Gm-Gg: Acq92OHrzAjrrO4X3Ox651+tweFBIBfxSr3TsRVgMpK+fPuhZRa8TqZsDHbVqmZdUDl
-	sJiW4PsivkWubIofj4m8Ycaer7Y6ZPY67/R97QX1C9GpnGuz2qzdpxlcK1aEMJwy1cv411C9T85
-	ty1Zfz953cbR+ymqKKxv0RG4uknOppzawE34l2j8WLmjBVlaa4wm8Kh3CqXDJqzZf+P0SKAcRnZ
-	u3UjN2n2HTVbJHobOZUs5+FbfJKllZW5T+jo94dnJuMkMXx1FPuAYsT2knzTo2UBU7acd30zWvU
-	Y1xaAyg0d9IOkaRYJ99345+p4PDlqVBiSZ3s3oZD7eH6p6sdDkbQ5W8IgeY/Tj4a2w0neUFXZOn
-	lVbKT1OeGSw47n0fX8ABaxP8NXzFmLrAZDcncwoUVhV9kXCURrlDkQDB6DO/P0YpcuHsR+I3Oty
-	nyrhojSbxeBl5JioDQklF8j2Z4ityEgrohAQ1VM53r6jL9iNlzdrI3qgty9+82uy/cBZksm9e62
-	EB2ND2ynpmBa9Y5pqgkUr2Xn50g
-X-Received: by 2002:a17:907:c518:b0:bed:eb8b:d404 with SMTP id a640c23a62f3a-bf370866e4cmr1263043266b.16.1781084592250;
-        Wed, 10 Jun 2026 02:43:12 -0700 (PDT)
-Message-ID: <5bee4f94-b2d0-4802-a990-b2a378d2f838@suse.com>
-Date: Wed, 10 Jun 2026 11:43:12 +0200
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F1MZCMxYatQqdaLGRA/llyOFTPhdDB7sXjp0Gp8mgR1UovuRHKNrimPAgC/71bpC53qcPt1OK6GYZygiJY8sUpgBuZNIORhC9hL5v1Ln5Xsm2s/cEMPm6Q5SBsxR2OFqtJTojsnzZr/pMdQE/MQ0Mv3HR4teyOq9rvP+9PWnEU6kKieGlFvBs0BeIdvhsfo8fYZNsDDSLk5EKxBihlDc6Nfy3Q5WGyLCP3cAlgyr0Pv6dzVmlSDgQPrJOkAeB17NDf5x5P1aee9ba5tt30KB6wPok85rlpKbON7/xwmw+TRKvpTrb3h/9FSTFxbwboJFlGj+m++0fvtN1cINo5f0+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/+qm1leoAjrT8y99LtftJEiKLFqQvkzOA5UvxrdnIvE=;
+ b=Zz3kBNKzTrfNrRRnEQrPVG4MqJZFgBcfbkv5G0odFPCBFlAUiTjyi9jgJNefN3qzyjhuat+6yaV8OZO/7cdKt2vxFScNJ1++4WJLNgUS1oh5BuFQMS/ulkFWhyvjwtV/U1fNPWgYu/t4LzCCneU/XLzCrUhG2ux9qmGNFTq/hJvI13tHsYslEstB7CY+ouLGhsp+L9bHtfhoE5MFxDWpTWjOo6GQT6bsB5ESyvmLDNY7Wx2RV8xl6jJooXr/diwda9aWfl9mjxi+eDQyHCytNruUo91uUDbUvyt13tQM4VdrL/SoRMbaRMKKoDaSgZCSipPqiFYAArsOuX0gLjsuLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/+qm1leoAjrT8y99LtftJEiKLFqQvkzOA5UvxrdnIvE=;
+ b=g4Fs9XyvVdYWK+7dcoLKwkp0Rq9pF755smLE4NbJWqhpg6qmY0q66CW5kraSNMUjBqzr9LnrzL3+mB3FX0lHxXsCK5UHWcUl2SbYE+hAwIFImKrFGlB0T77LMZYfsRsEXbiGIj/zPQdhrP93TwYoYbyibJr8kwfUonpHkhK+CuM=
+Message-ID: <8ca2cba1-bea1-430a-9241-4fbc16fa0244@citrix.com>
+Date: Wed, 10 Jun 2026 10:50:38 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] Align all sections to 4KB
-To: Frediano Ziglio <freddy77@gmail.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+Subject: Re: [PATCH v1 2/2] domctl: Handle some of XEN_DOMCTL_shadow_op
+ without the domctl lock
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Teddy Astie <teddy.astie@vates.tech>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
- <20260529153531.1341542-3-frediano.ziglio@cloud.com>
- <7067092e-ba18-4513-a9b1-83ba084ccbb4@suse.com>
- <CAHt6W4cP57pAPsNDKpssjYB=snLEZgOhWkYkVrJys01-NTMiRQ@mail.gmail.com>
- <75e86d74-9fa1-4090-bea7-332ec31ffb90@suse.com>
- <CAHt6W4dfXdyw4dOkqoQzo0x4XRmLsHXkhhznov+KvanKBi9bWw@mail.gmail.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20260609151528.2426788-1-ross.lagerwall@citrix.com>
+ <20260609151528.2426788-3-ross.lagerwall@citrix.com>
+ <aikhxaH3ZKyd33IY@macbook.local>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAHt6W4dfXdyw4dOkqoQzo0x4XRmLsHXkhhznov+KvanKBi9bWw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1781084592-0BF7EC48-F89BD14E/0/0
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+In-Reply-To: <aikhxaH3ZKyd33IY@macbook.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0327.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18c::8) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|PH8PR03MB989184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c1e0a49-4f0f-45ce-9449-08dec6d5bdc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|56012099006|11063799006|5023799004|22082099003|18002099003|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	cfdxGRSAEZJMz4iRMI2pXGvEuoUIoHLi1KZFty1ZmPUf9o/3wPZh5NoQjHvITIF/0I/s296poZhD1+KhdYdQmgEPEJ9dx6J+zOs/Q/MYSd/zl6IQHTBaSH/sTGL8bVlVNaeriENKDm4HYGbbJc1i7SpUnVnEkfInBZvVnAcvA0NuTxuIjoZRSgCCYMoMQBpXoo3J8X1a7qXiAKsu/1pNXlkcu16yIlcoPEwclrvYVWVsz2fQhyK3aDdSOf4sG9iYaODYu4qzTYJlhXtQC/B5AiiAzR20Iw2jnrR0geD2mclY0+j/bxFVjBA9h5o9rfvm9b+CsWStXWTpgv86ehGcAb8zbCXLJq8CUZ48oREGzymlh4x4btX553G+wzWLsrJpOLdltMubj+BHlMv+4LvDB8mzpxscxv/B4Y4abE7e/frLFnBSZMVLQa/Ydnv0+d8G0SXB35mF2DOsFpVt3q9SKXviGTxWrIHVMnne0KWJn5VRpWDPCS/9fsLpAjecXRVKjuZC6nbmvqbCrRsDW6EyoaBuxAcplFBe9zp8vLhC8nhH2Lik3pLHuMQymcQTOoq06ucpyDKAd5WDNZa2DhDdaoxoOdtOc4dcoWW4YObTA0zosoASmUdMdRfIBq9DsnXBHnKfDJND47PTAPayM6M5PnxKs9wcSTbxviSHT8fFVogjKEc5v6CIRUgr80cIVrEL
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(56012099006)(11063799006)(5023799004)(22082099003)(18002099003)(4143699003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YkNid21KNFNQNys5RVl4TVozM3dzVFE1b0Rtb0lWemQ5dDk4TGJLNkNKYXhQ?=
+ =?utf-8?B?UTRpNGxYR0crT0pURVRBUVE2cmJKdUgvalhuV1VSemtjLzJDRWdlenRBb2ho?=
+ =?utf-8?B?ZmhZcHpxS1BiZllUTUhDWjRvbXVUbThuRVZLVlpsMGJwRjhMRFp6bWNscDhi?=
+ =?utf-8?B?WGYxSDFmMkhkcFA5ZjljODZ3MWI3ZkY5MHl1aVJpRVUva2pyWUJJMC9KUUly?=
+ =?utf-8?B?S2syUy9xZm5TU3IyQ01IN2I5L3NwMUVqWnBhM0FEUHVEZHdCWVV6b2luS1ZB?=
+ =?utf-8?B?OWdjMy9JWE9uVnp5ajdFQzJmWWJjclFNSThNYllmenJ6QXFzUDhQTW4zeUNN?=
+ =?utf-8?B?WlZCR2tqVG9BWmVWbHBNT3crSDVaNUl2ZlVuNTVyL0NIKzVmQ3V3ODMwRW5X?=
+ =?utf-8?B?a2NDc09XUnhNczNheWxicUR3cE1zZjgwT3BQaHVpQ1IrbThrUU1SMlo1dFc3?=
+ =?utf-8?B?ZHZVU2RWQllnd29IazltTjFqREs2QWtWeUgvcFdVTXd3MTAxZDJYME9HdG84?=
+ =?utf-8?B?WmFnNE1kODJSRUpXdFFMVHdFWGNuTmkzZlVXVXZiTE43S3JpZ29PeFFoc1RD?=
+ =?utf-8?B?VVcrL2JvUSt2L0JBeUpWaUI0MUVHNTFHMnd0SHFqUkpUeEwxZ2FlVXd5Mzli?=
+ =?utf-8?B?Z1gvZjYybGVsZUdFT1k5NjNBNVduSlkvL1k5aTVlaE9pQkV5TkJyR0w3bFVC?=
+ =?utf-8?B?MnZzNm5USU1JR0FGS1RNWWNyTXVLN256TzR0azdhUWttTi9jeWFPMUxmcGZG?=
+ =?utf-8?B?enk0YTFRd054ZzVLdERNQTk3UzFpSTFYS2gwdi9icXlPZnZCOEticGFYRStG?=
+ =?utf-8?B?eHcyVXU0aW5sWHl4UzFRTHBMeUJuZ1o5U2MyTnlZNEwxTUtDcGN4dkhxZHo5?=
+ =?utf-8?B?aGtLV2pZSmUzVld2MmM0Q1VDVDRIenFWV1AyNmM1SGgzOFNXSTJxUjcxdjN2?=
+ =?utf-8?B?dVZiZjBnZWh2UFpwRzZsVjNUZm1LNHVTMVZzVWVuODgxN0J6Q3FHTG1TTWlC?=
+ =?utf-8?B?ZWx3cW5qN2RNTUZEUmRwekRCWjRCcENldllibmFPdUZ3TUE0SnlxTktuTEV6?=
+ =?utf-8?B?Rno3THQxaEdlWXhPVTNpOU5RYnhJUExaMkJ3aDQ4amJwSDAzYUd3cWo5aG9S?=
+ =?utf-8?B?ckt2eUVBekZqcWphQ240VUlYNFJIczE4VHpuWlpSUWN2Q0Y3ZFlFaDJ0NGVq?=
+ =?utf-8?B?am91bWV1eXFlanFuUWYvM2kwOFE0Y2N2ejJFU2hldW9BbVcrSGJ3YXg0UndE?=
+ =?utf-8?B?Nk9IVGJPa2IxckVnTENDV3o0b3hrUHIrTDFWamluRjcrUStTVUsvVnA4QVhO?=
+ =?utf-8?B?QVU5SHFCTnF0S3RyNU5lSVkxbVcrNEg2cmwzWDcvb3QxRzFKRm9YOXozOEVJ?=
+ =?utf-8?B?dzVNNzBmaVlhOXZLOTU1Y3lhVjFDTUFTQnVTWEd5YitoZFpvWExvalJFUkZR?=
+ =?utf-8?B?RzVHeTFMY1BrWHdFMlZ3Q2U3TGVya3VveXptYXhjWEVwR0VnTGhtbEhFTkx0?=
+ =?utf-8?B?bXNWM0NSdXFVbnVjbTlEWjRlZW9PYldpMGpmdm5TN0VpYi9PRUZta2U3dE4z?=
+ =?utf-8?B?U1pMUmhpRDBXeVgxY0dxTEpJVW5DbTJnTi9rM2ZyY3N5S2piQUJFNFV6OHFl?=
+ =?utf-8?B?c2M5UkVFQk1lVHhwUDJzUTF2ZThCaEFlTmlHNGt6c01WYTg1S2RmcVlndzJn?=
+ =?utf-8?B?blZVZ0VKbWtGVVkxUWdaZWI3Q2JYbzhhMThuckRoM2tBZlBQeWh5VlljeWpM?=
+ =?utf-8?B?cno1Zzc2QjFCY0dwRmtTemN3OGV2YVNKZTRURWNWZXFsUHBYMHVlOUJadmww?=
+ =?utf-8?B?SU0yZ2NldDRZSG5WMnFuUnNNRHNac2RrRlU0Y2Mwa3haQWZzL05MSXNCQXVy?=
+ =?utf-8?B?VmYxSmZOcTZtRUE1d2pTdGVlVVlDOENXYS9WWXlSdGlsL1FNSk04RElRTkJM?=
+ =?utf-8?B?NDlISEJWZVRlS2I3YW9zS05hTFpMNlVrMVRCKzhITmliRE1ZOWR2YXF4MnFz?=
+ =?utf-8?B?WGZHYjhoNFk2T3hyU2dtSityTmRXSDFRSFdSWnhVTE13Yll4WkQvU2FUeTFH?=
+ =?utf-8?B?dzErV1VBeEMwNFd6RWZnSWJjTTNUTFBiVjZvRThDUm9IUXFFYkxOcEZZNXFT?=
+ =?utf-8?B?YUhocGZnNlo3VjJ4TEtQQlQ1NnczQndIQW95cTVFMXIxSmJudGhnUGtZTEV2?=
+ =?utf-8?B?MTRUcmQ4enBBMllwaTFaTHN1amlpL2NkWVlRcDR2UE56ZU14RHZLRVpXUmkw?=
+ =?utf-8?B?RjRvV3hERWdzMjNTMmtCOS9vY3Z5dTVBQnFEYjlTOThtUXV4U1g2V0NpcStJ?=
+ =?utf-8?B?RW15ejZ5VUtlUkVKVkpRYTAxZTJmdlFaRDdocnJ0LzZHYlJQMFB1N0hlQWIw?=
+ =?utf-8?Q?oEp2KoIvyxi2VipI=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c1e0a49-4f0f-45ce-9449-08dec6d5bdc1
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 09:50:44.8650
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dlmFHn/wT2Go4YOs9TZE66TIlO1z5FtzWFK9o23NW4PYQia7mAyxFKDor5BfhXM/P77dCKm5RGgp7+PBUrevQW/AlCINpfhQhsUTDhARY8Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR03MB989184
+X-purgate-ID: tlsNG-d62444/1781085048-AD9A9FF4-CF5A18A4/0/0
 X-purgate-type: clean
-X-purgate-size: 4739
+X-purgate-size: 4117
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:dkim,citrix.com:email,citrix.com:mid,citrix.com:from_mime];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: DC6A4667F2A
+X-Rspamd-Queue-Id: F2C6C66801D
 
-On 06.06.2026 18:02, Frediano Ziglio wrote:
-> Frediano
-> 
-> On Fri, 5 Jun 2026 at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
+On 6/10/26 9:35 AM, Roger Pau Monné wrote:
+> On Tue, Jun 09, 2026 at 04:15:28PM +0100, Ross Lagerwall wrote:
+>> Handle XEN_DOMCTL_SHADOW_OP_{CLEAN,PEEK} without taking the domctl lock.
+>> This is safe because for these subops, the paging lock is mostly held
+>> which prevents it from operating concurrently on the same domain. There
+>> are some parts that are called without the paging lock held:
 >>
->> On 04.06.2026 12:16, Frediano Ziglio wrote:
->>> On Tue, 2 Jun 2026 at 13:09, Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 29.05.2026 17:35, Frediano Ziglio wrote:
->>>>> --- a/xen/arch/x86/xen.lds.S
->>>>> +++ b/xen/arch/x86/xen.lds.S
->>>>> @@ -162,8 +162,8 @@ SECTIONS
->>>>>         __note_gnu_build_id_end = .;
->>>>>    } PHDR(note) PHDR(text)
->>>>>  #elif defined(BUILD_ID_EFI)
->>>>> -  /* Workaround bug in binutils < 2.36 */
->>>>> -  . = ALIGN(32);
->>>>> +  /* align to satisfy UEFI CA memory mitigation */
->>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>    DECL_SECTION(.buildid) {
->>>>>         __note_gnu_build_id_start = .;
->>>>>         *(.buildid)
->>>>> @@ -330,6 +330,7 @@ SECTIONS
->>>>>    __2M_rwdata_end = ALIGN(SECTION_ALIGN);
->>>>>
->>>>>  #ifdef EFI
->>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>    .reloc ALIGN(4) : {
->>>>>      __base_relocs_start = .;
->>>>>      *(.reloc)
->>>>> @@ -355,6 +356,7 @@ SECTIONS
->>>>>    VIRT_START &= 0;
->>>>>    ALT_START &= 0;
->>>>>
->>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>    .sbat (NOLOAD) : { *(.sbat) }
->>>>>  #elif defined(XEN_BUILD_EFI)
->>>>>    /*
->>>>
->>>> You say "all sections" in the title, yet this is not covering e.g. debug
->>>> info.
->>>
->>> I will change to "all loadable sections". debug sections are not
->>> loadable so they don't cause an issue.
+>> * hvm_mapped_guest_frames_mark_dirty() - The function itself takes a
+>>    spinlock so is protected from concurrent calls. In any case, it will
+>>    mark all the pages dirty as required.
 >>
->> Please try to be precise there, as some aspects are subtle. As per my
->> understanding, like .reloc all .debug_* are loadable (and may be loaded).
->> The IMAGE_SCN_MEM_DISCARDABLE flag merely means they can be discarded at
->> a certain point after image loading (for .reloc in particular: after
->> relocations were processed).
+>> * domain_pause() - The toolstack cannot unpause the domain while in
+>>    paging_log_dirty_op() because the toolstack's pause/unpause ops have
+>>    a separate ref count.
+>>
+>> * p2m_flush_hardware_cached_dirty() - This is called elsewhere without
+>>    the domctl lock held so holding it wouldn't achieve anything. It
+>>    should be fine as long as it is called at least once.
+>>
+>> * log_dirty.ops->clean() - If the callback is hap_clean_dirty_bitmap(),
+>>    then it will hold the p2m lock while modifying the table. If the
+>>    callback is sh_clean_dirty_bitmap(), it will hold the paging lock
+>>    while modifying the table. In both cases, this is OK.
+>>
+>> * domain_unpause() - Same as the earlier domain_pause().
 > 
-> No, debug sections are not loadable, for instance, in a random
-> executable I found:
+> You could join both into a single domain_{,un}pause() bullet point.
 > 
-> Sections:
-> Idx Name          Size      VMA               LMA               File off  Algn
->   0 .text         0000c7f8  0000000140001000  0000000140001000  00000600  2**4
->                   CONTENTS, ALLOC, LOAD, READONLY, CODE, DATA
->   1 .data         00000250  000000014000e000  000000014000e000  0000ce00  2**4
->                   CONTENTS, ALLOC, LOAD, DATA
->   2 .rdata        00002c70  000000014000f000  000000014000f000  0000d200  2**4
->                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->   3 .pdata        00000654  0000000140012000  0000000140012000  00010000  2**2
->                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->   4 .xdata        00000630  0000000140013000  0000000140013000  00010800  2**2
->                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->   5 .bss          00001ec0  0000000140014000  0000000140014000  00000000  2**4
->                   ALLOC
->   6 .idata        00000c88  0000000140016000  0000000140016000  00011000  2**2
->                   CONTENTS, ALLOC, LOAD, DATA
->   7 .CRT          00000060  0000000140017000  0000000140017000  00011e00  2**2
->                   CONTENTS, ALLOC, LOAD, DATA
->   8 .tls          00000010  0000000140018000  0000000140018000  00012000  2**2
->                   CONTENTS, ALLOC, LOAD, DATA
->   9 .reloc        0000009c  0000000140019000  0000000140019000  00012200  2**2
->                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->  10 .debug_aranges 00000150  000000014001a000  000000014001a000  00012400  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  11 .debug_info   0000d5e4  000000014001b000  000000014001b000  00012600  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  12 .debug_abbrev 000014de  0000000140029000  0000000140029000  0001fc00  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  13 .debug_line   00001a36  000000014002b000  000000014002b000  00021200  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  14 .debug_frame  00000f40  000000014002d000  000000014002d000  00022e00  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  15 .debug_str    000003a0  000000014002e000  000000014002e000  00023e00  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  16 .debug_line_str 00000a76  000000014002f000  000000014002f000  00024200  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  17 .debug_loclists 0000174a  0000000140030000  0000000140030000  00024e00  2**0
->                   CONTENTS, READONLY, DEBUGGING
->  18 .debug_rnglists 0000039c  0000000140032000  0000000140032000  00026600  2**0
->                   CONTENTS, READONLY, DEBUGGING
+>>
+>> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+>> ---
+>>   xen/arch/x86/mm/paging.c |  8 ++++++--
+>>   xen/common/domctl.c      | 12 ++++++++++++
+>>   2 files changed, 18 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
+>> index 1a5822808620..bfb5b423a0dd 100644
+>> --- a/xen/arch/x86/mm/paging.c
+>> +++ b/xen/arch/x86/mm/paging.c
+>> @@ -746,11 +746,15 @@ long do_paging_domctl_cont(
+>>       ret = xsm_domctl(XSM_OTHER, d, &op);
+>>       if ( !ret )
+>>       {
+>> -        if ( domctl_lock_acquire() )
+>> +        bool lock = !(op.u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_CLEAN ||
+>> +                      op.u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_PEEK);
+>> +
+>> +        if ( !lock || domctl_lock_acquire() )
+>>           {
+>>               ret = paging_domctl(d, &op.u.shadow_op, u_domctl, 1);
+>>   
+>> -            domctl_lock_release();
+>> +            if ( lock )
+>> +                domctl_lock_release();
+>>           }
+>>           else
+>>               ret = -ERESTART;
+>> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+>> index 35144d95b808..a3888c4e87d4 100644
+>> --- a/xen/common/domctl.c
+>> +++ b/xen/common/domctl.c
+>> @@ -559,6 +559,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>           ret = arch_do_domctl(op, d, u_domctl);
+>>           goto domctl_out_unlock_domonly;
+>>   
+>> +    case XEN_DOMCTL_shadow_op:
+>> +        if ( op->u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_CLEAN ||
+>> +             op->u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_PEEK )
+>> +        {
+>> +            ret = xsm_domctl(XSM_OTHER, d, op);
+>> +            if ( ret )
+>> +                goto domctl_out_unlock_domonly;
+>> +
+>> +            ret = arch_do_domctl(op, d, u_domctl);
+>> +            goto domctl_out_unlock_domonly;
+>> +        }
+>> +        fallthrough;
+> 
+> Newline, and I would use break rather than fallthrough, if further
+> cases are added below you don't what to fallthrough, and there's
+> nothing to do in the default case anyway.
 
-That's derived from libfd's internal representation, which means nothing at
-all to the loader processing the image. If your objdump is suitably enabled,
-try using its -P option.
+Yes, not sure what I was thinking here. break makes far more sense.
 
-Jan
+Can this adjustment be done when committing?
+
+> 
+> See for example how this is similar to XEN_DOMCTL_vm_event_op which
+> also handles some sub-ops without a lock and uses a break instead of a
+> fallthrough.
+> 
+> FWIW, I would also put the XEN_DOMCTL_shadow_op case after
+> XEN_DOMCTL_get_device_group and ahead of the
+> XEN_DOMCTL_ioport_permission block, but that's just my taste.
+
+I don't have a preference here, either is fine.
+
+Thanks,
+Ross
 
