@@ -2,48 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Kyb7G0LFKmqGwgMAu9opvQ
+	id sWXnKEXFKmqHwgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 16:25:06 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 16:25:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2617672B2C
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 16:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB65672B2F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 16:25:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=apertussolutions.com header.s=zoho header.b="YZu/AMSs";
+	dkim=pass header.d=suse.com header.s=google header.b=UgWM9dl3;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=none;
-	arc=pass ("zohomail.com:s=zohoarc:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1335666.1597846 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1335667.1597853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXgL2-0005Bd-8Y; Thu, 11 Jun 2026 14:24:56 +0000
+	id 1wXgL2-0005I6-HR; Thu, 11 Jun 2026 14:24:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1335666.1597846; Thu, 11 Jun 2026 14:24:56 +0000
+Received: by outflank-mailman (output) from mailman id 1335667.1597853; Thu, 11 Jun 2026 14:24:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXgL2-00059M-5N; Thu, 11 Jun 2026 14:24:56 +0000
-Received: by outflank-mailman (input) for mailman id 1335666;
+	id 1wXgL2-0005Bl-E2; Thu, 11 Jun 2026 14:24:56 +0000
+Received: by outflank-mailman (input) for mailman id 1335667;
  Thu, 11 Jun 2026 14:24:54 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1wXgL0-000594-19
+ (envelope-from <jbeulich@suse.com>) id 1wXgL0-00059B-Bn
  for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 14:24:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXgKz-006oCD-7Y
+ id 1wXgKz-006oCD-OM
  for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 16:24:53 +0200
 Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2ac527-5cb7-0a2a0a5109dd-0a2a45048a8e-28
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 16:24:52 +0200
-Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2ac527-5cb7-0a2a0a5109dd-0a2a45048a8e-30
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 16:24:53 +0200
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
  by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2ac532-1dec-0a2a45040019-888fbc335278-3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 16:24:52 +0200
-Received: by mx.zohomail.com with SMTPS id 178118788136187.22204318317074;
- Thu, 11 Jun 2026 07:24:41 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2ac535-1dec-0a2a45040019-d1558036cd3e-3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 16:24:53 +0200
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-490aaeabdb4so53721535e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 07:24:53 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b70d:3054:345c:e2ed:ca23:72c4?
+ (p200300cab70d3054345ce2edca2372c4.dip0.t-ipconnect.de.
+ [2003:ca:b70d:3054:345c:e2ed:ca23:72c4])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490e52a54a1sm50050525e9.3.2026.06.11.07.24.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jun 2026 07:24:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,185 +62,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1781187884; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DYWNnJ+i7+8AyBerhU8SnQ0H5uzqqi3vmJWjGkZlV8OQ2FtWnSEPtk47xnWzoft8nQ77isB5ybmI+Qj7r0H/Mto9ByFnfcKzO23HaxZ3BEUeLfC+5suJziztRselaOjR+7plYuMLSpZJscIiIMrasK2OH4H79V+JPpWcauurDF0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781187884; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Hb7eJla8sBDts27YuSATiqA9EwenDS4luGbIZd+phLA=; 
-	b=RF4NRH0bi9m074fKXXCd7hXwUbuQFeir6q7ADGtyNrN4vWlLf1qqlkDLMA9AcNpl2DpovJFstFKsyWFDiDCJNA4j4byEm5g9qBp6Z5Csv8j2xhs7EnM3SW3goBRNjtIHhZRNzeSHlSwdiAsyYI0b/tvfMbMZgRYL6yASmdd+38s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781187884;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Hb7eJla8sBDts27YuSATiqA9EwenDS4luGbIZd+phLA=;
-	b=YZu/AMSsIa6dM2jbYnzG+A21eTiuNh7/rMDNMjuv0kCUmot5+rFDi9aSR1K4Sb7x
-	MmTNJjvd3rkDZRXjY6olCz+BbXwqeyZLbF6FCTf5c0HYTSi5aEHkkMq6mpkY9sX8Di1
-	RnKSoPU6fp2pNivm2N2IyMDvgm/k85DXG67656K8=
-Message-ID: <a73d8e52-d5d5-4d9b-a860-15e6d5aff020@apertussolutions.com>
-Date: Thu, 11 Jun 2026 10:24:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781187893; x=1781792693; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Uyqx5RU4X8dwws89SGmJH89G6IgazxjsfZpMpm+xJiI=;
+        b=UgWM9dl3qZjvn2R9GTseyXCGa5Or30vbGEr/jro8rUjFAkGdGX/5+wXNWa88/jFYHX
+         q+l5RPM+C0Obq8529kWSP9+ycx3PipvTUDr5piWR5sZvAb3H2UiqNHpCR/idy96k/rCC
+         1+WQJhid9XZBE9bQ5Aq0x3UQnIWKdHUvmGGz2EMLu3CZyZnFyXl30pNXQX+O3KdXL0+w
+         BzZkZsdReVNSw4Aag+4WSQ/fZof6TTeAYJf1/5Mqc3rPkxllPu1SJczmO+weqDrIAPo1
+         XqOFyX9ykbJ/VbkhZjeMhSfkDQckKdxtWeuftdl2n5wUmBl9WR76UKmlXG7+yKE5yZBq
+         Nr0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781187893; x=1781792693;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Uyqx5RU4X8dwws89SGmJH89G6IgazxjsfZpMpm+xJiI=;
+        b=DkrlQHsF3HbDtMsY+uvcAf/SGfG+FhOt4TklruFopEm5Qq4zlAgQvL3eP3/jhOkQtG
+         eDtpZSxFSh06bBRxYa86vGI0HU6xhULBA4ZG5wmSbjzkEfJCXh2mPCjFcWZabVqOxj9m
+         y34j0+DbBEpeYs7h6Paf6b+7Xic8cgwYAqANgQ9ej/4x30lb8hGxX34aiXlCol/y1FGW
+         8mMwqe1nMh+AxuM2SLTM6CoiI7wD4XDnfj8E2mGMQB8YYKHwt6O1BQsW4trylO9sB6UC
+         jnnIC7xn6bfYbgMOu9IVFZ9VJ72mM6doZWU5T+cw8BNcbvnEj5K9zrHJKRZ5FPoc4p86
+         1OgQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8LG+BgtsB3/wyo0bZcA2XnYIXa8jaNUimqT75lhj4webkSHUMPCcQSaSRrUR1fAGQmj7Ereew9LAM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxpOz0uYHH7RCltGZ2lO1D4syoc8jQtSpSRv3unPSBEjK6TZ/DQ
+	76JS8iMnugKKuhMskl87vkfwt49qRCKRJPQAU4GcqREfPW9c1MDjEdJ4/7kzEZ48AA==
+X-Gm-Gg: Acq92OEcJMcwgpIKDw83bD6zlmrxzFMHDI/lZSuiGrH+nEeThVD4gjGh8PgSL3cRAWb
+	DmVU4agtRJFvIU9Yg9MkNZVXKQB8xR21ymdjaJAR179YZ98DTF/qFRaTBVchi+cT+l8eLCB2Fgs
+	hdmuByf+f0O6UqZTpKsgknAmBgaVVcY5c9jfa0w54HXFMNh2zzKEZyydkQFiweC1FNmUNMDVAjv
+	iyvtYyQwvkjfJMETa8dITWf/vInsJu7QLtSPdw/Arc19Fdo7V8OLcFB+OM3PmAqAUl4NZ6G6NOe
+	hEv7wvuwJIHuXCrNlv8VM/XdNFUcGM6N1ybMJyQxiRs74XZpYT4r8NqVTNHN4vvHOp7xR5FudaB
+	ik82CrlWWtTlBLPiKDrrOyEtS8guDJ3Z2QDVcs/EdGHNE3u1r0BTYkgKLk5Qbi5k4UrJqbqfKO+
+	QlE3QfQjbg54Bq0Iv2tXiei/DgJ5Nr6QeG/iP9e4qfZe42ptMeF4Gmh2W8OOemzeTo/RBT0am2e
+	7WD0nXAiv/rAPU9A8s3/57l27XFk8BKQ84QRvTM8GOgky+gE1hjFHL8rxZ4tvrS4KGSSLQ=
+X-Received: by 2002:a05:600c:535a:b0:490:e18f:d0db with SMTP id 5b1f17b1804b1-490e563e68bmr30999005e9.26.1781187892961;
+        Thu, 11 Jun 2026 07:24:52 -0700 (PDT)
+Message-ID: <aa06a820-3543-4fdb-8824-06a0008b8e0a@suse.com>
+Date: Thu, 11 Jun 2026 16:24:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] domctl: Handle some of XEN_DOMCTL_shadow_op
- without the domctl lock
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20260609151528.2426788-1-ross.lagerwall@citrix.com>
- <20260609151528.2426788-3-ross.lagerwall@citrix.com>
- <987f029b-02c0-423c-88fc-2e588f03a5bf@apertussolutions.com>
- <airESvOliZS6tSch@macbook.local>
+Subject: Re: [PATCH 5/7] x86/kexec: Implement new EFI load types
+To: Kevin Lampis <kevin.lampis@citrix.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+ Kevin Lampis <klampis@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260609154518.779757-1-kevin.lampis@citrix.com>
+ <20260609154518.779757-6-kevin.lampis@citrix.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <airESvOliZS6tSch@macbook.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-purgate-ID: tlsNG-ebf023/1781187892-40D743FF-1AA8229E/0/0
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260609154518.779757-6-kevin.lampis@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ebf023/1781187893-425603FF-8B722098/0/0
 X-purgate-type: clean
-X-purgate-size: 4196
+X-purgate-size: 478
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.69 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:kevin.lampis@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,m:gerald.elder-vass@cloud.com,m:klampis@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,apertussolutions.com:dkim,apertussolutions.com:email,apertussolutions.com:mid,apertussolutions.com:from_mime];
-	DMARC_NA(0.00)[apertussolutions.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B2617672B2C
+X-Rspamd-Queue-Id: 1FB65672B2F
 
+On 09.06.2026 17:45, Kevin Lampis wrote:
+> --- a/xen/arch/x86/include/asm/bzimage.h
+> +++ b/xen/arch/x86/include/asm/bzimage.h
+> @@ -47,4 +47,9 @@ struct __packed bzimage_header {
+>          uint32_t        payload_length;
+>      };
+>  
+> +static inline uint64_t kernel_alignment_offset(void)
+> +{
+> +    return offsetof(struct bzimage_header, kernel_alignment);
+> +}
 
+Why the uint64_t return type? If at all, size_t. Yet likely unsigned int
+would suffice.
 
-On 6/11/26 10:20 AM, Roger Pau Monné wrote:
-> On Thu, Jun 11, 2026 at 09:18:15AM -0400, Daniel P. Smith wrote:
->> On 6/9/26 11:15 AM, Ross Lagerwall wrote:
->>> Handle XEN_DOMCTL_SHADOW_OP_{CLEAN,PEEK} without taking the domctl lock.
->>> This is safe because for these subops, the paging lock is mostly held
->>> which prevents it from operating concurrently on the same domain. There
->>> are some parts that are called without the paging lock held:
->>>
->>> * hvm_mapped_guest_frames_mark_dirty() - The function itself takes a
->>>     spinlock so is protected from concurrent calls. In any case, it will
->>>     mark all the pages dirty as required.
->>>
->>> * domain_pause() - The toolstack cannot unpause the domain while in
->>>     paging_log_dirty_op() because the toolstack's pause/unpause ops have
->>>     a separate ref count.
->>>
->>> * p2m_flush_hardware_cached_dirty() - This is called elsewhere without
->>>     the domctl lock held so holding it wouldn't achieve anything. It
->>>     should be fine as long as it is called at least once.
->>>
->>> * log_dirty.ops->clean() - If the callback is hap_clean_dirty_bitmap(),
->>>     then it will hold the p2m lock while modifying the table. If the
->>>     callback is sh_clean_dirty_bitmap(), it will hold the paging lock
->>>     while modifying the table. In both cases, this is OK.
->>>
->>> * domain_unpause() - Same as the earlier domain_pause().
->>
->> Please add a comment that that xsm check is to continue protecting the
->> sub-ops with XS_PRIV.
->>
->>
->>> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->>> ---
->>>    xen/arch/x86/mm/paging.c |  8 ++++++--
->>>    xen/common/domctl.c      | 12 ++++++++++++
->>>    2 files changed, 18 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
->>> index 1a5822808620..bfb5b423a0dd 100644
->>> --- a/xen/arch/x86/mm/paging.c
->>> +++ b/xen/arch/x86/mm/paging.c
->>> @@ -746,11 +746,15 @@ long do_paging_domctl_cont(
->>>        ret = xsm_domctl(XSM_OTHER, d, &op);
->>>        if ( !ret )
->>>        {
->>> -        if ( domctl_lock_acquire() )
->>> +        bool lock = !(op.u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_CLEAN ||
->>> +                      op.u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_PEEK);
->>> +
->>> +        if ( !lock || domctl_lock_acquire() )
->>>            {
->>>                ret = paging_domctl(d, &op.u.shadow_op, u_domctl, 1);
->>> -            domctl_lock_release();
->>> +            if ( lock )
->>> +                domctl_lock_release();
->>>            }
->>>            else
->>>                ret = -ERESTART;
->>> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
->>> index 35144d95b808..a3888c4e87d4 100644
->>> --- a/xen/common/domctl.c
->>> +++ b/xen/common/domctl.c
->>> @@ -559,6 +559,18 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->>>            ret = arch_do_domctl(op, d, u_domctl);
->>>            goto domctl_out_unlock_domonly;
->>> +    case XEN_DOMCTL_shadow_op:
->>> +        if ( op->u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_CLEAN ||
->>> +             op->u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_PEEK )
->>> +        {
->>> +            ret = xsm_domctl(XSM_OTHER, d, op);
->>> +            if ( ret )
->>> +                goto domctl_out_unlock_domonly;
->>> +
->>> +            ret = arch_do_domctl(op, d, u_domctl);
->>> +            goto domctl_out_unlock_domonly;
->>> +        }
->>> +        fallthrough;
->>>        default:
->>>            /* Everything else handled further down. */
->>>            break;
->>
->> After commit message change,
->>
->> Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-> 
-> Sorry, this was already picked up in a rush to get it into 4.22 and I
-> didn't realize it was missing an XSM maintainer Ack.  That's entirely
-> my fault, there was no intention to bypass or overrule your opinion.
-
-I fully understand and take no offense.
-
-
-> Given it's already committed, and there are no objections aside from
-> the commit message adjustment my preference would be to leave it
-> alone.
-
-Hmm, I saw patch 1 but not patch 2. Sorry for the extra noise.
-
-v/r,
-dps
+Jan
 
