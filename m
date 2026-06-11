@@ -2,55 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id smSwAeC8Kmr6vwMAu9opvQ
+	id jNXoILO+KmpTwAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 15:49:20 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 15:57:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4701C67274D
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 15:49:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD7E1672809
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 15:57:06 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=Z3JxIzwX;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=nr8NRH9x;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1335554.1597739 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1335562.1597748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXfmP-0002hS-Vg; Thu, 11 Jun 2026 13:49:09 +0000
+	id 1wXftq-0004DW-No; Thu, 11 Jun 2026 13:56:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1335554.1597739; Thu, 11 Jun 2026 13:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 1335562.1597748; Thu, 11 Jun 2026 13:56:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXfmP-0002et-Sm; Thu, 11 Jun 2026 13:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 1335554;
- Thu, 11 Jun 2026 13:49:08 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wXfmO-0002en-3c
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 13:49:08 +0000
+	id 1wXftq-0004Bh-Jy; Thu, 11 Jun 2026 13:56:50 +0000
+Received: by outflank-mailman (input) for mailman id 1335562;
+ Thu, 11 Jun 2026 13:56:49 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wXftp-0004BL-3q
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 13:56:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXfmN-00FvyU-GE
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 15:49:07 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wXfto-00D1NM-9y
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 15:56:48 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 6a2abcc8-e002-0a2a0a5209dd-0a2a4504a30c-32
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 15:49:07 +0200
-Received: from [209.85.218.53] (helo=mail-ej1-f53.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jgross@suse.com>)
- id 6a2abcd2-1dec-0a2a45040019-d155da35ac48-3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 15:49:06 +0200
-Received: by mail-ej1-f53.google.com with SMTP id
- a640c23a62f3a-beb7f26ed62so900597666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 06:49:06 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfcb53c3587sm67622666b.34.2026.06.11.06.49.05
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2abe96-2eae-0a2a0a5409dd-0a2a4507b33a-18
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 15:56:48 +0200
+Received: from [209.85.208.50] (helo=mail-ed1-f50.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2abea0-229c-0a2a45070019-d155d032ad90-3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 15:56:48 +0200
+Received: by mail-ed1-f50.google.com with SMTP id
+ 4fb4d7f45d1cf-68d23396ed3so14333219a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 06:56:48 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68e65868049sm10854668a12.24.2026.06.11.06.56.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jun 2026 06:49:05 -0700 (PDT)
+ Thu, 11 Jun 2026 06:56:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,271 +60,301 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781185746; x=1781790546; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=/u2Fpj2bpIbUc9hH/emoRhr6LRHejArOjpvCjWMJJKg=;
-        b=Z3JxIzwXIgW5VVgFQUcBT0YiXqSWHORZkT+JF1dH1bi5eXvbYGNSOP7zxv9a3BaXEC
-         HTkh6Z0NVdfKxnGcub79HOZez5a9/Q6UtukyawzrQUczXTlfRo8wrZLOOMqapJ974191
-         X1/p2AlnyUO9nl9XRHJEw7wdZYADz07C+mwnyKNZ2rIHre4LefQ1Ofd0pHW4Tw8jZsRE
-         tH01BwrqhLponnHuFfr/Ptkg05oN9elZo4HNeFB10unIHkuG2mgNrU78l/ecflyJLf9a
-         2IS0lhnIewnYZe3UZ7m0frggJZg5nbT20KPpDe+Q5QcQaBUeVJSB1w4mvjUrfLFXutE5
-         dgyw==
+        d=gmail.com; s=20251104; t=1781186208; x=1781791008; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nHP74RHtJAMJj+Qu4dTQooUNBbVls9nJuCfXbi3DdN8=;
+        b=nr8NRH9xIPx16Zn4anWwqgl/e1goOs4Um0uvKrlb0P9iOkjCwwLLrxfzHOOAxvClrZ
+         Lrs7SRmMF2Ns985+/3hNyTwgQGlrZG27g4e7DYC17ROxwVSSlsa8aZIkEdWOg5oFs+kY
+         vBL9UlSWeYys0TZIaVpCeL7Y1Tx8IQfIA5CglQ7Ql4KlF97MIENsv5TqsKZvViDohL2S
+         j1sTEupTvLOXgkvGFq9U3cXZU1AA4b7XOwLPdK/Hwe7m34Q9l21eNl96/sU0Ecotycu8
+         nIQ+nQNNKKpwAG9QEpfuQOncNlKTRHxVtylZsLkrZ3G+OwvHF6sQgLq9MB1sO2xwgyBe
+         mCWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781185746; x=1781790546;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/u2Fpj2bpIbUc9hH/emoRhr6LRHejArOjpvCjWMJJKg=;
-        b=BFyqhoIshfUQG/Fl5jBqzkYs+HT5rJXr5IwlRprTd0RSzYCwBUHEfKRNsUcRCTBOwB
-         TVD/kTnzZZmxAPIH7wlHkvPAuGgT8IfmTPxP77CVxHi7T9pzQV/J9koUE2htdFtQNQcd
-         jMxXx3sAccFTp4J0bJjozpuK92IQ7lLwSIkmBG17hVJjoXceNSXhameY6/Ae2gBljVed
-         jBSGHXatBNxIXaKbS5yOpSZqYQbN5P5DyvdYCfczzBbXYiQj3FcXWCA57KiLFpTq2o+U
-         dyn6hsDUNZQ2QCuEakTUdZ42K7YrbVgxs3U0E/jOb6XOpMW8xwCtb9QMHe4UYJbqW0v2
-         wcUg==
-X-Forwarded-Encrypted: i=1; AFNElJ/n4DwJwuqBMl3Mxr+q8KBv3jR1pNnS8XRLnbJ7qmhQOKZODgX3qW8MH1CYHelUOnDQ/+YbSgzHHDk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxICnNBhF+KspfsNe/iMSu8sKp/UvtX946wqyhs7GgY2MeZCII9
-	oluHH2f9tdo7Xx4YJPo8d9ZZ5joqe7qUIcWSDsBF22OvTR8ILK4mEldP4MWe/VQB1uM=
-X-Gm-Gg: Acq92OEP6DpDGuuDfNq3SqjFwpcbR0xZPkx56NuGWEnCqqvV/kl9UOWlVWbdgQmE3nJ
-	FfOuYGv6ASvINeHS5vOszE8pr/vlrQaAA/xyJEg1MiDVjhVSmn//YDEVvBaYvzB62fDbdK94dL6
-	eb3Vf2Pihuo66u9icr1psHP+ObgOy0Pd24LNRXb+ExvAD/Ektr9HLlflgZUqxp5wM3A4LOk7gEJ
-	fYiygHMsHLJNepGZn1KID0iwV44q8ix7WMnZOLe9ypCf74WihmIQJ+FPUKZFzboUPUzfOUZT8g6
-	GJ8FOyXJMU3oYb9Wr7QPVfCfNz5hAdJrCAnDXjstbjSLhiwPe+ImnxYAKDnFhBl9Kd7GDROR5PT
-	KQ7C6BNiVvcbyohFkH8dx/zMc1DaueNcE0moJ+ekTZFwxUoA7gavKAjo0OKzJ9GE/2bNMPU8jdd
-	VT9xNNJdv15pCJoKMp/gxC5jV2ffq9gV5XdW/pYGF+VmVy4Ag1G5K1/JisEMiEncEByTypMnIZc
-	38STtJ10UUZ+P9I+JbtuQJzDmYpLpkkaFx3kR6zRgTpXfd3bG/w+0wKGvdvbeiK
-X-Received: by 2002:a17:906:5a59:b0:bd8:f919:5c0 with SMTP id a640c23a62f3a-bfc863e1c4emr121598766b.27.1781185745811;
-        Thu, 11 Jun 2026 06:49:05 -0700 (PDT)
-Message-ID: <8c3fcb8a-fe03-4a6f-afd7-561fc1bff0d4@suse.com>
-Date: Thu, 11 Jun 2026 15:49:05 +0200
+        d=1e100.net; s=20251104; t=1781186208; x=1781791008;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=nHP74RHtJAMJj+Qu4dTQooUNBbVls9nJuCfXbi3DdN8=;
+        b=SKbJY3ufhOc7l88sdX+Gn+qY5JB/WhKRcpaZLMVWMfz+c4WELEvgV8j7L+2xB+sZZ8
+         NWhWIva5egNRy1t7pBQZzbOLx8gv5yRdwPioq3EiW33GXFQrsge7np3w6WISV6KHqVZ9
+         qFBP6cGRO8mcrP7USDBJidf3tsc8nJybmnZM2xQgJC/1iDwiYuQASXFe6Ad6Q8x9gXOa
+         VGSOubtAovUfCUHy1UPZHV+3bl9woHx3DLN+Ziy0TV0reNVrqPIu+RQc5qKi02y+3g+l
+         jBvVDzw62Kv87VN/FRcu+RsYhYINzYyI8pG4569V5pi4czuf1ZHN7kyweshASTjJ5coi
+         arHw==
+X-Forwarded-Encrypted: i=1; AFNElJ8WlvZFxdQxdG6soqv6MYdcDOsPeuinP+1CdvfnFzBrgnccNQWbwq7QnuWOb4Gkdkdm9Rpkau8KUOo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxl9rmXcOhZ29ZmZJ8A4ciRFIdV8tUTWfUr5mqw1i20gO7pMJfm
+	ZXQ2SC1cJidKbnZ+F4/eGh0U0IFR7e5MKKqdDeQCCWiQQ+nuFeT1vumn
+X-Gm-Gg: Acq92OHU5Q7/RdNhnqF0QGmdWXnMhtjmN1pGsnM+x2DTKUm/VId6h2FQRL1hi0pN4OY
+	DRURcX+WYeyswIIAE5kxqSlg6MaMsAXD7K6DHTzJfliuq5JCePDq5Tt2BzCdutWQ9AO9RGZf+Uj
+	My86f8YeVb+ls04XD43Rw60Bp6BaUZsuCOp6g0RmZv/FNHXSZlmO0arKRSwLsERs4mdgoM+UrmN
+	dJvlmLvRTdO5Ux6zArkjBNZi2u+Jcp7MBT5xoalxJbkyM5eTu6pqxVW/T3XkLW9FPGVfcMQtXZ3
+	VEEt4OUzo0laRgTdpKl9poo+ADw1femyQviHnwhXax5qXjDiAyydMtrX1zsLHj8BzfsNedA1c5M
+	dBqW/0f1IpD4zzbqtsuJB404+Gv5AbKB52mXOLUUoDX/0GyAtjBxS4mU4aNY/lxYUxxg9Z3Awne
+	4RQjdlEdrQ4y3tio9lGfsaPhUidweOCNcTCeP+WM6AKW035195LVOoxRTANtqH68up5+HEex77b
+	3J07YoeW3TpQW3qXFo1ENOMPeQ=
+X-Received: by 2002:a05:6402:3226:b0:691:5124:45de with SMTP id 4fb4d7f45d1cf-6930e2c359dmr1529062a12.16.1781186207473;
+        Thu, 11 Jun 2026 06:56:47 -0700 (PDT)
+Message-ID: <aeed4ea8-c300-4c68-9dc5-2c7a41719505@gmail.com>
+Date: Thu, 11 Jun 2026 15:56:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/rtds: refill cur_budget when extratime is toggled
- on a depleted vCPU
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>
-Cc: George Dunlap <gwd@xenproject.org>, Meng Xu <mengxu@cis.upenn.edu>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9f20b6ac8176da6c67e1084e862158a2e47abc40.1779285422.git.oleksii_moisieiev@epam.com>
- <cafef621-024f-4c3f-862a-4c61a1ab4293@epam.com>
- <46ec5166-e147-499a-acbe-d3115551db42@suse.com>
+Subject: Re: [PATCH for-4.22] xen/x86: Change stub page allocation/free
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <20260611075342.58428-1-roger.pau@citrix.com>
+ <1639ef93-4260-4a2b-bcfd-d39a059c1c56@citrix.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <46ec5166-e147-499a-acbe-d3115551db42@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------pv0jz9i91qVVItugJ9BAiUpf"
-X-purgate-ID: tlsNG-ebf023/1781185746-43F6D3FF-1644305F/0/0
-X-purgate-type: clean
-X-purgate-size: 8426
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <1639ef93-4260-4a2b-bcfd-d39a059c1c56@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ef75cf/1781186208-0BD7FC48-742639B3/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 8009
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii_moisieiev@epam.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:mengxu@cis.upenn.edu,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jason.andryuk@amd.com,m:jbeulich@suse.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:mid,suse.com:from_mime];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	HAS_ATTACHMENT(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4701C67274D
+X-Rspamd-Queue-Id: DD7E1672809
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------pv0jz9i91qVVItugJ9BAiUpf
-Content-Type: multipart/mixed; boundary="------------oXwmCWxjEc9NjOuzQ0ggP2Di";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
- Dario Faggioli <dfaggioli@suse.com>
-Cc: George Dunlap <gwd@xenproject.org>, Meng Xu <mengxu@cis.upenn.edu>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <8c3fcb8a-fe03-4a6f-afd7-561fc1bff0d4@suse.com>
-Subject: Re: [PATCH] sched/rtds: refill cur_budget when extratime is toggled
- on a depleted vCPU
-References: <9f20b6ac8176da6c67e1084e862158a2e47abc40.1779285422.git.oleksii_moisieiev@epam.com>
- <cafef621-024f-4c3f-862a-4c61a1ab4293@epam.com>
- <46ec5166-e147-499a-acbe-d3115551db42@suse.com>
-In-Reply-To: <46ec5166-e147-499a-acbe-d3115551db42@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
 
---------------oXwmCWxjEc9NjOuzQ0ggP2Di
-Content-Type: multipart/mixed; boundary="------------zn16Riv9R9I0CfE5Sd6IuEtL"
 
---------------zn16Riv9R9I0CfE5Sd6IuEtL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 6/11/26 1:38 PM, Andrew Cooper wrote:
+> On 11/06/2026 8:53 am, Roger Pau Monne wrote:
+>> From: Jason Andryuk <jason.andryuk@amd.com>
+>>
+>> Today the inline tracking of the stub page is problematic.  0xcc is used to
+>> indicate unused, but it is also a "clear value."  A !CONFIG_PV build with
+>> smt=0 will bring up CPU0, bring up CPU1, bring down CPU1, and free the
+>> in-use stub page.  CPU0 or subsequent onlined CPUs can write to the re-used
+>> page.
+> 
+> I'm pretty sure a CONFIG_PV build booted on a FRED enabled system will
+> do the same.
+> 
+> This is the other case where we (now) forgo writing out the LSTAR/CSTAR
+> stubs.
+> 
+>>
+>> The new approach uses a global, CPU-indexed dynamically allocated array of
+>> stub addresses.  However, to handle NUMA aware allocations, we cannot
+>> allocate all the memory in advance because of the NUMA dependency.  Take
+>> advantage of the fact that Xen will attempt to contiguously pack CPUs on
+>> the same NUMA node (see normalise_cpu_order()), and on CPU bringup use the
+>> same stubs page the previous CPU did if suitable.  Note the code would
+>> still function properly even if CPUs from NUMA nodes are not contiguously
+>> packed, it just consumes more memory.
+>>
+>> stub pages are no longer freed.  They remain referenced in the global
+>> CPU-indexed array and are re-used if the CPU is re-onlined.
+>>
+>> stubs and node_stubs don't have an explicit lock.  During boot they are
+>> accessed single threaded.  During runtime, &cpu_add_remove_lock serializes
+>> access.
+> 
+> Is node_stubs stale?  Stub(s) should be capitalised at the start of the
+> sentence.  In context, it's not clear that it's a variable name, and it
+> doesn't need to be the literal variable name to convey the intended meaning.
+> 
+>>
+>> Fixes: 7a66ac8d1633 ("x86: move syscall trampolines off the stack")
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> There are other even more simple options here: for example Andrew proposed
+>> to pack stubs contiguously in both the physical and the linear address
+>> spaces, at the cost of possibly loosing the NUMA memory affinity between
+>> the allocated page and the CPU using it.  We have decided to go for a more
+>> conservative approach here, that keeps the same properties as the current
+>> logic regarding NUMA memory affinity of the stub region.
+> 
+> Part of the suggestion was made in error, but there's a second aspect
+> which I'll discuss at the end of the email.
+> 
+>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>> index 4192edf635b6..cddf8806c877 100644
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -2089,9 +2089,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>>   
+>>       init_idle_domain();
+>>   
+>> -    this_cpu(stubs.addr) = alloc_stub_page(smp_processor_id(),
+>> -                                           &this_cpu(stubs).mfn);
+>> -    BUG_ON(!this_cpu(stubs.addr));
+>> +    init_bsp_stub();
+> 
+> Personally, I'd name this init_stubs().  It does work for more than just
+> the BSP, and the bsp_* part is only really needed for clarity when
+> there's a matching ap_* variant, which is not the case here.
+> 
+>>   
+>>       bsp_traps_reinit(); /* Needs stubs allocated, must be before presmp_initcalls. */
+>>   
+>> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+>> index d8fd71ffab37..3282392317f4 100644
+>> --- a/xen/arch/x86/smpboot.c
+>> +++ b/xen/arch/x86/smpboot.c
+>> @@ -641,41 +642,61 @@ static int do_boot_cpu(int apicid, int cpu)
+>>       return rc;
+>>   }
+>>   
+>> -#define STUB_BUF_CPU_OFFS(cpu) (((cpu) & (STUBS_PER_PAGE - 1)) * STUB_BUF_SIZE)
+>> +/* Dynamically allocated, indexed by CPU.  Store physical address of stubs. */
+>> +static paddr_t *__ro_after_init stubs;
+>>   
+>> -unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
+>> +static bool assign_stub_page(unsigned int cpu)
+>>   {
+>>       unsigned long stub_va;
+>> -    struct page_info *pg;
+>> +    paddr_t addr = stubs[cpu];
+>>   
+>> -    BUILD_BUG_ON(STUBS_PER_PAGE & (STUBS_PER_PAGE - 1));
+>> -
+>> -    if ( *mfn )
+>> -        pg = mfn_to_page(_mfn(*mfn));
+>> -    else
+>> +    if ( addr == INVALID_PADDR )
+>>       {
+>> -        nodeid_t node = cpu_to_node(cpu);
+>> -        unsigned int memflags = node != NUMA_NO_NODE ? MEMF_node(node) : 0;
+> 
+> I think you need to retain this calculation of memflags.
+> MEMF_node(NUMA_NO_NODE) doesn't work as expected.
+> 
+>> +        nodeid_t nid = cpu_to_node(cpu);
+>>   
+>> -        pg = alloc_domheap_page(NULL, memflags);
+>> -        if ( !pg )
+>> -            return 0;
+>> +        /*
+>> +         * Attempt to use the same page as the previous CPU if possible,
+>> +         * otherwise allocate a new one.
+>> +         */
+>> +        if ( cpu && nid == cpu_to_node(cpu - 1) &&
+>> +             PAGE_OFFSET(stubs[cpu - 1] + STUB_BUF_SIZE) )
+>> +            addr = stubs[cpu - 1] + STUB_BUF_SIZE;
+>> +        else
+>> +        {
+>> +            struct page_info *pg = alloc_domheap_page(NULL, MEMF_node(nid));
+>>   
+>> -        unmap_domain_page(memset(__map_domain_page(pg), 0xcc, PAGE_SIZE));
+> 
+> You've dropped this memset() of the whole page to 0xcc.
+> 
+> As a consequence, the stubs for not-yet-onlined CPUs, or for gaps
+> because of NUMA, are rubble yet mapped executably.
+> 
+>> +            if ( !pg )
+>> +                return false;
+>> +            addr = page_to_maddr(pg);
+>> +        }
+>> +        stubs[cpu] = addr;
+>>       }
+>>   
+>>       stub_va = XEN_VIRT_END - FIXADDR_X_SIZE - (cpu + 1) * PAGE_SIZE;
+>> -    if ( map_pages_to_xen(stub_va, page_to_mfn(pg), 1,
+>> +    if ( map_pages_to_xen(stub_va, maddr_to_mfn(addr), 1,
+>>                             PAGE_HYPERVISOR_RX | MAP_SMALL_PAGES) )
+>> -    {
+>> -        if ( !*mfn )
+>> -            free_domheap_page(pg);
+>> -        stub_va = 0;
+>> -    }
+>> -    else if ( !*mfn )
+>> -        *mfn = mfn_x(page_to_mfn(pg));
+>> +        return false;
+>>   
+>> -    return stub_va;
+>> +    per_cpu(stubs.mfn, cpu) = PFN_DOWN(addr);
+>> +    per_cpu(stubs.addr, cpu) = stub_va + PAGE_OFFSET(addr);
+>> +    return true;
+>> +}
+>> +
+>> +void __init init_bsp_stub(void)
+>> +{
+>> +    const unsigned int num_cpus = num_present_cpus();
+>> +    unsigned int i;
+>> +
+>> +    ASSERT(!stubs);
+>> +    stubs = xvmalloc_array(typeof(*stubs), num_cpus);
+>> +    if ( !stubs )
+>> +        panic("Unable to allocate stub array");
+>> +
+>> +    for ( i = 0; i < num_cpus; i++ )
+>> +        stubs[i] = INVALID_PADDR;
+>> +
+>> +    if ( !assign_stub_page(0) )
+>> +        panic("Unable to initialize BSP stub region");
+> 
+> \n's for both panic messages.
+> 
+> With the above stuff addressed, I think this is looking ok, but
+> definitely subject to Jason confirming it resolves his issue.  And for
+> 4.22, that might even be sufficient to go in.
 
-T24gMTEuMDYuMjYgMTU6NDMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMC4wNi4yMDI2
-IDA4OjUwLCBPbGVrc2lpIE1vaXNpZWlldiB3cm90ZToNCj4+IEdlbnRsZSBQaW5nLg0KPj4N
-Cj4+IEkndmUgYWxyZWFkeSBnb3QgUi1iIGZyb20gSnVlcmdlbi4gTWF5YmUgc29tZW9uZSBl
-bHNlIHdpbGwgaGF2ZSB0aW1lIHRvIHJldmlldz8NCj4gDQo+IERhcmlvLA0KPiANCj4gZGlk
-bid0IHlvdSBtZWFuIHRvIHN1Ym1pdCBhIHBhdGNoIHRvIC4vTUFJTlRBSU5FUlMsIGFmdGVy
-IHdoaWNoIErDvHJnZW4ncw0KPiBSLWIgd291bGQgc3VmZmljZSBmb3IgY29tbWl0dGluZz8N
-Cg0KSSBkaWQgc28gYWxyZWFkeSwgc2VlaW5nIE9sZWtzaWkncyBtYWlsLg0KDQpJIGd1ZXNz
-IHdlIHdhbnQgdG8gZ2l2ZSBNZW5nIGEgY2hhbmNlIHRvIHJlYWN0IGluIGNhc2UgaGUgaXMg
-c3RpbGwgcmVjZWl2aW5nDQp0aGVzZSBtYWlscy4NCg0KDQpKdWVyZ2VuDQo=
---------------zn16Riv9R9I0CfE5Sd6IuEtL
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Release-Acked-by: Oleksii Kurochko <oleskii.kurochko@gmail.com>
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Thanks.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+~ Oleksii
 
---------------zn16Riv9R9I0CfE5Sd6IuEtL--
+> 
+> The other thing I want to discuss is this:
+> 
+>>       stub_va = XEN_VIRT_END - FIXADDR_X_SIZE - (cpu + 1) * PAGE_SIZE;
+> 
+> because it creates 32 virtual aliases of every stub.
+> 
+> AIUI, this was a hard requirement for the old freeing scheme, but the
+> optimisation guides recommend against creating aliases like this.
+> Besides microarchitectural tracking/safety effects, one consequence is
+> that we end up with 31 aliases which have unsafe branches in them;
+> disp32's depend on the linear address the code is executed at.
+> 
+> The ideal solution would be allocate VAs just like we allocate paddrs,
+> and for the map_pages_to_xen() be beside the alloc_domheap_page(),
+> rather than outside of INVALID_PADDR check.
+> 
+> This reduces the amount of VA space (and L1 pagetables) used by 32
+> times, and removes the risk of accidentally using the wrong alias.
+> 
+> ~Andrew
 
---------------oXwmCWxjEc9NjOuzQ0ggP2Di--
-
---------------pv0jz9i91qVVItugJ9BAiUpf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmoqvNEFAwAAAAAACgkQsN6d1ii/Ey8a
-Zwf/WBcbgLIn1xSDst7o4OmsKUKWpXytqXe+yczL0qAyE4KGEf0K5PLAZe0OLgpiDCci9lsFuj8c
-Cr2/v2PjBw0tMFxYs+G2Z/LmJzJG0tFXLJEs8i5hF0/qhNM34CmPOLWYSXQcc0FniZ5LtKf8WI39
-OEgcr+g3/cVFGHnTG6QagPdY0KJaA8SFOn98FHrvzgXYTYbcm6eeHmGtGXbPB7CYj+N1arK7YcV8
-t0693X2JA6SJRZiqUG97qXeX6TsTmuWxJNGb8C4DOrIB7RtDoa9eM8vtkpQTCTKZ5yD8a5Rhk4b4
-w7Zh3urNrJru7LNJU98s/gUPZDgRmWzi93gGQy8eXw==
-=suoL
------END PGP SIGNATURE-----
-
---------------pv0jz9i91qVVItugJ9BAiUpf--
 
