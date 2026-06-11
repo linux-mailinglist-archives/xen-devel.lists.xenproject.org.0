@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yeKIKuPzKmrazwMAu9opvQ
+	id JmkSNq01K2o/4QMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 19:44:03 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 00:24:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112296741C3
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jun 2026 19:44:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3CD6759A6
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 00:24:45 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=apertussolutions.com header.s=zoho header.b=AVAdDa6q;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=fdPVpPJx;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=none;
-	arc=pass ("zohomail.com:s=zohoarc:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1335981.1598054 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1336192.1598066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXjRJ-0003Ht-S2; Thu, 11 Jun 2026 17:43:37 +0000
+	id 1wXnoP-0007fp-Dc; Thu, 11 Jun 2026 22:23:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1335981.1598054; Thu, 11 Jun 2026 17:43:37 +0000
+Received: by outflank-mailman (output) from mailman id 1336192.1598066; Thu, 11 Jun 2026 22:23:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXjRJ-0003FK-PB; Thu, 11 Jun 2026 17:43:37 +0000
-Received: by outflank-mailman (input) for mailman id 1335981;
- Thu, 11 Jun 2026 17:43:36 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wXnoP-0007dH-AG; Thu, 11 Jun 2026 22:23:45 +0000
+Received: by outflank-mailman (input) for mailman id 1336192;
+ Thu, 11 Jun 2026 22:23:43 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1wXjRI-0003FE-09
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 17:43:36 +0000
+ (envelope-from <freddy77@gmail.com>) id 1wXnoM-0007dA-Vq
+ for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 22:23:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXjRH-007KOt-8R
- for xen-devel@lists.xenproject.org; Thu, 11 Jun 2026 19:43:35 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wXnoM-007wP9-Ck
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 00:23:42 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2af3ab-bab6-0a2a0a5309dd-0a2a4506db06-28
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 19:43:34 +0200
-Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a2af3c4-7371-0a2a45060019-888fbc335298-3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 19:43:34 +0200
-Received: by mx.zohomail.com with SMTPS id 1781199800923362.86722773555596;
- Thu, 11 Jun 2026 10:43:20 -0700 (PDT)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2b3563-e002-0a2a0a5209dd-0a2a4508ab80-8
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 00:23:42 +0200
+Received: from [74.125.224.42] (helo=mail-yx1-f42.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2b356d-63b5-0a2a45080019-4a7de02aac57-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 00:23:42 +0200
+Received: by mail-yx1-f42.google.com with SMTP id
+ 956f58d0204a3-6603d8697d2so367762d50.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jun 2026 15:23:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,164 +56,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1781199802; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=WRBvkp/DPqWN0FSSYBL9JVTErMUrsAgxMxalE//wzexb6axo0Zl3ISZABWzDbyPWcyL/bP5m1fzTl1Vfiwj7U73KI8xZp2xvWAgDJwM+P2YPfxqpBYrzMJJyrs/JPi81JYntB1jUpgJAM/uKnmPRUYJwjc2PxA+QMYXJq+tKWrY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781199802; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NTufMvdvnTyc8lYUTSyjtj8b9aJg0FrAAmDWS26I/u8=; 
-	b=IrUKuNIyKA12tj6E/ZKdMMNZydFzaptHt4Mx0m0MJmzrxtkJPMfDhEV0NDOGHhGyfp3/QkqW+oNyBgSafkF1Qv6fr9w0Sjbusyd5AvqjAmSD8gF1kPHwD4aKGxoQSm6ZjJbuFuSFR33RD0+tl03biSNgN9q3MzCEzcoAqEDsk8o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781199802;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=NTufMvdvnTyc8lYUTSyjtj8b9aJg0FrAAmDWS26I/u8=;
-	b=AVAdDa6q6ZGobiQ/v2cK6VbRvacShELIJUJrII972z/gZCSUK7yUzry4yPzVTCBA
-	V0Lccp1mLvMEjarU0yfOBepkHK3kaTv+0N2p/nrhi9NhJ5MrBKZVlFKCXT576WLBQY0
-	gMgnKCVn5XLHk8Ko0bFGOtw0picKk0eBfSKaWOBk=
-Message-ID: <f7b16f43-f3c2-449e-8c09-b65e2cadca85@apertussolutions.com>
-Date: Thu, 11 Jun 2026 13:43:19 -0400
+ARC-Seal: i=1; a=rsa-sha256; t=1781216621; cv=none;
+        d=google.com; s=arc-20240605;
+        b=etDAsW0EzZHf9BpPGWrHwNDgInjl7pcqNXUU53DJWcwlyGpxuH9tWWv7p9P2O5dw+P
+         w+CNWqozK5UWWwH8gC2XavETuxANr8gMrs2yM3/UUAJzlqyFsodJLSJ/3tBNHs2bNZtB
+         a0wXOvcuKk6fHjOJv1Z2H0dAIxdAfm4AZODSOIMwReOV9oVbu1yEP09cmnzTLWZf8voq
+         6e9ZzQi6aEQtrdo5529W+5F99ECq7KFk+sB9m12m5ecpDWgKqPYNijulK3DM1A6xGhXM
+         qWxkrDukaNxlQd9i30L4XCKS74JRwdScJN6Ua5EGAWaoKw7fMItvMeNRuv9UuXkHKRwG
+         R91Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WfvkcO+uLXTqDgSjP+KHQU7Iz2CNjEWfT63b78r4sN0=;
+        fh=oC/kQkef0Xp7NMn8QOiJRI7rTAf9vhety7/OfeS+l+4=;
+        b=QeLJiWCRCItNanPifkLlngnjy5gNGcdoiAKAaMDwjb33UKpVcVso2a5iNjc4b4u79Z
+         D4dhoTuXpMh+Lw7B9IIGbmNmq8vjF+zN9pdDfAWKwSr5miFBBJXt7jcR3Cx684BPftdU
+         qGVMvM+JRZkMRi/QZuL9DOrioZkq/aGFWwqEVrY+cGDl/cjgHNCw7BwdfnxwhPn6CWgI
+         I3xXJzhIHjV1v4UhCHXSdz2bjGFd8gbwHA9QAmyX9vGag8w0HzKYPUdmpcVRDxYdRZ2N
+         zfhCGDDXgfP+pUEJgL1v4JSWLH6lasqHTzXr5KAy9IXHCjqOjTJXyYKeml9LSuv0UYfT
+         tPsQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781216621; x=1781821421; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=WfvkcO+uLXTqDgSjP+KHQU7Iz2CNjEWfT63b78r4sN0=;
+        b=fdPVpPJxT2oLfj2WFen1ocLwhI+5xwORDWDGQ7wXGUCm2/EQwo8O/1P14u5UpmFEqN
+         4jBc1PPO9hjVVnkJ18I5qnvH7pDhImTi3lrDifb5Ih/IfAqNwYawcze9E9ZbaQPbnQOk
+         7YGAM+kgCqrDMNUAWIKZDlqRJ6XsPatt92KOwExN0/YJ7vYLH1daAHaSd6eEJp/rFxts
+         wwDW65LhaYzhKTNFnLIlgPznNlWhmfamBj+wZcysNRPBUcwlbHnCQn+cxsTJ2Gf2AvfE
+         8FP0Hk1CvrBwN1V3mDfkmwkKgfPsndiOpHR9TznhQ70J7jyJl63uzyAW11apa23rw2R8
+         om9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781216621; x=1781821421;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WfvkcO+uLXTqDgSjP+KHQU7Iz2CNjEWfT63b78r4sN0=;
+        b=F9B603IwSmRp/33nnvYEIio9q0mX+z4V4Mepw4GPH+OAwEQpZ0qKZfwGaY5i26zrgP
+         /LwIl8Ji3H2i9HE3YNxp4WY7czZKJ40M/mKUU/3ZmGf7wkA+GMO3PYZGTuiaYa3gvZrB
+         JzoQ4OOG5pjk7uMdhi+MP+nBkreU8Bk+VGc2MHRTOC13sDnHVy/uS4ko0vgT2TxUL/Zt
+         jbMAwlvQRGYABynY9B/z6vwePwMwHvJHRirSqGoUhE8N/Yart3Qt7iTR35jqRW9/Lw8W
+         r89Z2a0Jj4lZADlOADFWpw7ludhqPhV4/ngfsRO8r4OGtKvOFfOJZYz3IhMMwa2LnN2y
+         kOwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8CfnI2JpgGmsBY9n5vIQ6S2MdD2BYvXm3AXGnG1zDKCt0B5nME8A+u0Viu/YYwa8GrWTIIss1DSrc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5mkibS6ChdStJpTKe1+YSpALV0LxwfvGRjFfAKNgSUZyyFFDi
+	C+Sb39Ff6xy4/F5aZH8mJarEtfs9Q6351y0qIRWkHv3KiHZRwLEvaogQaswFVnZjuEqnXH1m9rh
+	pZPlX/T3UM9JadYBvU5yU1MzL2H1aw/I=
+X-Gm-Gg: Acq92OHgRxi5LcH6do3DiNLDw/OwFDKAtjTo3IPvXafubCMGtYE9rCzbS1WVmtYFcDg
+	Hc0kHW2oAd9AqbDVzpm7yWOca+CztP+IZdcuuwB9d/LPtF2qG+2sgdZropCLQxB5xnNOJLs9fg0
+	VgwXjXFA2Htva7p6Zm9xd+oWDQJd4YgLgqY7ZDzESbsQvR2/p/SfPAMB3qGDENvLkGzt/wkKoO/
+	gtWWXBwk1xrWk7EO6lv+ZpWgqsL8iVITA70JbaEx8ElxtQlcnAAtmPIUchdOw8BgG0E7h3w2gwa
+	H7AsxVN6cKaJGNeygXJtZI/YqTzjRRgvP8A88g==
+X-Received: by 2002:a05:690e:169c:b0:660:a41d:d180 with SMTP id
+ 956f58d0204a3-66277f74193mr138196d50.21.1781216620728; Thu, 11 Jun 2026
+ 15:23:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] argo: lower level of noisy connection-refused log
+References: <20260611153257.650054-1-frediano.ziglio@cloud.com>
+ <20260611153257.650054-2-frediano.ziglio@cloud.com> <9d59cf76-f0e0-4e6e-9413-6c7d70a4594b@suse.com>
+ <57b3b624-297b-4d31-9933-164cb46795eb@suse.com>
+In-Reply-To: <57b3b624-297b-4d31-9933-164cb46795eb@suse.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Thu, 11 Jun 2026 23:23:28 +0100
+X-Gm-Features: AVVi8CfW1mlyM-eU4AZftZRHa8j1yS2bB8naSoc895rcOY9pr5g5Zb8xYtTEwlg
+Message-ID: <CAHt6W4d47rCj_ome=SFXrL--5F16-Ly8XcBm=aut-QRAmz6hXg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] Align some sections to 4KB
 To: Jan Beulich <jbeulich@suse.com>
-Cc: dmukhin <dmukhin@ford.com>, xen-devel <xen-devel@lists.xenproject.org>,
- "andrew.cooper3" <andrew.cooper3@citrix.com>,
- "anthony.perard" <anthony.perard@vates.tech>, julien <julien@xen.org>,
- "michal.orzel" <michal.orzel@amd.com>, "roger.pau" <roger.pau@citrix.com>,
- sstabellini <sstabellini@kernel.org>,
- "christopher.w.clark" <christopher.w.clark@gmail.com>,
- Mykola Kvach <mykola_kvach@epam.com>, Jason Andryuk <jason.andryuk@amd.com>
-References: <20260526215823.1452619-1-dmukhin@ford.com>
- <20260526215823.1452619-2-dmukhin@ford.com>
- <ae19de19-aef5-47af-833d-87a46efb9afc@apertussolutions.com>
- <c51ecc59-7252-4d1f-a192-717ae55dacd5@amd.com>
- <19eac3f10c4.4656d1b3334797.1477306808945740845@apertussolutions.com>
- <d5e26c5f-31cb-42e3-9a91-ee42674cf184@suse.com>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <d5e26c5f-31cb-42e3-9a91-ee42674cf184@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-purgate-ID: tlsNG-16d1c6/1781199814-8596CD75-BC2A68AB/0/0
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Teddy Astie <teddy.astie@vates.tech>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Frediano Ziglio <frediano.ziglio@citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+X-purgate-ID: tlsNG-c1860d/1781216622-BE368DB1-F5E34224/0/0
 X-purgate-type: clean
-X-purgate-size: 4263
+X-purgate-size: 993
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:frediano.ziglio@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,amd.com:email];
-	DMARC_NA(0.00)[apertussolutions.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
+	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:christopher.w.clark@gmail.com,m:mykola_kvach@epam.com,m:jason.andryuk@amd.com,m:christopherwclark@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[ford.com,lists.xenproject.org,citrix.com,vates.tech,xen.org,amd.com,kernel.org,gmail.com,epam.com];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 112296741C3
+X-Rspamd-Queue-Id: 6E3CD6759A6
 
-On 6/11/26 11:26 AM, Jan Beulich wrote:
-> On 09.06.2026 13:57, Daniel Smith wrote:
->> From: Jason Andryuk <jason.andryuk@amd.com>
->> Date: Mon, 08 Jun 2026 19:16:01 -0400
->>   > On 2026-06-08 15:54, Daniel P. Smith wrote:
->>   > > On 5/26/26 5:58 PM, dmukhin@ford.com wrote:
->>   > >> --- a/xen/common/argo.c
->>   > >> +++ b/xen/common/argo.c
->>   > >> @@ -2034,10 +2034,9 @@ sendv(struct domain *src_d, xen_argo_addr_t
->>   > >> *src_addr,
->>   > >>                                           src_id.domain_id);
->>   > >>       if ( !ring_info )
->>   > >>       {
->>   > >> -        gprintk(XENLOG_ERR,
->>   > >> -                "argo: vm%u connection refused, src (vm%u:%x) dst
->>   > >> (vm%u:%x)\n",
->>   > >> -                current->domain->domain_id, src_id.domain_id,
->>   > >> src_id.aport,
->>   > >> -                dst_addr->domain_id, dst_addr->aport);
->>   > >> +        argo_dprintk("vm%u connection refused, src (vm%u:%x) dst
->>   > >> (vm%u:%x)\n",
->>   > >> +                     current->domain->domain_id, src_id.domain_id,
->>   > >> src_id.aport,
->>   > >> +                     dst_addr->domain_id, dst_addr->aport);
->>   > >>           ret = -ECONNREFUSED;
->>   > >>       }
->>   > >
->>   > > My apologies but this is not the wisest approach, hitting this is a real
->>   > > error and shouldn't be getting silenced.
->>   >
->>   > -ECONNREFUSED is still returned, and that is the important part, I think?
->>   >
->>
->> Absolutely not. Argo at its essence is a security protocol where you want to minimize the amount of implicit trust we have to have with the endpoint. Telling a bad actor he did a bad action tells you nothing. The send operation is the critical security path and you must have an auditable record that an endpoint misbehaved. If yo want to implicitly trust your end point after passing the accees check, then you can just use grants.
-> 
-> Yet then - is potentially spamming the log an appropriate model? Furthermore
-> gprintk()-s are, by default, rate-limited in release builds, and hence there
-> isn't going to reliably be an "auditable record" anyway. If you want logging
-> for auditing purposes, I think you'll need to add separate logging (not to
-> the system console).
+On Thu, 11 Jun 2026 at 17:08, Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 11.06.2026 18:07, Jan Beulich wrote:
+> > On 11.06.2026 17:32, Frediano Ziglio wrote:
+> >> Required by UEFI CA memory mitigation.
+> >>
+> >> It is a requirement for NX_COMPAT so the PE can be loaded with W^X perms
+> >> in the pagetables.
+> >>
+> >> NX_COMPAT is a requirement from shim-review,
+> >> https://github.com/rhboot/shim-review#do-you-have-the-nx-bit-set-in-your-shim-if-so-is-your-entire-boot-stack-nx-compatible-and-what-testing-have-you-done-to-ensure-such-compatibility
+> >>
+> >> Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
+> >> --
+> >> Changes since v2:
+> >> - Change subject.
+> >
+> > Did you? The description also doesn't look to have had any detail added.
+>
+> Or wait - the subject tag also says v2. Did you (re-)post the wrong version?
+>
+> Jan
 
-I must strongly object to the characterization of this logging as 
-"spamming the log." The mechanism is functioning exactly as designed.
+No, the series is v2, but in the comments should be "Changes since
+v1:" (as the majority of emails are).
 
-Argo uses rate-limited logging to report attempts to write to a ring 
-that does not exist. Argo also exposes explicit interfaces for a domain 
-to determine whether a ring is available and whether access has been 
-granted. When software attempts an operation without first verifying 
-these preconditions through the provided mechanisms, the resulting log 
-message is both expected and necessary. It is not the role of the 
-logging interface to remain silent in the face of incorrect usage.
-
-Blaming the interface for correctly surfacing misuse, rather than 
-addressing the software that fails to use the capability properly, 
-inverts the proper assignment of responsibility. Logging exists to make 
-such problems visible; suppressing it does not solve the underlying 
-issue.This is especially true in this case, where failed attempts to 
-send to a ring is of security relevance.
-
-Consider the direct parallel: a domain is started with the expectation 
-that a peer domain will establish a grant mapping for predetermined 
-grant reference, instead of coordinating through xenstore. If the first 
-domain attempts the mapping without performing or waiting for the proper 
-xenstore coordination, the system will correctly log the invalid grant 
-reference[1]. The appropriate response in that case is to correct the 
-lack of coordination in the domain's startup sequence, not to disable 
-the log message that reveals the misuse. The same principle applies here.
-
-Proposals to remove or disable this logging in response to observed 
-misuse should be rejected on principle. The correct course of action is 
-to ensure that calling code uses the established discovery and 
-access-control interfaces before attempting operations on rings.
-
-[1] 
-https://elixir.bootlin.com/xen/v4.21.1/source/xen/common/grant_table.c#L1071
-
-V/r,
-Daniel P. Smith
+Frediano
 
