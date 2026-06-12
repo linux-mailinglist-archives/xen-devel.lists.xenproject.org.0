@@ -2,58 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id f6SAMztCLGoCOgQAu9opvQ
+	id U67ONDpKLGqSOwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 19:30:35 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 20:04:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B66267B5A7
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 19:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7023E67B859
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 20:04:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=L4eHHogL;
+	dkim=pass header.d=citrix.com header.s=google header.b=uWHD3Ipn;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1336954.1598648 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com
+Received: from list by lists.xenproject.org with outflank-mailman.1336972.1598657 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wY5hc-000222-26; Fri, 12 Jun 2026 17:29:56 +0000
+	id 1wY6EN-000779-DW; Fri, 12 Jun 2026 18:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336954.1598648; Fri, 12 Jun 2026 17:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 1336972.1598657; Fri, 12 Jun 2026 18:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wY5hb-0001zG-Uv; Fri, 12 Jun 2026 17:29:55 +0000
-Received: by outflank-mailman (input) for mailman id 1336954;
- Fri, 12 Jun 2026 17:29:55 +0000
+	id 1wY6EN-00075e-AI; Fri, 12 Jun 2026 18:03:47 +0000
+Received: by outflank-mailman (input) for mailman id 1336972;
+ Fri, 12 Jun 2026 18:03:46 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebce20767000701b@swg.vates.tech>)
- id 1wY5hb-0001zA-2C
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 17:29:55 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wY6EL-00075Y-Vp
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 18:03:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wY5hZ-00Gq88-W9
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 19:29:54 +0200
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebce20767000701b@swg.vates.tech>)
- id 6a2c41fe-5cb7-0a2a0a5109dd-0a2a450cb49a-8
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 19:29:53 +0200
-Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebce20767000701b@swg.vates.tech>)
- id 6a2c4211-62f1-0a2a450c0019-b9ff1c128073-3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 19:29:53 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19ebce20767000701b.004 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 12 Jun 2026 17:29:50 +0000
-Received: from l14 (unknown [82.67.99.167])
- (Authenticated sender: anthony.perard)
- by mail2.vates.fr (Postfix) with ESMTPSA id 53BFF865E3;
- Fri, 12 Jun 2026 19:29:49 +0200 (CEST)
+ id 1wY6EK-00Go18-U9
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 20:03:44 +0200
+Received: from [10.42.69.2] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a2c49b0-5cb7-0a2a0a5109dd-0a2a4502c44a-40
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 20:03:44 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a2c4a00-af86-0a2a45020019-d155802fb52e-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 20:03:44 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-490cf3000f0so13298525e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 11:03:44 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
+ [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f2b1056sm7859230f8f.18.2026.06.12.11.03.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jun 2026 11:03:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,165 +59,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=pfeU4m7B3yotx6EMWP6xqFgVmAAjbrDQE6H7yN6E2wE=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=L4eHHogL7N/eLa+8vkoa3A6XFdJ9Zh36UuLT3/4a66tNIQCFeH/ZPW5ZrNtQKoa4j9W1dmU+x
- x36p0pfx3lyMG+zjjKptRiPm0X1Hqo5qRqPbEI7ACV6J4Lc6WaFVzDW+56tGitCtAwZLHYe2kMT
- mIbZfZYj5u3ijripgXgiBJB93Ls/3w8+ZdtJ3sMaINOVoDrLpoXWsF4u14VFRk+1OKPrbfV50DL
- j5IEfsU6o4/EX0w5kl7dUi2H8LI6zeLqNuatUNRyS3w3LyvEEw0btgqmr8evWi6D0srkTC0aAdN
- 2gX2NlXUztf2gDZudd+fCAofNEYgnbVwlzhuiY0GtJrw==
-X-Zone-Loop: d1149887ae0c6e5c594306c5c37a4cae8d5aa19d1961
-x-campaign-type: default
-x-transaction-id: dce315c6-e3b2-4eef-8b33-46b066d71cfd
-x-swg-uid: 01-0e473e46-d154-4f98-927e-9df6db961908
-X-Mailer: Sweego
-Message-ID:
- <1781285390.8631fc262581453bbf619ec5b2062170.19ebce20767000701b@vates.tech>
-x-swg-bid: 1781285390.8631fc262581453bbf619ec5b2062170.19ebce20767000701b
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Fri, 12 Jun 2026 19:29:49 +0200
-From: Anthony PERARD <anthony.perard@vates.tech>
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] x86/efi: Skip FPU save/restore for idle vCPU in EFI
- runtime path
-References: <8de2649558826621d49b404cae7a874f504e6b86.1781282640.git.bernhard.kaindl@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1781287424; x=1781892224; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1SacTP91qWXXzSz6L+kpcrKqGEHKQAv04pOhjTLw2RQ=;
+        b=uWHD3IpnshqAuGABiiQm7sM52FqIaIKsj6X7aRe3j8wdrM4IylP9mX4E/qiBdXz9Gn
+         BaHsEy2vgKublndCRtvUII6h6qrbViqFkso345d6DXg56B232vwSdyYvRySTovQBXROK
+         PEaOh+uz1TDH07gRf/0zJ9Frjk/oOWFIlI0Tg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781287424; x=1781892224;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1SacTP91qWXXzSz6L+kpcrKqGEHKQAv04pOhjTLw2RQ=;
+        b=mG7B4KamXNiSQmTg5hwspZHcpxVeOwbpYCqkLBEgaalt0i7VZx6QbysR4QXIExhpty
+         E1qtDS52hcjuKsWWzfPxT3mmzPYmLrHz3ck8ah4p6YPuikOpN7r6c+npQrK+psJ1F6mU
+         ZsW8XLGPQF8p7yPivEW57i2cwVz+REPYvYYkdFknPB3S0kYRMJLVmUJyprX0v1O2onw4
+         6b62qp0Tuxhb/tuohyzduqJTs5RXzGdV1wEozfVvsmgAI+tyQaRReTBD+HDLvfuSPaae
+         LgebSgBuzNaHeLQ1dSZImam59TUT9LC4nWWHkbE0OgZgUpbJ7w1VqJPwyzJDAYxNvrQY
+         U/zA==
+X-Gm-Message-State: AOJu0YzH2JQVLqXuceC5fzBFt+Am8ikgLEkWjpUZvT8u/8dzrpUY3OOZ
+	wU974JnPGQNDwzc8Sp7dr+zJ4XUdMa2WyBEVEh4/6N8SO5xnnZweP1leoGzwqp8vYseWzbyj9MU
+	K0Vzi
+X-Gm-Gg: Acq92OEfSknPliOqcktdG0kAXX85Dscw/qaaM7eFK5lt1AJmbsT7xtQD/aEF760GQkP
+	B3fWvg4iYhVEiCu14WeJ0yLT552WwIaPfpHt6+UwhxMU2PlQzw6w2dO49QKNfwudOSkh9Hjrz0f
+	yUwB03XU66Lztn78TPWSoccLC+MGpaUAZKmtIyD7H5ADF0l9hcT8+T4pzZQd6VQW6NW0/YBtUSV
+	JDKIODMyvb/zgHVnPYXMwlCokeQuyDiYm3H1nKD+mrRzWfKJ4PsfAj9lcG9fXAVKqeqZxOnXFt0
+	Enjih11yi+d3jEMd8IRuTEhOiFHh3ssAQuVhcskdJZIeFF3F/tVYA+bOzz3vDcHocztC+StFAFn
+	8Qteb6W0WRwJM1FDNl4xJbpRkt+lfXULViMoDIwtkJzpXbG1jFcs5yF76+pGpPV26/ouW+uDli/
+	+Ou01LuAlQzjfGBr2DYEp7JJ5oRHTfHuBc4hosCTn+QeBSskYuF/TgSshnRGOTchdG5NbTUJnPo
+	xPD
+X-Received: by 2002:a05:600c:1591:b0:490:e281:287d with SMTP id 5b1f17b1804b1-490ec4c0ceemr33014185e9.1.1781287424187;
+        Fri, 12 Jun 2026 11:03:44 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Victor Lira <victorm.lira@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.22] CI: Use more specific Xilinx runner tags
+Date: Fri, 12 Jun 2026 19:03:41 +0100
+Message-Id: <20260612180341.3152136-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8de2649558826621d49b404cae7a874f504e6b86.1781282640.git.bernhard.kaindl@citrix.com>
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.154.fa57a385a660c6ea.19ebce204b1.956fbd88cbecb468=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1781285389490
-X-purgate-ID: tlsNG-d25034/1781285393-E3370CF5-C512CB85/0/0
-X-purgate-type: clean
-X-purgate-size: 3082
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-720697/1781287424-80979161-7454A68C/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 1529
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.82 / 15.00];
-	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[1];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-Spamd-Result: default: False [1.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[citrix.com,amd.com,vates.tech,kernel.org,cardoe.com,gmail.com];
+	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:victorm.lira@amd.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,gitlab.com:url,vates.tech:email];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3B66267B5A7
+X-Rspamd-Queue-Id: 7023E67B859
 
----=Part.154.fa57a385a660c6ea.19ebce204b1.956fbd88cbecb468=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In order to avoid serialising the testing on both boards, the runner
+configuration is being adjusted.
 
-On Fri, Jun 12, 2026 at 05:54:36PM +0100, Bernhard Kaindl wrote:
-> Anthony reported a boot-time assertion in init_xen_time() via efi_get_ti=
-me()
-> -> efi_rs_enter() in vcpu_save_fpu() on a Broadwell-D system:
->=20
->   Assertion '!is_idle_vcpu(v)' failed at arch/x86/i387=2Ec:195
->=20
-> This became fragile after the lazy-FPU removal cleanup series:
->=20
-> In 1792bb9a99d2 ("x86: Cleanup cr0=2ETS flag handling"),
-> efi_rs_enter() was changed from save_fpu_enable() to vcpu_save_fpu(curr)=
-,
-> which unconditionally asserts !is_idle_vcpu(v)
-> so an EFI runtime call in idle context now asserts=2E
->=20
-> Likewise, in dba44e051209 ("x86: Remove fully_eager_fpu"),
-> efi_rs_leave() was changed to call vcpu_restore_fpu(curr),
-> which has the same assertion and can fail for the same reason=2E
->=20
-> Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/resto=
-re
-> for idle vCPUs, which don't have an FPU context to save/restore,
-> much like the calls are guarded in __context_switch(),
-> where save/restore is done only for non-idle vCPUs=2E
->=20
-> Fixes: 1792bb9a99d2 ("x86: Cleanup cr0=2ETS flag handling")
-> Fixes: dba44e051209 ("x86: Remove fully_eager_fpu")
-> Reported-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
-> Suggested-by: Jan Beulich <jbeulich@suse=2Ecom>
-> Signed-off-by: Bernhard Kaindl <bernhard=2Ekaindl@citrix=2Ecom>
-> ---
->  xen/common/efi/runtime=2Ec | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->=20
-> Jan Beulich's suggestion to guard the calls to vcpu_save_fpu() and
-> vcpu_restore_fpu() in the EFI runtime path with is_idle_vcpu() checks
-> seems to be the right approach to fix the assertion failure for idle vCP=
-Us:
->=20
-> > The thinko looks to be in 4b9851c64522 ("x86: Remove fpu_initialised/f=
-pu_dirty"):
-> > While vcpu_restore_fpu() indeed unconditionally set the two boolean fi=
-elds to
-> > true at that point, idle vCPU-s may never make it through that functio=
-n, and
-> > hence ->fpu_dirtied would have remained false, triggering the (origina=
-l) early
-> > exit from _vcpu_save_fpu()=2E Perhaps all we can do now is guard the c=
-all to
-> > vcpu_save_fpu() (and also the one to vcpu_restore_fpu() out of efi_rs_=
-leave())
-> > by explicit is_idle_vcpu() checks=2E Much like the calls are guarded i=
-n
-> > __context_switch()=2E
->=20
-> Anthony, could you test this with the 'cmos-rtc-probe' workaround you ju=
-st
-> added removed to check if guarding the assertions as Jan suggested is en=
-ough
-> to fix the issues triggered on your machine?
+Have the .xilinx-arm64 and .xilinx-x86_64 templates choose the board directly
+using a more specific tag.
 
-Yes, that patch works=2E I've also checked that I have
-"Wallclock source: EFI" in the boot logs=2E
+No functional change.
 
-Tested-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Victor Lira <victorm.lira@amd.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Thanks,
+For 4.22, and for backport to all branches including security-only.
 
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2597755162
+showing all the Xilinx jobs still running fine.
+---
+ automation/gitlab-ci/test.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 89760b24e63a..c375c9730928 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -119,7 +119,7 @@
+           && $CI_COMMIT_REF_PROTECTED == "true"
+       when: on_success
+   tags:
+-    - xilinx
++    - xilinx-zynq-423
+ 
+ .xilinx-x86_64:
+   extends: .test-jobs-common
+@@ -139,7 +139,7 @@
+           && $CI_COMMIT_REF_PROTECTED == "true"
+       when: on_success
+   tags:
+-    - xilinx
++    - xilinx-crater-001
+ 
+ .adl-x86-64:
+   extends: .test-jobs-common
+
+base-commit: ffb9c3016be3beb4228e9975bfb5f8ca5b5ccd56
 -- 
-Anthony Perard | Vates XCP-ng Developer
+2.39.5
 
-XCP-ng & Xen Orchestra - Vate=
-s solutions
-
-web: https://vates=2Etech
----=Part.154.fa57a385a660c6ea.19ebce204b1.956fbd88cbecb468=---
 
