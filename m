@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id pSgnMdKRLGr/SwQAu9opvQ
+	id QYV2GtWRLGoFTAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 01:10:10 +0200
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 01:10:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D33F67D00D
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 01:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142A467D021
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 01:10:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=RmYL127n;
+	dkim=pass header.d=citrix.com header.s=google header.b=t5PFUODQ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1337052.1598731 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1337053.1598740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYB0H-0002dw-1G; Fri, 12 Jun 2026 23:09:33 +0000
+	id 1wYB0I-0002tX-Dr; Fri, 12 Jun 2026 23:09:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1337052.1598731; Fri, 12 Jun 2026 23:09:33 +0000
+Received: by outflank-mailman (output) from mailman id 1337053.1598740; Fri, 12 Jun 2026 23:09:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYB0G-0002bd-UY; Fri, 12 Jun 2026 23:09:32 +0000
-Received: by outflank-mailman (input) for mailman id 1337052;
+	id 1wYB0I-0002qb-B3; Fri, 12 Jun 2026 23:09:34 +0000
+Received: by outflank-mailman (input) for mailman id 1337053;
  Fri, 12 Jun 2026 23:09:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wYB0F-00029X-NH
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 23:09:31 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wYB0G-0002Rh-Dp
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 23:09:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wYB0F-00HIs8-3w
+ id 1wYB0F-00HQFu-R8
  for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 01:09:31 +0200
-Received: from [10.42.69.2] (helo=localhost)
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a2c915b-5cb7-0a2a0a5109dd-0a2a4502ddb2-22
+ id 6a2c91aa-bab6-0a2a0a5309dd-0a2a450cdf7e-2
  for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 01:09:31 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a2c91aa-af86-0a2a45020019-d155dd2ca954-3
+ id 6a2c91ab-62f1-0a2a450c0019-d1558029c58b-3
  for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 01:09:31 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-45ee5cdbd28so1556248f8f.1
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-490ae94a89eso12816255e9.1
  for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 16:09:31 -0700 (PDT)
 Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
  [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f2b0d28sm10035907f8f.20.2026.06.12.16.09.29
+ ffacd0b85a97d-4606f2b0d28sm10035907f8f.20.2026.06.12.16.09.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 12 Jun 2026 16:09:29 -0700 (PDT)
+ Fri, 12 Jun 2026 16:09:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,39 +60,39 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1781305770; x=1781910570; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1781305771; x=1781910571; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mNdU35BttH64TZdXrpZk6Pea4Pf1aJ80D0BD0gDbtew=;
-        b=RmYL127n0BEpxndNEtFRg/keMW495qiSX/GwTPGq66Rfx9obRxn4FJ/lD1VFZpog0N
-         JVwkUfCiOuy0mco39svRfNppNm+VFNu5piYuVo5HbuZrmKSSZlDM1mqEHn8GBm3whK/k
-         d+Lo6cUWhhUoSGheE4nAOEKx0LTPtKeGryAHg=
+        bh=Kcf/WI93RAFHfmUF0my5rnSxM7s1K4C7gOFPv+zFjeM=;
+        b=t5PFUODQ9910psNrkjzf0LLsLSa/X3p+v1S2Uw4bx9i2zSafY7R9LYgoJE/4eNYVz1
+         pYSVAqVs6nr/r0r2/7YVRlQGs+Md9pE/VIKPhEwViF2JWDYkAA7VdvZIdN5wSpreZpnk
+         L0Xe0g7nO5yKdZPyfTuhF0o0jrUDofTjIOytM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781305770; x=1781910570;
+        d=1e100.net; s=20251104; t=1781305771; x=1781910571;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=mNdU35BttH64TZdXrpZk6Pea4Pf1aJ80D0BD0gDbtew=;
-        b=IWf+LeiYjBvKvninzhCXSdMUtAmZ2P4c64Ks52dMvVQdmwIWCFxH0Ia2eapK3uHygR
-         dSr5esztzg0sgOfB9Bg9v9tM8ueEhom09FiQ7NQ+oEiKIPFZYZeEfBI+KlVcy2DHBfL8
-         aSLasfxuLiGO9udYblKYHuFd9jIOZ6Up1wos76xCgsAQ/VRAH3QeEZ36h09G1q0tzSRp
-         8QqtqopSmrUiPU+kZOkRTuEqYIjXM0xsbMRA8Sv41g18F95wfnwa3zy04UOTXlLj1CmQ
-         PVMyEdl3NCvLTpJhiuOfhhgXSHkZeEjbrirHuwN5TQBI0PTKKR7/5wGC3RqcudjqoPHM
-         K+hg==
-X-Gm-Message-State: AOJu0YzG9yNPH0Q4Ux7qQtvnatopT7KC0F2R8legAtSxtNfUQfbWtojD
-	RMJwRV4zSHEoGIOxGCiCGDQVIuTtxu4ms3GEaxJKcBLlvawLzmwlpDIPPWeDlTcXbL+53QxF/Wy
-	KxG77
-X-Gm-Gg: Acq92OEvysOQGEczuSeqSMu0dAkw189/C7akp7ig/tdN5oIviYHStPCMslKY7QT27Lr
-	yFJs26PoKSjPlWfuJ7sQwkNvDbO3CJB7Kt8e94AUmdb2cJaRKPmuuY97GF5ZSKRpjc3WKsTYiPp
-	tBt1n/KJXgVFb8Xyqahw7stjSb1i1qRvkzYMGm/H88nkmxDTImlwelAfFSUmaYBq5Qwgua+P2y1
-	aQJrT1NVPvXc6K7EI343wbFMRFBsJDVuQPf26F2R9OFybhmn9k9ltSFx0VErftQNa8gMpTrf4sN
-	ufLaspa7rpbm19lvvT3FdeZMV8uy/pFK2Mw/qffHe99KLdL67v7HDAoENg19u5ZYf/RXfFry69J
-	wuZBdS9yt9gWvi+sA9W504Lj+MQuNH4YZuUbP8pyShRk4LpCEP3P+glMtemn8nDd+6jp1aiINyb
-	XRq3XvUahIeBIz9tZC1XVR5PTBNJPorFtHfT1+U//wMQc/KIhpaMZpqfK+Aj3o5VVZD2iLNwilS
-	UrdMpgQAT/YrCY=
-X-Received: by 2002:a5d:64cd:0:b0:460:395c:7404 with SMTP id ffacd0b85a97d-4606f25dd0dmr6094805f8f.20.1781305770305;
-        Fri, 12 Jun 2026 16:09:30 -0700 (PDT)
+        bh=Kcf/WI93RAFHfmUF0my5rnSxM7s1K4C7gOFPv+zFjeM=;
+        b=aXlCoOljVLgTUm8Z43kVD7gqj9X1yCF7ky6CplFafRLROl646ho6fLHJFe0LlaXlNi
+         xzH7P4V9ZNgJuulDFdfwqccOFQShrTOhOAFPyb50pv5tTjLYUU30a0PcaxkZKVNXdX+Q
+         fzn78sf5iOD3DjuNxb6xPK0z6enFzTQAqQKEm11i96TO8Cs4PeJKVz8f6k0SvpQld0fM
+         VyDgeYkGT6oFucIjYjf5iWCVCdwcDVW4XIOYyi9AqNOzWNRJmy4+LyInUc7D6eRQ86U2
+         ZfHu1IGtCmYf3SiRaaJfZxWElsdXfAcZHmLCWQtj3nBmtNFugahHrsGrmpl84ImSfEdX
+         AY+Q==
+X-Gm-Message-State: AOJu0YxO1Nk4vRLvvQfgnA6HM8/uQ5Mm2R5utfrttk/QP2uDHZ+OOxxm
+	RjSPT3inAUexrIuI6lhNKmrKMap1DAPD1RVks9LRa+ct8Ot/rTXueOSU9I5OcNpx0Zk82lrvsKV
+	KjCAW
+X-Gm-Gg: Acq92OG22lo1hXSDbj/NZVPT1oDPVmQL6oe3H+AOwsUQS3vEEclAM7EJRK3RNOFtFE0
+	X/jg2uggDPxbJ2Lb7b8n9Eg7imGfLcRt3k8uchSFnwwo7o6WIQjHxbQwUzi3CiGCIIj583EK872
+	QjWupJo0VRzBadx4MXg2q6zyQWyyV0ADhBmbJgOKk0j2EM/qv++47hzxErGL5Jen0e9sfIaLtGV
+	fposQ5ki3NcT8NIFc1rBLojhy/mjN5lntIMZExrmLEKJ0cBJLLfkirrSWufQ3mn/suOrTq7HGNG
+	/KjnFXbXJwHJlvbPFOb6VpdnsQTYypDzbx7qV4ox/X3tap1ogySztOxxIyCp3uYnmO3cNzNp02s
+	9WmHOuy/XqK1qPsfiNFFEngzPKH793Efii/JgEAat8p8Nm6cgQ4Lob0HZ5q5a2NYM4HcdptPavq
+	goLaMhA9lQ1s/kZG5PabSoXJLClpd6dDCBAj6RySM4s3Pu2Sy3JHuQLJuwrq0trkAfsXgHpLWip
+	crK
+X-Received: by 2002:a05:600c:47d3:b0:490:d354:bcf4 with SMTP id 5b1f17b1804b1-492200e2409mr9061075e9.27.1781305771094;
+        Fri, 12 Jun 2026 16:09:31 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -103,18 +103,18 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH 4/7] CI: Update the Alpine x86_64 container to 3.24
-Date: Sat, 13 Jun 2026 00:09:21 +0100
-Message-Id: <20260612230924.3181154-5-andrew.cooper3@citrix.com>
+Subject: [PATCH 5/7] CI: Update the Alpine arm64 container to 3.24
+Date: Sat, 13 Jun 2026 00:09:22 +0100
+Message-Id: <20260612230924.3181154-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
 References: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1781305771-8256B161-373B2C2A/10/63158204843
+X-purgate-ID: tlsNG-d25034/1781305771-E0F62CF5-3A5A4768/10/63158204843
 X-purgate-type: spam
-X-purgate-size: 15246
+X-purgate-size: 11574
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [1.32 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -134,7 +134,7 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,vates.tech:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,amd.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -150,12 +150,15 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3D33F67D00D
+X-Rspamd-Queue-Id: 142A467D021
 
 Perform standard syntax cleanup and make it a non-root container.  Switch yajl
-for json-c given the deprecation of the former.
+for json-c given the deprecation of the former.  Drop dev86 which is an
+x86-only dependency, and QEMU dependencies as we don't build QEMU in this
+environment any more.
 
-Add an x86_64 suffix for naming consistency with everything else.
+When updating the job names, also rename some for consistency so the arm64
+fragment comes before the compiler.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -167,25 +170,24 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Requires the test-artefacts change to add alpine-3.24-x86_64-rootfs
+Requires the test-artefacts change to add alpine-3.24-arm64-rootfs
 ---
- automation/build/alpine/3.18.dockerfile       | 52 ---------------
- .../build/alpine/3.24-x86_64.dockerfile       | 65 ++++++++++++++++++
- automation/gitlab-ci/build.yaml               | 16 ++---
- automation/gitlab-ci/test.yaml                | 66 +++++++++----------
- automation/scripts/containerize               |  2 +-
- 5 files changed, 107 insertions(+), 94 deletions(-)
- delete mode 100644 automation/build/alpine/3.18.dockerfile
- create mode 100644 automation/build/alpine/3.24-x86_64.dockerfile
+ .../build/alpine/3.18-arm64v8.dockerfile      | 51 ------------------
+ .../build/alpine/3.24-arm64v8.dockerfile      | 53 +++++++++++++++++++
+ automation/gitlab-ci/build.yaml               | 32 +++++------
+ automation/gitlab-ci/test.yaml                | 30 +++++------
+ 4 files changed, 84 insertions(+), 82 deletions(-)
+ delete mode 100644 automation/build/alpine/3.18-arm64v8.dockerfile
+ create mode 100644 automation/build/alpine/3.24-arm64v8.dockerfile
 
-diff --git a/automation/build/alpine/3.18.dockerfile b/automation/build/alpine/3.18.dockerfile
+diff --git a/automation/build/alpine/3.18-arm64v8.dockerfile b/automation/build/alpine/3.18-arm64v8.dockerfile
 deleted file mode 100644
-index 263e9e90d888..000000000000
---- a/automation/build/alpine/3.18.dockerfile
+index b8482d5bf43f..000000000000
+--- a/automation/build/alpine/3.18-arm64v8.dockerfile
 +++ /dev/null
-@@ -1,52 +0,0 @@
+@@ -1,51 +0,0 @@
 -# syntax=docker/dockerfile:1
--FROM --platform=linux/amd64 alpine:3.18
+-FROM --platform=linux/arm64/v8 alpine:3.18
 -LABEL maintainer.name="The Xen Project" \
 -      maintainer.email="xen-devel@lists.xenproject.org"
 -
@@ -202,17 +204,15 @@ index 263e9e90d888..000000000000
 -  autoconf \
 -  bash \
 -  bison \
--  clang \
 -  curl \
 -  dev86 \
+-  dtc-dev \
 -  flex \
--  g++ \
 -  gcc \
 -  git \
--  grep \
 -  iasl \
 -  libaio-dev \
--  libc6-compat \
+-  libfdt \
 -  linux-headers \
 -  make \
 -  musl-dev  \
@@ -232,18 +232,19 @@ index 263e9e90d888..000000000000
 -  glib-dev \
 -  libattr \
 -  libcap-ng-dev \
--  ninja \
 -  pixman-dev \
--  # livepatch-tools deps
--  elfutils-dev \
-diff --git a/automation/build/alpine/3.24-x86_64.dockerfile b/automation/build/alpine/3.24-x86_64.dockerfile
+-  # qubes test deps
+-  openssh-client \
+-  fakeroot \
+-  expect \
+diff --git a/automation/build/alpine/3.24-arm64v8.dockerfile b/automation/build/alpine/3.24-arm64v8.dockerfile
 new file mode 100644
-index 000000000000..f93158e0186d
+index 000000000000..5b28d874efae
 --- /dev/null
-+++ b/automation/build/alpine/3.24-x86_64.dockerfile
-@@ -0,0 +1,65 @@
++++ b/automation/build/alpine/3.24-arm64v8.dockerfile
+@@ -0,0 +1,53 @@
 +# syntax=docker/dockerfile:1
-+FROM --platform=linux/amd64 alpine:3.24
++FROM --platform=linux/arm64/v8 alpine:3.24
 +LABEL maintainer.name="The Xen Project"
 +LABEL maintainer.email="xen-devel@lists.xenproject.org"
 +
@@ -258,7 +259,6 @@ index 000000000000..f93158e0186d
 +    DEPS=(
 +        # Xen
 +        bison
-+        clang
 +        flex
 +        g++
 +        gcc
@@ -278,10 +278,9 @@ index 000000000000..f93158e0186d
 +        # libacpi
 +        iasl
 +        # libxl
-+        util-linux-dev
++        dtc-dev
 +        json-c-dev
-+        # RomBIOS
-+        dev86
++        util-linux-dev
 +        # xentop
 +        ncurses-dev
 +        # Python bindings
@@ -290,16 +289,6 @@ index 000000000000..f93158e0186d
 +        # Ocaml bindings/oxenstored
 +        ocaml
 +        ocaml-findlib
-+
-+        # QEMU
-+        glib-dev
-+        libattr
-+        libcap-ng-dev
-+        ninja
-+        pixman-dev
-+
-+        # livepatch-tools deps
-+        elfutils-dev
 +    )
 +
 +    apk add --no-cache "${DEPS[@]}"
@@ -308,361 +297,233 @@ index 000000000000..f93158e0186d
 +USER user
 +WORKDIR /build
 diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 9eda40dc6e57..e295f4d4f25f 100644
+index e295f4d4f25f..fa054a82800b 100644
 --- a/automation/gitlab-ci/build.yaml
 +++ b/automation/gitlab-ci/build.yaml
-@@ -270,17 +270,17 @@
+@@ -401,68 +401,68 @@ debian-13-arm64-gcc-debug:
+   variables:
+     CONTAINER: debian:13-arm64v8
  
- # Build jobs needed for tests
- 
--alpine-3.18-gcc:
-+alpine-3.24-x86_64-gcc:
-   extends: .gcc-x86-64-build
+-alpine-3.18-gcc-arm64:
++alpine-3.24-arm64-gcc:
+   extends: .gcc-arm64-build
    <<: *build-test
    variables:
--    CONTAINER: alpine:3.18
-+    CONTAINER: alpine:3.24-x86_64
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
  
--alpine-3.18-gcc-debug:
-+alpine-3.24-x86_64-gcc-debug:
-   extends: .gcc-x86-64-build-debug
+-alpine-3.18-gcc-debug-arm64:
++alpine-3.24-arm64-gcc-debug:
+   extends: .gcc-arm64-build-debug
    <<: *build-test
    variables:
--    CONTAINER: alpine:3.18
-+    CONTAINER: alpine:3.24-x86_64
-     BUILD_QEMU_XEN: y
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     EXTRA_XEN_CONFIG: |
+       CONFIG_UBSAN=y
+       CONFIG_UBSAN_FATAL=y
+ 
+-alpine-3.18-gcc-arm64-randconfig:
++alpine-3.24-arm64-gcc-randconfig:
+   extends: .gcc-arm64-build
+   variables:
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     RANDCONFIG: y
+ 
+-alpine-3.18-gcc-debug-arm64-staticmem:
++alpine-3.24-arm64-gcc-debug-staticmem:
+   extends: .gcc-arm64-build-debug
+   <<: *build-test
+   variables:
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
      EXTRA_XEN_CONFIG: |
        CONFIG_EXPERT=y
-@@ -513,15 +513,15 @@ debian-12-arm64-gcc-cppcheck:
+       CONFIG_UNSUPPORTED=y
+       CONFIG_STATIC_MEMORY=y
  
- # Build jobs not needed for tests
- 
--alpine-3.18-clang:
-+alpine-3.24-x86_64-clang:
-   extends: .clang-x86-64-build
+-alpine-3.18-gcc-debug-arm64-static-shared-mem:
++alpine-3.24-arm64-gcc-debug-static-shared-mem:
+   extends: .gcc-arm64-build-debug
+   <<: *build-test
    variables:
--    CONTAINER: alpine:3.18
-+    CONTAINER: alpine:3.24-x86_64
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     EXTRA_XEN_CONFIG: |
+       CONFIG_UNSUPPORTED=y
+       CONFIG_STATIC_MEMORY=y
+       CONFIG_STATIC_SHM=y
  
--alpine-3.18-clang-debug:
-+alpine-3.24-x86_64-clang-debug:
-   extends: .clang-x86-64-build-debug
+-alpine-3.18-gcc-debug-arm64-boot-cpupools:
++alpine-3.24-arm64-gcc-debug-boot-cpupools:
+   extends: .gcc-arm64-build-debug
+   <<: *build-test
    variables:
--    CONTAINER: alpine:3.18
-+    CONTAINER: alpine:3.24-x86_64
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     EXTRA_XEN_CONFIG: |
+       CONFIG_BOOT_TIME_CPUPOOLS=y
  
- archlinux-x86_64-gcc:
-   extends: .gcc-x86-64-build
+-alpine-3.18-gcc-debug-arm64-earlyprintk:
++alpine-3.24-arm64-gcc-debug-earlyprintk:
+   extends: .gcc-arm64-build-debug
+   <<: *build-test
+   variables:
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     EXTRA_XEN_CONFIG: |
+       CONFIG_EARLY_UART_CHOICE_PL011=y
+       CONFIG_EARLY_UART_BASE_ADDRESS=0x9000000
+ 
+-alpine-3.18-gcc-debug-arm64-mpu:
++alpine-3.24-arm64-gcc-debug-mpu:
+   extends: .gcc-arm64-build-debug
+   variables:
+-    CONTAINER: alpine:3.18-arm64v8
++    CONTAINER: alpine:3.24-arm64v8
+     HYPERVISOR_ONLY: y
+     EXTRA_XEN_CONFIG: |
+       CONFIG_XEN_START_ADDRESS=0x0
 diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 70bb4bbb3b45..b651efef1593 100644
+index b651efef1593..2a7a0e513e72 100644
 --- a/automation/gitlab-ci/test.yaml
 +++ b/automation/gitlab-ci/test.yaml
-@@ -26,7 +26,7 @@
-     job: $LINUX_JOB_X86_64
+@@ -10,7 +10,7 @@
+     job: $LINUX_JOB_ARM64
      ref: $ARTIFACTS_BRANCH
    - project: $ARTIFACTS_REPO
--    job: alpine-3.18-x86_64-rootfs
-+    job: alpine-3.24-x86_64-rootfs
+-    job: alpine-3.18-arm64-rootfs
++    job: alpine-3.24-arm64-rootfs
      ref: $ARTIFACTS_BRANCH
-   - project: $ARTIFACTS_REPO
-     job: microcode-x86
-@@ -236,19 +236,19 @@ xilinx-smoke-dom0-x86_64-gcc-debug:
-     - ./automation/scripts/xilinx-smoke-dom0-x86_64.sh ping 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
  
- xilinx-smoke-dom0-x86_64-gcc-debug-argo:
+ .arm32-test-needs: &arm32-test-needs
+@@ -220,7 +220,7 @@ xilinx-smoke-dom0less-arm64-gcc-debug:
+     - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
+ 
+ xilinx-smoke-dom0less-arm64-gcc-debug-gem-passthrough:
+   extends: .xilinx-arm64
+@@ -228,7 +228,7 @@ xilinx-smoke-dom0less-arm64-gcc-debug-gem-passthrough:
+     - ./automation/scripts/xilinx-smoke-dom0less-arm64.sh gem-passthrough 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
+ 
+ xilinx-smoke-dom0-x86_64-gcc-debug:
    extends: .xilinx-x86_64
-   script:
-     - ./automation/scripts/xilinx-smoke-dom0-x86_64.sh argo 2>&1 | tee ${LOGFILE}
+@@ -494,7 +494,7 @@ qemu-smoke-dom0-arm64-gcc:
+     - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
    needs:
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
-     - project: xen-project/hardware/test-artifacts
-       job: linux-6.6.56-x86_64
-       ref: master
-     - project: xen-project/hardware/test-artifacts
--      job: alpine-3.18-x86_64-rootfs
-+      job: alpine-3.24-x86_64-rootfs
-       ref: master
-     - project: xen-project/hardware/test-artifacts
-       job: microcode-x86
-@@ -260,7 +260,7 @@ adl-smoke-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-arm64
++    - alpine-3.24-arm64-gcc
  
- adl-smoke-x86-64-dom0pvh-gcc-debug:
-   extends: .adl-x86-64
-@@ -268,7 +268,7 @@ adl-smoke-x86-64-dom0pvh-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-   extends: .adl-x86-64
-@@ -276,7 +276,7 @@ adl-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-suspend-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -284,7 +284,7 @@ adl-suspend-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh s3 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-pci-pv-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -292,7 +292,7 @@ adl-pci-pv-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pci-pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-pci-hvm-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -300,7 +300,7 @@ adl-pci-hvm-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pci-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-pvshim-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -308,7 +308,7 @@ adl-pvshim-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-tools-tests-pv-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -319,7 +319,7 @@ adl-tools-tests-pv-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- adl-tools-tests-pvh-x86-64-gcc-debug:
-   extends: .adl-x86-64
-@@ -330,7 +330,7 @@ adl-tools-tests-pvh-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-smoke-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -338,7 +338,7 @@ kbl-smoke-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-smoke-x86-64-dom0pvh-gcc-debug:
-   extends: .kbl-x86-64
-@@ -346,7 +346,7 @@ kbl-smoke-x86-64-dom0pvh-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-   extends: .kbl-x86-64
-@@ -354,7 +354,7 @@ kbl-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-suspend-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -362,7 +362,7 @@ kbl-suspend-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh s3 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-pci-pv-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -370,7 +370,7 @@ kbl-pci-pv-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pci-pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-pci-hvm-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -378,7 +378,7 @@ kbl-pci-hvm-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pci-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-pvshim-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -386,7 +386,7 @@ kbl-pvshim-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-tools-tests-pv-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -397,7 +397,7 @@ kbl-tools-tests-pv-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- kbl-tools-tests-pvh-x86-64-gcc-debug:
-   extends: .kbl-x86-64
-@@ -408,7 +408,7 @@ kbl-tools-tests-pvh-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen2-smoke-x86-64-gcc-debug:
-   extends: .zen2-x86-64
-@@ -416,7 +416,7 @@ zen2-smoke-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen2-suspend-x86-64-gcc-debug:
-   extends: .zen2-x86-64
-@@ -424,7 +424,7 @@ zen2-suspend-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh s3 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-smoke-x86-64-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -432,7 +432,7 @@ zen3p-smoke-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pv 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-smoke-x86-64-dom0pvh-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -440,7 +440,7 @@ zen3p-smoke-x86-64-dom0pvh-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -448,7 +448,7 @@ zen3p-smoke-x86-64-dom0pvh-hvm-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh dom0pvh-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-pci-hvm-x86-64-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -456,7 +456,7 @@ zen3p-pci-hvm-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pci-hvm 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-pvshim-x86-64-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -464,7 +464,7 @@ zen3p-pvshim-x86-64-gcc-debug:
-     - ./automation/scripts/qubes-x86-64.sh pvshim 2>&1 | tee ${LOGFILE}
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-tools-tests-pv-x86-64-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -475,7 +475,7 @@ zen3p-tools-tests-pv-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- zen3p-tools-tests-pvh-x86-64-gcc-debug:
-   extends: .zen3p-x86-64
-@@ -486,7 +486,7 @@ zen3p-tools-tests-pvh-x86-64-gcc-debug:
-       junit: tests-junit.xml
-   needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
- 
- qemu-smoke-dom0-arm64-gcc:
+ qemu-smoke-dom0-arm64-gcc-debug:
    extends: .qemu-arm64
-@@ -654,7 +654,7 @@ qemu-alpine-x86_64-gcc:
-     - ./automation/scripts/qemu-alpine-x86_64.sh 2>&1 | tee ${LOGFILE}
+@@ -502,7 +502,7 @@ qemu-smoke-dom0-arm64-gcc-debug:
+     - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
    needs:
-     - *x86-64-test-needs
--    - alpine-3.18-gcc
-+    - alpine-3.24-x86_64-gcc
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
  
- qemu-smoke-x86-64-gcc:
-   extends: .qemu-smoke-x86-64
-@@ -698,7 +698,7 @@ qemu-xtf-argo-x86_64-gcc-debug:
-   script:
-     - ./automation/scripts/qemu-xtf.sh x86-64 pv64 argo 2>&1 | tee ${LOGFILE}
+ qemu-smoke-dom0less-arm64-gcc:
+   extends: .qemu-arm64
+@@ -510,7 +510,7 @@ qemu-smoke-dom0less-arm64-gcc:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
    needs:
--    - alpine-3.18-gcc-debug
-+    - alpine-3.24-x86_64-gcc-debug
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-arm64
++    - alpine-3.24-arm64-gcc
  
- qemu-smoke-riscv64-gcc:
-   extends: .qemu-riscv64
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index aea842e1ff2d..e9b2f6122ff1 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -24,7 +24,7 @@ die() {
- #
- BASE="registry.gitlab.com/xen-project/xen"
- case "_${CONTAINER}" in
--    _alpine) CONTAINER="${BASE}/alpine:3.18" ;;
-+    _alpine) CONTAINER="${BASE}/alpine:3.24-x86_64" ;;
-     _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.18-arm64v8" ;;
-     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current-x86_64" ;;
-     _fedora) CONTAINER="${BASE}/fedora:43-x86_64";;
+ qemu-smoke-dom0less-arm64-gcc-debug:
+   extends: .qemu-arm64
+@@ -518,7 +518,7 @@ qemu-smoke-dom0less-arm64-gcc-debug:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-gicv3:
+   extends: .qemu-arm64
+@@ -526,7 +526,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-gicv3:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh gicv3 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+   extends: .qemu-arm64
+@@ -534,7 +534,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64-staticmem
++    - alpine-3.24-arm64-gcc-debug-staticmem
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+  extends: .qemu-arm64
+@@ -542,7 +542,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+  needs:
+    - *arm64-test-needs
+-   - alpine-3.18-gcc-debug-arm64
++   - alpine-3.24-arm64-gcc-debug
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+   extends: .qemu-arm64
+@@ -550,7 +550,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64-static-shared-mem
++    - alpine-3.24-arm64-gcc-debug-static-shared-mem
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+   extends: .qemu-arm64
+@@ -558,7 +558,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64-boot-cpupools
++    - alpine-3.24-arm64-gcc-debug-boot-cpupools
+ 
+ qemu-smoke-dom0less-arm64-gcc-debug-earlyprintk:
+   extends: .qemu-arm64
+@@ -566,7 +566,7 @@ qemu-smoke-dom0less-arm64-gcc-debug-earlyprintk:
+     - ./automation/scripts/qemu-smoke-dom0less-arm64.sh earlyprintk 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64-earlyprintk
++    - alpine-3.24-arm64-gcc-debug-earlyprintk
+ 
+ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+   extends: .qemu-arm64
+@@ -574,7 +574,7 @@ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+     - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-arm64
++    - alpine-3.24-arm64-gcc
+ 
+ qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+   extends: .qemu-arm64
+@@ -582,7 +582,7 @@ qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+     - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm64-test-needs
+-    - alpine-3.18-gcc-debug-arm64
++    - alpine-3.24-arm64-gcc-debug
+ 
+ qemu-smoke-dom0-arm32-gcc:
+   extends: .qemu-arm32
 -- 
 2.39.5
 
