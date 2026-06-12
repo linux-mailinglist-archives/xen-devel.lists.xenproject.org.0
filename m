@@ -2,56 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id G5E3MsbWK2pVGAQAu9opvQ
+	id Qmt4EuLYK2olGQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 11:52:06 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:01:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AB206786F0
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 11:52:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C803678883
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:01:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=t5i+CBSA;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=S4AfchkJ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1336459.1598227 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1336465.1598236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXyYD-0007Hy-3z; Fri, 12 Jun 2026 09:51:45 +0000
+	id 1wXyh2-0000nc-Ti; Fri, 12 Jun 2026 10:00:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336459.1598227; Fri, 12 Jun 2026 09:51:45 +0000
+Received: by outflank-mailman (output) from mailman id 1336465.1598236; Fri, 12 Jun 2026 10:00:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXyYD-0007FQ-0w; Fri, 12 Jun 2026 09:51:45 +0000
-Received: by outflank-mailman (input) for mailman id 1336459;
- Fri, 12 Jun 2026 09:51:43 +0000
+	id 1wXyh2-0000lc-Qa; Fri, 12 Jun 2026 10:00:52 +0000
+Received: by outflank-mailman (input) for mailman id 1336465;
+ Fri, 12 Jun 2026 10:00:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wXyYB-0007FK-NO
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 09:51:43 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb46e0b9000701b@swg.vates.tech>)
+ id 1wXyh1-0000lW-Kq
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 10:00:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXyYA-00FaCY-LE
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 11:51:42 +0200
-Received: from [10.42.69.4] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2bd6a9-2eae-0a2a0a5409dd-0a2a4504e3d6-16
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 11:51:42 +0200
-Received: from [52.101.201.5]
- (helo=PH7PR06CU001.outbound.protection.outlook.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2bd6ac-1dec-0a2a45040019-3465c9051378-3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 11:51:42 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by MW4PR03MB6508.namprd03.prod.outlook.com (2603:10b6:303:127::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Fri, 12 Jun
- 2026 09:51:38 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.014; Fri, 12 Jun 2026
- 09:51:38 +0000
+ id 1wXyh0-00FbNe-TX
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 12:00:50 +0200
+Received: from [10.42.69.10] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb46e0b9000701b@swg.vates.tech>)
+ id 6a2bd8cd-2eae-0a2a0a5409dd-0a2a450ad9f4-38
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:00:50 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb46e0b9000701b@swg.vates.tech>)
+ id 6a2bd8d1-56b3-0a2a450a0019-b9ff1c12992f-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:00:50 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19ebb46e0b9000701b.005 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 12 Jun 2026 10:00:44 +0000
+Received: from [192.168.1.200] (lfbn-mon-1-1130-120.w90-48.abo.wanadoo.fr
+ [90.48.233.120]) (Authenticated sender: thierry.escande)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 1FF5786252;
+ Fri, 12 Jun 2026 12:00:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,187 +65,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fGGpQ81JTm1GLBURHmGdOpzubPd2rXA0cvcDsXQjp3DzKka5BWPtTJE37CMUN3bRgFp5QwVsFlcyrds53qF5pdrgo5sZBzAeiGLcmKh2KnJKg7/FPH7/zBqPKiDyh2xlIhaDw3B3Nhvv8jVbfMU2UKiEoOhgNoCuwyOTZfUObrEXw24iKkWTvoxBiRZR4LXJ1ygCsyCI2CG0lHZSbR6rZDQsK0ULSEdF5U31WXRcWq1kWISZO8viBMK7tOW2gTElBCWoO8EXuo6paLEpF8Q54wFAgeOPpOKqknuy1ZsXfrHBrghGAJM05GcmoCSanHohFyRfq4OkCjryf+6MaEAVRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wuo4Jwek3qoNujtbRi4UfO6L6g1gowRsFuzpATDRLGM=;
- b=ip7fpX17ADxwGiFvX15vmEsxmnrWa5TebqX0kM2sPQ+vz6mzR9rnXAVhntTv0EV5a8ntH3IReyl5Dn4TPgvn52alxQJK0f3AHpGmrJ6ndOW9HDOO+Cyrcmez1XXyvXvVFGKfULwQVGMtnZiEGlxI+UjlpEvrqXJemm4uujvc4ZMSukBN5r+IOoXk8V3ESLTITxpVpAJbmefmJpNWxBQvlIVf5Cup4fb/9qVrzdga5KhcQNqx459wkHSyBIIrTKP/7UZNd7oc533Lnrf3ZV6l7Ls3d8iOqwu/0TlUwpJ1eqMpC7zLef5LAItjhtXqaQ8b+TRA0NyIwQyZNjf9Mhrdug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wuo4Jwek3qoNujtbRi4UfO6L6g1gowRsFuzpATDRLGM=;
- b=t5i+CBSA3uVb+jA+sHDHOdsfIQSWGC+FsxdevXJCJgGTvO2RUq8XRhr+XWV6VmNoRJ1iWsDkLZa0q/+W2rguw/8XCI1+AUDebBb3zjEPWIKjse8/lmXzKJHktW9Lsiu12/FpkqAPYQ17hvbnrYfA5xqAScbxaHF2WvZJin8NMqI=
-Date: Fri, 12 Jun 2026 11:51:34 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Jason Andryuk <jason.andryuk@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Oleksii Kurochko <oleskii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.22 v3] xen/x86: Change stub page allocation/free
-Message-ID: <aivWpmFsbr9QwXca@macbook.local>
-References: <20260612082213.82235-1-roger.pau@citrix.com>
- <cda71bb2-9318-4a63-ac0b-95b88e6c5660@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cda71bb2-9318-4a63-ac0b-95b88e6c5660@citrix.com>
-X-ClientProxiedBy: MR1P264CA0150.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:54::6) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=MzqbtulDxGhFht/QAO08vFAefKUWGXbGYF76ycrrhMM=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=S4AfchkJ2oxWUgifWvTq7VzhbqcKPWlQEUablgIK6BochNUvp6jIy+/aJLeOk/ciOAz4vPWH2
+ kLL1WxNBWkT1HaisPCPJL55Me5FVxY57aiTIQnz/VA9TwU1mNgJgkfbENYlmzhaVwVLlqpQNOH2
+ SgZEzpObvpEKFaEaWLaefgYu+U9HuSIvS1So+VRf0eJ+DYTfo7sBPclzfeQYp2/DiwTZJlKA8bN
+ omsM2r/aPNfgXgiUSEm7qMi0vjMCIVbsccJAEL8xyIR5UHgyj1eHc1OcjNJQ4gd2q7Tm1VB8ovo
+ PzQvEyWK3QU23Fi1Sj1msDbSUCS73necQiJRqrlltSbA==
+X-Zone-Loop: 95f17a6fbae412af84b4a1709b6a1d75e3f8ec9a72f1
+x-campaign-type: default
+x-transaction-id: f581064f-1cce-41de-84af-e1e0a57d490f
+x-swg-uid: 01-777db663-d7cd-4049-8511-776a117c9e52
+X-Mailer: Sweego
+Message-ID:
+ <1781258445.8631fc262581453bbf619ec5b2062170.19ebb46e0b9000701b@vates.tech>
+x-swg-bid: 1781258445.8631fc262581453bbf619ec5b2062170.19ebb46e0b9000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 12 Jun 2026 12:00:43 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MW4PR03MB6508:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f59cd91-b6e9-4eaa-6a6d-08dec8683233
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	vcEjdtQ+YmZ/mPYJJY6SJfnGu7gI2pwaG8yGg3y8eWh76hMDnjUMpbqjP6B0ViBpDdFEwF0X8MtceiB0PvCFUX+EPWrnpf1x1hOYgc2qciN7TqgymidGF2GZ3HDnowy08/2K0ENPz/M9CmIw6YRlX/hl9gav2LTSzqyprHOU6Gl4dkU/CxRrSRqd3Lc8KtQQ6L5YBrTx6XP6EBxk/8/e8mOuU1BKI95i0ZB3yiaLCTDe0Y4H3GZZPk3C1w2PKHjv/FWgROqIpa9h9M4KLMA0xs4jL2x9Wn6jkLw+Ij5VAzJ/O+8d57FLahNOWmeJlwwzNtwAyQrv6T9Tm9NagYM4wqVJmEP4VBtHb7Lq3UIrPYvqTL1zRTs24A6yfv30I7V1rtX+8scbKktohcNR6UnMATG7Kpkkuuaw2VT4qYxVsB5zPQ/rjYbh/WZVxDJoZ1Q5wVme4kw7W9huzrNYjfPUy3OWrzaPBKqLemTrAjNjRes8g4CZp49DpBJc4QPR/shiBhJFIJ7zQMB5xnb7BqZEedFX2mDv5vRIytoVMo9h3XF0s+srNrX4/TGvOAb/GRaD+Bfatg220F24oBVf/Mcuku7pLkCFbYQ9y86+QbW6BBzwDtt19kPIynoJm2DiKX4jdLHgRtGZw4Quu4uIGH/9qvzkzfLUbdMOSWIKaS7uYy45nHRggi0BfCzVi4Kv+9eL
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YTd3bXQ4RWRXTllra0d2TnJpWk5CeWZUVTNSZXhoRWZqR0JtR3ZxZi9FMDd3?=
- =?utf-8?B?T1BDSTdtdGtHOTVJb1VFREVmZlZ0eGUxQ2lDYWNuZkpWVkYwWkRabis4TGlo?=
- =?utf-8?B?QlV1RmxBazdlcXlRWXdRakZDVFd6MnRzQ090NmlUalRLWmNWYkFyeStmUkFY?=
- =?utf-8?B?UjU4VHdMS1BMbHJIZkxDQ2RnbzJFdmVnNGpzU05UYUFOMzNiV0RDS050QUVP?=
- =?utf-8?B?LzR5UmxjZU16YStSaUN1RUNOU0pUblZrd0NyOWlPWlZ4bzF4bTNRK29QYWtY?=
- =?utf-8?B?V1UwR1M5R0hWbDJ6WFM3eHBnZFExVkpWK0swaHhzUDlvQ0hxNzFreTFUeUVI?=
- =?utf-8?B?bXFPSGEyRmFabVE4WkI0RTlkSEdsczdHS3pzeFFHcTlwMXlXTnVSMHhUVDEr?=
- =?utf-8?B?ZXFiM0hWSVQ2c3hrUHp0WDMzU1BScnUzMS9LeVVyUUdvU2NWRjRQOEg2VDJB?=
- =?utf-8?B?ZWZkeTNWV0FCMEtwMU83bytkakhlY0ZQM2Jwbm5ZMzEwOXJyRzhwN000MUNI?=
- =?utf-8?B?MHYxeEUxVVJKN20wV0UrWW1TcUhNUU13SytzWHVBTW8rRkxjNEw4OGlUSXp0?=
- =?utf-8?B?ZWZhZkhwVTdBbnFTVlJFaGtEaDRtSW9MN3VvOHMzUHB2SElXVDRhbXR3UTI3?=
- =?utf-8?B?U0RCVEFOY3VzeWtrZUNrWUZYbk91T1ptVU11WWJGZ2pmOXBHSi8rSTZJaEFx?=
- =?utf-8?B?R29weVZ3NTZ1ZE9LNnUwYmhDb01tMlZ0OW5FaGJLYUt2d3BpdVBPY3c5TW5Q?=
- =?utf-8?B?UDZkZERaUXRqMjJvY08wM1RIcVdyZEJuVEMxbm5CWFVCcyt1dUNpd2k4MWUx?=
- =?utf-8?B?dFYyNk5uSnNDak9Uc0N0bkNQdjBoV0dkM2NYbnpOU2djM0NKazNVTzViS2xh?=
- =?utf-8?B?bnRWUE9xY2hDd21XWWhHYjRZOU1YVjdWRGVsVXFsYnkwM04xZlZvaWllQkI2?=
- =?utf-8?B?U3FzM005TDAwQ0NBZ1A3RUtuWkhPQlhLNEFhSzRmc1lkV0ttTTUxYllnNngy?=
- =?utf-8?B?NXVaYXBSWVBWcmxMV1hJU3dUWVdPR3BZdjI0d3BUWklOQWZlcTFiWVFuNVRr?=
- =?utf-8?B?cTlFV1k4U3J0WUFtNEFrclJnZ1lMUmcvSjBMRit3bEhYejR4aElNY2N4SnI0?=
- =?utf-8?B?Q3Y5ZnE0cnhYdFZXVjVnbzAySzRKK2k4WmhRSWdxT1UwWTZVSmtUL3djTDRG?=
- =?utf-8?B?UStDdHBhYW9OK3ZNYWk0TFMwSGQ2M1lObUp4UHBmaitjR1ZjWFl2UDhuWUNB?=
- =?utf-8?B?Zlp4YndmdVBIT1JjemJDN29GY1ByQSs4SVpsT1o1OExQREhpVWQ1U1ZiS3Ur?=
- =?utf-8?B?NWcwVE81L1pQNFV6djJ6NGNGRzNvMnZ6VnhkT21iNlptb1lYYkMrbDFQZHRr?=
- =?utf-8?B?YUF2ajk0ZWs2Yk9NdGlvRWVpemxKMm5DVFluWTloQ01XWS9jQUIvYjgrNjVY?=
- =?utf-8?B?V2IwUUNRNm1tVHpZNit1MzJ3UmhCRlZEczFaV2VuR3B3SGwyWkNtWFN5KzFm?=
- =?utf-8?B?STJUakYrVjdZcTQwSEsyZ1JUVkRyWjJhVGRWblJSdkhLZ1Y3R21SY3QxSEQx?=
- =?utf-8?B?R3JNaEMzZzRVbnl4S0xFK3NXQzdDK2hQOXpUWjhhbzJwd2o0V091blBoVG9E?=
- =?utf-8?B?cDRtSllzeW80UTJycTBKUTFkYTRCUGVKZUpackx5ZXRTaTg0NFlxeTVXditi?=
- =?utf-8?B?cnFOUUdxemlvWG5nT2ZPamdUVVJpQytyOUtMU3lObTY4aVBYa0VMa0g0R0dJ?=
- =?utf-8?B?cjNrbXdrYVVEdWNMYW95VEZtRXdlbjNiOTRqaGNEM2ZQa3JLdFVjKzBGZUk1?=
- =?utf-8?B?Y2dGUnpUcFV3OXN0VjRDd2dFaVV4WEJnY3dkN283azJDMDNRT3FkUVE5MUdW?=
- =?utf-8?B?SXpINkQ3RzB2UFhjSjVqOUZtS2tGOVhUUGZ1eDNadUtrZ01aMC84TGRxTXpu?=
- =?utf-8?B?V0wrUXQzVlNuZFFGMGIzQ0R5eEk1YWhvcFJwK09JZkRKa1B4Z3RMTGRra2Iw?=
- =?utf-8?B?Q3kyN1RSZGxXdUtrMEFFdDkwKzZFc1FyNDJ3angrdzQ4SnUwY1hsT0JPOTVF?=
- =?utf-8?B?VzBYZlZWZDlQVEo1QXhEN1pnRlh3czJCR0NWN0ZiSXJ1ejB2UVU1ZDI3Tm5Q?=
- =?utf-8?B?cm8zdFRjL2xIbXpwOEM3TlF5dVFYZE44a2w3d1lCOS94UUdlTUFUY09TWjdo?=
- =?utf-8?B?eGc1Qmxqd1ZwbUJSc1RBa2FPdDFFam5JK2M5a1k3UnErRCtwWHFBMjV1S0pY?=
- =?utf-8?B?dmxGN1BpaTgzT3RtL2w4QW9HNWt6eUsvRVZHK2xZRVJhS09KRlJ2Uk9hbExx?=
- =?utf-8?B?YzJUaWJxOTRKQnlTSVJydmQzNkNHWGg0dlRxWmU2VXBNRkxTSGsyUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f59cd91-b6e9-4eaa-6a6d-08dec8683233
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 09:51:37.9418
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o2xCShWuBPP/fR7rGN0Ko4/h0/pdqK48C1AUHGklB3navp3r9H5N+1nH8A41P6GTo3Gs/nxqfKtnI8YGLzGYxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6508
-X-purgate-ID: tlsNG-ebf023/1781257902-2BD6C3FF-348E5825/0/0
+User-Agent: Mozilla Thunderbird
+From: Thierry Escande <thierry.escande@vates.tech>
+Subject: Re: [PATCH 00/17] Q35 initial support for HVM guests
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>
+References: <20260313163455.790692-1-thierry.escande@vates.tech>
+ <afBmWSFsyrwy_Ru1@macbook.local>
+Content-Language: en-US
+In-Reply-To: <afBmWSFsyrwy_Ru1@macbook.local>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.8f.5d01169edc465011.19ebb46ddf5.470525d403f36299=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1781258444282
+X-purgate-ID: tlsNG-4011c0/1781258450-7FD788B7-8DA7A02C/0/0
 X-purgate-type: clean
-X-purgate-size: 1859
+X-purgate-size: 3905
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,amd.com,suse.com,vates.tech];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:from_mime,macbook.local:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:jason.andryuk@amd.com,m:jbeulich@suse.com,m:teddy.astie@vates.tech,m:oleskii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,m:oleskiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_MUA_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:jgross@suse.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:url,vates.tech:from_mime];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1AB206786F0
+X-Rspamd-Queue-Id: 8C803678883
 
-On Fri, Jun 12, 2026 at 10:35:59AM +0100, Andrew Cooper wrote:
-> On 12/06/2026 9:22 am, Roger Pau Monne wrote:
-> > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> > index 4192edf635b6..0253d22c349d 100644
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -2089,9 +2089,7 @@ void asmlinkage __init noreturn __start_xen(void)
-> >  
-> >      init_idle_domain();
-> >  
-> > -    this_cpu(stubs.addr) = alloc_stub_page(smp_processor_id(),
-> > -                                           &this_cpu(stubs).mfn);
-> > -    BUG_ON(!this_cpu(stubs.addr));
-> > +    init_stub();
-> 
-> While I hate to nitpick further, "stubs".  There are 4 per CPU, and I'm
-> reasonably sure we're consistently plural elsewhere.
+---=Part.8f.5d01169edc465011.19ebb46ddf5.470525d403f36299=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Funny you ask - I had it as "stubs" initially, but then realized the
-existing function is named alloc_stub_page(), and hence switched back
-to use "stub" as that seemed more inline with the existing usage.
 
-I will adjust on commit.
+On 4/28/26 09:48, Roger Pau Monn=C3=A9 wrote:
+> On Fri, Mar 13, 2026 at 04:35:01PM +0000, Thierry Escande wrote:
+>> This series introduces initial Q35 chipset support for HVM guests, base=
+d on the
+>> patchset at [1] by Alexey Gerasimenko=2E
+>>
+>> Basic support means that this patchset allows to start an HVM guest tha=
+t
+>> emulates a Q35 chipset via Qemu and implements access to PCIe extended
+>> configuration space for such devices emulated by Qemu=2E
+>>
+>> Support for PCIe device passthrough is not implemented yet=2E This is p=
+lanned but
+>> implies modifications in the hypervisor and the firmwares, mainly for t=
+he
+>> support of multiple PCI buses=2E
+>=20
+> Why do you need multi bus support to expose PCIe capabilities?  I'm
+> not seeing the relation between those two=2E  You could still expose a
+> single bus on the MCFG table=2E
 
-> Otherwise (and with Jan's grammar note in the commit message too),
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I should have explained further but the main reason is that Q35 doesn't
+support device hot-plug on its main root bus, which is how toolstacks
+are doing device pass-through=2E This needs another PCI root port to
+connect pass-through'd devices to and here begin the problems=2E The new
+root complex attached to Qemu is not seen as a secondary bus before the
+devices are hot-plugged and are simply ignored by the toolstack=2E And
+even by hacking around to get the devices plugged, Xen doesn't expose
+them to the guest because it's not on PCI bus #0=2E
+But instead of adding support for multiple PCIe buses, the solution
+could be to not use Qemu hot-plug mechanism but rather attach
+passthrough'd devices using Qemu command line option -device=2E A patchset
+as been sent the the ML for that=2E See [1]=2E
 
-Thanks, yes, that's been adjusted in the commit message.
+>=20
+>> In order to create a Q35 guest, a new domain config option has been add=
+ed,
+>> named 'device_model_machine'=2E Possible values are:
+>> - "i440" - i440 emulation (default)
+>> - "q35"  - emulate a Q35 machine
+>>
+>> If the option is omitted it defaults to "i440", not impacting existing =
+domain
+>> configuration files=2E
+>>
+>> DSDT files for Q35 and i440 are largely similar so the existing file ds=
+dt=2Easl
+>> has been split with i440 and q35 specific parts put in seperated files=
+=2E
+>>
+>> The PCIe MMCONFIG area is configured by hvmloader and its base address =
+and size
+>> are set in Xen using a new pair of hypercalls HVMOP_get|set_ecam_space=
+=2E
+>=20
+> I guess I will see how that looks like in the series, but the setting
+> of the ECAM region would better be done by the toolstack=2E  Setting it
+> in hvmloader is possibly not the best placement, because it doesn't
+> run for PVH guests (and we will want ECAM support for PVH at some
+> point), and there's also a vague plan/intention to get rid of
+> hvmloader even for HVM guests eventually=2E
 
-> One further thought, which would be for a followup patch if we decide to
-> do it.
-> 
-> We do now use UDB for bugframes.  It's also marginally better than INT3
-> because if we do ever end up finding ourselves executing it, because
-> we'll #UD on the first one, rather than try to brute force our way
-> through the #BPs printing a log message per instruction.
-> 
-> One thing I didn't check and I really need to is whether UDB has the
-> same speculation-halting properties that UD2 has.  It's not a guarantee,
-> given that the encoding is valid in other modes.
+Since hvmloader is taking care of the bars array arrangements, that
+sounds to be the most convenient place to configure the mmconfig entry=2E
+All that logic would be moved to the toolstack with the hvmloader
+removal plan=2E
 
-Hm, yes, let's see if I find some time to change it, or whether
-someone else beats me to it :).
+I tried to have the toolstack to fix the base address of the ECAM region
+but then that breaks the logic of hvmloader PCI setup for BARs
+arrangement=2E As you suggested (or Jan), we could state that the ECAM
+region must be placed first in the MMIO hole and the toolstack would
+just have to indicate that we want an ECAM region, with hvmloader
+placing it first and with the smallest possible size (as there's only 1
+bus)=2E
 
-Roger.
+Regards,
+Thierry
+
+[1]
+https://lore=2Ekernel=2Eorg/xen-devel/1776955586=2E8631fc262581453bbf619ec=
+5b2062170=2E19dbace7684000f373@vates=2Etech/
+
+Regards,
+
+
+
+-- 
+ | Vates 
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vate=
+s=2Etech
+---=Part.8f.5d01169edc465011.19ebb46ddf5.470525d403f36299=---
 
