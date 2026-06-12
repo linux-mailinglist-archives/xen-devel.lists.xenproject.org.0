@@ -2,50 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6bBCBJYnLGqBMQQAu9opvQ
+	id hZXiBK0oLGrhMQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 17:36:54 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 17:41:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB9C167A8D6
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 17:36:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E08A67A93E
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 17:41:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=TZ0erxgk;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="dNng9/MF";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1336835.1598612 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1336845.1598621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wY3vQ-00024Q-Ry; Fri, 12 Jun 2026 15:36:04 +0000
+	id 1wY40R-0003qS-DT; Fri, 12 Jun 2026 15:41:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336835.1598612; Fri, 12 Jun 2026 15:36:04 +0000
+Received: by outflank-mailman (output) from mailman id 1336845.1598621; Fri, 12 Jun 2026 15:41:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wY3vQ-000235-Ox; Fri, 12 Jun 2026 15:36:04 +0000
-Received: by outflank-mailman (input) for mailman id 1336835;
- Fri, 12 Jun 2026 15:36:03 +0000
+	id 1wY40R-0003og-AE; Fri, 12 Jun 2026 15:41:15 +0000
+Received: by outflank-mailman (input) for mailman id 1336845;
+ Fri, 12 Jun 2026 15:41:13 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <robh@kernel.org>) id 1wY3vP-00022z-NA
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 15:36:03 +0000
+ (envelope-from <bernhardkaindl7@gmail.com>) id 1wY40P-0003oY-7H
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 15:41:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wY3vO-005zJ3-RC
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 17:36:02 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wY40O-00GbRW-KV
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 17:41:12 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <robh@kernel.org>)
- id 6a2c2744-e002-0a2a0a5209dd-0a2a4502bdc4-30
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 17:36:02 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <robh@kernel.org>)
- id 6a2c2761-af86-0a2a45020019-ac6904fee266-3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 17:36:02 +0200
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E13AC600AB;
- Fri, 12 Jun 2026 15:36:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729861F000E9;
- Fri, 12 Jun 2026 15:36:00 +0000 (UTC)
+ (envelope-from <bernhardkaindl7@gmail.com>)
+ id 6a2c2893-2eae-0a2a0a5409dd-0a2a45068c16-6
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 17:41:12 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <bernhardkaindl7@gmail.com>)
+ id 6a2c2898-7371-0a2a45060019-d1558031d92e-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 17:41:12 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490b3637b90so8770505e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 08:41:12 -0700 (PDT)
+Received: from ?IPV6:2a02:1748:f7df:8cb1:8428:5f57:cb30:5fcd?
+ ([2a02:1748:f7df:8cb1:8428:5f57:cb30:5fcd])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490ea961f18sm61665845e9.2.2026.06.12.08.41.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 12 Jun 2026 08:41:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,134 +61,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1781278560;
-	bh=hQCZKxKvkDpnPl+zzZRxKvokiXAFmUYWGGAQketIbJQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TZ0erxgk7x4rAjnfq6hP+rDy7OGNmrJTKBEDD4niSSuXTpcHq9FD8wi8jjmMWuinZ
-	 Bs3G2WSUSpiomGX/o+lLWGD3jRIoIHF3zv8Rosa72QZQIAt9Rtqy8xha7XbgLLzTBd
-	 khzRwzRhKKL8MxzmjqO4xASQvbX88n7xiXRkqhSY5CluvQMrDKQRbX5CsP9pJHzFAm
-	 zoYiGWRig1AISdLfasWRpK+TH1aHxqRqGgYjynGNFQyf5rikGdcFBP73wT/sl3tt+t
-	 Uudz0Hhgcm9XMlG5x3PajSx0NjvYFx3yFXW2DO+NjC6iE3kDc/Tm93q6O7aDtRlWTq
-	 FDGQEthieY+hQ==
-Date: Fri, 12 Jun 2026 10:35:59 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Cc: Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Richard Zhu <hongxing.zhu@nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-	imx@lists.linux.dev, xen-devel@lists.xenproject.org,
-	Charan Teja Kalla <charan.kalla@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v16 0/3] of: parsing of multi #{iommu,msi}-cells in maps
-Message-ID: <20260612153559.GA1082302-robh@kernel.org>
-References: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781278872; x=1781883672; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=35ZiRbHcXFIuTMYGuABY0THVvr5nDzHFAHOY5N4BasU=;
+        b=dNng9/MFgJwjNgRq1m0nkhC7sv2gcCqj2deSWALjys9tHYscsPfLrX4B4vwG66TJRl
+         Y6lVohLnsWp77ZNPe+tGmA+y5Y8s3ZKMOTUQaeKHgMUAboi/+kuYFS1uiNkAdWbbQ2+/
+         n4542tX+9TIg8j65aWz13tM3Fheik35fhqF9RuzQmn5D1+SUIhoMJq/XSx7lNFV9xGzd
+         NxlMmaKLrQqTNlSbVgfKWoc3oIonpo/xEJr6Gl9hHcyCfCi2f5hgzruELDXM2uRgYuJb
+         +p/a9X8PzVYMOkqXXaAQrutZhc0vfl6IFCkkko7yZ8OqMYwYDfncZImIY4Ws8uWgsUs6
+         kzMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781278872; x=1781883672;
+        h=in-reply-to:from:content-language:references:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=35ZiRbHcXFIuTMYGuABY0THVvr5nDzHFAHOY5N4BasU=;
+        b=lKMGYNf2WW8ZsEBcQLNYjj09Pr89zLGVRVy/gP4ejC29AbyKe2jhI2oTMYayZd/qcw
+         qVgkAsfcVJkD/fGrRMpm5JD5/1H2y+m0trH14doWOpzlCVPOHb+R+bfAiCaJoKTbm3GT
+         H/bY/SNE0TgsxUSQBMFXYpds7aMZhystpZrhhOdJw1DY/XK2uIHfIYO8ITJQ3h99RUB7
+         Fd1D3CSviFavgl2I1HLMIf7aN9A5KzVhBTXcZy8XBCh0AhsOJMvuC6mRw33W0WB/0ZZr
+         cdQUSAnCA03ECFsaTSrvY5Y5qdmzYb1a3AnD6wWRmpYkvGesm/1F+EU/y5wtAPMy+3Nv
+         phbQ==
+X-Gm-Message-State: AOJu0Yy2ZRfoADw0u1JaxybJIWo82psAXNeOjYpFKeLL+qN/Gckl1jW+
+	2leadpQAMB81+S0Nzgu/9/sUWSVe3xLJk9tKUuVda0PV0ETra81y7yyY95VM0A==
+X-Gm-Gg: Acq92OH0ubj0Hy3dv1EhsiakaAUCqH8FEDNywVG1GCjXyyGMI+oWH1FSeR5NbFruVEr
+	GAwx09zdfSjBsy/pBzau05TlytrqH/4wPmfofMea6P1Bx47VJ1vQI1cL+pZDJ85kWUvI5Ms5tTj
+	mhJoyoDhDtj1AoJ/RAi7m5DmylkAIPVeCRV0pIoAE8OH+eJfMAckagKIheQSOgkXPIU3imVq+hh
+	n64W3llCfRmgw8M2rr7XkT9iklqH4LG7YXwcSEWNe2v+ZfeExG8+4t3Olb84qQY50s78f92WB03
+	QiuVVbFoTMzZFjz5hhd0ApIwxaF5CP71a0QO99pSf6sJRcUUkUtTCtPZqNI9yjy2JTAbA4z/tGD
+	CxBnZ8ND3PaU56wjYE2Ez87VFCSX+7nrbOL/IOgW7fX3zaZfpX0EGkpp4dcnGqxsa3nkthDVeZ9
+	mvvjw7YRm0Bf7LK/OJZLq2+PqAJ/7Q2mO6QZ9jL7zHAKKwQxKmQiLF0q1moz63gWtvr9cwRoyjQ
+	VV+PxhJ1iC8wbI=
+X-Received: by 2002:a05:600c:46c4:b0:490:e60b:5fd6 with SMTP id 5b1f17b1804b1-490ec4e7b61mr47904535e9.29.1781278871792;
+        Fri, 12 Jun 2026 08:41:11 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------LCntiB06HltbOa9A5wVnM96m"
+Message-ID: <8b51a40e-028a-42aa-a7e4-55a731ebe10e@gmail.com>
+Date: Fri, 12 Jun 2026 17:41:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
-X-purgate-ID: tlsNG-720697/1781278562-8137C161-D224DC38/0/0
+User-Agent: Thunderbird Daily
+Subject: [PATCH] x86/efi: Skip FPU save/restore for idle vCPU in EFI, runtime
+ path
+To: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>
+References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
+ <957a0fea-4099-4470-9b40-3f8b294c44dc@suse.com>
+Content-Language: en-US
+From: Bernhard Kaindl <bernhardkaindl7@gmail.com>
+In-Reply-To: <957a0fea-4099-4470-9b40-3f8b294c44dc@suse.com>
+X-purgate-ID: tlsNG-16d1c6/1781278872-85F6BD75-3F508F5F/0/0
 X-purgate-type: clean
-X-purgate-size: 2526
+X-purgate-size: 11282
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+X-Spamd-Result: default: False [-1.18 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org,oss.qualcomm.com];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:maz@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:charan.kalla@oss.qualcomm.com,m:dmitry.baryshkov@oss.qualcomm.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[robh@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jbeulich@suse.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_SENDER(0.00)[bernhardkaindl7@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[bernhardkaindl7@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AB9C167A8D6
+X-Rspamd-Queue-Id: 6E08A67A93E
 
-On Wed, Jun 03, 2026 at 12:43:11PM +0530, Vijayanand Jitta wrote:
-> So far our parsing of {iommu,msi}-map properties has always blindly
-> assumed that the output specifiers will always have exactly 1 cell.
-> This typically does happen to be the case, but is not actually enforced
-> (and the PCI msi-map binding even explicitly states support for 0 or 1
-> cells) - as a result we've now ended up with dodgy DTs out in the field
-> which depend on this behaviour to map a 1-cell specifier for a 2-cell
-> provider, despite that being bogus per the bindings themselves.
-> 
-> Since there is some potential use[1] in being able to map at least
-> single input IDs to multi-cell output specifiers (and properly support
-> 0-cell outputs as well), add support for properly parsing and using the
-> target nodes' #cells values, albeit with the unfortunate complication of
-> still having to work around expectations of the old behaviour too.
-> 							-- Robin.
-> 
-> Unlike single #{}-cell, it is complex to establish a linear relation
-> between input 'id' and output specifier for multi-cell properties, thus
-> it is always expected that len never going to be > 1.
-> 
-> These changes have been tested on QEMU for the arm64 architecture and
-> on the glymur platform [3].
-> 
-> Since, this would also need update in dt-schema, raised PR[2] for the
-> same.
-> 
-> [1] https://lore.kernel.org/all/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
-> [2] PR for iommu-map dtschema: https://github.com/devicetree-org/dt-schema/pull/184
-> [3] https://lore.kernel.org/all/20260515-glymur-v6-5-f6a99cb43a24@oss.qualcomm.com/
-> 
-> V16:
->   - Patch 2: Fix potential NULL pointer dereference in of_msi_xlate()
->     when msi_np is NULL. Guard the of_check_msi_parent() call with
->     "if (msi_np && ...)" to handle the case where the caller passes
->     NULL for msi_np, as documented. Reported by Sashiko [1].
->   - Patch 2: Fix OF node refcount leak in of_msi_map_get_device_domain():
->     np was never released after of_msi_xlate() transferred ownership.
->   - Patch 3: Default to 1-cell output specifier when the target node
->     lacks the #iommu-cells/#msi-cells property, for backward
->     compatibility with controllers that predate the property
->     (e.g. arm,gic-v2m-frame). Reported by Sashiko [1].
->   - Patch 3: Add !cells_name to the initial parameter guard in
->     of_map_id() to prevent a crash if cells_name is NULL.
->     Reported by Sashiko [1].
+This is a multi-part message in MIME format.
+--------------LCntiB06HltbOa9A5wVnM96m
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-I've applied the series, thanks.
+Hi Anthony, could you test this patch which exactly applies the changes 
+Jan suggested? Summary:
+Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+for idle vCPUs, which don't have an FPU context to save/restore,
+much like the calls are guarded in __context_switch(),
+where save/restore is done only for non-idle vCPUs.
+As these simple guards should preferably go into Xen 4.22: Please test 
+if there are any further regressions with the 'cmos-rtc-probe' 
+workaround you just added removed to check if guarding the assertions as 
+Jan suggested is enough to fix the issues triggered on your machine. 
+Thanks, Bernhard The patch to test follows: [PATCH] x86/efi: Skip FPU 
+save/restore for idle vCPU in EFI, runtime path
+Anthony reported a boot-time crash in init_xen_time() via efi_get_time()
+on a Broadwell-D system:
+   Assertion '!is_idle_vcpu(v)' failed at arch/x86/i387.c:195
+The failing path is an EFI runtime call reached early during boot,
+where current may still be the idle vCPU.
+This became fragile after the lazy-FPU removal cleanup series.
+In 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling"),
+efi_rs_enter() was changed from save_fpu_enable() to vcpu_save_fpu(curr),
+which unconditionally asserts !is_idle_vcpu(v)
+so an EFI runtime call in idle context now asserts.
+Likewise, in dba44e051209 ("x86: Remove fully_eager_fpu"),
+efi_rs_leave() was changed to call vcpu_restore_fpu(curr),
+which has the same assertion and can fail for the same reason.
+Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+for idle vCPUs, which don't have an FPU context to save/restore,
+much like the calls are guarded in __context_switch(),
+where save/restore is done only for non-idle vCPUs.
+Fixes: 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling")
+Fixes: dba44e051209 ("x86: Remove fully_eager_fpu")
+Reported-by: Anthony PERARD <anthony.perard@vates.tech>
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+---
+  xen/common/efi/runtime.c | 6 ++++--
+  1 file changed, 4 insertions(+), 2 deletions(-)
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index a23fa75e37..596f2710fb 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -98,7 +98,8 @@ struct efi_rs_state efi_rs_enter(void)
+       */
+      sync_local_execstate();
+      state.cr3 = read_cr3();
+-    vcpu_save_fpu(current);
++    if ( !is_idle_vcpu(current) )
++        vcpu_save_fpu(current);
+      asm volatile ( "fnclex; fldcw %0" :: "m" (fcw) );
+      asm volatile ( "ldmxcsr %0" :: "m" (mxcsr) );
+@@ -159,7 +160,8 @@ void efi_rs_leave(struct efi_rs_state *state)
+      }
+      irq_exit();
+      spin_unlock(&efi_rs_lock);
+-    vcpu_restore_fpu(curr);
++    if ( !is_idle_vcpu(curr) )
++        vcpu_restore_fpu(curr);
+  }
+  unsigned long efi_get_time(void)
+-- 
+2.43.0
+--- PS: The suggestion by Jan to fix this issue: On 12/06/2026 16:17, 
+Jan Beulich wrote:
+> The thinko looks to be in 4b9851c64522 ("x86: Remove fpu_initialised/fpu_dirty"):
+> While vcpu_restore_fpu() indeed unconditionally set the two boolean fields to
+> true at that point, idle vCPU-s may never make it through that function, and
+> hence ->fpu_dirtied would have remained false, triggering the (original) early
+> exit from _vcpu_save_fpu(). Perhaps all we can do now is guard the call to
+> vcpu_save_fpu() (and also the one to vcpu_restore_fpu() out of efi_rs_leave())
+> by explicit is_idle_vcpu() checks. Much like the calls are guarded in
+> __context_switch().
+>
+> Jan
+--------------LCntiB06HltbOa9A5wVnM96m
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Rob
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div
+style="color: #000000;background-color: #ffffff;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><span
+    style="color: #000000;">Hi Anthony,
+
+</span>could you test this patch which exactly applies the changes Jan suggested?
+
+Summary:
+
+<div><span style="color: #000000;">Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore</span></div><div><span
+    style="color: #000000;">for idle vCPUs, which don't have an FPU context to save/restore,</span></div><div><span
+    style="color: #000000;">much like the calls are guarded in __context_switch(),</span></div><div><span
+    style="color: #000000;">where save/restore is done only for non-idle vCPUs.</span></div>
+As these simple guards should preferably go into Xen 4.22:
+
+Please test if there are any further regressions with
+<span style="white-space: pre-wrap">the 'cmos-rtc-probe' </span>workaround you just added removed
+to check if guarding the assertions as Jan suggested is enough
+to fix the issues triggered on your machine.
+
+Thanks,
+
+ Bernhard
+
+The patch to test follows:
+
+[PATCH] x86/efi: Skip FPU save/restore for idle vCPU in EFI, runtime path
+
+<div><span style="color: #000000;">Anthony reported a boot-time crash in init_xen_time() via efi_get_time()</span></div><div><span
+    style="color: #000000;">on a Broadwell-D system:</span></div>
+<div><span style="color: #000000;">  Assertion '!is_idle_vcpu(v)' failed at arch/x86/i387.c:195</span></div>
+<div><span style="color: #000000;">The failing path is an EFI runtime call reached early during boot,</span></div><div><span
+    style="color: #000000;">where current may still be the idle vCPU.</span></div>
+<div><span style="color: #000000;">This became fragile after the lazy-FPU removal cleanup series.</span></div>
+<div><span style="color: #000000;">In 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling"),</span></div><div><span
+    style="color: #000000;">efi_rs_enter() was changed from save_fpu_enable() to vcpu_save_fpu(curr),</span></div><div><span
+    style="color: #000000;">which unconditionally asserts !is_idle_vcpu(v)</span></div><div><span
+    style="color: #000000;">so an EFI runtime call in idle context now asserts.</span></div>
+<div><span style="color: #000000;">Likewise, in dba44e051209 ("x86: Remove fully_eager_fpu"),</span></div><div><span
+    style="color: #000000;">efi_rs_leave() was changed to call vcpu_restore_fpu(curr),</span></div><div><span
+    style="color: #000000;">which has the same assertion and can fail for the same reason.</span></div>
+<div><span style="color: #000000;">Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore</span></div><div><span
+    style="color: #000000;">for idle vCPUs, which don't have an FPU context to save/restore,</span></div><div><span
+    style="color: #000000;">much like the calls are guarded in __context_switch(),</span></div><div><span
+    style="color: #000000;">where save/restore is done only for non-idle vCPUs.</span></div>
+<div><span style="color: #000000;">Fixes: 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling")</span></div><div><span
+    style="color: #000000;">Fixes: dba44e051209 ("x86: Remove fully_eager_fpu")</span></div><div><span
+    style="color: #000000;">Reported-by: Anthony PERARD <a class="moz-txt-link-rfc2396E" href="mailto:anthony.perard@vates.tech">&lt;anthony.perard@vates.tech&gt;</a></span></div><div><span
+    style="color: #000000;">Suggested-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></span></div><div><span
+    style="color: #000000;">Signed-off-by: Bernhard Kaindl <a class="moz-txt-link-rfc2396E" href="mailto:bernhard.kaindl@citrix.com">&lt;bernhard.kaindl@citrix.com&gt;</a></span></div><div><span
+    style="color: #000000;">---</span></div><div><span
+    style="color: #000000;"> xen/common/efi/runtime.c | 6 ++++--</span></div><div><span
+    style="color: #000000;"> 1 file changed, 4 insertions(+), 2 deletions(-)</span></div>
+<div><span style="color: #000080;">diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c</span></div><div><span
+    style="color: #000000;">index a23fa75e37..596f2710fb 100644</span></div><div><span
+    style="color: #000080;">--- a/xen/common/efi/runtime.c</span></div><div><span
+    style="color: #000080;">+++ b/xen/common/efi/runtime.c</span></div><div><span
+    style="color: #000000;">@@ -98,7 +98,8 @@ struct efi_rs_state efi_rs_enter(void)</span></div><div><span
+    style="color: #000000;">      */</span></div><div><span
+    style="color: #000000;">     sync_local_execstate();</span></div><div><span
+    style="color: #000000;">     state.cr3 = read_cr3();</span></div><div><span
+    style="color: #a31515;">-    vcpu_save_fpu(current);</span></div><div><span
+    style="color: #098658;">+    if ( !is_idle_vcpu(current) )</span></div><div><span
+    style="color: #098658;">+        vcpu_save_fpu(current);</span></div><div><span
+    style="color: #000000;">     asm volatile ( "fnclex; fldcw %0" :: "m" (fcw) );</span></div><div><span
+    style="color: #000000;">     asm volatile ( "ldmxcsr %0" :: "m" (mxcsr) );</span></div><div><span
+    style="color: #000000;"> </span></div><div><span
+    style="color: #000000;">@@ -159,7 +160,8 @@ void efi_rs_leave(struct efi_rs_state *state)</span></div><div><span
+    style="color: #000000;">     }</span></div><div><span
+    style="color: #000000;">     irq_exit();</span></div><div><span
+    style="color: #000000;">     spin_unlock(&amp;efi_rs_lock);</span></div><div><span
+    style="color: #a31515;">-    vcpu_restore_fpu(curr);</span></div><div><span
+    style="color: #098658;">+    if ( !is_idle_vcpu(curr) )</span></div><div><span
+    style="color: #098658;">+        vcpu_restore_fpu(curr);</span></div><div><span
+    style="color: #000000;"> }</span></div><div><span
+    style="color: #000000;"> </span></div><div><span
+    style="color: #000000;"> unsigned long efi_get_time(void)</span></div><div><span
+    style="color: #a31515;">-- </span></div><div><span
+    style="color: #000000;">2.43.0</span></div><span
+    style="white-space: normal">
+---
+PS: The suggestion by Jan to fix this issue:
+
+On 12/06/2026 16:17, Jan Beulich wrote:</span></div>
+    <blockquote type="cite"
+      cite="mid:957a0fea-4099-4470-9b40-3f8b294c44dc@suse.com">
+      <pre wrap="" class="moz-quote-pre">The thinko looks to be in 4b9851c64522 ("x86: Remove fpu_initialised/fpu_dirty"):
+While vcpu_restore_fpu() indeed unconditionally set the two boolean fields to
+true at that point, idle vCPU-s may never make it through that function, and
+hence -&gt;fpu_dirtied would have remained false, triggering the (original) early
+exit from _vcpu_save_fpu(). Perhaps all we can do now is guard the call to
+vcpu_save_fpu() (and also the one to vcpu_restore_fpu() out of efi_rs_leave())
+by explicit is_idle_vcpu() checks. Much like the calls are guarded in
+__context_switch().
+
+Jan</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------LCntiB06HltbOa9A5wVnM96m--
 
