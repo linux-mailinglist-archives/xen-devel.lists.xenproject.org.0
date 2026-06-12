@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id EA7+OR7ZK2pWGQQAu9opvQ
+	id JIC3NSHZK2pbGQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:02:06 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:02:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 322906788EE
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:02:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881D66788F7
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 12:02:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b="jbQwmb9/";
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=pn+pj8Te;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1336506.1598362 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1336509.1598371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXyi5-0006Kl-Bv; Fri, 12 Jun 2026 10:01:57 +0000
+	id 1wXyi6-0006bz-Ib; Fri, 12 Jun 2026 10:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336506.1598362; Fri, 12 Jun 2026 10:01:57 +0000
+Received: by outflank-mailman (output) from mailman id 1336509.1598371; Fri, 12 Jun 2026 10:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXyi5-0006Hp-6A; Fri, 12 Jun 2026 10:01:57 +0000
-Received: by outflank-mailman (input) for mailman id 1336506;
- Fri, 12 Jun 2026 10:01:55 +0000
+	id 1wXyi6-0006YS-Ed; Fri, 12 Jun 2026 10:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 1336509;
+ Fri, 12 Jun 2026 10:01:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47e1bc000701b@swg.vates.tech>)
- id 1wXyi3-0005wL-O8
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 10:01:55 +0000
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47f3b1000701b@swg.vates.tech>)
+ id 1wXyi4-0006Es-U1
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 10:01:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXyi3-00D9qT-4g
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 12:01:55 +0200
+ id 1wXyi4-00D9qT-AB
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 12:01:56 +0200
 Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47e1bc000701b@swg.vates.tech>)
- id 6a2bd90b-5cb7-0a2a0a5109dd-0a2a4504a10a-24
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:01:55 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47f3b1000701b@swg.vates.tech>)
+ id 6a2bd90b-5cb7-0a2a0a5109dd-0a2a4504a10a-28
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:01:56 +0200
 Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47e1bc000701b@swg.vates.tech>)
- id 6a2bd910-1dec-0a2a45040019-b9ff1c12b34f-4
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:01:55 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb47f3b1000701b@swg.vates.tech>)
+ id 6a2bd910-1dec-0a2a45040019-b9ff1c12b34f-5
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 12:01:56 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
  by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19ebb47e1bc000701b.005 for <xen-devel@lists.xenproject.org>
+ 19ebb47f3b1000701b.004 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 12 Jun 2026 10:01:50 +0000
+ Fri, 12 Jun 2026 10:01:55 +0000
 Received: from [192.168.1.200] (lfbn-mon-1-1130-120.w90-48.abo.wanadoo.fr
  [90.48.233.120]) (Authenticated sender: thierry.escande)
- by mail2.vates.fr (Postfix) with ESMTPSA id 37BA28617A;
- Fri, 12 Jun 2026 12:01:50 +0200 (CEST)
+ by mail2.vates.fr (Postfix) with ESMTPSA id A88F386509;
+ Fri, 12 Jun 2026 12:01:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,191 +66,263 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=wo38Wb4mhnf9Pj4GWkNkBAFqvtrLKZaAKnM+mE1EOg8=;
+ q=dns/txt; s=selector1; bh=vvYWXAhDfi/K43ZJ3M5MXl0m5lIQeCMCqJFFe7ErX2k=;
  h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=jbQwmb9/dqeVvLT4Wwa6LXm0R5xxLhrjQbG+sTV6SJjePEgC8IaGVjbgCBqqEQFmnN+nfxGNT
- KGalCYfj/6pCSAGEjJcmuxWdahODVudcbT059UYcl6v/2hepiL9yhU0x40ZqIgKv5NnukpbWsMl
- y6KJwh7nQtZeWV5ywaf828O1bR/ycHu01se0ZdnNOXto//P+dK38Jd5CWDmAnauFSsEtm5T2/lK
- HLxW3aCpC6Z+8zp3PGUZHr4HhaSEAH5NB+PQMFsfZEieXr6FMSVvV2aYxYwU7D2TcYNeVBZHyC9
- KuIc/Csuv6QZ2KqS6toDFPA9uElmaPDE0l2ztwV85Zrg==
-X-Zone-Loop: ceb447816a2f9dc5c9801313aca56b1d1b75bb633db1
+ b=pn+pj8Teq2OSAPXl+7Ox4luXFDrmY7p0earYTDjgvH5vQgo9LqIRuvuqwBDUsVF4GKjPXMbbr
+ NzjzWVzJkn43lP623wsdKuXbWlLH2HNH+Ipl9g39dDuxQp8CT9xdX2oDzt5kzeCxesazKN3/MgB
+ I/zwm1Dw87nGZiP8odNGENmaeEpBcPtEfqtw2yejxIISBeXC9WaWva2lJmo2bcK+klmxlhFUyeB
+ r5St88HmCIaOrgba7dc9vZQ7j3FhTcm8cset2xgbe5wvfxXXQQ9xJvYltjNZllU9SaRnQFEU3MS
+ 0x0oiXu41e41/vzYibNIBZt8OrZrSyIdesk3kh8QRFUA==
+X-Zone-Loop: a50bc79f334c8345876e5ea4354e00800b8855f5c96b
 x-campaign-type: default
-x-transaction-id: 5b8f2ec4-e29a-421c-bf03-cffa32e3ad69
-x-swg-uid: 01-54f2050a-e2d9-41e6-952b-2387ef95cb3b
+x-transaction-id: 9d9368f4-7e90-4035-b1ea-90324fbbca58
+x-swg-uid: 01-1b48acef-94ab-41bb-8ed6-07de46ad6fc7
 X-Mailer: Sweego
 Message-ID:
- <1781258510.8631fc262581453bbf619ec5b2062170.19ebb47e1bc000701b@vates.tech>
-x-swg-bid: 1781258510.8631fc262581453bbf619ec5b2062170.19ebb47e1bc000701b
+ <1781258515.8631fc262581453bbf619ec5b2062170.19ebb47f3b1000701b@vates.tech>
+x-swg-bid: 1781258515.8631fc262581453bbf619ec5b2062170.19ebb47f3b1000701b
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
 X-Originating-IP: [37.26.189.201]
-Date: Fri, 12 Jun 2026 12:01:50 +0200
+Date: Fri, 12 Jun 2026 12:01:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Thierry Escande <thierry.escande@vates.tech>
-Subject: Re: [PATCH 09/17] xev/hvm: Add HVMOP_get|set_ecam_space hypercalls
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH 11/17] hvmloader: allocate MMCONFIG area in the MMIO hole
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ Alexey Gerasimenko <x1917x@gmail.com>
 References: <20260313163455.790692-1-thierry.escande@vates.tech>
- <20260313163455.790692-10-thierry.escande@vates.tech>
- <df1aff17-1fb1-4ae3-995f-944a1750659b@suse.com>
+ <20260313163455.790692-12-thierry.escande@vates.tech>
+ <afHPdxc72FDGnQoq@macbook.local>
 Content-Language: en-US
-In-Reply-To: <df1aff17-1fb1-4ae3-995f-944a1750659b@suse.com>
+In-Reply-To: <afHPdxc72FDGnQoq@macbook.local>
 X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.a4.af6c48b767941662.19ebb47e040.c82bf858b273b1fe=-"
+Content-Type: multipart/alternative; boundary="-=Part.a5.41b66890c2b53957.19ebb47f22e.2eb5fe2545d91601=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1781258510400
-X-purgate-ID: tlsNG-ebf023/1781258515-4217E3FF-67CC86B2/0/0
+X-Bm-Transport-Timestamp: 1781258514990
+X-purgate-ID: tlsNG-ebf023/1781258516-435683FF-DA1B4582/0/0
 X-purgate-type: clean
-X-purgate-size: 3429
+X-purgate-size: 7017
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	MIME_MA_MISSING_HTML(1.00)[];
 	URI_COUNT_ODD(1.00)[1];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_MUA_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_MUA_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:x1917x@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
+	RCPT_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,suse.com,citrix.com,vates.tech,gmail.com];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 322906788EE
+X-Rspamd-Queue-Id: 881D66788F7
 
----=Part.a4.af6c48b767941662.19ebb47e040.c82bf858b273b1fe=-
+---=Part.a5.41b66890c2b53957.19ebb47f22e.2eb5fe2545d91601=-
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 
-On 5/4/26 17:12, Jan Beulich wrote:
-> On 13=2E03=2E2026 17:35, Thierry Escande wrote:
->> This patch adds 2 HVMOP hypercalls, HVMOP_get|set_ecam_space, used to
->> set and get the base address and size of the PCIe ECAM space as
->> configured by hvmloader=2E
+On 4/29/26 11:29, Roger Pau Monn=C3=A9 wrote:
+> On Fri, Mar 13, 2026 at 04:35:04PM +0000, Thierry Escande wrote:
+>> The actual MMCONFIG size depends on the number of PCI buses available
+>> which should be covered by ECAM=2E Possible options are 64MB, 128MB and
+>> 256MB=2E
+>=20
+> Are such values inherited from the real q35 impleemntation?
+>=20
+> AFAICT the ACPI MCFG spec notes:
+>=20
+> "The size of the memory mapped configuration region is indicated by
+> the start and end bus number fields in the Memory mapped Enhanced
+> configuration space base address allocation structure as shown in
+> Table 4-3=2E 0-255 is the range of allowed bus numbers supported for a
+> given PCI Segment Group=2E"
+>=20
+> So it's in principle possible to specify a MCFG that covers a single
+> bus, and then it would have a size of 256 * 4K =3D 1M=2E  Which avoids
+> wasting 63M of MMIO space in the low MMIO hole that's already fairly
+> tight on space=2E
+>=20
+> Is this limitation possibly inherited from the way the ECAM region
+> position and size must be notified to the chipset?
+>=20
+> And further seeing the code below - I found the answer myself, it's
+> because the chipset only supports negotiation those ECAM sizes=2E  We
+> could possibly expose a smaller region in MCFG, but doesn't seem like
+> a good move=2E
+
+Yes indeed, it's a waste of space in MMIO hole=2E Maybe it's ok to only
+allocate the 1MB needed for 1 bus since there would be no reason for a
+guest to access passed the 1st MB=2E I can give it a try but that's
+possibly risky=2E=2E=2E
+
+>=20
+>> As Xen is limited to the bus 0 currently, the lowest possible
+>> setting is used (64MB), defined via PCI_MAX_MCFG_BUSES in
+>> hvmloader/config=2Eh=2E When multiple PCI buses support for Xen will be
+>> implemented, PCI_MAX_MCFG_BUSES may be replaced by a calculation of the
+>> number of buses according to PCI devices enumeration=2E
 >>
+>> The MMCONFIG entry is inserted into bars array in the same manner like
+>> for any other BARs=2E In this case, the devfn field will point to MCH P=
+CI
+>> device and bar_reg will contain PCIEXBAR register offset=2E It will be
+>> assigned a slot in the MMIO hole later in a very same way like for plai=
+n
+>> PCI BARs, with respect to its size and alignment=2E At this point, the
+>> actual base address and size of the ECAM space are passed to Xen using
+>> the HVMOP_set_ecam_space hypercall=2E
+>>
+>> Signed-off-by: Alexey Gerasimenko <x1917x@gmail=2Ecom>
 >> Signed-off-by: Thierry Escande <thierry=2Eescande@vates=2Etech>
->=20
-> Just in case we want to stick to these (see Roger's earlier comments
-> throughout the series), a few remarks here:
->=20
->> --- a/xen/arch/x86/hvm/hvm=2Ec
->> +++ b/xen/arch/x86/hvm/hvm=2Ec
->> @@ -5195,6 +5195,58 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDL=
-E_PARAM(void) arg)
->>          rc =3D current->hcall_compat ? compat_altp2m_op(arg) : do_altp=
-2m_op(arg);
->>          break;
+>> ---
+>>  tools/firmware/hvmloader/config=2Eh   |  4 +++
+>>  tools/firmware/hvmloader/pci=2Ec      | 55 +++++++++++++++++++++++++++=
+++
+>>  tools/firmware/hvmloader/pci_regs=2Eh |  7 ++++
+>>  3 files changed, 66 insertions(+)
+>>
+>> diff --git a/tools/firmware/hvmloader/config=2Eh b/tools/firmware/hvmlo=
+ader/config=2Eh
+>> index baaed91c7f=2E=2Eaa3158bca5 100644
+>> --- a/tools/firmware/hvmloader/config=2Eh
+>> +++ b/tools/firmware/hvmloader/config=2Eh
+>> @@ -55,6 +55,10 @@ extern uint32_t *cpu_to_apicid;
+>>  #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
+>>  #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connec=
+ted */
+>>  #define PCI_ICH9_LPC_DEVFN  0xf8    /* dev 31, fn 0 */
+>> +#define PCI_MCH_DEVFN       0       /* bus 0, dev 0, func 0 */
+>> +
+>> +/* possible values are: 64, 128, 256 */
+>> +#define PCI_MAX_MCFG_BUSES  64
 >> =20
->> +    case HVMOP_set_ecam_space: {
->> +        xen_hvm_ecam_space_t ecam;
->> +        struct domain *d;
+>>  #define ACPI_TIS_HDR_ADDRESS 0xFED40F00UL
+>> =20
+>> diff --git a/tools/firmware/hvmloader/pci=2Ec b/tools/firmware/hvmloade=
+r/pci=2Ec
+>> index 6e6720adae=2E=2E54c23ffdd8 100644
+>> --- a/tools/firmware/hvmloader/pci=2Ec
+>> +++ b/tools/firmware/hvmloader/pci=2Ec
+>> @@ -413,6 +413,58 @@ void pci_setup(void)
+>>          pci_devfn_decode_type[devfn] |=3D PCI_COMMAND_MASTER;
+>>      }
+>> =20
+>> +    /*
+>> +     *  Calculate MMCONFIG area size and squeeze it into the bars arra=
+y
+>> +     *  for assigning a slot in the MMIO hole
+>> +     */
+>> +    if ( is_running_on_q35 )
+>> +    {
+>> +        /* disable PCIEXBAR decoding for now */
+>> +        pci_writel(PCI_MCH_DEVFN, PCI_MCH_PCIEXBAR, 0);
+>> +        pci_writel(PCI_MCH_DEVFN, PCI_MCH_PCIEXBAR + 4, 0);
 >> +
->> +        if ( copy_from_guest( &ecam, guest_handle_cast(arg, xen_hvm_ec=
-am_space_t), 1 ) )
->> +            return -EFAULT;
+>> +        switch ( PCI_MAX_MCFG_BUSES )
+>> +        {
+>> +        case 64:
+>> +            bar_data =3D PCIEXBAR_64_BUSES | PCIEXBAR_ENABLE;
+>> +            bar_sz =3D MB(64);
+>> +            break;
 >> +
->> +        d =3D rcu_lock_domain_by_any_id(ecam=2Edomid);
->> +        if ( d =3D=3D NULL )
->> +            return -ESRCH;
+>> +        case 128:
+>> +            bar_data =3D PCIEXBAR_128_BUSES | PCIEXBAR_ENABLE;
+>> +            bar_sz =3D MB(128);
+>> +            break;
 >> +
->> +        if ( d->arch=2Eecam_addr ) {
->> +            rcu_unlock_domain(d);
->> +            return -EFAULT;
+>> +        case 256:
+>> +            bar_data =3D PCIEXBAR_256_BUSES | PCIEXBAR_ENABLE;
+>> +            bar_sz =3D MB(256);
+>> +            break;
+>> +
+>> +        default:
+>> +            /* unsupported number of buses specified */
+>> +            BUG();
 >> +        }
 >> +
->> +        if ( (ecam=2Esize >> 28) || (!ecam=2Eaddr) ) {
->> +            rcu_unlock_domain(d);
->> +            return -EINVAL;
->> +        }
+>> +        addr_mask =3D ~(bar_sz - 1);
 >> +
->> +        d->arch=2Eecam_addr =3D ecam=2Eaddr;
->> +        d->arch=2Eecam_size =3D ecam=2Esize;
+>> +        for ( i =3D 0; i < nr_bars; i++ )
+>> +            if ( bars[i]=2Ebar_sz < bar_sz )
+>> +                break;
+>> +
+>> +        if ( i !=3D nr_bars )
+>> +            memmove(&bars[i+1], &bars[i], (nr_bars-i) * sizeof(*bars))=
+;
+>> +
+>> +        bars[i]=2Eis_mem    =3D 1;
+>> +        bars[i]=2Edevfn     =3D PCI_MCH_DEVFN;
+>> +        bars[i]=2Ebar_reg   =3D PCI_MCH_PCIEXBAR;
+>> +        bars[i]=2Ebar_sz    =3D bar_sz;
+>> +        bars[i]=2Eaddr_mask =3D addr_mask;
+>> +        bars[i]=2Ebar_data  =3D bar_data;
+>> +
+>> +        mmio_total +=3D bar_sz;
+>> +        nr_bars++;
+>> +    }
 >=20
-> Shorter (and easier to follow as well as less error prone as to the
-> rcu_unlock_domain())
->=20
->         if ( d->arch=2Eecam_addr )
->             rc =3D -E=2E=2E=2E;
->         else if ( (ecam=2Esize >> 28) || !ecam=2Eaddr )
->             rc =3D -EINVAL;
->         else
->         {
->             d->arch=2Eecam_addr =3D ecam=2Eaddr;
->             d->arch=2Eecam_size =3D ecam=2Esize;
->         }
->=20
-> all utilizing =2E=2E=2E
->=20
->> +        rcu_unlock_domain(d);
->=20
-> =2E=2E=2E this=2E
+> I think it might be best if the ECAM fake BAR is the first element in
+> the bars array, so we ensure it's the first item to consume memory
+> from the low MMIO hole=2E  Not sure how that will work with the current
+> sorting of the resources based on their size, but it's imperative for
+> hvmloader to attempt to position ECAM ahead of the other device
+> resources IMO=2E
 
-Will rework that part=2E
+With a size of 64MB it's always placed first from what I can tell=2E I
+don't get why it is imperative=2E Would it be to make sure that it is
+actually allocated in the first 4GB?
 
 >=20
-> The magic 28 also needs (a) explaining and/or (b) abstracting (a
-> suitably named #define might address both)=2E
->=20
->> --- a/xen/include/public/hvm/hvm_op=2Eh
->> +++ b/xen/include/public/hvm/hvm_op=2Eh
->> @@ -166,6 +166,17 @@ struct xen_hvm_get_mem_type {
->>  typedef struct xen_hvm_get_mem_type xen_hvm_get_mem_type_t;
->>  DEFINE_XEN_GUEST_HANDLE(xen_hvm_get_mem_type_t);
+>> +
+>>      if ( mmio_hole_size )
+>>      {
+>>          uint64_t max_ram_below_4g =3D GB(4) - mmio_hole_size;
+>> @@ -592,6 +644,9 @@ void pci_setup(void)
+>>              }
+>>          }
 >> =20
->> +#define HVMOP_set_ecam_space    16
->> +#define HVMOP_get_ecam_space    17
->> +struct xen_hvm_ecam_space {
->> +    domid_t  domid;
->> +    uint16_t pad[3]; /* align next field on 8-byte boundary */
+>> +        if ( bar_reg =3D=3D PCI_MCH_PCIEXBAR )
+>> +            hvm_set_ecam_space(base, bar_sz);
 >=20
-> The comment, as is, is wrong for 32-bit HVM guests: There =2E=2E=2E
->=20
->> +    uint64_t addr;
->=20
-> =2E=2E=2E this is only 4-byte aligned, and hence the entire structure on=
-ly
-> has 4-byte alignment, and hence the padding also only guarantees 4-
-> byte alignment=2E
+> As noted in a previous patch, it would be better if it's QEMU (as part
+> of handling the PCI_MCH_PCIEXBAR writes) that notifies Xen of the ECAM
+> window placement=2E
 
-Right=2E Roger proposal fixes it:
-    domid_t  domid;
-    uint16_t pad;
-    uint32_t size
-    uint64_t addr;
+Yes, as mentioned earlier I can do it that way=2E
 
 Regards,
-
 
 
 -- 
@@ -260,5 +332,5 @@ XCP-ng & Xen Orchestra - Vat=
 es solutions
 
 web: https://vates=2Etech
----=Part.a4.af6c48b767941662.19ebb47e040.c82bf858b273b1fe=---
+---=Part.a5.41b66890c2b53957.19ebb47f22e.2eb5fe2545d91601=---
 
