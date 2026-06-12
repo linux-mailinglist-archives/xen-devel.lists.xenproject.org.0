@@ -2,53 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 4k6oBfS3K2qCCwQAu9opvQ
+	id PMkmGPK4K2owDAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 09:40:36 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 09:44:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E1E677541
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 09:40:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCB86775D2
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 09:44:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=OX7aH53X;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=emPi52V6;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1336372.1598146 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1336379.1598155 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXwUp-0001EP-Pl; Fri, 12 Jun 2026 07:40:07 +0000
+	id 1wXwZC-0001mz-AN; Fri, 12 Jun 2026 07:44:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336372.1598146; Fri, 12 Jun 2026 07:40:07 +0000
+Received: by outflank-mailman (output) from mailman id 1336379.1598155; Fri, 12 Jun 2026 07:44:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXwUp-0001CH-Mw; Fri, 12 Jun 2026 07:40:07 +0000
-Received: by outflank-mailman (input) for mailman id 1336372;
- Fri, 12 Jun 2026 07:40:06 +0000
+	id 1wXwZC-0001kD-7e; Fri, 12 Jun 2026 07:44:38 +0000
+Received: by outflank-mailman (input) for mailman id 1336379;
+ Fri, 12 Jun 2026 07:44:36 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wXwUo-00010f-Nt
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 07:40:06 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wXwZA-0001k7-9o
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 07:44:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXwUn-009FHE-LJ
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 09:40:05 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wXwZ9-009GUr-MX
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 09:44:35 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2bb7d4-2eae-0a2a0a5409dd-0a2a4506d842-6
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 09:40:05 +0200
-Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a2bb7d5-7371-0a2a45060019-d155dd29dc0f-3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 09:40:05 +0200
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-45ef189aa1cso469308f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 00:40:05 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f2c473bsm3382786f8f.28.2026.06.12.00.40.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jun 2026 00:40:04 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a2bb8e2-e002-0a2a0a5209dd-0a2a4501c0b6-2
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 09:44:35 +0200
+Received: from [40.93.196.48]
+ (helo=SA9PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a2bb8e1-c1f2-0a2a45010019-285dc430e613-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 09:44:35 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by BLAPR03MB5570.namprd03.prod.outlook.com (2603:10b6:208:29d::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.13; Fri, 12 Jun
+ 2026 07:44:32 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.014; Fri, 12 Jun 2026
+ 07:44:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,164 +63,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781250005; x=1781854805; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+O3RkmyDQeBLNuDIkuMzAodYtE/+FJRWK666X3VWg2w=;
-        b=OX7aH53Xf17UjhDi2NrCJMo3vwKbFEAc+OdsYOiJMBkhA6cBmnGkZjbe/qM/bNSVHP
-         f5q72E1QKtdA/IRxNheR7aRU5Ow4Gdgy0BCTdfPaoTI2900iOVLooeH+NbZLbB2rr+Xn
-         8Qy5gqrqpnRN6rEtZTnscJYM7s1Xs6tDV+oErMba160mzceyR73vpLRux6dwOdxTsyY2
-         02SOkDWhyPYUHVsSip883OKNlf2ONABu+6GFMHhktiNeP4xUIBbAm5agLgNiDXIFga+W
-         l/dSBROQlsKfjJVkiPxOTrmUFoWJOb3Z2y5YDEYd3hnEl5JMKc6KAX8dx4Jb45Reiy7o
-         ifgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781250005; x=1781854805;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+O3RkmyDQeBLNuDIkuMzAodYtE/+FJRWK666X3VWg2w=;
-        b=VJM4pN4T3y0zuHAOZ5lX/Ie9GOcwNKE8UnNHYFeJwWH6PmFo7xxYEyP4HPtKPJdBUI
-         89Z2mvpTT8ny66+q4IWeuG0NzS2C7LlTW1lAmLMrfzzpbuAbPbRVZeUr4J1SlG2agBOW
-         vhs5QyM9XyCKWXfbDCQHJqQihxr8LqdCsd2mliDOQ0nNGnyjX38B6IJww9TvgqUrcop4
-         4AYL84FlbFfGM/6h2ZegaawbbLhrCiJciDCxPs+rD2oBO7D7aH0RnTpbp7KixBRRqd7L
-         ux3yJxBVytyMJeyWVZvV6izkk4McdvOJoOVy7F5ia6V3nrXYKZ2iS3VB/3tu3nWK8sUp
-         lfbA==
-X-Forwarded-Encrypted: i=1; AFNElJ/2TRUzDrERa8zp4Z+bKtd4H3WCSI820zJsaQUSrTb0FB+M6uDKJVXxBLT9+LkPm+Pka01GR7z6E8E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy63HsZIlNM3zzP/HTnxYSDKscwnSRhQ7cuARWejIFLtCtYr6Kk
-	8bU8jz6I6bLoWm1Syt2gXafYFTRNEbTXYBq3pTiJBStCHI37zCDzmJQswW7F+b7jeg==
-X-Gm-Gg: Acq92OHqGLkJfKPNHAISkdeuOB2Bm0Bcx8bhxB1YNJ6BW4sLt//OgpfEWcDfHEn8xnl
-	ChPOe/BOrK9R5IeXxeva4kZq7iA1rUs2bDlyOd5AwxJXcW6nN5j0Yjm4ao+Ee+z+zlBri6Rs+3h
-	VNs5i/hLjIXkfWm4cNc9fFgu74DaDT6s62KJZzpeG1VLoGVTdITrP/sZZ7Pm7mfGZZl7p/pvMOl
-	jj+0Y22gzvVTsvetxhVBxNAYUQkfP4xrMuOw5l8MT4YCN87xe9ym0lqimAYkFNpOhD0vLPNMJRS
-	29wixwyIQbktFiWJbfQMMKOWge2lQTheZ/eLrmSj3aPFEtsgsocN3vOu6MJHzFpLXGWZKnUADD7
-	4yZ/yCPlqNMw324TAHZqix/6JkG3TGsH9nMnUz9xmR20Lq7Ho+yPhsesriUI+gOS0uFlwfwUmNZ
-	+rzXVWiNsr7qlHN8S/vtQ0JBXPT3RUh9vr4cncA68pw+/inq2M2J+U6p0i7XmE1HawSz5zuBhkq
-	cHkwbduN5nXLOM=
-X-Received: by 2002:a05:6000:2903:b0:45e:fa7b:a7cf with SMTP id ffacd0b85a97d-4606da57cacmr2220551f8f.2.1781250004938;
-        Fri, 12 Jun 2026 00:40:04 -0700 (PDT)
-Message-ID: <0a2e670e-432b-4297-8166-42a1bace6659@suse.com>
-Date: Fri, 12 Jun 2026 09:40:03 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22 v2] xen/x86: Change stub page allocation/free
-To: Roger Pau Monne <roger.pau@citrix.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JA76dbQ79mY/yJA6ycckWAt6saxhb7b9IqTOvi9+321UZG5gG1HUoRqDaEmUFqAisusBw7th+275+RWSV4A7I4cpY51Me6CQ2ycNMlclNaUeCipiPmspyK2oXbXZAwgDWV5sro66+Muxeo9Y1JJwAFUtHKdogBDIeVDlBwm10dff2SZJYRnN3vN9xO7vCVVzw0hH9lBMOySm3Wf5Sedh5ovtDiLA8kycF2pvQH44/FQfT1sjNOG2/wJWonE0pIIJp23jttDAXQnhAEXbA9MChC9pdq6AwqH3KXVYC7zywDsvYKRgdxXw6m0V0aOdyUyP03htkwZMqOApCf7sh3VPAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cMHCHFothwqvXToNggJKNvceNejLS4zazL1dXsDL2I4=;
+ b=p34Afm+F+cTlR3EXYSKq03u6h/R8EE+RZoFv1JZJ7tZyuHqkfyfMvCfHevceEXwIKWrzJhtXtEzepPMst4Soe+cmzZ+5X+w6ve9HWo6dKqb2um+GvOBdR/E7AkbbCKc8wtQgL84UEGYdwMlomTjiq06NTl+Uv29KgbxUCHf2Ie8CVrQ+cgrSHyII9Xpze/bSHtup/405EhgMwLu4yXLLVpu6eYRB5LKl7qGB/y+xTPRBuH+JLAZPoGkNcVGSC+/8KWp9BqnYl7gkG5p/XjVX/IzJctZNJZN0+QuKba9Y+5JcIGEeWdbjvunojzgNO1pdoOe7/Z+Z8I2gsainhTEhTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cMHCHFothwqvXToNggJKNvceNejLS4zazL1dXsDL2I4=;
+ b=emPi52V6pRa/Hx1I78nBgM/Qv46lXXjNfwWlpHKiVjfrv2eKTx5JDI0e/QHlTirbR7ifFvrCEUITN1iLfwVssdlFoO+L2Y7xzN7QqdQv0ZygbBwRkopCW4ZY2cQoqy2CoR8snj9wllJQ4VtPXgI3Vhvw9r/+z+wzFHNPlKmPZzs=
+Date: Fri, 12 Jun 2026 09:44:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+	Jason Andryuk <jason.andryuk@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.22 v2] xen/x86: Change stub page allocation/free
+Message-ID: <aiu42_rcIxZTvbXy@macbook.local>
 References: <20260611142154.64525-1-roger.pau@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260611142154.64525-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1781250005-8D186D75-282F6EF3/0/0
+ <0a2e670e-432b-4297-8166-42a1bace6659@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0a2e670e-432b-4297-8166-42a1bace6659@suse.com>
+X-ClientProxiedBy: MR1P264CA0039.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:3e::31) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BLAPR03MB5570:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33f184d9-4de5-42c7-6d31-08dec85670c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	veR+LN94D87kO+bVmIVLimZ/2lEC3Ddg8NCx4PHycJAsGw9kaajinSn3SdP6OGb5ZEFID5TbxHRqzg9cROElxmfwZzWQe2jbA4K1wa1ILtrYOxkwdwFOaEIY+9yPb08yww/CUwTeVLz7eWHZKQRVz2OTG6pM+g+KYOjGPN3y6KnDGFDy/r3n3drH5hTmiSpZY6QVmoGzwUSPjowq+iUWtZZwrWHwk2H99bg7KXIzHNkkQI07Nb/6z39n0CXucRTEzlNJvWvwju1+Mypm41+BYjnONSBTld70JNwrqoCDV41AiI1BjG0D+37hAB7EIjY11ck2iYCc39lkHFm3ttpW8u2FqAboImsyt5b20crmk5XZJwZHMbsrv7+eZjU6Ky4TqrXn6BikoDJSNhlSjlpicWhlcX23OWyExmW69f5W6VsQRS61GynK5tr8awWRV4IwDnpt+S4Ktw/5sG6T/VvjW4eD5WV+g5O5FCPoXwI+ilODcmC+QMvAHO4nqLuED0nQx0tdFqcwHhNV3BwNip8CXy9WTBDsCcQv8a7vRKiPKB7G/2BzJLELpnRuzQN9RjXQ/FVh8xYG8i59d1fTfx8WBeKeWUJ0banFgjKdAo3dp/0WhOSPcrUKnGid8ADSS4JZkZ0T3gODsi2D6B089dY9VlNOIU3Zaj8DWgiikg9HJKjhyhI0d7vGis0wN7Yz229H
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WGVDRHJWR3F2cjVjZEcwQW1KQWxHSHMxMU9IOHMzTnRJVm8ycVRrUHpkbUdj?=
+ =?utf-8?B?aXhtV2NnRUpGSmRHTXRyVzRjUG1iMmlSZTRzNDB5Nk5xQ1BzUGlGUkM4ZzRs?=
+ =?utf-8?B?amhweGp5bmx1bHZmRXppL2lvbHJyUWVuSzE2N29jVUtEenM3WGlRNUV5VUFx?=
+ =?utf-8?B?UnU0VW1qbFdUeERyVmlRL29hZHd4VjE5UjgreWJURVE0cFNsZXlNdEh2NGh6?=
+ =?utf-8?B?cEUrSHRFUng4aEhQZVB2M2RMRHJ5eUYzc3kvR2Q5Zmkxc0tSdGdCRlp5c1VL?=
+ =?utf-8?B?S05Ea2xONENxbW5EbTZyZkZoN1d3SWp0akEvWWtjK3VSWVJqZFE3WmJRNmFE?=
+ =?utf-8?B?VGZnZmZmeFBqaHhOUHJqMHQwVTZ0Q1BnRkRJYXpDbnZ3TXVJZXhreWNJZGNv?=
+ =?utf-8?B?ZG81ckhBcXBONTcrK3BKRngxQ0xlc0NYdW9kMTNwSlVwZUNzYXA4cGZOZmV1?=
+ =?utf-8?B?WTVicVV1MHdIbk1vSkJHYUhNWVN4T281YmorcWE0R1p2NUZaOWFyZVQxVkdC?=
+ =?utf-8?B?SEZsTzUxWklOK0RtTXVIRDZQNVF4cWFrNk1xU0t0WDRBWTZTb3FVMXhQVlJl?=
+ =?utf-8?B?ZXFleTEyWDZqdSsvQnBobUpSbmJ1eXRMZFczVUEzQXZQZ2U1N3pkUmswWkwy?=
+ =?utf-8?B?TmFPT2dYVWtPMGVvUFVRQU15WTRrb2RjSHJrU0JUZml4VE82YmlKeDlaZDVX?=
+ =?utf-8?B?THFLN2ZBWXFHY1dOcXFyVld1ZkZpMzlqclFSUG1saklmL0ZtTWlRREdIc3h6?=
+ =?utf-8?B?NFJYS3N0N2ErcTQxTGFpWG56TlpsZVJiZ0lkZHpFZHcwRndhRXRIeXBqQmhB?=
+ =?utf-8?B?VnAzSVBPcXFZelh0RHBKNGFrYXNCVEx1VEpQT3B1QVBSdENLQ0hJeENKdE42?=
+ =?utf-8?B?RFpsTzRNcTBpMTFUczlWZEJJNGh6RmxSMmxMSzM2a3IxN2I4VUozT25JVnNk?=
+ =?utf-8?B?L2VoTnd6WEVPM2FkYmJjQ0dzcjlwVTNEaUJlbWpScXdVMlo2TjBnRGxoU0Fx?=
+ =?utf-8?B?UDZxcVBhQmtKdXhQVXIwcmtmZ3ltaWY0VG9aZXg4YmVRTjlFVC94STlKaWJ2?=
+ =?utf-8?B?aGtqWCtuWkUxejBFd2VQV0V0Ym1uYzN6c3dGaDl6dllNSEFSTFZoTC9oOXJK?=
+ =?utf-8?B?THlwNURMYUVrU0tUVk1YWWQ3blNGbllhd003UXBUU2RNcmtNejNEOUh2cjll?=
+ =?utf-8?B?Z3RLaHRwZzFFZmJ1Ui93cG9mY00zWGVaRXducnpJN0Q2RFhPNUpaK2U4ekRZ?=
+ =?utf-8?B?a1ZzMFBKMWJ4VTYvcmdVQlVnOFlmL2dwYUNrS3BlOG82RmlMZFUzeUlIY2tp?=
+ =?utf-8?B?YUdEeUtUaGRIWjZYcmJiWTMzWTRlUk4wUUVnOEkydWRXNHNUWlJROHFuR2tI?=
+ =?utf-8?B?RlJQeTc2S1pRbmRObGNZOU1jTVpXS2o2OUlBS0thWEUvUVIxQWZ3bUkyU0N3?=
+ =?utf-8?B?Y3hoUmQwVGozOU1GRWdjaXR1b2xUL3M3NUdWaUpwK0tSL2tDbE1FODBXWjVT?=
+ =?utf-8?B?YmsyaEFzV0lmall0WkpzVnYxczA3WDI2T0NuRVEwUkJFdGZ4YkxhKzhkZzNW?=
+ =?utf-8?B?UnFLZnlZVHBkOWhiaGg1Q3NHeE5GU2VqanI0bko1Z1hvS3NqQi8yNXlQQ3Ar?=
+ =?utf-8?B?eDNMaGFoV3VjUU5mSHF2c01xM3EvR045V29mUzI0clpxOU5KckxuUGxTblRC?=
+ =?utf-8?B?RHl0Y01FdzVCWEhqU24zWS9rSE05VzBVc1liWkJMSk5SMlFHL1ZOZEhmTVFP?=
+ =?utf-8?B?bVlQVlhWTmdsd0M2cTRBMmJYSHVUcU9BaVBrZTN1ZldDN09aQ1g3Nng4U0Zt?=
+ =?utf-8?B?SlIxSTJLN1NhMDE5eVNzWTkxRUFTK3JXOXZMakJhdTlOYUduUXltSEMrSEZj?=
+ =?utf-8?B?UVhaLzFJc0dLOXg3U3NKZmpjcEJyWFZNbTVxd0FkRlNsTGRzczI2bldjWStD?=
+ =?utf-8?B?bHFFNjQzMmNmdmJZaTl3K3M3MTlwcFZhZkNKdlNQaW05OFFWWXlsZnJUVXhU?=
+ =?utf-8?B?YjdIWVZ1L3htbUcxajcrMVlaMmtJY2NZMDN4azRFS0FxR1NZM0p3UWxwMno1?=
+ =?utf-8?B?SWRad0VuaGtnYkMyVWZBa3dtL25wV2NvV1FJZzdOazVDTjVoK1k3K2pkbGFM?=
+ =?utf-8?B?d0d6MFJvc2kzOVBrQlJHL0YwZXhNVUJlOXBCeVJkazdrbzlmUE4rQmpOK0VT?=
+ =?utf-8?B?SS96TTFTQVQvWGloZDhyVDBZMmhIU2JGV0p2b2ZqeERMZGNjNFBndGNHSWNP?=
+ =?utf-8?B?Z0JVUDl4dVZZOXIxNlh4eU1tQnArZTJRZ1dNTlg3Mm5wUnIrRWxVSTV0eURh?=
+ =?utf-8?B?YVRmZE9NMFJNTUxvUk5ndmFlT1BUWFpoYmRmdi93TW1nZ0NnbE8yUT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33f184d9-4de5-42c7-6d31-08dec85670c6
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 07:44:32.0696
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HZUl8FqN9LLQRrxQep/4oiExQZiF+Gv1gf3diThnkZLZKEv1Iya0xkS4GcJmvFjahjobAPjTLl35XrUp9P6zug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5570
+X-purgate-ID: tlsNG-d62444/1781250275-ADB46FF4-F24469B3/0/0
 X-purgate-type: clean
-X-purgate-size: 1568
+X-purgate-size: 1915
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
+X-Spamd-Result: default: False [-0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:jason.andryuk@amd.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:jason.andryuk@amd.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[gmail.com,amd.com,citrix.com,vates.tech,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:dkim,citrix.com:from_mime,macbook.local:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 63E1E677541
+X-Rspamd-Queue-Id: 7CCB86775D2
 
-On 11.06.2026 16:21, Roger Pau Monne wrote:
-> @@ -641,41 +642,62 @@ static int do_boot_cpu(int apicid, int cpu)
->      return rc;
->  }
->  
-> -#define STUB_BUF_CPU_OFFS(cpu) (((cpu) & (STUBS_PER_PAGE - 1)) * STUB_BUF_SIZE)
-> +/* Dynamically allocated, indexed by CPU.  Store physical address of stubs. */
-> +static paddr_t *__ro_after_init stubs;
->  
-> -unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
-> +static bool assign_stub_page(unsigned int cpu)
->  {
->      unsigned long stub_va;
-> -    struct page_info *pg;
-> +    paddr_t addr = stubs[cpu];
->  
-> -    BUILD_BUG_ON(STUBS_PER_PAGE & (STUBS_PER_PAGE - 1));
-> -
-> -    if ( *mfn )
-> -        pg = mfn_to_page(_mfn(*mfn));
-> -    else
-> +    if ( addr == INVALID_PADDR )
->      {
-> -        nodeid_t node = cpu_to_node(cpu);
-> -        unsigned int memflags = node != NUMA_NO_NODE ? MEMF_node(node) : 0;
-> +        nodeid_t nid = cpu_to_node(cpu);
->  
-> -        pg = alloc_domheap_page(NULL, memflags);
-> -        if ( !pg )
-> -            return 0;
-> +        /*
-> +         * Attempt to use the same page as the previous CPU if possible,
-> +         * otherwise allocate a new one.
-> +         */
-> +        if ( cpu && nid == cpu_to_node(cpu - 1) &&
-> +             PAGE_OFFSET(stubs[cpu - 1] + STUB_BUF_SIZE) )
-> +            addr = stubs[cpu - 1] + STUB_BUF_SIZE;
+On Fri, Jun 12, 2026 at 09:40:03AM +0200, Jan Beulich wrote:
+> On 11.06.2026 16:21, Roger Pau Monne wrote:
+> > @@ -641,41 +642,62 @@ static int do_boot_cpu(int apicid, int cpu)
+> >      return rc;
+> >  }
+> >  
+> > -#define STUB_BUF_CPU_OFFS(cpu) (((cpu) & (STUBS_PER_PAGE - 1)) * STUB_BUF_SIZE)
+> > +/* Dynamically allocated, indexed by CPU.  Store physical address of stubs. */
+> > +static paddr_t *__ro_after_init stubs;
+> >  
+> > -unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
+> > +static bool assign_stub_page(unsigned int cpu)
+> >  {
+> >      unsigned long stub_va;
+> > -    struct page_info *pg;
+> > +    paddr_t addr = stubs[cpu];
+> >  
+> > -    BUILD_BUG_ON(STUBS_PER_PAGE & (STUBS_PER_PAGE - 1));
+> > -
+> > -    if ( *mfn )
+> > -        pg = mfn_to_page(_mfn(*mfn));
+> > -    else
+> > +    if ( addr == INVALID_PADDR )
+> >      {
+> > -        nodeid_t node = cpu_to_node(cpu);
+> > -        unsigned int memflags = node != NUMA_NO_NODE ? MEMF_node(node) : 0;
+> > +        nodeid_t nid = cpu_to_node(cpu);
+> >  
+> > -        pg = alloc_domheap_page(NULL, memflags);
+> > -        if ( !pg )
+> > -            return 0;
+> > +        /*
+> > +         * Attempt to use the same page as the previous CPU if possible,
+> > +         * otherwise allocate a new one.
+> > +         */
+> > +        if ( cpu && nid == cpu_to_node(cpu - 1) &&
+> > +             PAGE_OFFSET(stubs[cpu - 1] + STUB_BUF_SIZE) )
+> > +            addr = stubs[cpu - 1] + STUB_BUF_SIZE;
+> 
+> Isn't this path also going to be taken if stubs[cpu - 1] is still INVALID_PADDR?
+> That may be a purely hypothetical case right now, but imo would better be
+> covered right away.
 
-Isn't this path also going to be taken if stubs[cpu - 1] is still INVALID_PADDR?
-That may be a purely hypothetical case right now, but imo would better be
-covered right away.
+Yes, indeed I was assuming that stubs[cpu - 1] would always be
+populated, which it's the case currently, but you are right that it's
+trivial to also take this scenario into account here.
 
-Jan
+Thanks, Roger.
 
