@@ -2,56 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id AF20BTjCK2oDEgQAu9opvQ
+	id AMtTB03LK2qCFAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 10:24:24 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 11:03:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A731677C89
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 10:24:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A95C678078
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jun 2026 11:03:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=FcTIFQbo;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=Ok8xfVmH;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1336403.1598173 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1336426.1598183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXxAg-0000ck-Qr; Fri, 12 Jun 2026 08:23:22 +0000
+	id 1wXxmd-0006bQ-QZ; Fri, 12 Jun 2026 09:02:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1336403.1598173; Fri, 12 Jun 2026 08:23:22 +0000
+Received: by outflank-mailman (output) from mailman id 1336426.1598183; Fri, 12 Jun 2026 09:02:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wXxAg-0000aG-Nz; Fri, 12 Jun 2026 08:23:22 +0000
-Received: by outflank-mailman (input) for mailman id 1336403;
- Fri, 12 Jun 2026 08:23:22 +0000
+	id 1wXxmd-0006a0-N4; Fri, 12 Jun 2026 09:02:35 +0000
+Received: by outflank-mailman (input) for mailman id 1336426;
+ Fri, 12 Jun 2026 09:02:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wXxAf-0000a9-VD
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 08:23:22 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb118330000701b@swg.vates.tech>)
+ id 1wXxmb-0006Zu-Jx
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 09:02:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wXxAd-004nzE-OO
- for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 10:23:19 +0200
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2bc1f1-e002-0a2a0a5209dd-0a2a450cbe8a-14
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 10:23:19 +0200
-Received: from [52.101.48.39]
- (helo=MW6PR02CU001.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2bc1f5-62f1-0a2a450c0019-34653027b660-3
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 10:23:19 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB7126.namprd03.prod.outlook.com (2603:10b6:a03:4e2::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Fri, 12 Jun
- 2026 08:23:16 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.014; Fri, 12 Jun 2026
- 08:23:16 +0000
+ id 1wXxmb-00FP6A-0W
+ for xen-devel@lists.xenproject.org; Fri, 12 Jun 2026 11:02:33 +0200
+Received: from [10.42.69.2] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb118330000701b@swg.vates.tech>)
+ id 6a2bcb26-bab6-0a2a0a5309dd-0a2a4502d114-18
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 11:02:32 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ebb118330000701b@swg.vates.tech>)
+ id 6a2bcb28-af86-0a2a45020019-b9ff1c12802d-3
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 11:02:32 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19ebb118330000701b.003 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 12 Jun 2026 09:02:27 +0000
+Received: from [192.168.1.18] (unknown [88.188.240.210])
+ (Authenticated sender: teddy.astie)
+ by mail2.vates.fr (Postfix) with ESMTPSA id F0D668647F;
+ Fri, 12 Jun 2026 11:02:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,362 +65,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NEbbYP9to4zTw3wftHZ7mYHHMVXVh0V99Bs+SZoqrgJamCYkVUzR44Dqlkhknx+sUUm4SAos2yBo6ydRNX4Mv2vYR9QA9ZEbTk+8P/IlKXSI5VamPFdKN0uyw95z2qBee9c+Nxd44cKlXxDPss74P0Z71fxroS77v9bPSKclAYdI+hFv4Lzq0E86SDDHIx8zE8wKdyTWS3tLp5DGsThUW4BcWAD8w9ATDT7JKaUo6pxbniWcCrf1MhRSZ8igPZOFp1Qlncb9g20E3dYxQwtwBWJfNLAYhre750Z7oLnVjVZTZ1FTBNaYYUGhaxeGXZ6OQCDAwZrwOX08oNAmSfuTMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Sgoc7mQGRwQ9DHVuyUCgB8OO7E0dQMwM63Ze4e6CDNw=;
- b=I9O7a3S+mkOjRkS933LIRH39KTvuMfHmgetIbBL73b7JtMf/JQ2eF88Y66mQS8cLgh5PLVLPWLxkMV70EWxiuvMIY0Et8yuVLzh9Ow7v1E5/eYpei9q2qNESjGjunOEMzTlO1P+baIUMZ9DvSK7ZdupBDh5P4ycQXo8J+lZ7vLf6D/m+ppDnwDI6eDGJ5PRnD/TgrVOlSb1mPwae/FSWZ3KE6R70zhQR7yZffIC1ovamHFhKxmYJdvCk4fE7YiWRlXu2Txkb4F4wyY9TV9NNt9amuvv42gWINGGwKjA22mOyjLZzr4/9sle2XelsLlWketJZ19iLE4rAHB1itYA3PQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Sgoc7mQGRwQ9DHVuyUCgB8OO7E0dQMwM63Ze4e6CDNw=;
- b=FcTIFQbozZgXc8Yk2l+9nv5cYD7tZJOnji7Mw1+VdIaQv8zFSLRfFqzzjO1fLJk2LduxI9FWZ3TJFYbryzB0YzzcEK8HBlS9fgWOWiu3W1MT0LD2Rvd+JoB5tKDpBEEJ/KgDuRtlZUHX0SOb4F/fm0N2oUBPsO5q5uatpelLcBE=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Jason Andryuk <jason.andryuk@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Oleksii Kurochko <oleskii.kurochko@gmail.com>
-Subject: [PATCH for-4.22 v3] xen/x86: Change stub page allocation/free
-Date: Fri, 12 Jun 2026 10:22:13 +0200
-Message-ID: <20260612082213.82235-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0162.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:55::6) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=LmXVHT+g0GkUpqc/rP0UVxSCKlXOQ3kDbNcBXmb1bNM=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=Ok8xfVmH3PEcLDEkupVDvcdpXRDAqIISl4fnbqS4OeB79Z79uQCjYLAZjlEVuwBkUmgRT/ByA
+ C5/KM0RrAWbbJ6o1HuGB0iyLR/iKW6xCMJYsCoA3Ww/37xgl9D+C0pK+nQGXuDalazqkjAct5nQ
+ /WcxAnL3/NL5JkAprPssjBxHENM7TL8ZHbmnWKSzn5KtLW6GT6niNYbOuVG7+1NMrRQ1twnQPOw
+ IunYyagVnRLXFipg/0ihblbO4+Jcp7rPm2sItQEB0e8mRu8WoXy6T2v54QcJUFjyY2DQO7Yhb/U
+ kkFmaSJ5zGelQMy0wf93hoxaY8GAQWzR069crdBVlxkQ==
+X-Zone-Loop: f580fba6374721e853dd7ba285b49592ce725efa160c
+x-campaign-type: default
+x-transaction-id: 795dd132-bb69-46c0-92e9-29f00bba589f
+x-swg-uid: 01-ba408b1c-d92c-4e6d-bd11-8ad6a7c87782
+X-Mailer: Sweego
+Message-ID:
+ <1781254947.8631fc262581453bbf619ec5b2062170.19ebb118330000701b@vates.tech>
+x-swg-bid: 1781254947.8631fc262581453bbf619ec5b2062170.19ebb118330000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 12 Jun 2026 11:02:24 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB7126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9df52623-f89a-4633-24b2-08dec85bd9f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	ro4xnxPQ6EJ/7J6Wy8WKHdsAfLs6KckZU5JQBr43YX2JDBeiD2o5ypoQDpTe5AZ3tgNTbG1iXjuUTzIcRY+0I0PGWezR6Sf/+hhyIk2jCJpEJRwxpGCWuq6jE78yt0+0ZEbgGzhWo1yyESDiUSOiWzxcL+iJA+FjL5b/gumgvs6aFtN54n0JchcorKHpVn5tI4jn4dyZCZ7/e7OxwSufQgtLflO1xiogyBH/uzsBEdwLvr/E4YHA2oP7jiBb/3zCpNOej2C0+qLEWpgL/zRE7QcDonMfnDsXsl6aBd8EIZmoNolqO/E8oXHSi7sPK/gtrBsf0eteve9UQaDTnlOZO4EhAvRoTBHx/c0IgoDopOk8AjlcXMz8klkW6Xnp/e2ugwxbASYLnJb0Sw+y37PTv46EZyeD6gQJAlLKnJz18A8jeuMRWyPSZ5oXXa55lk77shBQmS/O6aYglTkCLo47U3LIBF4LTT+0vs/FZTt8JNPSEeZKbUQ9p/enEQNhay9yuCr+6jb3ldBRNjwgNsJT/EGdvU1xzOmmeU+1UMrffXnzZapFChq+UyBr5SrIBH4n7TBT3mMP6Kd/A5Qx2cQNekCzQlyuItXPqYsQsqdoVtUDAnr9FotCuNH1eCA4MwK3WhaV47L/8pINrMLeIOqaKFRfqYCbC8BcNjnw89J9QByClbJdkCyK/HdD11d1t/TJ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUtVaTQzL1NZZm1HSjVhUzRLdVU5N2NyQ3E5emxhckVUWkxoSGIrcHBQOFNq?=
- =?utf-8?B?NVA3SjlRODVrLzA0UVVGNGdlNzlEQzAveENCb1FmQjFXZy80UTVNN0wxeUdK?=
- =?utf-8?B?Z3JJM2hsN2tCaTVuV2htTmY4WndTTEFZTmhzY0t1QkNMT1Bybk56ZUZxTHZU?=
- =?utf-8?B?bUgxeU5sZEY2MTU0RmNQbjk1QXk5Yy9jemwweG9jZ3BKdFV4dkMrblV2YkNY?=
- =?utf-8?B?dEJSL3FBTWNHNGMxL1k2eVFYUUhMREZ4cmx5RmdUV21RaCt0U3MzQWVQQUhQ?=
- =?utf-8?B?dU43T1F5aEwxNG8zR0ZER1hmN2srM3VjYUM4Q29haWg5cXNtVmprYXhhZzRy?=
- =?utf-8?B?UmdHT1UrQ09uMHhZVnRWR1REaE5FMUxOelVveGlzMU1sWUw1NVF3ZEpoYjk3?=
- =?utf-8?B?cHhlMDJrZ0VnNDk2eTFlWitDcGNTZVh5RFNkQ1dXbjkwRjE0eVZ5dld4M1Jh?=
- =?utf-8?B?clZmZzl3aCtBZ3FZbUhUTlluQ1AzbkJxRWxQWjQvUFNyTkx4NjltWGpwbnFl?=
- =?utf-8?B?UGpsVHlqTk95NVVKTmlaUks5dG4xVTg2dmNNQXc3c2xnUHRlOUZ2UVZqbkhW?=
- =?utf-8?B?eXhTdENGdnRpZitLV1lRRXluNHF5dXMvNmE5ODgvaEd4cWE4YWJKM1c0V3I2?=
- =?utf-8?B?bHVGN1FKeVM3aGh3clhYd3RhSnUraWVzOTR6V1RpeUFINmJVaFNUUXBQZUxH?=
- =?utf-8?B?ZkQwbHVBVFJGN3lma0ZndHY3WWZXYkZ1OG9BRjdkcTNzUWZQelBpVEFRdG0w?=
- =?utf-8?B?WGo3Ym5zNWtCZVJoUVlVNkwxckdQOXZjNUE1cmJ3WnlTbzZaUnBJNmtvZytT?=
- =?utf-8?B?K1RUQnc3YlpvL0E5SXpQT3BJcW5DZnAvaGJNd2k0RXhISGtId1JPM3Z3ZHNi?=
- =?utf-8?B?aWxsT0Uxc3dKdmdiTExVZnhNRG5kWllHeUFWdVZJb0dRQmdOd0RwV2c1aFY4?=
- =?utf-8?B?cW9RSkovanFoYXdpUTk1dFl6RjBybi93MkR4bWE4aTR1dng2dDl1UUNKV2JL?=
- =?utf-8?B?NXgzTkR6dUVtUUZISTIxeHFwdXNBTUJPa1QxbFNUSEhVZUxTRUdPb0hucVBN?=
- =?utf-8?B?cG1ORzFRMEk4QWNjZmpBaWdLMEpHb1BDMyt0SE5yMk51MGpXR3VGS3RjZ21Q?=
- =?utf-8?B?dnhDYkNxWlBXQ05paXNidVpTY005MDV2aWJsRGljbGZTUlhub0syaGVpakUx?=
- =?utf-8?B?VElDcGJnODNUaTdYeENhTUNsRnA2YUMxQVNleFNqMVMvR0xGcHhUbGcxdWhy?=
- =?utf-8?B?VEJlUCtPSUhLU21pOGhkbVdCUGppa2t2NVlETXAySHMwNWwrZ0prZVdaczdP?=
- =?utf-8?B?S0F6dkFiaDdGT0xlL3hCSllzN05rNmMydnpkZlY2Y0NxRWViT2RPWXNMK1FY?=
- =?utf-8?B?MWNETjJ1aW9kY2xWSWs3MC8wajdrVERpZW5UYklzQjBMZHpraWxkVFZoN2pu?=
- =?utf-8?B?U0YyMFNXRWJtVGIxdDdSeTEzTnc5bHdlMkJ1TGJGQVpsMFRMKzhBdWNTQ0RG?=
- =?utf-8?B?M0xzS3h3OFlyeG44ZDNYV3J4dGRkb0l4RURzNndlR2htQ01DS0FwdW5JYkM2?=
- =?utf-8?B?aXRrT2FzZGdDMHFydzJEL1FOWnFYSzE4VkFHY3c4OGgrNDZ6R1I0Q0xFeHpZ?=
- =?utf-8?B?ZHZYZGcwSThaL0ZraTdudWhGZzlJV0prRzhWbkhwQW1EOUd4K1BMcm1mRy91?=
- =?utf-8?B?eTBEMnN5Q29KdHBjQlN6LzNNOUZ2eWtqZjI1ajJzYkxMSVZ5dXFWVHFYem8x?=
- =?utf-8?B?U2poWnhkZ0VLRHl0VjNhTGhYWmV1eW9oTnJwdWlCQXhLelNWY1NDZm5lUHk0?=
- =?utf-8?B?QXZPdGNiOTZHTjBZSEd1aEhtN29YZXRKMzlKWDVEb1ZPQUhpL1o2Qjh0cjVK?=
- =?utf-8?B?TDMvRk4wYmh3Z0hONXZZSVN0R3pUYmt5QVVIVTZINk5Cb0xtZWl2U3lzVEU4?=
- =?utf-8?B?UVlDaVNDZ3JHWmZva1lkYisrNGZsM3l1QlZkSEtjZEMxb2k5cldXNGRycitF?=
- =?utf-8?B?L1pHMjA4T1FqWjcyY2o3Um4yQUppbkxpNmNMUEF2Wnlvcjd2VnB3V1VTNTcw?=
- =?utf-8?B?MDlYZHlLeUZ1OGhDYmlUZFA2akpzT2prbEY3dUJ0MFhEakI3dDNURWZGNVRz?=
- =?utf-8?B?Z3NRc1FIWVV6bzJIV1pIZEloQVFpUUFOakUrSG5HdzlDcmJoc3pKOWFtaVBu?=
- =?utf-8?B?UkF0UFZYSmduNlY2VEdQMHUxRSttcXZ5Q0R4WUJ5UzhmTGNtUnlPQVl2QUN3?=
- =?utf-8?B?WXh6aG1MLzNUMDdtaVJ2a0ZOZWI1RFkweXdBOEk4QW9lejVFSkZHOVdxd1JL?=
- =?utf-8?B?Wld3bDhUbWJrbjJ0akxVaHpsRkZyT2E3QnduVVJCLzRNaVZjK3lXZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9df52623-f89a-4633-24b2-08dec85bd9f5
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2026 08:23:15.9686
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dwh5cz3uh1wPtufJHEsRN+gYDXap4lI2GlAXauFZSfVx0hTuIx5D06su0sXJQ0sPm9/UALuXflxjOBmbcZAYSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB7126
-X-purgate-ID: tlsNG-d25034/1781252599-DBB7CCF5-DC37D84B/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION][BISECTED] Long boot time with Xen HVM guests during
+ PV spinlock initialization
+To: Thomas Gleixner <tglx@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ regressions@lists.linux.dev
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Olivier Lambert <olivier.lambert@vates.tech>
+References: <1780914594.8631fc262581453bbf619ec5b2062170.19ea6c8227b000701b@vates.tech>
+ <87ldcp3w16.ffs@fw13>
+ <1780997262.8631fc262581453bbf619ec5b2062170.19eabb58e51000701b@vates.tech>
+ <87y0gn3fve.ffs@fw13>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+Autocrypt: addr=teddy.astie@vates.tech; keydata=
+ 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
+ x9fhaZEsniw8/bYgC3igkk5YJiOa
+In-Reply-To: <87y0gn3fve.ffs@fw13>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------ShdTQzGuWqhtGKUcJNjo7X03"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1781254947120
+X-purgate-ID: tlsNG-720697/1781254952-8137C161-A9F23976/0/0
 X-purgate-type: clean
-X-purgate-size: 8160
+X-purgate-size: 7157
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [-3.08 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,amd.com,suse.com,citrix.com,vates.tech];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:jason.andryuk@amd.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleskii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,m:oleskiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_MUA_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:linux-kernel@vger.kernel.org,m:regressions@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:olivier.lambert@vates.tech,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	RCPT_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	HAS_ATTACHMENT(0.00)[];
+	HAS_XOIP(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4A731677C89
+X-Rspamd-Queue-Id: 6A95C678078
 
-From: Jason Andryuk <jason.andryuk@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------ShdTQzGuWqhtGKUcJNjo7X03
+Content-Type: multipart/mixed; boundary="------------s6bllfsCkEUnRoiY7fXZwnjm";
+ protected-headers="v1"
+From: Teddy Astie <teddy.astie@vates.tech>
+To: Thomas Gleixner <tglx@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ regressions@lists.linux.dev
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Olivier Lambert <olivier.lambert@vates.tech>
+Message-ID: <9d7c4329-3a7f-42d0-90cf-1495fb6ad4ab@vates.tech>
+Subject: Re: [REGRESSION][BISECTED] Long boot time with Xen HVM guests during
+ PV spinlock initialization
+References: <1780914594.8631fc262581453bbf619ec5b2062170.19ea6c8227b000701b@vates.tech>
+ <87ldcp3w16.ffs@fw13>
+ <1780997262.8631fc262581453bbf619ec5b2062170.19eabb58e51000701b@vates.tech>
+ <87y0gn3fve.ffs@fw13>
+In-Reply-To: <87y0gn3fve.ffs@fw13>
 
-Today the inline tracking of the stub page is problematic.  0xcc is used to
-indicate unused, but it is also a "clear value."  A !CONFIG_PV build or
-when running with FRED support will not populate the LSTAR/CSTAR stubs at
-CPU bringup.  If a CPU is then offlined, the stubs page will be freed as
-its content will be all 0xcc, regardless of the stubs page still begin
-referenced by other CPUs.
+--------------s6bllfsCkEUnRoiY7fXZwnjm
+Content-Type: multipart/mixed; boundary="------------0YBRmI0yvOYbFqFFG3ZOPezt"
 
-The new approach uses a global, CPU-indexed dynamically allocated array of
-stub addresses.  However, to handle NUMA aware allocations, we cannot
-allocate all the memory in advance because of the NUMA dependency.  Take
-advantage of the fact that Xen will attempt to contiguously pack CPUs on
-the same NUMA node (see normalise_cpu_order()), and on CPU bringup use the
-same stubs page the previous CPU did if suitable.  Note the code would
-still function properly even if CPUs from NUMA nodes are not contiguously
-packed, it just consumes more memory.
+--------------0YBRmI0yvOYbFqFFG3ZOPezt
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-stub pages are no longer freed.  They remain referenced in the global
-CPU-indexed array and are re-used if the CPU is re-onlined.
+TGUgMDkvMDYvMjAyNiDDoCAxNzoxNywgVGhvbWFzIEdsZWl4bmVyIGEgw6ljcml0wqA6DQo+
+IE9uIFR1ZSwgSnVuIDA5IDIwMjYgYXQgMTE6MjcsIFRlZGR5IEFzdGllIHdyb3RlOg0KPj4g
+TGUgMDgvMDYvMjAyNiDDoCAxNzoxNSwgVGhvbWFzIEdsZWl4bmVyIGEgw6ljcml0wqA6DQo+
+Pj4gICAgc3RydWN0IGNsb2Nrc291cmNlICogX19pbml0IF9fd2VhayBjbG9ja3NvdXJjZV9k
+ZWZhdWx0X2Nsb2NrKHZvaWQpDQo+Pj4gICAgew0KPj4+ICsJY2xvY2tzb3VyY2VfcmVnaXN0
+ZXIoJmNsb2Nrc291cmNlX2ppZmZpZXMpOw0KPj4+ICAgIAlyZXR1cm4gJmNsb2Nrc291cmNl
+X2ppZmZpZXM7DQo+Pj4gICAgfQ0KPj4+ICAgIA0KPj4+DQo+Pj4NCj4+DQo+PiBIbW0sIHRo
+ZXJlJ3MgYSBjYXNlIHdoZXJlIGNsb2Nrc291cmNlX211dGV4IGdldHMgdGFrZW4gdHdpY2Ug
+KGJvdGggaW4NCj4+IF9fY2xvY2tzb3VyY2VfcmVnaXN0ZXJfc2NhbGUoKSAodGhyb3VnaCBj
+bG9ja3NvdXJjZV9yZWdpc3RlcigpKSBhbmQNCj4+IGNsb2Nrc291cmNlX2RvbmVfYm9vdGlu
+ZygpKS4NCj4gDQo+IEJhaC4NCj4gDQo+PiBXaGF0IGFib3V0IG1ha2luZyBjbG9ja3NvdXJj
+ZV9qaWZmaWVzIGdhaW4gLT5lbmFibGUoKSB0byBzZXR1cCB3aGF0IGV2ZXINCj4+IG5lZWRz
+IHRvIGJlIChsaWtlIGNhbGxpbmcgX19jbG9ja3NvdXJjZV91cGRhdGVfZnJlcV9zY2FsZSgp
+KSA/DQo+IA0KPiBEb2Vzbid0IHdvcmsgZWl0aGVyLg0KPiANCj4gVXBkYXRlZCB2ZXJzaW9u
+IGJlbG93LiBJdCdzIG5vdCBwcmV0dHksIGJ1dCBpdCBzaG91bGQgY3VyZSB5b3VyDQo+IHBy
+b2JsZW0uIElmIHRoYXQncyBjb25maXJtZWQgSSB0aGluayBhYm91dCBhIGxlc3MgdWdseSBz
+b2x1dGlvbi4NCj4gDQo+IFRoYW5rcywNCj4gDQo+ICAgICAgICAgIHRnbHgNCj4gLS0tDQo+
+IC0tLSBhL2tlcm5lbC90aW1lL2ppZmZpZXMuYw0KPiArKysgYi9rZXJuZWwvdGltZS9qaWZm
+aWVzLmMNCj4gQEAgLTYwLDE1ICs2MCwxNCBAQCBFWFBPUlRfU1lNQk9MKGdldF9qaWZmaWVz
+XzY0KTsNCj4gICANCj4gICBFWFBPUlRfU1lNQk9MKGppZmZpZXMpOw0KPiAgIA0KPiAtc3Rh
+dGljIGludCBfX2luaXQgaW5pdF9qaWZmaWVzX2Nsb2Nrc291cmNlKHZvaWQpDQo+IC17DQo+
+IC0JcmV0dXJuIF9fY2xvY2tzb3VyY2VfcmVnaXN0ZXIoJmNsb2Nrc291cmNlX2ppZmZpZXMp
+Ow0KPiAtfQ0KPiAtDQo+IC1jb3JlX2luaXRjYWxsKGluaXRfamlmZmllc19jbG9ja3NvdXJj
+ZSk7DQo+ICtzdGF0aWMgYm9vbCBjc19qaWZmaWVzX3JlZ2lzdGVyZWQgX19pbml0ZGF0YTsN
+Cj4gICANCj4gICBzdHJ1Y3QgY2xvY2tzb3VyY2UgKiBfX2luaXQgX193ZWFrIGNsb2Nrc291
+cmNlX2RlZmF1bHRfY2xvY2sodm9pZCkNCj4gICB7DQo+ICsJaWYgKCFjc19qaWZmaWVzX3Jl
+Z2lzdGVyZWQpIHsNCj4gKwkJX19jbG9ja3NvdXJjZV9yZWdpc3RlcigmY2xvY2tzb3VyY2Vf
+amlmZmllcyk7DQo+ICsJCWNzX2ppZmZpZXNfcmVnaXN0ZXJlZCA9IHRydWU7DQo+ICsJfQ0K
+PiAgIAlyZXR1cm4gJmNsb2Nrc291cmNlX2ppZmZpZXM7DQo+ICAgfQ0KPiAgIA0KPiANCg0K
+WWVzLCB0aGF0IGZpeGVzIGl0Lg0KDQpUZWRkeQ0K
+--------------0YBRmI0yvOYbFqFFG3ZOPezt
+Content-Type: application/pgp-keys; name="OpenPGP_0x660FA9D102CBCFD0.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x660FA9D102CBCFD0.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-The stubs array doesn't have an explicit lock.  During boot it's accessed
-single threaded.  During runtime, &cpu_add_remove_lock serializes access.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Fixes: 7a66ac8d1633 ("x86: move syscall trampolines off the stack")
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Tested-by: Jason Andryuk <jason.andryuk@amd.com>
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
-Release-Acked-by: Oleksii Kurochko <oleskii.kurochko@gmail.com>
----
-Changes since v2:
- - Adjust commit message.
- - Handle the case where stubs[cpu - 1] == PADDR_INVALID.
----
- xen/arch/x86/include/asm/stubs.h |  2 +-
- xen/arch/x86/setup.c             |  4 +-
- xen/arch/x86/smpboot.c           | 94 +++++++++++++++++---------------
- 3 files changed, 52 insertions(+), 48 deletions(-)
+xsDNBGn5sK8BDACuzSrrTjpVf4ay06OYB6yY0J1PqKffihoNMtrQRZjAHxoAPC7L
+TBVHV/XOZw5HJc+9R71z1JV+iYg6z3jPziGKzX8Fj3ZXlzJPmpf1PuETH3KdbvtJ
+T4ny+OGntnJntUoRKRPhTirr6yNeBk/637O3CQXjtqFUPZnko8OI/o1yawIBhJJA
+WicutjkkUgd28Bh6HV9EIumHtCBgn5/1A/fpm9624MMgYLsA8qjC4XsoovQvFCaO
+8HEhvfzrrTZHjn/nPeB9SigxIxXW8YaTVqMdqul07o72m3eA2mf+LMu9a04FX/d4
+wbxBLtELm+1jIrbtyaFZEMOLv/haSiS/Lj3btJH/EoucejoZ5SH49ksmVAmKOLkt
+OaTQ8b2gEvP7iaKiIiszCCtOSRohr+2GvDsDeLvVZnlR3I+SPhHar7TPKjFz0G3D
+PNolyjXywNqOAMpomSPi8lSwjAFsxOtQbcck/qRGRSNk4DAmH70pA+89MXfQXZ3q
+t1Q01B1+sU0I8xsAEQEAAc0kVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVz
+LnRlY2g+wsENBBMBCAA3FiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sK8FCQWj
+moACGwMECwkIBwUVCAkKCwUWAgMBAAAKCRBmD6nRAsvP0ID6DACGOktArFbLKHNz
+uyOVCskwfUZPla6Zpd3GZ8r61SrAKePIr2BnpgPkd0hV3bSRkRLIrgjzR2NRCzfp
+0x0HfuhcYfAYPR46XHTvjaJEv99sT/vGUG1BZguYDOScSEpgSNaNlYum3RKZbMuR
+OxdK8G+YHccJY8PvWSq2K2yiae2KGiAv1yjnZxug9/PtDfX8vQFUSg2w1ukRDf50
+wvDohN1zUQfFtofOP2xCRsDZiHAlQ0pF+aUjXQhPeP3IdpfWc8cyRLXF06Rk46YM
+YCytweGtGdHcqAfrVthl84129ZPN422k/voW0sm14gjYlGcTUwgnYlFRk2FLq0Qe
+KEDcS0aj3o3EVAQCrayoGzi1pnlIKE3PRGUcUzjGVvzQ/po24gOjwba9Egr/Wmu3
+MQlx/7A8zT5QBzF/n+RYdLNQ0Eu6YnUwf0Z1uieqNaon+olyIRFiLb/hCZHO6ekN
+f5vrm2clHUbQAYaPQebknujoKBo6ZLHg0WM1gZS01Gz+aUpKsUfOwM0EafmwsAEM
+AKiQiZa3yQMmc/h3sDbfVHPSiBA4IMI/NAB7IotzPHq1GzCpsoVILAhF/INbWjxJ
+3DbVf+en3/FvdVZg2S38xtnth0njNdlVKpyxm054phKjbdoFDwaknWolS4hrddTm
+etSG5/52AjtmPFtlXAk0NmLvfJnW3seXVQbgM7sW/MNXPP5UKDpkGnLhnvej+GU0
+s3109sJeXT5ImVdphFs9cvyZyBT9t1PbRowv58EgV0zE4hbAeVkULAbxFV5b/ExT
+jjGVHoX7CVhWxvCiTqCUoXZRkUE9C3FnkzEFRkKbYu6NCfiHfEyB3Xyg9hfdrRgj
+MRq907zCof+nDtWxGz1MSEuvTj1g9GZ049Bennqzjc/Q+0ovXoK4jm+Py0FiUGUa
+A6yhexficjH+kCR/xDbVnWrMhSLB4AuTBT9HjfZI6gk3uYLhoT8Pig4/eVtR2Q1w
+ZIJsFToR6ofGuyECwFcs+PUXN7fmGRSiPXgjAr/zIUBdW0VWCE3OGPNqtRk2E5s6
+IQARAQABwsD8BBgBCAAmFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sLAFCQWj
+moACGwwACgkQZg+p0QLLz9DncQwAg76IehTemLIfrB8T9WIBZrI4kUV7G7a4rjiV
+oUiHYN5QwhnbZnsaJDlt+Ezoqy/510eo2bCSzvW5xXYPgyjcuOPwgQo1Qp764Qxy
+X6rld2f2RcWkDuBHun55ZWXjby8o21ginPRwruBVYY5rVf3DV1iBu4NurUeHtyFk
+/dS0XTOQi2wVUb17sW/+ybCEokdVacZGzOqP/OmwHrF8ylXlXnhQq6e3r+J+T8fu
+oGJelm/CJiMwyP6cEWE8sxVqX/iqwjwUYkuOCpE+lOWSvdNHgoEkWR0RXBPQjnGm
+LKbfTl/QDXLk6NP2/r9uxm2HL6Ei3QJKSEdrp+XZaVnk/OffO485NOTKwGOxyWb0
+06cTMh53xPkAJFQu4Tvdj+odsHz88jqw5wfPG0BYWx0I/FspYj7N9kZR8ULR9nX0
+LvpzJ/kB4NgHIUt8YtIL6ZSfM2dbF7fKzvx1UqFfvozJZwFzfEieJLXa4nlGgR6D
+x9fhaZEsniw8/bYgC3igkk5YJiOa
+=3DlUIA
+-----END PGP PUBLIC KEY BLOCK-----
 
-diff --git a/xen/arch/x86/include/asm/stubs.h b/xen/arch/x86/include/asm/stubs.h
-index a520928e9a50..467551136a2a 100644
---- a/xen/arch/x86/include/asm/stubs.h
-+++ b/xen/arch/x86/include/asm/stubs.h
-@@ -32,6 +32,6 @@ struct stubs {
- };
- 
- DECLARE_PER_CPU(struct stubs, stubs);
--unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn);
-+void init_stub(void);
- 
- #endif /* X86_ASM_STUBS_H */
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 4192edf635b6..0253d22c349d 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -2089,9 +2089,7 @@ void asmlinkage __init noreturn __start_xen(void)
- 
-     init_idle_domain();
- 
--    this_cpu(stubs.addr) = alloc_stub_page(smp_processor_id(),
--                                           &this_cpu(stubs).mfn);
--    BUG_ON(!this_cpu(stubs.addr));
-+    init_stub();
- 
-     bsp_traps_reinit(); /* Needs stubs allocated, must be before presmp_initcalls. */
- 
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index d8fd71ffab37..76e7ee6af6ed 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -20,6 +20,7 @@
- #include <xen/serial.h>
- #include <xen/softirq.h>
- #include <xen/tasklet.h>
-+#include <xen/xvmalloc.h>
- 
- #include <asm/apic.h>
- #include <asm/cpuidle.h>
-@@ -641,41 +642,64 @@ static int do_boot_cpu(int apicid, int cpu)
-     return rc;
- }
- 
--#define STUB_BUF_CPU_OFFS(cpu) (((cpu) & (STUBS_PER_PAGE - 1)) * STUB_BUF_SIZE)
-+/* Dynamically allocated, indexed by CPU.  Store physical address of stubs. */
-+static paddr_t *__ro_after_init stubs;
- 
--unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
-+static bool assign_stub_page(unsigned int cpu)
- {
-     unsigned long stub_va;
--    struct page_info *pg;
-+    paddr_t addr = stubs[cpu];
- 
--    BUILD_BUG_ON(STUBS_PER_PAGE & (STUBS_PER_PAGE - 1));
--
--    if ( *mfn )
--        pg = mfn_to_page(_mfn(*mfn));
--    else
-+    if ( addr == INVALID_PADDR )
-     {
--        nodeid_t node = cpu_to_node(cpu);
--        unsigned int memflags = node != NUMA_NO_NODE ? MEMF_node(node) : 0;
-+        nodeid_t nid = cpu_to_node(cpu);
-+
-+        /*
-+         * Attempt to use the same page as the previous CPU if possible,
-+         * otherwise allocate a new one.
-+         */
-+        if ( cpu && nid == cpu_to_node(cpu - 1) &&
-+             stubs[cpu - 1] != INVALID_PADDR &&
-+             PAGE_OFFSET(stubs[cpu - 1] + STUB_BUF_SIZE) )
-+            addr = stubs[cpu - 1] + STUB_BUF_SIZE;
-+        else
-+        {
-+            struct page_info *pg = alloc_domheap_page(NULL, MEMF_node(nid));
- 
--        pg = alloc_domheap_page(NULL, memflags);
--        if ( !pg )
--            return 0;
-+            if ( !pg )
-+                return false;
- 
--        unmap_domain_page(memset(__map_domain_page(pg), 0xcc, PAGE_SIZE));
-+            unmap_domain_page(memset(__map_domain_page(pg), 0xcc, PAGE_SIZE));
-+            addr = page_to_maddr(pg);
-+        }
-+        stubs[cpu] = addr;
-     }
- 
-     stub_va = XEN_VIRT_END - FIXADDR_X_SIZE - (cpu + 1) * PAGE_SIZE;
--    if ( map_pages_to_xen(stub_va, page_to_mfn(pg), 1,
-+    if ( map_pages_to_xen(stub_va, maddr_to_mfn(addr), 1,
-                           PAGE_HYPERVISOR_RX | MAP_SMALL_PAGES) )
--    {
--        if ( !*mfn )
--            free_domheap_page(pg);
--        stub_va = 0;
--    }
--    else if ( !*mfn )
--        *mfn = mfn_x(page_to_mfn(pg));
-+        return false;
-+
-+    per_cpu(stubs.mfn, cpu) = PFN_DOWN(addr);
-+    per_cpu(stubs.addr, cpu) = stub_va + PAGE_OFFSET(addr);
-+    return true;
-+}
-+
-+void __init init_stub(void)
-+{
-+    const unsigned int num_cpus = num_present_cpus();
-+    unsigned int i;
-+
-+    ASSERT(!stubs);
-+    stubs = xvmalloc_array(typeof(*stubs), num_cpus);
-+    if ( !stubs )
-+        panic("Unable to allocate stub array\n");
- 
--    return stub_va;
-+    for ( i = 0; i < num_cpus; i++ )
-+        stubs[i] = INVALID_PADDR;
-+
-+    if ( !assign_stub_page(0) )
-+        panic("Unable to initialize BSP stub region\n");
- }
- 
- void cpu_exit_clear(unsigned int cpu)
-@@ -990,19 +1014,12 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
-     {
-         mfn_t mfn = _mfn(per_cpu(stubs.mfn, cpu));
-         unsigned char *stub_page = map_domain_page(mfn);
--        unsigned int i;
- 
--        memset(stub_page + STUB_BUF_CPU_OFFS(cpu), 0xcc, STUB_BUF_SIZE);
--        for ( i = 0; i < STUBS_PER_PAGE; ++i )
--            if ( stub_page[i * STUB_BUF_SIZE] != 0xcc )
--                break;
-+        memset(stub_page + PAGE_OFFSET(stubs[cpu]), 0xcc, STUB_BUF_SIZE);
-         unmap_domain_page(stub_page);
-         destroy_xen_mappings(per_cpu(stubs.addr, cpu) & PAGE_MASK,
-                              (per_cpu(stubs.addr, cpu) | ~PAGE_MASK) + 1);
-         per_cpu(stubs.addr, cpu) = 0;
--        per_cpu(stubs.mfn, cpu) = 0;
--        if ( i == STUBS_PER_PAGE )
--            free_domheap_page(mfn_to_page(mfn));
-     }
- 
-     if ( IS_ENABLED(CONFIG_PV32) )
-@@ -1041,10 +1058,9 @@ void *cpu_alloc_stack(unsigned int cpu)
- static int cpu_smpboot_alloc(unsigned int cpu)
- {
-     struct cpu_info *info;
--    unsigned int i, memflags = 0;
-+    unsigned int memflags = 0;
-     nodeid_t node = cpu_to_node(cpu);
-     seg_desc_t *gdt;
--    unsigned long stub_page;
-     int rc = -ENOMEM;
- 
-     if ( node != NUMA_NO_NODE )
-@@ -1092,18 +1108,8 @@ static int cpu_smpboot_alloc(unsigned int cpu)
-     memcpy(per_cpu(idt, cpu), bsp_idt, sizeof(bsp_idt));
-     disable_each_ist(per_cpu(idt, cpu));
- 
--    for ( stub_page = 0, i = cpu & ~(STUBS_PER_PAGE - 1);
--          i < nr_cpu_ids && i <= (cpu | (STUBS_PER_PAGE - 1)); ++i )
--        if ( cpu_online(i) && cpu_to_node(i) == node )
--        {
--            per_cpu(stubs.mfn, cpu) = per_cpu(stubs.mfn, i);
--            break;
--        }
--    BUG_ON(i == cpu);
--    stub_page = alloc_stub_page(cpu, &per_cpu(stubs.mfn, cpu));
--    if ( !stub_page )
-+    if ( !assign_stub_page(cpu) )
-         goto out;
--    per_cpu(stubs.addr, cpu) = stub_page + STUB_BUF_CPU_OFFS(cpu);
- 
-     rc = setup_cpu_root_pgt(cpu);
-     if ( rc )
--- 
-2.53.0
+--------------0YBRmI0yvOYbFqFFG3ZOPezt--
 
+--------------s6bllfsCkEUnRoiY7fXZwnjm--
+
+--------------ShdTQzGuWqhtGKUcJNjo7X03
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmoryyAFAwAAAAAACgkQZg+p0QLLz9Az
+lAwAhWpE3K14gvXKmWFoExTZAmOqPMzd8obz2Wc4SQZdFHrZUg2kF9XHnnlTMFBsz7fczz0GOham
+l1ECxk39gPNOX1DXhzBar30Dyt3A5YPWmuTOubmNTUBc4i3n20fRn/tc2DWKEIgBiya6VKsd2AgR
+BIGP/9hugqlaiO9mrA49y4bfPLD4fq3TTxmaDePkR0b9r4xBeIYzo1eEGyVdu/WcbOS8Vweq3g5n
+z4GpWQIvB30OttuZelR2INDcivlup5xX2RGsils8bzNenfW6yVsmOj7Vs8FkialeLP9R2QBK/Pfm
+S2drBYbMcsbAOhhxAuh2dvx4o5XqM+4TFpLVg2i6XZ36OQuypEp4/pDG877Q3N1Pjk1uyVdaSTff
+bipoae2y7GnLFIWxnxysIISEE5+BEm59KBwhayUgdlDtMdUvClk9MziCpjBGlCo44L7TA7Js82Gh
+04ESyUi75KIANYiZUY/sj7jkNZVgorHUas3WvTHn9JMwffCQyFKi/QgeInxh
+=kp2q
+-----END PGP SIGNATURE-----
+
+--------------ShdTQzGuWqhtGKUcJNjo7X03--
 
