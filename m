@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id iBIUCEPQLWr5kQQAu9opvQ
+	id Oe04CD/QLWrpkQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 23:48:51 +0200
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 23:48:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8F8567FD45
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 23:48:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0C867FD04
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 23:48:46 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=VgZ3Kp2B;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=NTvVG6dN;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1337559.1598893 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1337560.1598903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYWDD-0002xc-1v; Sat, 13 Jun 2026 21:48:19 +0000
+	id 1wYWDE-0003FZ-IH; Sat, 13 Jun 2026 21:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1337559.1598893; Sat, 13 Jun 2026 21:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 1337560.1598903; Sat, 13 Jun 2026 21:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYWDC-0002vV-To; Sat, 13 Jun 2026 21:48:18 +0000
-Received: by outflank-mailman (input) for mailman id 1337559;
- Sat, 13 Jun 2026 21:48:17 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wYWDE-0003Aw-CS; Sat, 13 Jun 2026 21:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 1337560;
+ Sat, 13 Jun 2026 21:48:18 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wYWDB-0002Zz-Iv
- for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 21:48:17 +0000
+ (envelope-from <freddy77@gmail.com>) id 1wYWDC-0002jU-4a
+ for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 21:48:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wYWDA-008PGn-Vy
- for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 23:48:16 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wYWDB-00DVVl-Hj
+ for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 23:48:17 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a2dd008-5cb7-0a2a0a5109dd-0a2a4503cafc-14
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 23:48:16 +0200
-Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a2dcf18-2eae-0a2a0a5409dd-0a2a450bc4b2-32
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 23:48:17 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a2dd020-672d-0a2a45030019-d1558033c11e-3
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 23:48:16 +0200
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-49222b6e871so6073465e9.3
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 14:48:16 -0700 (PDT)
+ id 6a2dd021-212f-0a2a450b0019-d1558030c84f-3
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 23:48:17 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490a76757e5so14953915e9.2
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 14:48:17 -0700 (PDT)
 Received: from localhost.localdomain (5.116.208.46.dyn.plus.net.
  [46.208.116.5]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492202edf89sm113877065e9.1.2026.06.13.14.48.14
+ 5b1f17b1804b1-492202edf89sm113877065e9.1.2026.06.13.14.48.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2026 14:48:15 -0700 (PDT)
+ Sat, 13 Jun 2026 14:48:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,40 +61,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781387296; x=1781992096; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1781387297; x=1781992097; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MlYBrPHimuR3p/Sg0YcSFuof0r06EXv6/scdT04tUH0=;
-        b=VgZ3Kp2B3lPAfjILM8ZA1bRzi6dd2UYOp76SRqMyJxComo4gfbb2Gt6i/LH67tbGW2
-         XF9gvojQ9a0XH0D6N2i8Wfrhfz2DrwGXgeqfCcosnZVldWuusGOOzu3SKQLqSRpxA6EA
-         KjAV1W/EokYl/5sBOltvzFc6keeL1wqpuXaYD4c5/5MiEXLRtVg84n5edMf0lXHQ+Wki
-         2LiO1o3nipj4Qo8EkhQQ+25Si07A6Q5E/iLYFSzBP6OLfIUmafclth4WLr+ETWragyPW
-         52+dC0Vxxt1mIiXvlJ0V7fSzE5jITPjHYN9nxqW+WGXsipBWXOLlfvecI/vxD6DSB71H
-         lGag==
+        bh=9MhL+IoB2npTTdx+dYewd7GvfekT0Xac13RwRFw6zgo=;
+        b=NTvVG6dNhC3mEpRfBD2njqws/hYIb+dx6lb09jaYgR9Xog+3Gb+aiXxRjnqz1NcI9I
+         5sub9RwrS36/DeXf3MIAVBQzOhx/ltjqsHMuqvOKNKRe9WuTN4/iRMY6djAhtL4hvCr/
+         tfoQlKDYbsZCYOD2VTW5h0j6YL/HCXINYQmYuDbX1f0I5CBmq+3/78f6/GRnvgHiT0Sn
+         2pZaG1yk2VU6ns7S2DDYo2Qru7fUL5cXwD3xs4Gv++YgU2vUejR0Xa74zmIHDKeeTfBO
+         g+kujPjSY2wsObeL3mGAvy4sUjWOucwXHr4C652njY7kEVvONCtMxg+DhQDCVeTl+95I
+         fZrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781387296; x=1781992096;
+        d=1e100.net; s=20251104; t=1781387297; x=1781992097;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MlYBrPHimuR3p/Sg0YcSFuof0r06EXv6/scdT04tUH0=;
-        b=AKxtZUnhBX9L/3TZXdj92TZcU91ExP4R2v0EwdEzsVcNCuwgD7c/ookMNL43w3tJgu
-         SOtWCiIoSU7fZxkQ9jq8ujQNou37Ur3MU2vWcagITSI8uphlDOjxjwJGHVBE6fRh6w+B
-         kfG/GmBpLqZHxl6NNmdN89tjlCxoLTLyEDjiUrDhnyJCHYapI+r7M2HjK9R5Ub/LlpB+
-         am5RYkLOQgnhhqhIDm2XDyjJYxFNyA2D6cdZj8iLvU5r0Q4g0TLX9Bq6Ja/KJ16Qdv+k
-         CSYUE54LacQ4EwAsfvY4zfYp9a+0GBiGydGcyVIx1bOnns2CL6xX4UCQdnW4IqVOayF+
-         odMw==
-X-Gm-Message-State: AOJu0YyluiBuILgMkZu341EvvGJHa8m7ZBNyg0t+oYzd8OZNfQwegQ/X
-	qDjD9NPMbMeuo3g8XQRBn96qsqUib75VzksmUzJtXCbyx6EngSRT4HoMJbeEGCFsSKs=
-X-Gm-Gg: Acq92OFqWxBg4A2SDj6wv5nKhhWpCxLmqdrUwllkiL2RjBwnj3oK6XiRiQ6WtsLegV3
-	2542kUtUy9sYLE4c2g90NgYDCIBVOYgg52hPW/wp8ST/DimaKtHe0MXsQu7PAG1eH5eP61g3xV2
-	+ObAV1QoJWIHSzkMPGsBA6q8d2F+6yFeJcvRWYCCQWx6K1zTc3x+2RXJeqxksbhH8+ErJ6qdylp
-	Vv5JsYiIR/ziHyoItO79dhdTP1LPWwKwyn0yc2+jEMUJa60zuNSSWO7zWqF/eByXxaxxRKjQYMx
-	s9aPXSqIu0QGDoKWXYmQ1Xc/5LubYGF7dce7FRUitTjW5n6Lr8PEq6gDBcKD1rcTppdu0GBVH1V
-	/uyYGWfIaaqupQ9YGHLZMDimQA+W2JzlYbwb/J99tr0XP9F9daRLTG7P9ksPyyVozmjM94CDrPA
-	E5pBy5UTv1G+MglPM/1Ugje5a1OAhJuS8X1VXdh9XLfJZeMG6WULVtR+/6zq9lUe9AeHpd4bZ+9
-	eyRpaF61+oD2STDR7D2V1PyJGqaYsrsIAPo
-X-Received: by 2002:a05:600c:4685:b0:490:bad8:329c with SMTP id 5b1f17b1804b1-490ec4d4f64mr121404065e9.12.1781387296170;
+        bh=9MhL+IoB2npTTdx+dYewd7GvfekT0Xac13RwRFw6zgo=;
+        b=NrWlriWDq7P8X7RyhayyksPXYhvMPsBxmrRpFmuT9PhghsNjkqBOjXWXOmjxjzmd2r
+         4LIyKHtEIgQ3y8VmfGYcSM597v8+Npzv8gvAJXEbieiCLaVf7H+XF8Iq1i2fBzaihaHn
+         oB+syRMVusRG4KpyjnJX24L6Ub0x8q2I/4qMnPqAfgdFwm9UYaqJdCAT090qjZwsqJKN
+         vyBksQmo6+sms8n1GAcbs1ENYtvNEGlY3HRm8eeaOhvGpeV8PDSmUVtvLtvk5AhPVo/j
+         K9jON2994n428CKVJ3ykIT/hJ1OwdcUlQIgi+H5IJdpBsFCityUGqoyKBfBI+TIuGRwN
+         cruA==
+X-Gm-Message-State: AOJu0Yyl9ugs5D5L4rwCw+OqRAfZocNFOtiCnXPk4Ilcg84DpfrBAuo8
+	H2QCuXfC7eUr4C8jS8au3tIWlGEOgD3gq+WhO8JqwKoQBB7/fWZnTiNjZjmTa1n4xP4=
+X-Gm-Gg: Acq92OF+YuwiyllxGNHF1ULVEiTS2VNQ+LBpTQrIOhiiccULuvmRC+Pi7FBs1Jzwbzd
+	BHc64kfasStyD8ME0G3GxexhKTa6sky1I14VA3CBTORXO5JI4D5Lh2ucbEMw/5U6h3XR1E4HlFH
+	FZvLg2Kohq6dA1cm9g1650smWU1zMja5o1wbk2a4a3yOjwawknc9KMi9OKRKonjUTszI5WS59s6
+	j05D34ISAF5ihXrbgMiTjgYzo5AQ9Eaz+S9zwR3ZC5eTnArjFaOOsRJRCkiqSiqGEpfmIMtRSKr
+	sYlszc79MHDp4DjuZElsa98xVnX3EU4T6JKb027s8H9R8t1eZ9jzKCPCUtHKG1Y1ohYIHPCUxw7
+	stiDlPBNNouB2UxJPig8o/IGE2rx9+865wXa4tn7O5kViO41+J9YZN/8BG0dZ1jDksrWIDmU6wY
+	Za4NLfODq11Tnc1h6wBEndy6r1gO+iLvdzGbzBpP8pfFpwp64PyBNhWvJ28MQOVO1muEHREexBE
+	0T71jMW0Q2e0YEOW0KFatYRUQ==
+X-Received: by 2002:a05:600c:4e4e:b0:490:e196:e8df with SMTP id 5b1f17b1804b1-492200bb228mr56160055e9.23.1781387296918;
         Sat, 13 Jun 2026 14:48:16 -0700 (PDT)
 From: Frediano Ziglio <freddy77@gmail.com>
 X-Google-Original-From: Frediano Ziglio <frediano.ziglio@cloud.com>
@@ -106,17 +106,17 @@ Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v5 08/16] libs/guest: fill directly iov structure
-Date: Sat, 13 Jun 2026 22:47:41 +0100
-Message-ID: <20260613214749.20620-9-frediano.ziglio@cloud.com>
+Subject: [PATCH v5 09/16] libs/ctrl: Allows writev_exact to change iov array
+Date: Sat, 13 Jun 2026 22:47:42 +0100
+Message-ID: <20260613214749.20620-10-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260613214749.20620-1-frediano.ziglio@cloud.com>
 References: <20260613214749.20620-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1781387296-3A378938-1D97C0B6/0/0
+X-purgate-ID: tlsNG-42698a/1781387297-13F7EF3B-2B28A7F9/0/0
 X-purgate-type: clean
-X-purgate-size: 4598
+X-purgate-size: 3226
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
@@ -151,146 +151,96 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B8F8567FD45
+X-Rspamd-Queue-Id: BB0C867FD04
 
 From: Frediano Ziglio <frediano.ziglio@citrix.com>
 
-Instead of storing page pointers into an array and lately adding to
-iov vector add the pages directly to iov to avoid "guest_data"
-array.
+Avoid having to allocate and copy the array if a partial write
+happens.
+The implementation in tools/libs/store/xs.c already use this
+signature and method.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
+--
+Changes since v2:
+- change prefix in subject.
 ---
- tools/libs/guest/xg_sr_common.h |  1 -
- tools/libs/guest/xg_sr_save.c   | 64 ++++++++++++---------------------
- 2 files changed, 23 insertions(+), 42 deletions(-)
+ tools/libs/ctrl/xc_private.c | 26 +++++---------------------
+ tools/libs/ctrl/xc_private.h |  2 +-
+ 2 files changed, 6 insertions(+), 22 deletions(-)
 
-diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
-index 95b0564e5c..b2c441b644 100644
---- a/tools/libs/guest/xg_sr_common.h
-+++ b/tools/libs/guest/xg_sr_common.h
-@@ -214,7 +214,6 @@ struct xc_sr_context_save_buffers
-     xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
-     xen_pfn_t mfns[MAX_BATCH_SIZE];
-     xen_pfn_t types[MAX_BATCH_SIZE];
--    void *guest_data[MAX_BATCH_SIZE];
-     void *local_pages[MAX_BATCH_SIZE];
-     struct iovec iov[MAX_BATCH_SIZE + 2]; /* Headers + data. */
-     uint64_t rec_pfns[MAX_BATCH_SIZE];
-diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
-index 4988d8040b..8a22267fdf 100644
---- a/tools/libs/guest/xg_sr_save.c
-+++ b/tools/libs/guest/xg_sr_save.c
-@@ -88,7 +88,6 @@ static int write_batch(struct xc_sr_context *ctx)
-     xc_interface *xch = ctx->xch;
-     xen_pfn_t *mfns, *types;
-     void *guest_mapping = NULL;
--    void **guest_data;
-     void **local_pages;
-     int *errors, rc = -1;
-     unsigned int i, p, nr_pages = 0, nr_pages_mapped = 0;
-@@ -113,9 +112,6 @@ static int write_batch(struct xc_sr_context *ctx)
-     types = ctx->save.buffers->types;
-     /* Errors from attempting to map the gfns. */
-     errors = ctx->save.buffers->errors;
--    /* Pointers to page data to send.  Mapped gfns or local allocations. */
--    guest_data = ctx->save.buffers->guest_data;
--    memset(guest_data, 0, sizeof(*guest_data) * nr_pfns);
-     /* Pointers to locally allocated pages.  Need freeing. */
-     local_pages = ctx->save.buffers->local_pages;
-     memset(local_pages, 0, sizeof(*local_pages) * nr_pfns);
-@@ -158,6 +154,19 @@ static int write_batch(struct xc_sr_context *ctx)
-         mfns[nr_pages++] = mfns[i];
-     }
+diff --git a/tools/libs/ctrl/xc_private.c b/tools/libs/ctrl/xc_private.c
+index bb0f81d6f3..946fc307aa 100644
+--- a/tools/libs/ctrl/xc_private.c
++++ b/tools/libs/ctrl/xc_private.c
+@@ -635,7 +635,7 @@ int write_exact(int fd, const void *data, size_t size)
+ /*
+  * MiniOS's libc doesn't know about writev(). Implement it as multiple write()s.
+  */
+-int writev_exact(int fd, const struct iovec *iov, int iovcnt)
++int writev_exact(int fd, struct iovec *iov, int iovcnt)
+ {
+     int rc, i;
  
-+    hdrs.rec.length = sizeof(hdrs.page_data);
-+    hdrs.rec.length += nr_pfns * sizeof(*rec_pfns);
-+
-+    hdrs.page_data.count = nr_pfns;
-+
-+    iov[0].iov_base = &hdrs;
-+    iov[0].iov_len = sizeof(hdrs);
-+
-+    iov[1].iov_base = rec_pfns;
-+    iov[1].iov_len = nr_pfns * sizeof(*rec_pfns);
-+
-+    iovcnt = 2;
-+
-     if ( nr_pages > 0 )
-     {
-         guest_mapping = xenforeignmemory_map(
-@@ -199,61 +208,34 @@ static int write_batch(struct xc_sr_context *ctx)
-                 else
-                     goto err;
-             }
-+            else if ( iov[iovcnt - 1].iov_base + iov[iovcnt - 1].iov_len !=
-+                      page )
-+            {
-+                iov[iovcnt].iov_base = page;
-+                iov[iovcnt].iov_len = PAGE_SIZE;
-+                iovcnt++;
-+            }
+@@ -649,9 +649,8 @@ int writev_exact(int fd, const struct iovec *iov, int iovcnt)
+     return 0;
+ }
+ #else
+-int writev_exact(int fd, const struct iovec *iov, int iovcnt)
++int writev_exact(int fd, struct iovec *iov, int iovcnt)
+ {
+-    struct iovec *local_iov = NULL;
+     int rc = 0, iov_idx = 0, saved_errno = 0;
+     ssize_t len;
+ 
+@@ -686,23 +685,9 @@ int writev_exact(int fd, const struct iovec *iov, int iovcnt)
+                 len -= iov[iov_idx++].iov_len;
              else
--                guest_data[i] = page;
-+            {
-+                iov[iovcnt - 1].iov_len += PAGE_SIZE;
-+            }
- 
-             rc = -1;
-             ++p;
+             {
+-                /* Partial write of iov[iov_idx]. Copy iov so we can adjust
+-                 * element iov_idx and resubmit the rest. */
+-                if ( !local_iov )
+-                {
+-                    local_iov = malloc(iovcnt * sizeof(*iov));
+-                    if ( !local_iov )
+-                    {
+-                        saved_errno = ENOMEM;
+-                        rc = -1;
+-                        goto out;
+-                    }
+-
+-                    iov = memcpy(local_iov, iov, iovcnt * sizeof(*iov));
+-                }
+-
+-                local_iov[iov_idx].iov_base += len;
+-                local_iov[iov_idx].iov_len  -= len;
++                /* Partial write of iov[iov_idx]. */
++                iov[iov_idx].iov_base += len;
++                iov[iov_idx].iov_len  -= len;
+                 break;
+             }
          }
-     }
+@@ -711,7 +696,6 @@ int writev_exact(int fd, const struct iovec *iov, int iovcnt)
+     saved_errno = 0;
  
--    hdrs.rec.length = sizeof(hdrs.page_data);
--    hdrs.rec.length += nr_pfns * sizeof(*rec_pfns);
-     hdrs.rec.length += nr_pages * PAGE_SIZE;
+  out:
+-    free(local_iov);
+     errno = saved_errno;
+     return rc;
+ }
+diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
+index b5892ae8dc..3af996e900 100644
+--- a/tools/libs/ctrl/xc_private.h
++++ b/tools/libs/ctrl/xc_private.h
+@@ -383,7 +383,7 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu);
+ /* Return 0 on success; -1 on error setting errno. */
+ int read_exact(int fd, void *data, size_t size); /* EOF => -1, errno=0 */
+ int write_exact(int fd, const void *data, size_t size);
+-int writev_exact(int fd, const struct iovec *iov, int iovcnt);
++int writev_exact(int fd, struct iovec *iov, int iovcnt);
  
--    hdrs.page_data.count = nr_pfns;
--
-     for ( i = 0; i < nr_pfns; ++i )
-         rec_pfns[i] = ((uint64_t)(types[i]) << 32) | ctx->save.batch_pfns[i];
- 
--    iov[0].iov_base = &hdrs;
--    iov[0].iov_len = sizeof(hdrs);
--
--    iov[1].iov_base = rec_pfns;
--    iov[1].iov_len = nr_pfns * sizeof(*rec_pfns);
--
--    iovcnt = 2;
--
--    if ( nr_pages )
--    {
--        for ( i = 0; i < nr_pfns; ++i )
--        {
--            if ( !guest_data[i] )
--                continue;
--
--            if ( iov[iovcnt - 1].iov_base + iov[iovcnt - 1].iov_len !=
--                 guest_data[i] )
--            {
--                iov[iovcnt].iov_base = guest_data[i];
--                iov[iovcnt].iov_len = PAGE_SIZE;
--                iovcnt++;
--            }
--            else
--            {
--                iov[iovcnt - 1].iov_len += PAGE_SIZE;
--            }
--            --nr_pages;
--        }
--    }
--
-     if ( writev_exact(ctx->fd, iov, iovcnt) )
-     {
-         PERROR("Failed to write page data to stream");
-         goto err;
-     }
- 
--    /* Sanity check we have sent all the pages we expected to. */
--    assert(nr_pages == 0);
-     rc = ctx->save.nr_batch_pfns = 0;
- 
-  err:
+ int xc_ffs8(uint8_t x);
+ int xc_ffs16(uint16_t x);
 -- 
 2.43.0
 
