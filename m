@@ -2,83 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id q4QGNR/LLGq1WQQAu9opvQ
+	id 979hM2s9LWrweAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 05:14:39 +0200
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 13:22:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 716FE67D98B
-	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 05:14:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2243B67E739
+	for <lists+xen-devel@lfdr.de>; Sat, 13 Jun 2026 13:22:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=ford.com header.s=ppford header.b=DBHm+xEf;
-	dkim=pass header.d=azureford.onmicrosoft.com header.s=selector2-azureford-onmicrosoft-com header.b=Yx0JGAys;
-	dkim=pass header.d=saarlouis.ford.com header.s=ppserprodsaar header.b=OvfLRzmp;
-	dkim=pass header.d=ford.com header.s=ppfserpocford header.b=rorpUzTb;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=bCoRjwS4;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=ford.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1337126.1598767 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1337244.1598776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYEo8-0002DL-FB; Sat, 13 Jun 2026 03:13:16 +0000
+	id 1wYMQG-00027C-Vj; Sat, 13 Jun 2026 11:21:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1337126.1598767; Sat, 13 Jun 2026 03:13:16 +0000
+Received: by outflank-mailman (output) from mailman id 1337244.1598776; Sat, 13 Jun 2026 11:21:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYEo8-0002Ac-8P; Sat, 13 Jun 2026 03:13:16 +0000
-Received: by outflank-mailman (input) for mailman id 1337126;
- Sat, 13 Jun 2026 03:13:14 +0000
+	id 1wYMQG-00024T-Qq; Sat, 13 Jun 2026 11:21:08 +0000
+Received: by outflank-mailman (input) for mailman id 1337244;
+ Sat, 13 Jun 2026 11:21:07 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmukhin@ford.com>) id 1wYEo6-0002AE-1B
- for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 03:13:14 +0000
+ (envelope-from <freddy77@gmail.com>) id 1wYMQF-00024N-Bg
+ for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 11:21:07 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wYEo3-0045rb-JA
- for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 05:13:12 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wYMQE-00BEEH-Om
+ for xen-devel@lists.xenproject.org; Sat, 13 Jun 2026 13:21:06 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dmukhin@ford.com>)
- id 6a2ccaaa-2eae-0a2a0a5409dd-0a2a450781ba-16
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 05:13:07 +0200
-Received: from [148.163.146.23] (helo=mx0a-00498f03.pphosted.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <dmukhin@ford.com>)
- id 6a2ccac0-229c-0a2a45070019-94a392170536-3
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 05:13:06 +0200
-Received: from pps.filterd (m0367126.ppops.net [127.0.0.1])
- by mx0a-00498f03.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65CHOmdc3659630
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 03:13:03 GMT
-Received: from sj2pr03cu001.outbound.protection.outlook.com
- (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
- by mx0a-00498f03.pphosted.com (PPS) with ESMTPS id 4erpg6uuc2-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 03:13:03 +0000 (GMT)
-Received: from BN9PR03CA0910.namprd03.prod.outlook.com (2603:10b6:408:107::15)
- by IA6PR16MB7029.namprd16.prod.outlook.com (2603:10b6:208:5da::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Sat, 13 Jun
- 2026 03:13:00 +0000
-Received: from BN2PEPF000055E1.namprd21.prod.outlook.com
- (2603:10b6:408:107:cafe::2d) by BN9PR03CA0910.outlook.office365.com
- (2603:10b6:408:107::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.14 via Frontend Transport; Sat,
- 13 Jun 2026 03:13:00 +0000
-Received: from mx0a-00498f04.pphosted.com (205.220.161.53) by
- BN2PEPF000055E1.mail.protection.outlook.com (10.167.245.11) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.0
- via Frontend Transport; Sat, 13 Jun 2026 03:12:59 +0000
-Received: from pps.filterd (m0373460.ppops.net [127.0.0.1])
- by mx0a-00498f04.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65D0PeDv2807341
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 23:12:59 -0400
-Received: from smtp-us.ser.proofpoint.com (pmta-use.ser.proofpoint.com
- [44.208.76.22])
- by mx0a-00498f04.pphosted.com (PPS) with ESMTPS id 4eqe733e51-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jun 2026 23:12:58 -0400 (EDT)
-Received: from localhost ([19.12.92.221]) by cmsmtp with ESMTPSA
- id YEnowuNsJEF2CYEnpwesGr; Sat, 13 Jun 2026 03:12:58 +0000
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2d3ce5-5cb7-0a2a0a5109dd-0a2a450180d8-44
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 13:21:06 +0200
+Received: from [74.125.224.51] (helo=mail-yx1-f51.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2d3d21-c1f2-0a2a45010019-4a7de033a5e8-3
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 13:21:06 +0200
+Received: by mail-yx1-f51.google.com with SMTP id
+ 956f58d0204a3-660512d80b4so1849627d50.1
+ for <xen-devel@lists.xenproject.org>; Sat, 13 Jun 2026 04:21:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -90,240 +56,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=ppford; bh=hTLFjc2IvsmM6YThWVCY1qXEPlT
-	s7mtXgR52UGkorUU=; b=DBHm+xEf3R02aNxfNKU1nYTgBduiCk51+WfdL6WOrZ4
-	SUBjDsRYTdS5ixaiorTkGdwZLmdJfJVan3AnpSpg1iGJhnJna1UOKYV4xN4ZjisC
-	FzeVNW7wv7l6qynkJcxF2OiQCB+RBbbVbv5h1qo3b0a8Rqu7jTzAPZ0uzlC6nDYf
-	OeL8aET5rGVsmmKz93YeleW59bDVKtatFru7e0WveuK/rSiKJU3D3FY8JXwPuZvp
-	x78dLRO3teM3wxAx9BsEKRmWC6L2S/vrn/PMQERfMu/qJ6miPnxqvqWJ0e+7hh1x
-	TAjyCRsR+hZ5spLW9ztuY7GslAmOaW8MK6qED6ZjiMw==
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JBDeo9dKFrKP+d/uoIbiu7eBs5Ftr+QGatiIYmbfCbt5mZxpw0TQNS38Z0nQD3l5vF3+CfjkwUsJ2wzd0VX4UQx/iNjagUc0aU7OnAXWGNBhen9oomEiCFTlRNPKLCLKZYYOdP1qfcrArOndDykbrSgDjl6DUJhqRP095FmxIeA0pgEIj++vyt4jR4ogOnl5OXwvgS6RMqQ8gaTYgw5Nn/ME3nz79FjqIE6upobZ2ENXBkQ7ySvYGkMabVo+O6Z05hByS8P2BvZJM/CPhdqVOE7lC12YmvI+Y6mdJo3rspDvTouCNwiRvO6muepqFjTpsho12kOGdsqkMdvFiE8+iA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hTLFjc2IvsmM6YThWVCY1qXEPlTs7mtXgR52UGkorUU=;
- b=UWajFasNH7LjAQAIqsXeUWxxFFfu5CFU97jkMmNby40Yufy4CbxAOyyyyI++b0p2pFGVNDVI1VWbLOMiou2M2GHSrrYLqT94cgXAESKJ5ZUChtptsgpA9x4lhKEJ/kIwo4rmia8ozao9IQuZ0CqqXMgXyRjk7elF+ZloYqSAxGxOe2CVcc1mOeHChbcpTzDi7PG8AvcMi6zHdPSqf/gy6rDMPi3qhteIqhqHYP8Erv9acIeSml3OTY6buAw4ZhGe+05dqz37vb6/pyydBxkOansacNG15BX1Ra0NAhVpG2XorSN+iRhSuTl1+SrUmr/EyINLlV86FGyvRzWPQam85A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 205.220.161.53) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=ford.com; dmarc=pass (p=reject sp=reject pct=100) action=none
- header.from=ford.com; dkim=pass (signature was verified)
- header.d=saarlouis.ford.com; dkim=pass (signature was verified)
- header.d=ford.com; arc=none (0)
+ARC-Seal: i=1; a=rsa-sha256; t=1781349665; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ivNEnXO8pkDec+zTPSwNrgdWqn9eiqkqdEmIiW3hmhMZSf4t4KUvXR+DWiUcyIVDyh
+         ThVrwtQkPw9C1fU2nzbzhPfCbMVRHyEugbXBBZ35m5FmUqMccMB02DTgfFz8v+Yik542
+         Jjl6pELDKziyUrrPLsxIN3KPnE+glBzCF+r54ZnN6M5QT4rrq+qwkZZoT8fHzhUjnVtb
+         bpAPCLOHthF3WQOH6mh7zrbCQzstVyPMBCukwYOaB1NMPW+FlzycqdU7gCq5YIdz6n6A
+         GJcHLhXEQmXN2E8lhQm4pYroq2M1le1nqd+wfhRIiP8joD/tKbVhXs8m4vSqjKHYsbUN
+         XzNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3IniDQcAaeOzy6guSBj5CzJJWJ98I6bNY7wzkg/qiTw=;
+        fh=5lbqxgCMxf3Y4mAOLO68qUerdJDxNKup8DPHRZ7w9dY=;
+        b=EutPzm3kNwD5C3gfz8zeojYX5U1FjYFAV81WFvmGQThBHhjwus6+TmtEGtdnXyjQyx
+         4YT04ANg/SAokKGUZ2x71P+GmXzmAP9fqQwYWFDd0nWdQw5Lcy09/K6sNpzmkuZQu1Wi
+         1ozpx45qmByAdiuwxWizT+mdmqYtCbGfmpBQcYc5fC+if3w46gHgTtrt2C0dexH+VquK
+         1QhPpwub4zhtefyXcogD5AQJ7kk/d1OMRcNKLdkvsZVecUD7sMrUg6Ba7Z4e5ZmFyiFH
+         5jwNGacwPyGnjVOSOHnO2IuEADmbbNiXyIuAT817s2fvpsPLWkq6Y3+0qVE0w4JxXtdG
+         omPw==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=azureford.onmicrosoft.com; s=selector2-azureford-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hTLFjc2IvsmM6YThWVCY1qXEPlTs7mtXgR52UGkorUU=;
- b=Yx0JGAysZma2FZYUsbqx3qBp7wSyFRh4hByner9GNPQRYrhSV0a5yxka5sqJ+MmQYgaANu6EK28wSAbboMOdSO/W35UvXaOMKFvsKG+hXVHf6CpAoNHMSF/XxqIuO1ikp5izxJaVk5JBPs2ffFjMR4jVizGne5PaACStXCvHbAQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 205.220.161.53)
- smtp.mailfrom=ford.com; dkim=pass (signature was verified)
- header.d=saarlouis.ford.com;dkim=pass (signature was verified)
- header.d=ford.com;dmarc=pass action=none header.from=ford.com;
-Received-SPF: Pass (protection.outlook.com: domain of ford.com designates
- 205.220.161.53 as permitted sender) receiver=protection.outlook.com;
- client-ip=205.220.161.53; helo=mx0a-00498f04.pphosted.com; pr=C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	saarlouis.ford.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=ppserprodsaar;
-	 bh=hTLFjc2IvsmM6YThWVCY1qXEPlTs7mtXgR52UGkorUU=; b=OvfLRzmpQT2+
-	EDx/BexD1lxMntTvjwifqiR2pp8REoJk5jbZuUOmBqjcipg45S46ncA6I7NrYdmW
-	fNxVNdQDOX48guuSaxAFwUukDlScdqurp8knPvYAjSAcZ9SI+Ndr6mGWkoL9XiX8
-	FxzZV9Kqfz+pPIaAu9wS5zI8vbkAWiBdSJAmLpyD4Sa4j2mb3VknqKVIgh+Vxdke
-	zG8tQsBfLlHS+PrjMYk/8DK4bPo9h5Ss2dGSY38vbN+MDj4Vfc6Fd8tQWhKZkumw
-	r3pbrm/Yhz8wQ3k5Gvp4XGPK+Ea1wfeDdlyHzN1qWJorbEHopg+zqU0YWXKyPJFI
-	9cwQK0NRLA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=ppfserpocford; bh=hTLFjc2IvsmM6YThWVCY
-	1qXEPlTs7mtXgR52UGkorUU=; b=rorpUzTb3iy8nhQQYE4NMS4gNRsW03FRemRv
-	UDrQfnXGDVmiT3lWN2P++pVL/OlAVi4+7fRderbxdXklyP6PN57q5S5k1gcAGLhO
-	iPzw3RDya5NAdNTCld0V0NimgjL7OwPY/O5ySjwdYU01dkSw2HtgSqjhj3ELZxnY
-	S53RG1OOlBCOWTAskfXWfhxXcc6JNdR5ljAz5T/elpwJoh9zPs3oJsJfthm8mvC0
-	jkGnyiVgKP3T6oalyM3B8XZ0xG4CveD0IA1SyHVTbH20yrqZfeAipwZ7hvhH9II2
-	8pEYJlqCLuSWNUfzEEGxbnD2Sz86mjad3QRjbimIkUjfhRIElA==
-X-Mailer: SER-76bead168636dc6ed1c9e51ce4dea80dbdd4163750742b614a4d871e565792b7
-X-Cloudmark-MID: YEnowuNsJEF2CYEnpwesGr
-X-Proofpoint-CID: eb09f7eb-2dc2-34ab-a188-7b293c1db1fe
-From: dmukhin@ford.com
-Date: Fri, 12 Jun 2026 20:12:56 -0700
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-        Anthony PERARD <anthony.perard@vates.tech>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Michal Orzel <michal.orzel@amd.com>,
-        Doug Goldstein <cardoe@cardoe.com>,
-        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-        Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-        Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH for-4.22 0/7] CI: Refresh Alpine containers
-Message-ID: <aizKuCorSE4myOJ9@kraken>
-References: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
+        d=gmail.com; s=20251104; t=1781349665; x=1781954465; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=3IniDQcAaeOzy6guSBj5CzJJWJ98I6bNY7wzkg/qiTw=;
+        b=bCoRjwS4/2C0KHdIR79QR+RCPfig8qtooPUPEsD/LRma4LXn0e8pTB8PXunpX53AJf
+         CSkEkHccwY3/iGq7eAV0VYkhwrb/atrj/WPjjJgEBBimiec2X/KCJNCws/i/8x++/rhv
+         27cAX26axyk8MZ/Bk63RytM25MnMGrE8K0LgHq4yE7mAOyazALbGHTZXOyIPQJb0lX2n
+         dfcjCVuJLn1+AbaEBsZMGH1pwZojkfoye8OdDfuNe0lgw/dbU0+rk9uev3D9D6ezt1d8
+         ZPb1QKUR0/zlEnXKrx9PAafJ04hOrgtvxru75k/zSiSEygES0mAz+Xly4KjFLZ9lJWi3
+         FQxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781349665; x=1781954465;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3IniDQcAaeOzy6guSBj5CzJJWJ98I6bNY7wzkg/qiTw=;
+        b=at5zuwk5JhUsZ5mQ7uHbmewbrAZaHMryoM97JKABgm9xOmv4LdATSwLkTCuXxGLbTz
+         a8wrBRA+bHtJKCOjEYBgPDOCP/50Z8ozPYh8B706j5BZOXdQzzuyb8NRAjxzh3mQLkCB
+         8+nmuQE6Iq+5mce4Z6UW6DcdaW2XjH7+DyzI2z2t5CHYJN99X0uNApvdWDQQRQTH/oz+
+         1S7WZY84EeimhcCKneL2OsCq0A/sf38PQzQ+lyH4IMTJme9TIioM7jKPXfcnXtpSRdly
+         Q2GUAxDIquY4kBY4CdP0nOo4srSKUqgz7wZu8j78nMXsj8b9T78C7O/VnbfkWh5abJFa
+         7jcQ==
+X-Forwarded-Encrypted: i=1; AFNElJ86sCojW2YkJcBmncypHNgXilZBstFbCGeXU4uuopgC8+EsNJipIcCLLBpGGXBM/as4www3ybl08g8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzaMgRthnrnCoGm6A+DsF46kbT92e1Nx2MzJiP/7xFRCnECAc4r
+	l4ByATH2dXeqDkVOf8/K6vrmtf7tfSHwX3KXec0JjkA7o/Rl6Ohul4k4S6k1nrwk9j+uMt4tIaJ
+	s1yQSpje5iodGHB8MXyDtsJZvTMbIXJ0=
+X-Gm-Gg: Acq92OFph5mGsCvbs0WtpyhQRO2NCodbGdlyhHgCmyPZ3g0fsCcbdv3sePoAS1bvc4X
+	iyS5Lm0X1W3oK0tRrmEf3Sy6zALWohk3g6oUpvDC7oXb5dgjCKmdZSM/FBlAOvHOSiKSaEkERup
+	miOs7ZLDk6hE5mxnHuzZNyuo4ggxSQ7qR6AjKJcV5Vd3Nqj4wTxJN4AxP/bBrMLG+BuEapMb6zk
+	hIIOk1b3Nrqy5/BPLhpyR7wMNLWsb01u9+UausWbIJ/RqON8C/YwQLVqivGSZS3hyb46hEiihBq
+	U88lsjcTvmBoilp6tFWHzFEIiwyPETEDSE7u0Sp5
+X-Received: by 2002:a05:690e:4801:b0:660:67da:446 with SMTP id
+ 956f58d0204a3-6627697903cmr3718819d50.18.1781349664983; Sat, 13 Jun 2026
+ 04:21:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
-PSER-M365-App: SER-APP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-13_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- phishscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606130028
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055E1:EE_|IA6PR16MB7029:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0af7e2b4-4e98-4ff6-971b-08dec8f9acad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|23010399003|6133799003|18002099003|22082099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	wbu8NAdshNNJa9kiPD4pAaqmLdz6IUFugmYFXt4f/loiycC3pvYxAP9X6OXvRF1zOsGhuJ2R36hpqx7H+pMag82ynMPkHFbx3h/cdNZD1mq4UEOjLsUsrX9FX5aTL4+oKZkS2V6h78FatYI9vKFAxW+k49dX6O7cMyX21BIX+4zYrvRLL35FG3JoQhjE75korRzkUGIz0EF5B2eCbDjOdoHYhQk9KYo+bNdpnRRhUyL3AHEKHMkgVabvR/TPIO99/f3UEVAyg4a4tt7qGaA/uuTZKhG1n9KN5cMEPKsj5pHILbVCK4hMVQqpSEsbOIx32jveUiwyGrwwMk/xrktIl9HS4lmqpzMPhp7vPJrRJUZiwooXFIijYop79JTro/rJmH94YOJWkXTxpeyXxdDx9bEi8hq44mUyr0uEoaBGngwHzEMwHBLQPuGHkucR/pWwWhuzB7XSTSut3hQgiGzjzqVUYE44bOW1Gg/zA5OCCc7fL45mcWUkrl4HrN1tzPeXwVBmOz+TxKWp9B4CXlfhm7ttwbps+xfh3OegEOm4xH36pPAzyp1PFUj1itox0+PfrIcGedSa3AxYt0qMOI+c+mPJRPAc4JyhuglBJHRTPhUknap4nX/7ey3ArpCuWxRU9T6ey4YKmUDgJaiJRja0W+H4CAUOIxIvWQSChYiSsxuYvc7HRq8RTC+46sJXzEHt2XPMCEBGIwcn24FqbfhUP7dH7r3xft2dJJp3w79Twb4=
-X-Forefront-Antispam-Report:
-	CIP:205.220.161.53;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx0a-00498f04.pphosted.com;PTR:mx0a-00498f04.pphosted.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(23010399003)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	gfZDevKhDjen6YHH3/pgh02ACQzj2JxkhG02WHv7ZWsh7BXFhALQL458nSm7YcqN4c45T9u1P0bakqs5TKrOdp7UHyqJ0AZP770sRw3c7QVxlW3iBHZ07zdnfpkUcutZ5kZe8dnmTStzj/glckwUlJGl975uIib9GjFDTCbr5SDZqHD4EjiWbvpvH02LgHDAnmD85nMj6tuNx2krsbgmtQbRzJoA8WcqL9Jx1v1W34jCBdKbBYF+hIzhhiWjZDR+Y5NBvhfQPM/8AYAnFbPXZ5CU2a0bJPzFTnQMuETYzpu4kX+P3lQFshS+DQnJqcS1F0K4xgcOAjf63fk7BrBGzMziDnYLen1anHIZVo78sP0AEpITKzMdh01s/D2KthRHpuC3BF/NF6QhzsPK+Wo6Xb3NsBbp93xBSAxLLSkBChu88ni3kfrmm9ShNupQS88B
-X-Exchange-RoutingPolicyChecked:
-	lfP9KVCWn+Xotew/RYJOOJUb343JU4tzK/vXTpp5OQPr+OYu06sWI8CUkR4hTlWM46k6FZgRpLB9+zi7W9roFpXgPudDA0JJm1XtGyl9A0kqqpynzswUaapn6X9XfJyS5dWLCICYgPQVcLn169Lo30zX10o6BUdYsI5SxK95sCtBjwysh+iKiZ1OFyLxuRmCLHfBoiJ/JQ+hfEHwN8IKQIy1yBlJFoFTk88byPAY8epTOGSlfyKbrAXvHU4DWYvDPp+CdtP11OKbf8SEGrhFZX70BbpSVuCVCgP7qC+ZQmcvmMUylrJ/c5IyVpf11uVTlY1SrvVKSvi1P/MyG/LgBQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	RDldZ0vbCR7V3FVpsDO9IvREToFOC+q/BnFW8Q2k8HN4AIKrzyjOTtUXRk3W1p4JeMwZ2PYhHK5NkwIG3eFJgj8F6vgROtUcb7+l6nzMzgHXGDLN1Y4q2iWo0d1MrYAIqcYQ2pi/HoBnQ721+1N3yf9mE+1jReJEP/vbU4xC54d06OVgtGFPorwicCkeigikyd2VKTf1xeKJLYq8a7iv8FkMAc1gg5eIX9YOVD+pAro0AEx+L2HtbblyFYPOOrVUQOFXy/8LKbGT6ZN1fempnZDgvTaZYjXoOoAz+gej5sg322oS+t6xw3Nq/3L2orir+zY4UA8Zmtvwne9qkxJrR9Ek1rp96wN0YWdw7rh21kReoJcNrcoyB5SBEeZT8Or87lNjBUeq6byLGA/pBTPTUv10BcTM4r1MpVomnSs2rFJJk6qPXVswtQ+T1ukb8v43ICRJTFVsHZRv5v7QWEj0tOswezN57c3qp77WIWT/lgXzucx+ngpUFVgHQ4tvXnqasve8eDtKNWPhcSAt58g7JQMhathbJOHU1PsKM2MK2TntBsvtXhdTL9ts0KUufNzzpaLF+b6SLqwU9xM3yjkriXiKiK56TZpNnjqLEhKuSxXC1MEry8UBaQg1lLCH2Z1pP/MrIA8RQapqyCcIM6nUEw==
-X-OriginatorOrg: ford.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2026 03:12:59.9587
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0af7e2b4-4e98-4ff6-971b-08dec8f9acad
-X-MS-Exchange-CrossTenant-Id: c990bb7a-51f4-439b-bd36-9c07fb1041c0
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c990bb7a-51f4-439b-bd36-9c07fb1041c0;Ip=[205.220.161.53];Helo=[mx0a-00498f04.pphosted.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055E1.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA6PR16MB7029
-X-Proofpoint-GUID: H7m7M3EjMs551KhVWtjWjHfMwEf4Yfnd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjEzMDAyOSBTYWx0ZWRfX9LnjlN6q0FAO
- OVAm4D0okZ71BnNF2phVSStQMMqWmifXzlxrMBLw2mmfzBXsvsqkuKDTELRyAjf76+U2mGeE0eG
- 2A0lBhYppuBcK4ut08jNRVLyQdLeR6mLWImhA6lrQtujK49/IH98
-X-Authority-Analysis: v=2.4 cv=cverVV4i c=1 sm=1 tr=0 ts=6a2ccabf cx=c_pps
- a=JXicDZ6CVi74U63V4YFJkg==:117 a=lOEMawUel/sSvQipkIvNbg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10
- a=3PXLN80vpJUA:10 a=6NUGLSImWEsA:10 a=w9pew1qAHqMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=P_n1zlmtWsCQbjROFjcg:22 a=-OawqTZBqJjt90xPb8wn:22
- a=p0WdMEafAAAA:8 a=cbNQJ9GKAAAA:8 a=aTUU4wccGdjc4uoG5QAA:9 a=CjuIK1q_8ugA:10
- a=3whSkbs7g9Me0DR5EJEX:22
-X-Proofpoint-ORIG-GUID: H7m7M3EjMs551KhVWtjWjHfMwEf4Yfnd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjEzMDAyOSBTYWx0ZWRfX9RJHiZUWCqlO
- fB5VCZcEIPBEoeJOmiWln9bOH8xZ9sE7V4mB3Wnu8W9svs4ZU6NyRYEM2ujANBPMzoK2gG1/WVJ
- QPW6CY1KSUPKiLPjI242auB4Bb5L4mICBZ0Svm99EMhP2zJ3rsVddPuRWe75a3NLYi72674COH/
- ENIjkM0EdBtdpS/npXiREum5eRtsHQzEtleigoWkGBKUGMHadnQ+JuvOAaeeDQmAaeu+lklAFw2
- POz9bd1J4Yi0rFVfketkkCmTPutwErq1lTUXk3bdIlyFbs6oLeqgtxRXD2aXmi9UVUj7W/5EeEa
- 4STrPAy4X8C8jO82cvmy8LhoX6B3GZYwQKAkw51erwefzBv7dvBiPApPNkHQY4lku1sJLzVLXfQ
- osBRaizZ+AvZMVpqyQ57q+AEiOitbn0MODYRHxETeOnovdQa1qlTTHMYpDVT15HoVn4DZkq715y
- auTPc9LZQbIkzuRcQeA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-13_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- priorityscore=1501 malwarescore=0 impostorscore=0 lowpriorityscore=0
- phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606130029
-X-purgate-ID: tlsNG-ef75cf/1781320387-0A573C48-2888CEF9/0/0
+References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
+ <20260529153531.1341542-3-frediano.ziglio@cloud.com> <7067092e-ba18-4513-a9b1-83ba084ccbb4@suse.com>
+ <CAHt6W4cP57pAPsNDKpssjYB=snLEZgOhWkYkVrJys01-NTMiRQ@mail.gmail.com>
+ <75e86d74-9fa1-4090-bea7-332ec31ffb90@suse.com> <CAHt6W4dfXdyw4dOkqoQzo0x4XRmLsHXkhhznov+KvanKBi9bWw@mail.gmail.com>
+ <5bee4f94-b2d0-4802-a990-b2a378d2f838@suse.com> <CAHt6W4cb4R7i79s9wYRpPfOdmkKS+XsaO=VphZ+jvmLKiRw-ZA@mail.gmail.com>
+ <f83df0b1-9177-4b89-a854-e19a22e181a7@suse.com>
+In-Reply-To: <f83df0b1-9177-4b89-a854-e19a22e181a7@suse.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Sat, 13 Jun 2026 12:20:53 +0100
+X-Gm-Features: AVVi8CfizA9xbp-qB2j4vby_ZKvYpsoHduawbFP7mFcQmfNe9cQar-eGka3XVgM
+Message-ID: <CAHt6W4efwGwdiTvKnG4n=A6PL_FogynsV23rDDi8rj_smZVoNw@mail.gmail.com>
+Subject: Re: [PATCH 2/6] Align all sections to 4KB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Teddy Astie <teddy.astie@vates.tech>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+X-purgate-ID: tlsNG-d62444/1781349666-B6B5EFF4-879A87EF/0/0
 X-purgate-type: clean
-X-purgate-size: 2602
+X-purgate-size: 8897
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[ford.com,reject];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[ford.com:s=ppford,azureford.onmicrosoft.com:s=selector2-azureford-onmicrosoft-com,saarlouis.ford.com:s=ppserprodsaar,ford.com:s=ppfserpocford];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,vates.tech,kernel.org,amd.com,cardoe.com,citrix.com,invisiblethingslab.com,gmail.com];
-	TO_DN_ALL(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[ford.com:+,azureford.onmicrosoft.com:+,saarlouis.ford.com:+];
-	FROM_NO_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,suse.com:email];
+	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[16];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 716FE67D98B
+X-Rspamd-Queue-Id: 2243B67E739
 
-On Sat, Jun 13, 2026 at 12:09:17AM +0100, Andrew Cooper wrote:
-> Refresh and update the Alpine containers.
-> 
-> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2598243590
-> 
-> This gets us off an obsolete version of Alpine, and finishes several
-> improvement projects (naming, and non-root containers) all at once.
-> 
-> Andrew Cooper (7):
->   tools/xenalyze: Work around GCC-15 -Werror=nonnull false positive
->   Config.mk: Update QEMU to include pip-25.2 bugfix
->   CI: Introduce new qubes-hw-runner.dockerfile
->   CI: Update the Alpine x86_64 container to 3.24
->   CI: Update the Alpine arm64 container to 3.24
->   CI: Fix inconsistent use of x86-{64,32} vs x86_{64,32}
->   CI: Remove x86 microcode from arm32 jobs
+On Thu, 11 Jun 2026 at 16:18, Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 11.06.2026 16:49, Frediano Ziglio wrote:
+> > On Wed, 10 Jun 2026 at 10:43, Jan Beulich <jbeulich@suse.com> wrote:
+> >>
+> >> On 06.06.2026 18:02, Frediano Ziglio wrote:
+> >>> Frediano
+> >>>
+> >>> On Fri, 5 Jun 2026 at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>
+> >>>> On 04.06.2026 12:16, Frediano Ziglio wrote:
+> >>>>> On Tue, 2 Jun 2026 at 13:09, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>>>> On 29.05.2026 17:35, Frediano Ziglio wrote:
+> >>>>>>> --- a/xen/arch/x86/xen.lds.S
+> >>>>>>> +++ b/xen/arch/x86/xen.lds.S
+> >>>>>>> @@ -162,8 +162,8 @@ SECTIONS
+> >>>>>>>         __note_gnu_build_id_end = .;
+> >>>>>>>    } PHDR(note) PHDR(text)
+> >>>>>>>  #elif defined(BUILD_ID_EFI)
+> >>>>>>> -  /* Workaround bug in binutils < 2.36 */
+> >>>>>>> -  . = ALIGN(32);
+> >>>>>>> +  /* align to satisfy UEFI CA memory mitigation */
+> >>>>>>> +  . = ALIGN(PAGE_SIZE);
+> >>>>>>>    DECL_SECTION(.buildid) {
+> >>>>>>>         __note_gnu_build_id_start = .;
+> >>>>>>>         *(.buildid)
+> >>>>>>> @@ -330,6 +330,7 @@ SECTIONS
+> >>>>>>>    __2M_rwdata_end = ALIGN(SECTION_ALIGN);
+> >>>>>>>
+> >>>>>>>  #ifdef EFI
+> >>>>>>> +  . = ALIGN(PAGE_SIZE);
+> >>>>>>>    .reloc ALIGN(4) : {
+> >>>>>>>      __base_relocs_start = .;
+> >>>>>>>      *(.reloc)
+> >>>>>>> @@ -355,6 +356,7 @@ SECTIONS
+> >>>>>>>    VIRT_START &= 0;
+> >>>>>>>    ALT_START &= 0;
+> >>>>>>>
+> >>>>>>> +  . = ALIGN(PAGE_SIZE);
+> >>>>>>>    .sbat (NOLOAD) : { *(.sbat) }
+> >>>>>>>  #elif defined(XEN_BUILD_EFI)
+> >>>>>>>    /*
+> >>>>>>
+> >>>>>> You say "all sections" in the title, yet this is not covering e.g. debug
+> >>>>>> info.
+> >>>>>
+> >>>>> I will change to "all loadable sections". debug sections are not
+> >>>>> loadable so they don't cause an issue.
+> >>>>
+> >>>> Please try to be precise there, as some aspects are subtle. As per my
+> >>>> understanding, like .reloc all .debug_* are loadable (and may be loaded).
+> >>>> The IMAGE_SCN_MEM_DISCARDABLE flag merely means they can be discarded at
+> >>>> a certain point after image loading (for .reloc in particular: after
+> >>>> relocations were processed).
+> >>>
+> >>> No, debug sections are not loadable, for instance, in a random
+> >>> executable I found:
+> >>>
+> >>> Sections:
+> >>> Idx Name          Size      VMA               LMA               File off  Algn
+> >>>   0 .text         0000c7f8  0000000140001000  0000000140001000  00000600  2**4
+> >>>                   CONTENTS, ALLOC, LOAD, READONLY, CODE, DATA
+> >>>   1 .data         00000250  000000014000e000  000000014000e000  0000ce00  2**4
+> >>>                   CONTENTS, ALLOC, LOAD, DATA
+> >>>   2 .rdata        00002c70  000000014000f000  000000014000f000  0000d200  2**4
+> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >>>   3 .pdata        00000654  0000000140012000  0000000140012000  00010000  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >>>   4 .xdata        00000630  0000000140013000  0000000140013000  00010800  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >>>   5 .bss          00001ec0  0000000140014000  0000000140014000  00000000  2**4
+> >>>                   ALLOC
+> >>>   6 .idata        00000c88  0000000140016000  0000000140016000  00011000  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, DATA
+> >>>   7 .CRT          00000060  0000000140017000  0000000140017000  00011e00  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, DATA
+> >>>   8 .tls          00000010  0000000140018000  0000000140018000  00012000  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, DATA
+> >>>   9 .reloc        0000009c  0000000140019000  0000000140019000  00012200  2**2
+> >>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+> >>>  10 .debug_aranges 00000150  000000014001a000  000000014001a000  00012400  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  11 .debug_info   0000d5e4  000000014001b000  000000014001b000  00012600  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  12 .debug_abbrev 000014de  0000000140029000  0000000140029000  0001fc00  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  13 .debug_line   00001a36  000000014002b000  000000014002b000  00021200  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  14 .debug_frame  00000f40  000000014002d000  000000014002d000  00022e00  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  15 .debug_str    000003a0  000000014002e000  000000014002e000  00023e00  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  16 .debug_line_str 00000a76  000000014002f000  000000014002f000  00024200  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  17 .debug_loclists 0000174a  0000000140030000  0000000140030000  00024e00  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>>  18 .debug_rnglists 0000039c  0000000140032000  0000000140032000  00026600  2**0
+> >>>                   CONTENTS, READONLY, DEBUGGING
+> >>
+> >> That's derived from libfd's internal representation, which means nothing at
+> >> all to the loader processing the image. If your objdump is suitably enabled,
+> >> try using its -P option.
+> >>
+> >> Jan
+> >
+> > You are right, I got
+> >
+> > Section headers (at offset 0x00000188):
+> >  # Name     paddr    vaddr    size     scnptr   relptr   lnnoptr   nrel nlnno
+> >  1 .text    0000c7f8 00001000 0000c800 00000600 00000000 00000000     0     0
+> >             Flags: 60000060: EXECUTE,READ,CODE,INITIALIZED DATA
+> >  2 .data    00000250 0000e000 00000400 0000ce00 00000000 00000000     0     0
+> >             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+> >  3 .rdata   00002c70 0000f000 00002e00 0000d200 00000000 00000000     0     0
+> >             Flags: 40000040: READ,INITIALIZED DATA
+> >  4 .pdata   00000654 00012000 00000800 00010000 00000000 00000000     0     0
+> >             Flags: 40000040: READ,INITIALIZED DATA
+> >  5 .xdata   00000630 00013000 00000800 00010800 00000000 00000000     0     0
+> >             Flags: 40000040: READ,INITIALIZED DATA
+> >  6 .bss     00001ec0 00014000 00000000 00000000 00000000 00000000     0     0
+> >             Flags: c0000080: READ,WRITE,UNINITIALIZED DATA
+> >  7 .idata   00000c88 00016000 00000e00 00011000 00000000 00000000     0     0
+> >             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+> >  8 .CRT     00000060 00017000 00000200 00011e00 00000000 00000000     0     0
+> >             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+> >  9 .tls     00000010 00018000 00000200 00012000 00000000 00000000     0     0
+> >             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+> > 10 .reloc   0000009c 00019000 00000200 00012200 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 11 /4       00000150 0001a000 00000200 00012400 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 12 /19      0000d5e4 0001b000 0000d600 00012600 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 13 /31      000014de 00029000 00001600 0001fc00 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 14 /45      00001a36 0002b000 00001c00 00021200 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 15 /57      00000f40 0002d000 00001000 00022e00 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 16 /70      000003a0 0002e000 00000400 00023e00 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 17 /81      00000a76 0002f000 00000c00 00024200 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 18 /97      0000174a 00030000 00001800 00024e00 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> > 19 /113     0000039c 00032000 00000400 00026600 00000000 00000000     0     0
+> >             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+> >
+> > I suppose I will change to simply "Align some sections to 4KB"
+>
+> "Some" is imo going to be too imprecise. Please qualify which sections you
+> intend to align. If new sections need adding in the future, this then can
+> guide people as to whether those may also need aligning.
+>
+> Jan
 
-Please consider
+The main issue is that sections with different permissions must be in
+separate sections.
+In the case of debug sections they are contiguous and have the same
+permissions so it's not an issue (although better to strip them off).
 
-Reviewed-by: Denis Mukhin <dmukhin@ford.com> 
+Any suggestions on how to describe this?
 
-for the entire series.
-
-> 
->  Config.mk                                     |   4 +-
->  .../build/alpine/3.18-arm64v8.dockerfile      |  51 ---
->  automation/build/alpine/3.18.dockerfile       |  52 ---
->  .../build/alpine/3.24-arm64v8.dockerfile      |  53 +++
->  .../build/alpine/3.24-x86_64.dockerfile       |  65 +++
->  .../build/alpine/qubes-hw-runner.dockerfile   |  21 +
->  automation/gitlab-ci/build.yaml               | 202 ++++-----
->  automation/gitlab-ci/test.yaml                | 385 +++++++++---------
->  automation/scripts/containerize               |   2 +-
->  .../{xtf-x86-64-config => xtf-x86_64-config}  |   0
->  ...86-64-efi-config => xtf-x86_64-efi-config} |   0
->  .../include/{xtf-x86-64 => xtf-x86_64}        |   0
->  .../{xtf-x86-64-efi => xtf-x86_64-efi}        |   0
->  .../{qubes-x86-64.sh => qubes-x86_64.sh}      |   0
->  tools/xentrace/xenalyze.c                     |  11 +
->  15 files changed, 444 insertions(+), 402 deletions(-)
->  delete mode 100644 automation/build/alpine/3.18-arm64v8.dockerfile
->  delete mode 100644 automation/build/alpine/3.18.dockerfile
->  create mode 100644 automation/build/alpine/3.24-arm64v8.dockerfile
->  create mode 100644 automation/build/alpine/3.24-x86_64.dockerfile
->  create mode 100644 automation/build/alpine/qubes-hw-runner.dockerfile
->  rename automation/scripts/include/configs/{xtf-x86-64-config => xtf-x86_64-config} (100%)
->  rename automation/scripts/include/configs/{xtf-x86-64-efi-config => xtf-x86_64-efi-config} (100%)
->  rename automation/scripts/include/{xtf-x86-64 => xtf-x86_64} (100%)
->  rename automation/scripts/include/{xtf-x86-64-efi => xtf-x86_64-efi} (100%)
->  rename automation/scripts/{qubes-x86-64.sh => qubes-x86_64.sh} (100%)
-> 
-> -- 
-> 2.39.5
-> 
-> 
+Frediano
 
