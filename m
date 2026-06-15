@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id pcjGHY9FMGqPQgUAu9opvQ
+	id 0iNWMeRHMGo0QwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 20:33:51 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 20:43:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B5F689308
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 20:33:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9D168942D
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 20:43:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=kGkKtLjs;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=BC5fIlcb;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=citrix.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1338500.1599529 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338508.1599539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZC7a-0001W1-1I; Mon, 15 Jun 2026 18:33:18 +0000
+	id 1wZCHU-00037K-R5; Mon, 15 Jun 2026 18:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338500.1599529; Mon, 15 Jun 2026 18:33:18 +0000
+Received: by outflank-mailman (output) from mailman id 1338508.1599539; Mon, 15 Jun 2026 18:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZC7Z-0001TI-Qy; Mon, 15 Jun 2026 18:33:17 +0000
-Received: by outflank-mailman (input) for mailman id 1338500;
- Mon, 15 Jun 2026 18:33:17 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wZCHU-00034W-Ny; Mon, 15 Jun 2026 18:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 1338508;
+ Mon, 15 Jun 2026 18:43:31 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wZC7Y-0001TC-VH
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 18:33:17 +0000
+ (envelope-from <kevin.lampis@citrix.com>) id 1wZCHT-00034Q-7k
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 18:43:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZC7X-00Dbes-KS
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 20:33:15 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wZCHR-001eoq-VF
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 20:43:29 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a304539-bab6-0a2a0a5309dd-0a2a4502ac6e-40
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 20:33:15 +0200
-Received: from [52.101.56.1]
- (helo=BN1PR04CU002.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a30456a-af86-0a2a45020019-34653801149a-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 20:33:15 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by DS2PR03MB8135.namprd03.prod.outlook.com (2603:10b6:8:27a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.14; Mon, 15 Jun
- 2026 18:33:09 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 18:33:08 +0000
+ (envelope-from <kevin.lampis@citrix.com>)
+ id 6a3047c7-2eae-0a2a0a5409dd-0a2a450ce05e-14
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 20:43:29 +0200
+Received: from [52.101.52.71]
+ (helo=BL2PR02CU003.outbound.protection.outlook.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <kevin.lampis@citrix.com>)
+ id 6a3047d0-62f1-0a2a450c0019-34653447aae3-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 20:43:29 +0200
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
+ by BY1PR03MB7262.namprd03.prod.outlook.com (2603:10b6:a03:522::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 18:43:25 +0000
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::5068:e1b5:b478:8d07%3]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 18:43:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,104 +64,100 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KeTi5Q9hW5KeFAzX6fwerX1SOloKgNrw9AwwMyM2hkVWYBaWV0e0x6yMrPKbzasJ3QXJQ+lS7cGljuunMOYZRZXUHlnc24BvJ+v3Mo254oSP8YOExRrn96Nw1cDGbmKKkJdnpzdK4ycu6GhNSSd5Pu6Y3Mbx93t8qbDuT0jl3YHozPL0Nauq7JQEeTfgSmEhTtvGqupB1E+auBe0HvuSkvdER5TScZ8DWBGFzRxItgY/lt7S2Mq89L4qBMZk51ixnhB6tGgAVoGhtRQGZ7r+iY+qnk9+VXAuMNsRTfD9mqlVs+2LJ3OtqAoLZ/oE9XOPyJLtRoi/TDyEXuoEVDhXqQ==
+ b=jaObRey4xe91W6klfHFv518WgDatkXptajgaJEiiNxpCDnFr/NGyzyeDpEq4iiuyglmn4/H2G9NPreAC9o4Lwkb3cgWKXN98x1CUfDjbxBVF0os8F4/wCdyAa76y2tbwcxvfvaSCpBqdoOUT2XECCuttUZMtOhtkFKkoYwa89SAGE5j5mjMJ2g+41sU9BtVOON1qCiGnhYKfctncc2aTmpASeOhTwFnHMvEMK6f89+d1oni/Dpvt1mWN/98DGiKxlvdzQnpDimQBECPdNX74wZHNouni8skZmaI0DA4OBR+Xq9RuMUa9K1PVmdUtjdOd0eL3dSm4Y3YgS7bD4QmCIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WhZYQQIlyY8LvXei3rfhL+t1Sa1oDzRsSZR2UVkCws4=;
- b=exwpBplWpy2G69mekeuVHH7KwcPjq0JDr/T86ryEtr8/8xMtiuRZdIpvojEMSuej8m+7YaYzum+erwW/yrrwkF50yB440vx6XY5huXzq9dJFDgAq1LDOkVCukqd1z8qYFhGrCTM7VFTh/Zo4vd85ugGMEIDQh4u3qVOezOD+mSpH86X2qnW1eV27Kt9v1nbdVBP1bVAB/kezIvB9iHnaLxMBLp12DXoVAou5guSsJJv9BGUL/zwMRUaDAAiBf5STbupEOiZnlKgSwfDNzUJndo6YkvmOG7PpAR9M3Upwnv5QHqN7Rfy8q36OQS59KUcXexYsEjgzr8kDhTrqGmNVaw==
+ bh=6ouyFQ0eU6ubnvg+fcK0usVcZr5Tkjl83MuVqcjkRDI=;
+ b=D0vZYb2cMgUisysLJmc7mR3I3cVseiFbq2R7nF6/4NtaJVq8+k9ZXHb0fNGvuoh4r2vlYat208OC5K4Hy23CEhwPAyehKPKz7hNPEkfpG5a7MyoUSOUfSPSr65JAmBx1hAFftMhY0F0ypbqbKNSQCmJtYz57poKw990kAG37wgXobTvob2inMuQc15TTqytqBAwaEIFOghcnuHKGsYSpnBYPfDxdQU1n5GEONNr5KwE5kA1uau7MjpbqF3qlZpzSCJHTfJj/QAjh5eioVkMUO02zPlZOwTrf7y3yOQ3NCblb50dcwLWGDTh9SEody/PouzFCZkCLLc/MaeOlntU0+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WhZYQQIlyY8LvXei3rfhL+t1Sa1oDzRsSZR2UVkCws4=;
- b=kGkKtLjsXpaTVy4g5vG1cfG1AqrSZN/9Zdde899qedNVk+VmzYJXNmIgoozaUDtRiUdew/qBfGgJwtcoKfm0fPRTrtqEA4X2sxSpZnof6q951v0tz4s9bAzT+J/xb9Ti5/o2obcfAXSqDgRlYZ0i+HWXxKcZOvoqkNIzr58rD0A=
-Date: Mon, 15 Jun 2026 20:33:05 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 2/2] xen/cpufreq: fix usages of align_timer() in the
- on-demand governor
-Message-ID: <ajBFYYY83dmeM4Kp@macbook.local>
-References: <20260227073259.1200-1-roger.pau@citrix.com>
- <20260227073259.1200-3-roger.pau@citrix.com>
- <d00f8d01-33c2-4b43-9ca5-c7aa98488ff2@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d00f8d01-33c2-4b43-9ca5-c7aa98488ff2@amd.com>
-X-ClientProxiedBy: MA3P292CA0062.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:49::18) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+ bh=6ouyFQ0eU6ubnvg+fcK0usVcZr5Tkjl83MuVqcjkRDI=;
+ b=BC5fIlcbV9ijwmYReC97QfxUF/mG9HAPIU3fsJhWTmq7yE+j6iA4IG/PYI/Ev+fti76ph4TdAYENrSjxOG7rvUwyVi5EE2NPZo6MGosvsf2d0NAF4ekYn8BMfO/YIzISASp93pJcrDDsD2PuMNr2sRefbg8S/efAM1ZdjfrHbeA=
+From: Kevin Lampis <kevin.lampis@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "jbeulich@suse.com" <jbeulich@suse.com>, Roger Pau Monne
+	<roger.pau@citrix.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: Re: [PATCH 4/7] x86/kexec: Support non-page-aligned kexec segments
+Thread-Topic: [PATCH 4/7] x86/kexec: Support non-page-aligned kexec segments
+Thread-Index: AQHc+CbsApGJa6zrgUWsa1X0ikSoUrY/cjuAgACCg5A=
+Date: Mon, 15 Jun 2026 18:43:25 +0000
+Message-ID:
+ <BY1PR03MB799653CD160FBD7BA81CF931F3E62@BY1PR03MB7996.namprd03.prod.outlook.com>
+References: <20260609154518.779757-1-kevin.lampis@citrix.com>
+ <20260609154518.779757-5-kevin.lampis@citrix.com>
+ <494de33a-5033-4c5b-a026-fa8a4ed26cd0@citrix.com>
+In-Reply-To: <494de33a-5033-4c5b-a026-fa8a4ed26cd0@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY1PR03MB7996:EE_|BY1PR03MB7262:EE_
+x-ms-office365-filtering-correlation-id: 93277227-7ea5-45cb-159b-08decb0dfbdf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|4143699003|11063799006|6133799003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ vUGU8IjtEPyOMRmK33HeHrkj795o5WWkTG4HIh4X5gySyPus7j/VRm/ZcFQILHs1Rf4JnGaoycnIZrUDaBuu16Lk0hnzhTGrOAg1/MoLUKcOR6H53GhjNjTMcx473G2Mwri1XBnI1ZXW4vHe0zDcutTGmWg78IId+BzY/pYGH3BsUyGKaSsa8RytUU86lEflLX9K0xl+gfyBpNT5ArJWvXD+/66VxIIiPKrUrs6CbsDx1iYxUyh68x6HPPk3A4S3sb9bEz4NAAK/ui33wyc6hl+Q9DC6d+iMl/cH4KPCwrxAg6Qnw262cW3es+ulzwe+19KSNwqaDA4i85vvucohDnXkghIuP87m5Y/cRWJUpNnzW+qvIQDId6512qs/mPwcS3gnG4oHrbuU/dQzmjXLX8eWEOj7QlYabQU4n+862LkuBI+TMOVzM7Nzt9rtfGQEl8fd2UwZfOns8B1nHlsZZuOdTnXnKEBOHTInWUh5No4+I5Y81LAdBcrZCANwRsv4XGIHtIH309qwyW8ByUndZZI+DeaoWhSoHbnQ9iL+D5qq80h0jA7SVN6CGUHO/G+ymBON4y1AROyuW/2hIWIOVGsiEbgOrhNFaY7vrX6j9j/fPU/FIVgr6RqHwJcxBn//bvSg1IEOgSvbZNHJCeuylOwFJphkKEfqmTPcowPt0tMNahvUMPWZTnzM6LLw/h16IAmvkZjVErBXi4ioXYdpvAdwJCdw2EtfLCzWmKAGRa7MFwj464hXZ4mimPEVDaG8
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?uZQTZ8W9NDpHj+0SAtPQJjc1ZRbW2T9PImpSTeX5r/so2023pUMo371csd?=
+ =?iso-8859-1?Q?y5REwFaBTcVvK+qvHlXViGm+jm2bvMhZVi2cHVeK/O8ZmH9FdN7bPH2En/?=
+ =?iso-8859-1?Q?QwP7yXJ+ngiFn+l/SPVSgViAno4JGZNfV26Ve9Tu+9zfRQUEcTCN1iEFPl?=
+ =?iso-8859-1?Q?SxtmklpSrXC26jnmOyB/AmsUTE+KEeXrFKV4gk3Yi2LUmi5MdZfGor5ASD?=
+ =?iso-8859-1?Q?0z5Y+kkuLEHjQmm/q69PWcts5ikIaB2MMYt2dBefXJoQVvX+Yzu651oCMQ?=
+ =?iso-8859-1?Q?qzTQhy71J7GT/xbkEvwf8yrweCC+Vl6ksF7yG2Umy5Ajm6PI6usFFo2BAe?=
+ =?iso-8859-1?Q?knxVjo1tU5lGVpUcg46ouzl9jySyB2lU/tw52bLcDM5gmID1mfWdTC0z81?=
+ =?iso-8859-1?Q?+k+78+DJxFJa1OIfuEaXYeMsTuiAcXyGUBcXRUMzXNREmpeyDhcBkzppMx?=
+ =?iso-8859-1?Q?DXBqUx0UZn2aHBXpOcVt64Qmsbt8qqQzmVRN188UqMVKvPY10k70iQjMKk?=
+ =?iso-8859-1?Q?v5hE+wBMn1VEjfsf1eTcaKj961L/WWqiF5g8MIAEm6qKcU1RxcRHzZGuTX?=
+ =?iso-8859-1?Q?gSEoaY1/zR5OlU3Z5ynFPpeOwSXS9pCx/0wqVOIO/Fc13yHi8WEW6k1Vgj?=
+ =?iso-8859-1?Q?8yshTQUFXRc1T7rGpT4djjbTFrOdz3Jfj5Jj0LhY9mt4F2Bqu8nIgtrl1E?=
+ =?iso-8859-1?Q?t0M7z1D2BeYr8p96cQdKDNt4rDD99LL9ZYIrUV6GgUg0+RrdU4YeOgOU/A?=
+ =?iso-8859-1?Q?WXQM5yLmXoxWw2DwGCoqq79L8yrchMciT8lWuVN878n8PY00yUwp4EvLUG?=
+ =?iso-8859-1?Q?4dZ7E55Bov/85IVx6I1ZLD9H0TJy/3QxDN8zuPE/xqm1xoBFeAf+/P/M6X?=
+ =?iso-8859-1?Q?UXh6g192JgEIVrmhY2y1E9O/dNpVtWcke3L6wqq1SXfKQqNGF6oRwBVJW3?=
+ =?iso-8859-1?Q?ZYnTW0ETGle5SDDcR9Ciqg7Ul5DbaNvbr3gvzmnDEXTFMllH1d7oD2GOWU?=
+ =?iso-8859-1?Q?jBLcQK5goPzAHNszl2T0juFMuHq2VH25I1LNoZSCD1VRrV3c4rLS5PB2wP?=
+ =?iso-8859-1?Q?0epve1bB9hli8Gk3aCs8Q+tbErmpeWGei/exm0q3GNjuJv1um91QSIIGXr?=
+ =?iso-8859-1?Q?BNK2LaWeyMTT2vM4CsHMajQfcVH+6pRK+s/DYmrJxqih1veNVidtCBUH5e?=
+ =?iso-8859-1?Q?CeDfhU5rJKNcsQiqYf05wS5MRHYKHk3PcH2HPXXssPZy8xvzDaGHU7Zyl3?=
+ =?iso-8859-1?Q?B+2fu8VRtpgxWypxwXdoLFDFDd1+cZJy5dZk5e1P2FY2upvdbDjxnlGFtI?=
+ =?iso-8859-1?Q?1PZaTTgPBMk6HuxUjyVl1IgvZb7BONGtZJ7+fgSbThH2IJiCzMDOHbdisX?=
+ =?iso-8859-1?Q?rnt2GeRX9qg63D5sqBaHRK8jgY7WrEyvZmLhc29Jz7Vh0EJcZJx1Lj8FN+?=
+ =?iso-8859-1?Q?jekIfG8WbIPrdaL7e00ZIYC1v+DQgqyTITtrbvhgaCpSo2lSLV1IIq5DXy?=
+ =?iso-8859-1?Q?3M25BQU26ycjseOaB4/VobQxZjoxfkCQ3uV5BXhy2NRQYfZvQH5ROyb6Ub?=
+ =?iso-8859-1?Q?bNRqFIS8gywQNKyW2y/xoFN4I8dchm/44jcFQlAO8dnYKQEzClGC9HubB5?=
+ =?iso-8859-1?Q?3k4LfFhdfQ3cb+02UM9cYVoohnBG5qsWeg7Iwjuk4JIIzrbhSiB3nD7dqO?=
+ =?iso-8859-1?Q?Zx4xjIbKFIXH7O2C8+3YUhhmq5klaQv0n/bq/AQUpzwDRLKy1dX9Sfv+Lx?=
+ =?iso-8859-1?Q?V1BsQ1ClSxKUsgW7M/Spq4dKeiFo0D+kBcNKgp/U/TazoM?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS2PR03MB8135:EE_
-X-MS-Office365-Filtering-Correlation-Id: f07a74a5-4c49-4052-99c1-08decb0c8bc5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|11063799006|56012099006|4143699003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	/h/2zLMEfcXL8Dh4PfJpmZ/na2txpoX04PEXjH2OuZecpqoD91to8dwp5XFurfWHKGtQ5Yr6+XvxTlHe0D/8nd60xa3YPbrkkw6bEoA9TIPE9uRtOGFRq28T/kXrj3hNCddJ9ib2X640cpRuWfhRAjHPMiLuKo9aMiA9bf9GcLFE90Q4sptfNKRyEPj9BXK4vQvTZGs1xOzxoKzry5ZystM0XnCd7FF9uHwUmlhnAiuF8jFJu38YhRG0OtwDBCF8i8cRs0p/ig7Ti6F5CPS0hPYKyzZCtgPBnAeFEX2itRnWu4sFnWJUoz/OXlFwihPgch36uqM0N1IIOZzWUCDdfS4tYK17fv+Pi0X/4JAx/7b8vgpd293s134eLKPPvVWqv2/vqOUlS7fIX2N/oue01IDY57XYh/381E5/Oyt4wihSnla3FBdWXhDwbVp+/Z/LvJ6IrzLHAqRy1eiZqN+KCgjR1B04WSCe7UA+XOJN2fgQ0Wm4ZTxVnNVqWkCz1Po+FvmMdYwlwUZtUYKPiX1svHUuY3OZDLwRoV2o6AQ+fv+sMK9QTJ8oZkVM5TPuiDpdaKOSQynIW04ZbMdxhRIW5dfQ60O3hBRsGB2467T5iaqDefyrYiKN9tFrKBlXN5d5Ptwu28mjjvtavQANANpo/BQAP5liwNkhZJ+Ux1OqIE2Mb0KTe6flW22OcLOqrZbH
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M1RrWERSaGVvbmNWaE0vclNLeCtLam1mNENvaTZmVnB3TTBtZzBPUFpYWXVv?=
- =?utf-8?B?ZzRzMzByMjRwZ2V3SzhxT3Z5Sm01dDU1aTVVNlBXSndZejU3bUlkSGFMRm5P?=
- =?utf-8?B?c1ZZbVNzNFJqYjErQzNGTXV2N29oRlBuNVQ0bWthR210eXV2aFAvUkRmR091?=
- =?utf-8?B?Mmg1TTRYdnBJVHhIcnU4STFubkk2UWVmSXVPOG1TT2Nma1Q0YkgzRUhYK2wv?=
- =?utf-8?B?UUdpK29OeXo5YnJsQXF2N05XbXFzWEpiUDhZcXJIR0M4YktmUGxacHBRZXBQ?=
- =?utf-8?B?eWUwS3VHeWsvczJhSTlFVGlrcDFWZEtoMDlLZ2J1TVJ4UjBWdWhXWEFqTktT?=
- =?utf-8?B?NDR5VmV2U1N0Z2p6TmRaL05PKy9qMTI0RGIrNHhmVk9JbWxUbERlTW9jTEFR?=
- =?utf-8?B?Tjk4akp6M1J0ZDJxWkN0ckdxb2kzNExQUTBsK0daTTRoVmUyK1BtOVhNZTFr?=
- =?utf-8?B?Y1NoVUxCMU5mcVpCemwxRStKZm10MS83d1NDaFFhdUY2cnFTN01tUkp1Zzgr?=
- =?utf-8?B?VmVNTjU4T29nZmgzUkZTbzFmY0xJMisyYnREQVpFamJPR1M3R3NUL3NhYnhp?=
- =?utf-8?B?citpa0c3ZVVENm5NeUZHejRUNVBjK2s5TkQxbnhIbjZVa2FscFFvdzRScGxY?=
- =?utf-8?B?WFBtdWt3L2xhMjF5dzE1eEJOSUVwNER1ZkZWMm1LSGIvQzI1L3p3SEJDRzZH?=
- =?utf-8?B?eEdZUS9JYUtzd3JVQ08zU1h3cVVIUVg4SkRHSVRUUWtia0dNUytnbk5uaE5a?=
- =?utf-8?B?MktQTEZRNEZVMCtOWk1tNDVPTDlyVStnWnFqY1hCMVVOdmZxSmJWNjllRUNI?=
- =?utf-8?B?UFk3aTZDNFM5U2hOWTc1cW1DZmljdDV6VS9HUXAyNXdndnZqYm15ZTl4WFcy?=
- =?utf-8?B?Q3R2RjJzQnlFa1FvTTVTRWNsaC9PK0Q4WVIxOWxseUtxOWlnTlZybXBBYzlE?=
- =?utf-8?B?LzVvTTI3cXVabTVicnBtQ3F6WmNvcllwZ21DMHBvNjVURWZ1eTBSSnV2Mkc0?=
- =?utf-8?B?REVEWnBPRjVqdjhwZ29Hc1FaMGNaQ1U4Q1NIaWpURVY2ZU1TVG9yYWp6ZGtM?=
- =?utf-8?B?c0JHRWJCVnpPc2xSSjVJRk9uVjlLV2xsYXl2SmI2dHA5N2lpZStIWnB6VGto?=
- =?utf-8?B?M1JqcG1mb2tRNXNxWjBPbGwySEVBRDFneld1eEFjTmRXRGloVzRmdWpHNVU4?=
- =?utf-8?B?Qk04di9DcmhKa3BZeXc4MFByN0RDcVN2ZTRnYStEeW1VdEwvaWwrOGVFaHVj?=
- =?utf-8?B?MWc3ZGlJWW5sa00zWm40NFk1dGtMakZmTHIvVzlvWkg5b1kyQXY1SlJHQ0Zy?=
- =?utf-8?B?WnUwOFZqbjlvMjJMc3RIaVZpMFNtVU1xNHhMcURUcGk0OGp6a1Z3TUlkVHh1?=
- =?utf-8?B?RkJ3c01NL0c1THBJSE1ZcnNrUUlBM1BQN0g2RzcvSXQ1TzZBSnpKcktZQjMv?=
- =?utf-8?B?anNCRjRlWXdHTWRrUUIydW1tRjQrYU5GMlpvVUUvOExkczQ0MWd4QTkwTGtK?=
- =?utf-8?B?eVY0SUZrelFPRmFlUGJSQ2NleFNyb200THNqdGJ3MUFLN0pCMy9WS0lLdytk?=
- =?utf-8?B?bnhjalp1Um9HWFlQSFNWaFNvdC9yK0dtQUthanNadWMramYxbU9qY1hOUGpv?=
- =?utf-8?B?aVhkV2c0OExmUnV5WksyWTRmZHdrUmdYWDg4bjVIT3MrTWZKSERJNDRMQ0l0?=
- =?utf-8?B?Y2t2eERGOEtCMlN0SE1UNVJmTmk1VDBIZWZTT28zQjkyRElWOStLQUtuaVI4?=
- =?utf-8?B?WVhmSXoyRmppaUk5Y0VhRVZ0Zlkrb0FsRTFCc1dtRHFnMFJ1TUpObWpGUW90?=
- =?utf-8?B?cmUvOC9pcnlVVTNlQjJzdFJhNUlBT1RtUm1KLzVOUW5neFV6MnZ3ZXhtbDZH?=
- =?utf-8?B?UTY1d1JGRThjdVRSbHN1c2p4N2tlc3oxMDc1VmhsR0JlZkliK1MzRXdER2JJ?=
- =?utf-8?B?bjRsOW5mMVU0NFJYN2JmY0Zlb3ZzdFpFbHc2ZytNZlFKeENBV3g3ZjFCejFm?=
- =?utf-8?B?ckZkN3ByZjgrb1hIMWdDeFNWMEpRczdPdzd0ZU95OGNuRzNTdkxza0wyTUxt?=
- =?utf-8?B?WmtlUi8wdjA0cTRBUEhQSVNQaVpYdVhhZE9rd1BPWkZ3VCtWaXF2TGpiU3Iy?=
- =?utf-8?B?K2hjZG1HYmtPU3J5enl0a1dJdFNXZ0N6aVBNUGRlSEFnU1FxVVN4L0xLeXNU?=
- =?utf-8?B?YXJkVk9ISGp0d00zaXBGNmdDRDB2RDBlYkk3c1hmVE11eE02Y3VVTHBHWStU?=
- =?utf-8?B?b1R5MWROUjZ4UFFxVlpQYVdSQXJyOHo1cHBFMUEwQlk1V0RwMVJDa29GZlYv?=
- =?utf-8?B?ejRqZXpJQ0lhTzk0b0ZQT3FLODl2WGNXWUNoN05jN3g1dGZ1ZzlIUT09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f07a74a5-4c49-4052-99c1-08decb0c8bc5
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 18:33:08.0251
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93277227-7ea5-45cb-159b-08decb0dfbdf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 18:43:25.3492
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0lIR6WL9Rft2ZFjg6s4zOqR27avLyVHffsU3h3i2tJF+GSZcAJoXj+72fb3G6OwcYwzPpIM2BMiFYoVUZW73ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR03MB8135
-X-purgate-ID: tlsNG-720697/1781548395-8276A161-69EF072E/0/0
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: UQyV48IdXQsafv+wjPFIzCZOTn3mZuRu9HsMjMbeXjcKhlaT+36zBLb2rNY3WcgQkVUAdHOjHv19h8fS+9axAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7262
+X-purgate-ID: tlsNG-d25034/1781549009-E0567CF5-0CC3EB1B/0/0
 X-purgate-type: clean
-X-purgate-size: 3744
+X-purgate-size: 1052
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -171,115 +167,52 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C6B5F689308
+X-Rspamd-Queue-Id: 2F9D168942D
 
-On Mon, Jun 15, 2026 at 01:44:54PM -0400, Jason Andryuk wrote:
-> On 2026-02-27 02:32, Roger Pau Monne wrote:
-> > The first parameter passed to align_timer() is the timer expiration, not
-> > the current time.  Adjust the calls to align_timer() in the on-demand
-> > governor to pass the expected timer expiration as the first parameter.
-> 
-> Internally, we have a report of a benchmark regressing ~6% with this change
-> on 4.20.
-> 
-> s_time_t align_timer(s_time_t firsttick, uint64_t period)
-> {
->     if ( !period )
->         return firsttick;
-> 
->     return firsttick + (period - 1) - ((firsttick - 1) % period);
-> }
-> 
-> The code rounds firsttick up to the next period:
-> 
-> align_timer(0, period)          -> 0
-> align_timer(1, period)          -> period
-> align_timer(period - 1, period) -> period
-> align_timer(period, period)     -> period
-> align_timer(period + 1, period) -> 2 * period
-> 
-> With the change of this patch adding the period before calling
-> align_timer(), the timer is set for two periods in the future.  The only
-> exception is when firsttick % period == 0.  I think that is unlikely to
-> happen since NOW() will always be a little after the period.  Even if it did
-> happen, the timer would fire immediately, but the next timer would be set
-> for 1 period later.
-
-Hm, I see.  So this is explicitly done to never exceed one period
-between sampling, even if that implies using a smaller period and
-over-sampling.  That's kind of different from how the other caller
-uses align_timer(), where it's expected the timer to fire after the
-period has expired, not before.  I think create_periodic_time() is
-fine, because it's only the first tick that might be delayed,
-afterwards the next tick should be aligned to the period already.
-
-> So I think we want to revert?
-
-I think we want to revert the first chunk...
-
-> Regards,
-> Jason
-> 
-> > 
-> > Fixes: af74e3a15a83 ("cpufreq: align dbs timer for better package C state residency")
-> > Fixes: 382b95f627a9 ("Fix cpufreq HW-ALL coordination handle")
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >   xen/drivers/cpufreq/cpufreq_ondemand.c | 5 +++--
-> >   1 file changed, 3 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/xen/drivers/cpufreq/cpufreq_ondemand.c b/xen/drivers/cpufreq/cpufreq_ondemand.c
-> > index 537695eaab19..0d94c0e464a6 100644
-> > --- a/xen/drivers/cpufreq/cpufreq_ondemand.c
-> > +++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
-> > @@ -185,7 +185,8 @@ static void cf_check do_dbs_timer(void *dbs)
-> >       dbs_check_cpu(dbs_info);
-> >       set_timer(&per_cpu(dbs_timer, dbs_info->cpu),
-> > -            align_timer(NOW() , dbs_tuners_ins.sampling_rate));
-> > +              align_timer(NOW() + dbs_tuners_ins.sampling_rate,
-> > +                          dbs_tuners_ins.sampling_rate));
-> >   }
-> >   static void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
-> > @@ -400,6 +401,6 @@ void cpufreq_dbs_timer_resume(void)
-> >               (void)cmpxchg(stoppable, -1, 1);
-> >           }
-> >           else
-> > -            set_timer(t, align_timer(now, dbs_tuners_ins.sampling_rate));
-> > +            set_timer(t, align_timer(t->expires, dbs_tuners_ins.sampling_rate));
-
-... but possibly keep this as-is?  Thinking about it, t->expires
-should already be aligned, and hence we could drop the align_timer()
-call here?  It should be equivalent to aligning NOW() to the next
-period boundary, so yes, we could revert this chunk also and
-timer expiry should be the same.
-
-And maybe we want to add an extra align_timer() in dbs_timer_init() to
-align the first call also in a separate patch.
-
-Do you want to send the revert, or should I?
-
-Regards, Roger.
+>It's startup_32 not startup32.=A0 Yet we hand over in 64bit mode, so why=
+=0A=
+>is startup_32 relevant rather than startup_64?=0A=
+=0A=
+Probably just careless wording. I don't think it was the author's=0A=
+intention to draw a distinction between 32 and 64.=0A=
+=0A=
+>I can't find any hard alignment restriction (beyond 4k).=A0 There is a=0A=
+>check involving BP_kernel_alignment, which is set to 2M, which makes=0A=
+>sense; it's the alignment we set Xen to too.=0A=
+>So, what's the real bug/problem here?=0A=
+=0A=
+For normal kexec the userspace tools chop off the first part of the=0A=
+kernel so everything aligns correctly.=0A=
+=0A=
+For Secure Boot we need to load the whole kernel unmodified to pass=0A=
+the signature check and that means the startup function is not aligned=0A=
+correctly anymore.=0A=
+=0A=
+We also changed the userspace tools to add padding to the start of the=0A=
+kernel segment so the startup function is pushed out to the next 2M=0A=
+byte boundary. So Secure Boot kexec does still work without this patch.=
 
