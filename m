@@ -2,52 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id lkIqH7sWMGoiNQUAu9opvQ
+	id sVVvDMcWMGooNQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:14:03 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:14:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCF69687873
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:14:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD2B68787E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:14:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=GJZ6ow3c;
+	dkim=pass header.d=suse.com header.s=google header.b=EuZxTsgu;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338370.1599396 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338374.1599404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ90L-0007t1-O6; Mon, 15 Jun 2026 15:13:37 +0000
+	id 1wZ90m-0008JQ-1W; Mon, 15 Jun 2026 15:14:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338370.1599396; Mon, 15 Jun 2026 15:13:37 +0000
+Received: by outflank-mailman (output) from mailman id 1338374.1599404; Mon, 15 Jun 2026 15:14:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ90L-0007qe-KB; Mon, 15 Jun 2026 15:13:37 +0000
-Received: by outflank-mailman (input) for mailman id 1338370;
- Mon, 15 Jun 2026 15:13:35 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ90J-0007qY-IH
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:13:35 +0000
+	id 1wZ90l-0008HI-V1; Mon, 15 Jun 2026 15:14:03 +0000
+Received: by outflank-mailman (input) for mailman id 1338374;
+ Mon, 15 Jun 2026 15:14:02 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jgross@suse.com>) id 1wZ90k-0008Ff-Hq
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:14:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ90I-000QmA-VL
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:13:34 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wZ90j-006yH4-Um
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:14:01 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a301699-bab6-0a2a0a5309dd-0a2a4501933e-22
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:13:34 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a30169e-c1f2-0a2a45010019-d1558032d429-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:13:34 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490acbb0f89so22821595e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:13:34 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922037ba81sm244907275e9.15.2026.06.15.08.13.32
+ (envelope-from <jgross@suse.com>)
+ id 6a3016b9-e002-0a2a0a5209dd-0a2a4507d500-0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:14:01 +0200
+Received: from [209.85.218.45] (helo=mail-ej1-f45.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgross@suse.com>)
+ id 6a3016b9-229c-0a2a45070019-d155da2db1c1-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:14:01 +0200
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c03a466c96aso97445466b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:14:01 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bfdb5318d8dsm476577766b.26.2026.06.15.08.14.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 08:13:33 -0700 (PDT)
+ Mon, 15 Jun 2026 08:14:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,482 +63,267 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781536414; x=1782141214; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8AnYitvNUXv0OtlVvfG7YRGg2CPz/gP+9/bPKhnL9l0=;
-        b=GJZ6ow3cY21Rq2gnI2Pa+3QjW/qmiAekYQJ2SMCUV6kEhz7zh9vf6MzxAuv9Qb3mhh
-         gSI4W8lZC+JIUTAFK0qyRU1LP4uL020bgL7w7bMUFEWCy5uETcwU/cfDD3uioTdBS7E/
-         yn4XAP2djgob6kUs4Keg2eL9C3YaqoxvqNwDosVblNajCcs3S5lYS6yN40sXW85F48HR
-         kPdRYCe7AjB0pvQrAuREpKqYR/zDyIw79SwyBRDHwXtVdnExS3cad9QBrtVtwzCx7yfP
-         bT+6oCLdAQz2sr2iKYO+P+GQu+sl8Pp17NWTuvahdO4k7NvfsCdPvo1OLoj31EPFmzbp
-         O3vg==
+        d=suse.com; s=google; t=1781536441; x=1782141241; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=baXP0rsce8RxgN3E4KwK75xIeIhqJL8ydG3/ruWWQ8Y=;
+        b=EuZxTsguccJss+Cv72BZK5n/qsFea0bV3yZiGf+vCxaelJ96NNTUdRmrWNmn9WqBiV
+         I5L9MG+JTqWkNO7pmOSPHCkkLx6Uz+ySsLhJypphKzLJSSZ67X9TQVXmvInsUMWq5p4L
+         vtCy+RQXljv8/BII8w3D5g1flGC2FOke/fAHsHoN1wYz8YLj2X4NO16atWPh8540j/Ik
+         Upa0gOYsYLCllrQPFgEVA+VhGJNWtaYWkiIv/48pSd3D66QrSJ8HiJcARtnCyvbVoVJW
+         EebJcFZ4NwHEsLyOuwxls+bb6n6PmFbHCnuW5BwTJEUuydMXhv4U5nMvb8z7Te33G0Tf
+         M/GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781536414; x=1782141214;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8AnYitvNUXv0OtlVvfG7YRGg2CPz/gP+9/bPKhnL9l0=;
-        b=Px/l3DWvV0FM83KLBhoCwDNbaxJUwAmKWsc+hYSRoqwzRBA/5FfyVOigihKz+JUn+2
-         D/7a8mzEXiNLiBl0AUdiCkPKCjMTjFvhNRvlZxFqLqRmm+wGGvRfMs5WclqpNgmkaU/b
-         /5aqz5R+9yh4YoA6gjP0trEjTdkJDHCUnPV+PUYFYKYDPO2fL+gheuAo3jDPPk+wwqmR
-         rWtxX6GebbFdZZtzLogByIjHzM+wnTjKEpGLV1VNsqtsceYi9V1quOhhZwu3gx1HS5k4
-         AWogcuUM1WYbjAqwKhkN8W8ajo65AUQFKtm0AShZ7uyYdQTi78Sf4HYMSjdbN693X/zE
-         Fhuw==
-X-Forwarded-Encrypted: i=1; AFNElJ8w3sOgXYgY54htOg3DoSY4vS4s6INdZHohC7Ua+wvCCSpz4DBXvDj1DEMT/YmGneldqFskALonZlw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywkbc+yed9tc33iQNTi+lcRTo4s+scEEuM/GecOBQZJJfedHeZU
-	/jLw5ArDPLdFOMYVV2oICQyBpw7xbsO+2JGuFaKmoNkCBoQyCNvcoxfGwMNYwD3AsQ==
-X-Gm-Gg: Acq92OHboCs4YrlDvIlVitUD8/xBzJb43kcJzjubfUPBf6r6bV9rQJ1X0lPZn4XuC8b
-	NckkkDdA5Czd/WhMrY/LIKXwdSMU+/yMV/il8VzN6/VugH5TxrTDQeTVCgnYbItiMz2/QY06+t7
-	xXWblAk2pG1oPH0xJKtaWRjb9/alNPkp6GUAva6PLmyK1i5tX2bVoB/M8rfhh6JL5p27tfLRs8F
-	ve9VZcYt3fmptwelTJPzDKfih5Jd7cI7fo/ooa6idUCbvnKeqcSGAvhr+ztqhZmS4/CaD4Y5aoC
-	y7mLrZDhydXPDWMmzQmO8UFCQh3WWUgr8Y2bgBO4PIfC1YilxeQnvuPjxSchcs7hrRu3O0pSsp0
-	Dm6XCYqfqKtAaqPKmY545Y6tJifW7Y4DuRgxuLbWJq/0C2qZGFkbjQ34+sj9/b6nxF7rXzXLYB7
-	6Cy9ihb81HSezpFEluXsk9OTgZmC80sXEmfGUe+2CACd2vSYj1kgzJOgLd9v2pIGshdLoZrF1tU
-	lCg2K2UmIU4RTM=
-X-Received: by 2002:a05:600c:4710:b0:490:601f:d766 with SMTP id 5b1f17b1804b1-49220085103mr137115535e9.1.1781536413965;
-        Mon, 15 Jun 2026 08:13:33 -0700 (PDT)
-Message-ID: <133430db-5605-4f3a-8ff7-77f9b57c91ad@suse.com>
-Date: Mon, 15 Jun 2026 17:13:33 +0200
+        d=1e100.net; s=20251104; t=1781536441; x=1782141241;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=baXP0rsce8RxgN3E4KwK75xIeIhqJL8ydG3/ruWWQ8Y=;
+        b=cqiI2/l2CfI2sH4ugUmRCx5gyeJRkIqYcqIwKLfc0Fe5jvreuzmKQ5JzvcirYi/iSA
+         EFm4cb15wy2lZ3UDMq+gDe0xAUbjtlbnZEHMT6HIH9hVsyJ32u0xlJ6qFKagdsisVHdp
+         R4nrgUxyEBRHXWzmqQEaKFGHdSDaUSP0ALcbD+6Yc8FMCrGebAJtCfmUatrDFpDLPqeW
+         JrES8w8T+8lKJfWt2W0rObHjiL+5z5yvRCUpcJ+EHE/+/AfBGfSIK8ncZb5r6ycoBbOm
+         DKPZnW41kJglMGWwUMW586wx2YE3r3fLwPLLroxKp9NFX0oQ7xExWLe59Jj0V/08oH69
+         b1rA==
+X-Gm-Message-State: AOJu0YyFIbXuYl3D6WyfOu+9/EW6qoryy6vRg0fkMn5hehP4UKZmHmaV
+	nIFSAPUS5owllOfGXSTwEQYR8PX85/DsIjkuFKtLAsRIsfYRcppCYPTugjkAcqPfjq4=
+X-Gm-Gg: Acq92OE65pRmI1VqjQK6X1eqMvwA5Vs98RXLfumLVbSDd8xoSZ3QuTUlYEk2Jg91g5i
+	jTE1Zm3CzdF6OLNI7mR4MNumBCifQpL1oUbYE63GSZVvdpudD8NJr92NSJaALCOIqiqC82as8tu
+	fRwbaBtU8BHz3NLqEpTk99d5lxwUWCBX5WMZpK9vos2ekPTBDOkCrUqIfUxxqFetD/J7oLkSBVB
+	c35tcWYcB2kvfpThABZoiIV0aCg+apuH1ZCQSp7cbHyasRBVduyxq4VqFm/CJAjRMkVPruAijP1
+	lhOSVzGrDc+G5BXzzndUnV/HeekLLDzhVW6H/1i2P/P/jUQh1IgR3VT92jiqnnKUA8TsRF+QPHr
+	QMIb6KugGQjEeQc88RnHqQk+wRZieRduk7JKewILvdU1tEVBtFbdwavwft8NifaXIZ8ynHE1QQh
+	4pRjcRgxTVfGBdMOa8wqOotDHsEMGyhkamlz+PUuC0KMCF1pWOY1vbQIYKtpVslGJS7zRuEhw/f
+	eFtLa2CwzoIdNN/G0xSNm5EuY+Q2VztokBInG2cm4aHfySK9LCfBg==
+X-Received: by 2002:a17:906:8a49:b0:bfe:ed25:c563 with SMTP id a640c23a62f3a-bfeed25c992mr358963766b.52.1781536441214;
+        Mon, 15 Jun 2026 08:14:01 -0700 (PDT)
+Message-ID: <dbc707b0-accd-49a0-96b8-7be2f19dac2f@suse.com>
+Date: Mon, 15 Jun 2026 17:14:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 21/26] xen/riscv: implement virtual APLIC MMIO
- emulation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <434e0be590bc0550e143836edff7e8e1e96b28c1.1778250616.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 1/2] xen/scsiback: free unsubmitted command instead of
+ double-putting it
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
+ <20260611123046.2323342-2-michael.bommarito@gmail.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <434e0be590bc0550e143836edff7e8e1e96b28c1.1778250616.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1781536414-B655DFF4-39B4B005/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 12329
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260611123046.2323342-2-michael.bommarito@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Jf4ySejmD5HzM4B60G7A8ifN"
+X-purgate-ID: tlsNG-ef75cf/1781536441-20961C48-5AD0C9FA/0/0
+X-purgate-type: clean
+X-purgate-size: 8148
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
+X-Spamd-Result: default: False [-0.59 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,epam.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:michael.bommarito@gmail.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:linux-scsi@vger.kernel.org,m:stable@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:michaelbommarito@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_ATTACHMENT(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BCF69687873
+X-Rspamd-Queue-Id: 7AD2B68787E
 
-On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> Guests running under Xen program interrupt routing by writing to APLIC
-> MMIO registers. Xen must intercept these accesses to enforce interrupt
-> isolation between domains and to translate guest routing intent into the
-> underlying physical MSI topology.
-> 
-> Writes are gated by the domain's authorised interrupt bitmap so that a
-> guest cannot affect interrupts it does not own. TARGET register writes
-> additionally require translation of the hart and IMSIC guest-file
-> indices from virtual to physical, as the APLIC uses these fields
-> directly to compute the MSI delivery address.
-> 
-> Delegation (APLIC_SOURCECFG_D) is not yet supported.
-> 
-> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v2:
->  - Merge the following patches into one:
->     xen/riscv: add vaplic access check:
->       - Add check that address is properly aligned.
->       - Check vaplic range intead of APLIC one.
->       - Return bool from vaplic_is_access instead of int.
->     xen/riscv: emulate guest writes to virtual APLIC MMIO
->       - Drop CALC_REG_VALUE.
->       - Use unsigned int instead of uin32_t for offset.
->       - s/.../subtracting in the comment.
->       - start one line comments from the upper case.
->       - Check the value before being written to sourcecfg register.
->       - 'unsigned int' for loop index.
->       - Omit unneessary braces.
->       - s/vaplic_update_target/aplic_msi_target_gen.
->       - Use IMSIC_MMIO_PAGE_SHIFT instead of 12 in aplic_msi_target_gen().
->       - Drop explicit usage of APLIC register in store function.
->       - Drop APLIC_REG_{GET,SET} macros and introudce APLIC specific funtcions.
->       - Ignore write to SOURCECFG_BASE when value is out-of-range.
->       - Drop ASSERT(!target_vcpu) inside handler of targer register setting,
->         just avoid such writings + debug message.
->       - domain_crash() instead of panic() in the case of default case.
->       - Drop ASSERT() in APLIC_SOURCE_CFG_BASE case and use domain_crash()
->         instead.
->     xen/riscv: emulate guest reads from virtual APLIC MMIO:
->       - s/regval_to_irqn/regindx_to_irqn.
->       - pass to to_vaplic() a domain instead of vintc.
->       - add check that load access is aligned.
->       - instead of panic() just crash a domain().
->       - use 'unsigned int' for local variable offset.
->       - Return 0 in the case APLIC_CLRIE_BASE ...APLIC_CLRIE_LAST reading to
->         follow AIA spec.
->       - Drop explicit usage of physical APLIC registers.
-> ---
->  xen/arch/riscv/aplic.c              |  25 +++
->  xen/arch/riscv/include/asm/aplic.h  |   9 +
->  xen/arch/riscv/include/asm/intc.h   |  10 +-
->  xen/arch/riscv/include/asm/vaplic.h |   3 +
->  xen/arch/riscv/vaplic.c             | 289 +++++++++++++++++++++++++++-
->  5 files changed, 333 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
-> index 1c8fd0145eb2..1976733dfbaa 100644
-> --- a/xen/arch/riscv/aplic.c
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -40,6 +40,31 @@ static struct intc_info __ro_after_init aplic_info = {
->      .hw_version = INTC_APLIC,
->  };
->  
-> +uint32_t aplic_hw_read_reg(unsigned int offset, uint32_t mask)
-> +{
-> +    unsigned long flags;
-> +    uint32_t val;
-> +
-> +    ASSERT(offset < aplic.size);
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Jf4ySejmD5HzM4B60G7A8ifN
+Content-Type: multipart/mixed; boundary="------------gFy1erWC8z42liK4wRBk1f9H";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Michael Bommarito <michael.bommarito@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-ID: <dbc707b0-accd-49a0-96b8-7be2f19dac2f@suse.com>
+Subject: Re: [PATCH 1/2] xen/scsiback: free unsubmitted command instead of
+ double-putting it
+References: <20260611123046.2323342-1-michael.bommarito@gmail.com>
+ <20260611123046.2323342-2-michael.bommarito@gmail.com>
+In-Reply-To: <20260611123046.2323342-2-michael.bommarito@gmail.com>
 
-Further assert suitable alignment of "offset"?
+--------------gFy1erWC8z42liK4wRBk1f9H
+Content-Type: multipart/mixed; boundary="------------d3RfpG0bv0bddNhBytEpBYqL"
 
-> +    spin_lock_irqsave(&aplic.lock, flags);
-> +    val = readl((void __iomem *)((uintptr_t)aplic.regs + offset)) & mask;
+--------------d3RfpG0bv0bddNhBytEpBYqL
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Easier as
+T24gMTEuMDYuMjYgMTQ6MzAsIE1pY2hhZWwgQm9tbWFyaXRvIHdyb3RlOg0KPiBzY3NpYmFj
+a19nZXRfcGVuZF9yZXEoKSBvYnRhaW5zIGEgY29tbWFuZCB0YWcgYW5kIHJldHVybnMgYQ0K
+PiB2c2NzaWJrX3BlbmQgd2hvc2UgZW1iZWRkZWQgc2VfY21kIGhhcyBvbmx5IGJlZW4gbWVt
+c2V0IHRvIDAsIHNvDQo+IGl0cyBjbWRfa3JlZiBpcyAwOyB0aGUgc2VfY21kIGlzIGluaXRp
+YWxpc2VkIChrcmVmX2luaXQoKSB2aWENCj4gdGFyZ2V0X2luaXRfY21kKCkpIG9ubHkgbGF0
+ZXIsIGluIHNjc2liYWNrX2NtZF9leGVjKCksIG9uIHRoZQ0KPiBzdWNjZXNzZnVsIFZTQ1NJ
+SUZfQUNUX1NDU0lfQ0RCIHBhdGguIFRoZSB0d28gZXJyb3IgcGF0aHMgaW4NCj4gc2NzaWJh
+Y2tfZG9fY21kX2ZuKCkgdGFrZW4gYmVmb3JlIHRoZSBjb21tYW5kIGlzIHN1Ym1pdHRlZCAt
+LSBhDQo+IGZhaWxlZCBzY3NpYmFja19nbnR0YWJfZGF0YV9tYXAoKSBhbmQgYW4gdW5rbm93
+biByaW5nX3JlcS5hY3QgLS0NCj4gY2FsbCB0cmFuc3BvcnRfZ2VuZXJpY19mcmVlX2NtZCgm
+cGVuZGluZ19yZXEtPnNlX2NtZCwgMCksIHdoaWNoDQo+IGtyZWZfcHV0KClzIGEgcmVmY291
+bnQgb2YgMC4gVGhhdCB1bmRlcmZsb3dzIGl0ICgicmVmY291bnRfdDoNCj4gdW5kZXJmbG93
+OyB1c2UtYWZ0ZXItZnJlZSIpIGFuZCwgYXMgdGhlIHJlbGVhc2UgZnVuY3Rpb24gaXMgbm90
+DQo+IHJ1biwgbGVha3MgdGhlIGNvbW1hbmQgdGFnLg0KPiANCj4gSW1wYWN0OiBhIHB2U0NT
+SSBndWVzdCBjYW4gbGVhayBldmVyeSBjb21tYW5kIHRhZyBvZiBhIExVTidzDQo+IHNlc3Np
+b24sIHN0b3BwaW5nIHRoZSBMVU4sIGJ5IHN1Ym1pdHRpbmcgcmVxdWVzdHMgd2l0aCBhIGJh
+ZA0KPiBncmFudCByZWZlcmVuY2Ugb3IgYW4gdW5rbm93biByZXF1ZXN0IHR5cGU7IHVuZGVy
+IHBhbmljX29uX3dhcm4NCj4gdGhlIHJlZmNvdW50IHVuZGVyZmxvdyBwYW5pY3MgdGhlIGhv
+c3QuDQo+IA0KPiBBZGQgYSBoZWxwZXIgdGhhdCBqdXN0IHJldHVybnMgdGhlIHRhZyB3aXRo
+IHRhcmdldF9mcmVlX3RhZygpIGFuZA0KPiBzZW5kcyB0aGUgZXJyb3IgcmVzcG9uc2UuIEl0
+IGZyZWVzIHRoZSB0YWcgd2hpbGUgdGhlIHYycCByZWZlcmVuY2UNCj4gc3RpbGwgcGlucyB0
+aGUgc2Vzc2lvbiwgYW5kIHNuYXBzaG90cyB0aGUgcmVzcG9uc2UgZmllbGRzDQo+IGJlZm9y
+ZWhhbmQgYmVjYXVzZSBmcmVlaW5nIHRoZSB0YWcgY2FuIGxldCBhbm90aGVyIHJpbmcgcmV1
+c2UgdGhlDQo+IHBlbmRpbmdfcmVxIHNsb3QuDQo+IA0KPiBGaXhlczogMmRiY2RmMzNkYmY2
+ICgieGVuLXNjc2liYWNrOiBDb252ZXJ0IHRvIHBlcmNwdV9pZGEgdGFnIGFsbG9jYXRpb24i
+KQ0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBBc3Npc3RlZC1ieTogQ2xhdWRl
+OmNsYXVkZS1vcHVzLTQtOA0KPiBTaWduZWQtb2ZmLWJ5OiBNaWNoYWVsIEJvbW1hcml0byA8
+bWljaGFlbC5ib21tYXJpdG9AZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
+cm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
+--------------d3RfpG0bv0bddNhBytEpBYqL
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-    val = readl((volatile void __iomem *)aplic.regs + offset) & mask;
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-? (Note that like const, volatile also shouldn't be cast away.)
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-> --- a/xen/arch/riscv/include/asm/aplic.h
-> +++ b/xen/arch/riscv/include/asm/aplic.h
-> @@ -15,6 +15,8 @@
->  
->  #include <asm/imsic.h>
->  
-> +#define APLIC_NUM_REGS 32
+--------------d3RfpG0bv0bddNhBytEpBYqL--
 
-What's this? It isn't used afaics, and it also doesn't match up with ...
+--------------gFy1erWC8z42liK4wRBk1f9H--
 
-> @@ -24,6 +26,8 @@
->  #define APLIC_DOMAINCFG_IE      BIT(8, U)
->  #define APLIC_DOMAINCFG_DM      BIT(2, U)
->  
-> +#define APLIC_SOURCECFG_D       BIT(10, U)
-> +
->  #define APLIC_SOURCECFG_SM_INACTIVE     0x0
->  #define APLIC_SOURCECFG_SM_DETACH       0x1
->  #define APLIC_SOURCECFG_SM_EDGE_RISE    0x4
-> @@ -71,6 +75,8 @@
->  #define APLIC_SIZE(nr_cpus)     (APLIC_MIN_SIZE + \
->                                   APLIC_SIZE_ALIGN(APLIC_IDC_SIZE * (nr_cpus)))
->  
-> +#define APLIC_SETCLR_OFFSET_MASK  ((32 * sizeof(uint32_t)) - 1)
-> +
->  struct aplic_regs {
->      uint32_t domaincfg;         /* 0x0000 */
->      uint32_t sourcecfg[1023];   /* 0x0004 */
-> @@ -114,4 +120,7 @@ struct aplic_regs {
->      uint32_t target[1023];      /* 0x3008 */
->  };
+--------------Jf4ySejmD5HzM4B60G7A8ifN
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-... this struct holding all the (far more than 32) registers.
+-----BEGIN PGP SIGNATURE-----
 
-As to APLIC_SETCLR_OFFSET_MASK: Any reason it has the low 2 bits set? The
-literal 32 in there also looks rather arbitrary. It would be helpful if
-there was a connection to those 32-s in struct aplic_regs that it actually
-matches up with.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmowFrgFAwAAAAAACgkQsN6d1ii/Ey+O
+PAf/Qg12ML1MvaFXxcUkr/ZYb8gAt35wBMav4rH0yQXzWpF6WOyOrncQ6S5bzDOMyJffd+JlDsq9
+rvwh2VU3bzxlNzz8tzLk2CHOJ53bUyB/IfBkGmZN9hJ7zMPoUwEVyUxwkWp79JB1HDXWzIoBKpzs
+b6MGp3Sg/BwANrz4tKbbWJ+m/GrTOaJNAUb2rJb3XZ7SjcTTWnWPpE2g4ZI4djCbYIUsAXCJXX64
+HYkLfTrMWF9LbTjN8tkGy+kUVseyYRvG46nz2VCThoRHi9GZIkPZCHL79Tz1LnrWZ9xiBTMiZvfP
+leBsJB6fUa1Zc2v70+ANSnk7DB3hxjzsFc/LdcGFpQ==
+=3jap
+-----END PGP SIGNATURE-----
 
-> --- a/xen/arch/riscv/include/asm/vaplic.h
-> +++ b/xen/arch/riscv/include/asm/vaplic.h
-> @@ -26,6 +26,9 @@ struct vaplic_regs {
->  struct vaplic {
->      struct vintc vintc;
->      struct vaplic_regs regs;
-> +
-> +    paddr_t regs_start;
-> +    paddr_t regs_size;
-
-Can regs_size really go beyond 4G?
-
-> --- a/xen/arch/riscv/vaplic.c
-> +++ b/xen/arch/riscv/vaplic.c
-> @@ -26,6 +26,283 @@
->  
->  #define FDT_VAPLIC_INT_CELLS 2
->  
-> +#define AUTH_IRQ_BIT(d, irqn) ( \
-> +    ((irqn) <= (d)->arch.vintc->irq_nums) && \
-> +    test_bit(irqn, (d)->arch.vintc->allocated_irqs) )
-> +
-> +#define regindx_to_irqn(reg_val) ((reg_val) / sizeof(uint32_t))
-> +
-> +static inline uint32_t generate_auth_mask(const struct domain *d,
-> +                                          unsigned int irqsn)
-> +{
-> +    if ( irqsn >= DIV_ROUND_UP(d->arch.vintc->irq_nums,
-> +                               sizeof(uint32_t) * BITS_PER_BYTE) )
-
-Why the rounding up? Isn't ->irqs_num the proper upper bound?
-
-> +    {
-> +        dprintk(XENLOG_DEBUG, "incorrect irqsn(%d) is passed\n", irqsn);
-
-Once again: %u please with an unsigned int argument.
-
-> +        return 0U;
-> +    }
-> +
-> +    return *((uint32_t *)d->arch.vintc->allocated_irqs + irqsn);
-
-Such casts would better be avoided
-
-> +static int vaplic_emulate_load(const struct vcpu *vcpu,
-
-v please for struct vcpu * variables (in the common case, of course there can
-be exceptions).
-
-> +                               const unsigned long addr, uint32_t *out)
-> +{
-> +    const struct domain *d = vcpu->domain;
-> +    const struct vaplic *vaplic = to_vaplic(d);
-> +    const unsigned int offset = addr & APLIC_REG_OFFSET_MASK;
-> +    uint32_t auth_mask;
-> +    unsigned int i;
-> +
-> +    switch ( offset )
-> +    {
-> +    case APLIC_DOMAINCFG:
-> +        *out = vaplic->regs.domaincfg;
-> +
-> +        return 0;
-> +
-> +    case APLIC_SETIPNUM:
-> +    case APLIC_SETIPNUM_LE:
-> +    case APLIC_CLRIPNUM:
-> +    case APLIC_SETIENUM:
-> +    case APLIC_CLRIENUM:
-> +    case APLIC_CLRIE_BASE ... APLIC_CLRIE_LAST:
-
-For ranges like this APLIC_REG_OFFSET_MASK having the low two bits clear
-(or there being some other mechanism to ensure only properly aligned
-offsets are handled) would help. Mis-aligned accesses shouldn't be
-handled ...
-
-> +        /*
-> +         * Based on the RISC-V AIA spec a read of these registers
-> +         * always returns zero
-> +         */
-> +        *out = 0;
-> +
-> +        return 0;
-
-... like this.
-
-> +    case APLIC_SETIP_BASE ... APLIC_SETIP_LAST:
-> +    case APLIC_CLRIP_BASE ... APLIC_CLRIP_LAST:
-> +    case APLIC_SETIE_BASE ... APLIC_SETIE_LAST:
-> +        i = regindx_to_irqn(offset & APLIC_SETCLR_OFFSET_MASK);
-> +        auth_mask = generate_auth_mask(d, i);
-> +
-> +        break;
-> +
-> +    case APLIC_TARGET_BASE ... APLIC_TARGET_LAST:
-> +        /*
-> +         * As target registers start for 1:
-
-s/for/from/ ?
-
-> +         *  0x3000 genmsi
-> +         *  0x3004 target[1]
-> +         *  0x3008 target[2]
-> +         *   ...
-> +         *  0x3FFC target[1023]
-> +         * It is necessary to calculate an interrupt number by substracting
-> +         * of APLIC_GENMSI instead of APLIC_TARGET_BASE.
-
-Stray "of"? Or did you mean "subtraction"? (Also check other similar comments.)
-
-> +    default:
-> +        gdprintk(XENLOG_WARNING, "Unhandled APLIC read at offset %#x\n",
-> +                 offset);
-> +
-> +        domain_crash(vcpu->domain);
-> +
-> +        return -EINVAL;
-> +    }
-> +
-> +    *out = aplic_hw_read_reg(offset, auth_mask);
-
-You blindly assume a 32-bit access here (and also in the write counterpart).
-How do you end up knowing?
-
-> +static int cf_check vaplic_emulate_store(const struct vcpu *vcpu,
-> +                                         unsigned long addr, uint32_t value)
-
-Why cf_check here but not for vaplic_emulate_load()?
-
-> +{
-> +    int rc = -EINVAL;
-> +    const struct domain *d = vcpu->domain;
-> +    unsigned int offset = addr & APLIC_REG_OFFSET_MASK;
-> +
-> +    switch ( offset )
-> +    {
-> +    case APLIC_SETIP_BASE ... APLIC_SETIP_LAST:
-> +    case APLIC_CLRIP_BASE ... APLIC_CLRIP_LAST:
-> +    case APLIC_SETIE_BASE ... APLIC_SETIE_LAST:
-> +    case APLIC_CLRIE_BASE ... APLIC_CLRIE_LAST:
-> +    {
-> +        unsigned int irqn = regindx_to_irqn(offset & APLIC_SETCLR_OFFSET_MASK);
-> +        value &= generate_auth_mask(d, irqn);
-> +
-> +        break;
-> +    }
-> +
-> +    case APLIC_SOURCECFG_BASE ... APLIC_SOURCECFG_LAST:
-> +        if ( value & APLIC_SOURCECFG_D )
-> +        {
-> +            rc = -EOPNOTSUPP;
-> +
-> +            dprintk(XENLOG_ERR, "APLIC_SOURCECFG_D isn't supported\n");
-> +
-> +            goto fail;
-> +        }
-> +
-> +        /*
-> +         * As sourcecfg register starts from 1:
-> +         *   0x0000 domaincfg
-> +         *   0x0004 sourcecfg[1]
-> +         *   0x0008 sourcecfg[2]
-> +         *    ...
-> +         *   0x0FFC sourcecfg[1023]
-> +         * It is necessary to calculate an interrupt number by subtracting
-> +         * of APLIC_DOMAINCFG instead of APLIC_SOURCECFG_BASE.
-> +         */
-> +        if ( !AUTH_IRQ_BIT(d, regindx_to_irqn(offset - APLIC_DOMAINCFG)) )
-> +            /* Interrupt not enabled, ignore it */
-> +            return 0;
-> +
-> +        if ( value > APLIC_SOURCECFG_SM_LEVEL_LOW )
-> +        {
-> +            gdprintk(XENLOG_ERR,
-> +                     "value(%u) is incorrect for sourcecfg register\n", value);
-> +
-> +            return 0;
-> +        }
-> +
-> +        break;
-> +
-> +    case APLIC_TARGET_BASE ... APLIC_TARGET_LAST:
-> +    {
-> +        struct vcpu *target_vcpu = NULL;
-> +
-> +        /*
-> +         * Look at vaplic_emulate_load() for explanation why
-> +         * APLIC_GENMSI is subtracted.
-> +         */
-> +        if ( !AUTH_IRQ_BIT(d, regindx_to_irqn(offset - APLIC_GENMSI)) )
-> +            /* Interrupt not enabled, ignore it */
-> +            return 0;
-> +
-> +        for ( unsigned int i = 0; i < vcpu->domain->max_vcpus; i++ )
-> +        {
-> +            struct vcpu *v = vcpu->domain->vcpu[i];
-> +
-> +            if ( v->vcpu_id == (value >> APLIC_TARGET_HART_IDX_SHIFT) )
-> +            {
-> +                target_vcpu = v;
-> +                break;
-> +            }
-> +        }
-
-Why is a loop needed here? vCPU-s are numbered sequentially.
-
-> +static bool cf_check vaplic_is_access(const struct vcpu *vcpu,
-> +                                      unsigned long addr)
-> +{
-> +    const struct vaplic *vaplic = to_vaplic(vcpu->domain);
-> +    paddr_t start = vaplic->regs_start;
-> +    paddr_t end = vaplic->regs_start + vaplic->regs_size;
-> +
-> +    if ( addr & 0x3 )
-
-Nit: Does the 0x here add any value?
-
-> +    {
-> +        dprintk(XENLOG_DEBUG,
-> +                "APLIC MMIO address should be properly aligned\n");
-> +
-> +        return false;
-> +    }
-
-Ah, okay - here is the alignment check. Mind me asking for a (documenting)
-assertion then in the actual read and write handlers?
-
-> +    /* check if it is an APLIC access */
-
-Nit: Style.
-
-Jan
+--------------Jf4ySejmD5HzM4B60G7A8ifN--
 
