@@ -2,56 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Pz8uFt6/L2r7FgUAu9opvQ
+	id LUhsIj3CL2r4FwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:03:26 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:13:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C55684D8E
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:03:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA1A3684F11
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:13:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=XP2Je1tc;
+	dkim=pass header.d=qualcomm.com header.s=qcppdkim1 header.b=kmM52Fj6;
+	dkim=pass header.d=oss.qualcomm.com header.s=google header.b=WOTsUO7e;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1338061.1599073 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=qualcomm.com
+Received: from list by lists.xenproject.org with outflank-mailman.1338067.1599082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ3Cx-00031Q-GI; Mon, 15 Jun 2026 09:02:15 +0000
+	id 1wZ3Nc-0004oC-Ea; Mon, 15 Jun 2026 09:13:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338061.1599073; Mon, 15 Jun 2026 09:02:15 +0000
+Received: by outflank-mailman (output) from mailman id 1338067.1599082; Mon, 15 Jun 2026 09:13:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ3Cx-0002yh-DS; Mon, 15 Jun 2026 09:02:15 +0000
-Received: by outflank-mailman (input) for mailman id 1338061;
- Mon, 15 Jun 2026 09:02:14 +0000
+	id 1wZ3Nc-0004ll-Bv; Mon, 15 Jun 2026 09:13:16 +0000
+Received: by outflank-mailman (input) for mailman id 1338067;
+ Mon, 15 Jun 2026 09:13:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wZ3Cw-0002yZ-2L
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 09:02:14 +0000
+ (envelope-from <philmd@oss.qualcomm.com>) id 1wZ3Nb-0004lf-CR
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 09:13:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ3Cv-001DB3-9a
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 11:02:13 +0200
+ id 1wZ3Na-005TKx-8q
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 11:13:14 +0200
 Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2fbf94-5cb7-0a2a0a5109dd-0a2a4506bc5e-2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:02:13 +0200
-Received: from [40.93.194.10]
- (helo=SN4PR0501CU005.outbound.protection.outlook.com)
+ (envelope-from <philmd@oss.qualcomm.com>)
+ id 6a2fc225-e002-0a2a0a5209dd-0a2a4506de34-14
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:13:13 +0200
+Received: from [205.220.180.131] (helo=mx0b-0031df01.pphosted.com)
  by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a2fbf93-7371-0a2a45060019-285dc20a9a62-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:02:12 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BY5PR03MB5187.namprd03.prod.outlook.com (2603:10b6:a03:226::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 09:02:09 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 09:02:09 +0000
+ (envelope-from <philmd@oss.qualcomm.com>)
+ id 6a2fc228-7371-0a2a45060019-cddcb48363fa-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:13:13 +0200
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65F99FbG035652
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 09:13:12 GMT
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etegur0kb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 09:13:11 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-91579011fd1so498381085a.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 02:13:11 -0700 (PDT)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4606f2b0d4fsm35375932f8f.24.2026.06.15.02.13.09
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 15 Jun 2026 02:13:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,188 +70,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ET9owZ/XEeVLpxFwya1uDa1qeyaGPjwCKlnwH/U1Yzm8O7XFbhyLfaFb2MwP6TS57arReBpa/5CCOfcnZNWeu/xLrlQ0RA4Son8TSVnpYRFuXZaF3u+4qmiL11redpTqTZwl57BBqRhoFREOSQI7z9iooomZ0Ve63Qk4ii5y+/MCZCElyFGnxKPAkJj+JDrmlxgjxLIS5CGf9+sFW71ua5VwCceBooM7+IGDRgV4mPIfnYoWsDwd4vkCSWCjkfhE/b9OAf+XWqCAQCWH0pUFUYOI63n7fk0Wp8sjxMB7aLXx8HsQvGs8wjSp/umKU/H+cG7Xc6L3Wrot9+Ce7asN6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+XIJSJ3hLuT169BQ2K0kEK5w6YTOxqer/mhBVLQ3N6Y=;
- b=TCxfZOJoWgZXV+Tm7uQxPefqVa02DYd9/ln6PLSs6zxl7hH/quXcsJ31JUN2yQjPVtmPmdNM8fkNvuRrCRb2eFqsySPb2kfjNZE6UXjQi1Im409+lLgnYwGQcxkj1muxqhOTqksN7u0aFEfFE2Ax8P/b/8B9fxokNy81kwJiUv8lbxV/PulNtejIp6LrZL+xs5DeJNZNNl8UswVRXlFqoZG1iqtW1jZcA+AHgb7xxOh2GOTj3G45nwbUSLX7k0scgtGoVljdp89Sf2DXix+URPLuuiY8U4lUwFhh597lvIdV8oSbr3AAV4Ce28aR4U6Tsp6l3llpOTlCSLy6bNE5Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+XIJSJ3hLuT169BQ2K0kEK5w6YTOxqer/mhBVLQ3N6Y=;
- b=XP2Je1tcLqOgic4TiNASyKNKOGadiKAAcxZCacbV3dRuXmFwB48PMVMWOmy6e7RVtu1i9DdKGB4oYTlGFn+Ok61Ad1ZMRO+BuTr3pPLiogA7whPKL/OhoZ9WEmHBHHgDA8i7uWizwJcZr3gFPXWjRkO5UEQGuWpbNDBVf8qTHtc=
-Date: Mon, 15 Jun 2026 11:02:05 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: Assertion '!is_idle_vcpu(v)' failed after 'Remove
- fully_eager_fpu' commit on EFI
-Message-ID: <ai-_jUw0QmdC7gPK@macbook.local>
-References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
- <aiwTkDUP6rDPbV6R@mail-itl>
- <0db98119-48f3-4edd-a422-8e50ee713b7c@citrix.com>
- <e84d6765-61fa-4203-a1ee-ac07f54a1026@suse.com>
- <48878ff6-ad36-448f-aa9d-6b37e2e179b1@citrix.com>
- <1781277924.8631fc262581453bbf619ec5b2062170.19ebc701bfb000701b@vates.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1781277924.8631fc262581453bbf619ec5b2062170.19ebc701bfb000701b@vates.tech>
-X-ClientProxiedBy: MR1P264CA0089.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3f::22) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5eKOXCv/vInmR0M9o8Av3s
+	sy5kZO4+VBTWH0JYfq89M=; b=kmM52Fj6rboWFjPMnZAS/lb6TCgpsnkguiwo2f
+	qRR+x+bCQWx8nWuXsS0l+8+snCT1FFvIYaIvSAyMMowHgiWnewnEhwBGWIKFrGHF
+	1e/pGqDJe0GYx7+l293XniWdtWdC2M6z9w/prBVp0IsBBuyezs5YtBECnV7xvHs8
+	0NSwskGCrwyTQXmicWPUS6M4ktd+xjCsmaCnXwjX2VUmqiJ/KID7aMtH5gzY6jXx
+	s+7uAMsYYrglqcWjItTBL++eBHwVHdpd1pAz/kB03rJqpsTRma3dKZtXRBYwF2lu
+	Dq53xyVJff3djQOKfwo9BhLoceHMibHmJuzoUDbE1TGLIrOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1781514791; x=1782119591; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5eKOXCv/vInmR0M9o8Av3ssy5kZO4+VBTWH0JYfq89M=;
+        b=WOTsUO7eqgjl8bkEFlW4GaNDcKatpFY8R6EXCXBfs4wCtJBQM3EIt95zZbQM5+tS5M
+         G4S7RB58NwXuY80364pWQdcNe2mqsbV+FUQwbdj/PogAtm7Qay5BoB2/LydaMPVQAyH9
+         C6BeVNaac0rzpy3/B7yI90/9M34ffh0qm7zFTylSgyqo0chce9uavop91dnHqbQouyDo
+         36jo5Uqov1ccuCUr845XB6yBScFjaGNAnyDkEoNKpXGKD7r6z5IDu2svCdGg9paGXir1
+         TxIYmC8gEPXgBOyMQaHgQz9cttfEPJoMI/zAJezEpybSLugnTg5jLP3XElN6IUtIp+VF
+         cl9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781514791; x=1782119591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5eKOXCv/vInmR0M9o8Av3ssy5kZO4+VBTWH0JYfq89M=;
+        b=cdO2PCOKidaNXOzP9MeyZV37XF1UkOk+6TblMrB4r+/unboKodzMwujE5diexJyN2P
+         zNNVNQRWyA9NoR3AwltCVRIYfqIxaynxa0uZg/2jsex87r3s9Lxzoy2VSSQqt5kxl+w2
+         Wl+iS3HvujFMaSqShdk0WeF7uqB7HrZVWvWPr/qVhRiswsbYH81uHTzFMWeH6FMvZBQA
+         i0ChMnzZOmWDYV8iDEGUoWy65SHKfpBfVBTk5j3LHnJn4clda13T774a+HSP2LYS50e3
+         VuSHUnrzmsGBWqzTdIctxchRWbTLPgITDYGh62rZIVOrbslGz1xa9EQqPDf71bh+gA0T
+         JpOQ==
+X-Gm-Message-State: AOJu0Ywet4oedQKDlL/XQ4uDwa7/odgIzNkgBHOoGHQfvpiksmiX8BDC
+	p801dLb9NmJlgADvwoil6ZHVEbcOFIqDn+6p55NDOig3mnMfB8ZUtFIKSBjZACJKKOoMGYU5M1/
+	GupThMgQDJ2KgXQOxfDXXUFtxx/Q1zPltCJylBLKm5XxyLNya1w1TQp/+3ch3Uom83S6bqQ==
+X-Gm-Gg: Acq92OEgZ7P9mXXRSzoTchJmPYM4uknzkd6leoc2FeaKdixIN2bhbUebuYY1ztEEIb7
+	GhG6yZywN6LXovpodPxZx7OEUAlPsCFCRYsxwSURmTrLuAbW9c2Osxh1bkmyZm4FNQd+7HBvMYk
+	87CmmkQbKlqG+Kt8qxRu/jSu/HzUBqXMnvQoDYY0yND/umoU927KyH6koueEJ7PCwxusSl9gltP
+	K6lMhAR0lrto7KP+57Fgxgoe3tvK0wsfRlBxr6XXU1yRzLR2qYyhJhBsgmun+R3d8ANPrjcd/vW
+	Yajj2TsmHPNqWiEL9Dvgaifkb6R1wEe8t4fsYgfLA72dgmg1g5DqFOvyyJSow6tpMfIwFI0GEP+
+	rDN66TAi97k5v4VJqJ0aSz0gVEVYnSpUHswLARbx5RK04QMyf2R8YzLGBa2y0g8PPUAv7x0PC3j
+	xKg94=
+X-Received: by 2002:a05:620a:272a:b0:914:b65f:6b00 with SMTP id af79cd13be357-9161bac4e82mr2152721285a.6.1781514791207;
+        Mon, 15 Jun 2026 02:13:11 -0700 (PDT)
+X-Received: by 2002:a05:620a:272a:b0:914:b65f:6b00 with SMTP id af79cd13be357-9161bac4e82mr2152717285a.6.1781514790771;
+        Mon, 15 Jun 2026 02:13:10 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
+To: qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Anthony PERARD <anthony@xenproject.org>,
+        =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+        "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] misc: Remove pre-C99/C11 checks
+Date: Mon, 15 Jun 2026 11:13:06 +0200
+Message-ID: <20260615091308.4458-1-philmd@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY5PR03MB5187:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2430c4eb-8777-4736-d16f-08decabcc820
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|4143699003|11063799006|5023799004|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	R3m5PsFwXPZS5cZtE/f2EyPwtc5PlO0VFhKSViaxpXdYMeeXTtUfVcVh27ZHZ6EsZffn+/KSWPFqEmfXkVtP4EErC6r1QagftAyt6O2jZQaDxFoqd4xzNB4gwVnqA105YWqBoioDp7aphy8VWgmCWcr8qvanVNBYtgdOBoXNUIXsil8Ey+i7F0R8F5eMm8QCGK7vBen8LNbHD2cQ75hbDHdt9R/qTi7m7EaSQfBLvsiX1k4zUu1zRgKBxsK7J0oe+fNJm00MZ61ufIbplVO9x23BPrVHlRCOQI+rW+i+oLRWhJHRO0LpO96HA55Ndb+Md/uGg2FNYgDsLYfRBj+jzoPB+LjDZMZpAeiUaraYQtMkGb+6/4VVRDQ37OM5Tmn7I4mak39q25D7u07O/p9em6kgSe0EHEiutaw/B2pFz9FKJA/m1wAYHid87krbOQwm3IhUjaJqdDzUbjKVYgCrZsS7zvIuz2ojd+JFw5IoyuEyQvb/kd9btuOws9V/V4gV9U2/J2irZpdczyWpTen/DY8Nt928G71TRfQwGXgS/xj1MzwalwH8gHfd5dJJcYv/96tDrfxS4d5ICnY0kwwRStlxkc2ka8Zft8VuAbxVp19HEFPOhlX5PoVPXMA2UXFVS0zdWkgzZt46PgDA9k5Ridup9ojVGK/kbDx8XFBQQxf1AxZ/0ZTKVpLU6t3MCfeD
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(5023799004)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzdSR0FKWXNvNzFCRHh5d3h2MEdIclpDbWJQT29jZWRnOW1QczVzNDFWRkNU?=
- =?utf-8?B?d0NtU25tNTlxaitqS1V3SEk3Y3ZteVdYaTJTS2VDMzRiMnVuZ0h6ME9ubW5K?=
- =?utf-8?B?VWU5ZVQ4RDcxN3N2QzBQMm80V1g0NThEaDU2ZmFqMHUrNUM1aFpqRHZBL1FS?=
- =?utf-8?B?STQxOHBUK1lzV0ZNTWJSTmljM3lJSStaTXFjYkVPOEJkblhrbjR0YjkwYW1N?=
- =?utf-8?B?cG5OdHdzbWhOajdQZnk4UG5JN09Qdmc5aHMvblRDSDFhTmdzcFJxWmc1RTdV?=
- =?utf-8?B?dkNpRmZ5Q2lMOC9LZ3dINXg0UCsxYnZocVBNd29sdmVoMUFUT2JzaWVTQ0hF?=
- =?utf-8?B?Sm9iSGJXbU9QeWpiSlFhbFpCUzZ5Z3RzMFYrMVpWRmk3RUh6Y2MrYUY1WG43?=
- =?utf-8?B?V3RYYVNOZUVJcFBSM203c1FIUmxYcklaUkRRQ2QzQ3laNEVQOFRDSG1URE9B?=
- =?utf-8?B?alBlc0xEZnlQaGVCWUV2WUF1SDhrdmRoS3AxczQ2QXdwY3FtWE8xU0hUQ3ZU?=
- =?utf-8?B?WkIwQTdObGpTTGc4bzdyYVpNeXllRDVxR1dIM0dmMjA1WUZQNGI3ZzFPcE82?=
- =?utf-8?B?M1p0QVhkR2t0SVVFa2YrMmY5SFhQWm1qRlZhWE9DeGwwTWdUeVVxT0dNdmV5?=
- =?utf-8?B?a0RqN2NWdEpQVUEvZStQZk9LTTQ1RVlGVlJISXZJbEJVcUlXRGZiaEhhbDdN?=
- =?utf-8?B?NEJNdDZNQWsrRkRsaGo5d0NYUU5pdjdMM29ZRCszalkwNDlsVjhzQTh4TVU0?=
- =?utf-8?B?d0JiYTdyZ0VyUmt5VEZHZnlHc0loS1RzQ0o1NHdMSXdJSnlyT3RVN1QwMndO?=
- =?utf-8?B?UXZBUjBKNUptM1h5akFSTEk0OHp5K29SV2E2Z1JISmR1eDZZZGNxcnphQmdD?=
- =?utf-8?B?Ynp6bGRJRnlvQ000SDBmVlh0K2pua0dVVFBQY2IvMnY5WUZGaUVLcTRDalBW?=
- =?utf-8?B?VURYczAzVFZpSSsxZkhNVFpxYkFHLy80UE9lUHdDVjVLck9iU3lOcm1IalI5?=
- =?utf-8?B?c25aN3A4b2dXUmhoLzhtNC92dzQ3TW1RZnJtYjJwM1RWemp4VGFyaHVmbnY4?=
- =?utf-8?B?TWg0WEFMeGZtd3pZeE55OUljZXFvL0NaR0NCSTdvRURBb010L0NYYzd2eUFF?=
- =?utf-8?B?S0JMQTRkWUlMMWNzMmJLYUFPakY5S2dwOFJ2OWNzOG4xdjJpT2dkZ0RlQzN6?=
- =?utf-8?B?d2F2MUJrL0FxYXdsSUFkMUZqNG5CY3I4SnVWc0tsTk9LUDlJZDVMZE5RRSt5?=
- =?utf-8?B?VjVnVFRXSGZoeUd1WUp4YStuU1ZDYUdFV3pWQlJiRWxJOHJyNUFlS1NGTUx5?=
- =?utf-8?B?MDdvWVh5NmNaZDUvMGtScWs5c0pEc2gzbGw4THNyck9hVVJKTDJJamRIajh5?=
- =?utf-8?B?NGRhV1pKZjRvNW1lOXRnM2hpQWJGRGFLS1N5WHdKL28rUG1rMUhlVStiemF2?=
- =?utf-8?B?YTVKd0E4WUJhVUpwM2pnb3JQZVV5Rjh1cDlnWGtIRlZqMlY4a0ZkR1RkSVZK?=
- =?utf-8?B?M2xtdkpnbWMxWkpvcS96ajBnT3g1OTUvMHRKOHNPMTBFOW1SUERSeU9iUTlj?=
- =?utf-8?B?NTFqaGZMUkdsNW9JTlh6QTVVVmc5MTVJVlpHREMrWHloQ2tmRk9neWdNWmMr?=
- =?utf-8?B?SzBpTzVMUlFyUWlCSmxCQjdjbGpaTkVJb0VST1VIR2pDTUpWUWlRektROFJY?=
- =?utf-8?B?WTdXNnBzc2p0VWtNSzhPY1M5NW16ZDIzYXFmSUlYWDdKZVJJQkpiRGxPOHV6?=
- =?utf-8?B?L0lJTW1vVEpMdzVkUkx0MUR2M0FMOHNuQXNCK2xuU2tSK1MzZ1FYZjBQKzl3?=
- =?utf-8?B?OGozS2pWR2xEQUF2V0xTc3Fza3JTSzlteDhBRy96cEV5ZmZMdVpTT2pPRmJo?=
- =?utf-8?B?WUFPNndYQzB6S1MxS0g4QXVJQlYxMmoxWm5VZldQSW5hdkxxR1lzOHlZaHhR?=
- =?utf-8?B?RHBwQXNWS0xXMUF5RVpMYmxMMmFRMUszM2xkLzAwa3hzTFo4bkpKZXJuODRU?=
- =?utf-8?B?cGJtYUR4NXhUa3lPOHk0TGNRSmtla2thbEJ3cVRwalBBMFoxbGZTZkFvT0Jx?=
- =?utf-8?B?NHdUbUQwVWVFMkk4Qmp6OHdETksyV09qUVdmK1ZuVkUxR2RldTNXczU5N0xM?=
- =?utf-8?B?YmdaQ3ptQTNoZHJTa2ZKMmJ1amw4NjhrQ0JGNnBINnZiaXU4dU8rT0JPWTIw?=
- =?utf-8?B?TkhRMkVkVHllMDhyQU1qSlB2TGp5aE9qVmFtcjZpSkZvZnAwVmUxNThOdTI2?=
- =?utf-8?B?Njg4Mk9yZXAyY1R1UHpLMjRpMTRvS0tjMXhPWmVOQWRKclFKbEREN0dGMnMv?=
- =?utf-8?B?cW1wQW9FelR4L3FGWU1PZEtTYXhtZjhIREhld0JwYkRsS1ZrVTlUQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2430c4eb-8777-4736-d16f-08decabcc820
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 09:02:09.6015
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kpST1H4uIETxXefj8IMcI7tBZIgfeyN1RbyVkC6E9jtalRxlSFRJ66owrjkgkBWymjUChXyIZLn8L3fthv3r0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5187
-X-purgate-ID: tlsNG-16d1c6/1781514133-8757ED75-69C39FD9/0/0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA5NiBTYWx0ZWRfX/HKcKRgm++ZR
+ N6bJeCU0cFskGjsUna62f6BYZPPXuzajo77Void6wKQW+WJhxWDcqcbvTKluydi06Ax4YoWH8P3
+ GEH8d1k7is3Lj4MgMhCb5z43gKTqnRuUKbFd7CHJbcNEe0ZY6xXbRNpyDEffMxwYaH6giTFBe2u
+ 7UHulw98fBCWKSycsj/BWJilDt1WhIDJj+WopWhSBpIrN1mnwxnoRid8wCbx3pDih/xNu39UNRI
+ 72S7k6fRm9PjTjntcuRlFFJIY/l/GaXlatPa0gEKpXr4IbwK9keqN7e2tG1YGN2ov7wLgaO2v1x
+ BYT26iMp9uqYqAXycQDnie+ev2l4lMbJMGcAd2ykscb1rwxYyTtahQBlJr+cqDdDfyLMHk48vzZ
+ IADipEB+vj819QWqHxTFHe+0fNVplIZhoMzwQhRj27+Eaz/NB7pz2IbwlMq5AagrGC5qdi4H3zE
+ sbIW7GdeD9/iYW394Ow==
+X-Proofpoint-ORIG-GUID: ZvdRTJ11uBh-5YkA694A7c-jQ4mlLT0w
+X-Authority-Analysis: v=2.4 cv=HMvz0Itv c=1 sm=1 tr=0 ts=6a2fc227 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=2Kr2Ceio6qlyrOmMFMIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA5NiBTYWx0ZWRfX3NCv3HODwldd
+ Sge0M7eTLKc+/nWeueyP6qxS0IwERFHw6OX40QRGNGa9B0miyOwiv39s/nmz+/gJJnXATJSYUe/
+ yV4wRuOoCzbG9/SnXrI1rfIpkSoaW1A=
+X-Proofpoint-GUID: ZvdRTJ11uBh-5YkA694A7c-jQ4mlLT0w
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150096
+X-purgate-ID: tlsNG-16d1c6/1781514793-86F73D75-B5B13013/0/0
 X-purgate-type: clean
-X-purgate-size: 1862
+X-purgate-size: 591
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SUBJECT_HAS_EXCLAIM(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,kernel.org,xenproject.org,redhat.com,gmail.com,oss.qualcomm.com];
+	FORGED_SENDER(0.00)[philmd@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:berrange@redhat.com,m:edgar.iglesias@gmail.com,m:pbonzini@redhat.com,m:philmd@oss.qualcomm.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[philmd@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,qualcomm.com:dkim]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A0C55684D8E
+X-Rspamd-Queue-Id: DA1A3684F11
 
-On Fri, Jun 12, 2026 at 05:17:31PM +0200, Anthony PERARD wrote:
-> On Fri, Jun 12, 2026 at 03:32:00PM +0100, Andrew Cooper wrote:
-> > On 12/06/2026 3:20 pm, Jan Beulich wrote:
-> > > On 12.06.2026 16:18, Andrew Cooper wrote:
-> > >> Well, no intended change.  It was a very big patch.
-> > >>
-> > >> Nothing should ever be using efi_get_time().  It's unusable (i.e.
-> > >> crashing) on hundreds of millions of machines.
-> > >>
-> > >> So, while we obviously do need to fix the assertion, this is "only"
-> > >> collateral damage from having fallen into the efi_get_time() path in the
-> > >> first place.  That wants investigating too.
-> > > Perhaps a reduced-hardware system with ACPI_FADT_NO_CMOS_RTC set?
-> > 
-> > The identified system is a Broadwell-D.
-> > 
-> > Come to think of it, there were some systems of that era which (falsely)
-> > claimed to have no CMOS.  (An HP Haswell Blade comes to mind, but it
-> > will be a similar chipset.)
-> 
-> Some info from the boot log about the machine:
->     HPE ProLiant m510 Server Cartridge
->     BIOS Version: H05 v1.98 (02/02/2023)
->     System Memory: 32 GB
->     1 Processor(s) detected, 8 total cores enabled, Hyperthreading is enabled
->     Proc 1: Intel(R) Xeon(R) CPU D-1548 @ 2.00GHz
->     HPE Power Profile Mode: Custom
->     Power Regulator Mode: Dynamic Power Savings
->     Advanced Memory Protection Mode: Advanced ECC Support
->     Boot Mode: UEFI
->     HPE SmartMemory authenticated in all populated DIMM slots.
-> 
-> One of the cartridge on a Moonshot.
-> 
-> > > On such systems efi_get_time() would better work properly.
-> 
-> I guess it works fine on this system. On a different cartridge, with a
-> Xen build prior to the commit, I have in the boot logs:
-> 
->     Wallclock source: EFI
+We uses C11 since 5 years now, time to
+remove few obsolete __STDC_VERSION__ checks.
 
-Can you provide the decoded dump of the ACPI FADT table?
+v2:
+- Correctly use flexible array member (Bastian)
 
-Thanks, Roger.
+Philippe Mathieu-Daudé (2):
+  hw/xen/interface: Remove pre-C99 checks
+  qom/object: Remove pre-C11 check
+
+ include/hw/xen/interface/physdev.h    |  2 +-
+ include/hw/xen/interface/version.h    |  5 ++---
+ include/hw/xen/interface/xen-compat.h |  2 --
+ include/hw/xen/interface/xen.h        | 14 --------------
+ qom/object.c                          | 14 +-------------
+ 5 files changed, 4 insertions(+), 33 deletions(-)
+
+-- 
+2.53.0
+
 
