@@ -2,56 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id X7CUKwVRMGqnRQUAu9opvQ
+	id QUXcH0JTMGpmRgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 21:22:45 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 21:32:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 156986896B4
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 21:22:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6911689721
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 21:32:17 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=BdcaQdGP;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=DzqKEtzP;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
+	dmarc=pass (policy=quarantine) header.from=amd.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1338536.1599586 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338550.1599611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZCtJ-0001UT-CL; Mon, 15 Jun 2026 19:22:37 +0000
+	id 1wZD2M-0003R5-Ey; Mon, 15 Jun 2026 19:31:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338536.1599586; Mon, 15 Jun 2026 19:22:37 +0000
+Received: by outflank-mailman (output) from mailman id 1338550.1599611; Mon, 15 Jun 2026 19:31:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZCtJ-0001RW-97; Mon, 15 Jun 2026 19:22:37 +0000
-Received: by outflank-mailman (input) for mailman id 1338536;
- Mon, 15 Jun 2026 19:22:35 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wZD2M-0003ON-C5; Mon, 15 Jun 2026 19:31:58 +0000
+Received: by outflank-mailman (input) for mailman id 1338550;
+ Mon, 15 Jun 2026 19:31:56 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wZCtH-0001RJ-No
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 19:22:35 +0000
+ (envelope-from <Jason.Andryuk@amd.com>) id 1wZD2K-0003O1-Mz
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 19:31:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZCtH-008Ihy-1A
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 21:22:35 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wZD2K-007ABX-3b
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 21:31:56 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a3050c0-bab6-0a2a0a5309dd-0a2a4506abd2-48
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 21:22:34 +0200
-Received: from [40.93.195.14]
- (helo=SN4PR2101CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a3050f9-7371-0a2a45060019-285dc30e8cff-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 21:22:34 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by LV3PR03MB7588.namprd03.prod.outlook.com (2603:10b6:408:282::8)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 6a305325-2eae-0a2a0a5409dd-0a2a4503974a-8
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 21:31:55 +0200
+Received: from [52.101.85.27]
+ (helo=BYAPR05CU005.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 6a30532a-672d-0a2a45030019-3465551b0da2-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 21:31:55 +0200
+Received: from SJ0PR03CA0053.namprd03.prod.outlook.com (2603:10b6:a03:33e::28)
+ by BY5PR12MB4164.namprd12.prod.outlook.com (2603:10b6:a03:207::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 19:22:31 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
- 19:22:31 +0000
+ 2026 19:31:49 +0000
+Received: from SJ5PEPF000001EE.namprd05.prod.outlook.com
+ (2603:10b6:a03:33e:cafe::a8) by SJ0PR03CA0053.outlook.office365.com
+ (2603:10b6:a03:33e::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18 via Frontend Transport; Mon,
+ 15 Jun 2026 19:31:49 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001EE.mail.protection.outlook.com (10.167.242.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Mon, 15 Jun 2026 19:31:48 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 15 Jun
+ 2026 14:31:48 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 15 Jun
+ 2026 14:31:48 -0500
+Received: from [172.21.53.33] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 15 Jun 2026 14:31:48 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,174 +80,195 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bUzV4oU2uLJH+tMvBJTA2VCId8L7vC1wEhHLzmQfXR/sWqYHTgra7ISS8CrbRpu31LpwKTDpYLYeaQgmuuUs68c3zUmn1AUHm2tATyJGWYBxWc6l344TKNtg5YDAdii10W+5f+Ql9mJdS/D+nA0faLMWGH/4eiayYRkmCXXCh6xFAMGO9swBBiFQpe6IpOhA4kNscK+iqqjV581NM1BkDwilGgEM3zO2S+dI35kPQoO57YBNwriAqtBBzyxZL5XiomWsYfEk14aVamsKO7OfFw3NvH+v+a6QC/PNRQksAXJplYzkigP4hQaPxO9gGEizYJVHobmuQD7V20wQvo3Llw==
+ b=Q16iGFgKWYQnmdhkXpFJsSS2XvH0MtSS+HJQvKfQzhWSZFVsLHUyvWsHhWDZWIZvMPRZHhayGM/1ijBp4Q2oVsHDJqbeo2hU4ZGdOE5avBSQZJcxXbXDDnMXel7YbfnIAL9Ek7a6TR0wOOe6IcSG0Nof4xcXmXUBvpU8MUJYiaU77O+6RjHH14oHhuXaGZ2i6umZSgfX8R1Vj2c0/oaKr84Kt9rNzk0+0wl5nTXWPQSC+zcahS5BlpHPKe3QXomrzt6EHoRcZKNK6OxMNWhI9UB1qEYTeFAZTLspFQV3xSjQD+QJWK/tSymeCaYPL3oDoy3TSMv154AetUxyok/k+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FecxwQS6kcbeT4bx3k9WML8Vxo1g1CpGIYKKV8HUbgM=;
- b=qdWnaBpNEDv+POC/WzF/Nyfv0G75/MovK93HOOKAI+NIn3xnPzrNheNqu8APmaDx8PPImIhrDV6QUxuvfhyeZ5Q9kywsVup+6gFuAjXmdIOX82aWzgAqOydUFMWghfUVMKnPKWs+yObXyq1PgUzKVg7QfEBOSH5yx/wC6MNb5ufVA5QTkV97hoSkCgOSnseoqqn2uMLaL1uPyTF5uU8bPHXVqDD6MC9TLIzQHHYUaG53Oi6DdnF/C49nerH+4ue8LIyOKGGnmN/zdvCWgQ3P9s2FRHG59wpUbAKZ3yjTkfy0Zc8jfeI1bm4jW1KjwVpeqsKMsM4HsLIXnYMhLQMmTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=32/HDYwV3U+rT5UP/W3xk6EvChPv0wrqIhFs5/uVG/Q=;
+ b=skoxoBD/s0THAyjJl3MjQ0AAVx9BioTDIpgr0wFAjZflclTYvNXnh2R6kvM8+tRLiXPo9RJeYPM4ZvZ1Uz7YvHH8OkIYATDeJ5eVhkKu9QuC7E6uSsiLz7r2q5HigLiYm0o8Wxf5joOz9F11yPNAlroRedgq9tspbydHNQ2xU67FNNEeSa9cggUya223Xd8Qyd/3gyFKUnrlsK4tULrMB/vTpZ77YX1QPCB55EY2cDwGq3LeEjdQAlLbZxRhkAl4Y4Z59W7BMt2fsd/hp44YYNJV5qkRXe1KK10r5KGBvjal/U4JTPVsuOAXDyyS2jYJ/QOhXTExbvBAmxHBeFUMBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FecxwQS6kcbeT4bx3k9WML8Vxo1g1CpGIYKKV8HUbgM=;
- b=BdcaQdGP8jvfiUNePPkVaSUfQX5MQaBVjCctPWqr0o3V/ErZgShQ1vR3ZxmB7XqF5dztAeqVU5/PsuWkubaJa69SnWp8qCHR6Dm2o+FgmKTLfwMVLKNBUweUYCGEoqAyQHmWUUHm07iqzouUON1KLuOxUNphIUz4vyGixplhi/M=
-Date: Mon, 15 Jun 2026 21:22:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+ bh=32/HDYwV3U+rT5UP/W3xk6EvChPv0wrqIhFs5/uVG/Q=;
+ b=DzqKEtzP7C5NFtQg4/fiuCxVi4PElIWp2+4AsS6NOcS11S6pr6T3+jwGSghGfPgMWwQezEd8bKEtYKS/+D0/43Bo7aW+6bb05uKep1N/Nlzg0e2Y9s2vvA5ZHdyWXOs3Hm+eHjbFpQxQ/fjvWR16Z/D/IawnzehoXoxZ2bPNcMA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <35b84d51-6942-4d2d-ad07-e9d464013ef4@amd.com>
+Date: Mon, 15 Jun 2026 15:31:47 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/2] xen/cpufreq: fix usages of align_timer() in the
  on-demand governor
-Message-ID: <ajBQ9G0_M8WIdUQn@macbook.local>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>
 References: <20260227073259.1200-1-roger.pau@citrix.com>
  <20260227073259.1200-3-roger.pau@citrix.com>
  <d00f8d01-33c2-4b43-9ca5-c7aa98488ff2@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d00f8d01-33c2-4b43-9ca5-c7aa98488ff2@amd.com>
-X-ClientProxiedBy: MR1P264CA0127.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:51::13) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
-MIME-Version: 1.0
+ <ajBFYYY83dmeM4Kp@macbook.local>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <ajBFYYY83dmeM4Kp@macbook.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|LV3PR03MB7588:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9c27d66-3946-4c47-6638-08decb137226
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EE:EE_|BY5PR12MB4164:EE_
+X-MS-Office365-Filtering-Correlation-Id: c97d2ff4-b6c5-473e-d558-08decb14be9a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|22082099003|18002099003|6133799003|56012099006|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	3WwGcXB3OmJtOfLgCfbsoNI+3RVYO70IZ7Jd//QMhHPGA+t1j2SV/r/SubizMMuzDZuhOLqqJei4e3YCUwDH+0wf0bROBRZLRMu1R5kbM19YGVlnS5fkztz/nrwR4QpxTX1JccQVUtD7AM2WwcfosR0rTBUWSozucarEG/VNH2NiLebXhgHmuX/HAIinqjvmZCjatgPV/AKnZaXrcH0VZQWjujzD67x7Js1YsTB/PiIymtUKqqqujUs7KETeQ0yav/oP+YHFmy7K8D7UoQ+bxvpaDqKPAh03J9QQWM+JwU4s3xT3O1Px85OOWD5yVk513qJsiFxmGKKU/TtulykLZ85JV9NT0CdtpCwJBKt0PACBqyto6aeGQGhtFCgYrNMmZeIF1WH73X12A4caaC3YJg25WPhfm/6gg2tgo5kmswGDUepSxEuMSCV+wbvt2CSu9XpMEgWnXsK0MCIxUdJ5ZD03MJS1U1N/leveOoSiYQLcrcilSGP/UGWgabT58+GUe16AQkiiVZQHiN5RTvXqfiWqQvOYT5QlmthJUjvVSjyI4MwE/6QLMCA7TP2O2boedKpci99ShqkvR+krMJQOPobZJEjXPMh0FbAUSjkt4BdwJojjIGOTxitpFLuQXzTpPB1NuicLhH47dqjx03pn4YEVDRwuWlT9lPGGf/pBRjy5SmJIKzQPfNcXrbiwnfgJ
+	gCJs1I+Ey/h4Y8PwJMYH0FxZrT7QB6xyozuiUUTBax6vEJWazEpTLRCS/okZw7/AG8V8BhkKvU9wARHlafHvlBR0U3ryC1xqjeJTCjqn+M5dFbGk2yjOXb8LtxSF9t0QlCMXmsae2zFg7TuLZP/ZqwwZcLMgcP07PC6vB9pYhNNVttOqRwFzQP41eWUBm3P1O0o5SO+pN/vlxDY6SuiodmVaqAF6vk9hIauLe8eUkaHTJ3LcoFtjpFzQYxUt2e/yp8kISJ4aH8i03CrcXQXQT0nvoW68/vNywfOQYZdXNRwcnpX15HQwKTmyf/KSl4O+tsyxxB+KoLcN9kPTpuC2KINqsIhbolCLAPbh2Vyfl7PaVAujSWBNYL7jM9dX0tZGgnJwwZt7lMgbU/fuuqNUdgl+r4s/11iDQhgP9PG6R3FFFmNE7K7ZGClrzEqavYFGdDMRELveZvIITSVOqf1sQ2/yZLfxeRbSGS1YNWic1yjLjrrMP7F2fAHJzCYwe525O60BioV9wDJsWyBcGkTq9j9hIunBKW9uKfyLp1kvOje91SMZFzZ5BFtneUxO4eMvEhbFhXFr07Oj0u37VRbycu27yTuQorvaNbMUhrzGVHgDGG2iMGPTNe15KOx4cPS1tk0us3WAVIS1yi8TINQ+vH2Ta2RILTm34a3wOOhHlSbtYIyUZx4VRWUc0Yd3NHXGH2RFAOlNzYaorQLibDu/dTKl97y1CM6CZ9QrWUniaxs=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(22082099003)(18002099003)(6133799003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MW9NRGZzNUxGTTdLTVlvVzFlby8wMEJOcXhodStabFh1MjEwTVJiY3FLU0VN?=
- =?utf-8?B?WlpSVnkzekVwQVM0NWt0SktHaXJhckV4Z0s5NERib1d6MzJhc0ZmWm1GS09H?=
- =?utf-8?B?M2xlZUp5SE5sTzYva1A3a2FUVVB1N2hNYldXZXFMcENUbzdUUndpS0lZeUJN?=
- =?utf-8?B?bW9FZlBYRXltVWpEUGRXUmpJU3c4SERMeVBkQXJsZWl1d0V0R0VjRVFuTURl?=
- =?utf-8?B?bysyTURQRTdWQ1JTaWhtVE9Tb2pQVngza2xjcDFPbFZnYUxXS2VNZDBBck41?=
- =?utf-8?B?MGN0V2dEZXFjaHRsazgxMnhXMVJlQ012dEF0L3FQT2N4bysyMEt0OTU3TjUv?=
- =?utf-8?B?MlhheGVxOHhRT0xuQitIeDBKMURBU0sxc1Erb0hwR3lIUDhzQlk2RU5MTXJV?=
- =?utf-8?B?Sk10MFBlbUQyc1gwR085eGZrcUFPWnFNdlV1UGJSZURRUXJRamhmMlJITWlh?=
- =?utf-8?B?aFZ4a1V0VmtTVnFmbGJZTmJpc0k5VmlUam9la2VoaG1oWnVxWUx2N0ZEZU5z?=
- =?utf-8?B?cGZMZXJoVk5pSVRmd3ZTdThpQXcxL1VoUmRrWTk0Q0V5b3c5REVRSm0rRGlE?=
- =?utf-8?B?WVBnTnBDWFdRbEhNaDJlQnBodnpSdUpxa0d2SDRrdmFOMi9ZRCtlbUQ0SzlE?=
- =?utf-8?B?NENaanhzRUFLMzQrWlBPa1NDTkFjVjFyeVZ6RGdaazE5L0JZUkpSdGxOUy9w?=
- =?utf-8?B?NWpZWW1aK1dmc0pFT3BFc1lJbjZtUmdXZWZLR2RsTWZvUFZ4QzBQOVVjd3k1?=
- =?utf-8?B?ejM1THBCK0FBTGxoRldnU0cxeGo4cWozVHFPQmZMTWpOLzRFNXd0MDV2aTdn?=
- =?utf-8?B?dkFYYk85akdJdXZ0SUNOWDRlajdYOWFPNXNIVzM0QTlXbzU3TlljelUrV2JM?=
- =?utf-8?B?VVpmKzJRVGNNenNydHlEVzdhby8wYWJpcXVJZHhEQXNyUWpjV0VyUm5RckMr?=
- =?utf-8?B?WWFKOEJqZkl2bXZMd2ZqcnJsZngyZWR0amFHWUx2WXFQVWhiV0trTVYvTEpF?=
- =?utf-8?B?SzB6dEcvQjQxS3NhNUpFdkNXc3FDekhzaGdkZW5BTzFjWGdKbERReXM3Skx5?=
- =?utf-8?B?VVhMQi9ORW9DN0ZpcVhHbmg5R3IvMlhVTnlQYlJxeGQ4Unp5OU55dTFtUlpy?=
- =?utf-8?B?aVYremRCY2JRMlNGalBrZUd4ZmNUa3VEMFBzOEpOMkZoQkZMbUFFd1BLTTdE?=
- =?utf-8?B?MTg3RXVSd3lVdC81d2JQM2Y3aHNTS0VzSlkrbHJKYjRETWhtQTBZTEVMbkhn?=
- =?utf-8?B?RzJEdFVncFJBWjkweEZTcXJrN1Y2M0JBK0tYL0FESkhxOU02WllyZWdjSXdJ?=
- =?utf-8?B?Um5vSjkreUMzYklBaWtoeDZiMWE1QlJ4S2VQTmxhdTVlT20zTXJQVGpXZnFn?=
- =?utf-8?B?U1d0N1RxYTNicGxGMGJOS0xyMGJKNlJzNU5sNjUrdUNCMTQ0QWhsMlRTem9M?=
- =?utf-8?B?M0gwb3drVy9OYXNXSWgzREE4ZFIvK0JlcFlaN2xYeWVjNWpxbDFlQjkyMFhx?=
- =?utf-8?B?SklMcEJHQzJJTmE4eW10MkhDVStrSkdzQUd3cnZaV3ZWMUxyUkJzN1pleU9S?=
- =?utf-8?B?ei9QcVpFdmxKdURiK2RXU0FqdHZWdGJnWnV5U1p3TU9NKzJZNkhCcU5hUzVB?=
- =?utf-8?B?ekw4YzBwTnFOZ3lwRGtmWGl4bTJlenZKQ2FYdlJTN014eStnTnh5WHFZazBK?=
- =?utf-8?B?d29SWGFJd2Q5MEk0MTB1WkpuZ0hhcmt6RlIydGU0bGJ4S2ltWDhTUGlJRkx2?=
- =?utf-8?B?cjNydnRWeGUrQnBvam4vRnZWdm1lM2lkRWVXdHZKQmFXRWtpS24wRmdkYmxp?=
- =?utf-8?B?dTV6QjRZdWtvK3UzNjlrQlBpb3lSbVFmK3Q3eFlOL3VCQmh1RlFIdXNnUnJs?=
- =?utf-8?B?RkpRZGJnN3hlU0thNWtLVmJNNVpZTmJGenZYMDlRSENTQWtQbldxdHI4OUN3?=
- =?utf-8?B?UjVHOW43dnNqVmVqV01MTUMyejltb0wzM1JNTDZiYWVhSFJ4b0RyTFdsdWYx?=
- =?utf-8?B?MVRoODdHUVZmckhQMThnYUF5RDB5Zm10NXVJQmhYaDVaY09MWktzdEI1ejRF?=
- =?utf-8?B?SjVXb1JPd096VEVMQnVxc1hCQXdWMy9LRnlHWjJ5VDgxSGtDRjVjbGhYU09D?=
- =?utf-8?B?MXh2WGlESXFrdGZ6Z2hNMDMzZFJ0U1c0YVhOY3pLYThlbzc2L0greXozL1Bl?=
- =?utf-8?B?MEhTcHdZbENyWXFLcUtSUlNKM3dRMTZvSnNHM2oxZEFiekxSblNKa1RaOFZa?=
- =?utf-8?B?dndEeWgrRGpNWkZSSTlJNEhxWVh2L0pQTXFBcXV0TlpwMTMzUFdQOFJiei9a?=
- =?utf-8?B?N29UM3g1UlFzczFVenNONnN4WmZnV2J0UmNJN1k5STgrd3Z5TStoUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9c27d66-3946-4c47-6638-08decb137226
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 19:22:31.5861
+	q6xx96yAbnVNAE+q68ncEmeb7cksbKNcZ4YopT8yrP+RXD5Ey99l3oyshhbpy//NSP50fChdIoy+kZCIS8XqT65ky7kfRAKQ26GrW9pb/Y58Kbs4K06kXqUItRKViVzbSnvcoVGj3WBhyHUJAZ9U/WfifxYjmE5mDsfCR5O0+TVd45mKPr7UXZTJ2sN3TZeFJBKD0wYkRdnYEm0eROBW9bdh7Xxe7+gFUhSnEOrZ8KRVWkO/Dhl3waURcKX6Z5jRTfM2PZkofZopnHn9+RfNMkVDX2Hqp9hcuPNgbo+Kp74Ma2fKGJau02jsi7OPDGn01rNmjh1F2rTZ2DDG4V51g8h15mE1yNUb6/M+n7JGRapUXUpRCGvm6/94vVXS5M/Rn1I/9/ZCN9wnE+hugYUmlAdKVolecE/q0NvwFEds07scQBevUb2fLxGRBiNmOcr6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2026 19:31:48.9714
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1RXkv0cZc7//lIO2B0Gx8HXqc2LZcvTRGFAijCrgrxGk3cACJajW++R4gJeUuQ0xQ02fDSAZjnRH+Pt48e6qCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7588
-X-purgate-ID: tlsNG-16d1c6/1781551354-7FF7BD75-577810C0/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: c97d2ff4-b6c5-473e-d558-08decb14be9a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001EE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4164
+X-purgate-ID: tlsNG-33051d/1781551915-3B56F938-733C8CC6/0/0
 X-purgate-type: clean
-X-purgate-size: 1543
+X-purgate-size: 4008
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
 	RCPT_COUNT_THREE(0.00)[3];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,amd.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 156986896B4
+X-Rspamd-Queue-Id: D6911689721
 
-On Mon, Jun 15, 2026 at 01:44:54PM -0400, Jason Andryuk wrote:
-> On 2026-02-27 02:32, Roger Pau Monne wrote:
-> > The first parameter passed to align_timer() is the timer expiration, not
-> > the current time.  Adjust the calls to align_timer() in the on-demand
-> > governor to pass the expected timer expiration as the first parameter.
+On 2026-06-15 14:33, Roger Pau Monné wrote:
+> On Mon, Jun 15, 2026 at 01:44:54PM -0400, Jason Andryuk wrote:
+>> On 2026-02-27 02:32, Roger Pau Monne wrote:
+>>> The first parameter passed to align_timer() is the timer expiration, not
+>>> the current time.  Adjust the calls to align_timer() in the on-demand
+>>> governor to pass the expected timer expiration as the first parameter.
+>>
+>> Internally, we have a report of a benchmark regressing ~6% with this change
+>> on 4.20.
+>>
+>> s_time_t align_timer(s_time_t firsttick, uint64_t period)
+>> {
+>>      if ( !period )
+>>          return firsttick;
+>>
+>>      return firsttick + (period - 1) - ((firsttick - 1) % period);
+>> }
+>>
+>> The code rounds firsttick up to the next period:
+>>
+>> align_timer(0, period)          -> 0
+>> align_timer(1, period)          -> period
+>> align_timer(period - 1, period) -> period
+>> align_timer(period, period)     -> period
+>> align_timer(period + 1, period) -> 2 * period
+>>
+>> With the change of this patch adding the period before calling
+>> align_timer(), the timer is set for two periods in the future.  The only
+>> exception is when firsttick % period == 0.  I think that is unlikely to
+>> happen since NOW() will always be a little after the period.  Even if it did
+>> happen, the timer would fire immediately, but the next timer would be set
+>> for 1 period later.
 > 
-> Internally, we have a report of a benchmark regressing ~6% with this change
-> on 4.20.
+> Hm, I see.  So this is explicitly done to never exceed one period
+> between sampling, even if that implies using a smaller period and
+> over-sampling.  That's kind of different from how the other caller
+> uses align_timer(), where it's expected the timer to fire after the
+> period has expired, not before.  I think create_periodic_time() is
+> fine, because it's only the first tick that might be delayed,
+> afterwards the next tick should be aligned to the period already.
 > 
-> s_time_t align_timer(s_time_t firsttick, uint64_t period)
-> {
->     if ( !period )
->         return firsttick;
+>> So I think we want to revert?
 > 
->     return firsttick + (period - 1) - ((firsttick - 1) % period);
-> }
+> I think we want to revert the first chunk...
 > 
-> The code rounds firsttick up to the next period:
+>> Regards,
+>> Jason
+>>
+>>>
+>>> Fixes: af74e3a15a83 ("cpufreq: align dbs timer for better package C state residency")
+>>> Fixes: 382b95f627a9 ("Fix cpufreq HW-ALL coordination handle")
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>>    xen/drivers/cpufreq/cpufreq_ondemand.c | 5 +++--
+>>>    1 file changed, 3 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/drivers/cpufreq/cpufreq_ondemand.c b/xen/drivers/cpufreq/cpufreq_ondemand.c
+>>> index 537695eaab19..0d94c0e464a6 100644
+>>> --- a/xen/drivers/cpufreq/cpufreq_ondemand.c
+>>> +++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
+>>> @@ -185,7 +185,8 @@ static void cf_check do_dbs_timer(void *dbs)
+>>>        dbs_check_cpu(dbs_info);
+>>>        set_timer(&per_cpu(dbs_timer, dbs_info->cpu),
+>>> -            align_timer(NOW() , dbs_tuners_ins.sampling_rate));
+>>> +              align_timer(NOW() + dbs_tuners_ins.sampling_rate,
+>>> +                          dbs_tuners_ins.sampling_rate));
+>>>    }
+>>>    static void dbs_timer_init(struct cpu_dbs_info_s *dbs_info)
+>>> @@ -400,6 +401,6 @@ void cpufreq_dbs_timer_resume(void)
+>>>                (void)cmpxchg(stoppable, -1, 1);
+>>>            }
+>>>            else
+>>> -            set_timer(t, align_timer(now, dbs_tuners_ins.sampling_rate));
+>>> +            set_timer(t, align_timer(t->expires, dbs_tuners_ins.sampling_rate));
 > 
-> align_timer(0, period)          -> 0
-> align_timer(1, period)          -> period
-> align_timer(period - 1, period) -> period
-> align_timer(period, period)     -> period
-> align_timer(period + 1, period) -> 2 * period
+> ... but possibly keep this as-is?  Thinking about it, t->expires
+> should already be aligned, and hence we could drop the align_timer()
+> call here?  It should be equivalent to aligning NOW() to the next
+> period boundary, so yes, we could revert this chunk also and
+> timer expiry should be the same.
 > 
-> With the change of this patch adding the period before calling
-> align_timer(), the timer is set for two periods in the future.  The only
-> exception is when firsttick % period == 0.  I think that is unlikely to
-> happen since NOW() will always be a little after the period.  Even if it did
-> happen, the timer would fire immediately, but the next timer would be set
-> for 1 period later.
+> And maybe we want to add an extra align_timer() in dbs_timer_init() to
+> align the first call also in a separate patch.
 > 
-> So I think we want to revert?
+> Do you want to send the revert, or should I?
 
-Forgot to mention in the first reply, as I went straight into the
-technical side: thanks for finding and reporting this, we can
-hopefully get it sorted before the release.
+I'll send out a straight revert soon.  Additional changes can go on top 
+(though probably not for 4.22?).  Thanks for the feedback.
 
-Roger.
+Regards,
+Jason
 
