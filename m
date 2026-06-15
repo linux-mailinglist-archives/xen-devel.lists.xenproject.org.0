@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ry5vDDwgMGrMOQUAu9opvQ
+	id nAGaJywlMGptOwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:54:36 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 18:15:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817A9687F1F
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:54:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B02668837E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 18:15:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=FUcDK+v+;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=WH1VXjVy;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338427.1599459 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1338440.1599471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ9d8-0008Fp-2d; Mon, 15 Jun 2026 15:53:42 +0000
+	id 1wZ9y3-0003bK-F8; Mon, 15 Jun 2026 16:15:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338427.1599459; Mon, 15 Jun 2026 15:53:42 +0000
+Received: by outflank-mailman (output) from mailman id 1338440.1599471; Mon, 15 Jun 2026 16:15:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ9d7-0008Dy-Vq; Mon, 15 Jun 2026 15:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 1338427;
- Mon, 15 Jun 2026 15:53:40 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ9d6-0008Ds-NW
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:53:40 +0000
+	id 1wZ9y3-0003Yb-CO; Mon, 15 Jun 2026 16:15:19 +0000
+Received: by outflank-mailman (input) for mailman id 1338440;
+ Mon, 15 Jun 2026 16:15:17 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ9y1-0003YV-9S
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:15:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ9d5-00755E-Dy
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:53:39 +0200
-Received: from [10.42.69.6] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a301fff-5cb7-0a2a0a5109dd-0a2a4506af78-12
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:53:39 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a302003-7371-0a2a45060019-d155802bb4f1-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:53:39 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4908b92904fso42923085e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:53:39 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f4f6sm38817085f8f.16.2026.06.15.08.53.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 08:53:37 -0700 (PDT)
+ id 1wZ9y0-001JHn-ET
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 18:15:16 +0200
+Received: from [10.42.69.12] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecc10bc48000701b@swg.vates.tech>)
+ id 6a302513-e002-0a2a0a5209dd-0a2a450cbb4e-2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 18:15:16 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecc10bc48000701b@swg.vates.tech>)
+ id 6a302513-62f1-0a2a450c0019-b9ff1c12936d-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 18:15:16 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19ecc10bc48000701b.008 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Mon, 15 Jun 2026 16:15:09 +0000
+Received: from l14 (lfbn-lyo-1-414-55.w2-7.abo.wanadoo.fr [2.7.24.55])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id A2FEA818B6;
+ Mon, 15 Jun 2026 18:15:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,208 +63,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781538818; x=1782143618; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vLPIMyze5rWcNUNeET2GyTTIAiJmLn+nae/3ySjnuog=;
-        b=FUcDK+v+EIWjwlTl+F7Os4ZVMteLFqk4Ccijv6iwPWAb36vDpb61e1t8e95wXufMmE
-         AHZCtNuQGhBCTKbVvZy58t8HDWoifo+YQD9MtMhQwSyc1uwwJLfsehxSwDvj4niiR/3G
-         E1oODvL8rmhzulr9skYGC2WYQ992r9LSmSl4i59Ee05PsD3msOKDN9kFLWgdLNK/bSio
-         2YMEbV9qhatbkoB4n7RWguvFNgb6/mtdoc/Fz3RWq5pRlDFbqmLuyR+pH/Q71+akpj9S
-         zlv8UmuAHH4meovRntx7QQjx8Th7BSrCSj39PKvmU+SvUh68JMQalUGBKGAPepf8jQDM
-         8bdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781538818; x=1782143618;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vLPIMyze5rWcNUNeET2GyTTIAiJmLn+nae/3ySjnuog=;
-        b=I9TEyBTP7BWfSbnrfnuZjIfuf8FQZmXWUZMNZijdccMPA16jz7+8quJsTSXKZXQ8yS
-         S7KNG5/zP2TOTtFst2+xLO/o+eQf+r+2GWhl528kVttNEV7yAcEPtltQUivrmJ1EKqjS
-         bX3f9Fm38eXlIKcfgUX6DT37FZ3BAO6cn40kmdomRhNqCxbAYif7bkDF58M0D1AdFDff
-         uJms4yQNBNF4OFvQJyWdtb9EafS0ypeDsfbuw1R1a8Caiz9+sYZ3gVFbAqv7RlWSevgn
-         mJw7tCk8sJ68MO/7KOgfIei/P5MHKhgDojK6l3WXgs6F/iSRd4tFSJk2HDjGLLaG1mWg
-         cI8A==
-X-Forwarded-Encrypted: i=1; AFNElJ9ETnfpq9xYACpCwqyJv0bvA1TrrVnE+MPJaAOeFBeljVbALAFa1kZVxgGOly8jAVKYaWmFEvoiZeI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUbMDIaF3QSSxRSeEGlzSzhpIKNb4CRc5MF/7eD79au+5+HzdE
-	ULXypObL5TA2gGfLx/mqx8VMMcym8SlfYQ9War2ax6p1X0WH1ZTOseR6nTD4AkBorA==
-X-Gm-Gg: Acq92OEX8h7djwRxctrjidMmdRI+MttG0+QEoCGcDJXGyTDq+SWwFMBzYJ5leKoenBx
-	dLPmDh/aei6Rak4rJ7dGryHHrFbBzvsW4dRz9z5x0heE33GKzsOFBZ017TmTC/RNgMLH2T93McT
-	nqwvo8IcGJd1zsPthiFvn5oB2ztJBQAqm4aIC51K3Iu6OjQx0mAziwfYEdmLjELFkEguKUZy5mr
-	YZJh1ObUtVIyfDaKf+cHVx6i9weBl03z5aCxgh940KOdfB7imax2EYrl2DkurjyfcjScDrj+dDc
-	U2BfEpxKNwFpSLwOctEywN34oljm7uYtWJV/j2bLD+regQjWkggrQQDfWvHmmEgMTJfG1W0bd/G
-	dfVNwr1SLzDiKgwV3mhZtA7IpxGFliUuTbFYI4GRILBZXaKKTvu9q6ls0FXUM1VQ6u7AWqoiTvn
-	/tZh78+IO4C9ffcoqrmSDHQH2QJBBMu+p8jjnZG2XZ0RGE3efox6Qa7vdNumUIbCKGvJZXBes4k
-	czh71GnJ4P544Q=
-X-Received: by 2002:a05:600c:c16f:b0:490:6e11:c303 with SMTP id 5b1f17b1804b1-490ec4e6f22mr182801995e9.13.1781538818114;
-        Mon, 15 Jun 2026 08:53:38 -0700 (PDT)
-Message-ID: <4580492d-c5e7-454d-b4a9-4bc959268cfb@suse.com>
-Date: Mon, 15 Jun 2026 17:53:36 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=OYOIGxGcHVN6InOJfYQfIcc9nvmgnwhfCBtvYs8fbw0=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=WH1VXjVyNuQ7RYbO9ZaU6ezTb5H49aNl+pHa3VXQKvCYt7dPSsL17yzDOndgrk2AO1LSunag8
+ G58ahorGA5FWeZ4fvWREgUY4BZbgklJli+pwFs/V6cMSuRKfU6x0JTf/7I5g/T2BCVMFHwUqH2a
+ DVUH6zWEgEn34bTKNfupxhsQlPKydu6m9A5wWEKzWxFjH5EqDj3kbhqBzEAzyhjjS/UaUZzoEe2
+ 0itXXEoRP4R8u4ck5e+1s8PS28xKh1TtO/x//ROKZATuQm8ci3OpgNyyUaJYHuocl4IBXDLorrD
+ bcKVsarWiSmojuIMaF5yM8UzeFF08i/ZOZSkE3l0+ZZg==
+X-Zone-Loop: 9d251205c7d39f2f4eeb3839cffe39afdbeb82faefe1
+x-campaign-type: default
+x-transaction-id: 6bbc0cd9-0b58-4965-be1e-f81b437fb5bc
+x-swg-uid: 01-d9831a92-59c8-44b6-b11d-180a02fcbf45
+X-Mailer: Sweego
+Message-ID:
+ <1781540109.8631fc262581453bbf619ec5b2062170.19ecc10bc48000701b@vates.tech>
+x-swg-bid: 1781540109.8631fc262581453bbf619ec5b2062170.19ecc10bc48000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Mon, 15 Jun 2026 18:15:08 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 1/7] tools/xenalyze: Work around GCC-15 -Werror=nonnull
+ false positive
+References: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
+ <20260612230924.3181154-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 26/26] xen/riscv: manage IRQ_DISABLED flag in APLIC irq
- enable/disable callbacks
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <6121dce6347f03030a2de05f29c1780b6fc0cd01.1778250616.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6121dce6347f03030a2de05f29c1780b6fc0cd01.1778250616.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1781538819-8E58CD75-48DE188E/10/73395122804
+Content-Disposition: inline
+In-Reply-To: <20260612230924.3181154-2-andrew.cooper3@citrix.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.2c1.85abe5221e4de6c0.19ecc10ba14.7e9442218251a525=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1781540108821
+X-purgate-ID: tlsNG-d25034/1781540116-E2368CF5-9519D6AD/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3071
+X-purgate-size: 2869
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
+X-Spamd-Result: default: False [2.33 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
+	XM_UA_NO_VERSION(0.01)[];
 	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	TO_DN_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,kernel.org,amd.com,cardoe.com,citrix.com,invisiblethingslab.com,gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,cardoe.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid,invisiblethingslab.com:email];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 817A9687F1F
+X-Rspamd-Queue-Id: 0B02668837E
 
-On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> desc->status is only set once during setup_irq(), but interrupts can be
-> enabled/disabled at runtime, so update it in the corresponding callbacks.
-> 
-> wmb() in aplic_irq_enable() ensures do_IRQ(), which can fire immediately
-> after the interrupt is enabled, sees the updated desc->status.
+---=Part.2c1.85abe5221e4de6c0.19ecc10ba14.7e9442218251a525=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This doesn't look entirely correct. Aiui ...
-
-> No rmb() is
-> needed on the do_IRQ() side because desc->status is read under a spinlock,
-> which implies an acquire barrier.
-> 
-> No barrier is needed in aplic_irq_disable() because the hardware disables
-> the interrupt before the status is updated, so do_IRQ() cannot fire, and
-> spin_unlock() makes the updated value visible.
-> 
-> Fixes: d4676a1398bc5 ("xen/riscv: implementation of aplic and imsic operations")
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On Sat, Jun 13, 2026 at 12:09:18AM +0100, Andrew Cooper wrote:
+> Signed-off-by: Andrew Cooper <andrew=2Ecooper3@citrix=2Ecom>
 > ---
-> Changes in v2:
->  - New patch.
+> CC: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+> CC: Stefano Stabellini <sstabellini@kernel=2Eorg>
+> CC: Michal Orzel <michal=2Eorzel@amd=2Ecom>
+> CC: Doug Goldstein <cardoe@cardoe=2Ecom>
+> CC: Roger Pau Monn=C3=A9 <roger=2Epau@citrix=2Ecom>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=2Ecom>
+> CC: Oleksii Kurochko <oleksii=2Ekurochko@gmail=2Ecom>
+>=20
+> I don't particularly like this, but I see no better option=2E  It's clea=
+rly some
+> kind of VRA failure, yet we don't see it with GCC 15 in other distros=2E=
+  I
+> suspect that Musl (as opposed to glibc) might be relevant, and perhaps e=
+ven as
+> simple as not realising that error() is terminal for a non-zero input=2E
+
+While it's true in this case, maybe it's a bit too complicated for gcc
+to find out? error() is terminal only if the first argument is greater
+than opt=2Etolerance, but there's a check that it can't be too high (when
+parsing options) and ERR_SYSTEM is above that=2E
+
+If I do that:
+
+     void error(enum error_level l, struct record_info *ri)
+     {
+    -    if ( l > opt=2Etolerance )
+    +    if ( l > opt=2Etolerance || l > ERR_MAX_TOLERABLE)
+
+gcc seems happy enough=2E
+
+And I've notice the compilation error only happens with `debug=3Dn`=2E
+
+What do you thing of changing the error() function instead of hidding
+NULL-less of the pointer?
+
 > ---
->  xen/arch/riscv/aplic.c | 5 +++++
->  xen/arch/riscv/irq.c   | 3 ---
->  2 files changed, 5 insertions(+), 3 deletions(-)
-> 
-> --- a/xen/arch/riscv/aplic.c
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -161,6 +161,9 @@ static void cf_check aplic_irq_enable(struct irq_desc *desc)
->  
->      spin_lock(&aplic.lock);
->  
-> +    desc->status &= ~IRQ_DISABLED;
-> +    wmb();
+>  tools/xentrace/xenalyze=2Ec | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>=20
+> diff --git a/tools/xentrace/xenalyze=2Ec b/tools/xentrace/xenalyze=2Ec
+> index 876d59d42ca5=2E=2Ecec1354cf779 100644
+> --- a/tools/xentrace/xenalyze=2Ec
+> +++ b/tools/xentrace/xenalyze=2Ec
+> @@ -3789,6 +3789,17 @@ void update_io_address(struct io_address ** list,=
+ unsigned int pa, int dir,
+>              error(ERR_SYSTEM, NULL);
+>          }
+> =20
+> +        /*
+> +         * GCC 15=2E2 in Alpine Linux 3=2E24 fails with -Werror=3Dnonnu=
+ll,
+> +         * complaining that we're calling bzero(NULL, 128)=2E
+> +         *
+> +         * This looks to be a false positive as p being NULL will never=
+ reach
+> +         * here as the error() above will have called exit()=2E
+> +         *
+> +         * Work around this by hiding the NULL-ness of p from the compi=
+ler=2E
+> +         */
+> +        asm ("" : "+r" (p));
 > +
->      /* Enable interrupt in IMSIC */
->      imsic_irq_enable(desc->irq);
+>          bzero(p, sizeof(*p));
+> =20
+>          p->pa=3Dpa;
 
-... you want to order the ->status update ahead of the imsic_irq_enable()
-operation. Yet that's a CSR write. Do fences really cover that? If not,
-you may need to resort to mb(), to order the ->status write against the
-->irq read, in lieu of being able to order against a CSR write.
 
-Of course with imsic_irq_enable() itself acquiring a lock (which
-necessarily has a memory write), you could then further argue that wmb()
-is indeed sufficient, bot for a reason different from the one presently
-stated in the description. (I would also strongly suggest to annotate the
-wmb() with an explanatory comment.)
+-- 
+Anthony Perard | Vates XCP-ng Developer
 
-> @@ -189,6 +192,8 @@ static void cf_check aplic_irq_disable(struct irq_desc *desc)
->      /* Disable interrupt in IMSIC */
->      imsic_irq_disable(desc->irq);
->  
-> +    desc->status |= IRQ_DISABLED;
-> +
->      spin_unlock(&aplic.lock);
->  }
+XCP-ng & Xen Orchestra - Vate=
+s solutions
 
-The ->status write becoming globally visible ahead of imsic_irq_disable()
-doing its work is not an issue? In the paragraph in the description you
-again appear to assume that the CSR write and the memory write of the
-spin-unlock are ordered wrt one another.
-
-> --- a/xen/arch/riscv/irq.c
-> +++ b/xen/arch/riscv/irq.c
-> @@ -145,9 +145,6 @@ int setup_irq(unsigned int irq, unsigned int irqflags, struct irqaction *new)
->          desc->handler->set_affinity(desc, cpumask_of(smp_processor_id()));
->  
->          desc->handler->startup(desc);
-> -
-> -        /* Enable irq */
-> -        desc->status &= ~IRQ_DISABLED;
->      }
-
-Arm and x86 are different in this regard, so it's hard to tell which way
-it ought to be for RISC-V. This removal surely wants a sentence or two in
-the description.
-
-Jan
+web: https://vates=2Etech
+---=Part.2c1.85abe5221e4de6c0.19ecc10ba14.7e9442218251a525=---
 
