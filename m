@@ -2,52 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id VzTrI6bpL2rFIwUAu9opvQ
+	id 3NOFIBnsL2pWJAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 14:01:42 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 14:12:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6006685EF6
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 14:01:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9127686074
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 14:12:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=invisiblethingslab.com header.s=fm1 header.b=CzeRt1K1;
-	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=MW2kSM3f;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=g8YbbQLS;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=invisiblethingslab.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338188.1599199 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1338201.1599209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ60O-0006wc-CN; Mon, 15 Jun 2026 12:01:28 +0000
+	id 1wZ6AK-0000MJ-95; Mon, 15 Jun 2026 12:11:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338188.1599199; Mon, 15 Jun 2026 12:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 1338201.1599209; Mon, 15 Jun 2026 12:11:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ60O-0006uW-9j; Mon, 15 Jun 2026 12:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 1338188;
- Mon, 15 Jun 2026 12:01:26 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ60L-0006sx-RG
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 12:01:26 +0000
+	id 1wZ6AK-0000KB-5h; Mon, 15 Jun 2026 12:11:44 +0000
+Received: by outflank-mailman (input) for mailman id 1338201;
+ Mon, 15 Jun 2026 12:11:43 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <freddy77@gmail.com>) id 1wZ6AJ-0000K4-G0
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 12:11:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ60K-00HLjO-MC
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:01:24 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wZ6AI-001mzL-BO
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:11:42 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 6a2fe993-bab6-0a2a0a5309dd-0a2a450b8620-4
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 14:01:24 +0200
-Received: from [103.168.172.151] (helo=fout-a8-smtp.messagingengine.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 6a2fe993-212f-0a2a450b0019-67a8ac97864b-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 14:01:23 +0200
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfout.phl.internal (Postfix) with ESMTP id BDF20EC012C;
- Mon, 15 Jun 2026 08:01:22 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Mon, 15 Jun 2026 08:01:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 15 Jun 2026 08:01:20 -0400 (EDT)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2febfc-e002-0a2a0a5209dd-0a2a4507ba94-8
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 14:11:42 +0200
+Received: from [74.125.224.51] (helo=mail-yx1-f51.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a2febfd-229c-0a2a45070019-4a7de033b5c2-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 14:11:42 +0200
+Received: by mail-yx1-f51.google.com with SMTP id
+ 956f58d0204a3-66062a414fcso3356307d50.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 05:11:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,228 +56,455 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1781524882;
-	 x=1781611282; bh=ejZeF8rDhkqE68Ou/lL2YpGjTHYc4eayzk4elYwJWp8=; b=
-	CzeRt1K1sN5eC3n1jerE/S+o1mO/QHisot7hBJK68zDm5s1u+D1XQ3a6aUnDUP9e
-	NJS8N1MkE16SD1Y5IObUDz+XDPxFcYYF7LkjKnE67mIruvPb6CA39PkXHI2RozvX
-	eaUE4RtANZEpsFD+ZZXoBOycTv6M0QpatsXqVnMHWvUVqyTIHgx8fosejWsDORTk
-	qwwPDHTAo25f1gRY3AlEE48I8Nhfi1yHHy+OHRpJoczuFzt1YGATWv2MlwCt+KtA
-	XlbPb18IXqNsA89n/xbYF3iW9Cpl6eT7ej63/LNZ7kIH53nZLDXhvlVL+j2puvsC
-	xxsRbEaH1UGMxS0AnQNTnw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1781524882; x=1781611282; bh=ejZeF8rDhkqE68Ou/lL2YpGjTHYc4eayzk4
-	elYwJWp8=; b=MW2kSM3f/+LhelJZKR7D4RVH9jXw/o6EdwTqto8uDRDrJcKAwhQ
-	oOgFDdkWrOeXhp5m/PEA5G1kKsDRxGgrmXfdfDN3m4DspK1J0BgaVNxblCrXyd3V
-	dEhkv26QHk3VpZrYI1P7RejloEAFnaH++ttW9RNnlmiv9BPu9E2DYb/bCn5EUlzL
-	Pq41gzjfzyi5lENQttSynBp6AeCySc5XxII/VPph7dKj2Ls9siQuZJy2iyKZNMJU
-	xckGGCavl7LbR2KpfRyPAiYYeglg9Z/JuJUQDfmvKbpuFmPz7IkVXZ8/f4+dWkpW
-	lR9H0IlGrIjimVGm4CYQZNe/NM+t1PhLhKg==
-X-ME-Sender: <xms:kukvar-MpmWi-FdZtCauyvYfICiKgrDpFN2KzBm0JdwRLohMR0iLOQ>
-    <xme:kukvamyC2tpJBpsBtVSI3__fkZbZkoJaeVJ_kmDeD9rk4m9XKFUo9fKCP26Y2QDST
-    s4divDNj1cisKvuFXUlvqzRYx9OoEKTEjnGR2wX2IB1gBh6>
-X-ME-Received: <xmr:kukvavNNU_f9l8t9VBlxSQVGu5OlL-O8lLi0ERF70ApPvRypikBqzarzTG4E-32CLogIRbwSef1zFAXTDCywSu5LaoT8kNke4Tc>
-X-ME-Proxy-Cause: dmFkZTFQ/5CqoInJNis6rOzs6Ar24bRvqg4j7TFjkUigBg+ltkXR9mfmajUldkqQAekjtS
-    9u8vnIftc0fgiIdmiWOswadejd1aFM2cNmGzcYcN6+uTB6tez5KUqJWTixOvslM3Wn0lMg
-    XwwH/JkIrWRc0wzqkeaUXTiBqmweH9mDwNAyq1z4ZMZvbilxr3y4EXkh9eBwDwsWnhncvw
-    5IzyCS9hMihImXbCJ4tPNAQsR1w5chYby2JM2NX76UawhbIVrSbZmGlUV1sqnYrnAPu097
-    FRO2QdAS3zf/PxCoULC4OUlK08RkQLbJSXWFTs+2Cl1AQV+Hpfpnq5RqoZUdAElL9GcaJz
-    CrJ9RxDcYHReD7EzULU9uloZIHw7F4Q+VrfQm7Sa/pVP0wR05KPCRd6Zv/77QHkYtrCX1G
-    OtWvukdaMqbO4Vob3pKjKokpX6WwotxOkyiGzT+6+fKNGtdA01+h+AChmOfJPHwdVqW8UX
-    uS7DmiMPWZSdd8mZQBOHM+QzBXpjkHBGtj8LtkW9Om9X1W3TBi1+yHdPYaydky+85EOiT5
-    ppQ6QIzsH9c8kaU2uwzAWr0TDZC/IoRR4h1cHE1+hE/iRNkdfisdqO9CNgSnlf1Vvv5OIy
-    RNFYPNMAAvLCYmD4rhFR7EPNLyFpntiBq1+2HwkL5PGDZ7KZ9Jx5K+ZxbOcA
-X-ME-Proxy: <xmx:kukvaj-gbTEu3Wp44ZSopONyCCmCBUmh78hIY-TpOSpC2adUuZyoAA>
-    <xmx:kukvak5j-A0VkSnWGgzMKi8MuPf8sfyPlDQ13y6ihEXDmzC0GTLzgA>
-    <xmx:kukvah5amixIyCFieDvDs6u8KyHtzEIhmFXjKmUWst1L6ZdlVE2NHA>
-    <xmx:kukvalqjGkULeuvGd9SWL6nuKPHJjuTjlgLak8KNz5CI_63VEE6Kaw>
-    <xmx:kukvaoVNE5iDMBitVcfn7C-QRSLiRnCTc2y5tDD_klQayrenZds5-FhU>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 15 Jun 2026 14:01:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 3/7] CI: Introduce new qubes-hw-runner.dockerfile
-Message-ID: <ai_pjsa2mpTGJzJj@mail-itl>
-References: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
- <20260612230924.3181154-4-andrew.cooper3@citrix.com>
+ARC-Seal: i=1; a=rsa-sha256; t=1781525501; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Me7N2hHBOadUtlS8NggcLOr3C+oQ5yrknG/6I2AqmTHFB/QXHYwn1bC0wlpLyKy+hW
+         CmyJfKMIA0fowzeY9sXJ3kjOzGNNx3dF+BgEOEKwLJ1HppXElj8PZ83jVG9yR2tJKKG1
+         95MTS0gZEtAFAcUkSaVmFAxe2KzbeqpwIureOyTZvjL6z8nCpmF2huKBaOmy4/t+6yfI
+         roi3jnrSCsbfz4HhQ+nkohdiX0eyTU9dhrTLKntVcIVvsfccIWEbP8TYB8zxTietfkj9
+         Yxk2Q9+cosWIIi3T/lMazDA7qGN1kKtbYhWt4VgoWz3IGVriZLjKk6MRbA4vaXrjrWZe
+         I92w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xJJ0TrZXxPaJpEr8KjLgXJgN11F7eEH2pTkQ47gPnMc=;
+        fh=Q/zlzJTkmObwTVH018yy4y7EXpeeA/pAuMFrRuOAqsU=;
+        b=cmqJKSvSe5VMq2UO7mwfSdpn8KiKUO0UmkX3i144eIrCDUdJa19vKB8yqVdhyHrBmr
+         l/ysmHTimQrSCPLTybAsxk4P5KDxAKB9+Ux92sGnRyMN/BQhNvP39UlXci3ogIOUnQNr
+         3NiBU8ovLxSZ4WSw76Rn02/RZVWNdLOZeR9RvPlE3cgqETBUQjMzhHvAtW/EzAGUwUVD
+         bJd/darYOoKAWSS0VPAkWLxCGs0G407dJ1cdqDn85ns/tUpPOVyggP8y6uuvlm0+6PLw
+         8lWNP2R+F2G+XHvFFuu22GSBci+m7c5qLDJ8U9WyVL750A6zkJ1gf1sJOh5BfjQrN5j7
+         q+IQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1781525501; x=1782130301; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=xJJ0TrZXxPaJpEr8KjLgXJgN11F7eEH2pTkQ47gPnMc=;
+        b=g8YbbQLSBZxZ/Lu+r3+XV2aiivMgkXqAiOWD1cBgTbmpAjvZsg1DdMMgw8MwNnmAuc
+         vXpbI0JZX6l7I7tUem9qP/wRsckOe7OlHS0q7EGytK60gC6t8KJEbD5IbU8SVZGZzjpE
+         qM3I4L9QZjWCFMdM6+gP+NUTyv45oE0nxQjphAPjMyzO0PiVKtpMaKr6rssTO4fC99vo
+         OOdMLqwS+D6S7EN7Agb3C0KxwSwzppBtGQkv2385UN2aGkCulJrNR/Hi/mYpJdvN+tgM
+         E6BWjnd3Wm7JbaztkD6TKlLp6dMwtei+g8EMlueUJC7cvyqexiPKtlAPGtvXMVjA5JHq
+         BjSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781525501; x=1782130301;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xJJ0TrZXxPaJpEr8KjLgXJgN11F7eEH2pTkQ47gPnMc=;
+        b=aMoimqRC5HfieIB3PgRVeBJJVlAQ1ny0pOdZtsnU93r03PXgRJ2Rm1sWUd7bJKRrXE
+         Q5HWnsOzzPeyZF2xQglrbeTaiJpb5Cfw+FB228bQlmtYkTsk3e8hfueK4CNK4fd7hbKR
+         Fl24OGm4PMj+jAuPMJ76/z+8K3KpfE95nljv7e2eZqkpan4ZabK71nwmILWlzYIImfHy
+         2eOcTk52EXzpPMl2yXhvQSTO5xvt6WuUEBBxjOcpz2R3nrydvQJprGmzK8402P71vXpQ
+         r1nSin0RLtWcf5tsvHzpP3Y33dXU4NLxrXTrK/47MRnx5H+OvgWVSfrg8oAM6SU3+O7V
+         AH7g==
+X-Forwarded-Encrypted: i=1; AFNElJ8UTF1wFbJt+PW/JXTsA/sszFNOkq3UPOlOY8x/LGrY1xVtnboMJz+5UiymgU62ckkSYoP33Hi0jyE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZr2kxqVaO/J61ZSN0QxSZZINJmUFp94WXkYcI+Kf7OphfdxA2
+	+YkNeRHxbvqTGzZq+TMFuSFKmD9PYiAUQsPZVtMlF4gSJRR5dsgKhu7fvS8URiANLPi8Fhv84IM
+	eT1qmPBTHCPLheiESlQKIZmKNZL2jIm4=
+X-Gm-Gg: Acq92OFg49kZf+KIZl0sq/Agvm6Fwbg8fvULecUjPRocU7uk1sKarCd3WHt3WHyvqRo
+	Q65nbfA1D9tJcFP8awrA09I1Sp6fNR19ExnUiewW3+sTz4wNFkQRS2XV2ueJ3MR2b+/wGhv/4ZT
+	F6zXuNzZdh0CJ/zpkPwri5xd/Ap1bUemDfCtoUlvEsMp1p3jPAnpi8zf7ntGLU47ZIFN1ywlYjK
+	iF5DnEwbVTEqXhP9vYkAkRrWBx3SRNWWIPMyyW5RxZo3Wa7WQPrbxUMDcTVX/PCFN3qXbOQf43N
+	0ya3fbJrqFaqN57KpUd/YvE/S+pSE7vUskiK/6Y+Owfq+CbJ
+X-Received: by 2002:a05:690e:d09:b0:661:75a5:3b5 with SMTP id
+ 956f58d0204a3-66277f19a0emr11922826d50.4.1781525500413; Mon, 15 Jun 2026
+ 05:11:40 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7brszrSjXqGDxlsS"
-Content-Disposition: inline
-In-Reply-To: <20260612230924.3181154-4-andrew.cooper3@citrix.com>
-X-purgate-ID: tlsNG-42698a/1781524884-1B979F3B-95A5777C/10/63158204843
-X-purgate-type: spam
-X-purgate-size: 4102
+References: <20260613214749.20620-1-frediano.ziglio@cloud.com>
+ <20260613214749.20620-13-frediano.ziglio@cloud.com> <8289ea1d-ceca-40b6-a992-a778be053cd0@suse.com>
+In-Reply-To: <8289ea1d-ceca-40b6-a992-a778be053cd0@suse.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Mon, 15 Jun 2026 13:11:29 +0100
+X-Gm-Features: AVVi8CcyBeIAZUuOOLlkUVyaaBm9VyuTLbAJHkRjG7xfFU1wFMt1gkyNWjfnIQ8
+Message-ID: <CAHt6W4en1yMLrUXv+RbcoPr-=S_=pi2Rrcm2BC2PzMZT+0ksFw@mail.gmail.com>
+Subject: Re: [PATCH v5 12/16] xen: implement new foreign copy hypercall
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Frediano Ziglio <frediano.ziglio@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Teddy Astie <teddy.astie@vates.tech>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
+	Daniel Smith <dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"
+X-purgate-ID: tlsNG-ef75cf/1781525502-2176AC48-C600A2EF/0/0
+X-purgate-type: clean
+X-purgate-size: 11153
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.28 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,vates.tech,kernel.org,amd.com,cardoe.com,citrix.com,gmail.com];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,xenproject.org:email,cardoe.com:email,invisiblethingslab.com:dkim,invisiblethingslab.com:email,invisiblethingslab.com:from_mime,vates.tech:email,messagingengine.com:dkim,mail-itl:mid];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:frediano.ziglio@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,mail.gmail.com:mid];
+	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D6006685EF6
+X-Rspamd-Queue-Id: B9127686074
 
+On Mon, 15 Jun 2026 at 08:41, Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 13.06.2026 23:47, Frediano Ziglio wrote:
+> > --- a/xen/common/memory.c
+> > +++ b/xen/common/memory.c
+> > @@ -1545,6 +1545,133 @@ static int acquire_resource(
+> >      return rc;
+> >  }
+> >
+> > +/*
+> > + * The "noinline" qualifier avoids the compiler to create a large function
+> > + * consuming quite a lot of stack.
+> > + */
+> > +static int noinline mem_foreigncopy(
+> > +    XEN_GUEST_HANDLE_PARAM(xen_foreigncopy_t) arg)
+> > +{
+> > +    struct domain *d, *const currd = current->domain;
+> > +    xen_foreigncopy_t copy;
+> > +    int rc, direction;
+> > +
+> > +    if ( copy_from_guest(&copy, arg, 1) )
+> > +        return -EFAULT;
+> > +
+> > +    if ( copy.flags & ~1U )
+> > +        return -EINVAL;
+> > +
+> > +    direction = copy.flags & XENMEM_foreigncopy_direction;
+> > +
+> > +    if ( copy.nr_frames == 0 )
+> > +        return 0;
+> > +
+> > +    rc = rcu_lock_remote_domain_by_id(copy.domid, &d);
+> > +    if ( rc )
+> > +        return rc;
+>
+> Extending my v4 remark: How about a "fully foreign" copy? I.e. one between two
+> pages in two foreign domains? Getting me back also to the un-answered v4
+> question of mine as to MMUEXT_COPY_PAGE.
+>
 
---7brszrSjXqGDxlsS
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 15 Jun 2026 14:01:18 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 3/7] CI: Introduce new qubes-hw-runner.dockerfile
+I really thought I replied to this but I cannot find it.
+MMUEXT_COPY_PAGE was the first attempt to do this but mmuext is
+designed for PV and extending was made the code confusing.
 
-On Sat, Jun 13, 2026 at 12:09:20AM +0100, Andrew Cooper wrote:
-> This container is tied to gitlab-runner environment in the RPis driving t=
-he
-> test systems, not a specific version of Alpine.  Intentionally give it a
-> generic name so it need not change in the future.
->=20
-> Switch to Alpine 3.24 right away, as it doesn't interact with the 3.18 bu=
-ilds
-> under test.
->=20
-> The container needs to remain a root container.  By no longer using the
-> arm64v8 build container for dual-purpose, we can finally make the build
-> containers be non-root.
->=20
-> No practical change.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Further, as to the order of checks: I'm not going to insist on re-ordering, yet
+> I'd like to point out that copying 0 pages to/from a bad domid might better
+> yield an error.
+>
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+Not strong about this, changed to return -EINVAL. Reordering after
+this change won't make much sense, -EINVAL is returned both for wrong
+flags or no frames.
 
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> Posted previously, part of the prior CI series.
-> ---
->  .../build/alpine/qubes-hw-runner.dockerfile   | 21 +++++++++++++++++++
->  automation/gitlab-ci/test.yaml                |  2 +-
->  2 files changed, 22 insertions(+), 1 deletion(-)
->  create mode 100644 automation/build/alpine/qubes-hw-runner.dockerfile
->=20
-> diff --git a/automation/build/alpine/qubes-hw-runner.dockerfile b/automat=
-ion/build/alpine/qubes-hw-runner.dockerfile
-> new file mode 100644
-> index 000000000000..8b111648721d
-> --- /dev/null
-> +++ b/automation/build/alpine/qubes-hw-runner.dockerfile
-> @@ -0,0 +1,21 @@
-> +# syntax=3Ddocker/dockerfile:1
-> +FROM --platform=3Dlinux/arm64/v8 alpine:3.24
-> +LABEL maintainer.name=3D"The Xen Project"
-> +LABEL maintainer.email=3D"xen-devel@lists.xenproject.org"
-> +
-> +RUN apk --no-cache add bash
-> +
-> +RUN <<EOF
-> +#!/bin/bash
-> +    set -eu
-> +
-> +    DEPS=3D(
-> +          expect
-> +          openssh-client
-> +    )
-> +
-> +    apk add --no-cache "${DEPS[@]}"
-> +EOF
-> +
-> +USER root
-> +WORKDIR /build
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.y=
-aml
-> index 89760b24e63a..70bb4bbb3b45 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -145,7 +145,7 @@
->    extends: .test-jobs-common
->    variables:
->      # the test controller runs on RPi4
-> -    CONTAINER: alpine:3.18-arm64v8
-> +    CONTAINER: alpine:qubes-hw-runner
->      LOGFILE: smoke-test.log
->      PCIDEV: "03:00.0"
->      PCIDEV_INTR: "MSI-X"
-> --=20
-> 2.39.5
->=20
+> > +    /*
+> > +     * Check we are allowed to map and access these foreign pages.
+> > +     */
+> > +    rc = xsm_map_gmfn_foreign(XSM_TARGET, currd, d);
+> > +    if ( rc )
+> > +        goto out;
+>
+> As per
+>
+> K:      xsm_.*
+> K:      \b(xsm|XSM)\b
+>
+> in ./MAINTAINERS please Cc the XSM/Flask maintainer for such changes. I for one
+> question the re-use of an existing predicate here.
+>
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Added for the next series.
 
---7brszrSjXqGDxlsS
-Content-Type: application/pgp-signature; name=signature.asc
+> > +    do {
+> > +        /*
+> > +         * Arbitrary size.  Not too much stack space, and a reasonable stride
+> > +         * for continuation checks.
+> > +         */
+> > +        xen_pfn_t gfn_list[32];
+> > +        unsigned int todo = MIN(ARRAY_SIZE(gfn_list), copy.nr_frames);
+> > +
+> > +        rc = -EFAULT;
+> > +        if ( copy_from_guest(gfn_list, copy.frame_list, todo) )
+> > +            goto out;
+> > +
+> > +        for ( unsigned i = 0; i < todo; i++ )
+>
+> Nit: "unsigned int" please (like you have it above).
+>
 
------BEGIN PGP SIGNATURE-----
+Changed. Note that "long" is also not a type but a modifier. Would it
+be good to change both the above to "unsigned" instead for consistency
+with "long" ?
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmov6Y4ACgkQ24/THMrX
-1yx60gf9F+gphaQ0/cdIAqVkq70uDpw/75tjO6iq4X6WOajHkeyA5DerzeZkmPH/
-tpeHIxjWDwXgHHRAcuftGbfCc6w/eB1NEVK/qCJfrSri1oUMtOunNYfcvE7WgszP
-yS8BucZqQUg3AlodAoVqeD/9d/VWfTQNbpJNWEgWUd3EKwJ4dvU4UWzY8yp/2x0/
-omP9LthrLuHSaIa9dT+f9cfN2qxXM6FwAXujueB0BP4pyzK/G84HIDQMK9y029N2
-Yifw4cJoO7U+sjh5JldeqZih2B3YfhSEHS2Pa3REOGS4pdzZGlEs8cPCjZl+LFSD
-dIoUi4tMF6Uq7LU8AkVsmn6sqAy4Ug==
-=AlBn
------END PGP SIGNATURE-----
+> > +        {
+> > +            struct page_info *foreign_page;
+> > +            void *foreign;
+> > +            p2m_type_t p2mt;
+> > +            const unsigned long valid_mask =
+> > +#ifdef CONFIG_X86
+> > +                p2m_to_mask(p2m_ram_rw) | p2m_to_mask(p2m_ram_logdirty);
+> > +#else
+> > +                p2m_to_mask(p2m_ram_rw);
+> > +#endif
+>
+> What about, for example, p2m_ram_ro? Or p2m_ram_shared? Or p2m_grant_map_*?
+> Etc. Any artificial constraining wants justifying in the description and/or
+> mentioning in the public header.
+>
 
---7brszrSjXqGDxlsS--
+The base of this was taken from migration code where there is such a check.
+I suppose that adding p2m_ram_ro (where available) won't hurt.
+p2m_ram_shared I'm not sure but seems fine too.
+For p2m_grant_map_* it feels a bit a security issue to me. It would
+allow a guest to give access to pages of other domains. It's true that
+the current domain would have to have write access to this domain
+anyway but extend these permissions sounds something it should not be
+able to do.
+
+> > +            foreign_page = get_page_from_gfn(d, gfn_list[i], &p2mt, P2M_ALLOC);
+> > +
+> > +            if ( unlikely(p2m_to_mask(p2mt) & valid_mask) && foreign_page )
+>
+> Was this meant to be
+>
+>             if ( unlikely(!(p2m_to_mask(p2mt) & valid_mask)) && foreign_page )
+>
+> ?
+>
+
+Yes, fixed.
+
+> > +            {
+> > +                put_page(foreign_page);
+> > +                foreign_page = NULL;
+> > +            }
+> > +            if ( unlikely(!foreign_page) )
+> > +            {
+> > +                gdprintk(XENLOG_WARNING,
+> > +                         "Error accessing foreign gfn %" PRI_gfn "\n",
+> > +                         gfn_list[i]);
+> > +                rc = -EINVAL;
+> > +                copy.nr_frames -= i;
+> > +                guest_handle_add_offset(copy.frame_list, i);
+> > +                goto out;
+> > +            }
+> > +
+> > +            /* A page is dirtied when it's being copied to. */
+> > +            if ( direction == XENMEM_foreigncopy_to )
+> > +                paging_mark_dirty(d, page_to_mfn(foreign_page));
+> > +
+> > +            foreign = map_domain_page(page_to_mfn(foreign_page));
+>
+> Latch page_to_mfn(foreign_page) into a local variable to avoid the redundant
+> translation (which the compiler may not be able to fold)?
+>
+
+Sure.
+
+> > +            if ( direction == XENMEM_foreigncopy_from )
+> > +                rc = copy_to_guest(copy.buffer, foreign, PAGE_SIZE);
+> > +            else
+> > +                rc = copy_from_guest(foreign, copy.buffer, PAGE_SIZE);
+> > +            unmap_domain_page(foreign);
+> > +            put_page(foreign_page);
+> > +
+> > +            if ( unlikely(rc) )
+> > +            {
+> > +                gdprintk(XENLOG_WARNING,
+> > +                         "Error %d copying gfn %" PRI_gfn "\n",
+> > +                         -rc, gfn_list[i]);
+> > +                copy.nr_frames -= i;
+> > +                guest_handle_add_offset(copy.frame_list, i);
+> > +                goto out;
+> > +            }
+> > +
+> > +            guest_handle_add_offset(copy.buffer, PAGE_SIZE);
+> > +        }
+> > +
+> > +        copy.nr_frames -= todo;
+> > +        guest_handle_add_offset(copy.frame_list, todo);
+> > +
+> > +        if ( copy.nr_frames && hypercall_preempt_check() )
+> > +        {
+> > +            rc = hypercall_create_continuation(
+> > +                __HYPERVISOR_memory_op, "lh", XENMEM_foreigncopy, arg);
+> > +            goto out;
+> > +        }
+> > +    } while ( copy.nr_frames );
+> > +
+> > +    rc = 0;
+> > +
+> > + out:
+> > +    rcu_unlock_domain(d);
+> > +
+> > +    /*
+> > +     * Update in all cases, it allows the caller to know how many
+> > +     * frames were successfully copied and the continuation to
+> > +     * continue correctly.
+> > +     */
+> > +    if ( __copy_to_guest(arg, &copy, 1) )
+> > +        rc = -EFAULT;
+>
+> It's not quite clear whether replacing an earlier non-zero value held in
+> rc is a good thing here. The only time when it's strictly necessary is
+> when you schedule a continuation. I'd suggest to add "&& rc >= 0".
+>
+
+Added. Looking at the possible client usage it could think that the
+error happened copying the first page but otherwise the copy should
+not fail as the opposite direction was fine.
+
+> > @@ -2012,6 +2139,13 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> >              start_extent);
+> >          break;
+> >
+> > +    case XENMEM_foreigncopy:
+> > +        if ( unlikely(start_extent) )
+> > +            return -EINVAL;
+>
+> Please address review comments (verbally or by code changes) before submitting
+> a new version. Here I had asked "Why make this different from other continuable
+> sub-ops?"
+>
+
+There's already a comment in the same file for similar reason
+
+    /*
+     * Limiting nr_frames at (UINT_MAX >> MEMOP_EXTENT_SHIFT) isn't ideal.  If
+     * it ever becomes a practical problem, we can switch to mutating
+     * xmar.{frame,nr_frames,frame_list} in guest memory.
+     */
+
+so to avoid the doubt and possible future change I mutate the structure.
+Also I use the mutation to give more information to the caller, using
+"start_entent" won't allow this.
+
+> > --- a/xen/include/public/memory.h
+> > +++ b/xen/include/public/memory.h
+> > @@ -740,7 +740,45 @@ struct xen_vnuma_topology_info {
+> >  typedef struct xen_vnuma_topology_info xen_vnuma_topology_info_t;
+> >  DEFINE_XEN_GUEST_HANDLE(xen_vnuma_topology_info_t);
+> >
+> > -/* Next available subop number is 29 */
+> > +/*
+> > + * Copy memory from/to a given domain.
+> > + */
+> > +#define XENMEM_foreigncopy 29
+> > +struct xen_foreigncopy {
+> > +    /* IN - The domain whose resource is to be copied. */
+>
+> There's still "resource" here, when this really is about RAM (memory) only,
+> not any other kind of resource.
+>
+> > +    domid_t domid;
+> > +
+> > +    /* IN - Flags. */
+> > +#define XENMEM_foreigncopy_from 0
+> > +#define XENMEM_foreigncopy_to 1
+> > +#define XENMEM_foreigncopy_direction 1
+> > +    uint16_t flags;
+> > +
+> > +    /*
+> > +     * IN
+> > +     *
+> > +     * As an IN parameter number of frames of the domain to be copied.
+> > +     */
+> > +    uint32_t nr_frames;
+>
+> This isn't just an input, as you update the field (and the handles below).
+> This property of fields wants reflecting here, so callers know that they (a)
+> can't re-use the struct on a subsequent call without re-initializing the
+> fields which may have changed, and (b) can't put the struct in r/o memory.
+>
+
+Update comments:
+
+/*
+ * Copy memory from/to a given domain.
+ */
+#define XENMEM_foreigncopy 29
+struct xen_foreigncopy {
+    /* IN - The domain whose memory is to be copied. */
+    domid_t domid;
+
+    /* IN - Flags. */
+#define XENMEM_foreigncopy_from 0
+#define XENMEM_foreigncopy_to 1
+#define XENMEM_foreigncopy_direction 1
+    uint16_t flags;
+
+    /*
+     * IN/OUT
+     *
+     * As an IN parameter number of frames of the domain to be copied.
+     * On output on error updated number of frames left.
+     */
+    uint32_t nr_frames;
+
+    /*
+     * IN/OUT
+     *
+     * Frames to be copied.
+     * On output on error updated to point to first frame unhandled.
+     */
+    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+
+    /*
+     * IN/OUT
+     *
+     * Userspace buffer to read/write from.
+     */
+    XEN_GUEST_HANDLE(uint8) buffer;
+};
+typedef struct xen_foreigncopy xen_foreigncopy_t;
+DEFINE_XEN_GUEST_HANDLE(xen_foreigncopy_t);
+
+> > +    /*
+> > +     * IN
+> > +     *
+> > +     * Frames to be copied.
+> > +     */
+> > +    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+> > +
+> > +    /*
+> > +     * IN/OUT
+> > +     *
+> > +     * Userspace buffer to read/write from.
+> > +     */
+> > +    XEN_GUEST_HANDLE(uint8) buffer;
+>
+> With these two handles, there continues to be a need to (explicitly) deal
+> with the compat case as well.
+>
+
+I don't agree with this. Domains having access to other domains are
+limited (like stub domains for Qemu) and won't be 32 bits today so why
+allow 32 bits guests if not ever used?
+
+> Jan
+
+Frediano
 
