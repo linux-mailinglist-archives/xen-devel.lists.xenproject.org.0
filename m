@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id p34AGEoIMGqVMAUAu9opvQ
+	id 1AKNFmEIMGqZMAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:12:26 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:12:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB8E9686FA0
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:12:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E17686FAA
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:12:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=COswnfE1;
+	dkim=pass header.d=suse.com header.s=google header.b=aNmehiaE;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338259.1599266 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338262.1599275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ82y-0000b8-BO; Mon, 15 Jun 2026 14:12:16 +0000
+	id 1wZ83N-00012a-Jh; Mon, 15 Jun 2026 14:12:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338259.1599266; Mon, 15 Jun 2026 14:12:16 +0000
+Received: by outflank-mailman (output) from mailman id 1338262.1599275; Mon, 15 Jun 2026 14:12:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ82y-0000Yn-8J; Mon, 15 Jun 2026 14:12:16 +0000
-Received: by outflank-mailman (input) for mailman id 1338259;
- Mon, 15 Jun 2026 14:12:14 +0000
+	id 1wZ83N-0000zz-GQ; Mon, 15 Jun 2026 14:12:41 +0000
+Received: by outflank-mailman (input) for mailman id 1338262;
+ Mon, 15 Jun 2026 14:12:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZ82w-0000Ya-8m
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:12:14 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZ83M-0000zl-Mi
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:12:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ82v-002zjv-Lq
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:12:13 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wZ83M-002zqf-3P
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:12:40 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30083a-2eae-0a2a0a5409dd-0a2a4503e68e-4
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:12:13 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a300851-2eae-0a2a0a5409dd-0a2a4506d8c6-16
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:12:40 +0200
+Received: from [209.85.221.47] (helo=mail-wr1-f47.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30083d-672d-0a2a45030019-d1558029b478-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:12:13 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4908b92904fso41578735e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:12:13 -0700 (PDT)
+ id 6a300857-7371-0a2a45060019-d155dd2fc5e5-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:12:40 +0200
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-4619990ca5fso677726f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:12:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490ea4b2e8esm216642525e9.0.2026.06.15.07.12.11
+ ffacd0b85a97d-4606f2c3fcfsm30875264f8f.26.2026.06.15.07.12.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 07:12:11 -0700 (PDT)
+ Mon, 15 Jun 2026 07:12:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,58 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781532733; x=1782137533; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781532759; x=1782137559; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=C0VpXX4v4yr6XMrCiBGbEm94k+mIh1Al+9FcfNgLo2I=;
-        b=COswnfE1icG6Gm+mmOEzTvzo8KOcNH+Epia2foZvX27F/hCoYfS0gXWn56NSOTXnZ5
-         /0EpcGbI2p4ByZILjxtSAguZchpmRgHWkKmtm1HxcCkNxDM/ber5nIPwir4QRU7tSmYJ
-         jLU3+6rg8TPor3kybcyjG9F9hNMIjkz0L4i8BapKkebP8QNgPla5Ih3w9ItW/gcVP13f
-         s86TAs7uOjBzl6nwKIxeIH3k16YuZmgG8j5cA0o9EioYacDJbIfpNOHa2t5ZsMH3T4Gh
-         RhlnpysdBI+xh8RaA0O9wkOU/SIo6JKFbtfL/CWPY4pJF90M/Mhdp9YfbdxU/1hV/E4z
-         VIfw==
+        bh=fK7QM9bVPTyHbmVo2K2FzO8qnNGFwS/xRqf+62OlG7M=;
+        b=aNmehiaE+K4GWliA7sc1Wu7AiiLBrnz1MqMXahBr/u9JYkLUU6kH3H8nO9uoivH/HR
+         I4kEgzwSb/4NUyckYVQjAl/acYh2FFCvBB45XJ/TUWj0sSgO2Zuc/09Yl8gNzKtLSxwv
+         j0JcpyQxQNUmt9NFEnmBqfMQ5eTX38rPkOJT/329pFdEhjCAgYtcY1eEVZGEZrTb5YQC
+         ra4cX2+yCXCCijknyRkKlGWXa+Xbz+EDZ5YyOUTecedtccIY/jyTcnvYo13Za9hyp5yM
+         mldgoogT11pPbWfXUiom3UJQ7F1a+Q88/ixsVTRzAcDtMXYx6kFidN0ZBwU0i1LToVjY
+         I5AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532733; x=1782137533;
+        d=1e100.net; s=20251104; t=1781532759; x=1782137559;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=C0VpXX4v4yr6XMrCiBGbEm94k+mIh1Al+9FcfNgLo2I=;
-        b=PkJhmiigFfHdqduezmDi+AsIgKqOdwXzG4tCg/BK+yQMjG0jm5Dn0I3xgzqCIpIsyl
-         nRFV7KptxA4tZN76y6XKNlDbKuV39jZqMrrtCPrsOrgZgTdnaaxTAC6IPo9KSkLU/J7q
-         g8SUG/eC7miJDZu9cB2J34DUJwxNbrumu+U5Dpc2Dis33AbyECjD3EsZYnl3x96HeaEz
-         51OR/0sWkkeBTGZLjumimvo5v2u7shur/Tl15UHLjaEhEe/NMx3qO/Ojj3A6u/Rc6sQj
-         nF8j/lEuBbAdWLEykfANxNCD/3BWGqGXLkc3KxUO8KWGKoEMpxU0mMkeITR9O3rhc8O2
-         AyhA==
-X-Gm-Message-State: AOJu0Yyv1fZczBc/bUMgmvDb39MjtLMGeXPWvNSJ3aUKTO1H3xnUupm4
-	DEe1qPNLHXq8o84DFZsSz2RCgBl8fo4XicSY4T4pKYioCK7tYiV6QoCIwf/zm7cBDPrJ1NVrHhw
-	EuCM=
-X-Gm-Gg: Acq92OGJ2BeF0NER0xBYZB03ppVbsVL1lDBF6TCPKlmd7JqWN0yWQ1dvqoJmvoogiID
-	pDMBqEKjZLSbwTDpWvJMt3wuOv6IBt3XGMPRpGTjYrueDndIaMzrLPzUPrfYW2IaULTFq0CoJF0
-	TZG2XF+bmMoTnMydJR9DYNKurD7ZDGR91S12Y4hJhpXs6nhEGAK7UgbIYc+MAVGWTo1LTsORQnr
-	ZQa8/LNWASgUPqx4IF32CXYxFL4Jgf7TqbIVIkI9WRSj9axE8eW8wEaPuN1UoivQUd1Wqh0jCsK
-	wY2DjnL06hOnvn6/N3omjWvyouBhHm6SFWf/wX17kat/MlRTA8NQc2mPLXS2+3hXljvfAwzCgxE
-	UaV/5XOhfgUP6HWz1bvY7EKx8T0WHB3yXCs30EO91XOX655hYKDxzbh5HHQ1u5dZ+O+Mjsef0aa
-	yvNPdHHuj7992abLqzvLxenkF8E6tP3H0W0QAeMXu3P+iCpz5cdr/yDZle87ErH44ZZAjcyOU1b
-	cfBcjDSF0QZErI6rzmdIX1boA==
-X-Received: by 2002:a05:600d:8494:10b0:490:c7dd:de3e with SMTP id 5b1f17b1804b1-490ec521187mr134538065e9.31.1781532732839;
-        Mon, 15 Jun 2026 07:12:12 -0700 (PDT)
-Message-ID: <67d1e638-a2ab-4d03-b9be-915a8c42e095@suse.com>
-Date: Mon, 15 Jun 2026 16:12:11 +0200
+        bh=fK7QM9bVPTyHbmVo2K2FzO8qnNGFwS/xRqf+62OlG7M=;
+        b=Js6M3Z5JFTQhtuTsRXFX9RAE7PElo+8pL+pdnTu4f8ZBPQ+7PbFEiSFrF5dCqId/f2
+         TKg0QGQwPJlmKgTXG2dIortzQb7Brl0d98t8Cgkk85xWFgj9wQ+4UMwdaWgkwYocBH4S
+         AICzQOAZJlvAaO3FRRPjwPp7AJf1Fqri5EWpMh21US5G3dWDY/qwPwd/kT6d5s1fg8I+
+         6n6KMR/x9bStDY+WjSt+h8uH3QxeLjWxHyuFtEe/nDeJUm5JBnibyDJpChAwV/E4cmQw
+         Bo1808sJnF7lezyc6YUJbfU0TMgdGqtrjubZ9SS/4DgvtmcuHfOMDmLFgvCpqQQ4Dooh
+         gtiQ==
+X-Gm-Message-State: AOJu0Yx52luQGgOdU3c5sjuHZnvVOdePffAE/7ty+D8670fGaQSPFdQD
+	DipcYFZEWIO6ZODEJsC1vDEis9gbHzpxof+e8jgPdqzLhov310uJSqO1vfglHAQTX7dUI/GY8Xs
+	4oTM=
+X-Gm-Gg: Acq92OGdRgcL8/bwEhjh6MCPo4kLCs1fMWbg0njzKND3oUTDRH3UK1kJ0OX/rW1jB29
+	Ji65rVn3XDi6prfu5fPE3sbSmZbWeHBCGO/JqbND2bsbWYs9CIo1wacRPce3mCMSDf5d2X6GeOm
+	EIkxuh+MM53PxFB4vsX5erZuvXs1XjTLVCLoQUopMm+h8TUWCrm3/RFFLpOUqnebSfOJANSXtRA
+	6IqybT87umtpG7ut/eY4JGoIZ8kB8fBv1Ll9vhR4v37NGDkrQ/vzft1EHkFen21RlBG+wb3ZItf
+	EZwWY1FGoR1HnSu0A1kR/igDKRAbyA11MwMbkrO58rizFJ0iNmHFJUrXXK+1Bn024HCvkWqIlXR
+	6SEICpCIQA+Wfx+HJ/Wt5fR2EgPHnf6oaRu8Chiu8eEA/RhOVwGAbQpGSTDBVoFoxu7+eQwn4gb
+	6quhTRRwYOFpWKP/8v6R87SUJvCwJEYa+iaWcgTa6QQOLnlV+YHNBf1NPUbcqJN/B+/Fp3UMb5u
+	h9bpllvbLeihwU=
+X-Received: by 2002:a05:6000:1446:b0:43c:fb48:6856 with SMTP id ffacd0b85a97d-46074a5bdeamr15698080f8f.13.1781532759294;
+        Mon, 15 Jun 2026 07:12:39 -0700 (PDT)
+Message-ID: <96a089dc-a0dd-4f40-b1e4-5573202bf532@suse.com>
+Date: Mon, 15 Jun 2026 16:12:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.22? 1/9] sched: introduce specialization of "running
- only" vcpu_runstate_get()
+Subject: [PATCH for-4.22? 2/9] domctl: move XEN_DOMCTL_irq_permission handling
+ to x86 code
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>
+ <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <e2f2cd28-a8f9-4455-8a3b-f55f8c08e1dd@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,10 +138,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <e2f2cd28-a8f9-4455-8a3b-f55f8c08e1dd@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1781532733-36B44938-ED8400ED/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-16d1c6/1781532760-86168D75-1721B01B/0/0
 X-purgate-type: clean
-X-purgate-size: 3665
+X-purgate-size: 2830
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -153,11 +151,11 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[citrix.com,xen.org,kernel.org,vates.tech,amd.com,gmail.com,suse.com,xenproject.org];
+	FREEMAIL_CC(0.00)[citrix.com,xen.org,kernel.org,vates.tech,amd.com,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	SUBJECT_HAS_QUESTION(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
@@ -167,7 +165,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,citrix.com:email];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -176,119 +174,107 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BB8E9686FA0
+X-Rspamd-Queue-Id: D4E17686FAA
 
-About half the callers of vcpu_runstate_get() are solely after the
-"running" time of a vCPU. Introduce a specialization with a smaller
-read critical section and thus reduced risk of a need for retries.
+HAS_PIRQ is selected by x86 only, and that's expected to remain that way.
+Avoid the #ifdef needed by moving the logic to arch_do_domctl(). Leverage
+"currd" being available as a local variable there while doing so.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-The function name was chosen such that grep-ing for "vcpu_runstate_get"
-would still turn up all uses. If that was deemed largely irrelevant, a
-better name might be e.g. vcpu_get_running_time().
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -258,6 +258,36 @@ long arch_do_domctl(
+         break;
+     }
+ 
++    case XEN_DOMCTL_irq_permission:
++    {
++        unsigned int pirq = domctl->u.irq_permission.pirq, irq;
++        bool allow = domctl->u.irq_permission.allow_access;
++
++        ret = -EINVAL;
++        if ( pirq >= currd->nr_pirqs )
++            break;
++
++        irq = domain_pirq_to_irq(currd, pirq);
++
++        ret = -EPERM;
++        if ( irq )
++            ret = xsm_irq_permission(XSM_PRIV, d, irq, allow);
++        if ( ret )
++            break;
++
++        iocaps_double_lock(d, true);
++
++        if ( !irq_access_permitted(currd, irq) )
++            ret = -EPERM;
++        else if ( allow )
++            ret = irq_permit_access(d, irq);
++        else
++            ret = irq_deny_access(d, irq);
++
++        iocaps_double_unlock(d, true);
++        break;
++    }
++
+     case XEN_DOMCTL_gsi_permission:
+     {
+         int irq;
 --- a/xen/common/domctl.c
 +++ b/xen/common/domctl.c
-@@ -56,7 +56,6 @@ void getdomaininfo(struct domain *d, str
-     struct vcpu *v;
-     u64 cpu_time = 0;
-     int flags = XEN_DOMINF_blocked;
--    struct vcpu_runstate_info runstate;
- 
-     memset(info, 0, sizeof(*info));
- 
-@@ -69,8 +68,7 @@ void getdomaininfo(struct domain *d, str
-      */
-     for_each_vcpu ( d, v )
-     {
--        vcpu_runstate_get(v, &runstate);
--        cpu_time += runstate.time[RUNSTATE_running];
-+        cpu_time += vcpu_runstate_get_running(v);
-         info->max_vcpu_id = v->vcpu_id;
-         if ( !(v->pause_flags & VPF_down) )
-         {
-@@ -829,8 +827,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-     case XEN_DOMCTL_getvcpuinfo:
-     {
--        struct vcpu   *v;
--        struct vcpu_runstate_info runstate;
-+        const struct vcpu *v;
- 
-         ret = -EINVAL;
-         if ( op->u.getvcpuinfo.vcpu >= d->max_vcpus )
-@@ -840,12 +837,10 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-         if ( (v = d->vcpu[op->u.getvcpuinfo.vcpu]) == NULL )
-             break;
- 
--        vcpu_runstate_get(v, &runstate);
--
-         op->u.getvcpuinfo.online   = !(v->pause_flags & VPF_down);
-         op->u.getvcpuinfo.blocked  = !!(v->pause_flags & VPF_blocked);
-         op->u.getvcpuinfo.running  = v->is_running;
--        op->u.getvcpuinfo.cpu_time = runstate.time[RUNSTATE_running];
-+        op->u.getvcpuinfo.cpu_time = vcpu_runstate_get_running(v);
-         op->u.getvcpuinfo.cpu      = v->processor;
-         ret = 0;
-         copyback = 1;
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -325,15 +325,35 @@ void vcpu_runstate_get(const struct vcpu
+@@ -471,38 +471,6 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
+         goto domctl_out_unlock_domonly;
      }
- }
  
--uint64_t get_cpu_idle_time(unsigned int cpu)
-+uint64_t vcpu_runstate_get_running(const struct vcpu *v)
- {
--    struct vcpu_runstate_info state = { 0 };
--    const struct vcpu *v = idle_vcpu[cpu];
-+    struct seqcount seq = SEQCNT_ZERO();
-+    const struct seqcount *s = v == current ? &seq : &v->runstate_seq;
-+    unsigned int count;
-+    uint64_t running;
-+    s_time_t delta;
-+
-+    do {
-+        count = read_seqcount_begin(s);
-+
-+        running = v->runstate.time[RUNSTATE_running];
-+        delta = v->runstate.state == RUNSTATE_running
-+                ? NOW() - v->runstate.state_entry_time
-+                : 0;
-+    } while ( read_seqcount_retry(s, count) );
-+
-+    if ( delta > 0 )
-+        running += delta;
+-#ifdef CONFIG_HAS_PIRQ
+-    case XEN_DOMCTL_irq_permission:
+-    {
+-        unsigned int pirq = op->u.irq_permission.pirq, irq;
+-        bool allow = op->u.irq_permission.allow_access;
+-
+-        ret = -EINVAL;
+-        if ( pirq >= current->domain->nr_pirqs )
+-            goto domctl_out_unlock_domonly;
+-
+-        irq = domain_pirq_to_irq(current->domain, pirq);
+-
+-        ret = -EPERM;
+-        if ( irq )
+-            ret = xsm_irq_permission(XSM_PRIV, d, irq, allow);
+-        if ( ret )
+-            goto domctl_out_unlock_domonly;
+-
+-        iocaps_double_lock(d, true);
+-
+-        if ( !irq_access_permitted(current->domain, irq) )
+-            ret = -EPERM;
+-        else if ( allow )
+-            ret = irq_permit_access(d, irq);
+-        else
+-            ret = irq_deny_access(d, irq);
+-
+-        iocaps_double_unlock(d, true);
+-        goto domctl_out_unlock_domonly;
+-    }
+-#endif
+-
+     case XEN_DOMCTL_set_target:
+     {
+         struct domain *e = get_domain_by_id(op->u.set_target.target);
+@@ -563,6 +531,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
  
-+    return running;
-+}
-+
-+uint64_t get_cpu_idle_time(unsigned int cpu)
-+{
-     if ( cpu_online(cpu) && get_sched_res(cpu) )
--        vcpu_runstate_get(v, &state);
-+        return vcpu_runstate_get_running(idle_vcpu[cpu]);
- 
--    return state.time[RUNSTATE_running];
-+    return 0;
- }
- 
- /*
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1121,6 +1121,7 @@ int vcpu_affinity_domctl(struct domain *
- 
- void vcpu_runstate_get(const struct vcpu *v,
-                        struct vcpu_runstate_info *runstate);
-+uint64_t vcpu_runstate_get_running(const struct vcpu *v);
- uint64_t get_cpu_idle_time(unsigned int cpu);
- void sched_guest_idle(void (*idle) (void), unsigned int cpu);
- void scheduler_enable(void);
+     case XEN_DOMCTL_ioport_permission:
+     case XEN_DOMCTL_ioport_mapping:
++    case XEN_DOMCTL_irq_permission:
+     case XEN_DOMCTL_gsi_permission:
+     case XEN_DOMCTL_bind_pt_irq:
+     case XEN_DOMCTL_unbind_pt_irq:
 
 
