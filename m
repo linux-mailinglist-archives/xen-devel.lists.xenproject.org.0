@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id jkpYKRccMGpHNwUAu9opvQ
+	id ry5vDDwgMGrMOQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:36:55 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:54:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD90687C2E
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:36:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 817A9687F1F
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:54:35 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=HXt3T03K;
+	dkim=pass header.d=suse.com header.s=google header.b=FUcDK+v+;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338417.1599449 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338427.1599459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ9MT-0005Bc-KJ; Mon, 15 Jun 2026 15:36:29 +0000
+	id 1wZ9d8-0008Fp-2d; Mon, 15 Jun 2026 15:53:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338417.1599449; Mon, 15 Jun 2026 15:36:29 +0000
+Received: by outflank-mailman (output) from mailman id 1338427.1599459; Mon, 15 Jun 2026 15:53:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ9MT-00059G-HZ; Mon, 15 Jun 2026 15:36:29 +0000
-Received: by outflank-mailman (input) for mailman id 1338417;
- Mon, 15 Jun 2026 15:36:27 +0000
+	id 1wZ9d7-0008Dy-Vq; Mon, 15 Jun 2026 15:53:41 +0000
+Received: by outflank-mailman (input) for mailman id 1338427;
+ Mon, 15 Jun 2026 15:53:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ9MR-00059A-Ed
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:36:27 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ9d6-0008Ds-NW
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:53:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ9MQ-002M2E-Bz
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:36:26 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wZ9d5-00755E-Dy
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:53:39 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a301bfa-2eae-0a2a0a5409dd-0a2a4507cd5e-2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:36:26 +0200
-Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a301fff-5cb7-0a2a0a5109dd-0a2a4506af78-12
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:53:39 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a301bfa-229c-0a2a45070019-d155802df0b0-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:36:26 +0200
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-491609cdd8fso16957885e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:36:26 -0700 (PDT)
+ id 6a302003-7371-0a2a45060019-d155802bb4f1-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:53:39 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4908b92904fso42923085e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:53:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922f9cd140sm1633355e9.0.2026.06.15.08.36.24
+ ffacd0b85a97d-4606f26f4f6sm38817085f8f.16.2026.06.15.08.53.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 08:36:24 -0700 (PDT)
+ Mon, 15 Jun 2026 08:53:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,57 +60,60 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781537785; x=1782142585; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781538818; x=1782143618; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WQBHaevgBAaT29lBBS8xknWKa8na0j/Kg2/5JeoSVYQ=;
-        b=HXt3T03KdPefCMi/6D0tsO0t64H8Jxh8gsZ+/Q6QZX3PCry772BI22BKaAFtufel0C
-         dCMr3Gact1chD1HyR00Vz584y2+puW21PSqy5NGaEyyO8VYnr1FAeoVS16O8lfCvh4Bk
-         cj45g2BFTp1rsC1h0jEdPOlnoYf/sRsCb39gzLdaU4eI5NMwL07w4SG50XtlK4kIA8iP
-         Ax2RwzznzFtFZq87Zwxm39mOgrmwq/N7NryT3/ucuo848ugwBwLe8j4J7tdWbe9Du83+
-         ZhM328w4dpjOnfedPTRTmM4xdlwCP8cT5/E0usTJWMrhc4cj1tUsahUAgzzrdSVJOafJ
-         HHvQ==
+        bh=vLPIMyze5rWcNUNeET2GyTTIAiJmLn+nae/3ySjnuog=;
+        b=FUcDK+v+EIWjwlTl+F7Os4ZVMteLFqk4Ccijv6iwPWAb36vDpb61e1t8e95wXufMmE
+         AHZCtNuQGhBCTKbVvZy58t8HDWoifo+YQD9MtMhQwSyc1uwwJLfsehxSwDvj4niiR/3G
+         E1oODvL8rmhzulr9skYGC2WYQ992r9LSmSl4i59Ee05PsD3msOKDN9kFLWgdLNK/bSio
+         2YMEbV9qhatbkoB4n7RWguvFNgb6/mtdoc/Fz3RWq5pRlDFbqmLuyR+pH/Q71+akpj9S
+         zlv8UmuAHH4meovRntx7QQjx8Th7BSrCSj39PKvmU+SvUh68JMQalUGBKGAPepf8jQDM
+         8bdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781537785; x=1782142585;
+        d=1e100.net; s=20251104; t=1781538818; x=1782143618;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WQBHaevgBAaT29lBBS8xknWKa8na0j/Kg2/5JeoSVYQ=;
-        b=Wp+nhn/4MjJhTU0RDPqtHPQ66Nr+Ai3FGFkuKMT8vWPIoXlKqwvLrtLgBOVPR3u02z
-         UPJb709/uJXXtWCleHXlvAvDnf6sGZ4KwYbPfCJIZro+zEy675Dw0wWfV++6yzozzoYm
-         lMMp7i35RIuao0cV/HF9fKSLGLOjBzoS4wg/nXhRb+cany/BK3GwIjw1bF6Qqnur0fhS
-         EgNCUKJFV/HJ2Tc+1LDKr2MwziGTxPgzUxvx736K2n3CZNQurpRy93Bmpke7OpDxNrtq
-         aKY/PjqEGueklhFMKbGQZ9vMM4MozVB7QbLGeDar47yr60ambewq5rdec4w0Rplu+VVc
-         X7Aw==
-X-Forwarded-Encrypted: i=1; AFNElJ++XwRMy9dkulUb2iWTsFXitPXLwH92n48JewYNr+kLqgqU2pJjVra8g6BhdfgP0z7o066EIsXGlBA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwJw4SPUOLfLla1QZf5lFFNZei7geSUXH+mEis/9BDwVPi+Ycam
-	+nGNfPe0vFDZFkDXZTjmuZs/u+iy0Tq8z1QV+E1ut887fH0g01ObEZuYfTc+xp4Auw==
-X-Gm-Gg: Acq92OHLjo1JjamTeVu/m2wAqILIidUKFCrSjg7SYKh9b9wXdY41Sm7FKaitB9PgTTl
-	0nxkqjZ437ekUfcN4u25GgPVWwEoAoECXD+JK0yNgENdh54TdPclRp0YETXLoXyFumxnWUrPkgM
-	CI0/Xexgob6pIFzDsmlH00dYDE3+1IhATdIidk8N0+lfXzyBACPTq3ZqZq1nn8rl91zKk3wV17I
-	x+0m/HGEoWVk/MfQ6TDk+mun3pO/rrST4cX+xKpr/WXzhpUt7ztTxLPvR/uMm28uvfCgUTEHpFf
-	Wk+9ltMy102Mi1/IvghQAn8sByM5IXA/8MXX4oQfgoPa+KA8listyfQlp8Zh/0AffYk1yIoveQ3
-	FDdjHtXassYNhvm2CtKQBKAjbdHXHy8qbFh3y0qtgINPVO2XdJXU40wBj5VntqQlzQcf+zpUl+r
-	VIOrszsWVr+GOWy8ksAMjnhYMp/RFMsdONFeCaAddx19N6CUU93Cy8BNyqZ7BH4LRKafNAXHWhT
-	BRhy1+ZQpRk9KM=
-X-Received: by 2002:a05:600d:844f:20b0:490:b8e2:6380 with SMTP id 5b1f17b1804b1-490ec4c3d2fmr144824025e9.12.1781537785297;
-        Mon, 15 Jun 2026 08:36:25 -0700 (PDT)
-Message-ID: <386f089a-9e68-428b-bdc4-0d36526f27fc@suse.com>
-Date: Mon, 15 Jun 2026 17:36:24 +0200
+        bh=vLPIMyze5rWcNUNeET2GyTTIAiJmLn+nae/3ySjnuog=;
+        b=I9TEyBTP7BWfSbnrfnuZjIfuf8FQZmXWUZMNZijdccMPA16jz7+8quJsTSXKZXQ8yS
+         S7KNG5/zP2TOTtFst2+xLO/o+eQf+r+2GWhl528kVttNEV7yAcEPtltQUivrmJ1EKqjS
+         bX3f9Fm38eXlIKcfgUX6DT37FZ3BAO6cn40kmdomRhNqCxbAYif7bkDF58M0D1AdFDff
+         uJms4yQNBNF4OFvQJyWdtb9EafS0ypeDsfbuw1R1a8Caiz9+sYZ3gVFbAqv7RlWSevgn
+         mJw7tCk8sJ68MO/7KOgfIei/P5MHKhgDojK6l3WXgs6F/iSRd4tFSJk2HDjGLLaG1mWg
+         cI8A==
+X-Forwarded-Encrypted: i=1; AFNElJ9ETnfpq9xYACpCwqyJv0bvA1TrrVnE+MPJaAOeFBeljVbALAFa1kZVxgGOly8jAVKYaWmFEvoiZeI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUbMDIaF3QSSxRSeEGlzSzhpIKNb4CRc5MF/7eD79au+5+HzdE
+	ULXypObL5TA2gGfLx/mqx8VMMcym8SlfYQ9War2ax6p1X0WH1ZTOseR6nTD4AkBorA==
+X-Gm-Gg: Acq92OEX8h7djwRxctrjidMmdRI+MttG0+QEoCGcDJXGyTDq+SWwFMBzYJ5leKoenBx
+	dLPmDh/aei6Rak4rJ7dGryHHrFbBzvsW4dRz9z5x0heE33GKzsOFBZ017TmTC/RNgMLH2T93McT
+	nqwvo8IcGJd1zsPthiFvn5oB2ztJBQAqm4aIC51K3Iu6OjQx0mAziwfYEdmLjELFkEguKUZy5mr
+	YZJh1ObUtVIyfDaKf+cHVx6i9weBl03z5aCxgh940KOdfB7imax2EYrl2DkurjyfcjScDrj+dDc
+	U2BfEpxKNwFpSLwOctEywN34oljm7uYtWJV/j2bLD+regQjWkggrQQDfWvHmmEgMTJfG1W0bd/G
+	dfVNwr1SLzDiKgwV3mhZtA7IpxGFliUuTbFYI4GRILBZXaKKTvu9q6ls0FXUM1VQ6u7AWqoiTvn
+	/tZh78+IO4C9ffcoqrmSDHQH2QJBBMu+p8jjnZG2XZ0RGE3efox6Qa7vdNumUIbCKGvJZXBes4k
+	czh71GnJ4P544Q=
+X-Received: by 2002:a05:600c:c16f:b0:490:6e11:c303 with SMTP id 5b1f17b1804b1-490ec4e6f22mr182801995e9.13.1781538818114;
+        Mon, 15 Jun 2026 08:53:38 -0700 (PDT)
+Message-ID: <4580492d-c5e7-454d-b4a9-4bc959268cfb@suse.com>
+Date: Mon, 15 Jun 2026 17:53:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/26] xen/riscv: add initial dom0less infrastructure
- support
+Subject: Re: [PATCH v2 26/26] xen/riscv: manage IRQ_DISABLED flag in APLIC irq
+ enable/disable callbacks
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
  Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <0b52530fe7287ed8600b1877b573b5cd0168634a.1778250616.git.oleksii.kurochko@gmail.com>
+ <6121dce6347f03030a2de05f29c1780b6fc0cd01.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,12 +139,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b52530fe7287ed8600b1877b573b5cd0168634a.1778250616.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6121dce6347f03030a2de05f29c1780b6fc0cd01.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1781537786-20B60C48-9D661B50/10/73395122804
+X-purgate-ID: tlsNG-16d1c6/1781538819-8E58CD75-48DE188E/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3447
+X-purgate-size: 3071
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -158,10 +161,10 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,cardoe.com,kernel.org,wdc.com,gmail.com,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -170,7 +173,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -178,100 +181,86 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0FD90687C2E
+X-Rspamd-Queue-Id: 817A9687F1F
 
 On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> Enable dom0less support for RISC-V by selecting HAS_DOM0LESS and
-> providing the minimal architecture hooks required by the common
-> dom0less infrastructure.
+> desc->status is only set once during setup_irq(), but interrupts can be
+> enabled/disabled at runtime, so update it in the corresponding callbacks.
 > 
-> Add stub implementations for architecture-specific helpers used when
-> building domains from the device tree. These currently perform no
-> additional work but allow the generic dom0less code to build and run
-> on RISC-V.
+> wmb() in aplic_irq_enable() ensures do_IRQ(), which can fire immediately
+> after the interrupt is enabled, sees the updated desc->status.
+
+This doesn't look entirely correct. Aiui ...
+
+> No rmb() is
+> needed on the do_IRQ() side because desc->status is read under a spinlock,
+> which implies an acquire barrier.
 > 
-> Introduce max_init_domid as a runtime variable rather than a constant
-> so that it can be updated during dom0less domain creation.
+> No barrier is needed in aplic_irq_disable() because the hardware disables
+> the interrupt before the status is updated, so do_IRQ() cannot fire, and
+> spin_unlock() makes the updated value visible.
 > 
-> Provide missing helpers and definitions required by the domain
-> construction code, including domain bitness helpers and the
-> p2m_set_allocation() prototype.
-> 
-> Additionally define the guest magic memory region in the public
-> RISC-V interface.
-> 
-> As HAS_DOM0LESS is selected for RISC-V now it could be a compilation
-> issue if CONFIG_STATIC_MEMORY=y as guest_physmap_add_pages() isn't
-> yet provided.
-> 
+> Fixes: d4676a1398bc5 ("xen/riscv: implementation of aplic and imsic operations")
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
 > Changes in v2:
->  - Move declaration of p2m_set_allocation() to p2m-common.h.
->  - Add __initdata for max_init_domid and drop initalizer for it.
->  - Add CONFIG_STATIC_MEMORY=n to CI's randconfig to avoid
->    compilation error because of guest_physmap_add_pages()
->    isn't provided.
-
-Yet another trap for people to fall into, and yet another item to clean
-up before the port is really ready to use. Imo there want to be
-HAS_STATIC_MEMORY, which RISC-V simply wouldn't select (for the time
-being).
-
-> --- a/xen/arch/riscv/dom0less-build.c
-> +++ b/xen/arch/riscv/dom0less-build.c
-> @@ -102,3 +102,9 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
+>  - New patch.
+> ---
+>  xen/arch/riscv/aplic.c | 5 +++++
+>  xen/arch/riscv/irq.c   | 3 ---
+>  2 files changed, 5 insertions(+), 3 deletions(-)
+> 
+> --- a/xen/arch/riscv/aplic.c
+> +++ b/xen/arch/riscv/aplic.c
+> @@ -161,6 +161,9 @@ static void cf_check aplic_irq_enable(struct irq_desc *desc)
 >  
->      return 0;
->  }
+>      spin_lock(&aplic.lock);
+>  
+> +    desc->status &= ~IRQ_DISABLED;
+> +    wmb();
 > +
-> +int __init arch_handle_passthrough_prop(struct kernel_info *kinfo,
-> +                                        struct dt_device_node *node)
-> +{
-> +    return 0;
-> +}
+>      /* Enable interrupt in IMSIC */
+>      imsic_irq_enable(desc->irq);
 
-No FIXME comment or anything alike? That is, nothing is going to be needed
-here even once pass-through is supported?
+... you want to order the ->status update ahead of the imsic_irq_enable()
+operation. Yet that's a CSR write. Do fences really cover that? If not,
+you may need to resort to mb(), to order the ->status write against the
+->irq read, in lieu of being able to order against a CSR write.
 
-> --- a/xen/arch/riscv/domain-build.c
-> +++ b/xen/arch/riscv/domain-build.c
-> @@ -158,9 +158,22 @@ int __init make_cpus_node(const struct domain *d, struct kernel_info *kinfo)
->      return fdt_end_node(fdt);
->  }
+Of course with imsic_irq_enable() itself acquiring a lock (which
+necessarily has a memory write), you could then further argue that wmb()
+is indeed sufficient, bot for a reason different from the one presently
+stated in the description. (I would also strongly suggest to annotate the
+wmb() with an explanatory comment.)
+
+> @@ -189,6 +192,8 @@ static void cf_check aplic_irq_disable(struct irq_desc *desc)
+>      /* Disable interrupt in IMSIC */
+>      imsic_irq_disable(desc->irq);
 >  
-> +int __init construct_hwdom(struct kernel_info *kinfo,
-> +                           const struct dt_device_node *node)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
+> +    desc->status |= IRQ_DISABLED;
 > +
->  int __init make_timer_node(const struct kernel_info *kinfo)
->  {
->      /* There is no need for timer node for RISC-V. */
->  
->      return 0;
+>      spin_unlock(&aplic.lock);
 >  }
-> +
-> +int __init make_hypervisor_node(struct domain *d,
-> +                                const struct kernel_info *kinfo,
-> +                                int addrcells, int sizecells)
 
-The last two parameters being of plain int type is, I suppose, dictated
-by DT code?
+The ->status write becoming globally visible ahead of imsic_irq_disable()
+doing its work is not an issue? In the paragraph in the description you
+again appear to assume that the CSR write and the memory write of the
+spin-unlock are ordered wrt one another.
 
-> --- a/xen/arch/riscv/include/asm/guest-layout.h
-> +++ b/xen/arch/riscv/include/asm/guest-layout.h
-> @@ -24,4 +24,7 @@
->  #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->  #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
+> --- a/xen/arch/riscv/irq.c
+> +++ b/xen/arch/riscv/irq.c
+> @@ -145,9 +145,6 @@ int setup_irq(unsigned int irq, unsigned int irqflags, struct irqaction *new)
+>          desc->handler->set_affinity(desc, cpumask_of(smp_processor_id()));
 >  
-> +#define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
-> +#define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
+>          desc->handler->startup(desc);
+> -
+> -        /* Enable irq */
+> -        desc->status &= ~IRQ_DISABLED;
+>      }
 
-Why xen_mk_ullong()? That's needed in the public headers only, iirc.
-
-Also these are again two seemingly arbitrary numbers.
+Arm and x86 are different in this regard, so it's hard to tell which way
+it ought to be for RISC-V. This removal surely wants a sentence or two in
+the description.
 
 Jan
 
