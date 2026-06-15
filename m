@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 7SePKHgIMGqjMAUAu9opvQ
+	id jCRSLo0IMGqtMAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:13:12 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:13:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BBCD686FBA
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237E9686FCF
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:13:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=K4QJfLPn;
+	dkim=pass header.d=suse.com header.s=google header.b=Cc3dRRzc;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338268.1599284 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338274.1599292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ83j-0001Vd-SB; Mon, 15 Jun 2026 14:13:03 +0000
+	id 1wZ846-0001xX-6e; Mon, 15 Jun 2026 14:13:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338268.1599284; Mon, 15 Jun 2026 14:13:03 +0000
+Received: by outflank-mailman (output) from mailman id 1338274.1599292; Mon, 15 Jun 2026 14:13:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ83j-0001Sk-Ol; Mon, 15 Jun 2026 14:13:03 +0000
-Received: by outflank-mailman (input) for mailman id 1338268;
- Mon, 15 Jun 2026 14:13:02 +0000
+	id 1wZ846-0001vU-3S; Mon, 15 Jun 2026 14:13:26 +0000
+Received: by outflank-mailman (input) for mailman id 1338274;
+ Mon, 15 Jun 2026 14:13:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZ83i-0001SV-MD
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:13:02 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZ845-0001tz-22
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:13:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ83i-002zx9-2u
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:13:02 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wZ844-006m5v-F8
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:13:24 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30086d-e002-0a2a0a5209dd-0a2a450698b4-2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:13:01 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a300876-e002-0a2a0a5209dd-0a2a4504df92-30
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:13:24 +0200
+Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30086d-7371-0a2a45060019-d155802ec47f-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:13:01 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-490cdae130cso16438005e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:13:01 -0700 (PDT)
+ id 6a300882-1dec-0a2a45040019-d155dd2be589-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:13:22 +0200
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-46066e640easo1965456f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:13:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49220372ed0sm229600395e9.14.2026.06.15.07.13.00
+ ffacd0b85a97d-4606f26f726sm32610829f8f.15.2026.06.15.07.13.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 07:13:00 -0700 (PDT)
+ Mon, 15 Jun 2026 07:13:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,48 +61,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781532781; x=1782137581; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781532802; x=1782137602; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K9wWG9O+maNG12dOUcbH4HjESbxFZUtQp5qiz1i/uAI=;
-        b=K4QJfLPnCQSR4HM1CLgxZACY6deIVayQGtTK9D6Foq3hsFlBMac+nIrZu6Cd70B7Dr
-         wKX8qPsQ1kQmkxfYttG2woMDnzUN9M8JnlHz+j2ZTTGUVVmShU/Q4Ejpvy/q3ngUYAvq
-         CbkLmSLcvBqQt9OIl+xHq6y1GcpFoOQbBCrnvxeXghI0N8jM0GPdPe25nmKk/EgZSjpE
-         5XEzQliayxNfi0evrLBBFYb9d2WtPhR8H3ZKjqv/duUHZTioGxqkIDregoz+/h4nC8Mk
-         DmlF8DmEZRLnvlI6RjIEcaUxQ7xd1d4abc9EYB39m+u0+zclMnDiRXVyCZbAVJW3FI14
-         U14A==
+        bh=81E6k+ygViV9U22cpFsmJTigOesewusphjAS3Y1bdII=;
+        b=Cc3dRRzcXvIAJpXIK3teMhqPV0/n6jMSWdZBP744K/JeOWMBAGUVRzZnFtzC+7SFm/
+         y2nxjkFSzJmQ11rcZNMbH64VjenjqF6HZYGyqQxmftzQGeawPkUX6IiB0VTWSDF12VvV
+         hJmJUPxwGmOjrlrTbQgtLfqc7I4DQVwIzEGwnvVGD0KT/oNLTX2g9u0VPWo6anbo+SMC
+         vqUwlbMbktN+z9aLqwspMiaPrz+A4t9pYvVabwQh8IuO3rGcJNGxYiJNznf0xwvNDj+O
+         enzK4z2BLwmzMzMNHVSMvlCrHa8NMDQN9nH1dSSQIpdSm+qkmQb29LheL2+2gk9LqbsC
+         nQpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781532781; x=1782137581;
+        d=1e100.net; s=20251104; t=1781532802; x=1782137602;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K9wWG9O+maNG12dOUcbH4HjESbxFZUtQp5qiz1i/uAI=;
-        b=nyiW2Hb4l0ySW2pxn7GSQRRi42UaEiKSwPqRQ8vg1VwkXs4AvwJi3ULyvYU9aR8XMw
-         C0mkRYQO+WYhCVpRh7ZUTU5+KU8OEuPABsK23Y5lDuEymF/RwZi9CwW0xvH2W5giP2ll
-         QaT25/vNFVKHQhgdjFx7XY++tqruWJ1m2j/44Ilt5mmLh3nc4Z18mGLoj/qh7/Lq1nxH
-         2wOYoRGfgvawRjXKwbRtNyYf4lXg5WNNY67IrwPvHrE464M7dubiDWRaADmh6h62HILN
-         T0f7ZKb4rXgnOfDtoZprhXFqvbapnYQRC0a5mpRuxupdFipyydklqxSNIbZha9NXyQgr
-         7+Rw==
-X-Gm-Message-State: AOJu0Yz+0xmSwNLZbtx69MXy9/6Bj1sLun4UuwuAxj7A+CNyi50nztH+
-	4gvgaRSr6c3fStrvS5juVfnc4rz9YHH8DNCIVClgAnivW+QCpM1lmADGSwQb+GDwFJqcvlGJg7W
-	tcoo=
-X-Gm-Gg: Acq92OHuRU5Umh/Umuns7Rgug3x1vfoUZAlNIO0OIDFVfmffVNrPNOsEwyfN8vbd+ok
-	YINXwRx9DSswHKWU3MUA0REzholKbKz324wWXD130gYw6rolaIvwQKU2E18NDUO/rUcQBvXF2Cv
-	x44QJOX0dgW5GNkOlIG4a7KC8FU4psWCC+Lvgr+IF1jYlq6bDoM050ffZDdURErttTuTIf+rOYS
-	WbbNgYmkUBUXzkWg1WT0uGz+3Qh1+DIjpi43bcWuyuOJTipdRnm80wmHf2pCq2lNneCQItnQEsL
-	3itHRF8zTb1eYRtZMFcN+hiDZ7TYF5eOYtZzv0PW86P9hDvjOGWZBx/3EQno6OSmCZt+rByQXIY
-	JC/r1crG/gbXgy3UNQPqaooS7ihI5/VISHUZ3l8UuvJcRoO6HrB3ZMYiKsclTAASXEGDNmooi+M
-	u+Fok3P9uh/sr1x1JlG6gHmtus9rR8BCcu226kypgH8ts6fx40P2+xtNWcfHQgK0zUiOwX4il+7
-	veX+mMYfrOhgQQ=
-X-Received: by 2002:a05:600c:6287:b0:485:9a50:3370 with SMTP id 5b1f17b1804b1-492200516d4mr135546605e9.8.1781532781169;
-        Mon, 15 Jun 2026 07:13:01 -0700 (PDT)
-Message-ID: <afd71b98-7f25-48af-97ca-4f772551f73e@suse.com>
-Date: Mon, 15 Jun 2026 16:13:01 +0200
+        bh=81E6k+ygViV9U22cpFsmJTigOesewusphjAS3Y1bdII=;
+        b=d+JwSVMP+UqRDcDgLBLU3blxJ1lKz0r2K2dEE0o99UCqEqWj8taFO8AF9nVdcbxlYi
+         y36810Kx+ra39MxVedFlv+XLKkXBS/3VNVnw0lI8NDa3+Dj7HLMUMKHffs/+mb7u+bZz
+         nuNEp+9olE0816Skx5syEsf6NWCshdjcpWUU8/7PghkeKFa/rWawvylSI3IHpntgWOyJ
+         IdqU2LMUiMBu+5QTGoefRtdZVmFjXg7o8mGF6XgNdwdPvx2cLcoEiiKbfE/kVRJqL/Zc
+         EOyI+qAhs5AikeY+MtE5l4XBlFH9BGLe3zKwk64v1t1Odg/bsFeIwuVFRmRI9uUU89/S
+         u3qQ==
+X-Gm-Message-State: AOJu0Yx6PHCXcaiv7hJrMlIisBzr17S+yZNouRf1+yLAt6fdQGB1w8oi
+	Ro7W/a85WwaNJ1JFES/Pn/OgjZBGiT4yCwGwzSzE4aWqyv3p87LYFaKyEwh1wTY2/FtbjsYT0rG
+	SwQM=
+X-Gm-Gg: Acq92OFMCLLpmDwrr3r3/wxNDP9GK9+gSbU3SvQgCSDwSD5FTzP85a0XWg35VwM4uu0
+	rcx5s5SeRbHTPq3d+FLyNiXkBObghD25iaSmKCpMVWVqt/h+Chpu82pXjPZ2ktH7ZhdDY3eQ5dD
+	Jfjn6KU00udEBje5hK0JzZXTCZSjCdGZyhPvh1Wv8o3PKO8rp8+LKUwKBTRhpE/sPcbWi+mPG0L
+	4flz3w62uwKYEAurFwgXRx4k1MBgE+4MqGKwN1dlZkTR8KkrztMa3Nu0dFl4Gbq8rS5wxvZpZsC
+	gE7/fH/jb/IxFxjRFnlvC0utbSw+MNbdy8nBV0xAcZrwPWhQA2lKYGm/NF3XGe0R8BPCvanku8l
+	+ERTHpFuImHZ+bnvu0o9WTD0mCT4j0xj1TvRFKpRPpYVCgGXNk7VqHw8E3SeLLdTOmFw0RpFkxH
+	o7H2xtS9dzctJg3IUSRD7FMrcEm7tfpZO/ZonJ9q/dNrVeTq7oNsPU36h5c8DSMq0IkWAqGlJXI
+	vIl3FU4j3hZZdU=
+X-Received: by 2002:a05:6000:1acb:b0:455:fbb:28bb with SMTP id ffacd0b85a97d-4606dbd7797mr19395256f8f.35.1781532802026;
+        Mon, 15 Jun 2026 07:13:22 -0700 (PDT)
+Message-ID: <ebb489d4-0670-468d-abd5-8d130636ef45@suse.com>
+Date: Mon, 15 Jun 2026 16:13:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.22? 3/9] domctl: rename a label
+Subject: [PATCH for-4.22? 4/9] domctl: error code adjustment for unpriv
+ callers
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -137,10 +138,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <e2f2cd28-a8f9-4455-8a3b-f55f8c08e1dd@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1781532781-8777FD75-00145725/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ebf023/1781532802-2B96A3FF-C8C9C551/0/0
 X-purgate-type: clean
-X-purgate-size: 5383
+X-purgate-size: 912
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -178,168 +179,31 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0BBCD686FBA
+X-Rspamd-Queue-Id: 237E9686FCF
 
-There's no real domain unlocking here, it's merely RCU which is being
-"unlocked".
+Unprivileged callers better wouldn't be in the position of figuring out
+domain existence from error codes. Adjust the respective path sitting
+ahead of XSM checks to produce -EPERM in such cases, just like the
+subsequent XSM check would yield.
 
 Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+With more lockless cases likely to appear down the road, we may want to
+centralize determining which error code to use, latching the result into
+a local variable.
 
 --- a/xen/common/domctl.c
 +++ b/xen/common/domctl.c
-@@ -373,7 +373,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-             copyback = true;
-         }
- 
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
- 
-     case XEN_DOMCTL_get_domain_state:
-         ret = xsm_get_domain_state(XSM_XS_PRIV, d);
-@@ -381,7 +381,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-             ret = get_domain_state(&op->u.get_domain_state, d, &op->domain);
-         if ( !ret )
-             copyback = true;
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
- 
-     case XEN_DOMCTL_iomem_permission:
-     {
-@@ -391,11 +391,11 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-         ret = -EINVAL;
-         if ( (mfn + nr_mfns - 1) < mfn ) /* Wrap? */
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- 
-         ret = xsm_iomem_permission(XSM_PRIV, d, mfn, mfn + nr_mfns - 1, allow);
-         if ( ret )
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- 
-         iocaps_double_lock(d, true);
- 
-@@ -408,7 +408,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-             ret = iomem_deny_access(d, mfn, mfn + nr_mfns - 1);
- 
-         iocaps_double_unlock(d, true);
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
-     }
- 
-     case XEN_DOMCTL_memory_mapping:
-@@ -423,17 +423,17 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-         if ( mfn_end < mfn || /* Wrap? */
-              ((mfn | mfn_end) >> (paddr_bits - PAGE_SHIFT)) ||
-              (gfn + nr_mfns - 1) < gfn ) /* Wrap? */
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- 
-         ret = xsm_iomem_mapping(XSM_DM_PRIV, d, mfn, mfn_end, add);
-         if ( ret || !paging_mode_translate(d) )
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- 
- #ifndef CONFIG_X86 /* XXX ARM!? */
-         ret = -E2BIG;
-         /* Must break hypercall up as this could take a while. */
-         if ( nr_mfns > 64 )
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- #endif
- 
-         iocaps_double_lock(d, false);
-@@ -468,7 +468,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-         }
- 
-         iocaps_double_unlock(d, false);
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
-     }
- 
-     case XEN_DOMCTL_set_target:
-@@ -477,7 +477,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-         ret = -ESRCH;
-         if ( !e )
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
- 
-         if ( d == e )
-             ret = -EINVAL;
-@@ -492,7 +492,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-         if ( ret )
-             put_domain(e);
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
-     }
- 
-     case XEN_DOMCTL_vm_event_op:
-@@ -502,12 +502,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-             ret = vm_event_domctl(d, &op->u.vm_event_op);
-             if ( !ret )
-                 copyback = true;
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
-         }
-         if ( !d )
-         {
-             ret = -ESRCH;
--            goto domctl_out_unlock_domonly;
-+            goto domctl_out_unlock_rcuonly;
-         }
-         /* Other sub-ops handled further down. */
-         break;
-@@ -517,17 +517,15 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-              op->u.shadow_op.op == XEN_DOMCTL_SHADOW_OP_PEEK )
-         {
-             ret = xsm_domctl(XSM_OTHER, d, op);
--            if ( ret )
--                goto domctl_out_unlock_domonly;
--
--            ret = arch_do_domctl(op, d, u_domctl);
--            goto domctl_out_unlock_domonly;
-+            if ( !ret )
-+                ret = arch_do_domctl(op, d, u_domctl);
-+            goto domctl_out_unlock_rcuonly;
-         }
-         break;
- 
-     case XEN_DOMCTL_get_device_group:
-         ret = iommu_do_domctl(op, d, u_domctl);
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
- 
-     case XEN_DOMCTL_ioport_permission:
-     case XEN_DOMCTL_ioport_mapping:
-@@ -537,7 +535,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-     case XEN_DOMCTL_unbind_pt_irq:
-     case XEN_DOMCTL_getpageframeinfo3:
-         ret = arch_do_domctl(op, d, u_domctl);
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
- 
+@@ -356,7 +356,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
      default:
-         /* Everything else handled further down. */
-@@ -546,7 +544,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-     ret = xsm_domctl(XSM_OTHER, d, op);
-     if ( ret )
--        goto domctl_out_unlock_domonly;
-+        goto domctl_out_unlock_rcuonly;
- 
-     if ( !domctl_lock_acquire() )
-     {
-@@ -941,7 +939,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
- 
-     domctl_lock_release();
- 
-- domctl_out_unlock_domonly:
-+ domctl_out_unlock_rcuonly:
-     if ( d && !is_system_domain(d) )
-         rcu_unlock_domain(d);
+         d = rcu_lock_domain_by_id(op->domain);
+         if ( !d )
+-            return -ESRCH;
++            return is_control_domain(current->domain) ? -ESRCH : -EPERM;
+         break;
+     }
  
 
 
