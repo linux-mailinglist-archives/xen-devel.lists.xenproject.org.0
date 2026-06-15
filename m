@@ -2,63 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id r2MxE0bCL2oFGAUAu9opvQ
+	id t2K9Lu3ML2rhGgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:13:42 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:59:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D36C2684F1D
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:13:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC3C685377
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 11:59:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=qualcomm.com header.s=qcppdkim1 header.b=HQ4JlZ+9;
-	dkim=pass header.d=oss.qualcomm.com header.s=google header.b=OelKamK4;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=jDd+HkcE;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=qualcomm.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338070.1599100 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1338089.1599109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ3Nr-0005KX-1g; Mon, 15 Jun 2026 09:13:31 +0000
+	id 1wZ45V-0002wT-4I; Mon, 15 Jun 2026 09:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338070.1599100; Mon, 15 Jun 2026 09:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 1338089.1599109; Mon, 15 Jun 2026 09:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ3Nq-0005I8-VF; Mon, 15 Jun 2026 09:13:30 +0000
-Received: by outflank-mailman (input) for mailman id 1338070;
- Mon, 15 Jun 2026 09:13:29 +0000
+	id 1wZ45V-0002tk-1e; Mon, 15 Jun 2026 09:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 1338089;
+ Mon, 15 Jun 2026 09:58:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <philmd@oss.qualcomm.com>) id 1wZ3No-0005GT-S0
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 09:13:28 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZ45S-0002te-ME
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 09:58:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ3No-005TNK-8c
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 11:13:28 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wZ45R-001OKD-3K
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 11:58:33 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <philmd@oss.qualcomm.com>)
- id 6a2fc235-2eae-0a2a0a5409dd-0a2a4508c45c-18
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:13:28 +0200
-Received: from [205.220.180.131] (helo=mx0b-0031df01.pphosted.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <philmd@oss.qualcomm.com>)
- id 6a2fc236-63b5-0a2a45080019-cddcb483c3c2-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:13:28 +0200
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65F99Brk035442
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 09:13:26 GMT
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etegur0ma-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 09:13:26 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-9181f3cc5ecso342214285a.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 02:13:26 -0700 (PDT)
-Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922031b7d2sm252204735e9.5.2026.06.15.02.13.24
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 15 Jun 2026 02:13:24 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2fccb8-e002-0a2a0a5209dd-0a2a45078b3c-44
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:58:33 +0200
+Received: from [209.85.208.41] (helo=mail-ed1-f41.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a2fccc8-229c-0a2a45070019-d155d029ddfa-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 11:58:33 +0200
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-68acf0a15b3so4712352a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 02:58:33 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6940c7456a8sm1785401a12.16.2026.06.15.02.58.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 02:58:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,187 +59,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MF2aozQ8nBaPhoD/R1S5ChTpTVtPNvgch2k7hu45wMU=; b=HQ4JlZ+9iI5Pg8gm
-	5OExKe8ys/F/dP7MuxCzdbLqKeA9uVUWbRX/KBfWG/KuBcDVHLrlJjK7jmDRdkyj
-	c4OeHQDvet/PAnPzGK2T8foJ9FOrw9OBkE2WGtjgUe+BRHTv/Erj3lzc4BgSPRef
-	6rwYzHf3u4ksAB+QYwldlejdoPnQ3NPU6bERbGNtqH8SeDxn2xV6ZSDpw9oQg7ad
-	sOqs6RxZ+wTL4agvPmBQ5VNEzPwZYkdWN80siVlKL+OJ1pSgwdMqb5DmUARReFGy
-	E9VZ4fn8ryd4Jk2EVvuU+vRU1MHKsYDfFH2/zwoTMar+j/AIspZ6ydBr1N6BaNdl
-	tvmY7w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1781514806; x=1782119606; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MF2aozQ8nBaPhoD/R1S5ChTpTVtPNvgch2k7hu45wMU=;
-        b=OelKamK4gSQVQJOfqhlXYin471fqi61vduthK6yGTjFI1vWJ+BoFdMJ0J9DDh212sW
-         dabApBWcPNe8Tz0haG9/4SGhHS8zTkgffFBjm43ZfxW57JNhHFzRZJGZY+jOplVpHab5
-         ToEC31g3CSOj7ZUimaw3q5N4K6xYy6Zg1DSX1wnnQwAziuxymC8AVUK6mBnybo007Cyj
-         8v1AUXWHlEaOPoQt87lNIiXYODhjZNzmtdZR7vGfdDJDeJ9r2WTE0S8XXpRX8I7aZcZK
-         ykDfNDwq5MDojaR2zY7qydKxHUCEjDGpNqV/W7irjxcVA2mwyhX2mp6Y5xpAWGzggfTF
-         CCyw==
+        d=gmail.com; s=20251104; t=1781517512; x=1782122312; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=L2FTYXz+ydXVlmvhvOT8QBgUDqwww618CwcENjKoZzQ=;
+        b=jDd+HkcEPHxlVngmZ8HUkONAYVRlJ98RZU0qURx+uLf3nxun7MeyV4wo/jlJXOC/DW
+         4OR4+bUvhg8NqOf23XlwdILSGW/3xnaZ+IRjgyHSdO39+jwV33LtKHBQw6beBQgIDtgV
+         oOf5cR3yVAnDN0UiHExP8U4O/RhlDTp7y9aerGntw04k5pK6FTLvc6UbRt/tK/mGpE6Y
+         GTsnpt9kUZ90lb7BeHszhjqBsIzkv7bFJPeXcEKtZQC4VX9XsHB61u/VS6hN4if6mUis
+         6uxwOEvouAfZGtsoyP5IO2nWlcHOAuk2sUNr0isSHqQuDEU8lDEC9U/+O53X5s+RwbfM
+         efjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781514806; x=1782119606;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MF2aozQ8nBaPhoD/R1S5ChTpTVtPNvgch2k7hu45wMU=;
-        b=Ryzsfpxxg4pBpiNgByUpK3hEx7aqyOJtUo6G3r8FUcWCktqEr6i3ZT61UgGeeAElZp
-         FakvnqMdwNnEciEY6+1TlWWlpSGrerpO64W5lUWDBkSz82dbnG1WU01o3tvxECVBO+dz
-         gozqQGo8NDIp4VDkZAHziHBNApWxzOR9r1Mb/UuxjTH92fhlDtGJ47+goAGWEQvV8Kl1
-         EFW+nUXcZR+DKCOvvQWurrHevcT5XarD/hWsnInAruhbMiGuWVXBcF7Rr64/jBnr/KO6
-         GgsQnrvqFF12LXd3v5/kf/Yr/HYRHCWfSiYAKEC25eiqHbxamwCf0tH6/Y7tVB5UACtC
-         mSRg==
-X-Gm-Message-State: AOJu0YyvyYfhRvfJnw5lAzhxU9J+1/U3ir1KFdE+0w/BhRwj506Acapw
-	+psg3OzMx6tWMK1uSmBKKyQQ3KXw7RnZrDI0ZLfZJg3o6++2M7gT+rd+1dKWvpOijGRNFUac4vz
-	acwkJkE7nx/iMXe/tb5VQaDW6NuVmB1a5zPv8ZEhRa4lxO2ml6g0hTF8WiJtaWTSGX7/38Q==
-X-Gm-Gg: Acq92OHVARhS1gi6TGvqQMDKrlGGxwNYSyMzkmnlBDbTYZ8MQ6N7hyVMeuA6ipjsL8b
-	qUxRq1usNH4Lw+86p2kPU7suKj64hGua5P45G42xBSjU8RkZ6qZbhNepijSIix4SU5yR3NxNoNI
-	+gSBZ81BiCpmBgUT9mEUuEgfF28p0/SUEzzN68TSC7nBsAUMieQgp23nCtc9C3k/c2CgoUnq7tJ
-	5QryowCJuou6jbLYYV1jtbfKOgqD7P2wgNY8HQBMW+RBt/uK9uhO2TNPiDfd4Vg+NMNgxpE6d2D
-	NYhoOnKN6Gy6gjWlhTbhiYAjBPZUdh//EmqQm3aRpxbNU67NUXmmEJVxl4Qfq3WX4DMcH0iBoFq
-	+xVj+LPREXsJ/mewiu7/JznyrYMm/G53FkBw8BOdn2HwZZGPU+ub3yUFMG7vjImzXZp049iRaeP
-	KpLKg=
-X-Received: by 2002:a05:620a:2681:b0:910:c1ba:91d3 with SMTP id af79cd13be357-91619f7d7b3mr1735524185a.45.1781514805749;
-        Mon, 15 Jun 2026 02:13:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:2681:b0:910:c1ba:91d3 with SMTP id af79cd13be357-91619f7d7b3mr1735521085a.45.1781514805350;
-        Mon, 15 Jun 2026 02:13:25 -0700 (PDT)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-To: qemu-devel@nongnu.org
-Cc: xen-devel@lists.xenproject.org,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Anthony PERARD <anthony@xenproject.org>,
-        =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-        "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>,
-        Markus Armbruster <armbru@redhat.com>
-Subject: [PATCH v2 2/2] qom/object: Remove pre-C11 check
-Date: Mon, 15 Jun 2026 11:13:08 +0200
-Message-ID: <20260615091308.4458-3-philmd@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260615091308.4458-1-philmd@oss.qualcomm.com>
-References: <20260615091308.4458-1-philmd@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1781517512; x=1782122312;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=L2FTYXz+ydXVlmvhvOT8QBgUDqwww618CwcENjKoZzQ=;
+        b=GKt+ufv1x4qyjJ7l7hfRRaiekgTC16TsoBcQtMjBgRzRx90FKRMWk5IiqRPa+Qsbm3
+         hLaerkd4/hH0FuYoPDe3ZyxG9wtrK2SwWtFI3JkfNoL7UjvGFcmrDfdulcZE5u6r7jGv
+         rCSayoa78bT/q8FtHWb13vGmscv/eZoDJYMiV2LF6CKCKtrf49bzhp0pFBoXvXkyKccd
+         8EOMKCj4rnOF6ZqJK1XfkYApUIsZY+pKsUpI08ZCaXyp9WpmUZHwAep6YYOEmfCePXJ7
+         luD2Mld1DXalWSwfcQU74K2XTQh0P38R1SsH7ghT3KRMED0COjvK7PxL5KYfutauclfH
+         ZCQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+lgvwjDK7LL3QfRSX4e60kIf0fXwrwdqimx66Y7wX6aLofwNjYs0aivKdp0f4XSkkZUGJW8xp3ZM0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1Jh56OZt2VVFWuJwtdM8ASsooDKAnMchhgPFdIiq6oXxQfzDl
+	MRXHBqH1Cozb5dqD9hPwTxR01kPc44l3Ra1m7uzl9lvmMbVdcUyb1qao
+X-Gm-Gg: Acq92OGGtR9b9DFpEcOmXUEuMgXuFmwFbqSdoYvSL5wtc9J/g38lnbBgSVYWEnAzLHF
+	y07VksHLFREbTIb1qGxNE/B6REaq2mzn7zfBPvsSwrfYlM1sOOUw5du5JSyQ+zxFEUy/XH2Y+wh
+	BZWNBlsHT4Mioxm1P6fR7a3MwzSM0JpSRcSA36VtnuyK3RlI9E2OgezIIrFZSdV6pdNHTl/v0Hc
+	tiLQOYd6VG0ej3lVQpl0JG5SblPXJr5MNqkjJZG9dpi/jhHhxy7EqbMVDyEJnZCT8vduvgpwbqe
+	/JAcbPb2fJnk4UYrCMVRyR5XU/xsASZibZFR+I7Ij1gILbEd7NEV2oFyRd3RAVSIoXdGCra+P3/
+	DPEpqhA1r7CpULZ8GAaVnvb7q5y6kn+T5ITTkeOA8v0JM5AiW5JX3nLDl2P0CXvcLLDvxcHmbap
+	urikSx0SyZ3wcLt1LD/XmmXmsdQ25D+HBSE68APtpdl/V0AzXFLfVBSJ7IzErgibF41Mh6MSQeH
+	pEGaw==
+X-Received: by 2002:a05:6402:321f:b0:68f:cc85:7c1c with SMTP id 4fb4d7f45d1cf-69378a51186mr6301148a12.28.1781517512419;
+        Mon, 15 Jun 2026 02:58:32 -0700 (PDT)
+Message-ID: <59f5872d-34b0-4fae-82c5-ef1e7e0c5986@gmail.com>
+Date: Mon, 15 Jun 2026 11:58:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA5NiBTYWx0ZWRfXyOx5VSi6UrkB
- /xFQFQiZASvi1SwE8UkH/zQfhhV8tQNF3cPTSWHrZ/9dc5orweL+Po4wW8hsduCzRg3HK1aq+2J
- KWjygEPwBlT/ixO9qMZiy2njjbDTPe+kmhhmMP774Go8ILJQzrTMXJNjrlB/aGcXCTh/FVxUaC2
- x9LHdhYyeO/tzlxxXhgb7rbmgwmhOV4jd09HzcrshgOWRkTJXbZjX64OJhvj2n4jyKxJYd3lnLI
- nHl6KOVcyQV6Y7t8w6eWevL8r68UNMzBvPnkcmU67Ilrz+fOPwSaK/7iqh12QhGOYySh5UXBe0j
- Gi0QW+8Qu55TTSCUjIq2Rr/Ys/B6E148UOOdgk6XQhEeX23DXo/PS+AWQvdas0g9HMOUG2ZbDMa
- RaMfmkLYVDCU75i30OENDVhimPigt9jFSp22HEHYTbMRpcLE22aE94vonBWCju4/NT5TgEPOczw
- msJzwBiLXjgPzm7+Y3A==
-X-Proofpoint-ORIG-GUID: G0HeaHXiKjZtYVECWpWEtRjdFWkuUjOb
-X-Authority-Analysis: v=2.4 cv=HMvz0Itv c=1 sm=1 tr=0 ts=6a2fc236 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=20KFwNOVAAAA:8 a=_WKHBmQO-qgaVRkQabEA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA5NiBTYWx0ZWRfX1VJKcirxZJVn
- oVkzV7woQPtcB28SWfJLJfInqqfU/s2IkcCn4tkEN1aSR+Cbmt6RtFJnwANK++HS5quZyFDv9Yt
- Ys5k0X6lSMTyt3ndwbuYpqqjfwWPxKE=
-X-Proofpoint-GUID: G0HeaHXiKjZtYVECWpWEtRjdFWkuUjOb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_02,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0
- phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150096
-X-purgate-ID: tlsNG-c1860d/1781514808-B7D7BDB1-7697760A/0/0
-X-purgate-type: clean
-X-purgate-size: 1438
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22 0/7] CI: Refresh Alpine containers
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20260612230924.3181154-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1781517513-2357BC48-50182636/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2587
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.32 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[mailman];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,kernel.org,xenproject.org,redhat.com,gmail.com,oss.qualcomm.com];
-	FORGED_SENDER(0.00)[philmd@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qubes-x86_64.sh:url,gitlab.com:url,qubes-x86-64.sh:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:berrange@redhat.com,m:edgar.iglesias@gmail.com,m:pbonzini@redhat.com,m:philmd@oss.qualcomm.com,m:armbru@redhat.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[philmd@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,qualcomm.com:dkim,qualcomm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D36C2684F1D
+X-Rspamd-Queue-Id: 0FC3C685377
 
-We mandate a compiler supporting C11 since 2021-06-15 in
-commit d22797ce36a ("configure: Use -std=gnu11"), thus the
-max_align_t type definition exists. Remove what is now dead
-code.
 
-Note, C11 provides aligned_alloc(). Using it is left as a
-future cleanup step.
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@oss.qualcomm.com>
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
----
- qom/object.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
+On 6/13/26 1:09 AM, Andrew Cooper wrote:
+> Refresh and update the Alpine containers.
+> 
+> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2598243590
+> 
+> This gets us off an obsolete version of Alpine, and finishes several
+> improvement projects (naming, and non-root containers) all at once.
+> 
+> Andrew Cooper (7):
+>    tools/xenalyze: Work around GCC-15 -Werror=nonnull false positive
+>    Config.mk: Update QEMU to include pip-25.2 bugfix
+>    CI: Introduce new qubes-hw-runner.dockerfile
+>    CI: Update the Alpine x86_64 container to 3.24
+>    CI: Update the Alpine arm64 container to 3.24
+>    CI: Fix inconsistent use of x86-{64,32} vs x86_{64,32}
+>    CI: Remove x86 microcode from arm32 jobs
+> 
+>   Config.mk                                     |   4 +-
+>   .../build/alpine/3.18-arm64v8.dockerfile      |  51 ---
+>   automation/build/alpine/3.18.dockerfile       |  52 ---
+>   .../build/alpine/3.24-arm64v8.dockerfile      |  53 +++
+>   .../build/alpine/3.24-x86_64.dockerfile       |  65 +++
+>   .../build/alpine/qubes-hw-runner.dockerfile   |  21 +
+>   automation/gitlab-ci/build.yaml               | 202 ++++-----
+>   automation/gitlab-ci/test.yaml                | 385 +++++++++---------
+>   automation/scripts/containerize               |   2 +-
+>   .../{xtf-x86-64-config => xtf-x86_64-config}  |   0
+>   ...86-64-efi-config => xtf-x86_64-efi-config} |   0
+>   .../include/{xtf-x86-64 => xtf-x86_64}        |   0
+>   .../{xtf-x86-64-efi => xtf-x86_64-efi}        |   0
+>   .../{qubes-x86-64.sh => qubes-x86_64.sh}      |   0
+>   tools/xentrace/xenalyze.c                     |  11 +
+>   15 files changed, 444 insertions(+), 402 deletions(-)
+>   delete mode 100644 automation/build/alpine/3.18-arm64v8.dockerfile
+>   delete mode 100644 automation/build/alpine/3.18.dockerfile
+>   create mode 100644 automation/build/alpine/3.24-arm64v8.dockerfile
+>   create mode 100644 automation/build/alpine/3.24-x86_64.dockerfile
+>   create mode 100644 automation/build/alpine/qubes-hw-runner.dockerfile
+>   rename automation/scripts/include/configs/{xtf-x86-64-config => xtf-x86_64-config} (100%)
+>   rename automation/scripts/include/configs/{xtf-x86-64-efi-config => xtf-x86_64-efi-config} (100%)
+>   rename automation/scripts/include/{xtf-x86-64 => xtf-x86_64} (100%)
+>   rename automation/scripts/include/{xtf-x86-64-efi => xtf-x86_64-efi} (100%)
+>   rename automation/scripts/{qubes-x86-64.sh => qubes-x86_64.sh} (100%)
+> 
 
-diff --git a/qom/object.c b/qom/object.c
-index 0ac201de4c1..f79b2cf3618 100644
---- a/qom/object.c
-+++ b/qom/object.c
-@@ -675,18 +675,6 @@ static void object_finalize(void *data)
-     }
- }
- 
--/* Find the minimum alignment guaranteed by the system malloc. */
--#if __STDC_VERSION__ >= 201112L
--typedef max_align_t qemu_max_align_t;
--#else
--typedef union {
--    long l;
--    void *p;
--    double d;
--    long double ld;
--} qemu_max_align_t;
--#endif
--
- static Object *object_new_with_type(Type type)
- {
-     Object *obj;
-@@ -703,7 +691,7 @@ static Object *object_new_with_type(Type type)
-      * Do not use qemu_memalign unless required.  Depending on the
-      * implementation, extra alignment implies extra overhead.
-      */
--    if (likely(align <= __alignof__(qemu_max_align_t))) {
-+    if (likely(align <= __alignof__(max_align_t))) {
-         obj = g_malloc(size);
-         obj_free = g_free;
-     } else {
--- 
-2.53.0
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
+Thanks.
+
+~ Oleksii
 
