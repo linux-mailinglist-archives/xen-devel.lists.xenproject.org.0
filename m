@@ -2,58 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id vBKcCdUOMGqLMgUAu9opvQ
+	id iIs5MAgVMGpsNAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:40:21 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:06:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B7D368743F
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 16:40:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E6468778A
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 17:06:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=sEYXrHAu;
+	dkim=pass header.d=suse.com header.s=google header.b=Z9956Dv6;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1338334.1599365 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1338355.1599378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ8TT-0001Fm-OH; Mon, 15 Jun 2026 14:39:39 +0000
+	id 1wZ8tL-0005jV-PP; Mon, 15 Jun 2026 15:06:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338334.1599365; Mon, 15 Jun 2026 14:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 1338355.1599378; Mon, 15 Jun 2026 15:06:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ8TT-0001Cv-Kz; Mon, 15 Jun 2026 14:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 1338334;
- Mon, 15 Jun 2026 14:39:38 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b@swg.vates.tech>)
- id 1wZ8TS-0001CQ-K6
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 14:39:38 +0000
+	id 1wZ8tL-0005hH-ML; Mon, 15 Jun 2026 15:06:23 +0000
+Received: by outflank-mailman (input) for mailman id 1338355;
+ Mon, 15 Jun 2026 15:06:23 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jgross@suse.com>) id 1wZ8tK-0005hB-UA
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 15:06:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ8TS-002Dvf-0B
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 16:39:38 +0200
-Received: from [10.42.69.8] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b@swg.vates.tech>)
- id 6a300ea9-bab6-0a2a0a5309dd-0a2a4508e956-2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:39:37 +0200
-Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b@swg.vates.tech>)
- id 6a300ea9-63b5-0a2a45080019-b9ff1c128055-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 16:39:37 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19ecbb938f1000701b.006 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 15 Jun 2026 14:39:34 +0000
-Received: from l14 (lfbn-lyo-1-414-55.w2-7.abo.wanadoo.fr [2.7.24.55])
- (Authenticated sender: anthony.perard)
- by mail2.vates.fr (Postfix) with ESMTPSA id 59A8C8125B;
- Mon, 15 Jun 2026 16:39:33 +0200 (CEST)
+ id 1wZ8tJ-00D0HJ-PY
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 17:06:21 +0200
+Received: from [10.42.69.9] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <jgross@suse.com>)
+ id 6a3014e1-5cb7-0a2a0a5109dd-0a2a4509a444-36
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:06:21 +0200
+Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgross@suse.com>)
+ id 6a3014ed-2497-0a2a45090019-d155da34a9b4-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 17:06:21 +0200
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c029505b389so151850666b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:06:21 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bfdb5223309sm495899766b.28.2026.06.15.08.06.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 08:06:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,377 +62,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=YeBSKmM3d45xA6mIhYRKKU6RC0gpVbPgpdW9t0dv/44=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=sEYXrHAuYo6ST1E1HOsevB1sGRNaI1qEDC3AetveRxQfVtGjon2ZebLDLyKoJGM3JK9K/El9Y
- fUCYiEvnU+TZnLSU2AbbV4KZFLOiwMQHuvEqHqlEjy7qhROIr2S/En5EJu/CYuAoM3im8QhlyXM
- rtvNcABM9mFT3ClWf0dLhf6OzEtHgI9eHwNycFGYM6WXf9rKcXaB9iV84mDc1AsRDwtkfb0H0gU
- M0/Gx5tMZpwsCNhVKW46ZmFdMpwCUY4ZtX82zKQz8NDQuLL5SCNiUvvgt5UiJ8x+kz0AoZ9Lgh/
- JvRrWk/sRnZjoEuXjsLQFpasFryYFsdv7Y1vUCkX8Y7w==
-X-Zone-Loop: a01599c3c2de43949be69a82c4da69a760ba6154ea55
-x-campaign-type: default
-x-transaction-id: 8074d41c-f4b4-4135-9430-f1e30700aa79
-x-swg-uid: 01-054d54a4-e51d-4d08-b66a-127303647617
-X-Mailer: Sweego
-Message-ID:
- <1781534374.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b@vates.tech>
-x-swg-bid: 1781534374.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Mon, 15 Jun 2026 16:39:33 +0200
-From: Anthony PERARD <anthony.perard@vates.tech>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: Assertion '!is_idle_vcpu(v)' failed after 'Remove
- fully_eager_fpu' commit on EFI
-References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
- <aiwTkDUP6rDPbV6R@mail-itl>
- <0db98119-48f3-4edd-a422-8e50ee713b7c@citrix.com>
- <e84d6765-61fa-4203-a1ee-ac07f54a1026@suse.com>
- <48878ff6-ad36-448f-aa9d-6b37e2e179b1@citrix.com>
- <1781277924.8631fc262581453bbf619ec5b2062170.19ebc701bfb000701b@vates.tech>
- <ai-_jUw0QmdC7gPK@macbook.local>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781535981; x=1782140781; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=K3eYjp6Yi6OnzWqkyUy5OouWMZUCIfhdoEdY/bLTbvk=;
+        b=Z9956Dv6ZFFu40mZ6VDMZMSvw3Sa/POpU6mEnsqExxu7KiiPQ1TJ1twPO0Dq1j9joj
+         Ag1Eb6rFWaATx56iBh9b2Caul8eyAtDCfcmt01HmbP7qXnimfuQfyA62AlDfkf5vShOy
+         w5akvIeyEAAXMK9WbRWGFkIAOhOgkEa3q66DUZPBmQedRTz8n1X4T3R1PpHvXkVYtLwG
+         5t80lE/LdIVzdZq6kq94ZSIDIsunQVCWR3uBVa2WkbZMC0WwVOtdQyVgreKNayr3ojUK
+         2hyHG9WLbWsbjOW4/0pAEoA7jLP3leGX2L/6l/eTIqLNd1nMRQgzq7zp8wLbw2/XLk29
+         +q0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781535981; x=1782140781;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=K3eYjp6Yi6OnzWqkyUy5OouWMZUCIfhdoEdY/bLTbvk=;
+        b=ohFhx/E89ZKuMPsZ3S8oO7OGVAPWxN97tDMYCXMNIrO/Mzq7UVBTle7BsLzAPUT3Vo
+         Gv8x0xAXgOQLaMj0sqpQnNn9KujPUlOqex+6vkKGMKUc15Id0YNScjt51mxnYBnKL50j
+         1cOf4EcjmTmHZ+EV4Q2xaPAtgu/53xPWnynvzvcOO41xuVINRglnms3hLOlOb9/3AmNj
+         2Fu/uT6+fXWuqIssHJqefyqKP0WP2PETexIH05+Ul1zuNOh5FFqaXytQwqJk8MFHjrOw
+         J20WuQuVKYu3lUME9Qx7Qt4tMjbP5p241JtLXzZ3gTl3lljNJ/dm22NsjUubfSp3/MX4
+         P5vA==
+X-Forwarded-Encrypted: i=1; AFNElJ8CX1UoX9T247fjg3ixs6vKM5h6UI66o0o/C+V+En+r5ZUXmcdhHb60rvmY8mEvk2cMXhX9rYUYpeU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxWIh/vv5V4X3aMS5+DgEoL1B8a3eLZvEOpWMRviwyMgpfzfxU4
+	DRgGH0zyMaSGzVh5uHCaSsevVVHBWPDoXC+YHLcsfJUFV2S6S5nLkQKtYM5j8qVAaF0=
+X-Gm-Gg: Acq92OGfjlA88Pd46S3OaDjhSx+7oU2+5FxLoD/3MxVXppOZFz/4gKo+FCZO0BLokD8
+	Vd3u1Jms4Ee3eMILaqcwmZFV+PqkdmMBcZirreBvph8K6vNv1F6fYr/tbQAxtN2FIAVnmbPumUD
+	5ZA+fBvuMDG8y/jUhv8H48RK6OY9WkahzSp1Xx5RjDROzIR8ug6qw7EEM4K5LHjvMpCj4/4rlbN
+	GrxzpThpw2KulVjioJ0GVWuN/VvQbMajhxq1k1ggLQsbrfrQZaCfXGgQzCo8rp2EorIBDfOhp0J
+	kJ3hdpxsqChs0THh6Vhy12g/gv2AY7HrnPZyzYi4XmDEdD60R6mLRQyId7hF5ox4DhQGWG2YuPL
+	eDaHnr+831OUc75E+M3mAZYvF+y0Slu0sl7aifjfn99O7Xe0FySer/pN19StOMOZ2oPRSDAxy3p
+	wKsaSuoRBTb3Z0voPbjUVpfhj7s5oGZr7FO5PRw+vPbj6HQHya5uZz5oFwrYRybR18rJdHqFpwv
+	mo2jGVVuRhbxc24OQkiz0iS5zNazt1p6Rs9SHI+3czMXsZ5ayyHHA==
+X-Received: by 2002:a17:907:1c1a:b0:bfa:9457:b517 with SMTP id a640c23a62f3a-bfde53cd624mr598755766b.23.1781535980953;
+        Mon, 15 Jun 2026 08:06:20 -0700 (PDT)
+Message-ID: <aa977756-cd5e-477d-b326-0d4920ae69d7@suse.com>
+Date: Mon, 15 Jun 2026 17:06:20 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ai-_jUw0QmdC7gPK@macbook.local>
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.28b.5658017691e213a8.19ecbb9368b.8bb43b920ff56cd9=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1781534373516
-X-purgate-ID: tlsNG-c1860d/1781534377-BD56FDB1-D8768867/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/sched: fix stale file and function references in
+ comments
+To: Furkan Caliskan <frn1furkan10@gmail.com>, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, dfaggioli@suse.com,
+ jbeulich@suse.com, gwd@xenproject.org, stewart.hildebrand@amd.com
+References: <20260601053022.6044-1-frn1furkan10@gmail.com>
+ <20260601122643.54773-1-frn1furkan10@gmail.com>
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260601122643.54773-1-frn1furkan10@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------383hrwK06Wh1BuVpNpKrdgbZ"
+X-purgate-ID: tlsNG-bad1c0/1781535981-41B68A53-FE177747/0/0
 X-purgate-type: clean
-X-purgate-size: 13404
+X-purgate-size: 8487
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.82 / 15.00];
-	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[1];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-Spamd-Result: default: False [-2.08 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	SUBJECT_HAS_EXCLAIM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:frn1furkan10@gmail.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:dfaggioli@suse.com,m:jbeulich@suse.com,m:gwd@xenproject.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
 	ARC_NA(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:dkim,vates.tech:mid,vates.tech:url,vates.tech:from_mime];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_ATTACHMENT(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7B7D368743F
+X-Rspamd-Queue-Id: 03E6468778A
 
----=Part.28b.5658017691e213a8.19ecbb9368b.8bb43b920ff56cd9=-
-Content-Type: text/plain; charset=utf-8
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------383hrwK06Wh1BuVpNpKrdgbZ
+Content-Type: multipart/mixed; boundary="------------Q4HFyRr6jwh4DCBSaAo0u3HP";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Furkan Caliskan <frn1furkan10@gmail.com>, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, dfaggioli@suse.com,
+ jbeulich@suse.com, gwd@xenproject.org, stewart.hildebrand@amd.com
+Message-ID: <aa977756-cd5e-477d-b326-0d4920ae69d7@suse.com>
+Subject: Re: [PATCH v2] xen/sched: fix stale file and function references in
+ comments
+References: <20260601053022.6044-1-frn1furkan10@gmail.com>
+ <20260601122643.54773-1-frn1furkan10@gmail.com>
+In-Reply-To: <20260601122643.54773-1-frn1furkan10@gmail.com>
+Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
+ ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
+ Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
+ pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
+ tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
+ OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
+ v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
+ 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
+ jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
+ DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
+ Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
+ dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
+ AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
+
+--------------Q4HFyRr6jwh4DCBSaAo0u3HP
+Content-Type: multipart/mixed; boundary="------------AmHVl6qt0PAk8nG7Xdly9zaV"
+
+--------------AmHVl6qt0PAk8nG7Xdly9zaV
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDEuMDYuMjYgMTQ6MjYsIEZ1cmthbiBDYWxpc2thbiB3cm90ZToNCj4gU2V2ZXJhbCBm
+aWxlcyBpbiB4ZW4vY29tbW9uL3NjaGVkIHN0aWxsIHJlZmVyZW5jZSBzY2hlZHVsZS5jIGlu
+DQo+IHRoZWlyIGNvbW1lbnRzLCB3aGljaCB3YXMgdGhlIG9yaWdpbmFsIG5hbWUgb2YgeGVu
+L2NvbW1vbi9zY2hlZC9jb3JlLmMNCj4gYmVmb3JlIGNvbW1pdCA2Y2I0YjAxYzAzICgieGVu
+L3NjaGVkOiBtb3ZlIHNjaGVkdWxlcnMgYW5kIGNwdXBvb2wNCj4gY29kaW5nIHRvIGRlZGlj
+YXRlZCBkaXJlY3RvcnkiKSByZW5hbWVkIGFuZCBtb3ZlZCBpdC4gU29tZSBjb21tZW50cw0K
+PiBhbHNvIHJlZmVyZW5jZSBmdW5jdGlvbnMgdGhhdCBubyBsb25nZXIgZXhpc3QuDQo+IA0K
+PiBSZXdvcmsgdGhlIGNvbW1lbnRzIHRvIHJlbW92ZSBzdGFsZSBmaWxlIGFuZCBmdW5jdGlv
+biByZWZlcmVuY2VzLg0KPiANCj4gU3VnZ2VzdGVkLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRy
+ZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBGdXJrYW4gQ2FsaXNr
+YW4gPGZybjFmdXJrYW4xMEBnbWFpbC5jb20+DQoNCkFja2VkLWJ5OiBKdWVyZ2VuIEdyb3Nz
+IDxqZ3Jvc3NAc3VzZS5jb20+DQoNCg0KSnVlcmdlbg0K
+--------------AmHVl6qt0PAk8nG7Xdly9zaV
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 15, 2026 at 11:02:05AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Jun 12, 2026 at 05:17:31PM +0200, Anthony PERARD wrote:
-> > On Fri, Jun 12, 2026 at 03:32:00PM +0100, Andrew Cooper wrote:
-> > > On 12/06/2026 3:20 pm, Jan Beulich wrote:
-> > > > On 12=2E06=2E2026 16:18, Andrew Cooper wrote:
-> > > >> Well, no intended change=2E=C2=A0 It was a very big patch=2E
-> > > >>
-> > > >> Nothing should ever be using efi_get_time()=2E=C2=A0 It's unusabl=
-e (i=2Ee=2E
-> > > >> crashing) on hundreds of millions of machines=2E
-> > > >>
-> > > >> So, while we obviously do need to fix the assertion, this is "onl=
-y"
-> > > >> collateral damage from having fallen into the efi_get_time() path=
- in the
-> > > >> first place=2E=C2=A0 That wants investigating too=2E
-> > > > Perhaps a reduced-hardware system with ACPI_FADT_NO_CMOS_RTC set?
-> > >=20
-> > > The identified system is a Broadwell-D=2E
-> > >=20
-> > > Come to think of it, there were some systems of that era which (fals=
-ely)
-> > > claimed to have no CMOS=2E=C2=A0 (An HP Haswell Blade comes to mind,=
- but it
-> > > will be a similar chipset=2E)
-> >=20
-> > Some info from the boot log about the machine:
-> >     HPE ProLiant m510 Server Cartridge
-> >     BIOS Version: H05 v1=2E98 (02/02/2023)
-> >     System Memory: 32 GB
-> >     1 Processor(s) detected, 8 total cores enabled, Hyperthreading is =
-enabled
-> >     Proc 1: Intel(R) Xeon(R) CPU D-1548 @ 2=2E00GHz
-> >     HPE Power Profile Mode: Custom
-> >     Power Regulator Mode: Dynamic Power Savings
-> >     Advanced Memory Protection Mode: Advanced ECC Support
-> >     Boot Mode: UEFI
-> >     HPE SmartMemory authenticated in all populated DIMM slots=2E
-> >=20
-> > One of the cartridge on a Moonshot=2E
-> >=20
-> > > > On such systems efi_get_time() would better work properly=2E
-> >=20
-> > I guess it works fine on this system=2E On a different cartridge, with=
- a
-> > Xen build prior to the commit, I have in the boot logs:
-> >=20
-> >     Wallclock source: EFI
->=20
-> Can you provide the decoded dump of the ACPI FADT table?
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Sure, I hope it's the right one, it seems I needed to look for FACP
-instead of FADT, here we go:
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-/*
- * Intel ACPI Component Architecture
- * AML/ASL+ Disassembler version 20221020 (64-bit version)
- * Copyright (c) 2000 - 2022 Intel Corporation
- *
- * Disassembly of facp=2Edat, Mon Jun 15 14:29:25 2026
- *
- * ACPI Data Table [FACP]
- *
- * Format: [HexOffset DecimalOffset ByteLength]  FieldName : FieldValue (i=
-n hex)
- */
+--------------AmHVl6qt0PAk8nG7Xdly9zaV--
 
-[000h 0000 004h]                   Signature : "FACP"    [Fixed ACPI Descr=
-iption Table (FADT)]
-[004h 0004 004h]                Table Length : 0000010C
-[008h 0008 001h]                    Revision : 05
-[009h 0009 001h]                    Checksum : ED
-[00Ah 0010 006h]                      Oem ID : "HP    "
-[010h 0016 008h]                Oem Table ID : "ProLiant"
-[018h 0024 004h]                Oem Revision : 00000001
-[01Ch 0028 004h]             Asl Compiler ID : "HP  "
-[020h 0032 004h]       Asl Compiler Revision : 00000001
+--------------Q4HFyRr6jwh4DCBSaAo0u3HP--
 
-[024h 0036 004h]                FACS Address : 7B581000
-[028h 0040 004h]                DSDT Address : 7B7E2000
-[02Ch 0044 001h]                       Model : 00
-[02Dh 0045 001h]                  PM Profile : 04 [Enterprise Server]
-[02Eh 0046 002h]               SCI Interrupt : 0009
-[030h 0048 004h]            SMI Command Port : 000000B2
-[034h 0052 001h]           ACPI Enable Value : A0
-[035h 0053 001h]          ACPI Disable Value : A1
-[036h 0054 001h]              S4BIOS Command : 00
-[037h 0055 001h]             P-State Control : 00
-[038h 0056 004h]    PM1A Event Block Address : 00000400
-[03Ch 0060 004h]    PM1B Event Block Address : 00000000
-[040h 0064 004h]  PM1A Control Block Address : 00000404
-[044h 0068 004h]  PM1B Control Block Address : 00000000
-[048h 0072 004h]   PM2 Control Block Address : 00000450
-[04Ch 0076 004h]      PM Timer Block Address : 00000408
-[050h 0080 004h]          GPE0 Block Address : 00000420
-[054h 0084 004h]          GPE1 Block Address : 00000000
-[058h 0088 001h]      PM1 Event Block Length : 04
-[059h 0089 001h]    PM1 Control Block Length : 02
-[05Ah 0090 001h]    PM2 Control Block Length : 01
-[05Bh 0091 001h]       PM Timer Block Length : 04
-[05Ch 0092 001h]           GPE0 Block Length : 10
-[05Dh 0093 001h]           GPE1 Block Length : 00
-[05Eh 0094 001h]            GPE1 Base Offset : 00
-[05Fh 0095 001h]                _CST Support : 00
-[060h 0096 002h]                  C2 Latency : 0065
-[062h 0098 002h]                  C3 Latency : 03E9
-[064h 0100 002h]              CPU Cache Size : 0000
-[066h 0102 002h]          Cache Flush Stride : 0000
-[068h 0104 001h]           Duty Cycle Offset : 01
-[069h 0105 001h]            Duty Cycle Width : 00
-[06Ah 0106 001h]         RTC Day Alarm Index : 0D
-[06Bh 0107 001h]       RTC Month Alarm Index : 00
-[06Ch 0108 001h]           RTC Century Index : 32
-[06Dh 0109 002h]  Boot Flags (decoded below) : 0033
-               Legacy Devices Supported (V2) : 1
-            8042 Present on ports 60/64 (V2) : 1
-                        VGA Not Present (V4) : 0
-                      MSI Not Supported (V4) : 0
-                PCIe ASPM Not Supported (V4) : 1
-                   CMOS RTC Not Present (V5) : 1
-[06Fh 0111 001h]                    Reserved : 00
-[070h 0112 004h]       Flags (decoded below) : 000004A5
-      WBINVD instruction is operational (V1) : 1
-              WBINVD flushes all caches (V1) : 0
-                    All CPUs support C1 (V1) : 1
-                  C2 works on MP system (V1) : 0
-            Control Method Power Button (V1) : 0
-            Control Method Sleep Button (V1) : 1
-        RTC wake not in fixed reg space (V1) : 0
-            RTC can wake system from S4 (V1) : 1
-                        32-bit PM Timer (V1) : 0
-                      Docking Supported (V1) : 0
-               Reset Register Supported (V2) : 1
-                            Sealed Case (V3) : 0
-                    Headless - No Video (V3) : 0
-        Use native instr after SLP_TYPx (V3) : 0
-              PCIEXP_WAK Bits Supported (V4) : 0
-                     Use Platform Timer (V4) : 0
-               RTC_STS valid on S4 wake (V4) : 0
-                Remote Power-on capable (V4) : 0
-                 Use APIC Cluster Model (V4) : 0
-     Use APIC Physical Destination Mode (V4) : 0
-                       Hardware Reduced (V5) : 0
-                      Low Power S0 Idle (V5) : 0
+--------------383hrwK06Wh1BuVpNpKrdgbZ
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-[074h 0116 00Ch]              Reset Register : [Generic Address Structure]
-[074h 0116 001h]                    Space ID : 01 [SystemIO]
-[075h 0117 001h]                   Bit Width : 08
-[076h 0118 001h]                  Bit Offset : 00
-[077h 0119 001h]        Encoded Access Width : 01 [Byte Access:8]
-[078h 0120 008h]                     Address : 0000000000000CF9
+-----BEGIN PGP SIGNATURE-----
 
-[080h 0128 001h]        Value to cause reset : 06
-[081h 0129 002h]   ARM Flags (decoded below) : 0000
-                              PSCI Compliant : 0
-                       Must use HVC for PSCI : 0
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmowFOwFAwAAAAAACgkQsN6d1ii/Ey9d
+0wf+Nh0muwdKLjj3GVRYVYmnEH6knhg/YIKvU3vch8e68Wup+avxmJAwrKh4Rme/DXE8BQkP4x3U
+yd3wRzWaseXWW/uG1mNpvQYqjf+eI9su+X0hVF0028x3YExtkfsOWughpyzj/cgeGkRiw/wfJDwt
+4d9h9oygU9aVk237t0HQ9iRnKyR0Y3UV9TjOU4dHs/brFoNIOxC7LhHulhCfGDpg420+fJGdRERP
+8FlhCc2CTtLjWRluNXxbP7ARZ8wuZqY8+nR8F4YKOuT2A9/7wb3tvqTx92qi2iNbLVm5mf7+n6T5
+0dB57E9RKforz2ofVBLdbGfYtFKXsetaWEaevJn1/A==
+=irnm
+-----END PGP SIGNATURE-----
 
-[083h 0131 001h]         FADT Minor Revision : 00
-[084h 0132 008h]                FACS Address : 0000000000000000
-[08Ch 0140 008h]                DSDT Address : 000000007B7E2000
-[094h 0148 00Ch]            PM1A Event Block : [Generic Address Structure]
-[094h 0148 001h]                    Space ID : 01 [SystemIO]
-[095h 0149 001h]                   Bit Width : 20
-[096h 0150 001h]                  Bit Offset : 00
-[097h 0151 001h]        Encoded Access Width : 02 [Word Access:16]
-[098h 0152 008h]                     Address : 0000000000000400
-
-[0A0h 0160 00Ch]            PM1B Event Block : [Generic Address Structure]
-[0A0h 0160 001h]                    Space ID : 01 [SystemIO]
-[0A1h 0161 001h]                   Bit Width : 00
-[0A2h 0162 001h]                  Bit Offset : 00
-[0A3h 0163 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[0A4h 0164 008h]                     Address : 0000000000000000
-
-[0ACh 0172 00Ch]          PM1A Control Block : [Generic Address Structure]
-[0ACh 0172 001h]                    Space ID : 01 [SystemIO]
-[0ADh 0173 001h]                   Bit Width : 10
-[0AEh 0174 001h]                  Bit Offset : 00
-[0AFh 0175 001h]        Encoded Access Width : 02 [Word Access:16]
-[0B0h 0176 008h]                     Address : 0000000000000404
-
-[0B8h 0184 00Ch]          PM1B Control Block : [Generic Address Structure]
-[0B8h 0184 001h]                    Space ID : 01 [SystemIO]
-[0B9h 0185 001h]                   Bit Width : 00
-[0BAh 0186 001h]                  Bit Offset : 00
-[0BBh 0187 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[0BCh 0188 008h]                     Address : 0000000000000000
-
-[0C4h 0196 00Ch]           PM2 Control Block : [Generic Address Structure]
-[0C4h 0196 001h]                    Space ID : 01 [SystemIO]
-[0C5h 0197 001h]                   Bit Width : 08
-[0C6h 0198 001h]                  Bit Offset : 00
-[0C7h 0199 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[0C8h 0200 008h]                     Address : 0000000000000450
-
-[0D0h 0208 00Ch]              PM Timer Block : [Generic Address Structure]
-[0D0h 0208 001h]                    Space ID : 01 [SystemIO]
-[0D1h 0209 001h]                   Bit Width : 20
-[0D2h 0210 001h]                  Bit Offset : 00
-[0D3h 0211 001h]        Encoded Access Width : 03 [DWord Access:32]
-[0D4h 0212 008h]                     Address : 0000000000000408
-
-[0DCh 0220 00Ch]                  GPE0 Block : [Generic Address Structure]
-[0DCh 0220 001h]                    Space ID : 01 [SystemIO]
-[0DDh 0221 001h]                   Bit Width : 80
-[0DEh 0222 001h]                  Bit Offset : 00
-[0DFh 0223 001h]        Encoded Access Width : 01 [Byte Access:8]
-[0E0h 0224 008h]                     Address : 0000000000000420
-
-[0E8h 0232 00Ch]                  GPE1 Block : [Generic Address Structure]
-[0E8h 0232 001h]                    Space ID : 01 [SystemIO]
-[0E9h 0233 001h]                   Bit Width : 00
-[0EAh 0234 001h]                  Bit Offset : 00
-[0EBh 0235 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[0ECh 0236 008h]                     Address : 0000000000000000
-
-
-[0F4h 0244 00Ch]      Sleep Control Register : [Generic Address Structure]
-[0F4h 0244 001h]                    Space ID : 01 [SystemIO]
-[0F5h 0245 001h]                   Bit Width : 08
-[0F6h 0246 001h]                  Bit Offset : 00
-[0F7h 0247 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[0F8h 0248 008h]                     Address : 0000000000000000
-
-[100h 0256 00Ch]       Sleep Status Register : [Generic Address Structure]
-[100h 0256 001h]                    Space ID : 01 [SystemIO]
-[101h 0257 001h]                   Bit Width : 08
-[102h 0258 001h]                  Bit Offset : 00
-[103h 0259 001h]        Encoded Access Width : 00 [Undefined/Legacy]
-[104h 0260 008h]                     Address : 0000000000000000
-
-/**** ACPI table terminates in the middle of a data structure! (dump table=
-)
-CurrentOffset: 10C, TableLength: 10C ***/
-Raw Table Data: Length 268 (0x10C)
-
-    0000: 46 41 43 50 0C 01 00 00 05 ED 48 50 20 20 20 20  // FACP=2E=2E=
-=2E=2E=2E=2EHP
-    0010: 50 72 6F 4C 69 61 6E 74 01 00 00 00 48 50 20 20  // ProLiant=2E=
-=2E=2E=2EHP
-    0020: 01 00 00 00 00 10 58 7B 00 20 7E 7B 00 04 09 00  // =2E=2E=2E=2E=
-=2E=2EX{=2E ~{=2E=2E=2E=2E
-    0030: B2 00 00 00 A0 A1 00 00 00 04 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    0040: 04 04 00 00 00 00 00 00 50 04 00 00 08 04 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2EP=2E=2E=2E=2E=2E=2E=2E
-    0050: 20 04 00 00 00 00 00 00 04 02 01 04 10 00 00 00  //  =2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    0060: 65 00 E9 03 00 00 00 00 01 00 0D 00 32 33 00 00  // e=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E23=2E=2E
-    0070: A5 04 00 00 01 08 00 01 F9 0C 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    0080: 06 00 00 00 00 00 00 00 00 00 00 00 00 20 7E 7B  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E ~{
-    0090: 00 00 00 00 01 20 00 02 00 04 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E =2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    00A0: 01 00 00 00 00 00 00 00 00 00 00 00 01 10 00 02  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    00B0: 04 04 00 00 00 00 00 00 01 00 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    00C0: 00 00 00 00 01 08 00 00 50 04 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2EP=2E=2E=2E=2E=2E=2E=2E
-    00D0: 01 20 00 03 08 04 00 00 00 00 00 00 01 80 00 01  // =2E =2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    00E0: 20 04 00 00 00 00 00 00 01 00 00 00 00 00 00 00  //  =2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    00F0: 00 00 00 00 01 08 00 00 00 00 00 00 00 00 00 00  // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E=2E
-    0100: 01 08 00 00 00 00 00 00 00 00 00 00              // =2E=2E=2E=2E=
-=2E=2E=2E=2E=2E=2E=2E=2E
-
-
--- 
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vate=
-s solutions
-
-web: https://vates=2Etech
----=Part.28b.5658017691e213a8.19ecbb9368b.8bb43b920ff56cd9=---
+--------------383hrwK06Wh1BuVpNpKrdgbZ--
 
