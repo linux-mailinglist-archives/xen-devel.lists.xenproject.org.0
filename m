@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 7yJ8OyGdL2ozDQUAu9opvQ
+	id /LkkEGehL2rlDgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:35:14 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:53:27 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06B44683DD5
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:35:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9457B683F42
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:53:26 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b="G/bA/eZq";
+	dkim=pass header.d=suse.com header.s=google header.b=OgX0+EL2;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1337995.1599019 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338003.1599029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ0th-0007RN-R3; Mon, 15 Jun 2026 06:34:13 +0000
+	id 1wZ1Bq-0001mf-D3; Mon, 15 Jun 2026 06:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1337995.1599019; Mon, 15 Jun 2026 06:34:13 +0000
+Received: by outflank-mailman (output) from mailman id 1338003.1599029; Mon, 15 Jun 2026 06:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZ0th-0007On-O8; Mon, 15 Jun 2026 06:34:13 +0000
-Received: by outflank-mailman (input) for mailman id 1337995;
- Mon, 15 Jun 2026 06:34:12 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wZ1Bq-0001js-AW; Mon, 15 Jun 2026 06:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 1338003;
+ Mon, 15 Jun 2026 06:52:56 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZ0tg-0007Oh-Ae
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 06:34:12 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZ1Bn-0001jm-WD
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 06:52:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZ0tf-005oM5-KN
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 08:34:11 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wZ1Bm-000hSy-Ro
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 08:52:54 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a2f9cd7-e002-0a2a0a5209dd-0a2a4501be16-20
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:34:11 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a2fa13e-e002-0a2a0a5209dd-0a2a4504c9e8-28
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:52:54 +0200
+Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a2f9ce3-c1f2-0a2a45010019-d1558034b9b0-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:34:11 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-490b915ded5so27635425e9.3
- for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2026 23:34:11 -0700 (PDT)
+ id 6a2fa146-1dec-0a2a45040019-d155dd2ae5c9-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:52:54 +0200
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-46066e640easo1637654f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2026 23:52:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490ea4a128csm314759865e9.0.2026.06.14.23.34.09
+ ffacd0b85a97d-4606f26f3basm30135610f8f.12.2026.06.14.23.52.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 14 Jun 2026 23:34:10 -0700 (PDT)
+ Sun, 14 Jun 2026 23:52:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,66 +61,54 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781505251; x=1782110051; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dRFi5DxPz4UB00ik4h7/PujLhlijyyRdZ9a0Oy7pi+k=;
-        b=G/bA/eZq82nb1wtQRoSir/V3135ThAvjtoKtdaVjeEh3fIUCsL2BcV1UzVj4gT2+S3
-         smw8t/RZRJ3DjGKxt/BJ1esMxjJGLAxRXH1ae6zHOr4v+9h6VB89+SwDm1F61Zg4LlMY
-         WIXjmDgY+kUmY1C611jPu0HuBGnCyk4CYK8eK2hpGk40V1FFFjvsNK553Ga6e6CWXlW7
-         mI5HvmdTvjskoFoB9KFmeNC9yiCftOrzbGuncABJbtopsX172oHLnnmKjIQWgMJK4Nd3
-         VvZzOKlw+pFWbWLKfatnxxWqGLBUpTuY31wS0/5h+mI42UVDMT1otcC13l7okxEMrqRL
-         g3gw==
+        d=suse.com; s=google; t=1781506374; x=1782111174; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dHKaKK1rdCsuUH3+UGUbf6B2KguzwIr0I1My5ay+Xho=;
+        b=OgX0+EL2vCxRucCfv4fIJ3+G8yZdr5aABz3SBmbu2ZZdJOuWuhSjbluqhISW3RRqv2
+         GeEnTrDZDhsD55AodVS9eQaRo4xl2Fn66Yv5tiLdw/0Odm/Qi/lwWXfINcakvHVkY8fU
+         UWyU7OJlm4BtKTz9ofPkrkAJZbvOqzRn5ymDdM64mQKN4xkNLLcdmgsLuaPZ8UZf91fB
+         wkC6n38KWY8Mow4ZYYnA3fTudgIuwbOKLBpjJMeY7kUWlj2L5bX2vrvA9ZSVG2u5andq
+         BcNKHJ3J75bm7tZXo/diTdMRONvZsy9A2UrEMPzCzGMvidEBtcuIu4U52GttYF+DMsez
+         McDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781505251; x=1782110051;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1781506374; x=1782111174;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dRFi5DxPz4UB00ik4h7/PujLhlijyyRdZ9a0Oy7pi+k=;
-        b=cPR3xqBYttiYrvAj1R0aUYr6pzxTdOa3Y0iyzbpDarwLSauXbdCBah/1EZbvD+k9Rk
-         EnKdVPTqvLSsbwU/8jU1c+z7NsRHyyttsnxnolFzJ83dEZkctsrlepEoz2CnmxYP8dRZ
-         H5Lsjv3MD1AWle8vy6tEIz7FK2gHLg/H/e12e4xTw6OVmUs4ZRo230B3QqxMCNFZRz8h
-         5uFchhr4fgsE6qeIxVBKiy9XMOecdwtXKzTWjn3uCwraEW2p8GZXT4gfiTAtM35W+puk
-         MNQ6+CT3IHa6aGvMxLtD83di4qEpnZhN6Mph0w/5BdaMxi6bPkIEuh6viT8cN9jdbOM6
-         NOog==
-X-Forwarded-Encrypted: i=1; AFNElJ+tdbDfuTtWdNQgTWsTdVwdh18zVlXs3wzHt2jn9CxvfR3pw1u8LzmovjS06zKZWP/5XgeGKuRi3z4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKxCdjbXb8JX/+ClDs6bdWyrwr41oJ0CxPG+29dAh6xd1nyZQI
-	5Gxt0pwUaKkP23YdH2X7tBQoS+pxblHj/F+EghGJVvWFbqMeyykf9CWnDzQlxpkucA==
-X-Gm-Gg: Acq92OFdIHxTboW9r28Os+5qqnmXvZTXp0Eby19iNWlULbWsV/K8W+ikuGskh+xBOTw
-	MXcv5hRUUoyhqbvu1/cVNw7Xp6V1RsU6Ljl2BdWtsVZcOqpn45s2DvSkUUMxy7pKcncTuesGrXP
-	tZs5xU0BcsFJpqETFvcntxqXOyJ+LjFrKL3/Wjy3LbFreQhm4x1R0rt+IYXNE31ZQ6pUdDA9e6m
-	uSrUadhUteC2GE0pHTdwPlh3B94BX6KiK3SZ5hirzRBqoHQCN37vldDRVJcLDC0zheLZ9ykbNGA
-	OuwgsiGPHRrSekFKF1Aeq5BKOh3ayyqNtzqR92SxqspFqeWH08dn9d7N0A5q9vhRbvAJRmdyg/8
-	EqXtUX1yv8sSlf72LOp+w5qnUtOkQRRDgcpmKI0QexzUy75NZdhiSYdkg6SagDZP/euOB5sL3kT
-	RGzYxoDGMD+wHD2PVYjDBsDa2nj+voBxKFxm3V+QLmjzPBlefRW8CahnuL/gXDSaWjw0zm1hkOf
-	txNMvsYZDFq+4U=
-X-Received: by 2002:a05:600d:84ca:10b0:490:7dfd:f7c2 with SMTP id 5b1f17b1804b1-490ec4dd936mr102172355e9.11.1781505250649;
-        Sun, 14 Jun 2026 23:34:10 -0700 (PDT)
-Message-ID: <27fce01d-4608-422f-9a1a-3c8206e72e3a@suse.com>
-Date: Mon, 15 Jun 2026 08:34:10 +0200
+        bh=dHKaKK1rdCsuUH3+UGUbf6B2KguzwIr0I1My5ay+Xho=;
+        b=sTzEVw+OEaRaMKrvGmRPL8MEy40GLUXa4Sw+C7UYoac3rrRSywLbaB3YrWVnOgWyop
+         9ljF7/GsjfDbqf4FcmT3Qpdk4FlwCl6XOc3g8ptd+4PyItZXtT6HFylliHwLic7NSirR
+         BR4CfN+srq0iJjZwVAx7ogawamusBI23+NDkua4oaV8bXIci8yWCrsKJ+btlWrz55EIA
+         q9LnSAIyO3/ytyEasq7VxgUvrfVFoMEJ4sl2o4K7KIxSEaEiVgfrQhIndz6FYLTK8lDD
+         AxrNvMfsawprxwtjvWJ/CKAyK22XyIC5e+vbhQu4KmoiuJCTK6ldImGK2iSf9CZOhwcw
+         FsBA==
+X-Gm-Message-State: AOJu0YzZZFwza1rkdjPC+dsG3y3ImbXDtrgKpK3UU8zAQ7jEIJ9Bcqfd
+	q4zV+sJmVEGh+4VWSLYkuQbM1MeIYxj/y533HJpeHzbmrxHR+/7WStCE5zGG4hcWXA==
+X-Gm-Gg: Acq92OE8qqFt8eBh1BgupZpsTqUWw+Lo/7YdhddfV47ERL3jPg0wBBGANIp2d6y7Tf7
+	WPmoSmKRyN8vWkADBW32fkKE/d7VPnb9G1SBLC5Cl+1P9rJQerJdHw1isxV1958ofB8e0xmtFK2
+	fD9JsqW0Rw9MNlGFVSpbWshl0CEfmQQneP+VmM9NixvQ5+WNPWViIn7Ru7jLaGRyMM6e8iZ9bxt
+	/aFiLZNyaMSCAha6KPfsGkfVwYanno3tko5bZms2Pszu1vnizB+DlP3BIrL7U7MyO/2Q29gcs8a
+	RVTZ2YqP3IGNqRMaz2jV8DYB5hf2fkz/FgJJ/gXWCJr+hBiDbNKdV8BbZWdxqCsOh8CZjEPW9GD
+	pqW31y05w/WzMmLVRzwwT0ygND0lbuk7F38UmOU1N0meBwhOvol/yddo5uxzzJeZrXk0tXfSc/z
+	2eOIxJGBM7F12OLN8fmhtNMJZdSkAMXidh6jbI1xvk7Kxpp/LBvk70mHkqfPc9wOhoZLi2N1KpB
+	epoEu1Ou3XWRus=
+X-Received: by 2002:a05:6000:400c:b0:45e:b99d:dad with SMTP id ffacd0b85a97d-4606dbe5a84mr16714569f8f.38.1781506374032;
+        Sun, 14 Jun 2026 23:52:54 -0700 (PDT)
+Message-ID: <6b4894bf-61b8-404e-bd00-7e971a7009b4@suse.com>
+Date: Mon, 15 Jun 2026 08:52:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] Align all sections to 4KB
-To: Frediano Ziglio <freddy77@gmail.com>
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
- <20260529153531.1341542-3-frediano.ziglio@cloud.com>
- <7067092e-ba18-4513-a9b1-83ba084ccbb4@suse.com>
- <CAHt6W4cP57pAPsNDKpssjYB=snLEZgOhWkYkVrJys01-NTMiRQ@mail.gmail.com>
- <75e86d74-9fa1-4090-bea7-332ec31ffb90@suse.com>
- <CAHt6W4dfXdyw4dOkqoQzo0x4XRmLsHXkhhznov+KvanKBi9bWw@mail.gmail.com>
- <5bee4f94-b2d0-4802-a990-b2a378d2f838@suse.com>
- <CAHt6W4cb4R7i79s9wYRpPfOdmkKS+XsaO=VphZ+jvmLKiRw-ZA@mail.gmail.com>
- <f83df0b1-9177-4b89-a854-e19a22e181a7@suse.com>
- <CAHt6W4efwGwdiTvKnG4n=A6PL_FogynsV23rDDi8rj_smZVoNw@mail.gmail.com>
+Subject: Re: [PATCH] x86/efi: Skip FPU save/restore for idle vCPU in EFI,
+ runtime path
+To: Bernhard Kaindl <bernhardkaindl7@gmail.com>
+References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
+ <957a0fea-4099-4470-9b40-3f8b294c44dc@suse.com>
+ <8b51a40e-028a-42aa-a7e4-55a731ebe10e@gmail.com>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -145,12 +133,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAHt6W4efwGwdiTvKnG4n=A6PL_FogynsV23rDDi8rj_smZVoNw@mail.gmail.com>
+In-Reply-To: <8b51a40e-028a-42aa-a7e4-55a731ebe10e@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1781505251-AF754FF4-94C02B96/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ebf023/1781506374-29B7B3FF-DB796F78/0/0
 X-purgate-type: clean
-X-purgate-size: 9063
+X-purgate-size: 3669
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -159,197 +147,110 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:bernhardkaindl7@gmail.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 06B44683DD5
+X-Rspamd-Queue-Id: 9457B683F42
 
-On 13.06.2026 13:20, Frediano Ziglio wrote:
-> On Thu, 11 Jun 2026 at 16:18, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 11.06.2026 16:49, Frediano Ziglio wrote:
->>> On Wed, 10 Jun 2026 at 10:43, Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 06.06.2026 18:02, Frediano Ziglio wrote:
->>>>> Frediano
->>>>>
->>>>> On Fri, 5 Jun 2026 at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>
->>>>>> On 04.06.2026 12:16, Frediano Ziglio wrote:
->>>>>>> On Tue, 2 Jun 2026 at 13:09, Jan Beulich <jbeulich@suse.com> wrote:
->>>>>>>> On 29.05.2026 17:35, Frediano Ziglio wrote:
->>>>>>>>> --- a/xen/arch/x86/xen.lds.S
->>>>>>>>> +++ b/xen/arch/x86/xen.lds.S
->>>>>>>>> @@ -162,8 +162,8 @@ SECTIONS
->>>>>>>>>         __note_gnu_build_id_end = .;
->>>>>>>>>    } PHDR(note) PHDR(text)
->>>>>>>>>  #elif defined(BUILD_ID_EFI)
->>>>>>>>> -  /* Workaround bug in binutils < 2.36 */
->>>>>>>>> -  . = ALIGN(32);
->>>>>>>>> +  /* align to satisfy UEFI CA memory mitigation */
->>>>>>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>>>>>    DECL_SECTION(.buildid) {
->>>>>>>>>         __note_gnu_build_id_start = .;
->>>>>>>>>         *(.buildid)
->>>>>>>>> @@ -330,6 +330,7 @@ SECTIONS
->>>>>>>>>    __2M_rwdata_end = ALIGN(SECTION_ALIGN);
->>>>>>>>>
->>>>>>>>>  #ifdef EFI
->>>>>>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>>>>>    .reloc ALIGN(4) : {
->>>>>>>>>      __base_relocs_start = .;
->>>>>>>>>      *(.reloc)
->>>>>>>>> @@ -355,6 +356,7 @@ SECTIONS
->>>>>>>>>    VIRT_START &= 0;
->>>>>>>>>    ALT_START &= 0;
->>>>>>>>>
->>>>>>>>> +  . = ALIGN(PAGE_SIZE);
->>>>>>>>>    .sbat (NOLOAD) : { *(.sbat) }
->>>>>>>>>  #elif defined(XEN_BUILD_EFI)
->>>>>>>>>    /*
->>>>>>>>
->>>>>>>> You say "all sections" in the title, yet this is not covering e.g. debug
->>>>>>>> info.
->>>>>>>
->>>>>>> I will change to "all loadable sections". debug sections are not
->>>>>>> loadable so they don't cause an issue.
->>>>>>
->>>>>> Please try to be precise there, as some aspects are subtle. As per my
->>>>>> understanding, like .reloc all .debug_* are loadable (and may be loaded).
->>>>>> The IMAGE_SCN_MEM_DISCARDABLE flag merely means they can be discarded at
->>>>>> a certain point after image loading (for .reloc in particular: after
->>>>>> relocations were processed).
->>>>>
->>>>> No, debug sections are not loadable, for instance, in a random
->>>>> executable I found:
->>>>>
->>>>> Sections:
->>>>> Idx Name          Size      VMA               LMA               File off  Algn
->>>>>   0 .text         0000c7f8  0000000140001000  0000000140001000  00000600  2**4
->>>>>                   CONTENTS, ALLOC, LOAD, READONLY, CODE, DATA
->>>>>   1 .data         00000250  000000014000e000  000000014000e000  0000ce00  2**4
->>>>>                   CONTENTS, ALLOC, LOAD, DATA
->>>>>   2 .rdata        00002c70  000000014000f000  000000014000f000  0000d200  2**4
->>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->>>>>   3 .pdata        00000654  0000000140012000  0000000140012000  00010000  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->>>>>   4 .xdata        00000630  0000000140013000  0000000140013000  00010800  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->>>>>   5 .bss          00001ec0  0000000140014000  0000000140014000  00000000  2**4
->>>>>                   ALLOC
->>>>>   6 .idata        00000c88  0000000140016000  0000000140016000  00011000  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, DATA
->>>>>   7 .CRT          00000060  0000000140017000  0000000140017000  00011e00  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, DATA
->>>>>   8 .tls          00000010  0000000140018000  0000000140018000  00012000  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, DATA
->>>>>   9 .reloc        0000009c  0000000140019000  0000000140019000  00012200  2**2
->>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
->>>>>  10 .debug_aranges 00000150  000000014001a000  000000014001a000  00012400  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  11 .debug_info   0000d5e4  000000014001b000  000000014001b000  00012600  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  12 .debug_abbrev 000014de  0000000140029000  0000000140029000  0001fc00  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  13 .debug_line   00001a36  000000014002b000  000000014002b000  00021200  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  14 .debug_frame  00000f40  000000014002d000  000000014002d000  00022e00  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  15 .debug_str    000003a0  000000014002e000  000000014002e000  00023e00  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  16 .debug_line_str 00000a76  000000014002f000  000000014002f000  00024200  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  17 .debug_loclists 0000174a  0000000140030000  0000000140030000  00024e00  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>>  18 .debug_rnglists 0000039c  0000000140032000  0000000140032000  00026600  2**0
->>>>>                   CONTENTS, READONLY, DEBUGGING
->>>>
->>>> That's derived from libfd's internal representation, which means nothing at
->>>> all to the loader processing the image. If your objdump is suitably enabled,
->>>> try using its -P option.
->>>>
->>>> Jan
->>>
->>> You are right, I got
->>>
->>> Section headers (at offset 0x00000188):
->>>  # Name     paddr    vaddr    size     scnptr   relptr   lnnoptr   nrel nlnno
->>>  1 .text    0000c7f8 00001000 0000c800 00000600 00000000 00000000     0     0
->>>             Flags: 60000060: EXECUTE,READ,CODE,INITIALIZED DATA
->>>  2 .data    00000250 0000e000 00000400 0000ce00 00000000 00000000     0     0
->>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
->>>  3 .rdata   00002c70 0000f000 00002e00 0000d200 00000000 00000000     0     0
->>>             Flags: 40000040: READ,INITIALIZED DATA
->>>  4 .pdata   00000654 00012000 00000800 00010000 00000000 00000000     0     0
->>>             Flags: 40000040: READ,INITIALIZED DATA
->>>  5 .xdata   00000630 00013000 00000800 00010800 00000000 00000000     0     0
->>>             Flags: 40000040: READ,INITIALIZED DATA
->>>  6 .bss     00001ec0 00014000 00000000 00000000 00000000 00000000     0     0
->>>             Flags: c0000080: READ,WRITE,UNINITIALIZED DATA
->>>  7 .idata   00000c88 00016000 00000e00 00011000 00000000 00000000     0     0
->>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
->>>  8 .CRT     00000060 00017000 00000200 00011e00 00000000 00000000     0     0
->>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
->>>  9 .tls     00000010 00018000 00000200 00012000 00000000 00000000     0     0
->>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
->>> 10 .reloc   0000009c 00019000 00000200 00012200 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 11 /4       00000150 0001a000 00000200 00012400 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 12 /19      0000d5e4 0001b000 0000d600 00012600 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 13 /31      000014de 00029000 00001600 0001fc00 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 14 /45      00001a36 0002b000 00001c00 00021200 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 15 /57      00000f40 0002d000 00001000 00022e00 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 16 /70      000003a0 0002e000 00000400 00023e00 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 17 /81      00000a76 0002f000 00000c00 00024200 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 18 /97      0000174a 00030000 00001800 00024e00 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>> 19 /113     0000039c 00032000 00000400 00026600 00000000 00000000     0     0
->>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
->>>
->>> I suppose I will change to simply "Align some sections to 4KB"
->>
->> "Some" is imo going to be too imprecise. Please qualify which sections you
->> intend to align. If new sections need adding in the future, this then can
->> guide people as to whether those may also need aligning.
-> 
-> The main issue is that sections with different permissions must be in
-> separate sections.
-> In the case of debug sections they are contiguous and have the same
-> permissions so it's not an issue (although better to strip them off).
-> 
-> Any suggestions on how to describe this?
+On 12.06.2026 17:41, Bernhard Kaindl wrote:
+> Hi Anthony, could you test this patch which exactly applies the changes 
+> Jan suggested? Summary:
 
-s/all/relevant/ (or some such) in the subject and then largely what you say
-above as part of the description.
+So I'm a little irritated by this: The subject suggests this is a proper
+patch submission, yet about everything else here suggests it is not. For
+the eventual real patch, may I minimally suggest ...
+
+> Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+> for idle vCPUs, which don't have an FPU context to save/restore,
+> much like the calls are guarded in __context_switch(),
+> where save/restore is done only for non-idle vCPUs.
+> As these simple guards should preferably go into Xen 4.22: Please test 
+> if there are any further regressions with the 'cmos-rtc-probe' 
+> workaround you just added removed to check if guarding the assertions as 
+> Jan suggested is enough to fix the issues triggered on your machine. 
+> Thanks, Bernhard The patch to test follows: [PATCH] x86/efi: Skip FPU 
+> save/restore for idle vCPU in EFI, runtime path
+> Anthony reported a boot-time crash in init_xen_time() via efi_get_time()
+> on a Broadwell-D system:
+>    Assertion '!is_idle_vcpu(v)' failed at arch/x86/i387.c:195
+
+... to resolve this line number to a function name, to provide sufficient
+context.
+
+> The failing path is an EFI runtime call reached early during boot,
+> where current may still be the idle vCPU.
+> This became fragile after the lazy-FPU removal cleanup series.
+> In 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling"),
+> efi_rs_enter() was changed from save_fpu_enable() to vcpu_save_fpu(curr),
+> which unconditionally asserts !is_idle_vcpu(v)
+> so an EFI runtime call in idle context now asserts.
+> Likewise, in dba44e051209 ("x86: Remove fully_eager_fpu"),
+> efi_rs_leave() was changed to call vcpu_restore_fpu(curr),
+> which has the same assertion and can fail for the same reason.
+> Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+> for idle vCPUs, which don't have an FPU context to save/restore,
+> much like the calls are guarded in __context_switch(),
+> where save/restore is done only for non-idle vCPUs.
+
+I further would help if it was explicitly stated that no other uses of
+the two functions are affected (provided the necessary auditing was done,
+but ftoad I did go through that already on Friday and didn't find other
+problematic call sites).
 
 Jan
+
+> Fixes: 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling")
+> Fixes: dba44e051209 ("x86: Remove fully_eager_fpu")
+> Reported-by: Anthony PERARD <anthony.perard@vates.tech>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> ---
+>   xen/common/efi/runtime.c | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+> index a23fa75e37..596f2710fb 100644
+> --- a/xen/common/efi/runtime.c
+> +++ b/xen/common/efi/runtime.c
+> @@ -98,7 +98,8 @@ struct efi_rs_state efi_rs_enter(void)
+>        */
+>       sync_local_execstate();
+>       state.cr3 = read_cr3();
+> -    vcpu_save_fpu(current);
+> +    if ( !is_idle_vcpu(current) )
+> +        vcpu_save_fpu(current);
+>       asm volatile ( "fnclex; fldcw %0" :: "m" (fcw) );
+>       asm volatile ( "ldmxcsr %0" :: "m" (mxcsr) );
+> @@ -159,7 +160,8 @@ void efi_rs_leave(struct efi_rs_state *state)
+>       }
+>       irq_exit();
+>       spin_unlock(&efi_rs_lock);
+> -    vcpu_restore_fpu(curr);
+> +    if ( !is_idle_vcpu(curr) )
+> +        vcpu_restore_fpu(curr);
+>   }
+>   unsigned long efi_get_time(void)
+
 
