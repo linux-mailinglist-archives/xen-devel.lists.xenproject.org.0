@@ -2,62 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id eRUVGGeIL2o9CAUAu9opvQ
+	id 7yJ8OyGdL2ozDQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 07:06:47 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:35:14 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E74D3683636
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 07:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06B44683DD5
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jun 2026 08:35:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=NXfX8nZP;
+	dkim=pass header.d=suse.com header.s=google header.b="G/bA/eZq";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=redhat.com
-Received: from list by lists.xenproject.org with outflank-mailman.1337981.1599011 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1337995.1599019 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYzW4-0004zU-3p; Mon, 15 Jun 2026 05:05:44 +0000
+	id 1wZ0th-0007RN-R3; Mon, 15 Jun 2026 06:34:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1337981.1599011; Mon, 15 Jun 2026 05:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 1337995.1599019; Mon, 15 Jun 2026 06:34:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wYzW4-0004ws-0R; Mon, 15 Jun 2026 05:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 1337981;
- Mon, 15 Jun 2026 05:05:42 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wZ0th-0007On-O8; Mon, 15 Jun 2026 06:34:13 +0000
+Received: by outflank-mailman (input) for mailman id 1337995;
+ Mon, 15 Jun 2026 06:34:12 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <armbru@redhat.com>) id 1wYzW2-0004wm-H1
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 05:05:42 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZ0tg-0007Oh-Ae
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 06:34:12 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wYzW0-000LzM-GS
- for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 07:05:40 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wZ0tf-005oM5-KN
+ for xen-devel@lists.xenproject.org; Mon, 15 Jun 2026 08:34:11 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <armbru@redhat.com>)
- id 6a2f880b-5cb7-0a2a0a5109dd-0a2a4509c7de-36
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:05:40 +0200
-Received: from [170.10.129.124] (helo=us-smtp-delivery-124.mimecast.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <armbru@redhat.com>)
- id 6a2f8822-2497-0a2a45090019-aa0a817c8bc9-3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 07:05:40 +0200
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-385-25T9ibBwOyeRJ2FdxCSBhg-1; Mon,
- 15 Jun 2026 01:05:36 -0400
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 5670418007F2; Mon, 15 Jun 2026 05:05:35 +0000 (UTC)
-Received: from blackfin.pond.sub.org (unknown [10.44.22.4])
- by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CD05636918; Mon, 15 Jun 2026 05:05:34 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 6360721E6A01; Mon, 15 Jun 2026 07:05:32 +0200 (CEST)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2f9cd7-e002-0a2a0a5209dd-0a2a4501be16-20
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:34:11 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2f9ce3-c1f2-0a2a45010019-d1558034b9b0-3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 08:34:11 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-490b915ded5so27635425e9.3
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Jun 2026 23:34:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-490ea4a128csm314759865e9.0.2026.06.14.23.34.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 14 Jun 2026 23:34:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,141 +60,296 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781499938;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ukah0pE80e2c75o55ohnW5seHcFB7Sqn/9erjKGRFo=;
-	b=NXfX8nZPkcyU40I3lQNJkGd5p1htbQJilLBLGebAs0okSqD7qRVe9fV1sDWZKvJdcqqrLv
-	qeFKysQ6r4QH+Hut17iazvL0Y7c9Us/6PtKSNS4JcHdQvKuRqHUaAmOmWBP6n9N22BQ+gP
-	vQoGkKRBUwtWbbTpo5o05K3PSQQ4lhs=
-X-MC-Unique: 25T9ibBwOyeRJ2FdxCSBhg-1
-X-Mimecast-MFC-AGG-ID: 25T9ibBwOyeRJ2FdxCSBhg_1781499935
-From: Markus Armbruster <armbru@redhat.com>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-Cc: qemu-devel@nongnu.org,  "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-  xen-devel@lists.xenproject.org,  Daniel P. =?utf-8?Q?Berrang=C3=A9?=
- <berrange@redhat.com>,  Anthony PERARD <anthony@xenproject.org>,  Paolo
- Bonzini <pbonzini@redhat.com>,  Stefano Stabellini
- <sstabellini@kernel.org>
-Subject: Re: [PATCH 2/2] qom/object: Remove pre-C11 check
-In-Reply-To: <20260613175151.1357-3-philmd@oss.qualcomm.com> ("Philippe
-	=?utf-8?Q?Mathieu-Daud=C3=A9=22's?= message of "Sat, 13 Jun 2026 19:51:51
- +0200")
-References: <20260613175151.1357-1-philmd@oss.qualcomm.com>
-	<20260613175151.1357-3-philmd@oss.qualcomm.com>
-Date: Mon, 15 Jun 2026 07:05:32 +0200
-Message-ID: <87h5n4tmub.fsf@pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781505251; x=1782110051; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dRFi5DxPz4UB00ik4h7/PujLhlijyyRdZ9a0Oy7pi+k=;
+        b=G/bA/eZq82nb1wtQRoSir/V3135ThAvjtoKtdaVjeEh3fIUCsL2BcV1UzVj4gT2+S3
+         smw8t/RZRJ3DjGKxt/BJ1esMxjJGLAxRXH1ae6zHOr4v+9h6VB89+SwDm1F61Zg4LlMY
+         WIXjmDgY+kUmY1C611jPu0HuBGnCyk4CYK8eK2hpGk40V1FFFjvsNK553Ga6e6CWXlW7
+         mI5HvmdTvjskoFoB9KFmeNC9yiCftOrzbGuncABJbtopsX172oHLnnmKjIQWgMJK4Nd3
+         VvZzOKlw+pFWbWLKfatnxxWqGLBUpTuY31wS0/5h+mI42UVDMT1otcC13l7okxEMrqRL
+         g3gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781505251; x=1782110051;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dRFi5DxPz4UB00ik4h7/PujLhlijyyRdZ9a0Oy7pi+k=;
+        b=cPR3xqBYttiYrvAj1R0aUYr6pzxTdOa3Y0iyzbpDarwLSauXbdCBah/1EZbvD+k9Rk
+         EnKdVPTqvLSsbwU/8jU1c+z7NsRHyyttsnxnolFzJ83dEZkctsrlepEoz2CnmxYP8dRZ
+         H5Lsjv3MD1AWle8vy6tEIz7FK2gHLg/H/e12e4xTw6OVmUs4ZRo230B3QqxMCNFZRz8h
+         5uFchhr4fgsE6qeIxVBKiy9XMOecdwtXKzTWjn3uCwraEW2p8GZXT4gfiTAtM35W+puk
+         MNQ6+CT3IHa6aGvMxLtD83di4qEpnZhN6Mph0w/5BdaMxi6bPkIEuh6viT8cN9jdbOM6
+         NOog==
+X-Forwarded-Encrypted: i=1; AFNElJ+tdbDfuTtWdNQgTWsTdVwdh18zVlXs3wzHt2jn9CxvfR3pw1u8LzmovjS06zKZWP/5XgeGKuRi3z4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKxCdjbXb8JX/+ClDs6bdWyrwr41oJ0CxPG+29dAh6xd1nyZQI
+	5Gxt0pwUaKkP23YdH2X7tBQoS+pxblHj/F+EghGJVvWFbqMeyykf9CWnDzQlxpkucA==
+X-Gm-Gg: Acq92OFdIHxTboW9r28Os+5qqnmXvZTXp0Eby19iNWlULbWsV/K8W+ikuGskh+xBOTw
+	MXcv5hRUUoyhqbvu1/cVNw7Xp6V1RsU6Ljl2BdWtsVZcOqpn45s2DvSkUUMxy7pKcncTuesGrXP
+	tZs5xU0BcsFJpqETFvcntxqXOyJ+LjFrKL3/Wjy3LbFreQhm4x1R0rt+IYXNE31ZQ6pUdDA9e6m
+	uSrUadhUteC2GE0pHTdwPlh3B94BX6KiK3SZ5hirzRBqoHQCN37vldDRVJcLDC0zheLZ9ykbNGA
+	OuwgsiGPHRrSekFKF1Aeq5BKOh3ayyqNtzqR92SxqspFqeWH08dn9d7N0A5q9vhRbvAJRmdyg/8
+	EqXtUX1yv8sSlf72LOp+w5qnUtOkQRRDgcpmKI0QexzUy75NZdhiSYdkg6SagDZP/euOB5sL3kT
+	RGzYxoDGMD+wHD2PVYjDBsDa2nj+voBxKFxm3V+QLmjzPBlefRW8CahnuL/gXDSaWjw0zm1hkOf
+	txNMvsYZDFq+4U=
+X-Received: by 2002:a05:600d:84ca:10b0:490:7dfd:f7c2 with SMTP id 5b1f17b1804b1-490ec4dd936mr102172355e9.11.1781505250649;
+        Sun, 14 Jun 2026 23:34:10 -0700 (PDT)
+Message-ID: <27fce01d-4608-422f-9a1a-3c8206e72e3a@suse.com>
+Date: Mon, 15 Jun 2026 08:34:10 +0200
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: jJScMdWwJPEpMYNa9dbR2D4uiQuCWu0vofinVVgXnN8_1781499935
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-bad1c0/1781499940-41F6EA53-4CE952E1/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] Align all sections to 4KB
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
+ <20260529153531.1341542-3-frediano.ziglio@cloud.com>
+ <7067092e-ba18-4513-a9b1-83ba084ccbb4@suse.com>
+ <CAHt6W4cP57pAPsNDKpssjYB=snLEZgOhWkYkVrJys01-NTMiRQ@mail.gmail.com>
+ <75e86d74-9fa1-4090-bea7-332ec31ffb90@suse.com>
+ <CAHt6W4dfXdyw4dOkqoQzo0x4XRmLsHXkhhznov+KvanKBi9bWw@mail.gmail.com>
+ <5bee4f94-b2d0-4802-a990-b2a378d2f838@suse.com>
+ <CAHt6W4cb4R7i79s9wYRpPfOdmkKS+XsaO=VphZ+jvmLKiRw-ZA@mail.gmail.com>
+ <f83df0b1-9177-4b89-a854-e19a22e181a7@suse.com>
+ <CAHt6W4efwGwdiTvKnG4n=A6PL_FogynsV23rDDi8rj_smZVoNw@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAHt6W4efwGwdiTvKnG4n=A6PL_FogynsV23rDDi8rj_smZVoNw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-d62444/1781505251-AF754FF4-94C02B96/0/0
 X-purgate-type: clean
-X-purgate-size: 2022
+X-purgate-size: 9063
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[armbru@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:philmd@oss.qualcomm.com,m:qemu-devel@nongnu.org,m:edgar.iglesias@gmail.com,m:xen-devel@lists.xenproject.org,m:berrange@redhat.com,m:anthony@xenproject.org,m:pbonzini@redhat.com,m:sstabellini@kernel.org,m:edgariglesias@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[nongnu.org,gmail.com,lists.xenproject.org,redhat.com,xenproject.org,kernel.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[armbru@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: E74D3683636
+X-Rspamd-Queue-Id: 06B44683DD5
 
-Philippe Mathieu-Daud=C3=A9 <philmd@oss.qualcomm.com> writes:
+On 13.06.2026 13:20, Frediano Ziglio wrote:
+> On Thu, 11 Jun 2026 at 16:18, Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 11.06.2026 16:49, Frediano Ziglio wrote:
+>>> On Wed, 10 Jun 2026 at 10:43, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> On 06.06.2026 18:02, Frediano Ziglio wrote:
+>>>>> Frediano
+>>>>>
+>>>>> On Fri, 5 Jun 2026 at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>
+>>>>>> On 04.06.2026 12:16, Frediano Ziglio wrote:
+>>>>>>> On Tue, 2 Jun 2026 at 13:09, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>>> On 29.05.2026 17:35, Frediano Ziglio wrote:
+>>>>>>>>> --- a/xen/arch/x86/xen.lds.S
+>>>>>>>>> +++ b/xen/arch/x86/xen.lds.S
+>>>>>>>>> @@ -162,8 +162,8 @@ SECTIONS
+>>>>>>>>>         __note_gnu_build_id_end = .;
+>>>>>>>>>    } PHDR(note) PHDR(text)
+>>>>>>>>>  #elif defined(BUILD_ID_EFI)
+>>>>>>>>> -  /* Workaround bug in binutils < 2.36 */
+>>>>>>>>> -  . = ALIGN(32);
+>>>>>>>>> +  /* align to satisfy UEFI CA memory mitigation */
+>>>>>>>>> +  . = ALIGN(PAGE_SIZE);
+>>>>>>>>>    DECL_SECTION(.buildid) {
+>>>>>>>>>         __note_gnu_build_id_start = .;
+>>>>>>>>>         *(.buildid)
+>>>>>>>>> @@ -330,6 +330,7 @@ SECTIONS
+>>>>>>>>>    __2M_rwdata_end = ALIGN(SECTION_ALIGN);
+>>>>>>>>>
+>>>>>>>>>  #ifdef EFI
+>>>>>>>>> +  . = ALIGN(PAGE_SIZE);
+>>>>>>>>>    .reloc ALIGN(4) : {
+>>>>>>>>>      __base_relocs_start = .;
+>>>>>>>>>      *(.reloc)
+>>>>>>>>> @@ -355,6 +356,7 @@ SECTIONS
+>>>>>>>>>    VIRT_START &= 0;
+>>>>>>>>>    ALT_START &= 0;
+>>>>>>>>>
+>>>>>>>>> +  . = ALIGN(PAGE_SIZE);
+>>>>>>>>>    .sbat (NOLOAD) : { *(.sbat) }
+>>>>>>>>>  #elif defined(XEN_BUILD_EFI)
+>>>>>>>>>    /*
+>>>>>>>>
+>>>>>>>> You say "all sections" in the title, yet this is not covering e.g. debug
+>>>>>>>> info.
+>>>>>>>
+>>>>>>> I will change to "all loadable sections". debug sections are not
+>>>>>>> loadable so they don't cause an issue.
+>>>>>>
+>>>>>> Please try to be precise there, as some aspects are subtle. As per my
+>>>>>> understanding, like .reloc all .debug_* are loadable (and may be loaded).
+>>>>>> The IMAGE_SCN_MEM_DISCARDABLE flag merely means they can be discarded at
+>>>>>> a certain point after image loading (for .reloc in particular: after
+>>>>>> relocations were processed).
+>>>>>
+>>>>> No, debug sections are not loadable, for instance, in a random
+>>>>> executable I found:
+>>>>>
+>>>>> Sections:
+>>>>> Idx Name          Size      VMA               LMA               File off  Algn
+>>>>>   0 .text         0000c7f8  0000000140001000  0000000140001000  00000600  2**4
+>>>>>                   CONTENTS, ALLOC, LOAD, READONLY, CODE, DATA
+>>>>>   1 .data         00000250  000000014000e000  000000014000e000  0000ce00  2**4
+>>>>>                   CONTENTS, ALLOC, LOAD, DATA
+>>>>>   2 .rdata        00002c70  000000014000f000  000000014000f000  0000d200  2**4
+>>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>>>>>   3 .pdata        00000654  0000000140012000  0000000140012000  00010000  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>>>>>   4 .xdata        00000630  0000000140013000  0000000140013000  00010800  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>>>>>   5 .bss          00001ec0  0000000140014000  0000000140014000  00000000  2**4
+>>>>>                   ALLOC
+>>>>>   6 .idata        00000c88  0000000140016000  0000000140016000  00011000  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, DATA
+>>>>>   7 .CRT          00000060  0000000140017000  0000000140017000  00011e00  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, DATA
+>>>>>   8 .tls          00000010  0000000140018000  0000000140018000  00012000  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, DATA
+>>>>>   9 .reloc        0000009c  0000000140019000  0000000140019000  00012200  2**2
+>>>>>                   CONTENTS, ALLOC, LOAD, READONLY, DATA
+>>>>>  10 .debug_aranges 00000150  000000014001a000  000000014001a000  00012400  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  11 .debug_info   0000d5e4  000000014001b000  000000014001b000  00012600  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  12 .debug_abbrev 000014de  0000000140029000  0000000140029000  0001fc00  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  13 .debug_line   00001a36  000000014002b000  000000014002b000  00021200  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  14 .debug_frame  00000f40  000000014002d000  000000014002d000  00022e00  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  15 .debug_str    000003a0  000000014002e000  000000014002e000  00023e00  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  16 .debug_line_str 00000a76  000000014002f000  000000014002f000  00024200  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  17 .debug_loclists 0000174a  0000000140030000  0000000140030000  00024e00  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>>  18 .debug_rnglists 0000039c  0000000140032000  0000000140032000  00026600  2**0
+>>>>>                   CONTENTS, READONLY, DEBUGGING
+>>>>
+>>>> That's derived from libfd's internal representation, which means nothing at
+>>>> all to the loader processing the image. If your objdump is suitably enabled,
+>>>> try using its -P option.
+>>>>
+>>>> Jan
+>>>
+>>> You are right, I got
+>>>
+>>> Section headers (at offset 0x00000188):
+>>>  # Name     paddr    vaddr    size     scnptr   relptr   lnnoptr   nrel nlnno
+>>>  1 .text    0000c7f8 00001000 0000c800 00000600 00000000 00000000     0     0
+>>>             Flags: 60000060: EXECUTE,READ,CODE,INITIALIZED DATA
+>>>  2 .data    00000250 0000e000 00000400 0000ce00 00000000 00000000     0     0
+>>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+>>>  3 .rdata   00002c70 0000f000 00002e00 0000d200 00000000 00000000     0     0
+>>>             Flags: 40000040: READ,INITIALIZED DATA
+>>>  4 .pdata   00000654 00012000 00000800 00010000 00000000 00000000     0     0
+>>>             Flags: 40000040: READ,INITIALIZED DATA
+>>>  5 .xdata   00000630 00013000 00000800 00010800 00000000 00000000     0     0
+>>>             Flags: 40000040: READ,INITIALIZED DATA
+>>>  6 .bss     00001ec0 00014000 00000000 00000000 00000000 00000000     0     0
+>>>             Flags: c0000080: READ,WRITE,UNINITIALIZED DATA
+>>>  7 .idata   00000c88 00016000 00000e00 00011000 00000000 00000000     0     0
+>>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+>>>  8 .CRT     00000060 00017000 00000200 00011e00 00000000 00000000     0     0
+>>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+>>>  9 .tls     00000010 00018000 00000200 00012000 00000000 00000000     0     0
+>>>             Flags: c0000040: READ,WRITE,INITIALIZED DATA
+>>> 10 .reloc   0000009c 00019000 00000200 00012200 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 11 /4       00000150 0001a000 00000200 00012400 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 12 /19      0000d5e4 0001b000 0000d600 00012600 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 13 /31      000014de 00029000 00001600 0001fc00 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 14 /45      00001a36 0002b000 00001c00 00021200 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 15 /57      00000f40 0002d000 00001000 00022e00 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 16 /70      000003a0 0002e000 00000400 00023e00 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 17 /81      00000a76 0002f000 00000c00 00024200 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 18 /97      0000174a 00030000 00001800 00024e00 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>> 19 /113     0000039c 00032000 00000400 00026600 00000000 00000000     0     0
+>>>             Flags: 42000040: DISCARDABLE,READ,INITIALIZED DATA
+>>>
+>>> I suppose I will change to simply "Align some sections to 4KB"
+>>
+>> "Some" is imo going to be too imprecise. Please qualify which sections you
+>> intend to align. If new sections need adding in the future, this then can
+>> guide people as to whether those may also need aligning.
+> 
+> The main issue is that sections with different permissions must be in
+> separate sections.
+> In the case of debug sections they are contiguous and have the same
+> permissions so it's not an issue (although better to strip them off).
+> 
+> Any suggestions on how to describe this?
 
-> We mandate a compiler supporting C11 since 2021-06-15 in
-> commit d22797ce36a ("configure: Use -std=3Dgnu11"), thus the
-> max_align_t type definition exists. Remove what is now dead
-> code.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@oss.qualcomm.com>
+s/all/relevant/ (or some such) in the subject and then largely what you say
+above as part of the description.
 
-> ---
->  qom/object.c | 14 +-------------
->  1 file changed, 1 insertion(+), 13 deletions(-)
->
-> diff --git a/qom/object.c b/qom/object.c
-> index 0ac201de4c1..f79b2cf3618 100644
-> --- a/qom/object.c
-> +++ b/qom/object.c
-> @@ -675,18 +675,6 @@ static void object_finalize(void *data)
->      }
->  }
-> =20
-> -/* Find the minimum alignment guaranteed by the system malloc. */
-> -#if __STDC_VERSION__ >=3D 201112L
-> -typedef max_align_t qemu_max_align_t;
-> -#else
-> -typedef union {
-> -    long l;
-> -    void *p;
-> -    double d;
-> -    long double ld;
-> -} qemu_max_align_t;
-> -#endif
-> -
->  static Object *object_new_with_type(Type type)
->  {
->      Object *obj;
-> @@ -703,7 +691,7 @@ static Object *object_new_with_type(Type type)
->       * Do not use qemu_memalign unless required.  Depending on the
->       * implementation, extra alignment implies extra overhead.
->       */
-> -    if (likely(align <=3D __alignof__(qemu_max_align_t))) {
-> +    if (likely(align <=3D __alignof__(max_align_t))) {
->          obj =3D g_malloc(size);
->          obj_free =3D g_free;
->      } else {
-           obj =3D qemu_memalign(align, size);
-           obj_free =3D qemu_vfree;
-       }
-
-Reviewed-by: Markus Armbruster <armbru@redhat.com>
-
-Context leads me to qemu_try_memalign() via qemu_memalign():
-
-   #elif defined(CONFIG_ALIGNED_MALLOC)
-       ptr =3D _aligned_malloc(size, alignment);
-   #elif defined(CONFIG_VALLOC)
-       ptr =3D valloc(size);
-   #elif defined(CONFIG_MEMALIGN)
-       ptr =3D memalign(alignment, size);
-   #else
-       #error No function to allocate aligned memory available
-   #endif
-
-C11 provides aligned_alloc().
-
+Jan
 
