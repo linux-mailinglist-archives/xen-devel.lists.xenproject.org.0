@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 4AMZG53qMGrSYgUAu9opvQ
+	id ygj2LprtMGpjYwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:18:05 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:30:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB63368C718
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11FB168C862
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:30:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=GlcssZrx;
+	dkim=pass header.d=suse.com header.s=google header.b=dGpfPU2X;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338657.1599687 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338664.1599696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZN6Q-0002wJ-Ri; Tue, 16 Jun 2026 06:16:50 +0000
+	id 1wZNJf-0005Zk-SQ; Tue, 16 Jun 2026 06:30:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338657.1599687; Tue, 16 Jun 2026 06:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 1338664.1599696; Tue, 16 Jun 2026 06:30:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZN6Q-0002u3-NF; Tue, 16 Jun 2026 06:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 1338657;
- Tue, 16 Jun 2026 06:16:49 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wZNJf-0005YO-Pg; Tue, 16 Jun 2026 06:30:31 +0000
+Received: by outflank-mailman (input) for mailman id 1338664;
+ Tue, 16 Jun 2026 06:30:30 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZN6O-0002tx-VJ
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 06:16:49 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZNJd-0005YH-UY
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 06:30:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZN6K-004EYp-V8
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 08:16:44 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wZNJc-00FL6R-K2
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 08:30:28 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30ea33-e002-0a2a0a5209dd-0a2a450cae18-26
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:16:44 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a30ed81-5cb7-0a2a0a5109dd-0a2a4502a83a-24
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:30:28 +0200
+Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30ea4c-62f1-0a2a450c0019-d155dd2addbb-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:16:44 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-45ef779c1c2so3101737f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 23:16:44 -0700 (PDT)
+ id 6a30ed83-af86-0a2a45020019-d1558033d0af-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:30:27 +0200
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4903d730b1fso52563395e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 23:30:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f309sm39518222f8f.14.2026.06.15.23.16.42
+ ffacd0b85a97d-461abb44c3dsm142837f8f.9.2026.06.15.23.30.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 23:16:42 -0700 (PDT)
+ Mon, 15 Jun 2026 23:30:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,64 +61,53 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781590604; x=1782195404; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781591427; x=1782196227; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Qx29apA+FKhNRV7HHzoMBSrTmjvf5CKFT/qaonk3Ag=;
-        b=GlcssZrxEj7QdH4aIGWWyO7yYIPBFo5QDoNrNmiiIkwTB9M1IxeC4X99Z9PavR9Usf
-         yqXyBBLNQXzaNRqcb80QZPrhZmkRi42iXJEi37iRf/F+YudpDzV7D1n8zyN1uWtvbkb8
-         XcjJAEheGJ2uAO/rli7gAsfCHeJ654gQuDBaxCa1ETiElbVCkosBfWqgaMA1hQbL9XFA
-         hmNtTNT1pfIudp9L+poCTApDaUYQYfQiar1I8+lxPLkSHRuR7TLgv71UPp9DLAtQqKQv
-         I2XK7txoVfjbO3p9/P2QuEo4NymKrY+D9YGu02bzMqDYJcsdjAWGesjB/JrDYoasJKgC
-         ISIg==
+        bh=GuJ38IK9EwFymKF6pZK9hlCOwvCYQ/y1c/SgaMdkOFI=;
+        b=dGpfPU2XT+dFsa7zSi4DZFXx9kvlVqriXa7agxW0KWtrvr9ApYYWPL8yJocjNHikss
+         Ek+94cys6+rn9lS29QmX6p9/e9O9tBy/kw6Wcc77CMmgPQEClzyggszU4ioXlox9NLO0
+         Ty8brGzo7YK3Rf8iySdV1ITOdCkwwFRUBE7oim7ZMEpCtRL+MMT8ycl2/iUn3b/RsAe/
+         bzrY7+0OXs37hZFHKm02rCPm4Ay+THIjV44K0X9fpp/2vmYKd3QBQGbH/W3EoZ0x3+ww
+         4yUtPP3GxcDp3cfE6NUi0afO0wEDwPS4pIhzwLe22k+arE/why+FVy+JkWdhd8OsQeja
+         trHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781590604; x=1782195404;
+        d=1e100.net; s=20251104; t=1781591427; x=1782196227;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0Qx29apA+FKhNRV7HHzoMBSrTmjvf5CKFT/qaonk3Ag=;
-        b=MgcwFRk9ZKQ4PDbBwwTpU7AwkNl+4fzuzG0oM04WC/EbNAqUpp1DxVDnQlFlMleRW6
-         ziXvJxqt8cUE++35xr9Bk38dCdQDYbDh39ZWMJCDIl4FCn5GM9EXtrrOYeHeyeRN5X5J
-         Szw/zHu3JQ2nvUUEIkl4Z/YlH77fPeBR5YPi6EWaCeBy0jj0oyvc1hgA8OsktREEdwwl
-         iM6+4wAceyOfP7ywAzvC/M6CaAzE3NLCXItOpKkP9eLAhnueBJcgsCq1Tf/1M4ArjW0k
-         lNLgSw9LkNf/Ict5szieye0BZEF4ErGv4GJR/XkntiJ8hSRXdScDvTxiypfMMf0uXatT
-         YUbw==
-X-Gm-Message-State: AOJu0YxOww2bGW3Uh8udmq/CA8v3CAr5LGwYQlI6YCQuzeU+xDazU8d3
-	mUrhBjIc79iMi09WOKhUtm3cpzyzv6SffaOtuAGl7U2nr+YBH4v6dMhuy0TU2a/Y4Q==
-X-Gm-Gg: Acq92OFhNpalS4rVQM6yG63Bja9HWD++gb1AWy2X1V6sefB7wPCQe6BTz1L3W04SEYp
-	2BvKB3CZORFgw0Iv3SZqBBpsQLSKD+2lqfKgt+ud8vzzWpYT1ca02cXbwoXbz1Ao/hEwSrmvXEu
-	XmsMIm27ZL98irGdOhW7EBZOycKUySUJBS0gWwyMUKO2sfPlPJMgpxUNL2k5MF3FhTsx42RILbw
-	KFKtF1UwvqVmK7J6JzC+BcS6wCatT9CwAqzFL0ft1ZrFbLyMjkaIJpWVXK/EwYDKBUAx6VjCozd
-	mUz3WKVXvaQNEd0PBaiBgoW2w5eUIrYvGpqmVfrkdvE3O82C2P2jfXz0BkrZS0XPBKDIMeqVAfa
-	XZVH1qIaztAUMUGErmkQxC3bEfBGrFtREH/YQo0DlZ5oOyn+5pQ6WTLK+8cXNcEVqtC+v3ZNjTF
-	D/gWDauElpZnNyWTxPw2lbul7KFvxvWQP9F3t4bEBxzVQbbnfFsi7jMVXvgH/MNLM8sEtSdP3aP
-	vfQUSO+fO4EHW4=
-X-Received: by 2002:a05:6000:15c1:b0:460:71e6:e11 with SMTP id ffacd0b85a97d-4619f3afba7mr2989189f8f.24.1781590603580;
-        Mon, 15 Jun 2026 23:16:43 -0700 (PDT)
-Message-ID: <0037ce13-8db1-4855-8ef0-dbeefba54fab@suse.com>
-Date: Tue, 16 Jun 2026 08:16:41 +0200
+        bh=GuJ38IK9EwFymKF6pZK9hlCOwvCYQ/y1c/SgaMdkOFI=;
+        b=lIBnKWSBBm7DMpx+3FaeBgQGgdqKaXavHbycbmr+AT+Y7wD1hfligSuDCzZ3o+YHu+
+         06ZFGHy5jo9mB9WJh+ufO2ObiSOQN6GooWhJpIUsndVDuXm91alFRe2gxusYfky50ccr
+         fYHNJEJn7psPNr4xM7BSLxNOWF3wUzUUdiZbl3ulXeJZAXKSxO/MJm+1enJIeBxENF9I
+         1nHAyZnSd5ZVvfLpS7hEWWKwEs0+CrorFhqXVNcSYfZ8nY8BxX3y73njkCyUtNsKWV4n
+         ZUr5R9BzVnjp1At/16kL2k6yC92FfNxit2jADeub0z0/KHPCbyqwcm846yyKIc4ZQ7FD
+         Og4g==
+X-Gm-Message-State: AOJu0YwsPdFQJQlaYjJl6+ONT76OvfANaqt/uTQuXUY3iuPdtSZ8TsMK
+	TSyXImVY6YZSJen9ufUy6jeK+VdQWRY8u5eICFhXybkis5dI2gH7cAZ/ujwJeFSQAiDUjFnSfP/
+	6Mns=
+X-Gm-Gg: Acq92OHtU9W8PpUqnzKkpaINyJ0kANcE4nHycLig6zcK+lj2FUwVECNdsQxDj0XOF9Z
+	Fh2O4Mz8q3USM/pf8C2stpGVLovk5oKDyqhfl6DS1RKcKDQOnx+kQKcal3mPQ1DQOiAehFsLiYQ
+	IjZjQMAD/SzjCaTBLz9qaAO+LJNC+DHmWW0f66bqdXDMK0R4UY7zbkIDTe9GZYDk+QIE4CAfsK2
+	Dsebo0Wa0Wz0cN6frUVhYSYnO4BNp3+/lDUozYsQtMT6tD0eK6xX2Bw/Bsr2XI4X45ce8f8C7dd
+	QqNtVvfyqYfmnh0pGwRfLK2IkOSYpJmaYqAxmYVHkqdqzcUkz/ePYx35YYE6DInerMH9O7YhOPL
+	Rk2571rR4R4QE6+0a5yOBDMxyrdDmqEUNWcN4nzMXsfFjBiQDPPpCv6elxXTOBm7aXPEdXIVYO2
+	U4/sg4cQMHTWU6CwgwZZ5SDz0H9GU4km4jqF1b3EfG16g7ZrBlLoxRjweteE4mZ4HWgsyIxjruy
+	gx+gUaw+yyGs14=
+X-Received: by 2002:a05:600c:34c9:b0:492:1e50:978d with SMTP id 5b1f17b1804b1-492200838bemr190504895e9.16.1781591427241;
+        Mon, 15 Jun 2026 23:30:27 -0700 (PDT)
+Message-ID: <1fbb67ab-09f3-4924-b6aa-139fc5d1acc7@suse.com>
+Date: Tue, 16 Jun 2026 08:30:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Assertion '!is_idle_vcpu(v)' failed after 'Remove
- fully_eager_fpu' commit on EFI
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Ross Lagerwall
- <ross.lagerwall@citrix.com>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
- <aiwTkDUP6rDPbV6R@mail-itl> <0db98119-48f3-4edd-a422-8e50ee713b7c@citrix.com>
- <e84d6765-61fa-4203-a1ee-ac07f54a1026@suse.com>
- <48878ff6-ad36-448f-aa9d-6b37e2e179b1@citrix.com>
- <1781277924.8631fc262581453bbf619ec5b2062170.19ebc701bfb000701b@vates.tech>
- <ai-_jUw0QmdC7gPK@macbook.local>
- <1781534374.8631fc262581453bbf619ec5b2062170.19ecbb938f1000701b@vates.tech>
- <aea699f2-c869-4301-b67c-ddea1e08ae9a@citrix.com>
+Subject: Re: [PATCH] Revert "xen/cpufreq: fix usages of align_timer() in the
+ on-demand governor"
+To: Jason Andryuk <jason.andryuk@amd.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20260615193944.19392-1-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -144,12 +133,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aea699f2-c869-4301-b67c-ddea1e08ae9a@citrix.com>
+In-Reply-To: <20260615193944.19392-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1781590604-E3D7BCF5-3D15A3B4/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-720697/1781591427-80145161-51CAE332/0/0
 X-purgate-type: clean
-X-purgate-size: 1487
+X-purgate-size: 2165
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -158,64 +147,81 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	SUBJECT_HAS_EXCLAIM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BB63368C718
+X-Rspamd-Queue-Id: 11FB168C862
 
-On 15.06.2026 19:02, Andrew Cooper wrote:
-> On 15/06/2026 3:39 pm, Anthony PERARD wrote:
->> [06Ah 0106 001h]         RTC Day Alarm Index : 0D
->> [06Bh 0107 001h]       RTC Month Alarm Index : 00
->> [06Ch 0108 001h]           RTC Century Index : 32
->> [06Dh 0109 002h]  Boot Flags (decoded below) : 0033
->>                Legacy Devices Supported (V2) : 1
->>             8042 Present on ports 60/64 (V2) : 1
->>                         VGA Not Present (V4) : 0
->>                       MSI Not Supported (V4) : 0
->>                 PCIe ASPM Not Supported (V4) : 1
->>                    CMOS RTC Not Present (V5) : 1
->> [06Fh 0111 001h]                    Reserved : 00
->> [070h 0112 004h]       Flags (decoded below) : 000004A5
->>       WBINVD instruction is operational (V1) : 1
->>               WBINVD flushes all caches (V1) : 0
->>                     All CPUs support C1 (V1) : 1
->>                   C2 works on MP system (V1) : 0
->>             Control Method Power Button (V1) : 0
->>             Control Method Sleep Button (V1) : 1
->>         RTC wake not in fixed reg space (V1) : 0
->>             RTC can wake system from S4 (V1) : 1
+On 15.06.2026 21:39, Jason Andryuk wrote:
+> The original commit showed a ~6% regression in a benchmark.  The call to
+> align_timer(firsttick, period) rounds firsttick up to the next mutiple
+> of the period, if firsttick % period != 0:
 > 
-> There's 3 pieces of information on here which confirm an RTC is
-> present.  Setting RTC_NOT_PRESENT is clearly a bug.
+> align_timer(0, period)          -> 0
+> align_timer(1, period)          -> period
+> align_timer(period, period)     -> period
+> align_timer(period + 1, period) -> 2 * period
 > 
-> We should probably have a quirk to ignore RTC_NOT_PRESENT on this system.
+> So adding the period (sampling_rate) before calling align_timer() will
+> in most cases incease the expiration to 2 * period (sampling_rate) (the
+> exception being firsttick % period == 0).  This longer timer slows the
+> reaction time of the algorithm.
+> 
+> This reverts commit a0ed5bcfbeee81c91c574ad484faa057054eaf09.
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> ---
+> This is backported in stable trees and should be reverted there as well
+> (found in 4.20.3).
+> 
+> A Fixes seems superfluous and not normally used with a revert, but if
+> needed:
+> Fixes: a0ed5bcfbeee ("xen/cpufreq: fix usages of align_timer() in the on-demand governor")
 
-Imo we should go that far only if EfiGetTime() didn't work there. Afaics
-Linux also has no such quirk.
+If "git grep" is intended to (also) find such straight reverts by merely
+matching "Fixes: ", I think the tag should still be put there.
+
+Talking of Fixes: tags - the original change had two of them, so there
+must have been a problem? Or, Roger, was this purely an observation from
+looking the the code?
+
+> --- a/xen/drivers/cpufreq/cpufreq_ondemand.c
+> +++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
+> @@ -185,8 +185,7 @@ static void cf_check do_dbs_timer(void *dbs)
+>      dbs_check_cpu(dbs_info);
+>  
+>      set_timer(&per_cpu(dbs_timer, dbs_info->cpu),
+> -              align_timer(NOW() + dbs_tuners_ins.sampling_rate,
+> -                          dbs_tuners_ins.sampling_rate));
+> +            align_timer(NOW() , dbs_tuners_ins.sampling_rate));
+>  }
+
+As much as I understand you wanting to have things simple by doing a
+straight revert, imo the formatting flaws better wouldn't be introduced
+again. If I ended up committing this, I'd very likely take the liberty
+of doing so. Yet before ack-ing the question above needs answering.
 
 Jan
 
