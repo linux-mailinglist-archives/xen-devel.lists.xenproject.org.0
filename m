@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ADT3MTcRMWpnbAUAu9opvQ
+	id znwRBGwRMWpwbAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:02:47 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:03:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70BC668D5C6
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:02:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600CC68D5D5
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:03:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=BOXPYbZr;
+	dkim=pass header.d=suse.com header.s=google header.b=btlMAXWb;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338840.1599904 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338846.1599913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZPgk-0001OE-Lb; Tue, 16 Jun 2026 09:02:30 +0000
+	id 1wZPhh-00028F-1q; Tue, 16 Jun 2026 09:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338840.1599904; Tue, 16 Jun 2026 09:02:30 +0000
+Received: by outflank-mailman (output) from mailman id 1338846.1599913; Tue, 16 Jun 2026 09:03:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZPgk-0001Mp-Hk; Tue, 16 Jun 2026 09:02:30 +0000
-Received: by outflank-mailman (input) for mailman id 1338840;
- Tue, 16 Jun 2026 09:02:29 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wZPhg-00026k-U4; Tue, 16 Jun 2026 09:03:28 +0000
+Received: by outflank-mailman (input) for mailman id 1338846;
+ Tue, 16 Jun 2026 09:03:26 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZPgi-0001Ma-Ta
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:02:29 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZPhe-00026b-OH
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:03:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZPgi-002z0G-AE
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:02:28 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wZPhe-009KpH-50
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:03:26 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a311118-bab6-0a2a0a5309dd-0a2a450bbc0e-48
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:02:28 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a311155-2eae-0a2a0a5409dd-0a2a4502defc-46
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:03:25 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a311124-212f-0a2a450b0019-d1558032dda2-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:02:28 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49222fb062bso32872445e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 02:02:28 -0700 (PDT)
+ id 6a31115d-af86-0a2a45020019-d155dd36ad45-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:03:25 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-45fd45e596cso2403789f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 02:03:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49230a45b30sm41084035e9.2.2026.06.16.02.02.26
+ ffacd0b85a97d-4619b9b7750sm14807493f8f.6.2026.06.16.02.03.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 02:02:27 -0700 (PDT)
+ Tue, 16 Jun 2026 02:03:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,53 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781600548; x=1782205348; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781600605; x=1782205405; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+O/5aLoJh/nqfou7kFqhsCjNAsFYq66chW2xynNKcIA=;
-        b=BOXPYbZr0sbBrzg4gFtmFF8Wj7+I4EoJK4kf4Ykp/gO6994ieJIhKvvxMWdG1sIKE8
-         0SnSW6cnHNiNlIG1IKAxIqIA1BjeuW1ZsJAEYjUP0DgvX3eQQG7lAlxJqsllsvWFggww
-         t+hhzOSYWuyJk+Jv7DO41xqZg17D2ejJFV/FoJbza1KzmJ6PX/AjFtCElBkjPYlDY/Kv
-         PfVbFdIkKjsMhbNKvUtpsK4K5WpGvlRKiiEClVxc+wr29s8NaqR7UOh8rDpRBKmOIWgD
-         7yZCsIUR1CiHeoRm4lrTy4njYXiSE4eVRceLEKBwjXHq9pqnbJS+eoqagVF7nkMnSask
-         UFYg==
+        bh=Dga1/oyfPqrdOGX1Yrc05VbMApsKHkKaZphLkonwUHo=;
+        b=btlMAXWbl6LoCkfw9vbx4ER5AFrsec2liHhD7z+7BbvPk9AMYGbFqFksg8EJb4XBre
+         ZA4ATa8z5ODkL04mqQV9aswBaEYxD+lV84N9opLeZ5i1E0vnp+N3biNFoAOS/ccxGUEM
+         Y6sblVfKjO9qWVHdlIMotBDOzgdCwNaI8qorPjrAOvcehDXQslC5sJa7kTFdh3IJVYjO
+         WIYCFWompVTTwwWC5Rr02ZbAL2BiCqtS/7FVBegI7aGo1cTy3f+mvRzhv1tUye3CshsU
+         VX4Gp5WUJJsy1tzfLKLN8VpzGmEyV9P8rwY2gGbR6IRs3cLy2RLA7vT4zV7cflB7wLEe
+         CjGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781600548; x=1782205348;
+        d=1e100.net; s=20251104; t=1781600605; x=1782205405;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+O/5aLoJh/nqfou7kFqhsCjNAsFYq66chW2xynNKcIA=;
-        b=ChtOl5s+m/dsoPo7PMKpSZQY2RuKWUlA15o9sKAoxSYQ2SxkRX+NeOrSKGgCsp49Tu
-         E1r2XE2lyQhERIbqbSHCjnpWmbyhyakE0EF0cXll7EDU1W+Bs5ZX0V0ODdit22k2kv6y
-         q4giSUavbpavMsNsKGZvlF92Pcq5gbnQIQCUgeBnt46RkaOfiIEUDcYCkl0p4U+GwerH
-         Kfcy7GOMPjHryysSdalq94Ogvcs82uAWlG54LHtH+ZevmOX6BNbvjptfipB86zLGoHn0
-         JHlQHYIHe/+0K/BgUHk7tQwcqxBe0Twv7KJdXYKKmfIFthfvsvZ5TVrLOoWfsWCmndlM
-         lN+g==
-X-Gm-Message-State: AOJu0YxRZOnT0xTKrEY35xXu+Z4II/a5w6O0aeeqLMF7rB6IDaztw5bO
-	4kqoi4vipWs9RLbrFxMWLp12O+QQTRSQZ8tW0M+gcEe0fsiMvIvBnAkoLy0tB1IGED5HfiqrhVA
-	RXKY=
-X-Gm-Gg: Acq92OHCUxox8bjv71Oe8Yz/ZRed9LSXvZ0OAc6NA2RHIh77NPcjkYpoGmyVVcFCFD0
-	+LfWFzofJVtB3BkH6Ef77Dp1egT34Z8apMqyuAQjG9Eeggu0h/3qDOnu0a3GSaZuCgDMqKJ99We
-	lm1eLCuJ+d3r3vgTpT19ukeJr+oe4AAAjeDkEA3+dnFAV+FQ5JK63RHdB9Ed9b/o+3xIzAGnL4w
-	C5NwmA/1h4yCtCo+ds9fjRzQOZU6UPDuo+6sEriUX6xXTuBFQbuxBgPyYskFc9BNRDJMD3abENV
-	6PtV8pdgchEAxRuygeAT7RYDrLkzByjahKhEkaesmJ5sUPajARQ8Z3dEYaMENcTVshmiB3SNvwe
-	zqhCcO6Bf9aB+BSzuR8RGBapxDSefh8Xjul6vG4JV5RDimzWbCev4vuagjWaIEYafBxcd/WdxbC
-	+QidUmPgxEGEHeiKBeE+9GHKfDUil98ygqZuezu9AVJ01XouJlJl1PhRmWW/D/V6rybjv/Trts9
-	LzC79azMukL2YM=
-X-Received: by 2002:a05:600c:4e4e:b0:490:b28d:a6f9 with SMTP id 5b1f17b1804b1-4922ff72917mr38595785e9.8.1781600547537;
-        Tue, 16 Jun 2026 02:02:27 -0700 (PDT)
-Message-ID: <83af338a-3ef2-4be3-99f0-cfe38a09cda0@suse.com>
-Date: Tue, 16 Jun 2026 11:02:26 +0200
+        bh=Dga1/oyfPqrdOGX1Yrc05VbMApsKHkKaZphLkonwUHo=;
+        b=ie2KcYBos7ckbI9wPgIzLXWVZBj9ixydLWDPORPMMx1GugeAwTvoAbm9/k6zSUB+Ha
+         0OC68kbxJ/6pkIK98vJh8ZQK9JEWCIzE1ybkZbFDj/u8ze0qGKUdK4po7mYWHNwbR/BS
+         xX/dPZpSx2g2D9X4CzAbUdocsf9Yf6/7ReXcJSZkcnuTsLfzWzKQ5U6yBI6URjqd8unx
+         7bAhczNQ2fHoD0qbBsGia29Qj77vhmM5r8lYzT0ZGSHgUxpTvuWbHg5bewXDb1OCaAvq
+         CPC0aBkGCbnYDEuQOgsAyXGf7eIuuVlD6g2/b5vyHahot7Yg+rzszd8Z2p83mn28gOhC
+         yGNg==
+X-Gm-Message-State: AOJu0YwGuCc2xPNJ88chthr84QkoQYrRDHGcFXLNFWXfrubGmnTusWTV
+	UN/NTSHIudUxbQ8yo7S0vrWFtuQB+yEBXp0No4JtPeRjAfOsvRCvK38bwbA5wnWETZaihFQWic+
+	P9Dg=
+X-Gm-Gg: Acq92OGRoIv07SCytCnDZEzfkt3TQqH7wAvhiwuRMYxVsBqngi3piCLl7EC0wEvIvmw
+	Ze6Hiw58CHD4inWjdKlvABv36SMMOGEDdFM6aijZRTiTizIZeDE+VTLUf50FuZFlNi2jYGJd4q5
+	nJfYh7GfYNuGuVqH8Lo64M5Kn9iLTXdeDpyaEojMDzCzjBi4g/pb+Ta6T4+CfB02ScWko0PkrQj
+	1mNv4kQhOV345EmJ0FSxLWcqB3jBuYeC4H7SFHmewi28jgQazru28w3r4R80/RL7UCRhNgvbYiC
+	0kUorfWjlAzIgS/UaU4jMlYvqXISdrg7Xa8t1FPdqctEA9zP8gHD5kQCIl6piieh2eMUvvy3tK9
+	4+qtHtB6sBGDgo0//JY7PaWnDL8pYpy5Ll24PvFj8gzkpQaIcdA4IUyl3sict5qr9NM++n8h0uT
+	1so2cSzOJtHnIxoXPkKWSkdGT3bCZaVnmId3VWS1dsDk1pRca2IG1uvATUW2Xw4oOvCu7DHsP5g
+	/g13Bxlsx0Gd3U=
+X-Received: by 2002:a05:600c:34c3:b0:490:c2a2:e91e with SMTP id 5b1f17b1804b1-4922ffc0622mr43887735e9.34.1781600604754;
+        Tue, 16 Jun 2026 02:03:24 -0700 (PDT)
+Message-ID: <7e492b98-26d5-4d90-a703-ee25beae7e23@suse.com>
+Date: Tue, 16 Jun 2026 11:03:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/4] libxc: adjust string size calculations in
- xc_flask_{getbool_byname,setbool}()
+Subject: [PATCH 4/4] lib: make safe_copy_string_from_guest() validate input
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Daniel Smith <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Daniel Smith <dpsmith@apertussolutions.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <5d242cad-d907-4321-8ac1-363c0f9b623d@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,92 +139,150 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <5d242cad-d907-4321-8ac1-363c0f9b623d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1781600548-13F7EF3B-8FC96224/0/0
+X-purgate-ID: tlsNG-720697/1781600605-80145161-240C44FE/0/0
 X-purgate-type: clean
-X-purgate-size: 1718
+X-purgate-size: 3965
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,xen.org,kernel.org,vates.tech,amd.com,apertussolutions.com,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	RSPAMD_URIBL_FAIL(0.00)[lists.xenproject.org:query timed out];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 70BC668D5C6
+X-Rspamd-Queue-Id: 600CC68D5D5
 
-In preparation for a hypervisor change also include the nul terminator in
-the size calculations. (Note that xc_flask_getbool_byid() doesn't support
-FLASK_GETBOOL's "ID being -1" variant of operation, and hence doesn't need
-fiddling with.
+... rather than papering over guest flaws: Strings passed ought to be nul-
+terminated (yet sadly libxc hasn't been doing so thus far). This way we
+also avoid order-1 allocations, seeing that all present callers pass
+PAGE_SIZE for max_size.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+I can't spot any caller side use of FLASK_DEVICETREE_LABEL, hence there's
+no corresponding prereq patch.
 
---- a/tools/libs/ctrl/xc_flask.c
-+++ b/tools/libs/ctrl/xc_flask.c
-@@ -187,7 +187,8 @@ int xc_flask_getbool_byname(xc_interface
- {
-     int rv;
-     struct xen_flask_op op = {};
--    DECLARE_HYPERCALL_BOUNCE(name, strlen(name), XC_HYPERCALL_BUFFER_BOUNCE_IN);
-+    size_t size = strlen(name) + 1;
-+    DECLARE_HYPERCALL_BOUNCE(name, size, XC_HYPERCALL_BUFFER_BOUNCE_IN);
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog
+    to obtain an automatically allocated domid.  The prior sentinel values (0
+    since the start of Xen, and DOMID_INVALID since Xen 4.21) now no longer
+    represent a wildcard input.
++ - XEN_DOMCTL_DEV_DT's, FLASK_[GS]ETBOOL's, and FLASK_DEVICETREE_LABEL's input
++   string sizes need to include the nul terminator.
+  - On x86:
+    - Enable pf-fixup option by default for PVH dom0.
+    - The libxenguest bzImage loader now uses the system liblz4 library.
+--- a/xen/lib/guest-strcpy.c
++++ b/xen/lib/guest-strcpy.c
+@@ -3,8 +3,8 @@
+ #include <xen/err.h>
  
-     if ( xc_hypercall_bounce_pre(xch, name) )
-     {
-@@ -197,7 +198,7 @@ int xc_flask_getbool_byname(xc_interface
+ /*
+- * The function copies a string from the guest and adds a NUL to
+- * make sure the string is correctly terminated.
++ * The function copies a string from the guest and checks there's a NUL
++ * terminating the string.
+  */
+ char *safe_copy_string_from_guest(XEN_GUEST_HANDLE(char) u_buf,
+                                   size_t size, size_t max_size)
+@@ -14,8 +14,7 @@ char *safe_copy_string_from_guest(XEN_GU
+     if ( size > max_size )
+         return ERR_PTR(-ENOBUFS);
  
-     op.cmd = FLASK_GETBOOL;
-     op.u.boolean.bool_id = -1;
--    op.u.boolean.size = strlen(name);
-+    op.u.boolean.size = size;
-     set_xen_guest_handle(op.u.boolean.name, name);
+-    /* Add an extra +1 to append \0 */
+-    tmp = xmalloc_array(char, size + 1);
++    tmp = xmalloc_array(char, size);
+     if ( !tmp )
+         return ERR_PTR(-ENOMEM);
  
-     rv = xc_flask_op(xch, &op);
-@@ -219,7 +220,8 @@ int xc_flask_setbool(xc_interface *xch,
- {
-     int rv;
-     struct xen_flask_op op = {};
--    DECLARE_HYPERCALL_BOUNCE(name, strlen(name), XC_HYPERCALL_BUFFER_BOUNCE_IN);
-+    size_t size = strlen(name) + 1;
-+    DECLARE_HYPERCALL_BOUNCE(name, size, XC_HYPERCALL_BUFFER_BOUNCE_IN);
+@@ -24,7 +23,12 @@ char *safe_copy_string_from_guest(XEN_GU
+         xfree(tmp);
+         return ERR_PTR(-EFAULT);
+     }
+-    tmp[size] = '\0';
++
++    if ( !memchr(tmp, 0, size) )
++    {
++        xfree(tmp);
++        return ERR_PTR(-EMSGSIZE);
++    }
  
-     if ( xc_hypercall_bounce_pre(xch, name) )
-     {
-@@ -231,7 +233,7 @@ int xc_flask_setbool(xc_interface *xch,
-     op.u.boolean.bool_id = -1;
-     op.u.boolean.new_value = value;
-     op.u.boolean.commit = 1;
--    op.u.boolean.size = strlen(name);
-+    op.u.boolean.size = size;
-     set_xen_guest_handle(op.u.boolean.name, name);
- 
-     rv = xc_flask_op(xch, &op);
+     return tmp;
+ }
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -574,7 +574,7 @@ struct xen_domctl_assign_device {
+             uint32_t machine_sbdf;   /* machine PCI ID of assigned device */
+         } pci;
+         struct {
+-            uint32_t size; /* Length of the path */
++            uint32_t size; /* Length of the path, including nul terminator */
+             XEN_GUEST_HANDLE_64(char) path; /* Path to the device tree node */
+ #ifdef __XEN__
+             struct dt_device_node *dev; /* Resolved device node of the above */
+--- a/xen/include/public/xsm/flask_op.h
++++ b/xen/include/public/xsm/flask_op.h
+@@ -26,7 +26,8 @@ typedef struct xen_flask_setenforce xen_
+ struct xen_flask_sid_context {
+     /* IN/OUT: sid to convert to/from string */
+     uint32_t sid;
+-    /* IN: size of the context buffer
++    /*
++     * IN: size of the context buffer, including nul terminator
+      * OUT: actual size of the output context string
+      */
+     uint32_t size;
+@@ -86,8 +87,11 @@ struct xen_flask_boolean {
+     uint8_t new_value;
+     /* IN: commit new value instead of only setting pending [SET] */
+     uint8_t commit;
+-    /* IN: size of boolean name buffer [GET/SET]
+-     * OUT: actual size of name [GET only] */
++    /*
++     * IN: size of boolean name buffer [GET/SET]; must cover nul terminator
++     *     if "name" (below) is an input
++     * OUT: actual size of name [GET only]
++     */
+     uint32_t size;
+     /* IN: if bool_id is -1, used to find boolean [GET/SET]
+      * OUT: textual name of boolean [GET only]
+@@ -150,7 +154,7 @@ typedef struct xen_flask_relabel xen_fla
+ struct xen_flask_devicetree_label {
+     /* IN */
+     uint32_t sid;
+-    uint32_t length;
++    uint32_t length; /* length of the path, including nul terminator */
+     XEN_GUEST_HANDLE(char) path;
+ };
+ typedef struct xen_flask_devicetree_label xen_flask_devicetree_label_t;
 
 
