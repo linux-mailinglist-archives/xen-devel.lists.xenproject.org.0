@@ -2,50 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id De/hJwQwMWozdgUAu9opvQ
+	id y/RJBKQxMWrkdgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 13:14:12 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 13:21:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B527968EB0F
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 13:14:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01E1468EBDF
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 13:21:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("headers rsa verify failed") header.d=infradead.org header.s=casper.20170209 header.b=cIG2iAaf;
+	dkim=pass header.d=invisiblethingslab.com header.s=fm1 header.b=j1XQaE4H;
+	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=bDfalGzz;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=infradead.org (policy=none)
-Received: from list by lists.xenproject.org with outflank-mailman.1339139.1600273 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=invisiblethingslab.com
+Received: from list by lists.xenproject.org with outflank-mailman.1339145.1600282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZRji-0005X1-PF; Tue, 16 Jun 2026 11:13:42 +0000
+	id 1wZRqc-0007lz-DQ; Tue, 16 Jun 2026 11:20:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1339139.1600273; Tue, 16 Jun 2026 11:13:42 +0000
+Received: by outflank-mailman (output) from mailman id 1339145.1600282; Tue, 16 Jun 2026 11:20:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZRji-0005Ue-MB; Tue, 16 Jun 2026 11:13:42 +0000
-Received: by outflank-mailman (input) for mailman id 1339139;
- Tue, 16 Jun 2026 11:13:41 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+1d5ab94c3d64428ecf34+8332+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wZRjf-0005UT-8i
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:13:41 +0000
+	id 1wZRqc-0007jq-AV; Tue, 16 Jun 2026 11:20:50 +0000
+Received: by outflank-mailman (input) for mailman id 1339145;
+ Tue, 16 Jun 2026 11:20:48 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wZRqa-0007jk-Om
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:20:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZRjc-004Nbh-Bx; Tue, 16 Jun 2026 13:13:37 +0200
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+1d5ab94c3d64428ecf34+8332+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a312fd6-5cb7-0a2a0a5109dd-0a2a450ccfc0-26
- for <multiple-recipients>; Tue, 16 Jun 2026 13:13:35 +0200
-Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <BATV+1d5ab94c3d64428ecf34+8332+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a312fdf-62f1-0a2a450c0019-5a9b3222b71c-3
- for <multiple-recipients>; Tue, 16 Jun 2026 13:13:35 +0200
-Received: from [2001:8b0:10b:5:7e25:c5e1:47b2:baf1]
- (helo=u09cd745991455d.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wZRjY-0000000AcxR-1BsU; Tue, 16 Jun 2026 11:13:32 +0000
+ id 1wZRqZ-00GUJ1-FI
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 13:20:47 +0200
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a313183-2eae-0a2a0a5409dd-0a2a450886e6-26
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 13:20:47 +0200
+Received: from [103.168.172.145] (helo=fout-a2-smtp.messagingengine.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a31318e-63b5-0a2a45080019-67a8ac91a451-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 13:20:47 +0200
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 3C486EC008F;
+ Tue, 16 Jun 2026 07:20:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Tue, 16 Jun 2026 07:20:46 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 16 Jun 2026 07:20:44 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,257 +60,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0kkV5eTmHO2Wv3uC6lJwILGDtspJUOhMlj3zb9vu+lI=; b=cIG2iAafBHwUcYqzPajEALtQ/Y
-	U+zfrpntB1GSIwLxDvCqY4yXUMqv/4r1RMg3oHPu3gcZQ4J0/kfQzjkXG7AdFcSN5rDsjBRPe2xTA
-	phMJwgZRJeBd5WZ6sNvwpCyEFm269CfQsYXKnHG0AEyyIH8Sh4NHaWCqHACEecMUNrgMp6cX+EaB8
-	3BgE+FTZ2rSi9o523IkI1XvYMNtkBDIHPtpnsPFZ2SMzlY7KHJ3s6sbslQkHa89k33Hu5M52c6lcj
-	t8IdJo8Dos4DFGX04te/l8rCIED46hgAoFZgW6IIqjJfrBCi4VO2rHNexRP6uiaVaitCjreeNXzpF
-	y+91Fb7A==;
-Message-ID: <913f6048e1193e65278cb3f4b4dbf04a151e85f5.camel@infradead.org>
-Subject: Re: [PATCH v5 04/34] KVM: x86: Add KVM_[GS]ET_CLOCK_GUEST for
- accurate KVM clock migration
-From: David Woodhouse <dwmw2@infradead.org>
-To: Dongli Zhang <dongli.zhang@oracle.com>, x86@kernel.org,
- kvm@vger.kernel.org, 	linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	xen-devel@lists.xenproject.org,
- linux-kselftest@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner	 <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,  Dave Hansen
- <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, Vitaly
- Kuznetsov	 <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky	 <boris.ostrovsky@oracle.com>, Paul Durrant <paul@xen.org>,
- Jonathan Cameron	 <jic23@kernel.org>, Marc Zyngier <maz@kernel.org>, Sascha
- Bischoff	 <Sascha.Bischoff@arm.com>, Jack Allister <jalliste@amazon.com>, 
-	joe.jin@oracle.com, Joey Gouly <joey.gouly@arm.com>
-Date: Tue, 16 Jun 2026 12:13:31 +0100
-In-Reply-To: <77f541f7-b346-4c86-8e66-3d2439e29cbb@oracle.com>
-References: <20260608145455.89187-1-dwmw2@infradead.org>
-	 <20260608145455.89187-5-dwmw2@infradead.org>
-	 <77f541f7-b346-4c86-8e66-3d2439e29cbb@oracle.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-z8fsZ4KdYGvpldBfCjRo"
-User-Agent: Evolution 3.60.3 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1781608846;
+	 x=1781695246; bh=RPQdNjDUvjtcaC/RTETCswwWzqrRVABhOgSAwdQ5qiA=; b=
+	j1XQaE4H0D9s0MFKRTY4vPEskB9n6vCGJMHcsRdLu2W8WeiuQMzhJzVkTJz/xx4o
+	sP6Bti2dea87FZqaJo+vZjx5sES8CIJdLpU4NChxvi1DjaCet8G/YDqjxmNdIQCd
+	yDOg+Vp3jWtuYtFsr+m1RnHwOTYhcuA9H9WjLzmCy1N864NnyAdCoEKlVnjCeIKh
+	Qe0ZiSc3A5/pO5iHFGYQeuSZ+HNMs+WnXo8XzxIDxDk8EIdXP6FOB+7U+KcucgBN
+	F8qqPgzZ0FRBYdyuyPVExZHGXuvF1ib6x1QYqKIfZkl+KfqzLbYsXWVPv0pTcbkT
+	yaISJkGoWUnSGgjEcQEtVQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1781608846; x=1781695246; bh=RPQdNjDUvjtcaC/RTETCswwWzqrRVABhOgS
+	AwdQ5qiA=; b=bDfalGzzL87V+1nq875y6MbmgKgKUy2RSSzmUFlopmkb8R60qCU
+	bBb3e4eW0XFP2fLYgzbShR5RsyIOwblf1IEJZ7fFCVc7mnX6lXE2M4YEvqWE8GW5
+	HM6qEO5WwT+rZicIHXq5TezXgowjSKumYnfavfPe/M3N2Zst500k4GCvIXVvwAx4
+	zKLA7voJ2vIQzDYLYBqPTGmHsg5pAD2FBKQ7EPDY33RCicoEHIHucby8w+yXz1Eh
+	VsgS/eV3UyLVpjUZkX5AYDFUuk4SGdljOXPA2UUjobpEC+TvKlBzTbUyO4a3KYEe
+	RaamJEhYL0m6cem50OzDcR85hGT6hb1rFdQ==
+X-ME-Sender: <xms:jTExamUoLtyRJFu1jQ5x-2FFWdi09juJ9vurgemGcUOMKPCplJ_fhA>
+    <xme:jTExahrsdpnsm-7eoCZhJnvDnNAcztoclg2CI74KIyL_LPvWd0MJYOsPCdmrlqRIz
+    EgVkxLoCbxIr14p-og0Gn-uO2Vuoy4lz8TOEbQETLsOt8TS4WY>
+X-ME-Received: <xmr:jTExagmhRvcWXNRKFto19Xq9BsGa_mzLt8xxTtppBAm4wsx7FnAyglbC2rGEUKapiMfrTg7myuq29Xi14kQQsLRl8LVL-8Bm_HQ>
+X-ME-Proxy-Cause: dmFkZTEkrrqRpWaCIDmYhut2VKG1b/RvNyhOodqTNL02VRec+8vK5+F9DdNqiSzETyARKC
+    DmcLB30m2ffc37OkHJRwiDGflm10eMhFaP2JI0Fl+rJhY+iq+0EavrVKkjSnhxzRQ2O1Hw
+    jddi1guBhFtJk+N+ZrqzmvtpozncLa6PN7IlWwgY2KLT2nm8ayG1rVwJ6BIPe5jQWgFvNQ
+    /isH1Ltl7gASxEpPn+tN1wYrODugAYLDL2wPRHpVwdVllr6rlF0xR6hmL9eLAW9v6jdUNX
+    p4kSrJrRw1tg19+QKTp4sYiODsKTfxxtA2bJdSiM5fxaOLDAymFey1PLl3WyGQ/7VazZht
+    A/XE4uZJJBiJxBiGzQV6mHifUk9Jg9UgZH5rw8LdVB/or+dc4SIysbBbyxuBcU5crhC4/k
+    79ZibSGi5ofZN6XxF4amh2Dz0Hufg4I2Cb8SCes6T0sXrq77GOhvGO7YU3bu2TQfszsGLr
+    8IHHPAcmHnup/RTZqH/wQ4hb5y6u6kDhDfbzUGh165uj+nQfO6gxsPXCCk3L86ShK8IQZD
+    U0Mt9hedTZupBic4B/qh0/gsBHM5uoZ+Dua12rWRaO03mLWFFfPo6HX1sTNN9Tt9eRN/VZ
+    s9gP2qqsaIoy4yB8Oe1hSPdLDWuf590cd1VYZrhcuD8Qh1rKLjhQJKup7lLg
+X-ME-Proxy: <xmx:jTExap3E9XQy2xAJLEUQ28H-_LWABMgC8Eg86mpG8werQRgnYP5fnw>
+    <xmx:jTExalRTRCprBNohBo-qOPRdb-FgYcjHTATazW3qT79zgDzz2fpABA>
+    <xmx:jTExaqzwHOy8ocIIslx3GuBdXdof-JDwbwsgrTZ6hLuB-OxF06oIMA>
+    <xmx:jTExatBR4BEDcL8NFzdFW9s0oKteZ0f9wpSD2RmopYQU-E8WE-TIJw>
+    <xmx:jjExau5_4h9kyGg7idDLfZ_eRxRmZfZse8XjRH2H2UDzVeigwheiKeHG>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 16 Jun 2026 13:20:42 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Frediano Ziglio <frediano.ziglio@citrix.com>
+Subject: Re: [PATCH v3 4/4] x86: Split .init section to satisfy UEFI CA
+ memory mitigation
+Message-ID: <ajExivEwb88pcOxT@mail-itl>
+References: <20260616101336.44009-1-frediano.ziglio@citrix.com>
+ <20260616101336.44009-5-frediano.ziglio@citrix.com>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-d25034/1781608415-E1161CF5-6A7A9591/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="EqzQ/UqIYj/JQguo"
+Content-Disposition: inline
+In-Reply-To: <20260616101336.44009-5-frediano.ziglio@citrix.com>
+X-purgate-ID: tlsNG-c1860d/1781608847-BFD7BDB1-5D6E1986/0/0
 X-purgate-type: clean
-X-purgate-size: 10289
+X-purgate-size: 3685
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.49 / 15.00];
-	SIGNED_SMIME(-2.00)[];
-	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dongli.zhang@oracle.com,m:x86@kernel.org,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:maz@kernel.org,m:Sascha.Bischoff@arm.com,m:jalliste@amazon.com,m:joe.jin@oracle.com,m:joey.gouly@arm.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,infradead.org:url,infradead.org:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:frediano.ziglio@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail-itl:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	FORWARDED(0.00)[mailman];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B527968EB0F
+X-Rspamd-Queue-Id: 01E1468EBDF
 
 
---=-z8fsZ4KdYGvpldBfCjRo
-Content-Type: text/plain; charset="UTF-8"
+--EqzQ/UqIYj/JQguo
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 16 Jun 2026 13:20:42 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Frediano Ziglio <frediano.ziglio@citrix.com>
+Subject: Re: [PATCH v3 4/4] x86: Split .init section to satisfy UEFI CA
+ memory mitigation
 
-On Mon, 2026-06-15 at 23:47 -0700, Dongli Zhang wrote:
-> I tested patches 02, 03, 04, and 26 by customizing QEMU to support kexec =
-live
-> updates (LUO and KHO), preserving the memfd across kexec.
-
-Thank you.
-
-> For my use case, I used KVM_[GS]ET_CLOCK_GUEST instead of the existing
-> KVM_[GS]ET_CLOCK. I didn't account the downtime in my QEMU code, although=
- host
-> TSC never resets across kexec.
+On Tue, Jun 16, 2026 at 11:13:36AM +0100, Frediano Ziglio wrote:
+> From: Frediano Ziglio <frediano.ziglio@cloud.com>
 >=20
-> Clock drift was zero, and I did not observe any unnecessary master clock =
-updates
-> after KVM_SET_CLOCK_GUEST completed.
-
-The kvmclock drift won't have been *zero*; it will have been a
-nanosecond or two. Which most people won't notice, but is annoying me.
-
-It believe it comes from both pvclock_update_vm_gtod_copy() and
-kvm_vcpu_ioctl_set_clock_guest() rounding *down*. I think we should
-tweak the latter to round *up* so they're at least not biasing in the
-same direction.
-
-We could also do better at picking a snapshot cycle count which
-*doesn't* lose in the rounding. But those are definitely improvements
-for another day; this series is long and complex enough and has already
-gained a dependency on fixes in core timekeeping snapshots.
-
-> Another interesting observation from my experiments is that tsc_khz chang=
-es
-> across kexec. Since the TSC value itself does not reset across kexec, I'm
-> wondering whether there is any reason to switch to the new tsc_khz value =
-after
-> the kexec.
-
-This is the host timekeeping, yes?
-
-We really ought to pass over *all* the NTP synchronization data across
-KHO =E2=80=94 not just the frequency. There's no excuse for the new kernel =
-not
-reporting *precisely* the same time that the old kernel would, for a
-given TSC reading.
-
-The work I've been doing at=20
-https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dshortlog;h=3Drefs/=
-heads/ffclock
-lays the groundwork for exporting and importing the full reference
-data, and maybe I should use KHO as the example use case while we
-continue to bikeshed the userspace and vmclock parts.
-
-> While live migration involves two different machines, kexec is performed =
-on the
-> same machine. Given that the TSC value itself is preserved across kexec, =
-would
-> it make sense to reuse the pre-kexec tsc_khz value instead of using the n=
-ew
-> tsc_khz after kexec?
+> Currently .init section is both writeable and executable, split data and =
+code
+> to have 2 sections satisfying W^X rule.
 >=20
-> I tested this by using LUO to preserve tsc_khz across kexec, and the resu=
-lts
-> looked good.
+> It is a requirement for NX_COMPAT so the PE can be loaded with W^X perms
+> in the pagetables.
+>=20
+> NX_COMPAT is a requirement from shim-review,
+> https://github.com/rhboot/shim-review#do-you-have-the-nx-bit-set-in-your-=
+shim-if-so-is-your-entire-boot-stack-nx-compatible-and-what-testing-have-yo=
+u-done-to-ensure-such-compatibility
+>=20
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
 
-Of course, what we should really be doing is exporting the timekeeping
-reference to see what frequency the source host TSC is *actually*
-running at, at the time of migration. That gives us a function of guest
-TSC to TAI. Then we can restore the TSC on the destination host as if
-it has been running at precisely that frequency during the migration.
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
-The TSC might be at a slightly different frequency on the new host, but
-we provide vmclock and the guest can clamp its timekeeping to that
-fairly much immediately (see qemu patch I've been posting with the
-ffclock/timekeeping series).
+Is that the last piece necessary to satisfy the NX_COMPAT requirement? If
+so, I suppose a subsequent patch should actually set the
+IMAGE_DLLCHARACTERISTICS_NX_COMPAT bit (IIUC ld --nxcompat option), right?
 
---=-z8fsZ4KdYGvpldBfCjRo
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> --
+> Change since v1:
+> - update comment style.
+> ---
+>  xen/arch/x86/xen.lds.S | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+> index 749d9719cc..8fefda1816 100644
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -193,11 +193,7 @@ SECTIONS
+>    __2M_init_start =3D .;         /* Start of 2M superpages, mapped RWX (=
+boot only). */
+>    . =3D ALIGN(PAGE_SIZE);             /* Init code and data */
+>    __init_begin =3D .;
+> -#ifdef EFI /* EFI wants to merge all of .init.*  ELF doesn't. */
+> -  DECL_SECTION(.init) {
+> -#else
+>    DECL_SECTION(.init.text) {
+> -#endif
+>         _sinittext =3D .;
+>         *(.init.multiboot)
+>         *(.init.text)
+> @@ -210,12 +206,12 @@ SECTIONS
+>          */
+>         *(.altinstr_replacement)
+> =20
+> -#ifdef EFI /* EFI wants to merge all of .init.*  ELF doesn't. */
+> -       . =3D ALIGN(SMP_CACHE_BYTES);
+> -#else
+>    } PHDR(text)
+> -  DECL_SECTION(.init.data) {
+> +#ifdef EFI
+> +  /* Align to satisfy UEFI CA memory mitigation. */
+> +  . =3D ALIGN(SECTION_ALIGN);
+>  #endif
+> +  DECL_SECTION(.init.data) {
+>         *(.init.bss.stack_aligned)
+>         *(.init.data.page_aligned)
+> =20
+> --=20
+> 2.43.0
+>=20
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDYxNjExMTMz
-MVowLwYJKoZIhvcNAQkEMSIEIJ5VAk35+dGCrCRUWFXxqcuWDPC83HDVQTsGwz+Tl6bIMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIASkw7sYl3kwHW
-VqDqOKkb8TmubpwZH0kYFfy1eJORlgVtltDfEnu/TBYuwuNbj1+qyocm4LdVcecQuaCarSqZqAQb
-VO+uK/uScxLsebmWRLslgX6hqlyOUzDvt3N3bCWSHWB8kEpGI0OMMCyomrqjIPE2nfiV8wyr2+KG
-pyGCvnR2YUM9mOfSb0OfUQnD7M8kyfctMcl9V2ppqbCVY9JW5F0NZ8QgCagLImoxIMDwN4X8YYNT
-v2A1dgSlCBkSejw3/b3o5gHs5Unotlvt6zflgDgZ8YF0o66/gmv0dv3fhEUVrIREQJdjPjcEXugH
-HY2B8LLfGQESrESfojA+saX11myjZ+CkQ+Lbktjptf9aFWuU+alI0IXqkT1e+Axq7UnVhqXnd9X1
-XJS0+jUerOFGhCjczqHHv52eeieFp89tx1brtKo0jFnSShrd9Ro6FrCD8nyN0z6zWwd9o2f35TRE
-umIxXfT15cltcVHq9oOzIsO99TGDxGE2vNPbc+s5oNbQqzy1xCe+tauDMgX/zZYWF6fSx7luLdNR
-L3ExRdRKdGrY3mMXFwPLXPPq+9ne2K23TcFRTMfwT0s2B8wAIftQhFqV1AbgrlOyu49BjdzRvfHD
-XL3o31Q1IWnNGcqdtFFKT5rM371ap05RpDDgaowri0/grGlCIXj4vssW3iXgG7oAAAAAAAA=
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--EqzQ/UqIYj/JQguo
+Content-Type: application/pgp-signature; name=signature.asc
 
---=-z8fsZ4KdYGvpldBfCjRo--
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmoxMYoACgkQ24/THMrX
+1yxucQf8DzRsHDDqWcbUgv1bZ1QlGCDEJKmdFkRBRI3sX3WKXZGoChtnOmaAwHVo
+JnWqQzjFlUCLW8Ppxihi9YuSae8zBxr8aND/BnVQDtS1EXc172TfsDOARbrn16LF
+6c6JuFN6qa92S36OFTBjzFgT0AY4HXXjuHpiTjpfExeEEUVFYUcDmKXJ/9E9iZuk
+EGd8BbO2gjzZuXaZNxV18Uuo9LxZC7kY6uXbwEXcTn8gXDqpw6RKVPwrpiKCAhzF
+3C3uNMLUiU9fTv7v33tLHfIkONfl4U2HIJbJHkHxWUjnvpVSrpzY21uChBDIDHsJ
++X3Jk1LKSJ+L1v6QewkYGCHJ3KEwAg==
+=H6ag
+-----END PGP SIGNATURE-----
+
+--EqzQ/UqIYj/JQguo--
 
