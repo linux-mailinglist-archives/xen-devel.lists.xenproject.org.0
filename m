@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ygj2LprtMGpjYwUAu9opvQ
+	id e63EJsrtMGpwYwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:30:50 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:31:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11FB168C862
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:30:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022C368C882
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 08:31:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=dGpfPU2X;
+	dkim=pass header.d=suse.com header.s=google header.b=CCQU7jDp;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338664.1599696 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338671.1599706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZNJf-0005Zk-SQ; Tue, 16 Jun 2026 06:30:31 +0000
+	id 1wZNKc-00067O-9u; Tue, 16 Jun 2026 06:31:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338664.1599696; Tue, 16 Jun 2026 06:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 1338671.1599706; Tue, 16 Jun 2026 06:31:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZNJf-0005YO-Pg; Tue, 16 Jun 2026 06:30:31 +0000
-Received: by outflank-mailman (input) for mailman id 1338664;
- Tue, 16 Jun 2026 06:30:30 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wZNKc-00065G-6V; Tue, 16 Jun 2026 06:31:30 +0000
+Received: by outflank-mailman (input) for mailman id 1338671;
+ Tue, 16 Jun 2026 06:31:29 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wZNJd-0005YH-UY
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 06:30:30 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wZNKb-000658-0r
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 06:31:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZNJc-00FL6R-K2
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 08:30:28 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wZNKa-004IHF-Dg
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 08:31:28 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30ed81-5cb7-0a2a0a5109dd-0a2a4502a83a-24
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:30:28 +0200
-Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a30edb3-2eae-0a2a0a5409dd-0a2a4509de04-36
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:31:28 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a30ed83-af86-0a2a45020019-d1558033d0af-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:30:27 +0200
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4903d730b1fso52563395e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 23:30:27 -0700 (PDT)
+ id 6a30edc0-2497-0a2a45090019-d155802cad8a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 08:31:28 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-490b1bbcf3aso30742295e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jun 2026 23:31:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-461abb44c3dsm142837f8f.9.2026.06.15.23.30.26
+ 5b1f17b1804b1-4922fa97227sm52927065e9.13.2026.06.15.23.31.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jun 2026 23:30:26 -0700 (PDT)
+ Mon, 15 Jun 2026 23:31:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,52 +61,52 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781591427; x=1782196227; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781591487; x=1782196287; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GuJ38IK9EwFymKF6pZK9hlCOwvCYQ/y1c/SgaMdkOFI=;
-        b=dGpfPU2XT+dFsa7zSi4DZFXx9kvlVqriXa7agxW0KWtrvr9ApYYWPL8yJocjNHikss
-         Ek+94cys6+rn9lS29QmX6p9/e9O9tBy/kw6Wcc77CMmgPQEClzyggszU4ioXlox9NLO0
-         Ty8brGzo7YK3Rf8iySdV1ITOdCkwwFRUBE7oim7ZMEpCtRL+MMT8ycl2/iUn3b/RsAe/
-         bzrY7+0OXs37hZFHKm02rCPm4Ay+THIjV44K0X9fpp/2vmYKd3QBQGbH/W3EoZ0x3+ww
-         4yUtPP3GxcDp3cfE6NUi0afO0wEDwPS4pIhzwLe22k+arE/why+FVy+JkWdhd8OsQeja
-         trHg==
+        bh=y10XFG+2FXIPHRwy8fqM6pUjca/EM4vhaqsauDGPwYI=;
+        b=CCQU7jDp1q65kdkMRIhJkDToInmB2o7hOmvY78dklRunniwe/ZLuA31fQKDQPdvnLW
+         NfogbRXm1dJQB6GzWQc1zbRrHnvcbPz/y8nS5eXp5Lyrt/T47FkKLQb0aOEGgtN16mMt
+         e0Oiw7NCudmkzB4Ho1jp14zVV5llb9wYjjPD9h7u6+nqGd0+p/QHGgWZ3EbqZCTWB1Aq
+         DUIoh+PPsX3jz6DHFnUClqqnvoyTSE6jR8bXVWr8eYZCYClj3fjRVHI4vGDmxnHA/G6V
+         ZfrIgb6MwZErrtw6UFyZ/Z+lL57NQrynFp0FxvreBtofMFjodoh75A6NMt7+AGkjIb6T
+         oHPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781591427; x=1782196227;
+        d=1e100.net; s=20251104; t=1781591487; x=1782196287;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GuJ38IK9EwFymKF6pZK9hlCOwvCYQ/y1c/SgaMdkOFI=;
-        b=lIBnKWSBBm7DMpx+3FaeBgQGgdqKaXavHbycbmr+AT+Y7wD1hfligSuDCzZ3o+YHu+
-         06ZFGHy5jo9mB9WJh+ufO2ObiSOQN6GooWhJpIUsndVDuXm91alFRe2gxusYfky50ccr
-         fYHNJEJn7psPNr4xM7BSLxNOWF3wUzUUdiZbl3ulXeJZAXKSxO/MJm+1enJIeBxENF9I
-         1nHAyZnSd5ZVvfLpS7hEWWKwEs0+CrorFhqXVNcSYfZ8nY8BxX3y73njkCyUtNsKWV4n
-         ZUr5R9BzVnjp1At/16kL2k6yC92FfNxit2jADeub0z0/KHPCbyqwcm846yyKIc4ZQ7FD
-         Og4g==
-X-Gm-Message-State: AOJu0YwsPdFQJQlaYjJl6+ONT76OvfANaqt/uTQuXUY3iuPdtSZ8TsMK
-	TSyXImVY6YZSJen9ufUy6jeK+VdQWRY8u5eICFhXybkis5dI2gH7cAZ/ujwJeFSQAiDUjFnSfP/
-	6Mns=
-X-Gm-Gg: Acq92OHtU9W8PpUqnzKkpaINyJ0kANcE4nHycLig6zcK+lj2FUwVECNdsQxDj0XOF9Z
-	Fh2O4Mz8q3USM/pf8C2stpGVLovk5oKDyqhfl6DS1RKcKDQOnx+kQKcal3mPQ1DQOiAehFsLiYQ
-	IjZjQMAD/SzjCaTBLz9qaAO+LJNC+DHmWW0f66bqdXDMK0R4UY7zbkIDTe9GZYDk+QIE4CAfsK2
-	Dsebo0Wa0Wz0cN6frUVhYSYnO4BNp3+/lDUozYsQtMT6tD0eK6xX2Bw/Bsr2XI4X45ce8f8C7dd
-	QqNtVvfyqYfmnh0pGwRfLK2IkOSYpJmaYqAxmYVHkqdqzcUkz/ePYx35YYE6DInerMH9O7YhOPL
-	Rk2571rR4R4QE6+0a5yOBDMxyrdDmqEUNWcN4nzMXsfFjBiQDPPpCv6elxXTOBm7aXPEdXIVYO2
-	U4/sg4cQMHTWU6CwgwZZ5SDz0H9GU4km4jqF1b3EfG16g7ZrBlLoxRjweteE4mZ4HWgsyIxjruy
-	gx+gUaw+yyGs14=
-X-Received: by 2002:a05:600c:34c9:b0:492:1e50:978d with SMTP id 5b1f17b1804b1-492200838bemr190504895e9.16.1781591427241;
-        Mon, 15 Jun 2026 23:30:27 -0700 (PDT)
-Message-ID: <1fbb67ab-09f3-4924-b6aa-139fc5d1acc7@suse.com>
-Date: Tue, 16 Jun 2026 08:30:25 +0200
+        bh=y10XFG+2FXIPHRwy8fqM6pUjca/EM4vhaqsauDGPwYI=;
+        b=ZuunrOHYy0H4ZoiC5ehBi2/UOSuqofeo/3hloDbYrh2uCghDf+e4KoDt78NM15qbUp
+         eyiJr2tUH2gZl14A2asW9TW9Vuj6/GvSmwnKDZaTD5h6hKzNW7WspP4Nif+aPNZsnYNs
+         6IvLoh7rLpTmDHr/SWNXm121ZqyGoHbsAS1K7HTWCNocjbxdKvulNL6Xos44sPt/zT+4
+         sOmY3/LsHYhrnCLfgIjKLtRbp12MT69ayPRcnEaxGB0A2amI/XBKk+wXb56YaaEAJMqv
+         AWxI4Wmc34FS5GIu2TJlkMYel0X7lgBonBgV6G6RfeX7oH/hCPyOY8IYBxTrRLoV5eFj
+         48+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8cdyCJdHVmr3BCmy/Hs0KIgwEtBQQlbepwUI8Gr0R9erO9CAv7n25TQ1kH5SP1I/npIXy/l7+WPaY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyhw34FjOrQArikD6KpYG6wjL7YQG+8OEo8xKYuQtuyxzvOWrhe
+	KGA35IV95P+u+O631xkUCinQKXD0q9lHR4g0BiGb1T44fEcUoFlCqyF7Pnj5tY9emw==
+X-Gm-Gg: Acq92OGwZtgxIafHS82cIfd2IOHgmZAAbvCTXbkEnC1KCf6mVJOM/ZUhGK1EcO54tA6
+	uzK31Ex0IF9UOwym6/yzkUlr6RW71V3YdNyCV26jHNtiNh+xbVaKVXqawbg41NMqZ6budL97yPG
+	pCvwXelZjPk6DcHlGkktROp9prgQso07FfSd0U0DzvF401SJi1QZ4H3Ff5Seuij7fUVOoL6E4m5
+	z27f0olv2cq/T8+BatpGzhX+Fi/hsUuRI8PAsQ2UoJmoQ85iQfw7k0GdSA4bHfdjgLc26RIio5H
+	FfZtTnCITVK6+hy5s81HbfgKesmDbcXwz1Q67eRkuICgc05UvMSm1rXIEqnfYtN9d3SyZawxXju
+	zrAn2+VY29ENzqQgOmHL+PbYg6MlMWcK2Kwski5SrUPmhFlPiLMRCz4DsZ7e9tgHkh8tWKR3M6m
+	Oi/SYiwLnCwciD/NoGok7X4Sy/hl9RHb4O47FmE087VspQCd4GxeJ1Q0vgdrXjwSkk9KPjMyQU4
+	AuBX6wQBaWMDxs=
+X-Received: by 2002:a05:600c:3151:b0:490:d354:bd00 with SMTP id 5b1f17b1804b1-4922ffb823bmr32257245e9.25.1781591487492;
+        Mon, 15 Jun 2026 23:31:27 -0700 (PDT)
+Message-ID: <ae26a645-7842-434f-b67e-88587380dc3b@suse.com>
+Date: Tue, 16 Jun 2026 08:31:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] Revert "xen/cpufreq: fix usages of align_timer() in the
  on-demand governor"
-To: Jason Andryuk <jason.andryuk@amd.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
 References: <20260615193944.19392-1-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
@@ -136,43 +136,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <20260615193944.19392-1-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1781591427-80145161-51CAE332/0/0
+X-purgate-ID: tlsNG-bad1c0/1781591488-37979A53-CC912D5A/0/0
 X-purgate-type: clean
-X-purgate-size: 2165
+X-purgate-size: 863
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,lists.xenproject.org,gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,amd.com:email];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 11FB168C862
+X-Rspamd-Queue-Id: 022C368C882
 
 On 15.06.2026 21:39, Jason Andryuk wrote:
 > The original commit showed a ~6% regression in a benchmark.  The call to
@@ -192,36 +194,8 @@ On 15.06.2026 21:39, Jason Andryuk wrote:
 > This reverts commit a0ed5bcfbeee81c91c574ad484faa057054eaf09.
 > 
 > Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> ---
-> This is backported in stable trees and should be reverted there as well
-> (found in 4.20.3).
-> 
-> A Fixes seems superfluous and not normally used with a revert, but if
-> needed:
-> Fixes: a0ed5bcfbeee ("xen/cpufreq: fix usages of align_timer() in the on-demand governor")
 
-If "git grep" is intended to (also) find such straight reverts by merely
-matching "Fixes: ", I think the tag should still be put there.
-
-Talking of Fixes: tags - the original change had two of them, so there
-must have been a problem? Or, Roger, was this purely an observation from
-looking the the code?
-
-> --- a/xen/drivers/cpufreq/cpufreq_ondemand.c
-> +++ b/xen/drivers/cpufreq/cpufreq_ondemand.c
-> @@ -185,8 +185,7 @@ static void cf_check do_dbs_timer(void *dbs)
->      dbs_check_cpu(dbs_info);
->  
->      set_timer(&per_cpu(dbs_timer, dbs_info->cpu),
-> -              align_timer(NOW() + dbs_tuners_ins.sampling_rate,
-> -                          dbs_tuners_ins.sampling_rate));
-> +            align_timer(NOW() , dbs_tuners_ins.sampling_rate));
->  }
-
-As much as I understand you wanting to have things simple by doing a
-straight revert, imo the formatting flaws better wouldn't be introduced
-again. If I ended up committing this, I'd very likely take the liberty
-of doing so. Yet before ack-ing the question above needs answering.
+Oh, also Cc: Oleksii for a release-ack.
 
 Jan
 
