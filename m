@@ -2,52 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id JTe6H84ZMWqEbgUAu9opvQ
+	id 7zkjNs0bMWrsbgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:39:26 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:47:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6A8868DA0A
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:39:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DFB968DADB
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:47:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=H2TiKCZI;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=GZBIxFB2;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338955.1600048 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com;
+	arc=pass ("google.com:s=arc-20240605:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1338964.1600057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZQFt-0000YS-GL; Tue, 16 Jun 2026 09:38:49 +0000
+	id 1wZQOT-0002CX-9R; Tue, 16 Jun 2026 09:47:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338955.1600048; Tue, 16 Jun 2026 09:38:49 +0000
+Received: by outflank-mailman (output) from mailman id 1338964.1600057; Tue, 16 Jun 2026 09:47:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZQFt-0000Vu-Cz; Tue, 16 Jun 2026 09:38:49 +0000
-Received: by outflank-mailman (input) for mailman id 1338955;
- Tue, 16 Jun 2026 09:38:48 +0000
+	id 1wZQOT-0002AW-5h; Tue, 16 Jun 2026 09:47:41 +0000
+Received: by outflank-mailman (input) for mailman id 1338964;
+ Tue, 16 Jun 2026 09:47:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZQFs-0000Vm-DK
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:38:48 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <freddy77@gmail.com>) id 1wZQOR-000299-TV
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:47:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZQFr-00EnCh-Q9
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:38:47 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wZQOQ-0094xv-K1
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:47:38 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3119a0-bab6-0a2a0a5309dd-0a2a450490e6-24
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:38:47 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3119a7-1dec-0a2a45040019-d1558031d40e-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:38:47 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-490acbb0f89so27996235e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 02:38:47 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4922fa890d8sm72597635e9.10.2026.06.16.02.38.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 02:38:46 -0700 (PDT)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a311bb1-bab6-0a2a0a5309dd-0a2a4507c740-42
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:47:38 +0200
+Received: from [74.125.224.53] (helo=mail-yx1-f53.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <freddy77@gmail.com>)
+ id 6a311bb8-229c-0a2a45070019-4a7de035bc73-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:47:37 +0200
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-66049669d78so4142263d50.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 02:47:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,269 +56,355 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+ARC-Seal: i=1; a=rsa-sha256; t=1781603256; cv=none;
+        d=google.com; s=arc-20240605;
+        b=VpZlJYjEuP96KT+gUHS3SOrBTFbBh9XScCE7hsuLWAMOeQIsmy1z4DpSEkrQ1m0I6W
+         1LDzJ1Jx3twGwWIetLN046jpzqKsAhBHHQQmmfluZhJzIDsmyVpj2+Baz7RIaD4DNcHR
+         07AKf/HAKcojllq8NX5BAS5274vXH1pQzVrecABu4z2Uj5w9ca7A4Dr3YaguW+tok+H5
+         NI5o+dQXOA/3dBf9g+8Fx6S83/X3uRDb8AB5DerxBuQzF2CGl1751ZTRjVTNbxU37elG
+         2NLeR6KLRbzOXgbnrKfY6Ua3se8KjAq5SjWTvSbqczYqDAbHh19wp66797RKroFx+Q7K
+         QOhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3QZzknEigUzqWgdbUogp3gXKzG4Dw5l0ENS04KVvDsY=;
+        fh=JOhR8Zt5h87etEMw9WfkhqB1RxmWzX37a+o61Ig76GI=;
+        b=EweFymU5sJTd3lAYNale49XJvkq1TN4+JugLC81c8QyCzh+A6X9GjF09ds2qWi5SKD
+         fwkkfVVCA6QIVBOz0tBnwDYJjyLX1PP8HNRcC3f81i6gPMkL+lwU8HnrILElBdQNNj1O
+         k7IXvmyMAxWRTRSECrnR/ucvST3WZCXCayPgXxkbctjVpmDDw3IfNkVZNEeWzCyIcNAO
+         D/qfr9s1a1zGvCRwBFbSWKyHxg5mbgIz92SuyR5uNDQjRj+Mu83OCQhAap9hGokqJqsU
+         d5hjrnM9lqvD6FeM6j2J177ZfcdwCwy94vVlhfogB2wq1uuklDZvIYTBfcGOjIgUSGSD
+         HS3w==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781602727; x=1782207527; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=aGYGYZBBphWtZs5USZkmUwCaaHR3zBgFJ1Wjzt95IU0=;
-        b=H2TiKCZI0ebb8usrsbrhDFu1JyGBbVEUIfqgyD8ZD669GuxlVrsdkeoKZHmy6VHQPZ
-         ZV8nTZNXLMBWNCsm6958Td0DpLxkHnSXoQFPF/AawbXmWakjUFMENWheFsxBhJ6cPqKK
-         Vof95MsMG5DuHbePDDucKjIjCO/ZlXyHTOJxry74wYslZ35ViyxDO19w6FKkgi1HPLZ2
-         0Rb9iI2drTL0lBW/hZ/VGEZ2kQ/d+hFszJIeiZ8jKDjO2qCSQg1DlI0w808su4bv30Be
-         Naoceqz+ILOsarRAxyfuw3/8Sol+aT44q6yyYe6Y18KMDFe7Yf8s3r2ZUljTy38KELSB
-         BcjQ==
+        d=gmail.com; s=20251104; t=1781603256; x=1782208056; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=3QZzknEigUzqWgdbUogp3gXKzG4Dw5l0ENS04KVvDsY=;
+        b=GZBIxFB22RcZ+g24mMD7+S9FSlOaBBF37xV0cXxrjxbvSePWJc8ElsRCOsQPWPQekb
+         qydpXAVkvMLah6pVLq7x08U33mtwmVDMcaPxKiSlOZFLpH/oNHrzPK+7AN7aXioODJb3
+         TSqN3MXFambQwFrOus+M/wjYVllyfQzcE0ggMqVWq1cwDMqm4OuoyvsnJGFq6MU6vOCJ
+         j8a11AgJC3Cjq5KYjIQ3GD1eMmg79qxsEfe5hwERhIT70a1tgl/OfUSlRM7VBN/SRkn/
+         8jZ6py1XHEWvRV99SVz4UZJeypxqkPnEOKEkvHruHgC7k0jGeFztmF7BrLvXzoDUNXkz
+         N1Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781602727; x=1782207527;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=aGYGYZBBphWtZs5USZkmUwCaaHR3zBgFJ1Wjzt95IU0=;
-        b=JOecnltvodHC1nN61nfP20oSpt7OLZCzA4hoytkr88yQZd4Cdha+0ZwTCZBZ9mYE1h
-         Rkykhjmdd/y1fL35UQHgoSX3UtUyfP+dvcRAbxhglvbcPKPQzmSd90zq+2Xl7IZAqBWh
-         +uZGhXofpTJ+LncHsLxCWx7OKwsxgKHm08pN3qFPrnxzTSQIRh/zIbYohpTwyrLiSlOz
-         KdH95D5jyCU8ES13aMx4TRuqTWG+ulIOWMDVmz501nL19teJ6Qdf0TyhGkebk2lNAKYs
-         fa8nHnuJk2l6cT80ISgFe+F31L01qeVoiJYv6xx3Zd6v10K4CaNjUznEbfneku7+urr2
-         jbTw==
-X-Forwarded-Encrypted: i=1; AFNElJ8x5KA2CDMdOc+LMZp5nuzBLDVFiaPHjiN18d78JZ3eC4gzcKm8ah8qBhDB5rAuZJTk8nQI6q9ePOY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUTk0mBSdmO4AsWs/o+qQtnL78PnxWIoJbHVTxUn9d9GVXWnEc
-	aQ8he+ahRkTlA2vxU6+ZJQLKfpsOT2GECnK/s1GusqljgcvBu+qzKkz/
-X-Gm-Gg: Acq92OGyO9QkmlZ+fT973qMPk6jBe5m42ve3K7LaOxp4uVg8ZUOhFUnfE09TJh31l39
-	kwA6GjkcMF37hpVPoyCT6pLhEL5Hra9/Hg+nVMfn24EmwMdT2JdVKIgZbdiSatSA5/nnVAplf8W
-	ofSaCo2BU5NdMaNzGMRLYTCmzbS01uNyjUGWnAardHPf96CAbpc30KSW8+CYOxThKwLogS5gfDC
-	LsO5N5TczMhFcJtviIJvaPPORJN6Sg+vEG9wF4IHz6T/AO7SxFLZEabLHfy/hA9NcWiH3SXgvKU
-	hHIintjWPJlhLR2H7MeXKQdGNOOD3aJM8LSwRLzowSdsDL+9IHzAGaDjNRqgdzcsZmVGG6xOMRm
-	JQ2SYQDORhNAba6Bfbo/pXjeMpbYyuCxTsajiaL2Ta92Aik5PvUYTvPl4NDK+mVdW3QIRyE5XZs
-	AaaTFl+G0x98Bow6uP5UFLAjIKWeUl3ycQLCKpwBE4NBVjjpSA7cTs33I2oVsOZf+Tou9EneMRo
-	XPfHQ==
-X-Received: by 2002:a7b:c3d1:0:b0:492:323d:20ae with SMTP id 5b1f17b1804b1-492323d2118mr5069095e9.0.1781602726954;
-        Tue, 16 Jun 2026 02:38:46 -0700 (PDT)
-Message-ID: <ae74fd3a-87d7-43ad-99c4-3e575eb3770b@gmail.com>
-Date: Tue, 16 Jun 2026 11:38:45 +0200
+        d=1e100.net; s=20251104; t=1781603256; x=1782208056;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3QZzknEigUzqWgdbUogp3gXKzG4Dw5l0ENS04KVvDsY=;
+        b=QKYgzZlo/zO1LaSCUang6GhuDLC7roF6tKjdqCNmePPaf0EOHWontyk2nh7EPmVPYN
+         kDHKRf/j/liG55aM1xbM309DyrmMXcqfEucjeRbk4sfbgf1p9zY4LcaxxUsFA9tRd1mt
+         SFvB5JKtWBiRyVJsFyLVOP3jbuuROMRqD9yBrLLoJN+LWPwi4GfFfGmqW+KOgdOG+2NA
+         E1g0Igy7Gr71wxwD4qGodaoLqWRCZKW39G0oMpv+HC/vkhFRrqYZxAyKsCB0T+iqHMOs
+         eoknQGdXYgRFWd/uF8R5ZqeCFp6URvD79v5vql25QwXG97V8bDOzdE3ywfYe5yjC3kls
+         FEag==
+X-Forwarded-Encrypted: i=1; AFNElJ+uSGQJHf7Nq2ifnXq8odzP9DsAgVXNezZ4P0l25V93/vhO1RSVf0MB97+YzYIrN+iJXYjQKZ+50Nw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzG1ZfHUSNC0IdYPnCRlM9WU49kKXEmI0sUolJqo0T1ttkVu0uu
+	bNmeoKKljg4pCwOZ7FvejLrPYV3qMjQSxLDWhCmU51S3LP2qF4+CGyIxL5Kw+WpZU6/41wH0siv
+	GaUBU4grbG7Iy7GiGwloMQ+cuA8M2ERg=
+X-Gm-Gg: Acq92OGZYR6Ob3tIgq97El+3MjpR57wRg+hZDF5B6n0o0QOUgePH2bz8IJRY5oEY7yM
+	A8UYCu9rXInuzRGZrOh0aLlUfowZwAHDmPNDY7EFX/cTHvElF4tgWf1sndvsv2sK6vmRe7wg2cQ
+	TUbxEZtnRel3JOdmqE2MzGSnIsc36LRnWOpSwAlLx+9tvTNREev9aYNasbwI3A3I2LzpBkiL0aT
+	oZbAK2PkgNg3sfLCOPs2uuM9NxvKbjgeoM7cqI4KLVBlab51nnyahDOFq6Q/EC13y8vMtvp+iA8
+	vo0krs4oyqJlmiF5uY9VAjeNXeRUHtyMdXEqyw==
+X-Received: by 2002:a05:690e:12c1:b0:65e:1c98:83c7 with SMTP id
+ 956f58d0204a3-662782d6bd7mr13915534d50.36.1781603256250; Tue, 16 Jun 2026
+ 02:47:36 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 25/26] xen/riscv: add initial dom0less infrastructure
- support
+References: <20260613214749.20620-1-frediano.ziglio@cloud.com>
+ <20260613214749.20620-13-frediano.ziglio@cloud.com> <8289ea1d-ceca-40b6-a992-a778be053cd0@suse.com>
+ <CAHt6W4en1yMLrUXv+RbcoPr-=S_=pi2Rrcm2BC2PzMZT+0ksFw@mail.gmail.com>
+ <1c1829d2-4cb4-4e29-9012-fdcbca8d79a9@suse.com> <CAHt6W4daGuduOgRNUFOB8SZd+C5bxaubyQoU=xDcJSMzo97VDw@mail.gmail.com>
+ <024e626a-e1be-4959-bd78-4e229beade98@suse.com>
+In-Reply-To: <024e626a-e1be-4959-bd78-4e229beade98@suse.com>
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Tue, 16 Jun 2026 10:47:24 +0100
+X-Gm-Features: AVVi8Cd91XH6FxSePaHr4ktj52SqWfUG9PumqIvcgtNA0AbKNcBL7QrTN6kqAG8
+Message-ID: <CAHt6W4d62wJyALu3pM52JB12FXfDS0+fDk6Hna9fP55acskSAA@mail.gmail.com>
+Subject: Re: [PATCH v5 12/16] xen: implement new foreign copy hypercall
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <0b52530fe7287ed8600b1877b573b5cd0168634a.1778250616.git.oleksii.kurochko@gmail.com>
- <386f089a-9e68-428b-bdc4-0d36526f27fc@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <386f089a-9e68-428b-bdc4-0d36526f27fc@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1781602727-4197A3FF-BA8A9C3C/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 5742
+Cc: Frediano Ziglio <frediano.ziglio@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Teddy Astie <teddy.astie@vates.tech>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
+	Daniel Smith <dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"
+X-purgate-ID: tlsNG-ef75cf/1781603257-21D6FC48-21EBECB6/0/0
+X-purgate-type: clean
+X-purgate-size: 9232
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[microchip.com,cardoe.com,kernel.org,wdc.com,gmail.com,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:frediano.ziglio@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,mail.gmail.com:mid];
+	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D6A8868DA0A
+X-Rspamd-Queue-Id: 3DFB968DADB
 
+On Mon, 15 Jun 2026 at 16:23, Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 15.06.2026 17:07, Frediano Ziglio wrote:
+> > On Mon, 15 Jun 2026 at 15:03, Jan Beulich <jbeulich@suse.com> wrote:
+> >> On 15.06.2026 14:11, Frediano Ziglio wrote:
+> >>> On Mon, 15 Jun 2026 at 08:41, Jan Beulich <jbeulich@suse.com> wrote:
+> >>>> On 13.06.2026 23:47, Frediano Ziglio wrote:
+> >>>>> +        {
+> >>>>> +            struct page_info *foreign_page;
+> >>>>> +            void *foreign;
+> >>>>> +            p2m_type_t p2mt;
+> >>>>> +            const unsigned long valid_mask =
+> >>>>> +#ifdef CONFIG_X86
+> >>>>> +                p2m_to_mask(p2m_ram_rw) | p2m_to_mask(p2m_ram_logdirty);
+> >>>>> +#else
+> >>>>> +                p2m_to_mask(p2m_ram_rw);
+> >>>>> +#endif
+> >>>>
+> >>>> What about, for example, p2m_ram_ro? Or p2m_ram_shared? Or p2m_grant_map_*?
+> >>>> Etc. Any artificial constraining wants justifying in the description and/or
+> >>>> mentioning in the public header.
+> >>>
+> >>> The base of this was taken from migration code where there is such a check.
+> >>> I suppose that adding p2m_ram_ro (where available) won't hurt.
+> >>
+> >> Just to mention, to avoid another round trip just because of this: p2m_ram_ro
+> >> has different meaning on x86 vs Arm/RISC-V.
+> >
+> > That's confusing... should not this be fixed somehow?
+> > It won't save much from a round-trip. Should I allow it or not ?
+>
+> Ask the Arm maintainers. I raised this issue more than once, without any real
+> success.
+>
+> >>> p2m_ram_shared I'm not sure but seems fine too.
+> >>> For p2m_grant_map_* it feels a bit a security issue to me. It would
+> >>> allow a guest to give access to pages of other domains. It's true that
+> >>> the current domain would have to have write access to this domain
+> >>> anyway but extend these permissions sounds something it should not be
+> >>> able to do.
+> >>
+> >> It could copy the contents of the grant mapped page by other means. Why not
+> >> allow it in this new sub-op as well then?
+> >
+> > I'm more afraid of writing the content of the grant pages than copying it.
+>
+> But the same is true for writing to the granted page: The domain could do so
+> by other means.
+>
+> >> Talking of security: When the page you copy to is owned by a PV guest, I
+> >> think you further need to obtain a PGT_writable type ref. (Of course it then
+> >> likely is easier to always do this, not just for PV.)
+> >
+> > Wondering how save/restore (or migration) works in this case.
+>
+> Save is not relevant here. Restore happens before the guest gains control.
+> Which is entirely different from hypercall handling.
+>
+> >>>>> @@ -2012,6 +2139,13 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> >>>>>              start_extent);
+> >>>>>          break;
+> >>>>>
+> >>>>> +    case XENMEM_foreigncopy:
+> >>>>> +        if ( unlikely(start_extent) )
+> >>>>> +            return -EINVAL;
+> >>>>
+> >>>> Please address review comments (verbally or by code changes) before submitting
+> >>>> a new version. Here I had asked "Why make this different from other continuable
+> >>>> sub-ops?"
+> >>>>
+> >>>
+> >>> There's already a comment in the same file for similar reason
+> >>>
+> >>>     /*
+> >>>      * Limiting nr_frames at (UINT_MAX >> MEMOP_EXTENT_SHIFT) isn't ideal.  If
+> >>>      * it ever becomes a practical problem, we can switch to mutating
+> >>>      * xmar.{frame,nr_frames,frame_list} in guest memory.
+> >>>      */
+> >>>
+> >>> so to avoid the doubt and possible future change I mutate the structure.
+> >>> Also I use the mutation to give more information to the caller, using
+> >>> "start_entent" won't allow this.
+> >>
+> >> You'll want to mention this in the description and/or a code comment. It
+> >> wants to become clear that the inconsistency in behavior (with other sub-
+> >> ops) is deliberate rather than accidental.
+> >>
+> >
+> > Added a comment in the code:
+> >
+> >         if ( copy.nr_frames && hypercall_preempt_check() )
+> >         {
+> >             /*
+> >              * Instead of using "start_extent" we update the structure back,
+> >              * we update it back in anyway to tell caller were the copy
+> >              * stopped.
+> >              */
+> >             rc = hypercall_create_continuation(
+> >                 __HYPERVISOR_memory_op, "lh", XENMEM_foreigncopy, arg);
+> >             goto out;
+> >         }
+>
+> Please can this go into the hunk that I commented on?
+>
+> >>>>> --- a/xen/include/public/memory.h
+> >>>>> +++ b/xen/include/public/memory.h
+> >>>>> @@ -740,7 +740,45 @@ struct xen_vnuma_topology_info {
+> >>>>>  typedef struct xen_vnuma_topology_info xen_vnuma_topology_info_t;
+> >>>>>  DEFINE_XEN_GUEST_HANDLE(xen_vnuma_topology_info_t);
+> >>>>>
+> >>>>> -/* Next available subop number is 29 */
+> >>>>> +/*
+> >>>>> + * Copy memory from/to a given domain.
+> >>>>> + */
+> >>>>> +#define XENMEM_foreigncopy 29
+> >>>>> +struct xen_foreigncopy {
+> >>>>> +    /* IN - The domain whose resource is to be copied. */
+> >>>>
+> >>>> There's still "resource" here, when this really is about RAM (memory) only,
+> >>>> not any other kind of resource.
+> >>>>
+> >>>>> +    domid_t domid;
+> >>>>> +
+> >>>>> +    /* IN - Flags. */
+> >>>>> +#define XENMEM_foreigncopy_from 0
+> >>>>> +#define XENMEM_foreigncopy_to 1
+> >>>>> +#define XENMEM_foreigncopy_direction 1
+> >>>>> +    uint16_t flags;
+> >>>>> +
+> >>>>> +    /*
+> >>>>> +     * IN
+> >>>>> +     *
+> >>>>> +     * As an IN parameter number of frames of the domain to be copied.
+> >>>>> +     */
+> >>>>> +    uint32_t nr_frames;
+> >>>>
+> >>>> This isn't just an input, as you update the field (and the handles below).
+> >>>> This property of fields wants reflecting here, so callers know that they (a)
+> >>>> can't re-use the struct on a subsequent call without re-initializing the
+> >>>> fields which may have changed, and (b) can't put the struct in r/o memory.
+> >>>>
+> >>>
+> >>> Update comments:
+> >>>
+> >>> /*
+> >>>  * Copy memory from/to a given domain.
+> >>>  */
+> >>> #define XENMEM_foreigncopy 29
+> >>> struct xen_foreigncopy {
+> >>>     /* IN - The domain whose memory is to be copied. */
+> >>>     domid_t domid;
+> >>>
+> >>>     /* IN - Flags. */
+> >>> #define XENMEM_foreigncopy_from 0
+> >>> #define XENMEM_foreigncopy_to 1
+> >>> #define XENMEM_foreigncopy_direction 1
+> >>>     uint16_t flags;
+> >>>
+> >>>     /*
+> >>>      * IN/OUT
+> >>>      *
+> >>>      * As an IN parameter number of frames of the domain to be copied.
+> >>>      * On output on error updated number of frames left.
+> >>>      */
+> >>>     uint32_t nr_frames;
+> >>
+> >> This is updated not only on error, but also when encoding continuations.
+> >>
+> >
+> > Yes, but this seems more an implementation detail to me. I don't think
+> > the caller cares about how the continuation is implemented.
+>
+> You just can't know what a caller may or may not care about. You want to
+> be precise.
+>
+> >>>>> +    /*
+> >>>>> +     * IN
+> >>>>> +     *
+> >>>>> +     * Frames to be copied.
+> >>>>> +     */
+> >>>>> +    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+> >>>>> +
+> >>>>> +    /*
+> >>>>> +     * IN/OUT
+> >>>>> +     *
+> >>>>> +     * Userspace buffer to read/write from.
+> >>>>> +     */
+> >>>>> +    XEN_GUEST_HANDLE(uint8) buffer;
+> >>>>
+> >>>> With these two handles, there continues to be a need to (explicitly) deal
+> >>>> with the compat case as well.
+> >>>
+> >>> I don't agree with this. Domains having access to other domains are
+> >>> limited (like stub domains for Qemu) and won't be 32 bits today so why
+> >>> allow 32 bits guests if not ever used?
+> >>
+> >> How do you know? Why shouldn't e.g. XTF be permitted to test this in all
+> >> possible modes? And even if all arguments end up in favor of "no compat
+> >> support", this then wants spelling out to make clear this wasn't an
+> >> oversight, but rather a conscious decision.
+> >>
+> >
+> > XTF can do something like
+> >
+> > #if COMPAT_GUEST
+> >     /* Compat guests are not supported, return success. */
+> >     return 0;
+> > # endif
+> >
+> > (or can be done in the Makefiles I suppose).
+> >
+> > Added a comment in memory.h:
+> >
+> >     /*
+> >      * Copy memory from/to a given domain.
+> >      * As this call requires target access and guest with target access won't be
+> >      * compat guests supported for compat guests this is not implemented.
+> >      */
+>
+> Well, okay. Right now what I can say is that with this it's then going to be
+> rather unlikely that I'd ack the overall change. You make assumptions on
+> what people may or may not do. There are still benefits to 32-bit environments
+> in certain situations, even more so that the x32 mode of x86-64 didn't really
+> take off.
+>
 
+Won't it save some round trips if you just told this a couple of
+emails earlier? If you already knew that compat is worth doing why
+asking to put a comment on it?
 
-On 6/15/26 5:36 PM, Jan Beulich wrote:
-> On 08.05.2026 16:43, Oleksii Kurochko wrote:
->> Enable dom0less support for RISC-V by selecting HAS_DOM0LESS and
->> providing the minimal architecture hooks required by the common
->> dom0less infrastructure.
->>
->> Add stub implementations for architecture-specific helpers used when
->> building domains from the device tree. These currently perform no
->> additional work but allow the generic dom0less code to build and run
->> on RISC-V.
->>
->> Introduce max_init_domid as a runtime variable rather than a constant
->> so that it can be updated during dom0less domain creation.
->>
->> Provide missing helpers and definitions required by the domain
->> construction code, including domain bitness helpers and the
->> p2m_set_allocation() prototype.
->>
->> Additionally define the guest magic memory region in the public
->> RISC-V interface.
->>
->> As HAS_DOM0LESS is selected for RISC-V now it could be a compilation
->> issue if CONFIG_STATIC_MEMORY=y as guest_physmap_add_pages() isn't
->> yet provided.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Changes in v2:
->>   - Move declaration of p2m_set_allocation() to p2m-common.h.
->>   - Add __initdata for max_init_domid and drop initalizer for it.
->>   - Add CONFIG_STATIC_MEMORY=n to CI's randconfig to avoid
->>     compilation error because of guest_physmap_add_pages()
->>     isn't provided.
-> 
-> Yet another trap for people to fall into, and yet another item to clean
-> up before the port is really ready to use. Imo there want to be
-> HAS_STATIC_MEMORY, which RISC-V simply wouldn't select (for the time
-> being).
+Similar to the discussion about Arm, if you know the issue, can you
+explain it in more details? The description for the constant is the
+same in all architecture, so, what is the difference?
 
-Sounds good to me. I will do the following then in the separate patch:
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> Jan
 
-index 683ab7d25a1e..d748404e82da 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -22,6 +22,7 @@ config ARM
-         select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
-         select HAS_SHARED_INFO
-         select HAS_STACK_PROTECTOR
-+       select HAS_STATIC_MEMORY
-         select HAS_UBSAN
-
-  config ARCH_DEFCONFIG
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 8b48d84c79e8..6e24f7f4e43b 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -161,6 +161,9 @@ config HAS_SCHED_GRANULARITY
-  config HAS_SHARED_INFO
-         bool
-
-+config HAS_STATIC_MEMORY
-+       bool
-+
-  config HAS_SOFT_RESET
-         bool
-
-@@ -196,7 +199,7 @@ config NUMA
-
-  config STATIC_MEMORY
-         bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
--       depends on DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
-+       depends on HAS_STATIC_MEMORY && DOM0LESS_BOOT && 
-HAS_DEVICE_TREE_DISCOVERY
-         help
-           Static Allocation refers to system or sub-system(domains) for
-           which memory areas are pre-defined by configuration using 
-physical
-
-> 
->> --- a/xen/arch/riscv/dom0less-build.c
->> +++ b/xen/arch/riscv/dom0less-build.c
->> @@ -102,3 +102,9 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
->>   
->>       return 0;
->>   }
->> +
->> +int __init arch_handle_passthrough_prop(struct kernel_info *kinfo,
->> +                                        struct dt_device_node *node)
->> +{
->> +    return 0;
->> +}
-> 
-> No FIXME comment or anything alike? That is, nothing is going to be needed
-> here even once pass-through is supported?
-
-At the moment (even in downstream), RISC-V has nothing to do. I can just 
-add the comment above return:
-  /* Nothing specific to do for now */
-
-> 
->> --- a/xen/arch/riscv/domain-build.c
->> +++ b/xen/arch/riscv/domain-build.c
->> @@ -158,9 +158,22 @@ int __init make_cpus_node(const struct domain *d, struct kernel_info *kinfo)
->>       return fdt_end_node(fdt);
->>   }
->>   
->> +int __init construct_hwdom(struct kernel_info *kinfo,
->> +                           const struct dt_device_node *node)
->> +{
->> +    return -EOPNOTSUPP;
->> +}
->> +
->>   int __init make_timer_node(const struct kernel_info *kinfo)
->>   {
->>       /* There is no need for timer node for RISC-V. */
->>   
->>       return 0;
->>   }
->> +
->> +int __init make_hypervisor_node(struct domain *d,
->> +                                const struct kernel_info *kinfo,
->> +                                int addrcells, int sizecells)
-> 
-> The last two parameters being of plain int type is, I suppose, dictated
-> by DT code?
-
-Yes, it is dictated by DT code.
-
-> 
->> --- a/xen/arch/riscv/include/asm/guest-layout.h
->> +++ b/xen/arch/riscv/include/asm/guest-layout.h
->> @@ -24,4 +24,7 @@
->>   #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->>   #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
->>   
->> +#define GUEST_MAGIC_BASE  xen_mk_ullong(0x39000000)
->> +#define GUEST_MAGIC_SIZE  xen_mk_ullong(0x01000000)
-> 
-> Why xen_mk_ullong()? That's needed in the public headers only, iirc.
-
-I didn't know that it is only for public headers.
-
-I can change that to _ULL.
-
-> 
-> Also these are again two seemingly arbitrary numbers.
-
-It is pretty arbitrary, I just took what isn't used by QEMU machine for 
-its address space. I double checked and it should be changed to 
-something else as it falls into PCIE_ECAM range:
-     [VIRT_PCIE_ECAM] =    { 0x30000000,    0x10000000 },
-     [VIRT_PCIE_MMIO] =    { 0x40000000,    0x40000000 },
-     [VIRT_DRAM] =         { 0x80000000,           0x0 },
-
-I will use 0x79000000 instead.
-
-I will update the commit message that it GUEST_MAGIC_BASE and 
-GUEST_MAGIC_SIZE are chosen arbitary and not to overlap with address 
-space provided by QEMU for RISC-V machine.
-
-Thanks.
-
-~ Oleksii
-
+Frediano
 
