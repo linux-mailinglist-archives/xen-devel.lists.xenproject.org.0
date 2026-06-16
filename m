@@ -2,58 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id aVEWAk4WMWq9bQUAu9opvQ
+	id wBxQCnYWMWrFbQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:24:30 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:25:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6023F68D7E4
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:24:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB1268D802
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 11:25:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=oftAO6pq;
+	dkim=pass header.d=suse.com header.s=google header.b=cwH4xsu3;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1338933.1600021 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1338940.1600030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZQ1m-0005Ma-Oh; Tue, 16 Jun 2026 09:24:14 +0000
+	id 1wZQ2Y-0005oH-W5; Tue, 16 Jun 2026 09:25:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338933.1600021; Tue, 16 Jun 2026 09:24:14 +0000
+Received: by outflank-mailman (output) from mailman id 1338940.1600030; Tue, 16 Jun 2026 09:25:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZQ1m-0005KP-M5; Tue, 16 Jun 2026 09:24:14 +0000
-Received: by outflank-mailman (input) for mailman id 1338933;
- Tue, 16 Jun 2026 09:24:12 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecfbeca42000701b@swg.vates.tech>)
- id 1wZQ1k-0005KG-IX
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:24:12 +0000
+	id 1wZQ2Y-0005mN-TO; Tue, 16 Jun 2026 09:25:02 +0000
+Received: by outflank-mailman (input) for mailman id 1338940;
+ Tue, 16 Jun 2026 09:25:01 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wZQ2X-0005mA-9s
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:25:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZQ1j-00AYkX-Rk
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:24:11 +0200
-Received: from [10.42.69.2] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecfbeca42000701b@swg.vates.tech>)
- id 6a311630-5cb7-0a2a0a5109dd-0a2a45028e9c-34
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:24:11 +0200
-Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ecfbeca42000701b@swg.vates.tech>)
- id 6a31163b-af86-0a2a45020019-b9ff1c12ad2b-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:24:11 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19ecfbeca42000701b.002 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Tue, 16 Jun 2026 09:24:07 +0000
-Received: from [192.168.1.18] (88-188-240-210.subs.proxad.net [88.188.240.210])
- (Authenticated sender: teddy.astie)
- by mail2.vates.fr (Postfix) with ESMTPSA id 396148630D;
- Tue, 16 Jun 2026 11:24:07 +0200 (CEST)
+ id 1wZQ2W-008zos-Mw
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 11:25:00 +0200
+Received: from [10.42.69.7] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a311660-bab6-0a2a0a5309dd-0a2a4507d2e6-40
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:25:00 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a31166c-229c-0a2a45070019-d1558031b133-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 11:25:00 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-490b613a17bso39521965e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 02:25:00 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4922fa97a07sm108830425e9.14.2026.06.16.02.24.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 16 Jun 2026 02:24:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,277 +60,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=RC1ZLXCl0L6rp1mZtFMWoeZyVPn1a2ogGD34UNTIyY0=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=oftAO6pqLjqAB/VBz7pxSJqi6iOJUXsBTjN76yqhj/gHA6lGuKn7hBf1QJ8xyp4zGaoiqfqC+
- E6M5EqG/8RGPqFyR90Nd/h1vFcZyM8jNE0u+Bzcge83jx90jQCITK8vRkZHkZAD4qqMPie7Ekmi
- N8HnkJYHH8Xwxh4wvzPs/4U0pj6pFm78d4mm+YvclKUYwdv3lx7Xr0Z/39AHP6+5Xi6xqONaTCk
- zT89DSoxbdRIUGl8U825dyo7FsjbC6gpB9FNBzeA6rgRHIHvMEy5qIcQBkjjlrOEBQYDs1DJgiC
- SUBrdPD7bIJntbL8bYblr4LFJy9Gp2yrx3wR3APCug7Q==
-X-Zone-Loop: 26950eda1663884909edef7b4c82f051cda39ea20186
-x-campaign-type: default
-x-transaction-id: 545674a0-f6d8-498f-9daf-ff342b4e9c26
-x-swg-uid: 01-9dd0023c-cbf6-4844-b916-038c80aee54b
-X-Mailer: Sweego
-Message-ID:
- <1781601847.8631fc262581453bbf619ec5b2062170.19ecfbeca42000701b@vates.tech>
-x-swg-bid: 1781601847.8631fc262581453bbf619ec5b2062170.19ecfbeca42000701b
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Tue, 16 Jun 2026 11:24:06 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781601900; x=1782206700; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=j9xbR/Vobwnj1Y8FOAI3SQJXOyxIWwLdE03CcWYJfOk=;
+        b=cwH4xsu3J9/kHyqcI5tRRjEsLToaJ5AlgrCH0tT2SUvjRiPidpSQ80JgM6af9ztiTE
+         fgLSQLbHIuQWQes7W2sMa8hEA6pQft6z5PJKo+Lnyo5EzNwDrM0SNJ83j19O409IFhm6
+         uQhHs8FSwroRI0yI1l8mq7KtmwQoyt1OEMB+J7bj8HT1u1IWWvYuYPXLhXNeRz0R2PTK
+         ASYJMZHDSLVjUhhDFsxSHq7y81FQOyXCEqJa6C+++4rQ0MGuGrwCq08FD8G8poHt+cfl
+         /B3/Udx5iKntsNev/OpfdVmH9L1MTH7gImSxlV3TqGp/KhuJFpKjAe2/oApPf+7b35LE
+         M96Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781601900; x=1782206700;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j9xbR/Vobwnj1Y8FOAI3SQJXOyxIWwLdE03CcWYJfOk=;
+        b=O1shqydzBpBS9A5zwKB4rxTVVyjGrmV1VSIxyOrVIRJU+Ie3XBmDgI7hTsrZ8qnIbc
+         pZGMGqw1jGqBXIPe3L/ba50sqr4+OEoWHQuJzeZ48iAjVsBUZYMlFfG9+eoNyvKBndML
+         qpVhT4ZGad5E/6o4nlnyYTbam3Hy2tKTbGhrJqbEdDbJY7PZxuRyI3mU89lc61N/BwLX
+         8E2Gaa22Qt60OJ3r+f6vt/HzJLEjgCYi6UhZHr9yIt8SH6cgbxWUyg8/HAdnrkc0jNHw
+         ECQcFU3ge8K0qg4Dxonm8YsV3v+tT6Q8NCCozh2j0uLLigyZthl/ufGh1dFvQel1wR7U
+         6eNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8eYUtYiw8I1Ac5cuK3PyE62dCb/E1D6X/tO/wCblvUgVAaw8HJJoX9q1UFbW23OFstXqczxRSUMdo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxIHj5V5YERqP3tCogpxIIJD1enm/sdl2Ej2faD9+xWv2KNxAMj
+	AAfdUl4Jl5yutzzyPws68q9iH6PE9ObFeRwb2yLbr74DAE5WcRyB9edyS7pYIaRjhQ==
+X-Gm-Gg: Acq92OHahqmWYf/oc4oQ7lT6qus6s5SEcB+Tv0zZdo5+mObug/R9GSzHVg27aMDUFby
+	eSFG/WSBxWYBnqsM+9ssO1y9qpMPHucv1dX/sNSuCBNeCxuqk4R3pyWl09gJSTQh4B1pdgtwWbW
+	fpisnoq7WPxqcRHpOOfIHC+VR3ifUI2hjtRvAUOHREn+GTfTGweE+z+h/QFMWB4kOJVLOug7oCU
+	VA4868jGCTQdLoWgU14mTzk8GDzF2PAlhfRJ+4RrmMugkxzFlPQwju2fg03PRs5Yp/eTDzeGJJv
+	OxO1AP0cysbcMwVmOiDxmlLNbB9qCAqd2+Mucfc/H6vL7CcljNMEyChH3NqJWwUrpa1pjep3LRP
+	nXKG1toHiqPLllF0e1dBvpTn96q4PLfUvCmJEN8ZPGh2IYCHWX8O8wy2PaeEJcVUOdyQcZq1ls8
+	PEOKbFN8hIMCAswfEFsDFxEKhF/4vpjyAw3HVz9w4Ljw7VNUETAoFEjTPOUVvUuDTv5Bs0/OzsZ
+	RCPB2GQxN00lcQ=
+X-Received: by 2002:a05:600c:698c:b0:490:b025:f324 with SMTP id 5b1f17b1804b1-4922ffbdad4mr40773595e9.32.1781601899922;
+        Tue, 16 Jun 2026 02:24:59 -0700 (PDT)
+Message-ID: <2ba3a921-1927-4f94-b986-ecce59842961@suse.com>
+Date: Tue, 16 Jun 2026 11:24:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] libxc: adjust string size calculations in
- xc_flask_{getbool_byname,setbool}()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Daniel Smith <dpsmith@apertussolutions.com>
-References: <5d242cad-d907-4321-8ac1-363c0f9b623d@suse.com>
- <83af338a-3ef2-4be3-99f0-cfe38a09cda0@suse.com>
+Subject: Re: [PATCH v2 21/26] xen/riscv: implement virtual APLIC MMIO
+ emulation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
+ <434e0be590bc0550e143836edff7e8e1e96b28c1.1778250616.git.oleksii.kurochko@gmail.com>
+ <133430db-5605-4f3a-8ff7-77f9b57c91ad@suse.com>
+ <68a7f2bc-91f5-4a19-afa7-4a9fd065f558@gmail.com>
 Content-Language: en-US
-From: Teddy Astie <teddy.astie@vates.tech>
-Autocrypt: addr=teddy.astie@vates.tech; keydata=
- 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
- x9fhaZEsniw8/bYgC3igkk5YJiOa
-In-Reply-To: <83af338a-3ef2-4be3-99f0-cfe38a09cda0@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------1Rw0aGoesE3QLnZHyBs1Gjz0"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1781601847354
-X-purgate-ID: tlsNG-720697/1781601851-81772161-11E804CA/0/0
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <68a7f2bc-91f5-4a19-afa7-4a9fd065f558@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ef75cf/1781601900-2887FC48-C2E5A436/0/0
 X-purgate-type: clean
-X-purgate-size: 9266
+X-purgate-size: 5250
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_MUA_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:dkim,vates.tech:email,vates.tech:mid,vates.tech:from_mime];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	HAS_ATTACHMENT(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	HAS_XOIP(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6023F68D7E4
+X-Rspamd-Queue-Id: 7FB1268D802
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------1Rw0aGoesE3QLnZHyBs1Gjz0
-Content-Type: multipart/mixed; boundary="------------xbgQ1x0rXZSYoRubUfjex7qi";
- protected-headers="v1"
-From: Teddy Astie <teddy.astie@vates.tech>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Daniel Smith <dpsmith@apertussolutions.com>
-Message-ID: <97271287-e4e9-4bb5-a47f-1a68eec4db08@vates.tech>
-Subject: Re: [PATCH 3/4] libxc: adjust string size calculations in
- xc_flask_{getbool_byname,setbool}()
-References: <5d242cad-d907-4321-8ac1-363c0f9b623d@suse.com>
- <83af338a-3ef2-4be3-99f0-cfe38a09cda0@suse.com>
-In-Reply-To: <83af338a-3ef2-4be3-99f0-cfe38a09cda0@suse.com>
-Autocrypt-Gossip: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+On 16.06.2026 11:07, Oleksii Kurochko wrote:
+> On 6/15/26 5:13 PM, Jan Beulich wrote:
+>> On 08.05.2026 16:43, Oleksii Kurochko wrote:
+>>> +    spin_lock_irqsave(&aplic.lock, flags);
+>>> +    val = readl((void __iomem *)((uintptr_t)aplic.regs + offset)) & mask;
+>>
+>> Easier as
+>>
+>>      val = readl((volatile void __iomem *)aplic.regs + offset) & mask;
+>>
+>> ? (Note that like const, volatile also shouldn't be cast away.)
+> 
+> Is arithmetic on void * pointers correct from the C standard's point of 
+> view?
+> 
+> It works with GCC (see 
+> https://gcc.gnu.org/onlinedocs/gcc/Pointer-Arith.html), but I can't find 
+> anything that guarantees the same behavior for other compilers.
+> 
+> I'm okay with the suggested change if it's acceptable for Xen to rely on 
+> GCC's void * pointer arithmetic extension.
 
---------------xbgQ1x0rXZSYoRubUfjex7qi
-Content-Type: multipart/mixed; boundary="------------WVZgqN3KoHeuJGGUcbtbQ38b"
+We use that all over the place. Even docs/misra/C-language-toolchain.rst
+mentions it as explicitly permitted.
 
---------------WVZgqN3KoHeuJGGUcbtbQ38b
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>>> --- a/xen/arch/riscv/include/asm/vaplic.h
+>>> +++ b/xen/arch/riscv/include/asm/vaplic.h
+>>> @@ -26,6 +26,9 @@ struct vaplic_regs {
+>>>   struct vaplic {
+>>>       struct vintc vintc;
+>>>       struct vaplic_regs regs;
+>>> +
+>>> +    paddr_t regs_start;
+>>> +    paddr_t regs_size;
+>>
+>> Can regs_size really go beyond 4G?
+> 
+> Good question and it depends on an amount of vCPUs:
+> 
+> #define APLIC_MIN_SIZE          0x4000
+> #define APLIC_SIZE_ALIGN(x)     ROUNDUP(x, APLIC_MIN_SIZE)
+> 
+> #define APLIC_SIZE(nr_cpus)     (APLIC_MIN_SIZE + \
+>                                   APLIC_SIZE_ALIGN(APLIC_IDC_SIZE * 
+> (nr_cpus)))
+> 
+> paddr_t aplic_size = APLIC_SIZE(d->max_vcpus);
+> 
+> With the current limitation of 128 vCPUs max (IIRC) it won't beyond 4G.
 
-TGUgMTYvMDYvMjAyNiDDoCAxMTowNCwgSmFuIEJldWxpY2ggYSDDqWNyaXTCoDoNCj4gSW4g
-cHJlcGFyYXRpb24gZm9yIGEgaHlwZXJ2aXNvciBjaGFuZ2UgYWxzbyBpbmNsdWRlIHRoZSBu
-dWwgdGVybWluYXRvciBpbg0KPiB0aGUgc2l6ZSBjYWxjdWxhdGlvbnMuIChOb3RlIHRoYXQg
-eGNfZmxhc2tfZ2V0Ym9vbF9ieWlkKCkgZG9lc24ndCBzdXBwb3J0DQo+IEZMQVNLX0dFVEJP
-T0wncyAiSUQgYmVpbmcgLTEiIHZhcmlhbnQgb2Ygb3BlcmF0aW9uLCBhbmQgaGVuY2UgZG9l
-c24ndCBuZWVkDQo+IGZpZGRsaW5nIHdpdGguDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBKYW4g
-QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IA0KPiAtLS0gYS90b29scy9saWJzL2N0
-cmwveGNfZmxhc2suYw0KPiArKysgYi90b29scy9saWJzL2N0cmwveGNfZmxhc2suYw0KPiBA
-QCAtMTg3LDcgKzE4Nyw4IEBAIGludCB4Y19mbGFza19nZXRib29sX2J5bmFtZSh4Y19pbnRl
-cmZhY2UNCj4gICB7DQo+ICAgICAgIGludCBydjsNCj4gICAgICAgc3RydWN0IHhlbl9mbGFz
-a19vcCBvcCA9IHt9Ow0KPiAtICAgIERFQ0xBUkVfSFlQRVJDQUxMX0JPVU5DRShuYW1lLCBz
-dHJsZW4obmFtZSksIFhDX0hZUEVSQ0FMTF9CVUZGRVJfQk9VTkNFX0lOKTsNCj4gKyAgICBz
-aXplX3Qgc2l6ZSA9IHN0cmxlbihuYW1lKSArIDE7DQo+ICsgICAgREVDTEFSRV9IWVBFUkNB
-TExfQk9VTkNFKG5hbWUsIHNpemUsIFhDX0hZUEVSQ0FMTF9CVUZGRVJfQk9VTkNFX0lOKTsN
-Cj4gICANCj4gICAgICAgaWYgKCB4Y19oeXBlcmNhbGxfYm91bmNlX3ByZSh4Y2gsIG5hbWUp
-ICkNCj4gICAgICAgew0KPiBAQCAtMTk3LDcgKzE5OCw3IEBAIGludCB4Y19mbGFza19nZXRi
-b29sX2J5bmFtZSh4Y19pbnRlcmZhY2UNCj4gICANCj4gICAgICAgb3AuY21kID0gRkxBU0tf
-R0VUQk9PTDsNCj4gICAgICAgb3AudS5ib29sZWFuLmJvb2xfaWQgPSAtMTsNCj4gLSAgICBv
-cC51LmJvb2xlYW4uc2l6ZSA9IHN0cmxlbihuYW1lKTsNCj4gKyAgICBvcC51LmJvb2xlYW4u
-c2l6ZSA9IHNpemU7DQo+ICAgICAgIHNldF94ZW5fZ3Vlc3RfaGFuZGxlKG9wLnUuYm9vbGVh
-bi5uYW1lLCBuYW1lKTsNCj4gICANCj4gICAgICAgcnYgPSB4Y19mbGFza19vcCh4Y2gsICZv
-cCk7DQo+IEBAIC0yMTksNyArMjIwLDggQEAgaW50IHhjX2ZsYXNrX3NldGJvb2woeGNfaW50
-ZXJmYWNlICp4Y2gsDQo+ICAgew0KPiAgICAgICBpbnQgcnY7DQo+ICAgICAgIHN0cnVjdCB4
-ZW5fZmxhc2tfb3Agb3AgPSB7fTsNCj4gLSAgICBERUNMQVJFX0hZUEVSQ0FMTF9CT1VOQ0Uo
-bmFtZSwgc3RybGVuKG5hbWUpLCBYQ19IWVBFUkNBTExfQlVGRkVSX0JPVU5DRV9JTik7DQo+
-ICsgICAgc2l6ZV90IHNpemUgPSBzdHJsZW4obmFtZSkgKyAxOw0KPiArICAgIERFQ0xBUkVf
-SFlQRVJDQUxMX0JPVU5DRShuYW1lLCBzaXplLCBYQ19IWVBFUkNBTExfQlVGRkVSX0JPVU5D
-RV9JTik7DQo+ICAgDQo+ICAgICAgIGlmICggeGNfaHlwZXJjYWxsX2JvdW5jZV9wcmUoeGNo
-LCBuYW1lKSApDQo+ICAgICAgIHsNCj4gQEAgLTIzMSw3ICsyMzMsNyBAQCBpbnQgeGNfZmxh
-c2tfc2V0Ym9vbCh4Y19pbnRlcmZhY2UgKnhjaCwNCj4gICAgICAgb3AudS5ib29sZWFuLmJv
-b2xfaWQgPSAtMTsNCj4gICAgICAgb3AudS5ib29sZWFuLm5ld192YWx1ZSA9IHZhbHVlOw0K
-PiAgICAgICBvcC51LmJvb2xlYW4uY29tbWl0ID0gMTsNCj4gLSAgICBvcC51LmJvb2xlYW4u
-c2l6ZSA9IHN0cmxlbihuYW1lKTsNCj4gKyAgICBvcC51LmJvb2xlYW4uc2l6ZSA9IHNpemU7
-DQo+ICAgICAgIHNldF94ZW5fZ3Vlc3RfaGFuZGxlKG9wLnUuYm9vbGVhbi5uYW1lLCBuYW1l
-KTsNCj4gICANCj4gICAgICAgcnYgPSB4Y19mbGFza19vcCh4Y2gsICZvcCk7DQo+IA0KPiAN
-Cg0KUmV2aWV3ZWQtYnk6IFRlZGR5IEFzdGllIDx0ZWRkeS5hc3RpZUB2YXRlcy50ZWNoPg0K
-DQpUZWRkeQ0K
---------------WVZgqN3KoHeuJGGUcbtbQ38b
-Content-Type: application/pgp-keys; name="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tying to the overly low limit of 128 isn't very helpful, I guess. With
+APLIC_IDC_SIZE resolving to 32, the limit would be millions of vCPU-s
+aiui, so imo not a concern at all.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+>>> --- a/xen/arch/riscv/vaplic.c
+>>> +++ b/xen/arch/riscv/vaplic.c
+>>> @@ -26,6 +26,283 @@
+>>>   
+>>>   #define FDT_VAPLIC_INT_CELLS 2
+>>>   
+>>> +#define AUTH_IRQ_BIT(d, irqn) ( \
+>>> +    ((irqn) <= (d)->arch.vintc->irq_nums) && \
+>>> +    test_bit(irqn, (d)->arch.vintc->allocated_irqs) )
+>>> +
+>>> +#define regindx_to_irqn(reg_val) ((reg_val) / sizeof(uint32_t))
+>>> +
+>>> +static inline uint32_t generate_auth_mask(const struct domain *d,
+>>> +                                          unsigned int irqsn)
+>>> +{
+>>> +    if ( irqsn >= DIV_ROUND_UP(d->arch.vintc->irq_nums,
+>>> +                               sizeof(uint32_t) * BITS_PER_BYTE) )
+>>
+>> Why the rounding up? Isn't ->irqs_num the proper upper bound?
+> 
+> Probably irqsn isn't a correct name here as it looks like "IRQ source 
+> number" (an IRQ number), but regindx_to_irqn(offset & MASK) actually 
+> computes offset / 4 - a word index into the used_irqs bitmap. Word 0 
+> covers IRQs 0–31, word 1 covers IRQs 32–63, etc.
+> Given that, the bounds check:
+>    irqsn >= DIV_ROUND_UP(irq_nums, sizeof(uint32_t) * BITS_PER_BYTE)
+> is "word index >= number of 32-bit words in the bitmap" which is 
+> correct. The DIV_ROUND_UP converts the IRQ count into a word count to 
+> compare against the word index.
+> 
+> So the real issue is naming. There are two options to resolve it:
+> - rename to reflect reality; call it word_idx (not irqsn), and rename 
+> regindx_to_irqn to something like regoffset_to_word_idx. The 
+> DIV_ROUND_UP check then reads clearly.
+> 
+> - Change the API to take an actual IRQ number, pass irqsn * 32 (the 
+> first IRQ in the word) and check irqsn >= irq_nums directly, computing 
+> the word index inside generate_auth_mask. This aligns with how 
+> AUTH_IRQ_BIT works.
+> 
+> Which one option do you prefer?
 
-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
-x9fhaZEsniw8/bYgC3igkk5YJiOa
-=3DlUIA
------END PGP PUBLIC KEY BLOCK-----
+I don't care very much as long as the result is self-consistent.
 
---------------WVZgqN3KoHeuJGGUcbtbQ38b--
+>>> +    default:
+>>> +        gdprintk(XENLOG_WARNING, "Unhandled APLIC read at offset %#x\n",
+>>> +                 offset);
+>>> +
+>>> +        domain_crash(vcpu->domain);
+>>> +
+>>> +        return -EINVAL;
+>>> +    }
+>>> +
+>>> +    *out = aplic_hw_read_reg(offset, auth_mask);
+>>
+>> You blindly assume a 32-bit access here (and also in the write counterpart).
+>> How do you end up knowing?
+> 
+> he APLIC spec requires all register accesses to be 32-bit wide.
+> 
+> Also, I have the following at the caller side (yes, it can't be 
+> understand from the current patch):
+> 
+>      /* Fault address should be aligned to length of MMIO */
+>      if ( fault_addr & (len - 1) )
+>          return -EIO;
+> 
+>      if ( vintc->ops->is_access(vcpu, fault_addr) )
+>      {
+>          /* PLIC/APLIC access are always on 32bit */
+>          ASSERT( len == 4 );
 
---------------xbgQ1x0rXZSYoRubUfjex7qi--
+"len" being guest controlled, how can you have such an assertion?
 
---------------1Rw0aGoesE3QLnZHyBs1Gjz0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+>          rc = vintc->ops->emulate_store(vcpu, fault_addr, data32);
+>          if ( rc < 0 )
+>              return rc;
+>      }
+> 
+> Probably it would be better addi a size parameter to both callbacks:
+> 
+> int (*emulate_load)(const struct vcpu *vcpu, unsigned long addr,
+>                      unsigned int size, uint32_t *out);
+> int (*emulate_store)(const struct vcpu *vcpu, unsigned long addr,
+>                       unsigned int size, uint32_t in);
 
------BEGIN PGP SIGNATURE-----
+Yes please.
 
-wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmoxFjYFAwAAAAAACgkQZg+p0QLLz9Ce
-JAv9GBjBiySX1uvHN2WtoaRT3rH1VZVN3FUKftWxooYmZ8yBynd79BVc2dV+wN7TVBWpr5y7oWcT
-mtayZQlr9XP5Ge3jUZMKl4xL2aLpmxfiGYwgXL7DmDEQ4gRXRbqoToJ+SCeHBcGsPKc0mkC7V4yK
-kxu5tioZ4ZY1lz5lpbHWYlw5BxJjknntlqGPL4dvYmQZ0pXqK1Ii6djSsObtPXKO+yjZdw9iF6S7
-YGdCCZhQTrpICkOWIHbLBrIK37UsQQ4/CD2hExv5j8s/O2WyaguRrYbN/BGe3n8euJmNWJGCfz9I
-aEISccTG4ASnlGTABVNPy0dYoRF3a1pPJjXo9VPQxaYCH9xz7GsD7oLRYzEpmYjfEaewfTVjGpeK
-0F56o2HBl4CzXJ9drtVnhT/VPPnjxgwaGVCbaszSttphqxqV/3PowMQMMX+JYfF6vfJsfkcvFDJb
-BhMlMf0NA0SEoHNanfoNJWS5BFJ3DtbjJ+2GjWKOTZVCCDHESVFQjFnG6Z/x
-=vAZw
------END PGP SIGNATURE-----
-
---------------1Rw0aGoesE3QLnZHyBs1Gjz0--
+Jan
 
