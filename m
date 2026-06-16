@@ -2,49 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id oPJuAe1dMWqfiAUAu9opvQ
+	id +bqbFMReMWrSiAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 16:30:05 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 16:33:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 233C3690806
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 16:30:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A02236908B2
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 16:33:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=ZpMq6WbQ;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=TwcKqwP5;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	arc=pass ("google.com:s=arc-20240605:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1339309.1600495 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=amd.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1339317.1600504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZUmq-0008QD-7r; Tue, 16 Jun 2026 14:29:08 +0000
+	id 1wZUr1-0002CD-NI; Tue, 16 Jun 2026 14:33:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1339309.1600495; Tue, 16 Jun 2026 14:29:08 +0000
+Received: by outflank-mailman (output) from mailman id 1339317.1600504; Tue, 16 Jun 2026 14:33:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZUmq-0008Nw-4F; Tue, 16 Jun 2026 14:29:08 +0000
-Received: by outflank-mailman (input) for mailman id 1339309;
- Tue, 16 Jun 2026 14:29:06 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wZUmo-0008Np-Pg
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 14:29:06 +0000
+	id 1wZUr1-0002AD-Jz; Tue, 16 Jun 2026 14:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 1339317;
+ Tue, 16 Jun 2026 14:33:25 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZUqz-0002A4-OL
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 14:33:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZUmm-00FddU-U2
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 16:29:04 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wZUqx-00BlLt-Rf
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 16:33:23 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a315da3-5cb7-0a2a0a5109dd-0a2a450b9514-44
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 16:29:04 +0200
-Received: from [74.125.224.44] (helo=mail-yx1-f44.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a315daf-212f-0a2a450b0019-4a7de02cc46f-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 16:29:04 +0200
-Received: by mail-yx1-f44.google.com with SMTP id
- 956f58d0204a3-66061993121so4712318d50.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 07:29:04 -0700 (PDT)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 6a315ea6-5cb7-0a2a0a5109dd-0a2a450aa7d4-26
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 16:33:23 +0200
+Received: from [40.93.201.8]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 6a315eb1-56b3-0a2a450a0019-285dc908f789-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 16:33:22 +0200
+Received: from CH0PR04CA0038.namprd04.prod.outlook.com (2603:10b6:610:77::13)
+ by MN0PR12MB5812.namprd12.prod.outlook.com (2603:10b6:208:378::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Tue, 16 Jun
+ 2026 14:33:18 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com (2603:10b6:610:77::4)
+ by CH0PR04CA0038.outlook.office365.com (2603:10b6:610:77::13) with
+ Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.18
+ via Frontend Transport; Tue, 16 Jun 2026 14:33:18 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Tue, 16 Jun 2026 14:33:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
+ 2026 09:33:15 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 16 Jun
+ 2026 09:33:13 -0500
+Received: from [172.21.53.33] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 16 Jun 2026 09:33:12 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,155 +78,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1781620143; cv=none;
-        d=google.com; s=arc-20240605;
-        b=GkIfhHT4HMRtNP0G6vQLs+Wo5PVRVDac0DbPeoIHQ84Zc6DTLNnNJo5JkSnVsiXrG8
-         nLiFoECw1dckZ27GE2DNuaUNtL9nu3aXq6+JsXcsrWK665vSYLVI6OtWGW6BdQhFgyzf
-         bkoLnAt6XuQ/CuF/qjDczB4e1j8lOhj5Zc5L2gKiUwgEAGweXRp4QzUMX/ZJDP87bE8O
-         dUc1bOVODt0GohEZkoZB1UUOOemT1ex7SVpkv5XOkFaDZj+T8+cRK/CqzI9c6CL8AIN6
-         +2lNRBRjxpB3AvgaeUDNrRWaEw986/HfXLpKTquYNFUaTMP3gZl2mdjRon7tEwitWz78
-         YVhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7Zn9w5al2/YZZ9V57YMa5T4QiMRs1kVYvrWWkCpQORY=;
-        fh=xMgxCykwvpWY5mH3OuER2Pjr8NYP4c7sDzDS4rEH5ro=;
-        b=Fgf7i72Vwxjs92mqq7yvoKTqxs9rUnw/LwJte2f+zSpaekpPzqP+drcGnJwx4KokeS
-         b5DPwEzD26iy4HNZ9Y42JWHlDdgy/g3Xzl9R1NzvrygymjuZ5fcurxrLqOW72eChL3xx
-         uxspCSeqQ/irOjDiQ4n+M58NGs3LSCSxQp3dZAmcoFIrIunfouFgrgD02Wm7Ii9BNoRL
-         2uwrFux5trewWuqbuhBUFn11mTj/+2iozRXJx3L1Vo7yAIEX4ELlu4Z/uhSEOO2LS/hd
-         aNZmGQH8k39iFli5AJTcl342en2O9ziaxRX+E8bdQdQq3EOYNRIpvDRovB9Y9oIqbFNm
-         qKoQ==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781620143; x=1782224943; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Zn9w5al2/YZZ9V57YMa5T4QiMRs1kVYvrWWkCpQORY=;
-        b=ZpMq6WbQ+78hrzvoW25AdgljFXxI4wDUUeqwllk4U45gwhqmqly4bcN4EwP7ASzIho
-         Avx/nHpESYmqHSbDMvXWqOyCWcBqYRW49Px0NhT6SOiyU6+zV7nCMe2UiWEVNJIoOgkV
-         a0H+oL0vtC3kyj+8UxMjonR9+vOqPSMla7lgu99Bz1v45KlrljC5UwxwlB9ob78/as21
-         vkNSADlux573s3T+QoI7onQBtVh2mGB9c9G8wlA9MgCKccoL7KoxQHhKp2KgszyjZum5
-         Fo4k/ItW6/cv0jAZ/oS/n+FFuVxOoxF8YNjUg3kX6xLsrRsP+LWA2KcVgArEN71OWGvx
-         AjAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781620143; x=1782224943;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7Zn9w5al2/YZZ9V57YMa5T4QiMRs1kVYvrWWkCpQORY=;
-        b=a3xeJmCIylIgWCzWWEesblFlu9D1SwGxVAVOCwF/gxIRvpKHGFK1kL1PbhPKX1MmAL
-         /w2ggf4XnoGDPpQnZAOOuB/fthppoUQJJpPQmwb3cD+RtjMpEwKCtuge0j7cLmK7BT7V
-         PxFgBT2ijyUJ4NiJ1K0QO6z5RsU+iX/0IcWSJiqRBN7aRt9rh5A910ebDgMvl4wj6x/E
-         FrQsS9ILVXGIj4K/ugwDNzpPVhpTyGkv2K/FAEP9fU5RFaushqjFO5cKU/za6Af/dL2y
-         sagQltn/qzAHtyTCPgc3+p9bNKYpneYgc7r90cXz8/hcuF54OyEt0GdCktw6qI36Ju1z
-         sUqQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9jXRG0EjQpt2BSWX1/61fsl09f8WdCxQnQKWIFVcRrUcvSXD4Y2J5VAxv7lQ4vNuQg2DwwoxEh0tY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywd4U/P5uBNRYpTxgCXwjgTrNA3HNETik6SZqVmzSRviZLb7xKN
-	J/Aid+O/ofrUt7yYpEPpeapMJwugo1F2hxve0clPGMD535ABTzes0Panbx8nH0wGtV7W/VWQSiJ
-	hBsCiZQ4pH7XbpvNX6X5ou75yTNl24NE=
-X-Gm-Gg: Acq92OFGcigaNJ+smUibcLr5bqJrZXiH4PeY3C9XtAQbz8sGzqYJa/SUxWZ7dW6QX9h
-	GxWOpjuRGmE9xSGWd++WKqmpCgt19voxMpeJndpFlopDatrN80dIu1HaTvdSJviqM9RgG/7Vawe
-	y2QsWEvqAbHbg9i6z3ZyYsV5B7jIil6J7T+qpm5vNkIM1DrS9zhH8sTZYXabE/TSvA4YnHocMHA
-	hAbBJE32WY79BpnW8vceXTwQwEvgBz27GOMKl7DSdCiznUEYFSgCiVttZ9p6lFfaaIsV+MQOTsc
-	4FMAbWQ+JbGrPCh+agt4hsKWiKBpDKzk4RpZjQ==
-X-Received: by 2002:a05:690e:bc5:b0:660:5520:1b9a with SMTP id
- 956f58d0204a3-66284e3c4a1mr13389978d50.17.1781620143174; Tue, 16 Jun 2026
- 07:29:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I4XpuVQvgMEHFuw7CR1YWWyszNXYEKyyst9D93HEXbhgod7OEDIsqkDOsXqpiRQ6cujC1/2B9ySf5VmD3mg9VrGnwld06QdrRW5jVp1PoWx84lwP0dXEVPQ7NZbTgFhpiJOGkz2UJIctND4tOM2qAHAeTlux14BxA2OCk/1vWcDbolzwY0e4Se+Pb7TTiPdVwQHGeYSVf0OapKKyG6XEkwScAuQmdOVkE7ipXh+8Y7UCOnGTen/z3jiTj1vUU50WeR/pFlDVf8ptswYRdMCtajJuWpWx94YP6ayejB+JB9iXEz8QX1jB6rPRghSyTUhAwtoyb3jjWeAxpjisGJMRuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q11PU8q1qzWMsLlxK/9Gad50f9CBRAa4NsAtVvxEGUM=;
+ b=tzrkgUsi8bEFWuVgv5R6uJmLVlpq6ROAioPMLxcKwqaI1h0y13CRx5d+46i0Hem2j2ArcY+HR570cE7ISBTYnppzglL9Q1iQRBYHag6BN+NFJcqBW49VFERzpZ0yxDSLVmM6jxwc0ag7HGAqx0GtEO1N7Dc11+e+50M++xsHr5GNRhg+bmc4JfSgqoz2o+ewB3VlFVCL6uMI74JBEoPiDwB3Ph9Wga4A8WJqyciP4Cf0s+KBGSMifE5PDcat9+SzXlby1icYMOG8J22+4PRO3lmoldn9GZ8cRsu+dsbTQydy23kuK/Us7RZCkQX9MO1CAOPG4M6pDJjxG3/KQENAkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q11PU8q1qzWMsLlxK/9Gad50f9CBRAa4NsAtVvxEGUM=;
+ b=TwcKqwP5qVsepFny9jb4vd3qNdNHEhkQPg1UqKb0DVFOReYvp20j+bUcU/xNpnBTf5nhtlIuP4aSZAdDvJ8EGJ2eOZlkVx7lb7p//D5i1vuo8OXwkvchwb/61iE7qp+KrsjZBL4/zyE//H6P6ys4Phpzdw1cW4m3UJF9k+HcQCI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <d0d2eeb1-e94f-4210-a9d3-e7c9b4c3ade2@amd.com>
+Date: Tue, 16 Jun 2026 10:33:12 -0400
 MIME-Version: 1.0
-References: <20260608173108.2848469-1-andrew.cooper3@citrix.com>
- <b310db60-850a-4096-8900-54d0816e5063@suse.com> <965bcf53-accf-4297-bf8c-903dce45cba0@suse.com>
- <CAHt6W4f5KzkRhbDnCMS82zpAJ04-UkBoOXowyG=A5CT3yNSv9A@mail.gmail.com> <547d8b85-3537-4bb0-bddb-2ca2f14eb355@suse.com>
-In-Reply-To: <547d8b85-3537-4bb0-bddb-2ca2f14eb355@suse.com>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Tue, 16 Jun 2026 15:28:52 +0100
-X-Gm-Features: AVVi8CcqAUrOGzIhTfsCCWn5TyNqZr0v4O0ABmKFOuBzWZrFSGVlzDa6hxaUGN0
-Message-ID: <CAHt6W4crK-Lgt6rTsERupEGhdXtjjKJvh3F=K_U-3vXDtcETBg@mail.gmail.com>
-Subject: Re: [PATCH for-4.22] xen/x86: Always strip xen.efi
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Frediano Ziglio <frediano.ziglio@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Teddy Astie <teddy.astie@vates.tech>, Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>, Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-42698a/1781620144-2007BF3B-4B51C792/0/0
-X-purgate-type: clean
-X-purgate-size: 1805
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22] Revert "xen/cpufreq: fix usages of align_timer()
+ in the on-demand governor"
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>
+CC: <xen-devel@lists.xenproject.org>
+References: <20260615193944.19392-1-jason.andryuk@amd.com>
+ <1fbb67ab-09f3-4924-b6aa-139fc5d1acc7@suse.com>
+ <ajDxhjCed3cQ81od@macbook.local>
+ <a20eb654-8d77-4778-ad1b-09424065a69b@gmail.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <a20eb654-8d77-4778-ad1b-09424065a69b@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|MN0PR12MB5812:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13c6a4e8-7bfa-4d8c-540a-08decbb4354b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	v7EpW0Ue1OHEi5RwJ+XzWElHiZJKqBT4k6ca8KdR/f99YLD4eP0dlA4Cw2oDcQV0gdMHmY1cHXuBzkvhzzcDyRa8LykNI0hJPDdnD5n1cODfASorK0l1o/GMTRkxQzHXx6EghLKKkvrkCR4r9OLL8qLJZJY7w7FpC+MCeCoSZi9ZQhXpfHWFokmPxTbbWq2ZvuUdnTiOEdL4Mgz6MLhO+AODyHKRRFr+9wbl0/YMZgNRwgbHYvMUDdRI7C4uaG3n/Z+GmDn9PXqgatlNZcyRhFdxaczwB1GXf8O2GVumsQnsE3kblRS4PfOkR1E9zyPEn0oSaW5KmIFCVyjanTsqh+bkn6q643H7E9vJZ+S4YH1ihRlO63UgLOEj656i8RFhuZ5cGCoX2nC4V8cfJfa9+e7FJWHrLhCvguGwRm1ijOvE4mM6315MBpGSDghFexuF5oUYZZzygK3VspIHqEkaH0J7DJ4QASxU5W07Iq/Z22t1Gf+1ipjDPvtAzUSMsNB1NbJifliu1Ang/6HphVIk0FJ9BEg0NScouz4zhTU/0C84NtcieI0QdlgAYYVWSnocdZrecP4RA6pxhmQp6RPM3ewgm8KzQbhSYl/E8UUn94B4kNZ2CGp32pe12ji1cJ5c3Uff8DynTxohkwIoMSXKPw0MWs5Tve0IqEZFC+F4W7FPWwaX4Km+jq6NSpkLey72Sl/oYWAdD3QNNyPHWHleIsHwhpiN6wgxZmyXovMpw0M=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	g6GOUuOtXN8EvDCSOKB/Jt5LThIrCbOixeSqxUncLRs6pibAtQZuORL+65fKlRxtwEavCucHYey9QH+FozFhWOP03LoWfd/9kA72uokCQkDEcknCMNFI8plLEwCigUB4Dow34/OXT+K1/kSodEQ//K8QbAQPB9P8uXHSNMQ+macgTrBAzNElVj4ZKNkpVFSOGPX5x4+ehwaN9k62PgutNFo2rLXqLQ9PhTDTrMvZu9qJNzdjk3egGRPBPfIO+DgBFj2IRUGuK/QdgDikJZVgG33l/zGN9WMKnUxEyqfs27TyYCY80jbDD65nRoj4O8C2NFxs7GvA0uxg7o/aKTDH/3rE5yeDI5DOJix+QdpoVIlV+eNgeeaiIw8hu5XUN+wlD1bOteWMGDoR0oKVuAIPzkfM/NZugwqN1OkX1qBMPHmHQyP+qyNFDW6Huby+vM2c
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2026 14:33:18.1599
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13c6a4e8-7bfa-4d8c-540a-08decbb4354b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD7C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5812
+X-purgate-ID: tlsNG-4011c0/1781620402-7D1848B7-98DA841A/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 1458
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
-	FREEMAIL_CC(0.00)[citrix.com,vates.tech,gmail.com,invisiblethingslab.com,apertussolutions.com,lists.xenproject.org];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:frediano.ziglio@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:roger.pau@citrix.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,citrix.com,suse.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 233C3690806
+X-Rspamd-Queue-Id: A02236908B2
 
-On Tue, 16 Jun 2026 at 15:15, Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 16.06.2026 16:07, Frediano Ziglio wrote:
-> > On Thu, 11 Jun 2026 at 15:42, Jan Beulich <jbeulich@suse.com> wrote:
-> >>
-> >> On 11.06.2026 16:38, Jan Beulich wrote:
-> >>> On 08.06.2026 19:31, Andrew Cooper wrote:
-> >>>> Some old versions of binutils ld managed to produce efi files which the
-> >>>> matching version of strip couldn't process.  This includes Binutils 2.26
-> >>>> included in Ubuntu 16.04.  Delete the workaround for this bug, and require a
-> >>>> less broken toolchain.
-> >>>
-> >>> And we're certain newer versions of strip don't do any harm to the binaries?
-> >>> Already towards Frediano's posting I said that having looked at how things
-> >>> work there, I'm far from certain.
-> >>
-> >> I should have added: An option may be to link twice: Once with debug info
-> >> included, and once with it stripped. Personally I trust the linker creating
-> >> the various headers, including the section ones, more than strip's (or
-> >> objcopy's). Yet then I can only repeat my observation that linking PE+ from
-> >> ELF inputs looks to be significantly slower than linking ELF -> ELF.
-> >
-> > That was also attempted. See previous versions. And no, it does not work.
->
-> How exactly does it not work? When stripping debug info while linking (as
-> we now do for the first two passes), the resulting image should be both
-> small enough and correct. What am I missing? The only caveat I'm aware of
-> is the Eclair scan, where we should avoid doing any work for the
-> "auxiliary" linking step (the one not producing the binary that's actually
-> going to be used for running Xen).
->
-> Jan
+On 2026-06-16 03:31, Oleksii Kurochko wrote:
+> 
+> 
+> On 6/16/26 8:47 AM, Roger Pau Monné wrote:
+>> On Tue, Jun 16, 2026 at 08:30:25AM +0200, Jan Beulich wrote:
+>>> On 15.06.2026 21:39, Jason Andryuk wrote:
+>>>> The original commit showed a ~6% regression in a benchmark.  The 
+>>>> call to
+>>>> align_timer(firsttick, period) rounds firsttick up to the next mutiple
+>>>> of the period, if firsttick % period != 0:
+>>>>
+>>>> align_timer(0, period)          -> 0
+>>>> align_timer(1, period)          -> period
+>>>> align_timer(period, period)     -> period
+>>>> align_timer(period + 1, period) -> 2 * period
+>>>>
+>>>> So adding the period (sampling_rate) before calling align_timer() will
+>>>> in most cases incease the expiration to 2 * period (sampling_rate) (the
+>>>> exception being firsttick % period == 0).  This longer timer slows the
+>>>> reaction time of the algorithm.
+>>>>
+>>>> This reverts commit a0ed5bcfbeee81c91c574ad484faa057054eaf09.
+>>>>
+>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>
+>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Adding Oleksii for a release-ack.
+>>
+> 
+> Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-One thing I remember was the build-id was not the same and debugging
-tools could not work.
+Thanks everyone.
 
-Frediano
+Sorry for forgetting to CC you, Oleskii, and mark as for-4.22. 
+add_maintainers.pl does the right thing... except during the code freeze.
+
+Jan, thanks for fixing up the indent.
+
+Regards,
+Jason
 
