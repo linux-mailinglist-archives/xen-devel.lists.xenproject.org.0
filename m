@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PdeDAev7MGo+aAUAu9opvQ
+	id HZFADU78MGpPaAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 09:31:55 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 09:33:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B8468CDD7
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 09:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F50968CDF9
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 09:33:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="oiB/xt5y";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="k9dJzMt/";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1338752.1599805 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1338759.1599813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZOGp-0006v0-Lf; Tue, 16 Jun 2026 07:31:39 +0000
+	id 1wZOIY-0007Vl-1l; Tue, 16 Jun 2026 07:33:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1338752.1599805; Tue, 16 Jun 2026 07:31:39 +0000
+Received: by outflank-mailman (output) from mailman id 1338759.1599813; Tue, 16 Jun 2026 07:33:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZOGp-0006tH-Gw; Tue, 16 Jun 2026 07:31:39 +0000
-Received: by outflank-mailman (input) for mailman id 1338752;
- Tue, 16 Jun 2026 07:31:37 +0000
+	id 1wZOIX-0007TI-Uy; Tue, 16 Jun 2026 07:33:25 +0000
+Received: by outflank-mailman (input) for mailman id 1338759;
+ Tue, 16 Jun 2026 07:33:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZOGn-0006tB-Pk
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 07:31:37 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZOIX-0007TC-4K
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 07:33:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZOGn-004tq3-6J
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:31:37 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wZOIW-004Xhi-Gu
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 09:33:24 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a30fbd9-2eae-0a2a0a5409dd-0a2a4502c162-2
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 09:31:37 +0200
-Received: from [209.85.218.48] (helo=mail-ej1-f48.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a30fc44-5cb7-0a2a0a5109dd-0a2a450abd92-0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 09:33:24 +0200
+Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a30fbd9-af86-0a2a45020019-d155da30f0a2-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 09:31:37 +0200
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-bef47b1ac01so591578366b.2
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 00:31:37 -0700 (PDT)
+ id 6a30fc44-56b3-0a2a450a0019-d155dd35e90c-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 09:33:24 +0200
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-45eec22fab7so1818806f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 00:33:24 -0700 (PDT)
 Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb7b6dc48sm598107566b.36.2026.06.16.00.31.34
+ ffacd0b85a97d-4606f26434dsm42333445f8f.1.2026.06.16.00.33.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 00:31:35 -0700 (PDT)
+ Tue, 16 Jun 2026 00:33:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,82 +60,83 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781595097; x=1782199897; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1781595204; x=1782200004; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xgq4liH7Jz4cbnB2BqbOfY+iuZH2QCjiC950WcU4bEA=;
-        b=oiB/xt5yyMfrQ5B760rgo5SFYG1ZMGZtTSMM9Imgdxk0EASHtl9NLSd4XaRenyNawx
-         VU4t1qmj4FiI8HrLL2Y9Im939JTR+AZXt69SBIISBwzpinw2mD7WEpYmyRrrvFag1MIE
-         PghKdGJsYwC6yj0D0MFehAsIZE31c/liH9ujRVtOkrRUN1engU4uvJEkpArA0LBHhGSv
-         EBAY5BIf46Av1eywX69wBBXDfvN19j9muEHZ1uS98MMbhEwx1Vyh+izi0XPJ8CzXbXKA
-         0iZUnPoz1RbetQAJnnwdRsl2TFNB5YqA+ZXsaWL8GBFU8wS3o653IKkbHZS5Q26t30h7
-         P/bg==
+         :references:to:subject:user-agent:mime-version:date:message-id:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=xLzbH1EO0RjlWW65gsY+VbF3zJHfV+KfASUqTVuyoWo=;
+        b=k9dJzMt/su/kbXCMDKoBw6u/OV2/MGLIal7tIN5GxhEU8O+BWltG39XVRwAPgMkDrw
+         DDMVJFPi+3F9FJVBmb8yvr+RtZYzvWFvJNh2naaPeKH4RiRH6L+E2VYnP/f9/l36gGft
+         x0wpoH8HRSimEYklniNlyGfbDUVBgZLGXAi3JJASktXzbUyAvOn/+hZIDfxO3rPPSa49
+         4GyCU0XgoDxxxVFbKXGawAQFRBpX0KkpZHXI81x0oepnLAjqIDwzVzylKT9h9NmgG+UC
+         aXlfvKV8lBGEbhOrHE5YBNuj2AWrnMZkoYaJoA/liCFyQdvIOiyLz2uZWoDw/P/IPXg+
+         0BHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781595097; x=1782199897;
+        d=1e100.net; s=20251104; t=1781595204; x=1782200004;
         h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :references:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=xgq4liH7Jz4cbnB2BqbOfY+iuZH2QCjiC950WcU4bEA=;
-        b=ReKnKn3fNPgGQ6BPq1cpIPVv2spmJTt4Z59Qg2wl5z2KDGZCokSmnT48RV3fy3Je8A
-         knZgVpyuWlGtya6H19tLXYu15g+Zhm4laojJQRHlu14OI8TrTb0Ml1t540HE8Mbmb1Pa
-         k/cJJjL4d+ytEJr/5mUAWmVsJ0WrjdeTB8cDdbAf0unaSH19pPqmQkvVaQTPBG9FxIJU
-         Zyd699VQR+XIsEL3PaBHbyyHkwIpFMcmaCSAzIOkFj8Hgc5PnhcdkzHKudyqO4e0NSiF
-         9D0rIqGee3ig2d6OnKCa6LgCwRM5mmnHQ8ytxM3viEwfSWEjSjr/MCITM0b1gSwKKYrG
-         h6iw==
-X-Forwarded-Encrypted: i=1; AFNElJ/r4DkFG3//h6R63ewWNmeCL1H8M0v9tQGNIaEWMF79ODYtYBbDWLomShTxPW02ePAO3eJVnki0mt0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy2YOU9tjZj6nDRaeOSuYnzoUBoiZ9CKKYmCEIkWdRqmoLzVfBe
-	NC8+xu0sbJtrbIeCL4c2cOkkrBsZ+zZx+Or9Psrfe7M2XIEZ1NHWiRA9hfPzxg==
-X-Gm-Gg: Acq92OFgRfN3lOcEp4CvdSc/uWaICQvdD+BxaHG0BWv1SSlD3MNcdhPxSCmKpqqJFLZ
-	YC39GM7524a2dnFD3z2sFbE1wVA0nJTLJB4Z+FpPK+1D3hdH9le2fHdCYDKCFWnqRD3p2Ka0Xl/
-	oTk3WNdMBlywgD180oC4RIe7DEGAO2Q3mkanT1shnb7ZX4R5IRDqnwVGmG1KVMv6D0mtMQ8ak6O
-	2WGjiYad/bfCETXIbNuJErgd29/brbMLXdW6oJXg78So0V/DzO1ckabaoKoy1vCoSaA493kbICp
-	TTQU23Gjod+JZ7O3Ta+7DN4T3eELWdGC9njplOl8WhVZj0CeIf5vlF3iBcaoMGsFgQGNs+sXrgJ
-	DHIJzaA3t/a6A4ajy5MUeSgkreCvFdb62/9tE9VSoAsnJtQjz9fsUvMow0fw45qQq2ar1V40/dI
-	LQIDilGbaZ0aRo4tu8/5cJRpL+Y8fnfjWDeDKCmf9B56lec77cEv9dYSTqZAKPqBJ9H62aPAQml
-	Nkcbg==
-X-Received: by 2002:a17:907:a28a:b0:bee:1e36:8772 with SMTP id a640c23a62f3a-c043cdd53a7mr104867166b.20.1781595096024;
-        Tue, 16 Jun 2026 00:31:36 -0700 (PDT)
-Message-ID: <a20eb654-8d77-4778-ad1b-09424065a69b@gmail.com>
-Date: Tue, 16 Jun 2026 09:31:34 +0200
+        bh=xLzbH1EO0RjlWW65gsY+VbF3zJHfV+KfASUqTVuyoWo=;
+        b=mTEUnQnc3zgQ9mVuCE0P3TCCsSZi7wRyO3X21X+fVTbiverLbGPTHmxQ7/hg9Oegkl
+         DxqRmlMTGjavNDWPFSoEww2OY38Nvr3vqIm4O7+T3dnZPLivM1ijec4xPvyU2AV91cZy
+         YgT/v6teYR9e7LQOVl8D0hcy6UWRLa/PS03bEqNzkAB6s+8KPtTbpLvFY0opsVRmltZZ
+         Uic7gVkJhycVzIiHckns5j6UQEtjEAiRIHVGHecsm32iWu7HPfdUpANIpc2Ldr+sF4w0
+         uqWJEGwD7bqufyTAhVUjo3q4HUohCCrbtXpJIJkVPXyqkO3cO7X+RudbSDESwdXrG+UC
+         M7pA==
+X-Forwarded-Encrypted: i=1; AFNElJ/VULlUhp9GeRqz/o56S26zAwC+nrwHQWAlLkFqr3ykU0n0Chifo0gWeMGawInhVOSCBK0llCDmlvI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwQMBqSLXvfKi6lq+L76XNLfGlrWP4YBJpWIMRZHKKtztNAek5v
+	47Sw8fz7BT0oZnwI//vvvKxAOlwq1d+HZQolv6StlzSLfyKHBvHkTkfmW9lgoQ==
+X-Gm-Gg: Acq92OEP5DbPsmuDoldLBjBSEkPeRzmOFCvsb2019aJM366A4T11/W2qqDqIBjaUNWB
+	HtZrYM/gwJ3hLizG3wEQ2utjUpMrVq72GkkDqxkMNkFyo5qnfaN6VqkwSf35tYFrlj9Fi9axigy
+	3x9PeQPLVK1Xgk7odeiXGGmLn+hIBS4jLkbKrt+hsmWBopjpuhGa24CPYuUWA5kfSNmi0JTiulF
+	b/XBBtivp1Cy1oV2meLTfBE9j0mA4W1qhuDdJENIi8Po7kZfwsd2zYEGuv5UB3mmbh7kN7ZCf6Y
+	Tc88E/GDa90POl886CWEy1UKrP5uZ8CUjFyOKIMQcYXyXBDjbCK/PsVA6pRBcuw1bmS5W1wEDDE
+	9RILUwV/bqLUd1YtOV/PR3uTVN8rrowzUijK3N04zcwGG1Mh6r2bTUZc8/gJWCXqvOBI4543Nqt
+	EiwH65D0LStL73l2kIIU4RRHF3RMiOpD95sjFdQ2nNk47EBscgnwHctJw9qgc/4h3fYfTjZ1vOU
+	AqMpw==
+X-Received: by 2002:a5d:4e44:0:b0:45f:f142:d569 with SMTP id ffacd0b85a97d-4619f387c53mr2818562f8f.15.1781595203790;
+        Tue, 16 Jun 2026 00:33:23 -0700 (PDT)
+Message-ID: <d2203f8a-baf8-40b0-b34a-c1ef5822e2a4@gmail.com>
+Date: Tue, 16 Jun 2026 09:33:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22] Revert "xen/cpufreq: fix usages of align_timer()
- in the on-demand governor"
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH] x86/efi: Skip FPU save/restore for idle vCPU in EFI,
+ runtime path
+To: Bernhard Kaindl <bernhardkaindl7@gmail.com>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>,
  Jan Beulich <jbeulich@suse.com>
-Cc: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-References: <20260615193944.19392-1-jason.andryuk@amd.com>
- <1fbb67ab-09f3-4924-b6aa-139fc5d1acc7@suse.com>
- <ajDxhjCed3cQ81od@macbook.local>
+References: <1781272430.8631fc262581453bbf619ec5b2062170.19ebc1c488b000701b@vates.tech>
+ <957a0fea-4099-4470-9b40-3f8b294c44dc@suse.com>
+ <8b51a40e-028a-42aa-a7e4-55a731ebe10e@gmail.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <ajDxhjCed3cQ81od@macbook.local>
+In-Reply-To: <8b51a40e-028a-42aa-a7e4-55a731ebe10e@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1781595097-AAD6F161-50A43679/10/73395122804
+X-purgate-ID: tlsNG-4011c0/1781595204-7FD788B7-5D008F89/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1152
+X-purgate-size: 2254
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:jbeulich@suse.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:bernhardkaindl7@gmail.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org,vates.tech,suse.com];
 	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,amd.com:email,citrix.com:email];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email,vates.tech:email];
 	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -151,35 +152,47 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A2B8468CDD7
+X-Rspamd-Queue-Id: 8F50968CDF9
 
 
 
-On 6/16/26 8:47 AM, Roger Pau Monné wrote:
-> On Tue, Jun 16, 2026 at 08:30:25AM +0200, Jan Beulich wrote:
->> On 15.06.2026 21:39, Jason Andryuk wrote:
->>> The original commit showed a ~6% regression in a benchmark.  The call to
->>> align_timer(firsttick, period) rounds firsttick up to the next mutiple
->>> of the period, if firsttick % period != 0:
->>>
->>> align_timer(0, period)          -> 0
->>> align_timer(1, period)          -> period
->>> align_timer(period, period)     -> period
->>> align_timer(period + 1, period) -> 2 * period
->>>
->>> So adding the period (sampling_rate) before calling align_timer() will
->>> in most cases incease the expiration to 2 * period (sampling_rate) (the
->>> exception being firsttick % period == 0).  This longer timer slows the
->>> reaction time of the algorithm.
->>>
->>> This reverts commit a0ed5bcfbeee81c91c574ad484faa057054eaf09.
->>>
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Adding Oleksii for a release-ack.
-> 
+On 6/12/26 5:41 PM, Bernhard Kaindl wrote:
+> Hi Anthony, could you test this patch which exactly applies the changes 
+> Jan suggested? Summary:
+> Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+> for idle vCPUs, which don't have an FPU context to save/restore,
+> much like the calls are guarded in __context_switch(),
+> where save/restore is done only for non-idle vCPUs.
+> As these simple guards should preferably go into Xen 4.22: Please test 
+> if there are any further regressions with the 'cmos-rtc-probe' 
+> workaround you just added removed to check if guarding the assertions as 
+> Jan suggested is enough to fix the issues triggered on your machine. 
+> Thanks, Bernhard The patch to test follows: [PATCH] x86/efi: Skip FPU 
+> save/restore for idle vCPU in EFI, runtime path
+> Anthony reported a boot-time crash in init_xen_time() via efi_get_time()
+> on a Broadwell-D system:
+>    Assertion '!is_idle_vcpu(v)' failed at arch/x86/i387.c:195
+> The failing path is an EFI runtime call reached early during boot,
+> where current may still be the idle vCPU.
+> This became fragile after the lazy-FPU removal cleanup series.
+> In 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling"),
+> efi_rs_enter() was changed from save_fpu_enable() to vcpu_save_fpu(curr),
+> which unconditionally asserts !is_idle_vcpu(v)
+> so an EFI runtime call in idle context now asserts.
+> Likewise, in dba44e051209 ("x86: Remove fully_eager_fpu"),
+> efi_rs_leave() was changed to call vcpu_restore_fpu(curr),
+> which has the same assertion and can fail for the same reason.
+> Guard both EFI runtime FPU calls with !is_idle_vcpu() to skip save/restore
+> for idle vCPUs, which don't have an FPU context to save/restore,
+> much like the calls are guarded in __context_switch(),
+> where save/restore is done only for non-idle vCPUs.
+> Fixes: 1792bb9a99d2 ("x86: Cleanup cr0.TS flag handling")
+> Fixes: dba44e051209 ("x86: Remove fully_eager_fpu")
+> Reported-by: Anthony PERARD <anthony.perard@vates.tech>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> ---
+
 
 Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
