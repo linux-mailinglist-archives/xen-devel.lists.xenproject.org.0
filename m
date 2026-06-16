@@ -2,53 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yn8fNNiHMWo1lwUAu9opvQ
+	id cwf+F32IMWqAlwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 19:28:56 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 19:31:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 625846932BF
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 19:28:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B4CA693382
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jun 2026 19:31:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=gFvFiyRb;
+	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=RjCtsuHA;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1339509.1600744 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=redhat.com
+Received: from list by lists.xenproject.org with outflank-mailman.1339539.1600759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZXaa-0005Nm-VD; Tue, 16 Jun 2026 17:28:40 +0000
+	id 1wZXdM-0008UO-8w; Tue, 16 Jun 2026 17:31:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1339509.1600744; Tue, 16 Jun 2026 17:28:40 +0000
+Received: by outflank-mailman (output) from mailman id 1339539.1600759; Tue, 16 Jun 2026 17:31:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZXaa-0005F5-Pl; Tue, 16 Jun 2026 17:28:40 +0000
-Received: by outflank-mailman (input) for mailman id 1339509;
- Tue, 16 Jun 2026 17:28:39 +0000
+	id 1wZXdM-0008Sm-5q; Tue, 16 Jun 2026 17:31:32 +0000
+Received: by outflank-mailman (input) for mailman id 1339539;
+ Tue, 16 Jun 2026 17:31:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wZXaZ-00051J-LO
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 17:28:39 +0000
+ (envelope-from <mst@redhat.com>) id 1wZXdK-0008Sa-Cn
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 17:31:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZXaZ-00FwMQ-1S
- for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 19:28:39 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wZXdJ-006bOT-Ph
+ for xen-devel@lists.xenproject.org; Tue, 16 Jun 2026 19:31:29 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a3187c0-2eae-0a2a0a5409dd-0a2a450cbeac-10
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 19:28:39 +0200
-Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a3187c6-62f1-0a2a450c0019-d155dd33c199-3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 19:28:38 +0200
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-461a15bb819so860527f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 10:28:38 -0700 (PDT)
-Received: from localhost.localdomain (5.116.208.46.dyn.plus.net.
- [46.208.116.5]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-461abb44c3dsm5012754f8f.9.2026.06.16.10.28.37
+ (envelope-from <mst@redhat.com>)
+ id 6a318857-5cb7-0a2a0a5109dd-0a2a4501b2b0-38
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 19:31:29 +0200
+Received: from [170.10.129.124] (helo=us-smtp-delivery-124.mimecast.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <mst@redhat.com>)
+ id 6a318870-c1f2-0a2a45010019-aa0a817c9759-3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 19:31:29 +0200
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-93-w7l57zGDNGGApvl0l7CbGg-1; Tue, 16 Jun 2026 13:31:26 -0400
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-490b8adf8b8so45282405e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 10:31:26 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-85-71.inter.net.il. [80.230.85.71])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4923343cb75sm3583875e9.0.2026.06.16.10.31.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 10:28:37 -0700 (PDT)
+ Tue, 16 Jun 2026 10:31:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,156 +64,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781630918; x=1782235718; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gBtC0geG/tAfPA7o0MJitiKqtMfuEi6dV5S/o3JXoz4=;
-        b=gFvFiyRb/zSgj3MpUgRJS1rO9P7Z11MOrqO/vOoXr0EXJQVpji2Lp06lrF9wb5R3f4
-         Dm8wKPVTsYMFMJYs29Fal6mgtInqwjSs2wEWO7dZq3s6DZQ4LCp55KReBcBPrT8vJXLu
-         b2SSS1NRZcKq8n6gDv3tlZKsQJdM0Ws2LJih02Nu1pUal6Z6O2bbCFoXqoRjVvZYcL6+
-         krR0KgNquBtdGorfGaPHZcdGkfS54VnnPc6fziUk14vFGOYZnjVDxTgKLLUlyuvc1uMy
-         NZa8cWH8jcxF7pSApIxo1xChlax3yWfjysgzr1yZ3O1PZLuJVJoL/ZRq1DT1qW+1oSmw
-         0Zsw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1781631088;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZWc8XpFSVDFqkdh9JRMAyyd+HTlraBz0TXBtpxzGEaY=;
+	b=RjCtsuHAMqzKrlzaO4Amt3BhMQRDJH4P2dFt+nB1nNgSwhQuUkjDjhsccTFZ0KTRE/5ac6
+	RmW1Z3TwNj/nLdyTolrQjbDARZns+CZ2QmDmSos8MXvR0zIqioepUjG6VZMSiwwWNpaP5G
+	Bu2ZE3ZFn88Zd9Iqsz0ze6DEvhUwIf8=
+X-MC-Unique: w7l57zGDNGGApvl0l7CbGg-1
+X-Mimecast-MFC-AGG-ID: w7l57zGDNGGApvl0l7CbGg_1781631086
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781630918; x=1782235718;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gBtC0geG/tAfPA7o0MJitiKqtMfuEi6dV5S/o3JXoz4=;
-        b=ZXpTmTuWgkAbfihCb5NPsWzfkNM/9eH+SJVdeEf7EYmse1qdDlF5vrxbV8z+a0M4UL
-         vpjHEpOkDwE9p6Z7LNewqdpRz8BMOo58XXqcH7mYequSlxotLqr6bzXnu4AJ80mIG5wl
-         8lEu8SjTpy0aE+phLx5EL9UK1lMceVhkA/R6hi+tU6oTm+Z+bcqEzl+m4hI8rHMRMAjx
-         RRZ7dif9ja64Uebtet9EPBg/u3Q/ILCvyZbsC7w82eqeK8xwZ3icmLMm81bkQfchEQkD
-         BdlVUz6bZ1T77ioYwa9R02M+m7pwrtfa8fcnWrd4S5Oej92owRa8U5maEzwcXetucCqq
-         bn8Q==
-X-Gm-Message-State: AOJu0YwLKbbjhf0qnPZQJxcgCHZ9I09H4PY9yFmqHjIz8rLtEJK782qB
-	QcS45gj0hlXcinnlTBmm6/H8EJQVD3dFPGBElri7Jq+R03jVxuNXsiduWQARfeYo+KE=
-X-Gm-Gg: Acq92OEHiFrY6OfKztjpbuUMSHUGyo9BAyMUJW/975u29CIQCSuQjywA+9nEIMvboS0
-	yMiDbzAaXh/aW358FxvQv0Xda4r9YiNo6vGAhKZlVIhJnbNDyc1CRuy1ZJ7cVPUrMC32R+RqtxQ
-	Jp5CNSBBXFFOjwKIP3Fyk2mvOv10pTwY7ARn1rcyTHcaU7c+8yqlaeZpETueScLVUOMkdsecIxn
-	TQFnhfXCSOKD5OYB4vUYRBTvG/WGMDm5u10zBFXBsApT3GtgRbAB1gIfRvc5Sba17s1SF4DYDyp
-	CbW+HkzZftk3hOwzIKDNy3m9iW2wqL0LeHLedJjuG/rmgjlYVIduUavziD5zyX4UbgHudFgiNbX
-	yCdBi3wmoZVK1MsTHDlpjIY1ADQGntooh0qYqzmjEUjgNojnwzhomaFDFCPXVCOnmRqCTHykeGy
-	6gh+07N//uymVIWf20n7l/njtOhnAjfgS2F4wqhFO17sOKsRyd1kgZeWPV4tXFHCFrRfwYOBAGQ
-	xfDCJSP/VwtQc7wkOxyGddvv6k=
-X-Received: by 2002:a05:6000:41e3:b0:461:9459:874c with SMTP id ffacd0b85a97d-4623fe7ddfdmr468263f8f.19.1781630918303;
-        Tue, 16 Jun 2026 10:28:38 -0700 (PDT)
-From: Frediano Ziglio <freddy77@gmail.com>
-X-Google-Original-From: Frediano Ziglio <frediano.ziglio@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Frediano Ziglio <frediano.ziglio@citrix.com>
-Subject: [PATCH v4 4/4] x86: Split .init section to satisfy UEFI CA memory mitigation
-Date: Tue, 16 Jun 2026 18:28:30 +0100
-Message-ID: <20260616172830.111393-5-frediano.ziglio@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260616172830.111393-1-frediano.ziglio@citrix.com>
-References: <20260616172830.111393-1-frediano.ziglio@citrix.com>
+        d=1e100.net; s=20251104; t=1781631085; x=1782235885;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZWc8XpFSVDFqkdh9JRMAyyd+HTlraBz0TXBtpxzGEaY=;
+        b=SFmtZsnC5UW5Bi2M15KcdxCNlPsn3AUKvzEr9NWc2YNNnrFtlHcYN1BycwvpVpX/ai
+         XU/HdYYCU2nuh1RWg9Yc/VvfuWZ63d8u10Hs9CY4CzauYdpnRNnqLiEFUo01Ha9I1BZ+
+         7Fp1F4cNW43dvQonkADaOjTiak0HSbb3AUQHS7rIenlRuCtHjAOVmp5M99NsAGknxJKy
+         go6xaE6NkUSbqfos7WvkR+JsgcemVqaW3sIXxgiO5ZtMqqjlbI+FITphxzD/oBFe4Xwe
+         BkKIXj5y4jLXuLxOHRwM4v2/5NWrA3YOkndMoBDk8V23DHaNGRGlxMKNKG4GUPnQPErw
+         NTKA==
+X-Forwarded-Encrypted: i=1; AFNElJ/c0jNOllju0+Z9KaRoVrtO/EaFjOWdcmSuJMh15cjtC5/BzyhDu4Kmbns5g90G5l3/JFl/FTPTIEw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwK22uXMIm/Doji0/owZ5pBgROIt6QskGP9ykVPqTGKKBkWLGId
+	4Q516TZAMVU/Z25AW4ftIS7B0yWGjNEespUr9aAmQqe7EH4qsgSEn0uu02Is6JrJCcD6IKLixHc
+	wJg6wMsMfrYJMQv/jPrZjX1fIpALVYE12688AnbZd4z4bRBWbfOY49FdYhSpgpD13/bgi
+X-Gm-Gg: Acq92OHjz5X7K3zuGXR1ucNyYt3vfvo5assbV7Bd/eF0AqRqAxJeKoFbCXrwaQA/p6H
+	GaWc/JsOecbTuJTgIE//NSv1zjgoM0D1sxkgTsb5jeC49w6VcozesUPtR7ri5GqU+GEIEQOeHIB
+	NqYJSgCGW/EF1gkwybGV2bPmYO7SrPrBgmqCEdxes8mViubOQ7zawOzYINdUAxLZaobl2swDSsg
+	3EBgfe7V741vBMoKnJeHlKwsOft/vG8iZSkp+PV61PaWgCT9SN2jng4AxB+7j1rXQS3D4XFM8Az
+	zVpxm47PAPOigVKgbstIytBMmMYKdP+Jb5n4yspaBykRJG/6OMInKDNQAU1oT9o3uS3YzCtO0kK
+	tYSMdk2ZS4aS/Vjpc2uGxQYXHhiNa0Xa6i9J3BZ5Ubrk=
+X-Received: by 2002:a05:600d:8496:20b0:490:e913:656a with SMTP id 5b1f17b1804b1-492333d8ae7mr6321255e9.27.1781631085390;
+        Tue, 16 Jun 2026 10:31:25 -0700 (PDT)
+X-Received: by 2002:a05:600d:8496:20b0:490:e913:656a with SMTP id 5b1f17b1804b1-492333d8ae7mr6320565e9.27.1781631084806;
+        Tue, 16 Jun 2026 10:31:24 -0700 (PDT)
+Date: Tue, 16 Jun 2026 13:31:21 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Michael Tokarev <mjt@tls.msk.ru>
+Cc: Thierry Escande <thierry.escande@vates.tech>, qemu-devel@nongnu.org,
+	Alexey Gerasimenko <x1917x@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Anthony PERARD <anthony@xenproject.org>,
+	xen-devel@lists.xenproject.org,
+	qemu-stable <qemu-stable@nongnu.org>
+Subject: Re: [PATCH 3/4] q35: Fix incorrect values for PCIEXBAR masks
+Message-ID: <20260616133032-mutt-send-email-mst@kernel.org>
+References: <20260313164649.794591-1-thierry.escande@vates.tech>
+ <20260313164649.794591-4-thierry.escande@vates.tech>
+ <46238511-ed5d-4f2d-881d-87120e4a408d@tls.msk.ru>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1781630919-F5983CF5-CBD32945/0/0
+In-Reply-To: <46238511-ed5d-4f2d-881d-87120e4a408d@tls.msk.ru>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: pmlMyhYbFd-A7gZHn-mSpbfV4VSK05n6t9-aHMb3j5k_1781631086
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-purgate-ID: tlsNG-d62444/1781631089-ACE52FF4-22EAFE7F/0/0
 X-purgate-type: clean
-X-purgate-size: 1873
+X-purgate-size: 876
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FREEMAIL_CC(0.00)[vates.tech,nongnu.org,gmail.com,redhat.com,linaro.org,habkost.net,xenproject.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:frediano.ziglio@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,invisiblethingslab.com:email];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:mjt@tls.msk.ru,m:thierry.escande@vates.tech,m:qemu-devel@nongnu.org,m:x1917x@gmail.com,m:pbonzini@redhat.com,m:richard.henderson@linaro.org,m:eduardo@habkost.net,m:anthony@xenproject.org,m:xen-devel@lists.xenproject.org,m:qemu-stable@nongnu.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_SENDER(0.00)[mst@redhat.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[redhat.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[mst@redhat.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 625846932BF
+X-Rspamd-Queue-Id: 0B4CA693382
 
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
+On Tue, Jun 16, 2026 at 07:25:52PM +0300, Michael Tokarev wrote:
+> On 13.03.2026 19:47, Thierry Escande wrote:
+> > From: Alexey Gerasimenko <x1917x@gmail.com>
+> > 
+> > There are two small issues in PCIEXBAR address mask handling:
+> > - wrong bit positions for address mask bits (see PCIEXBAR description
+> >    in Q35 datasheet)
+> > - incorrect usage of 64ADR_MASK
+> > 
+> > Due to this, attempting to write a valid PCIEXBAR address may cause it
+> > to shift to another address, causing memory layout corruption where
+> > emulated MMIO regions may overlap real (passed through) MMIO ranges. Fix
+> > this by providing correct values.
+> 
+> I'm not sure about the implication of this issue, - is it qemu-stable
+> material?
+> 
+> Thanks,
+> 
+> /mjt
 
-Currently .init section is both writeable and executable, split data and code
-to have 2 sections satisfying W^X rule.
-
-It is a requirement for NX_COMPAT so the PE can be loaded with W^X perms
-in the pagetables.
-
-NX_COMPAT is a requirement from shim-review,
-https://github.com/rhboot/shim-review#do-you-have-the-nx-bit-set-in-your-shim-if-so-is-your-entire-boot-stack-nx-compatible-and-what-testing-have-you-done-to-ensure-such-compatibility
-
-Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
-Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
---
-Change since v1:
-- update comment style.
-
-Changes since v3:
-- Added Acked-by.
----
- xen/arch/x86/xen.lds.S | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 749d9719cc..8fefda1816 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -193,11 +193,7 @@ SECTIONS
-   __2M_init_start = .;         /* Start of 2M superpages, mapped RWX (boot only). */
-   . = ALIGN(PAGE_SIZE);             /* Init code and data */
-   __init_begin = .;
--#ifdef EFI /* EFI wants to merge all of .init.*  ELF doesn't. */
--  DECL_SECTION(.init) {
--#else
-   DECL_SECTION(.init.text) {
--#endif
-        _sinittext = .;
-        *(.init.multiboot)
-        *(.init.text)
-@@ -210,12 +206,12 @@ SECTIONS
-         */
-        *(.altinstr_replacement)
- 
--#ifdef EFI /* EFI wants to merge all of .init.*  ELF doesn't. */
--       . = ALIGN(SMP_CACHE_BYTES);
--#else
-   } PHDR(text)
--  DECL_SECTION(.init.data) {
-+#ifdef EFI
-+  /* Align to satisfy UEFI CA memory mitigation. */
-+  . = ALIGN(SECTION_ALIGN);
- #endif
-+  DECL_SECTION(.init.data) {
-        *(.init.bss.stack_aligned)
-        *(.init.data.page_aligned)
- 
--- 
-2.43.0
+I think yes generally, but it worries me this has a high risk for
+breaking migration if I missed something.
 
 
