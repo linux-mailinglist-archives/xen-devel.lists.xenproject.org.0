@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id aK8LBImEMmqK1QUAu9opvQ
+	id jsh1FnSFMmq91QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 13:27:05 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 13:31:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D456990FF
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 13:27:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9025699185
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 13:30:59 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=Xmw+yq0O;
+	dkim=pass header.d=suse.com header.s=google header.b=NapAQ82i;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1340278.1601332 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1340291.1601340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZoQ0-0007eP-EG; Wed, 17 Jun 2026 11:26:52 +0000
+	id 1wZoTM-0001Jd-06; Wed, 17 Jun 2026 11:30:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1340278.1601332; Wed, 17 Jun 2026 11:26:52 +0000
+Received: by outflank-mailman (output) from mailman id 1340291.1601340; Wed, 17 Jun 2026 11:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZoQ0-0007ck-B8; Wed, 17 Jun 2026 11:26:52 +0000
-Received: by outflank-mailman (input) for mailman id 1340278;
- Wed, 17 Jun 2026 11:26:51 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wZoPz-0007cb-8x
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 11:26:51 +0000
+	id 1wZoTL-0001Gs-Td; Wed, 17 Jun 2026 11:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 1340291;
+ Wed, 17 Jun 2026 11:30:18 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wZoTK-0001Gk-6P
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 11:30:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZoPy-008jwd-M7
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 13:26:50 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wZoTJ-00DKEh-6n
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 13:30:17 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a328479-2eae-0a2a0a5409dd-0a2a450b9a86-14
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 13:26:50 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a328543-2eae-0a2a0a5409dd-0a2a45048c34-22
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 13:30:17 +0200
+Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a32847a-212f-0a2a450b0019-d155dd36a423-3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 13:26:50 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-462cdb88d01so342699f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 04:26:50 -0700 (PDT)
+ id 6a328548-1dec-0a2a45040019-d155dd2cddc5-3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 13:30:17 +0200
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-45ef779c1c2so4225305f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 04:30:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4620b3ed0d2sm13058979f8f.22.2026.06.17.04.26.48
+ ffacd0b85a97d-4606f26f4f6sm56763392f8f.16.2026.06.17.04.30.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jun 2026 04:26:48 -0700 (PDT)
+ Wed, 17 Jun 2026 04:30:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,48 +60,48 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1781695610; x=1782300410; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1781695816; x=1782300616; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fL90O+qmwfXcnXK4xebo5Fd5mOdE/JIRioGBHwtm9nE=;
-        b=Xmw+yq0O9dIzS4TmGFgqpUFynRroOiH1dAXT/S06RzLkpquf20cE0eihNpjD0GJPEb
-         KT6cwUxQGCcyTUGHj6lXYHmianqgSUhA5k+qRzYmEBxTJLPLHuH5qkIkROkV8SqTwYVW
-         KwIZbUofZZ9qSiVgWkJcRFBPjqJbXRrk8JScIAjhlj62xlCmNTJfGH6xSOpbe8CxuWyM
-         T/uGKSbmz/Qbz3xFrMcLMIJzHj89HtEgSG1JBl792rCp63H23A+C7hRESzmioAArZHkW
-         nNoSccN1Sow2DdZgKgGwK5h2vjyFo3+Mw0AfchV2uuicduSMbxctnyCLjVEt2AqRIM8X
-         M3Nw==
+        bh=ez8FrkamDyBjKiPnWX/H4gLQGwCKaR4KFMy7/d0KO2U=;
+        b=NapAQ82iNcFLWHEooZ8ciauh2Rteug78VbN2PjlpeJLzxbSje3DAcQCYTuLjBo/xV+
+         q4AhBfVowzs9aek6CPnGz/7ciOQCoDbSH7vU3Urp+55FFXA61YRqlnUgHxxsE/d7PDp0
+         HCopgy3Rww4YQyzInpcHT00KZTQhsUhkLFZk8A9LY3jgyASvgzPeJCle+tLTwMkCXsDX
+         a4yNP6jEC3v4/xwBThrnQPEsmCWpETVs3Em9xRASxGtFdoRFfCeh3mndh3Z/SFfaVG+2
+         u6oqhtS61SwdxyWenIDRosvi2WJXjRF6n/JNOpLvpsirB+dIU6IySSgSrhqcA/4IAwHg
+         Qsyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781695610; x=1782300410;
+        d=1e100.net; s=20251104; t=1781695816; x=1782300616;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fL90O+qmwfXcnXK4xebo5Fd5mOdE/JIRioGBHwtm9nE=;
-        b=SfrXkBVxxo4WbKLWp1K34c2H9DwWpnulVeEu6W5Xx0JdIejn7Ne66lq7T5r/wYLKJb
-         l213NszkyqaLzNEtxkG1ly4T2SC27LtHieLiKhkErQiH+PGvWg2DrR2LealhJig7RRLw
-         xwLDKkdywQKSRjRGvJ78qKJDzLY2nGm6ZXzG7SEElMiWbyQ8RGCz+E9wroRvSqHCry3M
-         Wco8Pi10zPzV4XtLC+HYXfPDyb0Em2EHpBSUgKPyZi5vMKe90iQsbOFQLI+GHCgsnKZ3
-         NrEBKbyVbRm8bYL2lsB5C3vxPLidulIb1sWIibkmC075a5kDyIrHbGxt6JXbOXuIYqkn
-         usrA==
-X-Forwarded-Encrypted: i=1; AFNElJ/xSQUC/ftWGfZuC5efisj7Dg+9Ag7WuspGnD8dh4N6qNrtroq1OR6F3o77wkgwbnj6U1+zlIQVNZE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4LQu15Ij/WY175ld52JWDKzKPmJXIHHx9o61bwjGyvQ4B6rVs
-	hmN4tyJQIhu0OvuTWB72ziFAMYPO3fr8vHGRf3XIqYyLRPlQ2udQxeW5QtUFzuAfGw==
-X-Gm-Gg: AfdE7cmG5DQ6gSeFXOBmOqhvMCARazIh67vKU+JaZdqUnJiL2hfxV3vLd1Z35+XuFuD
-	MeMZ5m4gBYHZiJ/ih/K3SG6orH0o3A99S6ecZEyazhpj0H6gYbCedUKLHU8H3qHg2yB+w/dPc7d
-	MLQxCgJx5GZFo00flgMeimfWUblYdmppbFl2OR/0cwjwfNez+vs9LEl34wkR4Fgn/NY48AKqizm
-	f7Dr2Jmm9I3nsppUMKkp7jF1+5d3LQg86NSYEMi/kuJJRXwcW4bstDuxBP7WwdjwsaTlgVzIuea
-	2fKjiqbjOBF3qBhWt78HnCiTwOmpjuAWugMhJbcjQUx+Bm1lqst5AkptZZlGtW3Wi1yQhbB82Ci
-	0zI4WpzOwxgS0iCl9rUAYfLojc8HZXdVwHbTj7IWsoJ36eLEA4laqzwkzjRYOUYEPxKOYGm0JBY
-	JI3OnyMVoYNq5aUlhTWgBzSSQcTJ+1YXp5iZMY1hQ0CV6tfTHIPUZ3mXMFHJwyS6ApJCltdUvnT
-	B8DJogBvFBGJGI=
-X-Received: by 2002:a05:6000:26cb:b0:460:d1e:a59a with SMTP id ffacd0b85a97d-462699af503mr4389027f8f.8.1781695609855;
-        Wed, 17 Jun 2026 04:26:49 -0700 (PDT)
-Message-ID: <cd91fa75-435b-4100-8932-99f3da5523a7@suse.com>
-Date: Wed, 17 Jun 2026 13:26:48 +0200
+        bh=ez8FrkamDyBjKiPnWX/H4gLQGwCKaR4KFMy7/d0KO2U=;
+        b=HygofFeDL499YjQMzqVH5cZtYnLJWx4W89oQV+d2dCcaM74fcPXzL51My7x1yOjCNg
+         WXdenxn35ZYbupyCaryjUeDg5qQNz0lobamLNraJGKRe7lFOTUFs6chClrB13DeW+fNm
+         qDpbFYpq1dDMkIM6SEE1CRy627nbiP4DMCZwX7k+ANmY4ttkjFxRgzscIMqE0JP6tuYD
+         YF2yYMMJsAAl7i/fuN40DcN3hjzFKdJkKogJ7aiZfKpcyGODJyMrwsGieC1jYaVqwcUN
+         zu9F5F/sngHs8cjrUNWYSvp0Drigw7GbyMuDG1S7hDxc72Udbqaxz3IN7ir+kKJAqMkJ
+         zhKg==
+X-Forwarded-Encrypted: i=1; AFNElJ/N3xdt9qj96xe94VzQaoWLBP2Sqj9mJHetNFPPcvWkMyp73rQ0LNng74nJq4UX3nn9RbTcjQUAQ4c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyygPW/0AxuhSqpuJmbUeBCIVUBz4a0yNefcn4Ztl5oXSLtp+8J
+	dpeIyQtARFxgjHrhbgA33AvXrC7nZocpFZVFkRIJFXYvFt/LDiNtG3dywnQs7wefYg==
+X-Gm-Gg: AfdE7cm7N6nyb/zd3BM2+cx4n5tLSdIhYoYYyZQQvaWH6sExnBjKRMA63p4VqJtVs4y
+	G4aF3uY2LBIOqKRdoGMoqizYOPWajYnRt6E7swnZLeNFcpqJIJS72mQhaWdhb6Ij+uN+5w0DMBu
+	H7oQ8OLGizmPwmPpkVjOYO8QEqeMG+pzo5OqNRwKfE8BlbfQziNOiYlMetXUNkVps1brPrUeb9P
+	BSJCEwbA+gNP+net4AUWOPIzOaUY8QQSnsM7DrXHEJ9o4ShUnFjnhjpn78qOuMLAGvMTFlhqsnQ
+	cadOT6jRumePnSDCbvN7E5uzMkcgfD9vSTJpnuFxltqiTdNyGktbT/tev87ZY7ZYvx95PyfRnLH
+	GCBZR13ww76LjruGmBwIREcUZFUfP1Z/AYakBcH6MmKgP3BaeolVfR7xGCv8/xtyfi+D0nfmPuO
+	q+WosnvVYfDGJB/r0kjAm+yQEz0mMKQ8uoOobLJdcgf3MhZawlQ61dQz/SVAFoBWiifymKOzDAL
+	tUR
+X-Received: by 2002:a05:6000:ed0:b0:44f:da54:da6c with SMTP id ffacd0b85a97d-46237e510dfmr4427277f8f.26.1781695816598;
+        Wed, 17 Jun 2026 04:30:16 -0700 (PDT)
+Message-ID: <d55f0b2b-3352-4d05-85dd-9c89b73bd338@suse.com>
+Date: Wed, 17 Jun 2026 13:30:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/23] xen/riscv: Implement construct_domain()
+Subject: Re: [PATCH v3 09/23] xen/riscv: implement make_arch_nodes()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -112,7 +112,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1781693963.git.oleksii.kurochko@gmail.com>
- <db630a8a003a1aa69e4edaf6d5f4994f18ac1354.1781693963.git.oleksii.kurochko@gmail.com>
+ <738f97f8ea8bb588742c3f03d3cb2d24f399b602.1781693963.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,18 +138,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <db630a8a003a1aa69e4edaf6d5f4994f18ac1354.1781693963.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <738f97f8ea8bb588742c3f03d3cb2d24f399b602.1781693963.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1781695610-1976AF3B-81B32720/10/73395122804
+X-purgate-ID: tlsNG-ebf023/1781695817-29D7C3FF-AE3F3BB6/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 2196
+X-purgate-size: 502
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -157,13 +157,13 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -180,76 +180,22 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 69D456990FF
+X-Rspamd-Queue-Id: A9025699185
 
 On 17.06.2026 13:17, Oleksii Kurochko wrote:
-> Implement construct_domain() function for RISC-V, which performs initial setup
-> for the domain's first vCPU, loads the kernel, initrd, and device tree,
-> and sets up guest CPU registers for boot.
+> No RISC-V-specific nodes need to be created at the moment,
+> so make_arch_nodes() is implemented to simply return 0.
 > 
-> It also creates additional vCPUs up to max_vcpus and assigns the device tree
-> address and boot cpuid in registers.
+> It is placed in dom0less-build.c as make_arch_nodes() is
+> only used in the dom0less code path. In the future, it will
+> be extended to create an emulated UART node.
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
 > Changes in v3:
->  - s/%d/%u for printing vCPU index in the failure message.
->  - Drop dprintk() for successful vCPU creation.
+>  - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 
-My
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-was lost, however. One more remark:
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/domain-build.c
-> @@ -0,0 +1,50 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/fdt-domain-build.h>
-> +#include <xen/fdt-kernel.h>
-> +#include <xen/init.h>
-> +#include <xen/sched.h>
-> +
-> +#include <asm/current.h>
-> +#include <asm/guest_access.h>
-> +
-> +int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
-> +{
-> +    struct vcpu *v = d->vcpu[0];
-> +    struct cpu_user_regs *regs = vcpu_guest_cpu_user_regs(v);
-> +
-> +    BUG_ON(v->is_initialised);
-> +
-> +    /*
-> +     * At the moment *_load() don't return value and will just panic()
-> +     * inside.
-> +     * TODO: it will be good to change that.
-> +     */
-> +    kernel_load(kinfo);
-> +    initrd_load(kinfo, copy_to_guest_phys);
-> +    dtb_load(kinfo, copy_to_guest_phys);
-> +
-> +    regs->sepc = kinfo->entry;
-> +
-> +    /* Guest boot cpuid = 0 */
-> +    regs->a0 = 0;
-> +    regs->a1 = kinfo->dtb_paddr;
-> +
-> +    for ( unsigned int i = 1; i < d->max_vcpus; i++ )
-> +    {
-> +        const struct vcpu *tmp_v = vcpu_create(d, i);
-> +
-> +        if ( !tmp_v )
-> +        {
-> +            printk("Failed to allocate %pd v%u\n", d, i);
-
-If you dropped the blank before v%u, the output would match that of %pv
-(improving the chances of people actually spotting that the exact same
-thing is meant). Once again - can do the adjustment while committing,
-provided you agree (and provided earlier patches gain the necessary
-acks).
+???
 
 Jan
 
