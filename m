@@ -2,53 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id zMHLAtX7MWqQtQUAu9opvQ
+	id zvtZNwVJMmpyyAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 03:43:49 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 09:13:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 572C5695FCE
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 03:43:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9E94697139
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 09:13:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=cLm4GRJ4;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b="UvE3c/4D";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1339787.1600883 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=valinux.co.jp;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1339815.1600892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZfIY-0003QM-9Z; Wed, 17 Jun 2026 01:42:34 +0000
+	id 1wZkRh-0001we-Nl; Wed, 17 Jun 2026 07:12:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1339787.1600883; Wed, 17 Jun 2026 01:42:34 +0000
+Received: by outflank-mailman (output) from mailman id 1339815.1600892; Wed, 17 Jun 2026 07:12:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZfIY-0003Nd-32; Wed, 17 Jun 2026 01:42:34 +0000
-Received: by outflank-mailman (input) for mailman id 1339787;
- Wed, 17 Jun 2026 01:42:32 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wZkRh-0001v3-Jp; Wed, 17 Jun 2026 07:12:21 +0000
+Received: by outflank-mailman (input) for mailman id 1339815;
+ Wed, 17 Jun 2026 07:12:20 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <michael.bommarito@gmail.com>) id 1wZfIW-0003NX-Da
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 01:42:32 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wZkRe-0001uV-UE
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 07:12:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZfIV-005awm-2u
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 03:42:31 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wZkRd-00CRyc-Hd
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 09:12:17 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <michael.bommarito@gmail.com>)
- id 6a31fb40-2eae-0a2a0a5409dd-0a2a45069c06-26
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 03:42:31 +0200
-Received: from [209.85.160.179] (helo=mail-qt1-f179.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <michael.bommarito@gmail.com>)
- id 6a31fb86-7371-0a2a45060019-d155a0b3ace5-3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 03:42:30 +0200
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-51788280e71so57026611cf.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jun 2026 18:42:30 -0700 (PDT)
-Received: from server0.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net.
- [68.48.65.54]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-517fb7ec47asm156567221cf.24.2026.06.16.18.42.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 16 Jun 2026 18:42:28 -0700 (PDT)
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a3248ce-5cb7-0a2a0a5109dd-0a2a4507bf88-4
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 09:12:16 +0200
+Received: from [52.101.125.100]
+ (helo=TYVP286CU001.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a3248cd-229c-0a2a45070019-34657d648175-3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 09:12:15 +0200
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
+ by OSCP286MB5166.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:34e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Wed, 17 Jun
+ 2026 07:12:10 +0000
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
+ 07:12:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,332 +63,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781660549; x=1782265349; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1ltgoW4HzxXM53BHwLsRBi+lA49LaXw3fkOJPn5XnrI=;
-        b=cLm4GRJ4dh+7ZFGrDnHjMYdjSucuxsQzNaGr1yo/JKnD+YsGwvDYRo6Qfgz3qQi1Ok
-         FVbW/YTqUIl1P7wUazU/pwEDxuNjs1SRZNIEOWzqC1XcmDBkiZ7rWIQ1aRwGhKsc6JRu
-         PTHvJ++qv/mIokIQjYu85hfst7L/ti8TkDw5Yvl4kWk56Skqf0Q19YR4rYKvQegevKNG
-         FV2OuCV3A3E2VDz98o+q9k+0uTRBBx4l11G0FTsXMjqnNqGFFLBiqpMuXMS8tnFxFhiF
-         blgVWXiTjEM3ONEVNv3NRs5Kd0Hb65lpdSA/n5XD29pVlQJV0AbutTESiS5GC+MNVe1L
-         ZNhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781660549; x=1782265349;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1ltgoW4HzxXM53BHwLsRBi+lA49LaXw3fkOJPn5XnrI=;
-        b=WICS0pbbS1er5r+puET4zNcObbDVfmizDY1/tluzDYEZjIoMjl8iPOlhQq70q/hiym
-         CZiXlZyB4oxErd+Rat+M0uyX1heK+AETR/Vuxy/w3sh1EhJjMl/vj9rV0hltMkSbCjjo
-         yZIAgj52KNF+AoRSBPrR6lJRFEoMqnsm6ut9uhSXxonisYaz5lV6yt5CFUZdgteCFDKg
-         51v95OwwMkDogCzrJnuaUFySWS0+65I3b2UO99N0dW3D1DHJNOY1klOeWGRfgf6yxVVA
-         kB8Sy5xUHt7m3TjYCILK1IlkDmgOHoCdX/SbbjYOOQpc9ZJQV/MBUlAYFjeIYxJl6D+l
-         zSVA==
-X-Gm-Message-State: AOJu0YyZv+ICB4h1Na4+wRrdZEqPZ9XZ/TDO+WQ4o4Zee3ahoPnfRQrv
-	BHJRL9fBrCgy5oMlRKnJKb04wAroercrM2ngOkjPjInbjRQx2jadruNl
-X-Gm-Gg: Acq92OGHrJiJ9HbACWqRO6IatKL/fB2err3C6I26EewZdKRrO7tvN2oxtlcmVDj3h3c
-	GS2y9Y417xYDODGYCBxly2jort4HAUdGb2kAy7c1onTdT1NZzk1uFzPjM34WwIFRNlTaEtjl4j9
-	z4MpYEijPi1eLemFcTYJ8WObwgj8A7gGyOuhvKLxorIe5EXvQN8/F7/I0yjTEzi8pUPoGR4gYeM
-	+BWMJGFLcStB4R6lIXYrZ58DD9ETnbrV/ooDY21OL7OXiHC9OdduQN7WV/rLJy3TfAwu5CQgzZf
-	v+aedyTAqvrAGMrnIAYTtMlaYAd//kWZFxEmZW0KWHmGxzsdTj4SyMMq87VqfaRD8/hgunsHPmb
-	zfO65W/w47fN6x/GpWUtmkTAg9QEAhTKFqf1M28B/z1Pc5nAc6k0m5Kk+T4qoyjCLqVApnsY9Qp
-	i8dt6lvJK903IR/qx2ZrttH1s6Ho6qFa6zCq8NBH8h4rJGxz0n8EeTNU8VOq3JNied22HvQSFrQ
-	26mqz0EHBw4F+/n3uTgajUmg/5gk7Gu
-X-Received: by 2002:a05:622a:56cc:b0:517:6350:ed50 with SMTP id d75a77b69052e-519a8faa207mr25326481cf.45.1781660549330;
-        Tue, 16 Jun 2026 18:42:29 -0700 (PDT)
-From: Michael Bommarito <michael.bommarito@gmail.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] xen/pvcalls: bound backend response req_id before indexing rsp[]
-Date: Tue, 16 Jun 2026 21:41:49 -0400
-Message-ID: <20260617014149.2647404-1-michael.bommarito@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260610114137.3749027-1-michael.bommarito@gmail.com>
-References: <20260610114137.3749027-1-michael.bommarito@gmail.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NxHXBsgOoXjoyDk6O1l0eGLyZOZn8MQRE6jAeJ3Q+Jhk7ydNmuO82xzjSFDb94zZvkAEtTAZxlZGPgPaXeJkxXcZKOU7OmHsiaRA7aVQh+yWOxv8bhYiOsycvhdV+9qV8gt6m9/pNJOV3Hp/TSBsxnTHCIrdCmEtDuDWBSAwlDCQaootohdA/Lq2r5Zww+Sgufe/tbsqXWzwnz8hsWqLkkbjGyvZqavQHnca9Qq9OLiuLggzGv/tbNz9er5pyy85ECNAg7loLQ1v7Pf57eC7a+aqIrrPh1IMSR903dwid20KittTLyfgWr/2d9Tnx09U+B0GkuNrRsWf/vb5X6R9mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wrvMnlsbLcf6hVm7dzLutZZx8hyZIVvC1XpWfdLPeg0=;
+ b=bHN/tZXejHRJTTiBBHTxDeaJQkB4RgJLVlwz+th7Vhtx0jU9brUMGb4vT+qYeQzV1A9lPMFG1zcW/kTIRjCPZ7SUkTy3ilBPMWxCHzKYQoghNAkKb/yYX94awynTVuF0iOiLgWMpSlyZ+xYK5SmJC1PdmFaH0vvYjkf5n+u8fAduR/yzMOwa9NhWkAn9tivtYyt3zo0wh5CqiYvYteuzvJnRxooAJ+qgPrancImbHgPzRF4mvfKUEyPgD1doe+jAeaYUZqJUImELnGWCOeZ8jh/+V0zk2iMk9iRQskxVyFqjM59p4XXKgI28c/5wE/XBwIBgtyFl7f8NjLCHqntCLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wrvMnlsbLcf6hVm7dzLutZZx8hyZIVvC1XpWfdLPeg0=;
+ b=UvE3c/4DOk/5X1AYKsFdvnJOMo2IcKr/MIvcTNvFG9upufrrRCxZXDkzX46LHBEyjnGO+xWodKAe5rzD2BpwsFeWDN4Irwsa6Thy+hCzKhAikGFy+mM+QNm9Cp3BdIndlCOYbGUEBCD4e2HOipJbZSZphkWfpUbIExKzmTKPhCs=
+From: Hirokazu Takahashi <taka@valinux.co.jp>
+To: xen-devel@lists.xenproject.org
+Cc: Mykyta_Poturai@epam.com,
+	Hirokazu Takahashi <taka@valinux.co.jp>
+Subject: [PATCH v2 0/3] xen/arm: Device Tree based CPU topology support
+Date: Wed, 17 Jun 2026 16:12:03 +0900
+Message-ID: <20260617071206.265599-1-taka@valinux.co.jp>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY6P286CA0036.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::10) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:458::18)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1781660551-87D7AD75-0B6B2B87/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|OSCP286MB5166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 108cefe0-dd33-4aaa-d24d-08decc3fbfd0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|376014|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	JYwVZQE3iYQ/J00G2viDSYw+7fVRmUVGI1hcKH4ZYnzntl+IrLGO1KoKjUJB9eIn1l30sr8HILq3PdP4USBF+cn2BFr1jZKk6VKVnNJ3MXyxrcjPvmZ2wRg/K48b9b5FH1Ox4vFvEUyGWCyTjvDOVN28QN4l+Hs2RL70Bfv6zNBlnV27HSrohaH1w/X7ZVc1XdydwVBW82C28+NfciJxx2j1jiweOLbWbL6+qZATqG4AyKGEFQnBkhjL/Mx90jBxchMNdzVCaXTnDhRARqBjcnvJ/lIBJP5vTMgmxOrMA4A1aWuVSpf0E+i8sQN8IaDVVZXbvQ3MxRDgwiZj89YABd4ef4aSOdC8mNN/zV5YmJlgkI2vyMuL5fhSMGUlJ7MYp6ZEDbc2a98Z0qwtMaWuah2F1vdlov+8LDbd+8gIOBKolWuaTpENCI1wUsiIRIZ82+APrhWTrED3hRyZvws0fhp1f6jOvrMjC86CjobcjvnkXmI4loYxDsFjmS8g0jAZcXMMAfV6tGjrenaA98Pg5QRJ6H8k8AntVvZht0QMLvcPnBJPpxX8VbNX2cZOpPltvHRT/wzX2y/4R7jT6lVP6sxIAa/gA/Zee579xsqjKprQphkl9HvCRmFWLrJZgbUJ4NbSUg7sq+kBJUMvcxTft+rXxOA3SldfXzgnivLKUAzrbB2jgpGcIwvmAK0bFMpM
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fGoWXYChP3evONTqt3zLCYORfchlCtwTIYB4UpX0vmlmAAy69Bo2/EGCfVbh?=
+ =?us-ascii?Q?1dgWo5jM4o7s7WEWG8+kW6GuPJR3NTMYftmQr/9MQMLNV1E0eOCp2W3GfyDM?=
+ =?us-ascii?Q?duRjSC36vFMisYA31CDMQWdyk/se21nu2In9cPW/MekP90+9FUwepeGKZd+1?=
+ =?us-ascii?Q?h95676BY1qRVctLNmEiCEnfEm0MRV3gufUWUD15+/JshsHVbRV1HzQWIwp4x?=
+ =?us-ascii?Q?FTAHXdSQjNKrHI/lS7OSzVheuMCDvZB2Ks/HuDsp7wS788hjOZX22CeclEov?=
+ =?us-ascii?Q?10fyeY9CHTiCZmxAJC+wFBIot5sPtA2B+h+43PaHJWRwqNUOT+WSE/iVycxw?=
+ =?us-ascii?Q?vvYDLLptBaKgjNQYZtz0i37i9oJ4Uc3VPn4t/UxzFgouxWmAjTeFnc5PnzG/?=
+ =?us-ascii?Q?9m3AV9x5hRRb9Qypz6RQDAdS6F/5L940v9bhXlJc4Lu7H5T8BUzTjiTNEzM8?=
+ =?us-ascii?Q?rYpqjmKKi1zFnai1jjt4DHpIeRN+VIryPDzRfc+ceBwNfAZ0fKYgMllVbxk4?=
+ =?us-ascii?Q?7qBe9K1UlOjV5e0/VInjuCYgGT1Eu2GGUCcL2H+iJB71SuWz9xfSaEBm0QyW?=
+ =?us-ascii?Q?3DaYEHiEhXs+gg7EAbjCLTmmsld361p+PuiY+ITLh3WF+4KztFzt/VP8kuSh?=
+ =?us-ascii?Q?ZLHH2Isyu1jJ8NR3u0KeXF5RGAi9jJTeri6anOojRnbnYkTWrHim2QZAGP6R?=
+ =?us-ascii?Q?+/z2deUOP2yS5QABwnGfPTX0l3Wj/B4V7mUPzvo8+LF+ffUPOjbcD8g2Wc47?=
+ =?us-ascii?Q?K4O9fQY/wI/57Q2RfukEKNzSJtSAwW6X3sewM5XfUBgjRSVkkahg1YuJqoFw?=
+ =?us-ascii?Q?yJu7NtjEKEJ3Hnr8WV9cANwz5r4nT30J2Hs4CxWR+zHrRFcemY+q6ayHe6tg?=
+ =?us-ascii?Q?dws4DCxA6z1glmQMvVSi1MOO6wM+3JFBLVxaMsDl3bnLK4RdTLEMN/tfx9Ud?=
+ =?us-ascii?Q?r8nms1qHn3e+QNoaNuw4qzpAjGTKKvsepaumr9/dxtlZ2c89dVJ+yIcHk7ld?=
+ =?us-ascii?Q?9cKqB3dLdeRv2tCIxQGuBsuj8Gv7dOmx4MUDJPVRcUpv4W8PeIjTSPqGyCIa?=
+ =?us-ascii?Q?AcvtWs+zIMy0jrQJ3Y+vo5Kf3Te1/1w5qgT++nDvJkLBUBkGsKUUSmi2jBuJ?=
+ =?us-ascii?Q?yCA6/MQ313eoj8eKuR1jdE3jR2pRaSx4YpoQmo4CuGkdSAQsPijmsW+c+mEx?=
+ =?us-ascii?Q?2FifBkRx51DwuR4xBPsZ1Hc/W9jq44TgL6cH3vjXRG5JcPjHULx+Y7eMCHr5?=
+ =?us-ascii?Q?/iF58jr5CO6W/JKUC1X9zcENmjV1ofLbGV9i3A5KxoO8ozPFdSsgkfbnbobi?=
+ =?us-ascii?Q?0WAQUJQAVD6KZJgFA5kv4xcgBUSgnSGhR31+p20DXYRd2V3nUVP5p7nNSW0C?=
+ =?us-ascii?Q?k0kOLb713x7IPxr+zUTd1Ez4NjE0iZQ+Rwgm83OcA4A1XYvny5NpgQ5feWDx?=
+ =?us-ascii?Q?X1WPymvqiQoRcP8rRW+v6yOkXYRMhf3eXHwbzarIpXB15ctpeXATs0nrwHN1?=
+ =?us-ascii?Q?nieKjSCO0nqCljrkkGYxzgsPnqjTVeXRaXPGhsNoiMNV2gWa8F4+PIZxPaQT?=
+ =?us-ascii?Q?35pCJLNH5TjbTF/q6gAIGJ1Mp/KE4QXbkGj65jGZJhJycx5x5SNuQj6bbNDS?=
+ =?us-ascii?Q?zeNd9/uvh7A42BUISVE6anBCImoQyhmnju6hY8/y8FMBAVZbyBkEqQ3RYTBm?=
+ =?us-ascii?Q?EfAGsLoTroMWCocKqOURpJJhYFenhci322XVQh85klXyBtuiX0YAiBjVCAVR?=
+ =?us-ascii?Q?d57o+Ue66lrTlD9AqpAHJtVNpm9g+KbuV8L7SWKTIvnrEyhiuIlgpsA5eNTI?=
+X-MS-Exchange-AntiSpam-MessageData-1: xpJoJ+qwORoPRQ==
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 108cefe0-dd33-4aaa-d24d-08decc3fbfd0
+X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 07:12:10.7549
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: E/JTjcDOiQuCtXGJkunn1w7EX71qIJpVzfo97c/UWfyVeUju45Ka7jz7Qjoh4wLFekTdbX3uTTIDDpbcUFLMBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5166
+X-purgate-ID: tlsNG-ef75cf/1781680336-20F66C48-0E548BD9/0/0
 X-purgate-type: clean
-X-purgate-size: 8757
+X-purgate-size: 2582
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
+	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[michaelbommarito@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:taka@valinux.co.jp,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michaelbommarito@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 572C5695FCE
+X-Rspamd-Queue-Id: E9E94697139
 
-pvcalls_front_event_handler() takes req_id directly from the
-backend-supplied ring response and uses it to index the fixed-size
-bedata->rsp[] array for a memcpy() and a store, with no range check. A
-malicious or buggy backend can set req_id past PVCALLS_NR_RSP_PER_RING
-and drive an out-of-bounds write past the bedata allocation.
+Hello,
 
-req_id was also declared int while the wire field rsp->req_id is u32, so
-a range check on the signed value alone is insufficient: a backend
-req_id of 0xffffffff becomes -1, passes a >= PVCALLS_NR_RSP_PER_RING
-test and indexes bedata->rsp[-1]. Declare req_id as u32 so a single
-bound covers both ends.
+This patch series introduces basic CPU topology support for ARM Xen.
 
-A backend that sends an out-of-range req_id has violated the wire
-protocol, so rather than silently dropping the response, log once and
-stop trusting the backend: set bedata->disabled. The event handler then
-ignores further responses, and the request paths that wait for a
-response return -EIO instead of blocking forever. This mirrors the
-fatal-error handling xen-netback uses (xenvif_fatal_tx_err()).
+Changes in v2:
+ - Generate topology information even when ACPI is enabled. Note that
+   this is a temporary implementation and doesn't yet parse the PPTT
+   (Processor Properties Topology Table).
+ - Added support for cpu-map node in Device Tree that doesn't contain
+   explicit cluster node definitions.
 
-The pvcalls frontend currently trusts its backend, so this is not a
-classic-Xen security issue, but it matters for hardening PV frontends
-against malicious backends (confidential and disaggregated deployments).
+Changes in v1 from the previous series "Introduce Device Tree based NUMA
+support for ARM Xen":
 
-Fixes: 2195046bfd69 ("xen/pvcalls: implement socket command and handle events")
-Suggested-by: Juergen Gross <jgross@suse.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
----
-v2: per Juergen Gross's review
-    (https://lore.kernel.org/all/ecb43fc6-e821-4532-9f75-06c86a6ac76c@suse.com/):
-    - Log the out-of-range req_id once with pr_err_once() instead of
-      silently dropping the response.
-    - Stop trusting the backend on a protocol violation: set
-      bedata->disabled so the event handler ignores further responses and
-      the request paths waiting for a response return -EIO instead of
-      blocking forever, following the xen-netback xenvif_fatal_tx_err()
-      pattern you pointed to.
-    - Declare req_id as u32 (was int) so a single bound covers both ends.
-    - pvcalls_front_accept() has a second waiter (a concurrent accept
-      blocked on PVCALLS_FLAG_ACCEPT_INFLIGHT). On the disabled path,
-      clear that flag and wake inflight_accept_req so the queued accept
-      also returns -EIO rather than waiting for a response that the
-      disabled handler will never deliver.
-    - Corrected the Fixes: tag to 2195046bfd69, the commit that
-      introduced the unbounded bedata->rsp[req_id] indexing in the event
-      handler; the previously cited 235a71c53903 (release command) only
-      added a waiter and is a descendant.
-    v1: https://lore.kernel.org/all/20260610114137.3749027-1-michael.bommarito@gmail.com/
+1. Optimized Memory Allocation:
+   The series now allocates only the minimum required memory area to manage
+   the essential data for the CPUs.
 
- drivers/xen/pvcalls-front.c | 88 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 76 insertions(+), 12 deletions(-)
+2. Flexible Device Tree Parsing:
+   The parsing logic no longer depends on the definition order of the 'cpu'
+   nodes and 'cpu-map' nodes in the Device Tree. They can now be read
+   correctly even if their orders do not match.
 
-diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
-index 50ce4820f7eeb..3e7aa807c3173 100644
---- a/drivers/xen/pvcalls-front.c
-+++ b/drivers/xen/pvcalls-front.c
-@@ -32,6 +32,7 @@ struct pvcalls_bedata {
- 	struct xen_pvcalls_front_ring ring;
- 	grant_ref_t ref;
- 	int irq;
-+	bool disabled;
- 
- 	struct list_head socket_mappings;
- 	spinlock_t socket_lock;
-@@ -131,6 +132,20 @@ static inline int get_request(struct pvcalls_bedata *bedata, int *req_id)
- 	return 0;
- }
- 
-+/*
-+ * Wait for the backend's response to req_id, or for the frontend to be
-+ * disabled because the backend violated the wire protocol. Returns 0 once
-+ * the response has arrived, or -EIO if the frontend was disabled.
-+ */
-+static int pvcalls_front_wait_rsp(struct pvcalls_bedata *bedata, u32 req_id)
-+{
-+	wait_event(bedata->inflight_req,
-+		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id ||
-+		   READ_ONCE(bedata->disabled));
-+
-+	return READ_ONCE(bedata->disabled) ? -EIO : 0;
-+}
-+
- static bool pvcalls_front_write_todo(struct sock_mapping *map)
- {
- 	struct pvcalls_data_intf *intf = map->active.ring;
-@@ -168,7 +183,8 @@ static irqreturn_t pvcalls_front_event_handler(int irq, void *dev_id)
- 	struct pvcalls_bedata *bedata;
- 	struct xen_pvcalls_response *rsp;
- 	uint8_t *src, *dst;
--	int req_id = 0, more = 0, done = 0;
-+	u32 req_id = 0;
-+	int more = 0, done = 0;
- 
- 	if (dev == NULL)
- 		return IRQ_HANDLED;
-@@ -179,12 +195,31 @@ static irqreturn_t pvcalls_front_event_handler(int irq, void *dev_id)
- 		pvcalls_exit();
- 		return IRQ_HANDLED;
- 	}
-+	if (READ_ONCE(bedata->disabled)) {
-+		pvcalls_exit();
-+		return IRQ_HANDLED;
-+	}
- 
- again:
- 	while (RING_HAS_UNCONSUMED_RESPONSES(&bedata->ring)) {
- 		rsp = RING_GET_RESPONSE(&bedata->ring, bedata->ring.rsp_cons);
- 
- 		req_id = rsp->req_id;
-+		if (req_id >= PVCALLS_NR_RSP_PER_RING) {
-+			/*
-+			 * The backend supplied a req_id that would index
-+			 * bedata->rsp[] out of bounds: a protocol violation
-+			 * from a malicious or buggy backend. Log once, stop
-+			 * trusting this backend and disable the frontend rather
-+			 * than silently dropping the response and continuing.
-+			 */
-+			pr_err_once("pvcalls: backend sent out-of-range req_id %u, disabling frontend\n",
-+				    req_id);
-+			WRITE_ONCE(bedata->disabled, true);
-+			bedata->ring.rsp_cons++;
-+			done = 1;
-+			break;
-+		}
- 		if (rsp->cmd == PVCALLS_POLL) {
- 			struct sock_mapping *map = (struct sock_mapping *)(uintptr_t)
- 						   rsp->u.poll.id;
-@@ -217,7 +252,7 @@ static irqreturn_t pvcalls_front_event_handler(int irq, void *dev_id)
- 	}
- 
- 	RING_FINAL_CHECK_FOR_RESPONSES(&bedata->ring, more);
--	if (more)
-+	if (more && !READ_ONCE(bedata->disabled))
- 		goto again;
- 	if (done)
- 		wake_up(&bedata->inflight_req);
-@@ -330,8 +365,11 @@ int pvcalls_front_socket(struct socket *sock)
- 	if (notify)
- 		notify_remote_via_irq(bedata->irq);
- 
--	wait_event(bedata->inflight_req,
--		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id);
-+	ret = pvcalls_front_wait_rsp(bedata, req_id);
-+	if (ret) {
-+		pvcalls_exit();
-+		return ret;
-+	}
- 
- 	/* read req_id, then the content */
- 	smp_rmb();
-@@ -477,8 +515,11 @@ int pvcalls_front_connect(struct socket *sock, struct sockaddr *addr,
- 	if (notify)
- 		notify_remote_via_irq(bedata->irq);
- 
--	wait_event(bedata->inflight_req,
--		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id);
-+	ret = pvcalls_front_wait_rsp(bedata, req_id);
-+	if (ret) {
-+		pvcalls_exit_sock(sock);
-+		return ret;
-+	}
- 
- 	/* read req_id, then the content */
- 	smp_rmb();
-@@ -711,8 +752,11 @@ int pvcalls_front_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
- 	if (notify)
- 		notify_remote_via_irq(bedata->irq);
- 
--	wait_event(bedata->inflight_req,
--		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id);
-+	ret = pvcalls_front_wait_rsp(bedata, req_id);
-+	if (ret) {
-+		pvcalls_exit_sock(sock);
-+		return ret;
-+	}
- 
- 	/* read req_id, then the content */
- 	smp_rmb();
-@@ -761,8 +805,11 @@ int pvcalls_front_listen(struct socket *sock, int backlog)
- 	if (notify)
- 		notify_remote_via_irq(bedata->irq);
- 
--	wait_event(bedata->inflight_req,
--		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id);
-+	ret = pvcalls_front_wait_rsp(bedata, req_id);
-+	if (ret) {
-+		pvcalls_exit_sock(sock);
-+		return ret;
-+	}
- 
- 	/* read req_id, then the content */
- 	smp_rmb();
-@@ -820,6 +867,14 @@ int pvcalls_front_accept(struct socket *sock, struct socket *newsock,
- 		}
- 	}
- 
-+	if (READ_ONCE(bedata->disabled)) {
-+		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
-+			  (void *)&map->passive.flags);
-+		wake_up(&map->passive.inflight_accept_req);
-+		pvcalls_exit_sock(sock);
-+		return -EIO;
-+	}
-+
- 	map2 = kzalloc_obj(*map2);
- 	if (map2 == NULL) {
- 		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
-@@ -880,10 +935,18 @@ int pvcalls_front_accept(struct socket *sock, struct socket *newsock,
- 	}
- 
- 	if (wait_event_interruptible(bedata->inflight_req,
--		READ_ONCE(bedata->rsp[req_id].req_id) == req_id)) {
-+		READ_ONCE(bedata->rsp[req_id].req_id) == req_id ||
-+		READ_ONCE(bedata->disabled))) {
- 		pvcalls_exit_sock(sock);
- 		return -EINTR;
- 	}
-+	if (READ_ONCE(bedata->disabled)) {
-+		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
-+			  (void *)&map->passive.flags);
-+		wake_up(&map->passive.inflight_accept_req);
-+		pvcalls_exit_sock(sock);
-+		return -EIO;
-+	}
- 	/* read req_id, then the content */
- 	smp_rmb();
- 
-@@ -1054,7 +1117,8 @@ int pvcalls_front_release(struct socket *sock)
- 		notify_remote_via_irq(bedata->irq);
- 
- 	wait_event(bedata->inflight_req,
--		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id);
-+		   READ_ONCE(bedata->rsp[req_id].req_id) == req_id ||
-+		   READ_ONCE(bedata->disabled));
- 
- 	if (map->active_socket) {
- 		/*
+3. CPU Hotplug Readiness:
+   To support future CPU hotplug, the system assumes that inactive CPUs are
+   also described in the Device Tree. Xen will pre-load and generate the
+   topology information for these inactive CPUs during the boot phase so
+   it stays available in memory.
+
+Thank you,
+Hirokazu Takahashi
+
+Hirokazu Takahashi (3):
+  xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
+  xen/sched: Link CPU topology to scheduler
+  xen/sched: Make cpu_nr_siblings() architecture-specific
+
+ xen/arch/arm/Kconfig                  |  11 +
+ xen/arch/arm/include/asm/processor.h  |   4 -
+ xen/arch/arm/smpboot.c                |  15 +-
+ xen/arch/x86/include/asm/processor.h  |   1 +
+ xen/common/Kconfig                    |   8 +
+ xen/common/Makefile                   |   1 +
+ xen/common/cpu-topology.c             |  30 ++
+ xen/common/device-tree/Makefile       |   1 +
+ xen/common/device-tree/cpu-topology.c | 394 ++++++++++++++++++++++++++
+ xen/common/sched/credit2.c            |  21 +-
+ xen/common/sysctl.c                   |   1 +
+ xen/drivers/acpi/Kconfig              |   3 +
+ xen/drivers/acpi/Makefile             |   2 +
+ xen/drivers/acpi/topology.c           |  41 +++
+ xen/include/xen/acpi.h                |   4 +
+ xen/include/xen/cpu-topology.h        |  48 ++++
+ xen/include/xen/dt-cpu-topology.h     |  30 ++
+ 17 files changed, 591 insertions(+), 24 deletions(-)
+ create mode 100644 xen/common/cpu-topology.c
+ create mode 100644 xen/common/device-tree/cpu-topology.c
+ create mode 100644 xen/drivers/acpi/topology.c
+ create mode 100644 xen/include/xen/cpu-topology.h
+ create mode 100644 xen/include/xen/dt-cpu-topology.h
+
 -- 
-2.53.0
+2.43.0
 
 
