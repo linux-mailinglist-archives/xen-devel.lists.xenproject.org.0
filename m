@@ -2,56 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 59OEFA+7Mmri4gUAu9opvQ
+	id DxjzHSMEM2pX8gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 17:19:43 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 22:31:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839E369AE71
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 17:19:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B36CC69C5E0
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jun 2026 22:31:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=a2dF5Pho;
+	dkim=pass header.d=invisiblethingslab.com header.s=fm1 header.b=dXV79D8i;
+	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=b18YDWA+;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1340515.1601504 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=invisiblethingslab.com
+Received: from list by lists.xenproject.org with outflank-mailman.1340678.1601518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZs2n-0006n9-ST; Wed, 17 Jun 2026 15:19:09 +0000
+	id 1wZwts-0008Oq-2W; Wed, 17 Jun 2026 20:30:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1340515.1601504; Wed, 17 Jun 2026 15:19:09 +0000
+Received: by outflank-mailman (output) from mailman id 1340678.1601518; Wed, 17 Jun 2026 20:30:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wZs2n-0006kN-Og; Wed, 17 Jun 2026 15:19:09 +0000
-Received: by outflank-mailman (input) for mailman id 1340515;
- Wed, 17 Jun 2026 15:19:08 +0000
+	id 1wZwtr-0008MM-S1; Wed, 17 Jun 2026 20:30:15 +0000
+Received: by outflank-mailman (input) for mailman id 1340678;
+ Wed, 17 Jun 2026 20:30:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wZs2l-0006kH-VB
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 15:19:08 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wZwtq-0008MG-VN
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 20:30:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wZs2l-00E3Y4-4Q
- for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 17:19:07 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wZwtp-00EfKn-GD
+ for xen-devel@lists.xenproject.org; Wed, 17 Jun 2026 22:30:14 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a32bae2-bab6-0a2a0a5309dd-0a2a4501d4da-30
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 17:19:07 +0200
-Received: from [52.101.43.6]
- (helo=SJ2PR03CU001.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <roger.pau@citrix.com>)
- id 6a32bae9-e031-0a2a45010019-34652b0678da-3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 17:19:06 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by PH7PR03MB7004.namprd03.prod.outlook.com (2603:10b6:510:12f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Wed, 17 Jun
- 2026 15:19:03 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0139.009; Wed, 17 Jun 2026
- 15:19:03 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a33034f-bab6-0a2a0a5309dd-0a2a450ab28a-44
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 22:30:13 +0200
+Received: from [202.12.124.158] (helo=fhigh-b7-smtp.messagingengine.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a3303d3-56b3-0a2a450a0019-ca0c7c9eea35-3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jun 2026 22:30:12 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 166057A0149;
+ Wed, 17 Jun 2026 16:30:11 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Wed, 17 Jun 2026 16:30:11 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 17 Jun 2026 16:30:09 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,280 +60,291 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j0gqzMmwr1ysyxphufcMqc80XQtyE69mLQ9o1JpS/tkuYIRamAzrNk1qUzVYM3lw8mlnzFo31Q7PCaU6sMj/RxW9UKDm4oCUpS/aN9AJ/p/uJtDT6NihK33xGOyK6mgyjliHCnqkdOD3ApYXDCby5/NbEsYlMYRae/M9ztkk4TuuwZCXTCcLgdO8fk3ClG5SdVPhOPlP7+G0/5Jt11zjlX21l7C74NBqM2r2BkfbbkyLMyxMtSHnP3BGMLzvQbeLFm9FNgl2YMJGJ7P2fASJa+qA6lSVmu6RzvglIHbedz7deDRZsWKVZHuixgHs0JmwxYT6isMNtYynd8xRpDP1Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pn+Th8CsRrWFe5cH3Qkgtst+UYl1medopOqeOgFKw/k=;
- b=HqdsrknA4u13+NRNGfh5K1NRswU0IrzOQK2kVSQoyU8j0jGUBnYFk7dionz4JzjKYzgGzhaPi2cVi9Uiqgxfxn2SoBJ6+xTVSeK5ASi7o1xf6cfnXnA0gA5bVvEd5+oj/rK9tZY26LEaQ/egRKHasax1s4S/Riqi2qunt28kGE+/l7mrEnSvSbw7O07/htFUBTJWEhhcyWI4FfO2UdiB5xhKStG3K7scg8t/Or5jBBGEtUs9Y3mj35L4EhsMJH3gi7TxtNyumkcP+Kg4GJ23saBmfndnlKcZRxrUI/JbKIbvWsgt99pqeYzz4yFGX6IY6BNGOd1ElzucTdWof2WyYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pn+Th8CsRrWFe5cH3Qkgtst+UYl1medopOqeOgFKw/k=;
- b=a2dF5PhoHopsw25wJEckZ/SBmfUJUQvKVj46yjPpFz4yj2LgbAI+hvji9SkpUEVD04mVtbVmqLYpnoiByY0Kspwj4G/21UHvRo6FUYrSpxXQE3JOJw+NhD7naIelfJP5vNfQVSFszlKWDdEIUD4495OJ6KQGDL5HGOsI4HIx5CU=
-Date: Wed, 17 Jun 2026 17:18:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v2 for-4.22? 6/7] x86/domctl: don't imply I/O port
- permissions from I/O port mapping
-Message-ID: <ajK644guPV3lfJde@macbook.local>
-References: <ad1eb834-b2f2-4db2-b2fd-9d7f5bb857a9@suse.com>
- <e88a6015-8867-41a8-907d-b6749b1d2549@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e88a6015-8867-41a8-907d-b6749b1d2549@suse.com>
-X-ClientProxiedBy: MR1P264CA0038.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::32) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1781728210;
+	 x=1781814610; bh=nQ3cOxa4IJfVezEa2HBSlbxmNTUbGLfjuqtIqDIYaPY=; b=
+	dXV79D8iR1N7Oz3hZHjLyALnv2m91IqsiutxsvSOT8NSGpdNM80MUFuF7hDFn+f2
+	Z+twpvAKB5/fJMAuBiHDW87W9aGv85W5n4h967KI1gqVTpYQ8hiEWT2+OLQm0shO
+	/w/M7wRHmCBAd1TzCTsEx9RXKS83b5EO/DxEpRhkWHK4+/o9NqDsGdC+qUP+RyjF
+	vTrL5XOSftyqcGwu5I7rHe4vh4cx6OP3LoHUXak5GpJ+3ylCaGaGyVnDHQtHrl4f
+	dPNc1qEg2cpwDgYdApyZyslxWyzLUMnrWf2R5+NBMlkN3yJep4QUSDi3WbYycZ6/
+	BokFWCvn9NprgoDRuGhtCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1781728210; x=1781814610; bh=nQ3cOxa4IJfVezEa2HBSlbxmNTUbGLfjuqt
+	IqDIYaPY=; b=b18YDWA+PQqYgAvCvvqoVjKnBy1OzHeDl6D3i4K8VscgDZvGVKt
+	yJjnRTaqX27TD6e8DzqEOLxS0GWMyRj4EyJF7YUKzzeoMfISmxUt7Q8zd01JzzTh
+	W7YCNYwkIQ22xh/jfoM4a5BdomNsOs6HKMMylSuNU+XeGbt1TXGR/JZS8E4rm0OI
+	dlluGsCaHocfdfa9W0yLaiyStflVyXAG7oAmeuRoj5XPnpqnpGNUpb18b1X3L7xG
+	TStaVkuFHslZUguYw5lk5CC467Ie3wukq4OPznpQsMuTl7uGkLtXkxAiNSItopmM
+	AjmNoMCqkEs1ShlLy6J93pVbrmzDXOktyFw==
+X-ME-Sender: <xms:0gMzao4ToFfZoiigwY430LkL3FU8hsut6O5eu_qVbiKDwEleQpuLlA>
+    <xme:0gMzahprbDR_QR3CiG4gtt1CR2_gkZM6_-NE2sHj_UBHevLGfSW_ck94ZO8AEfa-0
+    00aq_zsD6SMUFX46Owu20Y4dCBrDrtwTKMBEnQIxDJ5hT4DoA>
+X-ME-Received: <xmr:0gMzaqhxvGzMANtJyPoB-McDODMT-DwYLGv9r8ORyaWAu-yuqIToI2YAKBUR392EDpEe0ibqQKYbZ6mG5zI3d56OL0px1di7SD4>
+X-ME-Proxy-Cause: dmFkZTFwBnQPaP9WPTtPaROfPtnBHMTyhvNJw2ar9oD2/Ek+QDJEzCKFDOCZD8BOvSXawW
+    DamGfv5dofJDwPTbAaoDsgol/BYmKaFsXyYvhe0IbrpIBG0C33baNrPSnB1HeVKaw4kl+O
+    LRffK/Lq2QoOt/UN6X/RMRdF0D6ZmWwdHuo9613C+/bJ/zsgahmOIwiEf69OZQOuVPvJf1
+    q3nT0+B+zfBZonxT1uQi4aydeCvlOWUIsqwoUXZtmaK0UNi6NMxJRpszlgtU97jTrWGm7n
+    E9xiFVusiamKS+Ai4JVZdpv1Y+AziiggvGZM6U2vtXYPWS4dCMyjzmZCiVPM8/zvjXLZoK
+    u+6iEC8LmXfV6YAWuRPfNw0loRodA0cK7Ok5v505BoCInycga3GIZm4BTVy7OI1KEPsYGX
+    gcU4sM5w3LbpEnbT/fDd71uYvjwx4wNQjaRbdWwGYMKnmn1Gt6eSsyEsLezecavPgozoKg
+    bNXE5N/3cRHtT4tOkNGLvLddqtsj2/7vP3H1qFcMv51h29VvEorEEJ17CfV6/jBpX0KhTj
+    awYBwQ2PcF6/N//WMnwmxn3h9RpPU05yXuRgXHwEukCrRaH0k1u3O2LPI1zttXdq/bvg0Q
+    Q30wuzSU4z4Yi3TA/C+DROwYP9kMMRsF4sYkqW28h4mKo7q32U1awqjthGlg
+X-ME-Proxy: <xmx:0gMzarLVyhtKwl26p_RCB72FYJu5K1aKQWULjXbVxkiAV3yf5dFFzw>
+    <xmx:0gMzaqDyRdvfgNGY5Vn07eZhHGTKFSIg3vUXCboIRYK6BvME5qduhA>
+    <xmx:0gMzarjOcgMCrj6oGhitgp4pgPEmUxKJPx_ARfLnDEmfw8j94cok8g>
+    <xmx:0gMzailiJS1iouK4XqospJ6Hc8AVvubtfo8DnBvg25jTL6zmFW09BQ>
+    <xmx:0gMzavC3QsWzAOZr6Jy4gcaqjrK3dGUiOCG0WC4vha4z_d8ZbSFyHdgC>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 17 Jun 2026 22:30:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	intel-xe@lists.freedesktop.org
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
+ Xen 4.19
+Message-ID: <ajMD0Jsml3ytlWOY@mail-itl>
+References: <aYtznP_tT6xNPwf-@mail-itl>
+ <aY3ttvtxGCPTNgsj@Mac.lan>
+ <aY58-gyarcVoBS2a@mail-itl>
+ <aZ3KoSlIzru0Uumu@mail-itl>
+ <aaVyKFaCSuhJufW2@mail-itl>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH7PR03MB7004:EE_
-X-MS-Office365-Filtering-Correlation-Id: e44c79c7-8ca2-45d9-6c7d-08decc83c3e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|56012099006|5023799004|4143699003|11063799006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ukRbyZaj37dZp07wX73Lbt/hfCCmHTzv89vBYTvbTHe9+FJ7oNSvwERFHpfr5Sp/RXJca8sh2V9zZPQZ+CNLnbZpChEqZgLzW/w0gSbz0jgr1cFhfYr6AaW1Ukgw1BMcX7g7wKdcXldMgfsdxqBrlEkQL/qnhwK2wGWx+kjvxd4j+rJm9CgCAQ5P2aMZxH6Px0k1p+FsKuwDcCuYKyacgiCqGzrIiOt7DJNtTHt+fmKMxoYrF76SMCJD4vrbzDCwtXW7WD47T//uVjr7Sr8VTPbCPZhMS+nEYMleBul++WUlNv14mRGEwoJyGEUO957a6YSXCFscAOK0mcCwPjOxbqP7d8byzjc+IMc0swVa/C7GiN3hw93HiSD8VOEH1ttwe3hLusOl38HL5FGDfciKkidOxk0+UEFyYCEN4lXPxu9CoFnkcCdj3JcwK1em6kycLrmnCj5owwjNZhsCNW9bzRKsAXkY5SOzFyV2Bg267WQGpNnGzyy5c7uJn+eER8Px5kx9xYklPfZ9ZNkOXcNBjhQ47Nx/51G0b//X4iLsHNxGlsV7lss3oHzrHcmTEFWrWGpCrSo7S6p9AdeY4jekxu0Bnf3+g6JHCaqd0iTTOHqjO8+NYAgTR2W1+8ANxwObttTJon+AEXvmIOPqmuuuWjbTdZczNQ89NYmYBKGZbguCtxNq7iRYT3w+Fe7K3FZb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmNka2t3ZXVMeTRyMEVFMWk0WTBmeHJKVG1QOFE3YlN2T0swdHc2THBBRjNG?=
- =?utf-8?B?UENockJRZjlvNWR0UHNoVmdZL2U2aERzQTVyT1FPZ3VQcjlMRHNVQXBXVVJp?=
- =?utf-8?B?Z1lDSGx0TWwvRzFrTnkrN2p2VUEzdmxlb0ppbmRocU9scU1OMzVEV3p1MFBS?=
- =?utf-8?B?L2MwYkVKZXgrM1h0cGhkVU0rbFdidHp2V2V2a1Q4am9kQTA3emFGSWtwamNU?=
- =?utf-8?B?TWF2cVowZCtMa2hDTit5YnVLdzc3RC9rdXlvSnpvY3Y2eDNhWEd2UWF4dnBt?=
- =?utf-8?B?cnpYTG5oN1M0dGNqZHB2cjFYdm1nWS8xQ1pZTm9aaTE5RXRFdGxhcVJTcjQr?=
- =?utf-8?B?d0Q5bDB2VENqRy9uM3VUSitzUmx0bEpWdzV4em1ERjluVzJ3dXU3WXRpZHBC?=
- =?utf-8?B?STN2WHFpUjI4QVcxRkhQNDlhdGZTTFg5VmxpY244K3lZRWx2blBvTHUxM2Y0?=
- =?utf-8?B?YTV3WjhlYk9CWnhXaWttdU45OVlqZ2kzUnVoTUY4Tng5NGk4RzVWMVlQQndy?=
- =?utf-8?B?b3dlZkE0T1JlRXo2WHZHUjRzUWo5bUpHeEZXNEgxYndDRnBmM3dycDIva2p5?=
- =?utf-8?B?UlVWZVk3U0hHeUNSQ3dyYjEwVUxlYUNRbTQ2SHR0OC9RVStubHI0VWxUY3Y1?=
- =?utf-8?B?cGpQYW1PaEtYY0lTMVhpbTRBSTUxZ3BTQ1h4clZIMngzT2M2ckNVZnVtRnNQ?=
- =?utf-8?B?Uzc5R2pkYjVNcTZUMnA2Mi9scStzdmUxdmJ1WWdGNnEvTnV2b0I0Mk54U25W?=
- =?utf-8?B?R0JDK0xDVWlpTjJmdXFneitLWkpKVGRKLzN2ZWVJMU9CMENoQkpjNjVaejRG?=
- =?utf-8?B?RzVoMUdObE1mK3Z3UHhQcWNvS2g3RkhqNS9XYVp0NTZpeFpZUHFkN1g2azhW?=
- =?utf-8?B?RFFaR1FYbUs1TXh1cVB4NytNNElENG9KZmtQMXNTak9XZDVYZGE4VHNUbmZm?=
- =?utf-8?B?cUkyMWY5QWc0bWxpZmFacWIzT2huZ1l2YjU4K1pRVFpxN294Wmd0TTN4SENV?=
- =?utf-8?B?ZFZZM3RDQ1VielhIVWVHMEdHR01mbzJIRHhNNnZYa3F0N2lybUp0bTN4L0hW?=
- =?utf-8?B?K24zTWErWmZHUis0YmU4VkRDRWVzQjFCVFA5WWNWS3RxNXE2SUVnVStwRmFz?=
- =?utf-8?B?cm9iUy90S0ZPSTNkR0ozUjVxUmxnL0tDRWhiMncxNnpFaEFvcDl6WFBNTG5r?=
- =?utf-8?B?ek5LY2dZNDhRU04raEFiNU5ZU0pVRGtkOUozb29pWmp5dURsT2JBa1NEMHY0?=
- =?utf-8?B?V0hiU3M1NmNDNWU5bzNHSXhKK04vMkcyMEJnck1MdHpFaTVYNEhOREpJWWpt?=
- =?utf-8?B?a0ZFQWpMVkhqSU9Hb1NhL1VwTGxMcDFlU3gyWWZDNUM2ekVNZmxVdTZyRERL?=
- =?utf-8?B?TXJOUnFuUDJnY3RydnQ4TTJzandXY0p5ODdKYllZY29WdnVMZTlHT0xNdTBR?=
- =?utf-8?B?dEgrZ3BFR1FrQnhnYUx4aGRTUC81R1lmQ2tRcy8zVmFQTmtPOGd2VjVoQm94?=
- =?utf-8?B?T1RsdHdpbmQxMXhYYWU0TDMydW8xYW15ditDcFhhcC9XTFFWandtdHJSQ0hn?=
- =?utf-8?B?eUc3QnVMd3ZHUFJJbDhrdTVZWWdpTFJDdktnWEdwSzFqamx5emN2b3dWMHhh?=
- =?utf-8?B?K3Ayc2NXd2dURkpWdW05akFQYXZLK3NUcnNRQUFHaHdRdG9NNWxXYzlxZnFa?=
- =?utf-8?B?WVYxRktBekwzYmFPOExWTHcybklQVHVnQS9nbUFkd1NXdDlYMFl1dE1tNStG?=
- =?utf-8?B?K0tsV1dHcnFQZzZvRHhGbUpTMllKRFF0THlnNG10QVBkMUhMMVJNbTBuR1B1?=
- =?utf-8?B?aE5XRFZGMi9VeGNOSnJ3ZjJVZFFaNjduRHh2UFN3U25EZ2VmS1NxVkNqS29V?=
- =?utf-8?B?elZTV2kxM1ZiMFp0WDd2czRQQ0RLQzdtWHB4T0ptZVlEakFaNWhQN3lWRTRH?=
- =?utf-8?B?bDdBa0hDMSswa2RQUVRHUE5oMjN2Nm9vRnFzRWRpVFA5aXF0UVdtNzdCcE5k?=
- =?utf-8?B?TFFGbXZ4WjYrQWN5ZDdNaGlNS0w4YkRHQlJxUkp1NkR3WSszRGM2RmV0SnFq?=
- =?utf-8?B?MEdVbU91cnF2aU1BV09udEluY2RlZlc1Q21oWnhab0dUaG4xYnFuSndDNVhs?=
- =?utf-8?B?T3QrZHZLQnhEZW5YTHpzbmVhQ1lSTDZPR01YMFA0QU1hQkNaN2c5bXBuQnlO?=
- =?utf-8?B?VG55ZU9Sb0IyRWUvUDdEbGZPVHcvakVhTVJFSVh0akpFQXl2T1ZjRVhoVUhj?=
- =?utf-8?B?RjZ3MW9NMitPN2xBTDhOaFFOcmwrdjdhSStTdWE4ZWEyUkNTMDdsZ29jekZU?=
- =?utf-8?B?dTN2aWdXNy9Zc2JmN1k2TlpSd0dnVWZNQUpleFIvWXVpRUhnU2lGUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e44c79c7-8ca2-45d9-6c7d-08decc83c3e9
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2026 15:19:03.5520
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RqTduYPSSznctLATIbysTRDD6isJ0Z3Dno2LJPIPa6/LSdx/yPiw6adaOcHE66f5f3eXd0nLA0pYNmCI5xCetA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7004
-X-purgate-ID: tlsNG-d62444/1781709547-CDDB3E30-8968A614/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="uNgrZ1r0QgDtWsL3"
+Content-Disposition: inline
+In-Reply-To: <aaVyKFaCSuhJufW2@mail-itl>
+X-purgate-ID: tlsNG-4011c0/1781728213-6FB5F8B7-E6D31A7A/0/0
 X-purgate-type: clean
-X-purgate-size: 5810
+X-purgate-size: 8428
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,citrix.com,vates.tech,gmail.com];
-	SUBJECT_HAS_QUESTION(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:intel-xe@lists.freedesktop.org,s:lists@lfdr.de];
+	SUBJECT_HAS_QUESTION(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,invisiblethingslab.com:dkim,invisiblethingslab.com:from_mime,mail-itl:mid,qubes-os.org:url];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_THREE(0.00)[3];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 839E369AE71
+X-Rspamd-Queue-Id: B36CC69C5E0
 
-Overall I would defer this change to the start of the 4.23 development
-window, and commit it then.  It's IMO a bit risky to change the
-interface behavior so late in the development process.
 
-On Wed, Jun 17, 2026 at 11:30:04AM +0200, Jan Beulich wrote:
-> Rather than granting permissions when mapping (an operation that DM-s are
-> allowed to carry out, while they can't invoke ioport-permission), check
-> whether permissions actually were granted when adding a mapping. This then
-> also allows relaxing the necessary locking.
-> 
-> While no longer granting permissions upon mapping is "only" at risk of
-> breaking guests, no longer revoking permissions upon unmapping strictly
-> requires callers to additionally invoke XEN_DOMCTL_ioport_permission. Or
-> else a security issue would arise. In-tree code already does so.
-> 
-> While there switch to using %pd in the two log messages.
-> 
-> Fixes: 192c4dabc344 ("domctl and p2m changes for PCI passthru")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> libxl has libxl__grant_vga_iomem_permission(), but I can't spot any I/O
-> port equivalent (nor a revoke counterpart, btw). Everywhere else MMIO and
-> I/O ports look to be treated equally.
-> 
-> Qemu uses both xc_domain_{iomem_permission,memory_mapping}() in
-> igd_write_opregion(), but only xc_domain_{memory,ioport}_mapping() in
-> xen_pt_region_update() and xen_pt_{,un}register_vga_regions(). Is the IGD
-> region special in any way? Clearly this can't work from a stubdom.
+--uNgrZ1r0QgDtWsL3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 17 Jun 2026 22:30:08 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	intel-xe@lists.freedesktop.org
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
+ Xen 4.19
 
-Hm, I'm unsure that code will work correctly after the change here, as
-xen_pt_register_vga_regions() doesn't grant access to the IO/memory
-regions to the remote domain ahead of assigning them?
+On Mon, Mar 02, 2026 at 12:19:04PM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Tue, Feb 24, 2026 at 04:58:25PM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > On Fri, Feb 13, 2026 at 02:23:06AM +0100, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > On Thu, Feb 12, 2026 at 04:11:50PM +0100, Roger Pau Monn=C3=A9 wrote:
+> > > > On Tue, Feb 10, 2026 at 07:06:20PM +0100, Marek Marczykowski-G=C3=
+=B3recki wrote:
+> > > > > Hi,
+> > > > >=20
+> > > > > Recently I started testing compatibility with Intel Lunar Lake. T=
+his is
+> > > > > the first one that uses "xe" instead of "i915" Linux driver for i=
+GPU.
+> > > > > I test it with Qubes OS 4.3, which uses Xen 4.19.4 and PV dom0 ru=
+nning
+> > > > > Linux 6.17.9 in this test.
+> > > >=20
+> > > > Not sure it's going to help a lot, but does using a PVH dom0 make a=
+ny
+> > > > difference?
+> > >=20
+> > > Ok, now with the correct Xen version, it's better with PVH dom0. At
+> > > least on the login screen and few applications (from both dom0 and do=
+mU)
+> > > I don't see the glitches anymore. I can't do a full test, because PCI
+> > > passthrough doesn't seem to work with PVH dom0 on Xen 4.19 - and I ne=
+ed
+> > > it to start most VMs.
+> > >=20
+> > > So, if the above test is representative, it's only about PV dom0.
+> >=20
+> > Some further observations:
+> >=20
+> > 1. My initial impression that Xen 4.17.6 is not affected is false.
+> > Apparently I got lucky and didn't waited long enough for glitches to
+> > appear. Unfortunately this means I have no way to bisect this...
+> >=20
+> > 1a. Updated test procedure - either:
+> >   - start Qubes OS in full (including default system domUs) and try to
+> >     open an app in one of them (for example file manager or pdf viewer)
+> >   - start Linux up to lightdm login page, log in, log out, click on a
+> >     few lightdm menus (session type selector, poewroff menu etc)
+> >=20
+> > The second version works even if toolstack version in dom0 doesn't match
+> > Xen version. If no glitches are observed after doing either of those
+> > procedures, assume it's good.
+> >=20
+> > 2. Xen staging is affected too. As well as Xen staging-4.19 without
+> > any qubes patches.
+> >=20
+> > 3. After enabling CONFIG_DEBUG in Xen, the xe.ko fails to load firmware:
+> >=20
+> >     xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware from xe/lnl_g=
+uc_70.bin version 70.53.0
+> >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status =3D =
+0x40000056, time =3D 0ms, freq =3D 1850MHz (req 1850MHz), done =3D -1
+> >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status: Res=
+et =3D 0, BootROM =3D 0x2B, UKernel =3D 0x00, MIA =3D 0x00, Auth =3D 0x01
+> >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: firmware production part=
+ check failure
+> >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: Failed to initialize uC =
+(-EPROTO)
+> >     xe 0000:00:02.0: probe with driver xe failed with error -71
+> >=20
+> > CONFIG_DEBUG is the only change between "xe.ko loads fine but there are
+> > glitches later on" and "xe.ko fails to load at all". Full console logs:
+> > https://gist.github.com/marmarek/47b5e62a2cdbae6678c2aecc5283cd3f, there
+> > are 3 files:
+> >   - CONFIG_DEBUG=3Dn
+> >   - CONFIG_DEBUG=3Dy
+> >   - CONFIG_DEBUG=3Dy + iommu=3Ddebug
+> >=20
+> > 4. Updating to Linux 7.0-rc1 doesn't help, for example:
+> > https://openqa.qubes-os.org/tests/168119#step/desktop_linux_manager_cre=
+ate_qube/11
+> >=20
+> > Generally, it does feel like a bug in xe.ko, but I can't exclude some i=
+ssue
+> > on Xen side too (especially given point 3 above).
+>=20
+> After waiting some time (Linux 6.19.5 this time), Xen CONFIG_DEBUG=3Dn, I=
+ get some timeout messages:
+>=20
+>     [    8.122120] xe 0000:00:02.0: [drm] [ENCODER:204:DDI A/PHY A] faile=
+d to retrieve link info, disabling eDP
+>     [    8.148476] xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware =
+=66rom xe/lnl_guc_70.bin version 70.53.0
+>     [    8.803845] xe 0000:00:02.0: [drm] Tile0: GT0: ccs1 fused off
+>     [    8.804208] xe 0000:00:02.0: [drm] Tile0: GT0: ccs2 fused off
+>     [    8.804556] xe 0000:00:02.0: [drm] Tile0: GT0: ccs3 fused off
+>     [    8.822426] xe 0000:00:02.0: [drm] Tile0: GT1: Using GuC firmware =
+=66rom xe/lnl_guc_70.bin version 70.53.0
+>     [    8.827140] xe 0000:00:02.0: [drm] Tile0: GT1: Using HuC firmware =
+=66rom xe/lnl_huc.bin version 9.4.13
+>     [    8.829478] xe 0000:00:02.0: [drm] Tile0: GT1: Using GSC firmware =
+=66rom xe/lnl_gsc_1.bin version 104.0.5.1429
+>     [    8.852923] xe 0000:00:02.0: [drm] Tile0: GT1: vcs1 fused off
+>     [    8.853513] xe 0000:00:02.0: [drm] Tile0: GT1: vcs2 fused off
+>     [    8.854090] xe 0000:00:02.0: [drm] Tile0: GT1: vcs3 fused off
+>     [    8.854706] xe 0000:00:02.0: [drm] Tile0: GT1: vcs4 fused off
+>     [    8.855310] xe 0000:00:02.0: [drm] Tile0: GT1: vcs5 fused off
+>     [    8.855904] xe 0000:00:02.0: [drm] Tile0: GT1: vcs6 fused off
+>     [    8.856495] xe 0000:00:02.0: [drm] Tile0: GT1: vcs7 fused off
+>     [    8.857079] xe 0000:00:02.0: [drm] Tile0: GT1: vecs1 fused off
+>     [    8.857675] xe 0000:00:02.0: [drm] Tile0: GT1: vecs2 fused off
+>     [    8.858272] xe 0000:00:02.0: [drm] Tile0: GT1: vecs3 fused off
+>     [    8.975881] xe 0000:00:02.0: [drm] Registered 3 planes with drm pa=
+nic
+>     [    8.976586] [drm] Initialized xe 1.1.0 for 0000:00:02.0 on minor 0
+>     [    8.980882] ACPI: video: Video Device [GFX0] (multi-head: yes  rom=
+: no  post: no)
+>     [    9.033754] xe 0000:00:02.0: [drm] Tile0: GT1: found GSC cv104.1.0
+>     ...
+>     [ 1218.319232] xe 0000:00:02.0: [drm] Tile0: GT0: Engine reset: engin=
+e_class=3Drcs, logical_mask: 0x1, guc_id=3D3
+>     [ 1218.319890] xe 0000:00:02.0: [drm] Tile0: GT0: Timedout job: seqno=
+=3D9883, lrc_seqno=3D9883, guc_id=3D3, flags=3D0x0 in Xorg [3245]
+>     [ 1218.320736] xe 0000:00:02.0: [drm] Xe device coredump has been cre=
+ated
+>     [ 1218.321140] xe 0000:00:02.0: [drm] Check your /sys/class/drm/card0=
+/device/devcoredump/data
+>     [ 1222.285626] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_d=
+one timed out
+>     [ 1232.525685] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
+>     [ 1232.526280] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] commit=
+ wait timed out
+>     [ 1242.765717] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_d=
+one timed out
+>     [ 1253.005696] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
+>     [ 1253.006248] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] commit=
+ wait timed out
+>     [ 1263.245599] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] flip_d=
+one timed out
+>=20
+> The glitches appear much earlier, though.
+> Would content of /sys/class/drm/card0/device/devcoredump/data be useful
+> for debugging this?
+>=20
+> Full log at https://openqa.qubes-os.org/tests/168813/file/serial0.txt
+> (warning, almost 200MB of those errors...)
 
-> ---
-> v2: Avoid double evaluation of "add". Add ChangeLog entry.
-> 
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -14,6 +14,9 @@ The format is based on [Keep a Changelog
->   - On x86:
->     - Enable pf-fixup option by default for PVH dom0.
->     - The libxenguest bzImage loader now uses the system liblz4 library.
-> +   - XEN_DOMCTL_ioport_mapping no longer implicitly grants permissions for the
+The issue still happens with Linux 7.0.12. Current log (quite similar to
+the previous one):
+https://openqa.qubes-os.org/tests/184602/logfile?filename=3Dserial0.txt
 
-I would explicitly mention access revocation also, FTAOD:
+Not long after GPU errors, nvme driver fails due to full swiotlb.
 
-"XEN_DOMCTL_ioport_mapping no longer implicitly grants or revokes
-permissions ..."
+Any ideas?
 
-> +     port range in question.  XEN_DOMCTL_ioport_permission now needs invoking
-> +     up front.
->  
->  ### Added
->   - Support for per-domain Xenstore quota in C xenstored (includes
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -714,15 +714,35 @@ long arch_do_domctl(
->              break;
->  
->          hvm = &d->arch.hvm;
-> -        iocaps_double_lock(d, true);
-> +        /*
-> +         * NB: The double lock isn't really needed when !add, but is used anyway
-> +         * to keep things simple.
-> +         */
-> +        iocaps_double_lock(d, false);
->  
->          if ( !ioports_access_permitted(currd, fmp, fmp + np - 1) )
->              ret = -EPERM;
-> -        else if ( add )
-> +        else if ( !add )
->          {
->              printk(XENLOG_G_INFO
-> -                   "ioport_map:add: dom%d gport=%x mport=%x nr=%x\n",
-> -                   d->domain_id, fgp, fmp, np);
-> +                   "ioport_map:remove: %pd gport=%x mport=%x nr=%x\n",
-> +                   d, fgp, fmp, np);
-> +
-> +            write_lock(&hvm->g2m_ioport_lock);
-> +            list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
-> +                if ( g2m_ioport->mport == fmp )
-> +                {
-> +                    list_del(&g2m_ioport->list);
-> +                    xfree(g2m_ioport);
-> +                    break;
-> +                }
-> +            write_unlock(&hvm->g2m_ioport_lock);
-> +        }
-> +        else if ( ioports_access_permitted(d, fmp, fmp + np - 1) )
-> +        {
-> +            printk(XENLOG_G_INFO
-> +                   "ioport_map:add: %pd gport=%x mport=%x nr=%x\n",
-> +                   d, fgp, fmp, np);
->  
->              write_lock(&hvm->g2m_ioport_lock);
->              list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
-> @@ -747,40 +767,11 @@ long arch_do_domctl(
->                  list_add_tail(&g2m_ioport->list, &hvm->g2m_ioport_list);
->              }
->              write_unlock(&hvm->g2m_ioport_lock);
-> -            if ( !ret )
-> -                ret = ioports_permit_access(d, fmp, fmp + np - 1);
-> -            if ( ret && !found && g2m_ioport )
-> -            {
-> -                write_lock(&hvm->g2m_ioport_lock);
-> -                list_del(&g2m_ioport->list);
-> -                write_unlock(&hvm->g2m_ioport_lock);
-> -                xfree(g2m_ioport);
-> -            }
->          }
->          else
-> -        {
-> -            printk(XENLOG_G_INFO
-> -                   "ioport_map:remove: dom%d gport=%x mport=%x nr=%x\n",
-> -                   d->domain_id, fgp, fmp, np);
-> -
-> -            write_lock(&hvm->g2m_ioport_lock);
-> -            list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
-> -                if ( g2m_ioport->mport == fmp )
-> -                {
-> -                    list_del(&g2m_ioport->list);
-> -                    xfree(g2m_ioport);
-> -                    break;
-> -                }
-> -            write_unlock(&hvm->g2m_ioport_lock);
-> -
-> -            ret = ioports_deny_access(d, fmp, fmp + np - 1);
-> -            if ( ret && is_hardware_domain(currd) )
-> -                printk(XENLOG_ERR
-> -                       "ioport_map: error %ld denying dom%d access to [%x,%x]\n",
-> -                       ret, d->domain_id, fmp, fmp + np - 1);
-> -        }
-> +            ret = -EPERM;
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Should we add a dprintk here at least, to make it easy to identify
-what has gone wrong from just looking at the dmesg?
+--uNgrZ1r0QgDtWsL3
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks, Roger.
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmozA88ACgkQ24/THMrX
+1yyq+wf/bEtASp768/AYv+EbDMh+837ZW5p9z2UDro8wq2O7Q3+QcU0X28Vd1uvy
+Bnun06E68x863J5YKsRdUbdIQ5fLXcWphPx5IBMmJYVYWfnnb8EKQxd3WQmwDD8n
+EImFomdtLgBdsLVSZDi5aiIpWXmIAJ3fssOZv0cripsIDHrzNwQ+9M2vO3iIpyLM
+lYR42khFChpiYuiSqjrGe8JhueBldxD3fPAo9FRP0JcEue3+cmgn04FKPo4Jshdh
+J9ppBrthfjQSVxYCnhNMGUEjIE8h0RaqMASKa9ti3NNJ0BtLU+29kUUCOVw7dZY+
+H9QwxAr4ylkktAbK5FkWoEnpQMI6JQ==
+=UgAf
+-----END PGP SIGNATURE-----
+
+--uNgrZ1r0QgDtWsL3--
 
