@@ -2,48 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id LjYTKFDpM2rCIAYAu9opvQ
+	id smmKN/npM2o1IQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 14:49:20 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 14:52:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 468CE6A02CE
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 14:49:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEE5B6A0330
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 14:52:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=apertussolutions.com header.s=zoho header.b=qwY7wTuT;
+	dkim=pass header.d=suse.com header.s=google header.b=dP9TNvrH;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=none;
-	arc=pass ("zohomail.com:s=zohoarc:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1341127.1601678 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1341135.1601686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waCBB-0000iz-9R; Thu, 18 Jun 2026 12:49:09 +0000
+	id 1waCDj-0002Gk-Ku; Thu, 18 Jun 2026 12:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1341127.1601678; Thu, 18 Jun 2026 12:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 1341135.1601686; Thu, 18 Jun 2026 12:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waCBB-0000gX-6e; Thu, 18 Jun 2026 12:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 1341127;
- Thu, 18 Jun 2026 12:49:07 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1waCDj-0002FN-I8; Thu, 18 Jun 2026 12:51:47 +0000
+Received: by outflank-mailman (input) for mailman id 1341135;
+ Thu, 18 Jun 2026 12:51:46 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1waCB9-0000gN-Pw
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 12:49:07 +0000
+ (envelope-from <jbeulich@suse.com>) id 1waCDi-0002FH-LB
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 12:51:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waCB9-008JRa-6o
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 14:49:07 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1waCDi-00D2vb-1Z
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 14:51:46 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a33e934-bab6-0a2a0a5309dd-0a2a4506d528-34
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 14:49:06 +0200
-Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 6a33e940-b690-0a2a45060019-888fbc3352b5-3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 14:49:05 +0200
-Received: by mx.zohomail.com with SMTPS id 1781786941670217.4886731259653;
- Thu, 18 Jun 2026 05:49:01 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a33e9d0-5cb7-0a2a0a5109dd-0a2a450a9156-34
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 14:51:45 +0200
+Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a33e9e1-93a5-0a2a450a0019-d1558033b090-3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 14:51:45 +0200
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-490afc47455so3334855e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 05:51:45 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4923a1d2d9esm40221315e9.1.2026.06.18.05.51.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 18 Jun 2026 05:51:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,144 +60,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1781786943; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=V35hGhBAXmI4Sb14UhtVaYgWPyiOlSLqndTPTAB069PMWkIJpKxS64hK03c5NwiHS49zgi/ru0QiRdpY65kMhN9b5wSAxoY8l8PY1AzX8PoKupSRBoUGy3wC0ZpXZ+y3Mi5UROKBFkldex+3lVrv0keZEHceji00v32PYlLrp8I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1781786943; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pILEMyw5gCxqIrCUuBXTTwRSJypX7InxQ7qQLI/bSBI=; 
-	b=n7+iJvVogihZrYC0szI1+oSzoD4oFyZMo1576KsLilXxICRA0pLerG5vrnIlizXRVLce0pCFvT92NnOIcSxmXdyi6utANEHxjd8DK0CJZZCaOmaYlywJeoSn/lPr+7xHJWrWtvxdYvbq6MsKTONCIJXzB/FxzoUL7t3om0aDsug=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781786942;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=pILEMyw5gCxqIrCUuBXTTwRSJypX7InxQ7qQLI/bSBI=;
-	b=qwY7wTuTCFiQwV+ZoMU3Fada2lh8YnTirHFX+L16aPmU6DMU8x270hvboxrphqGF
-	Dsxq09H9D78ShFH+7cK+RUy55ATXz7W4IgVKHOSrCknDczrvVxVSKtdwSCHk38VHPCn
-	nKuXaJEnMWawPF9StmrLm4e+lVHPe4+NkncUdqb4=
-Message-ID: <23a1961c-29ea-42fe-ab1d-f185af449d37@apertussolutions.com>
-Date: Thu, 18 Jun 2026 08:49:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1781787105; x=1782391905; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+mY/FuMB1Bn63cK0YzU0ctXmeFaqrHY0ttlgEs7+H1Y=;
+        b=dP9TNvrHUuxxlyI0BDpiRI/4ET7Qk6yZxwUr6tJkhJLzq3j++6M8xXWQ1Vyseg+2uo
+         9dA7WkyR+fnMwCJUX8rq/PVLOkkqM01ZUUYjTlUYrhY+8n1zH4RkGj3zyWacLe3ggz1o
+         KOWuPxpXhzRLVbDwgpHpHprsgxVoeBY1nZwtMrguLj7f90hh8sardwkcvXAsDJNbIRxF
+         jG7VKrCI9tu5KKhwmnd9MVxA828FF4CgDCRoLt8xrqFR4qsOUKKJGmBRRqkwxiV3PaEp
+         o9jONUVk6+eFlglFN7J1S3QMDnP2ihjvMV0eISzoE30wDhfWzboUUeJPe0oxbuHtRz0w
+         qjww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781787105; x=1782391905;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+mY/FuMB1Bn63cK0YzU0ctXmeFaqrHY0ttlgEs7+H1Y=;
+        b=rBxkj5d/6Gyhi8mhrKhwQlXOZ0dboKzW00ABYptbm5K5RufnB12jBKcH43SUzNZbk8
+         tCTFyNrfUSy9j7sdMEFJfCIssZGT1oHQ5p8C+ByzL/cSBZ+exS/8NDCPHoJxcZmmj4Bc
+         DZlMjDxJD6qIhMPq5CcRPsbK+Zixi6sV3AMVn62rfugSy06d5mW351v9EvlcCV9QiOvn
+         2/hE4QJnTbxFaccYHLtW52ffhEKadQbsaYOnZuSUoJf0KQ+Y/N+Tna6UfHd6WIRd9orh
+         w4Mz0aLRa98nMlvA9rs0H8UGV6ZOijb2f55/21eI7Ju8Yoz5rY3Td7Ngb7z3rnKTSkS0
+         lSYg==
+X-Forwarded-Encrypted: i=1; AFNElJ8p/Dx0QOdQs7z5HHCY2oQ2vRi1IeFgK2nyq48eDmB+K8TCPt035zTywLQHue+yH08w/6uGIq+W6xc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+W2iVsEJA1LHSIbEPhk1QhJCDAdM19iqxyzf5hDBFdbcc8xhT
+	4hsK5IvPbN9TA4CvKP6VXuFENauhY1Kxbw+JxOvP6tjgIpynm3eEyZlUfLezo/ju+Q==
+X-Gm-Gg: AfdE7cn7LR3iWEVE5P6h1MnPSNdNPJ39Y7O+rpdUAS6cDSHXvYFdengbtBV0c6eRLGA
+	zS4cZhiYijVmBgJa1XDV0Lwj2TC+etxurMxNyK/oMK3TPZXMlBgJ6GIJK9D4ZsOwlBkolPNVCZW
+	gx2BfTUM3fgAwm0Sti5fFM/EpbDAaDjso+hISisVHTCd7Gq8oJDZjKckrKQ9k9UHKXNDFeYesmK
+	Ku02bMa1WXQWb7l+oMSjLctLZ4QtLbzFeblUnHCI3kAO20ABPVEoAR5nne3gTAEqy4Q1gLCq3UP
+	q4bQLhOj4hl1Zsivin9ep0dD8/ry8n0dcw5sD5ZwUjlD7lIp4UJpV9yt2BtXiIEUjsR5W83iFN9
+	Qu20rY07bj2o3CU8vdB3XNMQz6p1ViFzrj3EZ0e6EE5dwTQhCKCeKgw7D4bASYxMpQd+L9qUVqw
+	2eQY/zuxeuN3WkyHXA1Cw+1Y+keRvEeipYnA9YBtJrK+Iu/56KfqE06bhcUO+g+wvwMzvIYvmBB
+	HPv
+X-Received: by 2002:a05:600c:4fce:b0:490:ce99:d2ee with SMTP id 5b1f17b1804b1-4923a99aa02mr31990425e9.15.1781787105338;
+        Thu, 18 Jun 2026 05:51:45 -0700 (PDT)
+Message-ID: <12468fb6-0cf7-4e27-89ca-8ec4640e569b@suse.com>
+Date: Thu, 18 Jun 2026 14:51:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.22] XSM: guard .sysctl() and .readconsole() hooks
-To: Jan Beulich <jbeulich@suse.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 References: <bf642902-7235-45a8-a470-f164a930c0c1@suse.com>
  <8536e453-423d-45a0-bb82-38283eca4786@citrix.com>
  <0604a985-96fc-454f-b9a1-242bc6cce9b6@suse.com>
- <e5443d3c-a3ec-4698-b20e-b867f150aa5e@apertussolutions.com>
- <31bcc003-d876-4298-8edf-3fd3a07eda96@suse.com>
+ <a3e51817-4464-4672-a975-ba76349bab31@apertussolutions.com>
+ <243c5119-a016-49f4-919e-efa492b02e5e@suse.com>
+ <d6071252-a8fa-44b5-923e-b08175ab0fa7@apertussolutions.com>
 Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <31bcc003-d876-4298-8edf-3fd3a07eda96@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d6071252-a8fa-44b5-923e-b08175ab0fa7@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
-X-purgate-ID: tlsNG-16d1c6/1781786945-B07FB853-37D78803/0/0
+X-purgate-ID: tlsNG-4011c0/1781787105-B1BF3DB8-F81EA533/0/0
 X-purgate-type: clean
-X-purgate-size: 2300
+X-purgate-size: 3100
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DMARC_NA(0.00)[apertussolutions.com];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,apertussolutions.com:dkim,apertussolutions.com:mid,apertussolutions.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
-	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dpsmith@apertussolutions.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FREEMAIL_CC(0.00)[gmail.com,lists.xenproject.org,citrix.com];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 468CE6A02CE
+X-Rspamd-Queue-Id: BEE5B6A0330
 
-
-
-On 6/18/26 8:43 AM, Jan Beulich wrote:
-> On 18.06.2026 14:40, Daniel P. Smith wrote:
->> On 6/18/26 8:23 AM, Jan Beulich wrote:
->>> On 18.06.2026 14:13, Andrew Cooper wrote:
->>>> On 18/06/2026 12:32 pm, Jan Beulich wrote:
->>>>> Leaving the hook pointers in struct xsm_ops when !SYSCTL would lead to
->>>>> the BUG_ON() in xsm_fixup_ops() triggering for respectively configured
->>>>> hypervisors.
+On 18.06.2026 14:48, Daniel P. Smith wrote:
+> On 6/18/26 8:42 AM, Jan Beulich wrote:
+>> On 18.06.2026 14:34, Daniel P. Smith wrote:
+>>> On 6/18/26 8:23 AM, Jan Beulich wrote:
+>>>> On 18.06.2026 14:13, Andrew Cooper wrote:
+>>>>> On 18/06/2026 12:32 pm, Jan Beulich wrote:
+>>>>>> Leaving the hook pointers in struct xsm_ops when !SYSCTL would lead to
+>>>>>> the BUG_ON() in xsm_fixup_ops() triggering for respectively configured
+>>>>>> hypervisors.
+>>>>>>
+>>>>>> While moving the #ifdef for the corresponding xsm_*() wrappers, also move
+>>>>>> those for xsm_page_offline() (where the hook pointer field already is
+>>>>>> suitably guarded).
+>>>>>>
+>>>>>> Fixes: c9eabaa03a68 ("xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL")
+>>>>>> Fixes: bddd9af6049f ("xen/sysctl: wrap around XEN_SYSCTL_readconsole")
+>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>>>>
->>>>> While moving the #ifdef for the corresponding xsm_*() wrappers, also move
->>>>> those for xsm_page_offline() (where the hook pointer field already is
->>>>> suitably guarded).
+>>>>> Ugly.  We probably ought to see about booting the RANDCONFIG hypervisor
+>>>>> too, which should be able to spot things like this.
 >>>>>
->>>>> Fixes: c9eabaa03a68 ("xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL")
->>>>> Fixes: bddd9af6049f ("xen/sysctl: wrap around XEN_SYSCTL_readconsole")
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> This is a regression vs 4.21, so does need including.
 >>>>
->>>> Ugly.  We probably ought to see about booting the RANDCONFIG hypervisor
->>>> too, which should be able to spot things like this.
+>>>> Aiui it's a regression vs 4.20, i.e. will want backporting to 4.21.
 >>>>
->>>> This is a regression vs 4.21, so does need including.
->>>
->>> Aiui it's a regression vs 4.20, i.e. will want backporting to 4.21.
->>>
->>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
->>>
->>> Thanks.
->>>
->>>>> --- a/xen/include/xsm/xsm.h
->>>>> +++ b/xen/include/xsm/xsm.h
->>>>> @@ -61,8 +61,10 @@ struct xsm_ops {
->>>>>    #endif
->>>>>        int (*set_target)(struct domain *d, struct domain *e);
->>>>>        int (*domctl)(struct domain *d, struct xen_domctl *op);
->>>>> +#ifdef CONFIG_SYSCTL
->>>>>        int (*sysctl)(int cmd);
->>>>>        int (*readconsole)(uint32_t clear);
->>>>> +#endif
+>>>>> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although...
 >>>>
->>>> ... this is now the 3rd CONFIG_SYSCTL in xsm_ops.
+>>>> Thanks.
 >>>>
->>>> I know it will grow the diff, but can we see about collecting them into
->>>> a single region, and in dummy_ops too?  It will shrink the overall
->>>> result, and the order of pointers in this ops structure is uninteresting.
+>>>>>> --- a/xen/include/xsm/xsm.h
+>>>>>> +++ b/xen/include/xsm/xsm.h
+>>>>>> @@ -61,8 +61,10 @@ struct xsm_ops {
+>>>>>>    #endif
+>>>>>>        int (*set_target)(struct domain *d, struct domain *e);
+>>>>>>        int (*domctl)(struct domain *d, struct xen_domctl *op);
+>>>>>> +#ifdef CONFIG_SYSCTL
+>>>>>>        int (*sysctl)(int cmd);
+>>>>>>        int (*readconsole)(uint32_t clear);
+>>>>>> +#endif
+>>>>>
+>>>>> ... this is now the 3rd CONFIG_SYSCTL in xsm_ops.
+>>>>>
+>>>>> I know it will grow the diff, but can we see about collecting them into
+>>>>> a single region, and in dummy_ops too?  It will shrink the overall
+>>>>> result, and the order of pointers in this ops structure is uninteresting.
+>>>>
+>>>> I have a far more consolidating patch in the works, which is how I actually
+>>>> noticed the issue. I'd prefer to keep things as simple as possible here.
 >>>
->>> I have a far more consolidating patch in the works, which is how I actually
->>> noticed the issue. I'd prefer to keep things as simple as possible here.
+>>> By the way, I was going back through this and notices that they are not
+>>> ifdef out in xsm/dummy.h. Are we relying on them being inlines to ensure
+>>> that they do not result in dead code?
 >>
->> Would also be good to clean up flask_ops similarly.
+>> I think so. Maybe it's unhelpful that we have
 > 
-> Hence the "far more consolidating" - that'll happen (implicitly) all in one
-> go.
+> To be clear, you want to leave as is for now (or at least pick up in 
+> another patch)?
+
+It's up to you - I can add the #ifdef there, but it doesn't look to strictly
+be needed.
+
+>> #define XSM_INLINE __maybe_unused
+>>
+>> and we may instead better want explicit #ifdef wherever necessary.
 > 
+> It's been a while since I tore that apart, but I believe there is some 
+> trickery hidden in XSM_INLINE depending on whether XSM is "on or off". I 
+> could be wrong as it's been a while since I tried to unwrap all of it.
 
-Perfect. Just wanted to be sure it was on your radar.
+Aiui the "trickery" is that it's
 
-v/r,
-dps
+#define XSM_INLINE __maybe_unused
 
+with XSM=y and
 
+#define XSM_INLINE always_inline
+
+with XSM=n.
+
+Jan
 
