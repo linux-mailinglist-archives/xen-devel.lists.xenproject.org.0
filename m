@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hw5BNgwHNGrqLQYAu9opvQ
+	id M1D2GAsHNGrpLQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:12 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81A4B6A10B9
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0484F6A10B6
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=Q2YDHqqA;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=iampVMjI;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1341260.1601714 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1341261.1601723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waE9x-0007Bx-Jk; Thu, 18 Jun 2026 14:56:01 +0000
+	id 1waE9y-0007ON-Px; Thu, 18 Jun 2026 14:56:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1341260.1601714; Thu, 18 Jun 2026 14:56:01 +0000
+Received: by outflank-mailman (output) from mailman id 1341261.1601723; Thu, 18 Jun 2026 14:56:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waE9x-00079m-Gp; Thu, 18 Jun 2026 14:56:01 +0000
-Received: by outflank-mailman (input) for mailman id 1341260;
+	id 1waE9y-0007MT-NI; Thu, 18 Jun 2026 14:56:02 +0000
+Received: by outflank-mailman (input) for mailman id 1341261;
  Thu, 18 Jun 2026 14:56:00 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
- id 1waE9v-00079Y-Mi
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3411000701b@swg.vates.tech>)
+ id 1waE9w-00079f-Kj
  for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 14:56:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waE9u-00Cuxo-MH
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 16:55:58 +0200
+ id 1waE9w-002MfF-1E
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 16:56:00 +0200
 Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
- id 6a3406e3-bab6-0a2a0a5309dd-0a2a4502cae6-48
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:58 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3411000701b@swg.vates.tech>)
+ id 6a3406fe-2eae-0a2a0a5409dd-0a2a4502e5c8-4
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:59 +0200
 Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
- id 6a3406fe-fdf1-0a2a45020019-b9ff1c12adcb-3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:58 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3411000701b@swg.vates.tech>)
+ id 6a3406fe-fdf1-0a2a45020019-b9ff1c12adcb-4
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:59 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
  by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19edb3b3061000701b.007 for <xen-devel@lists.xenproject.org>
+ 19edb3b3411000701b.005 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Thu, 18 Jun 2026 14:55:49 +0000
+ Thu, 18 Jun 2026 14:55:50 +0000
 Received: from bazzite.gpn.vates.fr (88-188-240-210.subs.proxad.net
  [88.188.240.210]) (Authenticated sender: teddy.astie@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id 0C19C86962;
- Thu, 18 Jun 2026 16:55:49 +0200 (CEST)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 29A5686962;
+ Thu, 18 Jun 2026 16:55:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,21 +66,21 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=3HpuD8CbQNQzkNwb00qC62DDh6JfMa667VCsKxtkQno=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:feedback-id;
- b=Q2YDHqqA8ilRpPols3SJBq5lHJWqDie7peiyjfjn5o/Ima0m09LN3cuiS8H3URjYzF/ggs/an
- WMtdkVCp4uBYkAmlJheZjP0Iv4+uQ1XQrgBA2YOMqhX0ihfqaMGoZuUdxG6ouWDiWQ231f8u68V
- Bqxkv+6b3Bhk88pe4gjLlRefm+tuwFi8TW63aQpunDZlAniHKESy+SprcATVMsTM1pKP4CqV00p
- p0M5GvRR23gPgWjTVCchkrpEmVaP4y6RcXWycLBa2XJs0+ZaXIl6I7dSxOLtNl0cHcICRKOb6MO
- lk5qIEAx9U67fNlisUEvu74724p3re60Qr1ttyeM/q2A==
-X-Zone-Loop: 99f1e1665a08adf6df75a9ba7cf0e0458f3665ad176c
+ q=dns/txt; s=selector1; bh=bkdOZqrvjqr6flE5BYOE/roewt3QGKdGV2l97nCiJjY=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=iampVMjIiFk6fpXi4g+lu0bmxgSdGj1vrd1B/9f6+cGBoZf46660SheSJbc29b69MYStadZ/S
+ F805PuSkv7PxGVsrhYchGU+6dKzeSwfiUr8rXqVn23SqE78Bq/cFTLTCXhTy13j7AmQ3x6PTAOr
+ 9eqjHQoBWhK3pqBuZi54KkzIO77QZ83D5FEBHIArdZttoHrgDet0ZGS+mH8U3v8R/GJ+RKWoBjj
+ pnTZSp1EIR+la1Pz29Znd2sbaThl3v+LU8NqsdG7GJ9n2HZG6VE9ayHUsl4yAowe7WOHlU+fiCG
+ n50pCkoLt1nLnC5qSIEIS+l4gWG/eQ2y9QsMdfEf7txw==
+X-Zone-Loop: cecc3d7d01b7eb8775fc467cccfc959236d52428ed3f
 x-campaign-type: default
-x-transaction-id: 2e5c8b1f-4d16-48b2-af6b-a83644719617
-x-swg-uid: 01-45ff51fc-074f-441a-aa28-9fe15bb26d8c
+x-transaction-id: b826a65b-630e-429a-94c8-a87eddbcbf63
+x-swg-uid: 01-75e6d2ec-825c-4c31-9421-3c10f4884461
 X-Mailer: Sweego
 Message-ID:
- <1781794549.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@vates.tech>
-x-swg-bid: 1781794549.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b
+ <1781794550.8631fc262581453bbf619ec5b2062170.19edb3b3411000701b@vates.tech>
+x-swg-bid: 1781794550.8631fc262581453bbf619ec5b2062170.19edb3b3411000701b
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
@@ -94,130 +94,120 @@ Cc: Teddy Astie <teddy.astie@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jason Andryuk <jason.andryuk@amd.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v2 00/15] PCI SBDF Refactoring
-Date: Thu, 18 Jun 2026 16:50:24 +0200
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 01/15] pci: Introduce parse_pci_sbdf{_seg}()
+Date: Thu, 18 Jun 2026 16:50:25 +0200
+In-Reply-To: <cover.1781790171.git.teddy.astie@vates.tech>
+References: <cover.1781790171.git.teddy.astie@vates.tech>
 MIME-Version: 1.0
 X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=-"
+Content-Type: multipart/alternative; boundary="-=Part.688.a8c412ea6d9bc58b.19edb3b3260.4b4b09374cddeb99=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1781794549292
-X-purgate-ID: tlsNG-720697/1781794558-47E773F3-338C37C6/0/0
+X-Bm-Transport-Timestamp: 1781794550368
+X-purgate-ID: tlsNG-720697/1781794559-4F8783F3-F8589A63/0/0
 X-purgate-type: clean
-X-purgate-size: 3592
+X-purgate-size: 2322
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.17 / 15.00];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	URI_COUNT_ODD(1.00)[1];
 	MIME_MA_MISSING_HTML(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	XM_UA_NO_VERSION(0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:url,vates.tech:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,gitlab.com:url];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[vates.tech:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 81A4B6A10B9
+X-Rspamd-Queue-Id: 0484F6A10B6
 
----=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=-
+---=Part.688.a8c412ea6d9bc58b.19edb3b3260.4b4b09374cddeb99=-
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The goal of this series is to make some refactoring of some
-pci primitives to improve codegen and make code less verbose=2E
+In many places, we're parsing a PCI string into individual
+parts (seg, bus, dev, fn) and then transform it into a pci_sbdf_t
+using PCI_SBDF macro=2E Rather than converting from parts to pci_sbdf_t
+and vice versa, introduce a new function that parses a PCI string
+into a pci_sbdf_t structure directly=2E
 
-A big chunk of it is converting many places where (seg, bus, dev, fn)
-is split into multiples variables and into being just pci_sbdf_t,
-in particular in some PCI function parameters to reduce parameter count
-which usually translate into less registers to pass to the function=2E
-Moreover, we also avoid translating back and forth between pci_sbdf_t
-and individual (seg, bus, dev, fn)=2E
-
-No major functional change, aside some parts of the codebase that will
-now correctly handle PCI segment when parsed while it was previously
-ignored (e=2Eg dbgp)=2E
-
+Signed-off-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
 ---
-CI: https://gitlab=2Ecom/xen-project/people/tsnake41/xen/-/pipelines/26118=
-29865
+ xen/drivers/pci/pci=2Ec | 18 ++++++++++++++++++
+ xen/include/xen/pci=2Eh |  3 +++
+ 2 files changed, 21 insertions(+)
 
-v2:
- * Dropped "Migrate pci_mmcfg_{read,write}() to pci=2Ec", to be moved in
-   a separate series
- * fixed dev_sbdf calculation in acpi_parse_dev_scope()=20
- * Updated documentation on ehci_dbgp now accepting segment parameter
-   (but I'm not sure it suffice to allow this interface to use non-0 segme=
-nts)
- * Introduced similar changes for pci_prepare_msix(), pci_ro_device(),
-   pci_hide_device(), pci_remove_device(), pci_add_device()
-   and pci_check_disable_device()
- * Use pci_sbdf_t in struct ehci_dbgp
- * Introduced "vtd: Rewrite igd device check in acpi_parse_dev_scope()"
- * Introduced docs change (RFC)
-
-Teddy Astie (15):
-  pci: Introduce parse_pci_sbdf{_seg}()
-  vtd: Use pci_sbdf_t in acpi_parse_dev_scope()
-  pci: Use pci_sbdf_t in pci_device_detect()
-  pci: Parse into pci_sbdf_t directly
-  pci: Allow ommiting func when parsing with parse_pci_sbdf()
-  pci: Use pci_sbdf_t in pci_prepare_msix()
-  pci: Use pci_sbdf_t in pci_ro_device()
-  pci: Use pci_sbdf_t in pci_hide_device()
-  pci: Use pci_sbdf_t in pci_remove_device()
-  pci: Use pci_sbdf_t in pci_add_device()
-  vtd: Rewrite igd device check in acpi_parse_dev_scope()
-  pci: Use pci_sbdf_t pci_check_disable_device()
-  pci: Drop parse_pci{_seg}()
-  ehci-dbgp: Use pci_sbdf_t instead of (bus, slot, func)
-  RFC: docs: Document support for PCI segment in dbgp and comN parameter
-
- docs/misc/xen-command-line=2Epandoc          | 16 ++--
- xen/arch/x86/include/asm/msi=2Eh             |  2 +-
- xen/arch/x86/msi=2Ec                         |  4 +-
- xen/arch/x86/physdev=2Ec                     | 20 +++--
- xen/drivers/char/ehci-dbgp=2Ec               | 98 ++++++++--------------
- xen/drivers/char/ns16550=2Ec                 | 27 +++---
- xen/drivers/char/xhci-dbc=2Ec                | 12 +--
- xen/drivers/passthrough/amd/iommu_acpi=2Ec   | 26 +++---
- xen/drivers/passthrough/amd/iommu_detect=2Ec |  7 +-
- xen/drivers/passthrough/amd/iommu_init=2Ec   |  3 +-
- xen/drivers/passthrough/pci=2Ec              | 88 ++++++++++---------
- xen/drivers/passthrough/vtd/dmar=2Ec         | 81 +++++++-----------
- xen/drivers/passthrough/vtd/iommu=2Ec        |  3 +-
- xen/drivers/pci/pci=2Ec                      | 40 +++------
- xen/drivers/pci/physdev=2Ec                  |  4 +-
- xen/drivers/video/vga=2Ec                    |  2 +-
- xen/include/xen/pci=2Eh                      | 20 ++---
- 17 files changed, 190 insertions(+), 263 deletions(-)
-
+diff --git a/xen/drivers/pci/pci=2Ec b/xen/drivers/pci/pci=2Ec
+index 084be3880c=2E=2E1d06cb035b 100644
+--- a/xen/drivers/pci/pci=2Ec
++++ b/xen/drivers/pci/pci=2Ec
+@@ -202,3 +202,21 @@ const char *__init parse_pci_seg(const char *s, unsig=
+ned int *seg_p,
+=20
+     return s;
+ }
++
++const char *parse_pci_sbdf(const char *s, pci_sbdf_t *sbdf)
++{
++    unsigned int seg, bus, dev, func;
++    const char *out =3D parse_pci(s, &seg, &bus, &dev, &func);
++
++    *sbdf =3D PCI_SBDF(seg, bus, dev, func);
++    return out;
++}
++
++const char *parse_pci_sbdf_seg(const char *s, pci_sbdf_t *sbdf, bool *def=
+_seg)
++{
++    unsigned int seg, bus, dev, func;
++    const char *out =3D parse_pci_seg(s, &seg, &bus, &dev, &func, def_seg=
+);
++
++    *sbdf =3D PCI_SBDF(seg, bus, dev, func);
++    return out;
++}
+diff --git a/xen/include/xen/pci=2Eh b/xen/include/xen/pci=2Eh
+index afb6bbf50d=2E=2E7bfc59cd75 100644
+--- a/xen/include/xen/pci=2Eh
++++ b/xen/include/xen/pci=2Eh
+@@ -280,6 +280,9 @@ const char *parse_pci_seg(const char *s, unsigned int =
+*seg_p,
+                           unsigned int *bus_p, unsigned int *dev_p,
+                           unsigned int *func_p, bool *def_seg);
+=20
++const char *parse_pci_sbdf(const char *s, pci_sbdf_t *sbdf);
++const char *parse_pci_sbdf_seg(const char *s, pci_sbdf_t *sbdf, bool *def=
+_seg);
++
+ #define PCI_BAR_VF      (1u << 0)
+ #define PCI_BAR_LAST    (1u << 1)
+ #define PCI_BAR_ROM     (1u << 2)
 --=20
 2=2E54=2E0
 
@@ -230,5 +220,5 @@ XCP-ng & Xen Orchestra - Vates s=
 olutions
 
 web: https://vates=2Etech
----=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=---
+---=Part.688.a8c412ea6d9bc58b.19edb3b3260.4b4b09374cddeb99=---
 
