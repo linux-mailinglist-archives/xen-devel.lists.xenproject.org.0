@@ -2,52 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id OB/9Dxr0M2raJgYAu9opvQ
+	id hw5BNgwHNGrqLQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 15:35:22 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5426A09A2
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 15:35:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81A4B6A10B9
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jun 2026 16:56:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=YLnXOa4c;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=Q2YDHqqA;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1341185.1601696 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1341260.1601714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waCsx-0001xz-MH; Thu, 18 Jun 2026 13:34:23 +0000
+	id 1waE9x-0007Bx-Jk; Thu, 18 Jun 2026 14:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1341185.1601696; Thu, 18 Jun 2026 13:34:23 +0000
+Received: by outflank-mailman (output) from mailman id 1341260.1601714; Thu, 18 Jun 2026 14:56:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waCsx-0001vd-Ij; Thu, 18 Jun 2026 13:34:23 +0000
-Received: by outflank-mailman (input) for mailman id 1341185;
- Thu, 18 Jun 2026 13:34:22 +0000
+	id 1waE9x-00079m-Gp; Thu, 18 Jun 2026 14:56:01 +0000
+Received: by outflank-mailman (input) for mailman id 1341260;
+ Thu, 18 Jun 2026 14:56:00 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1waCsv-0001vU-UT
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 13:34:22 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
+ id 1waE9v-00079Y-Mi
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 14:56:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waCsu-004Cga-OR
- for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 15:34:20 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a33f3d4-bab6-0a2a0a5309dd-0a2a450ac944-34
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 15:34:20 +0200
-Received: from [209.85.221.48] (helo=mail-wr1-f48.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a33f3dc-93a5-0a2a450a0019-d155dd30ddbd-3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 15:34:20 +0200
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-45ef779c1c2so761357f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 06:34:20 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4606f26f1cdsm65866714f8f.11.2026.06.18.06.34.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jun 2026 06:34:19 -0700 (PDT)
+ id 1waE9u-00Cuxo-MH
+ for xen-devel@lists.xenproject.org; Thu, 18 Jun 2026 16:55:58 +0200
+Received: from [10.42.69.2] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
+ id 6a3406e3-bab6-0a2a0a5309dd-0a2a4502cae6-48
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:58 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@swg.vates.tech>)
+ id 6a3406fe-fdf1-0a2a45020019-b9ff1c12adcb-3
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jun 2026 16:55:58 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19edb3b3061000701b.007 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 18 Jun 2026 14:55:49 +0000
+Received: from bazzite.gpn.vates.fr (88-188-240-210.subs.proxad.net
+ [88.188.240.210]) (Authenticated sender: teddy.astie@vates.tech)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 0C19C86962;
+ Thu, 18 Jun 2026 16:55:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,114 +65,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781789660; x=1782394460; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zd2wI4707PnIvtBCYLcVEyiMf/ibHw6tggtbvJmeoxQ=;
-        b=YLnXOa4cjw4fb0WFqK5z1GugtjhnjRNWUZzCEBqV7yGw8+gWc0PfEeL4+wTNtODRC4
-         gWvKfygKLjmQD+xDqgAeFpvSnK46nq0cNsBhvsY0eSBqUuRFq6K5lZ5YpiIws8FHdq6L
-         LqhqJxdhMG7ViODcDJTRIJ0MJfsuibnmznsbGYscn35AFQ3Y9AsZuD7HiMb7RvzYgmw6
-         j0avDBFQOVIv+giHJDiomc6glmfrPluAz4NJvkC4wGhR9wgmQa3E6ace2Hkb5h/L/xCc
-         VTbX62M6F2UYSnigncAeCtGW6lZ/R/cCAbUtZuuftkLfGP6mTum4eE/weYUbplqH7APY
-         jHPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781789660; x=1782394460;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zd2wI4707PnIvtBCYLcVEyiMf/ibHw6tggtbvJmeoxQ=;
-        b=Y/KbUmfTZLbjKEmxQthVhDkF8pP9XxCPxaRZxNqLVUt7sOuw7TeG6jIiYpupdTA+yQ
-         prEO8ManjjIfndQn6KzjF+Q3aiyhJhRuqAJ5uOmYQsIexVGnZoZ5CCVlwcvAI5/Tk9eB
-         cZzNhBcJVe9k3C6q1FlKGDXViLV8PpACvVDbCg7Zu7uY0hA3J2WP6LrMli4TJhMjp7IX
-         gsxo5IaszrXrNV+Xj7RNBNJmvsu6953Cvi5L+GGfgveYIte/RIIR2W36g8h51iVwdLYB
-         FUxDxCa6hrr/4Hn+YyvgqUS0rRCJeICEfh5g4Rv6a4qyZJFg3Sa/yrBYBEgCtco53OmU
-         tLrg==
-X-Forwarded-Encrypted: i=1; AFNElJ8z824ripkniHWFY9zgwh8XXdLwPR/A2AHVjYW6My6t3/XeMCOIqTY4DfHsqCw9fJZtwlOq/Xpx29I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfZA+JwLJgwGv2tBci5U0PN/09nY+OC5oytM7pYzdYtK9ifA1z
-	+lskYWrw9MxeGUicUv6BvxO6do0dzvjUfUjZDpjtOnSsfe65tY1ikNGV2pJDpw==
-X-Gm-Gg: AfdE7ck5uITMdwHNhwwnhPVE2aelTa0TQ13OKBSfW2H400MY1QCAZK0pGj+DGm3mxlN
-	vBJofAKSUKNL3asloo5WWLGHHl5MJKUDqnKo30V4a/r+PHYXAb//AzMOOQp0FlewNlOdvbqyAW9
-	dXP4QQrFM0lynzDIljIXlg/gDC2wYU2iD79UWZs3Itmj7O7X5V8du/SVCvpUp1HsJLpPZzDQSn0
-	Co5iK8abgfIgJnhnNmE7hIUcbovcpdAtyuA5dLcoaVXWMAjMhxSfacZqdVQ80tpFnac7OfUa8YE
-	wCnUm5fTnGO6vH/JMuqRXa5b6F61r2KcCyGczGw0uWO0uhAqssL9CFtJ7RHcpmOor2QAPZ5lZlp
-	9WUAxAUEfAqxBO4AVwLz++buSIRlXbNle2WsydxFRaHVVeH5R+omLRgfklH5D3QaCEl56Ale+La
-	xrzzBMUgkFjZ8n63op9pZ5SDO3EouVBd3IUrBUAPag7AWbf1Z9u+YeV44j23acs7v+U9M=
-X-Received: by 2002:a05:6000:4e3:b0:461:a169:f965 with SMTP id ffacd0b85a97d-462389d4b5cmr10310013f8f.34.1781789659872;
-        Thu, 18 Jun 2026 06:34:19 -0700 (PDT)
-Message-ID: <b349ed39-1101-4fc1-8d16-d8c34922719d@gmail.com>
-Date: Thu, 18 Jun 2026 15:34:18 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=3HpuD8CbQNQzkNwb00qC62DDh6JfMa667VCsKxtkQno=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:feedback-id;
+ b=Q2YDHqqA8ilRpPols3SJBq5lHJWqDie7peiyjfjn5o/Ima0m09LN3cuiS8H3URjYzF/ggs/an
+ WMtdkVCp4uBYkAmlJheZjP0Iv4+uQ1XQrgBA2YOMqhX0ihfqaMGoZuUdxG6ouWDiWQ231f8u68V
+ Bqxkv+6b3Bhk88pe4gjLlRefm+tuwFi8TW63aQpunDZlAniHKESy+SprcATVMsTM1pKP4CqV00p
+ p0M5GvRR23gPgWjTVCchkrpEmVaP4y6RcXWycLBa2XJs0+ZaXIl6I7dSxOLtNl0cHcICRKOb6MO
+ lk5qIEAx9U67fNlisUEvu74724p3re60Qr1ttyeM/q2A==
+X-Zone-Loop: 99f1e1665a08adf6df75a9ba7cf0e0458f3665ad176c
+x-campaign-type: default
+x-transaction-id: 2e5c8b1f-4d16-48b2-af6b-a83644719617
+x-swg-uid: 01-45ff51fc-074f-441a-aa28-9fe15bb26d8c
+X-Mailer: Sweego
+Message-ID:
+ <1781794549.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b@vates.tech>
+x-swg-bid: 1781794549.8631fc262581453bbf619ec5b2062170.19edb3b3061000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+From: Teddy Astie <teddy.astie@vates.tech>
+To: xen-devel@lists.xenproject.org
+Cc: Teddy Astie <teddy.astie@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v2 00/15] PCI SBDF Refactoring
+Date: Thu, 18 Jun 2026 16:50:24 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22] XSM: guard .sysctl() and .readconsole() hooks
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Daniel Smith <dpsmith@apertussolutions.com>
-References: <bf642902-7235-45a8-a470-f164a930c0c1@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <bf642902-7235-45a8-a470-f164a930c0c1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1781789660-2D5F0DB8-957773EC/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 674
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1781794549292
+X-purgate-ID: tlsNG-720697/1781794558-47E773F3-338C37C6/0/0
+X-purgate-type: clean
+X-purgate-size: 3592
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-0.17 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:url,vates.tech:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,gitlab.com:url];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TO_DN_SOME(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CE5426A09A2
+X-Rspamd-Queue-Id: 81A4B6A10B9
+
+---=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+The goal of this series is to make some refactoring of some
+pci primitives to improve codegen and make code less verbose=2E
+
+A big chunk of it is converting many places where (seg, bus, dev, fn)
+is split into multiples variables and into being just pci_sbdf_t,
+in particular in some PCI function parameters to reduce parameter count
+which usually translate into less registers to pass to the function=2E
+Moreover, we also avoid translating back and forth between pci_sbdf_t
+and individual (seg, bus, dev, fn)=2E
+
+No major functional change, aside some parts of the codebase that will
+now correctly handle PCI segment when parsed while it was previously
+ignored (e=2Eg dbgp)=2E
+
+---
+CI: https://gitlab=2Ecom/xen-project/people/tsnake41/xen/-/pipelines/26118=
+29865
+
+v2:
+ * Dropped "Migrate pci_mmcfg_{read,write}() to pci=2Ec", to be moved in
+   a separate series
+ * fixed dev_sbdf calculation in acpi_parse_dev_scope()=20
+ * Updated documentation on ehci_dbgp now accepting segment parameter
+   (but I'm not sure it suffice to allow this interface to use non-0 segme=
+nts)
+ * Introduced similar changes for pci_prepare_msix(), pci_ro_device(),
+   pci_hide_device(), pci_remove_device(), pci_add_device()
+   and pci_check_disable_device()
+ * Use pci_sbdf_t in struct ehci_dbgp
+ * Introduced "vtd: Rewrite igd device check in acpi_parse_dev_scope()"
+ * Introduced docs change (RFC)
+
+Teddy Astie (15):
+  pci: Introduce parse_pci_sbdf{_seg}()
+  vtd: Use pci_sbdf_t in acpi_parse_dev_scope()
+  pci: Use pci_sbdf_t in pci_device_detect()
+  pci: Parse into pci_sbdf_t directly
+  pci: Allow ommiting func when parsing with parse_pci_sbdf()
+  pci: Use pci_sbdf_t in pci_prepare_msix()
+  pci: Use pci_sbdf_t in pci_ro_device()
+  pci: Use pci_sbdf_t in pci_hide_device()
+  pci: Use pci_sbdf_t in pci_remove_device()
+  pci: Use pci_sbdf_t in pci_add_device()
+  vtd: Rewrite igd device check in acpi_parse_dev_scope()
+  pci: Use pci_sbdf_t pci_check_disable_device()
+  pci: Drop parse_pci{_seg}()
+  ehci-dbgp: Use pci_sbdf_t instead of (bus, slot, func)
+  RFC: docs: Document support for PCI segment in dbgp and comN parameter
+
+ docs/misc/xen-command-line=2Epandoc          | 16 ++--
+ xen/arch/x86/include/asm/msi=2Eh             |  2 +-
+ xen/arch/x86/msi=2Ec                         |  4 +-
+ xen/arch/x86/physdev=2Ec                     | 20 +++--
+ xen/drivers/char/ehci-dbgp=2Ec               | 98 ++++++++--------------
+ xen/drivers/char/ns16550=2Ec                 | 27 +++---
+ xen/drivers/char/xhci-dbc=2Ec                | 12 +--
+ xen/drivers/passthrough/amd/iommu_acpi=2Ec   | 26 +++---
+ xen/drivers/passthrough/amd/iommu_detect=2Ec |  7 +-
+ xen/drivers/passthrough/amd/iommu_init=2Ec   |  3 +-
+ xen/drivers/passthrough/pci=2Ec              | 88 ++++++++++---------
+ xen/drivers/passthrough/vtd/dmar=2Ec         | 81 +++++++-----------
+ xen/drivers/passthrough/vtd/iommu=2Ec        |  3 +-
+ xen/drivers/pci/pci=2Ec                      | 40 +++------
+ xen/drivers/pci/physdev=2Ec                  |  4 +-
+ xen/drivers/video/vga=2Ec                    |  2 +-
+ xen/include/xen/pci=2Eh                      | 20 ++---
+ 17 files changed, 190 insertions(+), 263 deletions(-)
+
+--=20
+2=2E54=2E0
 
 
 
-On 6/18/26 1:32 PM, Jan Beulich wrote:
-> Leaving the hook pointers in struct xsm_ops when !SYSCTL would lead to
-> the BUG_ON() in xsm_fixup_ops() triggering for respectively configured
-> hypervisors.
-> 
-> While moving the #ifdef for the corresponding xsm_*() wrappers, also move
-> those for xsm_page_offline() (where the hook pointer field already is
-> suitably guarded).
-> 
-> Fixes: c9eabaa03a68 ("xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL")
-> Fixes: bddd9af6049f ("xen/sysctl: wrap around XEN_SYSCTL_readconsole")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
+-- 
+Teddy Astie | Vates XCP-ng Developer
 
-Release-Acked-by: Oleskii Kurochko <oleskii.kurochko@gmail.com>
+XCP-ng & Xen Orchestra - Vates s=
+olutions
 
-~ Oleksii
+web: https://vates=2Etech
+---=Part.687.8fd8f7efaf5149fc.19edb3b2e2c.7974dafa3a696682=---
 
