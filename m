@@ -2,49 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PPIXCXxYNWpDtgYAu9opvQ
+	id Ij34IiFZNWqKtgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 16:55:56 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 16:58:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DE56A6860
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 16:55:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AFFA6A6887
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 16:58:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="Fxm0/QQG";
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=A+Jnyh30;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	arc=pass ("google.com:s=arc-20240605:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1342444.1602623 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1342451.1602631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waad4-0003WP-4h; Fri, 19 Jun 2026 14:55:34 +0000
+	id 1waafw-0004Cc-GQ; Fri, 19 Jun 2026 14:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1342444.1602623; Fri, 19 Jun 2026 14:55:34 +0000
+Received: by outflank-mailman (output) from mailman id 1342451.1602631; Fri, 19 Jun 2026 14:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waad4-0003Td-1j; Fri, 19 Jun 2026 14:55:34 +0000
-Received: by outflank-mailman (input) for mailman id 1342444;
- Fri, 19 Jun 2026 14:55:32 +0000
+	id 1waafw-0004AZ-Dn; Fri, 19 Jun 2026 14:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 1342451;
+ Fri, 19 Jun 2026 14:58:30 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1waad2-0003TX-E2
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 14:55:32 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ee063ee8a000701b@swg.vates.tech>)
+ id 1waafu-0004AT-Nv
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 14:58:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waacz-00DTbW-MG
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 16:55:29 +0200
-Received: from [10.42.69.8] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a355849-e002-0a2a0a5209dd-0a2a4508878e-34
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 16:55:29 +0200
-Received: from [209.85.208.176] (helo=mail-lj1-f176.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a355861-9ee7-0a2a45080019-d155d0b0ec73-3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 16:55:29 +0200
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-39669bcaadfso19584461fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 07:55:29 -0700 (PDT)
+ id 1waaft-00DU7g-U7
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 16:58:29 +0200
+Received: from [10.42.69.6] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ee063ee8a000701b@swg.vates.tech>)
+ id 6a355902-2eae-0a2a0a5409dd-0a2a45069c2c-20
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 16:58:29 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ee063ee8a000701b@swg.vates.tech>)
+ id 6a355915-b690-0a2a45060019-b9ff1c128879-3
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 16:58:29 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19ee063ee8a000701b.001 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 19 Jun 2026 14:58:26 +0000
+Received: from l14 (lfbn-lyo-1-414-55.w2-7.abo.wanadoo.fr [2.7.24.55])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 3ED2780D7B;
+ Fri, 19 Jun 2026 16:58:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,202 +65,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1781880929; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Xg3HZAeJADRWTAGHuBv0LTFvj2294mYY9P0lHpG+FRaUqVnVi92KLdNnilu31lD2wa
-         sPEKl4mVYXuvgEVpBY6DNTDJccggNi71qiyqUYOlg9tgVzGqH0sLtjjj7nfJmK07vmJu
-         X5rXaMyv/urIF5mx/J8Tb4nYklK8H3GsckvO4hky5ZbOkPbjg/xdNDRGABYPwpNMiu/p
-         nZ50qwfv9QCMyf+XLJjthXc1nXYC3XC7w7tRlfmjQ3+E9801wSdA8n6SJqw4HKy5flmr
-         wLAtdhxsX9SSG4I5Ta8GBzEahm7dBpRgF8BdBElc7GiBU14hxSj3eG4t+TrcvOFHlEZE
-         SnLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kmu9QKKfh3nVMnrE7wgqORZB1L1F/iwZCnIMkBW2pGk=;
-        fh=aSZkuWeigIJCrae/Wb+6PXZ+hiibTT2ihTXZEANuOJE=;
-        b=aLtXlveU0NTx3V2E5gaPy7eHzX0Y9HYUXLbghYIQfIM4c1o90t0/Skydtl9e8+xE6/
-         meQfiQDnG4Z0HvF8FVqBFRUZKbOKDUBT/7p94yln4NKMQOiHdufuPhCffkePdkuVdTM/
-         h+DmMqUYfBt/WfwAgt39ZeT7Znslo3F0/BSmubEGzWWJuuHYeBSpFY24hQ74idaGQKgB
-         OTWRcbWo6z+Bzm/xbAUlHxZXEeIqvuRe6ersTYfLGxlu2h6vvgDAunbtKZDO4Cej7+FN
-         HJthE4qi07hXFfWf3a2Tv8mER64qzRKH75nr7+eTmEvCT1RFMYU1NoYmgc8GCPxtpKxU
-         ogHg==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781880929; x=1782485729; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kmu9QKKfh3nVMnrE7wgqORZB1L1F/iwZCnIMkBW2pGk=;
-        b=Fxm0/QQGy9o12KPHwki5KzshXQKEqMEJVpyRzOKOzDpWc2+2WOCqDORI7uy+y7SpUp
-         7BjN8/u/5COjEf/ArK1krKu/8PGHJWhOaY0tfzclsOtsGqJXB1y5RsplfNeYOkR8hdTC
-         uEo+2lNOzuEqQVoyOyuuCLvu1gPGpk79Gva1NjXO6yXvluUbNQnBCucXp634F724E+8G
-         9//6U0Xz1xd7APpRWcv9Zao5O1CBU8YD7Oi5TB+P626n7k2kAAFF8o2uAYvuItG/N09d
-         9rWqV+JVpWrL9bjxEab/YP/kBeWnjli0I4k+ODvAaxPJMXD8wTGY65FbrXJt7RlzA2Zb
-         LEhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781880929; x=1782485729;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kmu9QKKfh3nVMnrE7wgqORZB1L1F/iwZCnIMkBW2pGk=;
-        b=AVMfRhzvjhWqJV/Zc/401BElsma3ainI8MjxeSLlbu4/+jqYdIDsFrAx4UCmVeqFIE
-         u7a217RxrlRTCB+BfttqlZr5Tzj1g8Q90/Bxpfl8gHfUz22ml0/bl+G+M1m5HFocc7md
-         loufAkv8QpVMVt3T5njz7RJFiUuimSWbssCdu4SF4Gv6Y2g8k5mhP0rZohK+pyjbhZ6r
-         l0TNkhtif9mEVCYFYqwNnRN7x6ECNY3w5CnueeyfgzoCkjeNblNTCSO+mIGjJxNu/AU2
-         DpWdpkARNU0nxs58HkYTPEnBXliadfvcHK8JJ7frVO/SSV02c/OCCe1ZGQA/7CvUq7VL
-         Digg==
-X-Forwarded-Encrypted: i=1; AFNElJ8n80A9uuSmxWcdVFw50neVhbOGOMnFRZJBG6OmkQo6NkZodSO6zrptGl63zpNNDFTp/xKlHpQWNkQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVdAui+Vgb2JKVFtPYkj2YAehg4hPgkl2NsRUBRcmJNdQ4IZ2G
-	TczOPRIWdHV7NIA6Ou8ie8VxXItUF9x55pfbszDINiiek1IOtMSavxXT/yqBYFGmtgNRQfndfdm
-	nl++THmVky9jeW98zxy7U1QiZ9cJ+Zlg=
-X-Gm-Gg: AfdE7cl+OGot7WqJE+PPJ8dUPFYdEuYk2nnb9+CsO2qBVYmcegW7zgyMMjUgovDsd8s
-	jk8ONAe1J02M58bfwmtFS0noNFO1NsI8GrQpHnbyS81O1WYd4wU/0SjS4Wlu8Uum+CXR1XWNYib
-	jSekB+MmAOLluwXd7sFoIOJ716syrjjf72c+ExRE75c1iUKMaCL2VqFwIIzhj/owh2oleDoR0pG
-	RUHHUQojLMEosBo/dKBsivJv1crTWNjPHkV3UcMvL32zABB8SmtAB16C313TGdCTu+aDcejnm8E
-	Zmo5eQ==
-X-Received: by 2002:a05:651c:b28:b0:399:7511:1c21 with SMTP id
- 38308e7fff4ca-3998bd67f90mr10516351fa.16.1781880928617; Fri, 19 Jun 2026
- 07:55:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=O5m4Va05OdUO+PtAurI8jaWiCM+Q9jQY9NGu/Ky7uUE=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=A+Jnyh30ZyMamo834T8158SIF3jAQYmccJTjmvv7Dr7CxDlR8crx15sTGdtfT2mMsese0K+ij
+ sXg79//FW2vzAF21VfdvTN4dGYfMzmgMT45asyhqRzMog/eSqRLLFDGfNDDL8rRvoTPTd6HiZyW
+ uJuTrMI8KBfMIjO51/wiQ5lYwjRQdKa11EDrzRYxhXEY6HJHg1bNGBbXycQnX8e403Nvgn4p175
+ FOBxt1C3ln9v4A4Z/KQVwHU73RHc2emoQC8cCcT6tuuRGT89jJaHgnvUAwl3BmIe7rwFYgFRHvB
+ xOUSAYqvbAqiJUpCbOCB9m8dwiemsKIrLVzCZpyM+uxQ==
+X-Zone-Loop: cb45127ec3953fcb7bb7d8258f0f610bc43105beb6eb
+x-campaign-type: default
+x-transaction-id: 5c5f2a3f-e02c-4089-853f-bbd036fd9578
+x-swg-uid: 01-407a695a-efd0-4af3-9fef-ce20e102abdd
+X-Mailer: Sweego
+Message-ID:
+ <1781881106.8631fc262581453bbf619ec5b2062170.19ee063ee8a000701b@vates.tech>
+x-swg-bid: 1781881106.8631fc262581453bbf619ec5b2062170.19ee063ee8a000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 19 Jun 2026 16:58:24 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Thierry Escande <thierry.escande@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 13/17] libxl: Add xen-platform device for Q35 machine
+References: <20260313163455.790692-1-thierry.escande@vates.tech>
+ <20260313163455.790692-14-thierry.escande@vates.tech>
 MIME-Version: 1.0
-References: <112419d3ea48ca328849c8f6647909d3eb667b40.1779922874.git.mykola_kvach@epam.com>
- <341edd8de63dcd84ccc6e7b6c03e9e8fc7105184.1781847061.git.mykola_kvach@epam.com>
- <7a0a1867-8316-4e20-971e-fab99c9f4a32@amd.com> <e43afc29-cfbb-4978-9324-e8d540040bfa@amd.com>
- <1877ea55-0c8d-4593-a310-259b4c5aef3c@xen.org> <b47b9bf3-1aa6-41b6-8c7c-48d64cca1c36@amd.com>
- <5d3dff74-f51d-4bfc-b917-3c84f2094f34@xen.org>
-In-Reply-To: <5d3dff74-f51d-4bfc-b917-3c84f2094f34@xen.org>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 19 Jun 2026 17:55:17 +0300
-X-Gm-Features: AVVi8CctgXEH7-Dwulp4yN7zHREYy4v72TMR9cYE_Cv0Lrbu8bBwD4zNTMZz1Ng
-Message-ID: <CAGeoDV_LM9hQch5YEqYFA07t76eXKxZRT5tzxMqzWkej5Jwidw@mail.gmail.com>
-Subject: Re: [PATCH for-4.22 v2.5] xen/arm: gic: defer host LPI allocation
- until after ITS init
-To: Julien Grall <julien@xen.org>
-Cc: "Orzel, Michal" <michal.orzel@amd.com>, Mykola Kvach <mykola_kvach@epam.com>, 
-	xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Luca Fancellu <luca.fancellu@arm.com>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-c1860d/1781880929-64A2B0FA-B959F33F/0/0
+Content-Disposition: inline
+In-Reply-To: <20260313163455.790692-14-thierry.escande@vates.tech>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.79f.1e778d1f960cc9b9.19ee063ebb3.a673042c6581ab64=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1781881105332
+X-purgate-ID: tlsNG-16d1c6/1781881109-3A9E8853-0E4836FA/0/0
 X-purgate-type: clean
-X-purgate-size: 3198
+X-purgate-size: 1919
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[amd.com,epam.com,lists.xenproject.org,kernel.org,arm.com,gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:michal.orzel@amd.com,m:mykola_kvach@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:oleksii.kurochko@gmail.com,m:luca.fancellu@arm.com,m:oleksandr_tyshchenko@epam.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+];
+	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 65DE56A6860
+X-Rspamd-Queue-Id: 2AFFA6A6887
 
-Hi Julien, Oleksii,
+---=Part.79f.1e778d1f960cc9b9.19ee063ebb3.a673042c6581ab64=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 19, 2026 at 2:52=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
->
->
->
-> On 19/06/2026 12:34, Orzel, Michal wrote:
-> >
-> >
-> > On 19-Jun-26 13:23, Julien Grall wrote:
-> >> Hi Michal,
-> >>
-> >> On 19/06/2026 10:48, Orzel, Michal wrote:
-> >>> @Oleksii, can we ask for a release ack here?
-> >>
-> >> Can you explain the pros/cons of introducing this patch quite late?
-> > The advantage is that it fixes the broken LPIs on affected hardware.
->
->  > The disadvantage is the reordering risk but I don't think there is
-> any issue.
->
-> See more below.
-> >>
-> >> One of the risk here is that we are now initializing the LPIs *after*
-> >> the ITSes. I understand this is because we want to know the workaround=
-.
-> >> However, I vaguely recall that there was a dependency in the
-> >> configuration. So are we confident the new ordering will not bring oth=
-er
-> >> issues? Ideally this should have been explained in the commit message.
-> > gic-v3-its.c never references host LPI state, so ITS init has no depend=
-ency on LPIs.
->
-> My concern is at the HW level. The ITS is using LPIs. But we will
-> configure the ITS first and then the LPIs.
->
-> What probaly saves us is the fact gicv3_lpi_init_host_lpis() only seem
-> to allocate memory. This is a bit fragile though.
+On Fri, Mar 13, 2026 at 04:35:04PM +0000, Thierry Escande wrote:
+> Current Xen/QEMU method to control Xen Platform device is done by
+> setting the 'xen_platform_device' option value
 
-Regarding the ordering concern, the only operation moved by this patch
-is gicv3_lpi_init_host_lpis(). It does not program either the
-Redistributor or the ITS. It initializes Xen-side host LPI bookkeeping,
-registers the CPU notifier, and allocates the boot CPU pending table.
+You mean `xen_platform_pci` ?
 
-gicv3_its_init() programs the ITS tables and command queue and enables
-the ITS, but Xen does not enqueue any ITS command there. The first
-MAPC/SYNC commands are issued by gicv3_its_setup_collection().
+This is still the case with the new type of machine ;-)=2E
 
-The relevant hardware-visible sequence in gicv3_cpu_init() therefore
-remains:
+> that modifies QEMU
+> emulated machine type, namely xenfv <--> pc=2E
 
-    gicv3_lpi_init_rdist()       /* program PENDBASER/PROPBASER */
-    gicv3_enable_lpis()          /* set EnableLPIs, followed by wmb() */
-    gicv3_its_setup_collection() /* issue MAPC/SYNC */
+> In order to avoid multiplying machine types, this patch supplies
+> '-device xen-platform' directly to Qemu=2E To maintain backward
+> compatibility with existing Xen/QEMU setups, this is currently only
+> applicable to q35 machine=2E
 
-So the ordering introduced by 95604873cc is preserved: no MAPC command
-is submitted before GICR_PENDBASER/GICR_PROPBASER have been programmed
-and the write setting GICR_CTLR.EnableLPIs has been made visible.
+We can already use `-device xen-platform` with QEMU's machine `pc` /
+`pc-i440fx-*` but this would break migration from previous version of
+libxl, PCI devices would move around while the guest is running=2E
 
-This matches the relevant architectural requirement: while
-GICR_CTLR.EnableLPIs is 0, ITS translation requests or commands
-involving LPIs in that Redistributor are ignored. This patch changes
-when the backing memory is allocated, not when the Redistributor is
-programmed or when the first ITS command is submitted.
+So instead of "currently only applicable", something like "we will only
+apply this to q35" would be a bit more accurate=2E
 
-The benefit of taking this for 4.22 is that it fixes broken LPIs on
-systems where an ITS workaround changes the required memory attributes.
-The ordering-specific fragility is that this reasoning relies on
-gicv3_lpi_init_host_lpis() remaining allocation/bookkeeping-only. I
-agree that this implicit dependency should be documented explicitly.
+> i440 emulation uses the old method (xenfv/pc
+> machine) to control Xen Platform device=2E
 
-I will respin the commit message to describe this ordering and explain
-why the hardware-visible sequence is unchanged.
+To be honest, the change between `xenfv` and `pc` is bigger than just
+that device, it's also a different machine version=2E
 
-Does this address your concern about taking the fix for 4.22?
+`-machine xenfv` is kind of equivalent to:
+`-machine pc-i440fx-3=2E1,accel=3Dxen,suppress-vmdesc=3Don -device xen-pla=
+tform`
 
-Best regards,
-Mykola
+But `xenfv` can also have `igd-passthru=3Don` added to `-machine` which
+has an influence on the machine setup=2E
+
+If you manage to rework the commit that would be nice, in anycase,
+overall the patch looks fine: Reviewed-by: Anthony PERARD <anthony=2Eperar=
+d@vates=2Etech>
+
+Cheers,
+
+
+-- 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.79f.1e778d1f960cc9b9.19ee063ebb3.a673042c6581ab64=---
 
