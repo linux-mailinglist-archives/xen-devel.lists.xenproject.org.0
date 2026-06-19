@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id oZY6IrE+NWqCpwYAu9opvQ
+	id iB0QNLA+NWp+pwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 15:05:53 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 15:05:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A0E86A5F22
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 15:05:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 827BB6A5F18
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 15:05:52 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=JnK5JK3i;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=CUF82vpz;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1342197.1602408 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1342198.1602412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waYuI-0000VH-T2; Fri, 19 Jun 2026 13:05:14 +0000
+	id 1waYuJ-0000Yn-3P; Fri, 19 Jun 2026 13:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1342197.1602408; Fri, 19 Jun 2026 13:05:14 +0000
+Received: by outflank-mailman (output) from mailman id 1342198.1602412; Fri, 19 Jun 2026 13:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waYuI-0000SS-O3; Fri, 19 Jun 2026 13:05:14 +0000
-Received: by outflank-mailman (input) for mailman id 1342197;
- Fri, 19 Jun 2026 13:05:12 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1waYuI-0000VE-UM; Fri, 19 Jun 2026 13:05:14 +0000
+Received: by outflank-mailman (input) for mailman id 1342198;
+ Fri, 19 Jun 2026 13:05:14 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1waYuG-0000SG-Ho
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 13:05:12 +0000
+ (envelope-from <freddy77@gmail.com>) id 1waYuI-0000SM-4c
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 13:05:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waYuF-002qlM-Uv
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 15:05:11 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1waYuH-00D4ah-Hk
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 15:05:13 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a353e84-bab6-0a2a0a5309dd-0a2a4508d34e-6
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 15:05:11 +0200
-Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ id 6a353e84-2eae-0a2a0a5409dd-0a2a4501e918-36
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 15:05:13 +0200
+Received: from [209.85.167.44] (helo=mail-lf1-f44.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from <freddy77@gmail.com>)
- id 6a353e87-9ee7-0a2a45080019-d155da2fd034-3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 15:05:11 +0200
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-bec49f7e35eso299362166b.2
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 06:05:11 -0700 (PDT)
+ id 6a353e89-e031-0a2a45010019-d155a72cb5df-3
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 15:05:13 +0200
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5aa7a7ad475so2320038e87.1
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 06:05:13 -0700 (PDT)
 Received: from localhost.localdomain (8.17.6.51.dyn.plus.net. [51.6.17.8])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4650bc428d9sm7960088f8f.27.2026.06.19.06.05.10
+ ffacd0b85a97d-4650bc428d9sm7960088f8f.27.2026.06.19.06.05.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jun 2026 06:05:10 -0700 (PDT)
+ Fri, 19 Jun 2026 06:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,40 +61,41 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1781874311; x=1782479111; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=cK/F40kmfhZ4Q4nBiYM3DRyYw/SqqYHHopWGOvg80R0=;
-        b=JnK5JK3irj8kb7zvor6oA2nb1De63gx4CXIZNi6dTafe1XDrNn3IuC764NZPRP1Q9C
-         3tJMzB2R87/IhlwXQwpNG1j1F0+50ZRZhiVVmBkrK5zq6rlGrDup/m7orOGtXILU0KBK
-         1kVlo7caI5xRJnUDJ/K3ouYBCE/6OjgE9LxwZ52xmKL9Wx2Eef0gLDhQJB8MoC8Wjvt3
-         +t/wbd06/xMfMAVxLzy5Doo4BYuxYLw78ompnmIEWHD3D6MrRmy3hLtcy/8RvVLSoUid
-         ctfrmmnKRilobOGyhEGr9VNuGY4iKZe102friyqmZqD5Uu3V9e1ZweRahKtGrPewC9mt
-         epsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781874311; x=1782479111;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1781874313; x=1782479113; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cK/F40kmfhZ4Q4nBiYM3DRyYw/SqqYHHopWGOvg80R0=;
-        b=cwPEkNfsHndjzmbHHPbmbFig80zuaFapnXzZJrm8UmR4W9FpU9by/lZ/fwkPbhfV7g
-         CWwA/+HkbPS0FOUAWhxUUBSdQ1CEyDKqfmPmvkgKIhBNLC/r6KAhl53isP6WFZR2EYEm
-         dsWXkXDjAyCyytDPXQSkd2U0o6nOc8iyXonwogO2drK85eCMgrYquE+FwYDC/+crK9fR
-         m8j9gMsbxXbBnbMbQ1HNAaRwgblYlbyv3G+7fWXma+ncn4P8gKaLQmAHeteYSK3/RI0v
-         zkA2hT66amJ0BjOLVq/nisO36aS/dAuFnJVRihOQ9zhl28am7ddPcKVcZ97pRepWluyw
-         Y+3w==
-X-Gm-Message-State: AOJu0YwP2OJfhaKTBcipRJynsCuYvX3VLgV2OhiSreKRzKEs6en104U3
-	UGY/HVUO8weWT/w1AsopbhBgLXOy0HgSEnfvAGyPCtmj32FDjWwTjCy+tR8ZSW8x/io=
-X-Gm-Gg: AfdE7ckumJHxu8ASWSbmbXP6RXxzySAQBlPC8jhMZLzTkLAQc4e1q5TRXEOQ4NwvaYi
-	oU7RotA0rZJoFoBd0YcJ2JbRWU1tbTCGK4rMXUSFIJsAjWPg6YKFRfCOMOrOaoBlWOJexgBLNam
-	L3KsEe5Mu3MXMMH8S3OwhYo05JANkiQPaZIewwNHuADnaMCPQV24PVjtWmhnZ/60RxufPX1VchF
-	nkt1BmnBezBPEtuOIHlN1xckoXe0PzUanQ7qVv/5LBrJtUYVAYS4HOzl3NxvBJYsWabzSwwUIa5
-	7KpwB38j06kdWvHxxR835P2SBuB41ORp3IGTmrHNLOTSBfz2/ndXCclT8Erc+lxsdIOsUiQTjb2
-	XodZ4DdU6sY4leVZ0hLDtSYPWPzwrC8D8lqp0+oxzef9RYVyOKk4Z6mvja9J0P+iYvo50PF2M6l
-	CL7Imiw12jO2iI9ZJbExrQytbNngBPJCAW9axpl4y1ToLLF5KrHIhGnAbEwjSzAZukaPvNlFIQB
-	HvWWawm
-X-Received: by 2002:a17:907:8e07:b0:bec:5234:af7d with SMTP id a640c23a62f3a-c097adb7396mr160275366b.6.1781874311067;
-        Fri, 19 Jun 2026 06:05:11 -0700 (PDT)
+        bh=eks+QTXUKxWGNd1IHclIX8XrRU2no0CF3MdEPRLJw+0=;
+        b=CUF82vpzrIRaM67u6h/5yG19LfjFrnadlta1l82k8XXooMzgV3Tyt4pGdZjwck2t0e
+         2lZCLPFSlAr2bz/wq3JqMWAYryFBx6oINnacAI0+Il+N/WruN9m8t5uIrmuf7sPU5gg8
+         YVLCY+AU5MkkqerwbgwF925MqeZQgmF7yUQsGibOcgfwgGG0OHjhvKXM7YJPiMvCzmnl
+         WHh7sVrsCsqBpQktlAsv3CYKhwcb1ZrZ8qNU04zy1O2RfB+aKC76er34383ZQEkUJrv6
+         LeDtxQj4xeydGj40cy7nEtn+wniPPjCJkYQ+ogikbGG12ANsesbgiuQnQ0ZerUcaduOF
+         SQuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1781874313; x=1782479113;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=eks+QTXUKxWGNd1IHclIX8XrRU2no0CF3MdEPRLJw+0=;
+        b=a1ouH964rDB7CN1Gjt6QXsmPiuQcNFGnOS+3scoJWFvND3VbnJtlXu2zzmE7VyGZ06
+         jkBAe3oBnr6UyhAY/8R6BM+KUrMt/Pp39crwVSH7S6QCLalCdmyYRE6e/EZK8nvjlyXI
+         31wh398mjjS8zKsswc+qreyAosMsHUJjvW8+swNa52PTwqo/UxEfElALMxGmlouvHTla
+         xUTFLIOEgW/bL2SQf9SorZQA5eKyEAP7lx2ImQnKqZrH5bfQmO070HZPD6IW0Ew5tvI8
+         QbUzLyyYRTNTih1MFhazx9XsDabk4RwPSA+EgonhQDboFv0Ke/BsqEAqgjn0zq/fMTXe
+         /NMA==
+X-Gm-Message-State: AOJu0YzZ6JEbR8m7TILparin0QXlX3z7QpfoKqZemHsfMqqeGZMrMfgn
+	mBVh4Dt9srwLbnYoYgF3lVa03dEdH79XYSq3RWGfxfp8SwW4dQNjMUnDLhraELMRLR4=
+X-Gm-Gg: AfdE7ckahCQg7bXZRvMvyYZCgCNrBbpezLBMD5iw2YDYD0g3XYrXuy2fVbtRNwgg1ex
+	DKea+KNbKXFLTtldzNXoFnWdNCMCB02N+oilvpkx/cI3FQ6MbimxK9N6PvKgl11qGS9dGkXAX/L
+	Mzmr/FKklwtpVj3MDM4LL7eE4VAW85JLC34lVapCwJK6uzlh9l5FHARp8aOygwg/bo/GnUZxAMf
+	T+QVeCTyXTrvvXdngEefTrvJH0BuxZ6nj4rdXE/AQdabDe3nbawgHmn0aHb8lZ1e1m4mgjnn8IQ
+	FQOMGpWQjJ+ioOJluEOZsCxwOj2hT7W/jI4DGsCiOISYxzFSfjaEqQZawrVp9YQrGZpYY/sOIQY
+	tXGG46rxq2uaW5B+6lg9zY+sGTU7CrHvphiJO7m9i0USokghoe2kSYUr2v1md4yP4Nt5dWqB2OP
+	vzEn91u9syntj5dWGQXeEyt0Dhl5Qq9/X51Gu9Eu0oADmEGWV+KI3r2Z2vM/kaWlsOBs0Kd8VxM
+	Acq+eG0
+X-Received: by 2002:a05:6512:3a93:b0:5ad:4cd2:9baa with SMTP id 2adb3069b0e04-5ad58f32ea5mr705257e87.27.1781874312427;
+        Fri, 19 Jun 2026 06:05:12 -0700 (PDT)
 From: Frediano Ziglio <freddy77@gmail.com>
 X-Google-Original-From: Frediano Ziglio <frediano.ziglio@citrix.com>
 To: xen-devel@lists.xenproject.org
@@ -105,16 +106,18 @@ Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v6 00/16] xenguest optimisations
-Date: Fri, 19 Jun 2026 14:04:45 +0100
-Message-ID: <20260619130501.272832-1-frediano.ziglio@citrix.com>
+Subject: [PATCH v6 01/16] libs/guest: Reduce number of parts in write_split_record
+Date: Fri, 19 Jun 2026 14:04:46 +0100
+Message-ID: <20260619130501.272832-2-frediano.ziglio@citrix.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260619130501.272832-1-frediano.ziglio@citrix.com>
+References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1781874311-77FE50FA-DE87A0A5/0/0
+X-purgate-ID: tlsNG-d62444/1781874313-4B3A8E30-43106F80/0/0
 X-purgate-type: clean
-X-purgate-size: 2606
+X-purgate-size: 1825
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -127,7 +130,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email];
 	FORWARDED(0.00)[mailman];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
@@ -148,74 +151,54 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3A0E86A5F22
+X-Rspamd-Queue-Id: 827BB6A5F18
 
-Reduce some number of parts passed to writev.
-Avoid possible allocation sending data with writev.
-Reduce number of allocations sending memory state.
+Small optimization.
+There's no much sense to split the header in 2 pieces, it will
+just take more time and space to reassemble them in the final
+buffer.
+This also avoids truncating combined_length to 32 bit in case of
+64 bit machines potentially avoiding following record_length check
+(it could still be truncated writing it in xc_sr_rhdr structure
+but the following check will catch it).
+The function become more coherent with following read_record
+function.
 
-Implement and use new Xen and Linux kernel ABI to copy foreign memory.
-This new ABI allows to replace theexpensive  map/copy/unmap sequence
-with a single call.
-
-Changes since v1:
-- add commit to cache up to 4 pages in hypercall;
-- add other 2 commits reducing chunks passed to write/writev.
-
+Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+--
 Changes since v2:
-- update patches commit prefixes;
-- add other 2 optisations.
+- change prefix in subject.
 
 Changes since v3:
-- address some comments;
-- add patches for foreign copy optimisation.
+- clarify commit message.
 
 Changes since v4:
 - added Reviewed-by;
-- improved commit messages;
-- other minor fixes, see individual commits.
+- improved commit message.
+---
+ tools/libs/guest/xg_sr_common.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Changes since v5:
-- avoids potential buffer underflow if nr_pages is 0 calling cache_alloc;
-- do not overwrite errno if xenforeignmemory_map fails;
-- lot of changes to "implement new foreign copy hypercall", see specific
-  commit.
-
-Edwin Török (3):
-  libs/guest: allocate various migration arrays just once
-  libs/call: cache up to 4 pages in hypercall bounce buffers
-  PoC: libs/guest: use foreign copy during migration
-
-Frediano Ziglio (12):
-  libs/guest: Reduce number of parts in write_split_record
-  libs/guest: Reduce number of I/O vectors in write_batch
-  libs/guest: Reduce number of I/O vectors in write_batch
-  libs/guest: Use a single write_exact in write_headers
-  libs/guest: avoids using 2 indexes
-  libs/guest: fill directly iov structure
-  libs/ctrl: Allows writev_exact to change iov array
-  libs/guest: add xg_foreignmemory_copy_{from,to}
-  xen: implement new foreign copy hypercall
-  privcmd: Add definition for new Linux privcmd to access new Xen
-    hypercall
-  libs/guest: use new hypercall if available
-  libs/guest: finalize PoC
-
- tools/include/xen-sys/Linux/privcmd.h |  10 ++
- tools/libs/call/buffer.c              |  31 ++--
- tools/libs/call/core.c                |   3 +-
- tools/libs/call/private.h             |   8 +-
- tools/libs/ctrl/xc_private.c          |  26 +--
- tools/libs/ctrl/xc_private.h          |   2 +-
- tools/libs/guest/xg_sr_common.c       |  92 ++++++++++-
- tools/libs/guest/xg_sr_common.h       |  21 +++
- tools/libs/guest/xg_sr_restore.c      | 100 ++++++------
- tools/libs/guest/xg_sr_save.c         | 224 +++++++++++---------------
- xen/arch/x86/traps-setup.c            |   2 +-
- xen/common/memory.c                   | 145 +++++++++++++++++
- xen/include/public/memory.h           |  44 ++++-
- 13 files changed, 489 insertions(+), 219 deletions(-)
-
+diff --git a/tools/libs/guest/xg_sr_common.c b/tools/libs/guest/xg_sr_common.c
+index c7b3c6f3bc..9b2782b5cf 100644
+--- a/tools/libs/guest/xg_sr_common.c
++++ b/tools/libs/guest/xg_sr_common.c
+@@ -59,11 +59,11 @@ int write_split_record(struct xc_sr_context *ctx, struct xc_sr_record *rec,
+     static const char zeroes[REC_ALIGN] = {};
+ 
+     xc_interface *xch = ctx->xch;
+-    typeof(rec->length) combined_length = rec->length + sz;
++    size_t combined_length = rec->length + sz;
+     size_t record_length = ROUNDUP(combined_length, REC_ALIGN);
++    struct xc_sr_rhdr rhdr = { rec->type, combined_length };
+     struct iovec parts[] = {
+-        { &rec->type,       sizeof(rec->type) },
+-        { &combined_length, sizeof(combined_length) },
++        { &rhdr,            sizeof(rhdr) },
+         { rec->data,        rec->length },
+         { buf,              sz },
+         { (void *)zeroes,   record_length - combined_length },
 -- 
 2.43.0
 
