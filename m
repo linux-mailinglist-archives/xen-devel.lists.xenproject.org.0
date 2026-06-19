@@ -2,61 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id bSZeHlEsNWqdnwYAu9opvQ
+	id 9YaSNH4tNWr7nwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 13:47:29 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 13:52:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CB76A57C7
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 13:47:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491226A5824
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 13:52:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=hPP2zwXy;
+	dkim=pass header.d=xen.org header.s=20200302mail header.b=eK7zK35K;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=redhat.com
-Received: from list by lists.xenproject.org with outflank-mailman.1342124.1602389 (Exim 4.92)
+	dmarc=none
+Received: from list by lists.xenproject.org with outflank-mailman.1342140.1602397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waXgI-0005r4-36; Fri, 19 Jun 2026 11:46:42 +0000
+	id 1waXli-0007ah-Nj; Fri, 19 Jun 2026 11:52:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1342124.1602389; Fri, 19 Jun 2026 11:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 1342140.1602397; Fri, 19 Jun 2026 11:52:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waXgI-0005pE-0M; Fri, 19 Jun 2026 11:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 1342124;
- Fri, 19 Jun 2026 11:46:40 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1waXli-0007YQ-Kq; Fri, 19 Jun 2026 11:52:18 +0000
+Received: by outflank-mailman (input) for mailman id 1342140;
+ Fri, 19 Jun 2026 11:52:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <thuth@redhat.com>) id 1waXgG-0005p8-CE
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 11:46:40 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waXgE-0074DC-4t
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 13:46:38 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <thuth@redhat.com>)
- id 6a352c12-2eae-0a2a0a5409dd-0a2a450ac4f4-46
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 13:46:37 +0200
-Received: from [170.10.133.124] (helo=us-smtp-delivery-124.mimecast.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <thuth@redhat.com>)
- id 6a352c1c-93a5-0a2a450a0019-aa0a857c7959-3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 13:46:37 +0200
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-456-RqXo4HBnMQiB0DNLrD7kpg-1; Fri,
- 19 Jun 2026 07:46:32 -0400
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 522C0184556C; Fri, 19 Jun 2026 11:46:31 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp
- (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 90D95195604E; Fri, 19 Jun 2026 11:46:06 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1waXlh-0007YK-9S
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 11:52:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1waXlh-00HKcZ-0B;
+ Fri, 19 Jun 2026 11:52:16 +0000
+Received: from [2a02:8012:3a1:0:64fb:259f:710c:56e]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1waXlg-00Em03-0i;
+ Fri, 19 Jun 2026 11:52:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,148 +48,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1781869596;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=zuV9wleDPJXQ4MvGs+4yzuJAS7DRs0hr8UQ5BwqC7Iw=;
-	b=hPP2zwXy8MQ5neq2S867fUY/M82SKEZ2I9v+/yWDXLAj/oELOYVcbpgaqV2DdK4jbsJOVS
-	BS7eKhhkDUYdBG+0HDB2cFaapIVuXWbseZN3AiiM0S5TBFcjp2c9LmpkzcmK95VFe6vdDJ
-	2Mi+aIF5rQqhqXbldcIm8Bi75LIqOWQ=
-X-MC-Unique: RqXo4HBnMQiB0DNLrD7kpg-1
-X-Mimecast-MFC-AGG-ID: RqXo4HBnMQiB0DNLrD7kpg_1781869591
-From: Thomas Huth <thuth@redhat.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] xen: Replace __ASSEMBLY__ with __ASSEMBLER__ in header files
-Date: Fri, 19 Jun 2026 13:45:47 +0200
-Message-ID: <20260619114547.159637-1-thuth@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=j0p6tyyJgc6wIZgKcXu50e8Na08BCCbP/s03z8r2tfY=; b=eK7zK35Kjn+1VBFSO3g1ZrD6Rk
+	UdYD8yyHppzYmGZWk7sXTJWp1I4Qc5Rx25Yc2wLKVS+ETEZeuL4+X8W9YOiWa4RneE4F+GC3EBxBY
+	0HY4pHE349m6378f1P+K0aAcDvLx8N5pzSc5hRh7SvARi987ORXtIm2UngoUYgYjDcmg=;
+Message-ID: <5d3dff74-f51d-4bfc-b917-3c84f2094f34@xen.org>
+Date: Fri, 19 Jun 2026 12:52:14 +0100
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: ldhh4FfenNwG1jh2FUlFU_JMjrQtS4TJRapnQBt0Ax8_1781869591
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
-X-purgate-ID: tlsNG-4011c0/1781869597-2E1F6DB8-E5156560/0/0
-X-purgate-type: clean
-X-purgate-size: 2427
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22 v2.5] xen/arm: gic: defer host LPI allocation
+ until after ITS init
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>,
+ Mykola Kvach <mykola_kvach@epam.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Luca Fancellu <luca.fancellu@arm.com>, Mykola Kvach
+ <xakep.amatop@gmail.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+References: <112419d3ea48ca328849c8f6647909d3eb667b40.1779922874.git.mykola_kvach@epam.com>
+ <341edd8de63dcd84ccc6e7b6c03e9e8fc7105184.1781847061.git.mykola_kvach@epam.com>
+ <7a0a1867-8316-4e20-971e-fab99c9f4a32@amd.com>
+ <e43afc29-cfbb-4978-9324-e8d540040bfa@amd.com>
+ <1877ea55-0c8d-4593-a310-259b4c5aef3c@xen.org>
+ <b47b9bf3-1aa6-41b6-8c7c-48d64cca1c36@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b47b9bf3-1aa6-41b6-8c7c-48d64cca1c36@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:dkim,xen.org:mid,xen.org:from_mime];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:mykola_kvach@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:oleksii.kurochko@gmail.com,m:luca.fancellu@arm.com,m:xakep.amatop@gmail.com,m:oleksandr_tyshchenko@epam.com,m:oleksiikurochko@gmail.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[thuth@redhat.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	DMARC_NA(0.00)[xen.org];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[redhat.com:+];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_CC(0.00)[kernel.org,arm.com,epam.com,gmail.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[thuth@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_FIVE(0.00)[5];
 	ALIAS_RESOLVED(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[xen.org:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 04CB76A57C7
+X-Rspamd-Queue-Id: 491226A5824
 
-From: Thomas Huth <thuth@redhat.com>
 
-While the GCC and Clang compilers already define __ASSEMBLER__
-automatically when compiling assembly code, __ASSEMBLY__ is a
-macro that only gets defined by the Makefiles in the kernel.
-This can be very confusing when switching between userspace
-and kernelspace coding, or when dealing with uapi headers that
-rather should use __ASSEMBLER__ instead. So let's standardize now
-on the __ASSEMBLER__ macro that is provided by the compilers.
 
-This is a completely mechanical patch (done with a simple "sed -i"
-statement).
+On 19/06/2026 12:34, Orzel, Michal wrote:
+> 
+> 
+> On 19-Jun-26 13:23, Julien Grall wrote:
+>> Hi Michal,
+>>
+>> On 19/06/2026 10:48, Orzel, Michal wrote:
+>>> @Oleksii, can we ask for a release ack here?
+>>
+>> Can you explain the pros/cons of introducing this patch quite late?
+> The advantage is that it fixes the broken LPIs on affected hardware.
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
----
- Note: This patch has been split from an earlier bigger patch of
- mine to ease reviewing.
+ > The disadvantage is the reordering risk but I don't think there is 
+any issue.
 
- include/xen/interface/xen-mca.h | 4 ++--
- include/xen/interface/xen.h     | 8 ++++----
- 2 files changed, 6 insertions(+), 6 deletions(-)
+See more below.
+>>
+>> One of the risk here is that we are now initializing the LPIs *after*
+>> the ITSes. I understand this is because we want to know the workaround.
+>> However, I vaguely recall that there was a dependency in the
+>> configuration. So are we confident the new ordering will not bring other
+>> issues? Ideally this should have been explained in the commit message.
+> gic-v3-its.c never references host LPI state, so ITS init has no dependency on LPIs.
 
-diff --git a/include/xen/interface/xen-mca.h b/include/xen/interface/xen-mca.h
-index 1c9afbe8cc260..8f5815f1d3ab3 100644
---- a/include/xen/interface/xen-mca.h
-+++ b/include/xen/interface/xen-mca.h
-@@ -50,7 +50,7 @@
- /* OUT: There was no machine check data to fetch. */
- #define XEN_MC_NODATA		0x2
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- /* vIRQ injected to Dom0 */
- #define VIRQ_MCA VIRQ_ARCH_0
- 
-@@ -388,5 +388,5 @@ struct xen_mce_log {
- #define MCE_GET_LOG_LEN      _IOR('M', 2, int)
- #define MCE_GETCLEAR_FLAGS   _IOR('M', 3, int)
- 
--#endif /* __ASSEMBLY__ */
-+#endif /* __ASSEMBLER__ */
- #endif /* __XEN_PUBLIC_ARCH_X86_MCA_H__ */
-diff --git a/include/xen/interface/xen.h b/include/xen/interface/xen.h
-index 0ca23eca2a9cc..40c9793e98805 100644
---- a/include/xen/interface/xen.h
-+++ b/include/xen/interface/xen.h
-@@ -337,7 +337,7 @@
- #define MMUEXT_MARK_SUPER       19
- #define MMUEXT_UNMARK_SUPER     20
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- struct mmuext_op {
- 	unsigned int cmd;
- 	union {
-@@ -415,7 +415,7 @@ DEFINE_GUEST_HANDLE_STRUCT(mmuext_op);
- 
- #define MAX_VMASST_TYPE 5
- 
--#ifndef __ASSEMBLY__
-+#ifndef __ASSEMBLER__
- 
- typedef uint16_t domid_t;
- 
-@@ -760,11 +760,11 @@ struct tmem_op {
- 
- DEFINE_GUEST_HANDLE(u64);
- 
--#else /* __ASSEMBLY__ */
-+#else /* __ASSEMBLER__ */
- 
- /* In assembly code we cannot use C numeric constant suffixes. */
- #define mk_unsigned_long(x) x
- 
--#endif /* !__ASSEMBLY__ */
-+#endif /* !__ASSEMBLER__ */
- 
- #endif /* __XEN_PUBLIC_XEN_H__ */
+My concern is at the HW level. The ITS is using LPIs. But we will 
+configure the ITS first and then the LPIs.
+
+What probaly saves us is the fact gicv3_lpi_init_host_lpis() only seem 
+to allocate memory. This is a bit fragile though.
+
+Cheers,
+
 -- 
-2.54.0
+Julien Grall
 
 
