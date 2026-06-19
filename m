@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id lEp2Bu30NGoWlQYAu9opvQ
+	id 8HYmJ+v0NGoOlQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 09:51:09 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 09:51:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B355D6A4739
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 09:51:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49A0B6A4720
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jun 2026 09:51:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=buz+riui;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=lbt9CRVa;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=valinux.co.jp;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1341731.1601999 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1341732.1602011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waTze-00044d-KX; Fri, 19 Jun 2026 07:50:26 +0000
+	id 1waTzf-0004NX-TY; Fri, 19 Jun 2026 07:50:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1341731.1601999; Fri, 19 Jun 2026 07:50:26 +0000
+Received: by outflank-mailman (output) from mailman id 1341732.1602011; Fri, 19 Jun 2026 07:50:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1waTze-000401-HE; Fri, 19 Jun 2026 07:50:26 +0000
-Received: by outflank-mailman (input) for mailman id 1341731;
- Fri, 19 Jun 2026 07:50:25 +0000
+	id 1waTzf-0004Lk-Nj; Fri, 19 Jun 2026 07:50:27 +0000
+Received: by outflank-mailman (input) for mailman id 1341732;
+ Fri, 19 Jun 2026 07:50:26 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1waTzd-0003vw-CS
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 07:50:25 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1waTze-0003z1-GI
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 07:50:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1waTzc-001qMv-PZ
- for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 09:50:24 +0200
+ id 1waTzd-001qMv-T8
+ for xen-devel@lists.xenproject.org; Fri, 19 Jun 2026 09:50:25 +0200
 Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a34f4b5-2eae-0a2a0a5409dd-0a2a450bb90e-36
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 09:50:24 +0200
+ id 6a34f4b5-2eae-0a2a0a5409dd-0a2a450bb90e-38
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 09:50:25 +0200
 Received: from [40.107.74.114]
  (helo=OS0P286CU010.outbound.protection.outlook.com)
  by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from <taka@valinux.co.jp>)
- id 6a34f4b9-5e53-0a2a450b0019-286b4a724d13-4
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 09:50:22 +0200
+ id 6a34f4b9-5e53-0a2a450b0019-286b4a724d13-5
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jun 2026 09:50:25 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TY4P286MB7477.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:356::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.11; Fri, 19 Jun
- 2026 07:50:17 +0000
+ 2026 07:50:19 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0139.011; Fri, 19 Jun 2026
- 07:50:17 +0000
+ 07:50:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,100 +64,98 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=an0SHIvXGtr7PgBhjOpCm8i5z5NMtz2r8h+yUEcwpCu9XhuhbjUTIxvwF26OpN1aUFZ0Z738dMLmxaOotOTRgO1X3P7m3ZVoZ/eCwpeljX8eio17bL3yIrXxoP6s4dznQUNCBJAn+Y33s0gl7CIt6HVE39RV3EHZ38739J0dftorNJcK6fH6yF/Y629GLnoujiorfUWwEVE5hnwgO0ig/HqWDjTJNuyy0jDb8Qrye/zg1zoZfMa3GZv/amNwLuBx7jccAkrYrE7KLN2M4N0V+S9lLG+WiAsHpy53DEiOkTGCe6FsJEPH2lPfNi0INZAwOUNG84Kdhe/ToX/iT9SHwA==
+ b=i+EGGOtU64Oob4wpmwj/yUyLfzeQNMcmg/FrDHQglIZYTROQUHRep4bqQye0W7OV1EC+k0Vf0xQI/y+XWxLPs0q9g66mCcdz/2/YdWEmisp0nxtKg2Ks6bh+eQNCZP/LTZAMZCApAtl8UyHMuWf1RpWhcUw0yC8rY49A4D7sDMUli7JmhysgU+nBtLzDrnIU8Y4gJA7ri2bx73Cv3awM/eMdjZ2w80FP4nsAQwdHGW/W8zQZ5ISC9C6GJHzo/bGpEakV+jGpp/Y5e/DB7WCQ0oN4AmNCo70sVUEDl9TTk9t32bl8Ak9NhgOWa/x8bRSj0HIpVzKjpzf0tCCQX7oeXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0gX9ub+anZt6eauwPAi4d+qchhQS98QP4fnLa+KEekc=;
- b=cmQjcyKWRQRFWjoZvkN4S0XeHX8iohSPOISRqaNPPySG0tCrZlzqLlhdqhyK9B5GUzWrmQBUcVC5EgOqfbOorh32KwST6/1gtgYbYebxtRyfnDszbjV8Vml+qG8gETXBjz9Gha3alx5Hpv5vjATtoBlEZkktfpQPyxZTBTVcWtt+Kcv1YAX3gwXeBljRYZ9mF/IxrBlEetAC6EB1CJ7dWbHb/qvz7xBwmmRlpBSk2rnF3zPUagrc+pGkwWOgB7dGpaEDJbzfgIX2BhA3FzVBJ9IzyeDqzuBnP2gtF/x+Nz3bHL6Rv6Q6Lt19R0JBntPT/8KrR8sQQgI76zEh3/Oy9g==
+ bh=61LMVP4jRTDvsJV5c8jFg3V5iNl05Shx6hWCtT3eNHQ=;
+ b=bJ4OE3UhNKTtg2QKkXAGsOi7Zbk9Wy6U8LrKZ55dNCDgdZHmTBI2piCj+I1UMV0jkJ0n4ruUgJH0J2uHk/ZyFuEcPlCypyE614Pnki0vq3rSTvFKc3UyUprwZZ536xhbJqSbAIH9n02k+q71+ejnWARivQFK593RudXMA+lvjM2f2LHKLeCcrBOFXka/PJNIG32ymYRC975gUJgWLznl3M5dJqKQI8NzWCwQ/pAxmNCoA2LzVc4VZTkwcSXQd3o5oHV6NvjVVpd/+nVUbfs1YORVTAwQRpcUl5mPFuZqAW6YtWjSV4IXnzcK9ZZw1besu6x1KNMjFNQeUlZxeOfD4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0gX9ub+anZt6eauwPAi4d+qchhQS98QP4fnLa+KEekc=;
- b=buz+riui2yTrK0w0MFYoIcvWbk2r6ld6fQBm5wDeOY6EaNgI7j9scnJZ5kwWfva1Hi1aB8RF2tdljSam1eomhWlQ+K9cy8hfz7zByus4Wha/jr9Irp3GmMxvUbSgru6Xy3RKslyWkqpp91bfLrkt0srMpGe6ewToGjMljywrAGw=
+ bh=61LMVP4jRTDvsJV5c8jFg3V5iNl05Shx6hWCtT3eNHQ=;
+ b=lbt9CRVaMUKJJ5bmrRSnJ9c15DwfEfubi2ZoGeRxM+EvkSgrci2t8AskiM6KBT1+rg4lEcHOT1FTgtUah0LxPXwmhItdlCKrsWdmWxzKG1TNGuu3Qh5AEfrSqr1WhurEaCdZJ2U+1TeQgrP26MFCG0cVUEkKsWGZ+P6CDM02Oms=
 From: Hirokazu Takahashi <taka@valinux.co.jp>
 To: xen-devel@lists.xenproject.org
 Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 02/22] xen/common: Default function to get the distance between nodes
-Date: Fri, 19 Jun 2026 16:49:50 +0900
-Message-ID: <20260619075011.377116-3-taka@valinux.co.jp>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3 03/22] xen/arm: NUMA helper functions via Device Tree helpers
+Date: Fri, 19 Jun 2026 16:49:51 +0900
+Message-ID: <20260619075011.377116-4-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260619075011.377116-1-taka@valinux.co.jp>
 References: <20260619075011.377116-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0005.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:26f::9) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P301CA0001.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:26f::12) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TY4P286MB7477:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e98c1d1-6b01-416a-a2fd-08decdd767ac
+X-MS-Office365-Filtering-Correlation-Id: 20df154f-4776-4778-d73c-08decdd768ba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10070799003|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|10070799003|56012099006|6133799003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	4p3170YBl8ipIJz+pMUieMBee1JlkZ51b1H3/ibWhAnKdfD4YWoZqx+s1bCGIhPJ9Gd4s7Gc6Ul+sHhKpxpVw7NSrr2f87hJOYuX8IBm01TNE0CU7uAdc2Mlxl2EF6zDA2jAPM3kqWo4raWKdLDWa2tXWs7kfFlXRSXZDJ9fqSYyG4WkkWvk0z8atimhS6IE0+OMZYR57vmUkcvL0Ad0TU0GBlvWwuIRzicNzMDZvA4epD5ViluoTNAa5sNYKDu0DQNhJZdK3Udrr1JrvuiN0GMSOusRWeevkAW/pu0MIpLlGfgqJjDyNG/aoVjsZ+KdS5gsZnNDIMhqXK+ploTteGgWdk/YFVB5ihsENjGH65Q8d7skSPZ9+fEOhHYEn5oV7DFcAwfOkWxMnzSPjRlzezKcyNeZv3NMZiZup3xT9ASCZC6kPn7Z6y7gkuL//hKB6GCmaftZYLBQOURqkfGECVbsrqiOdP62TqiGsxO2jB77hAANLxxhPM3DwjSje2rEdbPohLd0U+dxt+VYKJ8BB8IT+tAtH4MfACPiD1lR58pXH/E9y07199PdZm/En24EUZJwkDspXQJgu563sluhd5R34yW8BP1G+52Dmr/9+p3y9urjuPSl9Wgber790RywU4EjwNkayKMU38TZKdTS+OEKymolfox5n/6mUR1tR50=
+	ATnHAXa7q3aDm0W/mJ9pUI5HXdQG1H0PaX8NcsQBrY5G2Qa0YT2sIClmVEhX2cijc/fT2gS4/AvKBRsOauoz4FjlRb3+W1PzuVT+qyc8YP1N6Jc5cdju+hP7ijK94sDsMueAFv6PNKRhiHX1pzGRDyPfAqfkaZcpj/QDQuW7Xp5orAA227K4fuNdAMQTtr4BMs//PlrYhzFa8BUWx5nlWhpO69X/ooVXEKTgYfbheCvWnkLn40a6Ulh7rzqkaOXoEmNSxkPqjr0KiPiS5ZR0O56oAclniXxVwMJM4erM1o6YvJPZwP9MGyaz21IRVizODSNfkb4v+SLCJ2t757VX2xaGRiJDcadQU/b7Dn/UeUL2PWfCt8O0TYcF2lS5NNLUz7NQZwhoBsdh+P/cz1AooozEzBBtQYtA8K+8RS+yYklZWBw2U0/kRA3xuiuxnh1ItXHqHQ0VICzwApn2U8M8ECI6/RNbH+jKMWQAHT7LV7ow5WkUteX3m2nZZPZ6KzTsgTRXE9je1gJQcMkbRV1I0Cz1sw+nHgTbu7sb51rWfr5XQLTM7Xc0+49/ikBXsWrjR+KVGQrpQnu6RWK4I9iFrui0w0dA4erXIb8EDW4JfQRsSjsdi5dPX6+CmSuCbWrsiWnNbdNEJTPXagiZ8KE6hJq4Zax3qWi9DewsQbTZ5hQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10070799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(10070799003)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0BNyIUfj2EHDy5KwVIwLOEfbCuCQJRFkxyC6AvKV+BARwYnxkp4enSVvg9E8?=
- =?us-ascii?Q?ikxCK9jX6CChzPfOfe4g5VWfwOsRUpJ66UcsgVMW68lECHTosvksGp1Fn0SP?=
- =?us-ascii?Q?9HGJrPRYhAQmMDZdhUdGR7iZchn/WT56+Qod5v2u5OibWoOSWeqT2MCvzALA?=
- =?us-ascii?Q?RYPjINdmKX5hW6P0gEyFAcRB/lM6UowRRYjFz8deXHYvxaiyhnAw3N7iW5mF?=
- =?us-ascii?Q?8ERGNNbq9q7zNGAp5x71gQIUi1ekcWnPLC6S3xf5eFnLiaSpzb1yaqgF0KbV?=
- =?us-ascii?Q?BnQ1BPpWxYsxrcNll47Dgu+f8LRwKJ/UcAW9uT4nKPF1jM/0OsYsNh/VHCgd?=
- =?us-ascii?Q?y3IeHHpwqTzHxiG5Cd9O0HqiY51m3+te9b3LtldOlOmSedpzYzF3CEy+XpXf?=
- =?us-ascii?Q?p5TVjosVeaANr40b61i0AGAVkQSLLNTf1w2TyvIJJ+fvXEXTGEXHveOhH49I?=
- =?us-ascii?Q?0QKRde2/Exbe2tUwjU1zsdQRH4htM3YNTLHWaoG03y1lYsV6HlXOLgTHcL3p?=
- =?us-ascii?Q?fA9PjGFtfaUe0fJbXjUjRF6y4oklmXKInvlyRmbI2D8hqD1+rU03fhDLNNKX?=
- =?us-ascii?Q?/kqzrMh+xUJMQR5yRCvtAwjFKQiJoT/nXX7Xj2R9mGWhJU7s03pT5w/NXBgv?=
- =?us-ascii?Q?BxJgPN8dDFglvfclEZ6q9qK/Hht4BbiQCvUm43FuDy/sKWDf3jkHO2UlB2v2?=
- =?us-ascii?Q?T6Uxi/01T3HSuJsFfHyKkMQeLOu4J/y/oYlzpDP3nXL8KIixtPMDpcbJQmNU?=
- =?us-ascii?Q?Sl0YFTgdgh31kii3UajwH9RAXICfZPBhwNzBUj5oDbG6DdOJ5Nj3dwmII0BQ?=
- =?us-ascii?Q?i4JEUmoKSkIxSA3/uOcTHAJ1pbI3ThfD/lpUUCPIQnBrBdkceWOMv+SyZYp+?=
- =?us-ascii?Q?+kU61XZEQbMcBV7yHNeH0yDAhy6BCjd5GeBJer4b1jIbe5kthJDylQsGvPwt?=
- =?us-ascii?Q?QciuoIcbqPlYr1bW2GciH2EGWMEpIRsOLpH+/u///KFPsrM5EIUuJ8f2yCnQ?=
- =?us-ascii?Q?G3zR3aDJ7d4Zto1k+x4ZC+SjD3IzfbviwkOXjVSX0kTEQAFkAkMS0ZYK5T4e?=
- =?us-ascii?Q?BPiC2s7mMZoQ2ZcchjSSeNOmkGnpZarcGUNiZI5rj9FrMPhA4jDr4fO+aAn/?=
- =?us-ascii?Q?zhs+1NC44+AhCBF8QLWDTOyQPnPOuo36TsuRy45BtwxqedpwjDNnfgZBvBXJ?=
- =?us-ascii?Q?ZT/5bmJ8cLGyev2ZfALkxhIHbeOX8c3d0+9hFXVn1j5t2HqaVAfGpYTVOd32?=
- =?us-ascii?Q?M+dHEdmHC0RNM9roIkE8DgWcg0ziR+w2V/XmEcFODrUtKK8dyvNEFvS4a3jX?=
- =?us-ascii?Q?k6lLlt7Z+CgLwiorFfdI6BTI9624igObH338U/8+zTcBRjCMRlBSMYwUSmfq?=
- =?us-ascii?Q?4q1SknE/ucl9912iUXdoZiNdDwVOv/tCEbmJu1GaXJ122Bysz8NN8cG6+B2/?=
- =?us-ascii?Q?Vt2oxDCT3eQYzbBgvEDhkIZ2YBAYwantzy+GV6A8UzI2WUdbL0I+P4IMH9ME?=
- =?us-ascii?Q?kyxeZ4nkBUsLIRo1DotRurI/ieRd5T1t9koqohNzD1R4TwSSFOR4QPWsFQtP?=
- =?us-ascii?Q?fBCJJKJyTfhPZhMNpsUl0eZsLwTG4aKgUqIo19sX7yeLTnwHiOBnr3Fy4BoE?=
- =?us-ascii?Q?Bdo9sQ5ZeMMnRSpUnckHnuU1V24xp3C61YB2PqL0hzr3yWT2i0RXt5Skkc9E?=
- =?us-ascii?Q?+H/u8POHXDthOnfbLYKoN0O+baWz78lq58QHPChXPucxJ2edO1oe181HhMXf?=
- =?us-ascii?Q?eKe5/BBLE9OtiychkNUKno0hLhWTBBtiZsCGANAhZ+2eeeNpvggmvFdCPDYo?=
-X-MS-Exchange-AntiSpam-MessageData-1: HoDwtzvc7adK6Q==
+	=?us-ascii?Q?Rdim2DioGZvTQCeaPH2lEzySHtWZFYcJ5AAQz+LBAOHdNHCsHpKeFvP1jSaG?=
+ =?us-ascii?Q?qK3MlgWOFiG3E1Smu9uljH+89VYtQSHJVKrmyAl93pfbJP//ISJV4latl1c8?=
+ =?us-ascii?Q?RUGW7eJloZhSA3Xddme3MkJ1w7og+9lUG5TKvzhDoy/v8MfdcHJRHj4uBj9Z?=
+ =?us-ascii?Q?rAB488CUJZMVBxO935au3r63WoZPETFxdBzHOABrXuEZvU1H5C+/uC0i2CR9?=
+ =?us-ascii?Q?gN6i7iu/44W8+lRyDvhG6hB0N1vk2netNHM2YUzGV5Cl8n2NeXmNgPi5DkLA?=
+ =?us-ascii?Q?lT/u/gbkGLIYYbVtjiQImuJQm2H1Jo+3T7AGBcpp68wnyiQAo3z1p3IOj8wO?=
+ =?us-ascii?Q?EEms6+x9voXk1VMIMDiROWfFfzjV5Rls95gsFsI1YZZIOUpK5NM8VFtLbPgk?=
+ =?us-ascii?Q?rBT6c02hj/2NCaLLc08QxEt4hg73tEoa8TXn0PQKvHEtE2oBjE/GVOUxPTqd?=
+ =?us-ascii?Q?ewOcGa74hQxUHfhnHkzwQ7JHNSjOQ+eSoZXD3vGqyrdJorgiiDGgZp3xZrPK?=
+ =?us-ascii?Q?P6x5EdJpXbfEeoZ2kPk16HJVASQjvXa4EQCVkTZ5LjYKfuH8iuNLVaAV2+VU?=
+ =?us-ascii?Q?Z0L/4fr2qgURUvFnFhjkRWY4SjJ6TQwmnZofk8pOch6SeDbiX2T6wnHqCHcJ?=
+ =?us-ascii?Q?q6v1lAfKMDa/JRXEb5hPqmZGSSE3sPtmabrkY/oO2GjakuYZsqqb/pFSV/XD?=
+ =?us-ascii?Q?DINDZOLMD4GlRLXY2cm9bmECuvNpQW0X4IMVueBcMuO2UVlyrwHewQhHFQOI?=
+ =?us-ascii?Q?1P1mwZaOyW9htjVzcXkfuJ8T7pZ31uFlqniRt87FXNpL0m8d0zozj6/CdIJV?=
+ =?us-ascii?Q?Enn1EKZ7hJu0SxEZ2jN/XE924di8ZOEPji85nsiV2vOao/Pvx9Mk/pApZseZ?=
+ =?us-ascii?Q?xaz/wgAu5yzVkEO3zIed3283vnuBFPNUNjo2GokDqTCdta/nFfmkd1s2YkrJ?=
+ =?us-ascii?Q?/mCjtCNw/P+hgYl6ZFW4z026tmU7THBgpb4jnGB9O/MG5tRG3Rd1gBB2O0Kq?=
+ =?us-ascii?Q?mpsQrgYzsIUYg0WrzIxBeLiUdHAlipS9WYwGjQxR7yK8THuxfjNLCC9qqoBJ?=
+ =?us-ascii?Q?SweC4dlBYZPTcO8XR/QCTfNLh8AWH9cBZm9K0bbXXKTuEB6I6sVdTbi3Q8pL?=
+ =?us-ascii?Q?JW5mNdpuB/p6tuKtBudvSlZDfRTYw+OArN8YsRDRtnUAG15jsv9iAEATIdb9?=
+ =?us-ascii?Q?Fh+HbDskTY8P9b5zeG6MGgVNtHcVkHLhjdqKwjbQPY533yJVpzTLAqe23ARy?=
+ =?us-ascii?Q?kHMvZuaGAkfCEk30BLcy7RR1L/xEFigEmGhtMIfA5SfxDlAfoinCRSNdEPMX?=
+ =?us-ascii?Q?1qKUAcw5i1DR9woESvI7PS93yetbzxY1Us9pgnCH96brgRSZK4ieza8O0mAl?=
+ =?us-ascii?Q?W2LfVIcVHxsZSUmw2wcjKYCP7Wz2uwAvEKt7b/kLJP0kzU+grYMnPMkwJzmB?=
+ =?us-ascii?Q?0XL9sjBbGnyXBq1Lig7sKhFq0+yDHzkFVD683XTlEx90WSKAeBJ/jRTakAVi?=
+ =?us-ascii?Q?f8L8X3LDcKWyuS+lr2UkoV+2RQMA9ytgtJEfDpHWBoGX7L/5R5HdLh9A54qx?=
+ =?us-ascii?Q?NFloBB6AtVfyg/F2PNytuZVTiZvw5AmW0u/KqqCpI8oyexpm8OPw3ySxFLhL?=
+ =?us-ascii?Q?4DHfXWO7hJIGPr1DwdWFUjENOah7W7BII6qIiqk9Fgv5PW4MHZJGHhOAcV5E?=
+ =?us-ascii?Q?MEv0LETmW0glzBabjAkZo9wQHMYReHNcm9MMCgvjJzzi4jscLUzSK6XOFOGS?=
+ =?us-ascii?Q?OUzxOdDnGmmEXswkGXwG0RO9pykl/zw9Ah0xr54c6WAOzGZ1t8O2Qokr9cju?=
+X-MS-Exchange-AntiSpam-MessageData-1: nBxzIzJt966/cg==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e98c1d1-6b01-416a-a2fd-08decdd767ac
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20df154f-4776-4778-d73c-08decdd768ba
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 07:50:17.5042
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2026 07:50:19.2859
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kQH+XJUIruYCupwb7EkjkPU7lp2RlGlCrO1/20+uRIXqK80NUsMQmUiFhj+qvgzdPFBJpKbV8Mco5v5hZbVkmw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: V36CT44LETdGVdndFEjqWdFcvbQej//FefBYDLmmQUZSemfX+ra9B+BM3b9fw5CJ4QDxy9GJ7Uwm+7t4QQsdUw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB7477
-X-purgate-ID: tlsNG-42698a/1781855424-4D9FE00E-1F3B76C1/0/0
+X-purgate-ID: tlsNG-42698a/1781855425-47DE800E-A0ACCF41/0/0
 X-purgate-type: clean
-X-purgate-size: 1974
+X-purgate-size: 2685
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -172,7 +170,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[valinux.co.jp:dkim,valinux.co.jp:email,valinux.co.jp:mid,valinux.co.jp:from_mime];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -181,7 +179,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ALIAS_RESOLVED(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	DKIM_TRACE(0.00)[valinux.co.jp:+];
@@ -191,68 +189,113 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B355D6A4739
+X-Rspamd-Queue-Id: 49A0B6A4720
 
-Provide a fallback function to get the distance between NUMA nodes.
+Implement the NUMA helper functions for ARM Xen by invoking
+the Device Tree-based NUMA helper functions.
 
 Signed-off-by: Hirokazu Takahashi <taka@valinux.co.jp>
 ---
- xen/common/Makefile            |  1 +
- xen/common/numa-distance-map.c | 19 +++++++++++++++++++
- xen/include/xen/numa.h         |  2 ++
- 3 files changed, 22 insertions(+)
- create mode 100644 xen/common/numa-distance-map.c
+ xen/arch/arm/Makefile           |  1 +
+ xen/arch/arm/include/asm/numa.h | 19 +++++++++++++
+ xen/arch/arm/numa.c             | 50 +++++++++++++++++++++++++++++++++
+ 3 files changed, 70 insertions(+)
+ create mode 100644 xen/arch/arm/include/asm/numa.h
+ create mode 100644 xen/arch/arm/numa.c
 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 6018e25614..062f9ab72b 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -32,6 +32,7 @@ obj-$(CONFIG_VM_EVENT) += monitor.o
- obj-y += multicall.o
- obj-y += notifier.o
- obj-$(CONFIG_NUMA) += numa.o
-+obj-$(CONFIG_NUMA_DISTANCE_MAP) += numa-distance-map.o
- obj-y += page_alloc.o
- obj-y += pdx.o
- obj-y += percpu.o
-diff --git a/xen/common/numa-distance-map.c b/xen/common/numa-distance-map.c
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 84c4062b30..10d20e3a84 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -51,6 +51,7 @@ obj-y += setup.o
+ obj-y += shutdown.o
+ obj-y += smp.o
+ obj-y += smpboot.o
++obj-$(CONFIG_NUMA) += numa.o
+ obj-$(CONFIG_SYSCTL) += sysctl.o
+ obj-y += time.o
+ obj-y += traps.o
+diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
 new file mode 100644
-index 0000000000..73344f7f33
+index 0000000000..8c46048ac8
 --- /dev/null
-+++ b/xen/common/numa-distance-map.c
++++ b/xen/arch/arm/include/asm/numa.h
 @@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
++#ifndef _ASM_ARM_NUMA_H
++#define _ASM_ARM_NUMA_H 1
 +
-+#include <xen/errno.h>
++#include <xen/types.h>
++#include <xen/cpumask.h>
++#include <xen/vmap.h>
++#include <xen/dt-numa.h>
++
++typedef uint8_t nodeid_t;
++
++#define ZONE_ALIGN (1UL << (MAX_ORDER+PAGE_SHIFT))
++
++extern bool numa_disabled(void);
++extern unsigned int numa_node_to_arch_nid(nodeid_t n);
++extern uint8_t __node_distance(nodeid_t a, nodeid_t b);
++
++#define arch_want_default_dmazone() (num_online_nodes() > 1)
++
++#endif /* _ASM_ARM_NUMA_H */
+diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+new file mode 100644
+index 0000000000..1fddf7d15b
+--- /dev/null
++++ b/xen/arch/arm/numa.c
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Helper functions for ARM NUMA.
++ */
++
++#include <xen/bootinfo.h>
 +#include <xen/init.h>
-+#include <xen/nodemask.h>
 +#include <xen/numa.h>
 +
-+#define LOCAL_DISTANCE      10
-+#define REMOTE_DISTANCE     20
++#if CONFIG_ACPI_NUMA
++#error "ACPI NUMA isn't supported yet."
++#endif /* CONFIG_ACPI_NUMA */
 +
-+/*
-+ * Get the distance between node 'from' and node 'to'.
-+ */
-+uint8_t numa_node_distance(unsigned int from, unsigned int to)
++
++bool arch_numa_disabled(void)
 +{
-+    if ( from != to )
-+        return REMOTE_DISTANCE;
-+    return LOCAL_DISTANCE;
++    return false;
 +}
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index f6c1f27ca1..18c22d3d30 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -128,6 +128,8 @@ extern bool numa_update_node_memblks(nodeid_t node, unsigned int arch_nid,
-                                      paddr_t start, paddr_t size, bool hotplug);
- extern void numa_set_processor_nodes_parsed(nodeid_t node);
- 
-+extern uint8_t numa_node_distance(unsigned int from, unsigned int to);
 +
- #else
- 
- /* Fake one node for now. See also node_online_map. */
++unsigned int numa_node_to_arch_nid(nodeid_t n)
++{
++    return numa_node_to_dt_nid(n);
++}
++
++uint8_t __node_distance(nodeid_t a, nodeid_t b)
++{
++    return numa_node_distance(a, b);
++}
++
++int __init arch_numa_setup(const char *opt)
++{
++    /* parse "numa=" option */
++    return 0;
++}
++
++int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
++{
++    return bootinfo_get_ram_range(idx, start, end);
++}
++
++bool __init arch_numa_unavailable(void)
++{
++    return false;
++}
++
++void __init numa_fw_bad(void)
++{
++    printk(KERN_ERR "%s NUMA info is broken.\n", numa_fw_nid_name);
++}
++
 -- 
 2.43.0
 
