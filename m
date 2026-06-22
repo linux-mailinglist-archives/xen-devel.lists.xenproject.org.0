@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +0XgCA0kOWqOnQcAu9opvQ
+	id TMUzJgInOWogngcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 14:01:17 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 14:13:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C246AF430
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 14:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB6F16AF57A
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 14:13:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=dTGcuM8M;
+	dkim=pass header.d=invisiblethingslab.com header.s=fm1 header.b=GAr4VZGH;
+	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=a7eMJ83F;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1343686.1602927 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=invisiblethingslab.com
+Received: from list by lists.xenproject.org with outflank-mailman.1343697.1602937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbdKZ-0004KS-Of; Mon, 22 Jun 2026 12:00:47 +0000
+	id 1wbdWz-0006DB-Qy; Mon, 22 Jun 2026 12:13:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343686.1602927; Mon, 22 Jun 2026 12:00:47 +0000
+Received: by outflank-mailman (output) from mailman id 1343697.1602937; Mon, 22 Jun 2026 12:13:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbdKZ-0004Hy-Lj; Mon, 22 Jun 2026 12:00:47 +0000
-Received: by outflank-mailman (input) for mailman id 1343686;
- Mon, 22 Jun 2026 12:00:45 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wbdWz-0006Aj-Ns; Mon, 22 Jun 2026 12:13:37 +0000
+Received: by outflank-mailman (input) for mailman id 1343697;
+ Mon, 22 Jun 2026 12:13:36 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wbdKX-0004Hs-QP
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 12:00:45 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wbdWy-0006Ad-63
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 12:13:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbdKX-007g0R-1h
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 14:00:45 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wbdWw-004UuH-C0
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 14:13:34 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a3923e3-2eae-0a2a0a5409dd-0a2a4504de1a-44
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 14:00:44 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <jbeulich@suse.com>)
- id 6a3923ec-5f9f-0a2a45040019-d1558032d01c-3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 14:00:44 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4903d730b1fso64726135e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 05:00:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4923fd30078sm289617145e9.7.2026.06.22.05.00.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jun 2026 05:00:43 -0700 (PDT)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a3926dc-e002-0a2a0a5209dd-0a2a4503c3de-36
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 14:13:34 +0200
+Received: from [103.168.172.146] (helo=fout-a3-smtp.messagingengine.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a3926ec-a3da-0a2a45030019-67a8ac92b31d-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 14:13:33 +0200
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+ by mailfout.phl.internal (Postfix) with ESMTP id 88EEDEC03D2;
+ Mon, 22 Jun 2026 08:13:32 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-10.internal (MEProxy); Mon, 22 Jun 2026 08:13:32 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 22 Jun 2026 08:13:30 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,296 +60,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782129644; x=1782734444; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ACWgBZRqTCSZfU+qtZ6V/WImZt+PSoRJaKj4/pnok+E=;
-        b=dTGcuM8Me+qPaC0yiobRdnFvhhjhFWH5PkAqd3Xd+DonRFlsbpaF4uXreDR1uksctq
-         tScGcgTde1FQam1PQhbKnhgErZqGad5qtx/982n7NUDjcpeE2ppZAcY6NqOhGQXKgXQL
-         UZ5Od5PwZOXGXtz0u0PFQojR7mIYkEpbs1t2eMPq/LBygqE0EUq8bNN8YhLsLzCQJ0PL
-         yeG5QDfLmUCH3jdm7TjxHdbh6OxI4Y4d1OcVjXMgjYfoG8iPuvrhzZGuGco+QUhGxwmH
-         3EXH0SHygor/TFJ2nG65Xp38C7sV2JuYx30qK1wovHEu9ICzzcc8YKTrAPJxZl5jygyW
-         DTLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782129644; x=1782734444;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ACWgBZRqTCSZfU+qtZ6V/WImZt+PSoRJaKj4/pnok+E=;
-        b=QZ4nf9RRMOyBSoyQPYKfvh6k3+8ZrtLt+6rwY91A8UeqTwg2c8hhxnIxve/7pxfJLa
-         cDQqtaU/mXRjFJqLXpceM4vbrj9aFQ+AJlPhe6zc9CwOscKPsMGyAclxhg6Pd0oTFN28
-         ie7EVoK64Fk9EmdQdsYbQFzlparWiBE1kGvNixZrG/a8RfdmtYX74umS0WbHS0GMv28j
-         IYpJUsmhckAMXNyQho8QBIjgVWGInsFzAsptkN/dYBB3jxm7zx4gwz8963+eHLaQnnN1
-         dJ/rbMmhBItZFU4BsB6jwjASvaRegEjesS53j1Uv7DIy7BAhyTKcfxEHzuh7DUZ7I6Rx
-         nNsg==
-X-Forwarded-Encrypted: i=1; AFNElJ/DoG+qs+zJ75LAkhksw/xL40UgMalE2pcULuWduDDyD5pFc/dCkCPOv66J2KJIH2d9iUf9qFlDPgg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwjCa6euCnNrg+4kMP2xhbS9G3oBQUd+ld37MV/NmG3LxCwqA/H
-	dEpVTXEUz6YbfIbjG+b3L939zmiK3hZ/TmK9AXRtJpja7KnhRcj/O0IREpFsrWB13A==
-X-Gm-Gg: AfdE7ckX5uikZ+iaeIc9oDxPcpOI8dSgKhwp18/k1oK/rGuecg6AktzTZAEsImKlzF9
-	ebvqBKHjdtHWh+6rK+NSZW8D6XbdiZIrlUBtCWl9OtP7HdmW00BJHFGltIDnbiIzLYBjt3D0RHW
-	O4xmRWkrqHleoq9dPsgzYm572tILfEQT90vNHHbgL8iKtMwnYHrAVu/oPuHefV81DYsxfXXJj28
-	XtGJbtE+kVSec29LZ0GBBDoyh3Ictx2OCTNLpQE5mCKmXhlonuWC07nPMW3nLKpaG7Ou030AuEU
-	bQwhpgcCCl7r7MY1/GT80CkgZE28MrlT7RXDDkFw3WL2OCRJeermFVzTO4Pq/UzqMYWvLyT6wSt
-	EbT44aThdOIrfSOtDa5fdsDvzzW9cT3GwrNW+7HHJJ58yywr4/gV6/VKrtvbKeuhL0VxmqQ2jN1
-	exiydS6rUScn0tiZIa7OTDt4TKP5ohg2wOCOGiK7X2AAkty1ttAOzMdBXB6HxUC9fOjKccQ1bK0
-	2sE
-X-Received: by 2002:a05:600c:5020:b0:490:d946:47cf with SMTP id 5b1f17b1804b1-4923ef47d08mr232214485e9.4.1782129644165;
-        Mon, 22 Jun 2026 05:00:44 -0700 (PDT)
-Message-ID: <0c37c031-cc21-44d2-9ef6-4baf6f24d74b@suse.com>
-Date: Mon, 22 Jun 2026 14:00:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1782130412;
+	 x=1782216812; bh=vfjZr+4FnTcu0PUmGlLJGPBXVmgwF1vg8QgkeU+w4Gk=; b=
+	GAr4VZGHa0ulOKxtTsm+9BPgX5jtJ8h8oXktHCEqaWwtEYTD9kyNWrXHijpJQelT
+	kcAUr92HwrzzrSR+gtQQo0wnC6yQ9kw6J91gNqV0bfg4ANFPhXlvRM0TeKMlVQ+g
+	yOvc/x0k9mMT29Ae+2dK1bTJGUsTnYiQrwYPppqkioBs3vYyzaiMLUhFFRPeraIL
+	99JLB8gUEQos4BCyZPYCIwzq5zuHD4M1k2daqxlDPisR6q8bL7N2b1cYXfCiqXab
+	gg9YOW2D9lXc0PMDTmyIaxY9ZeHd7eupGzvaaCfVQr8YfHBxuhVc7QJQ4DiodSu3
+	rqoMfk7YQ5tRI+w1YQEAVg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1782130412; x=1782216812; bh=vfjZr+4FnTcu0PUmGlLJGPBXVmgwF1vg8Qg
+	keU+w4Gk=; b=a7eMJ83FS652s8VQ3t5EuNIoIPNyMIe+gCwszIcffJIrvZVFcUM
+	lem/qXZ9AQCAzmTgOp9tD3fOeL4sEzF4u3V4TUAmsT0qQPATfin26V8ELrObneyt
+	arJ/sZMrrsADkybqVLJfja7yetTxsraISl0r9/zBWXYM8cN1OUvaU+HcpDTEe/VW
+	CjRGSR2815zJg7K0+/KkkFUydS1y3TDPPK+O/pb3qn95o7jbJlnQSUitnkwEOhzp
+	BxxQEIH3ZaW+6IcxhoN6BIA6c3XtcsZsepjjOslw83zjx4+ectrQMzt1j+dzGtPP
+	Z/kkjvr7vM0OuZlcMtg/Aa4TDsYM0pKbkJA==
+X-ME-Sender: <xms:6yY5ah0ucIM9klqFTy-nxgetGXtvinndBAQdpoD_LwuD2x1XNcOTJQ>
+    <xme:6yY5apnaju7VgIWFhHaqXkBW5U_cGT_hsmS6Qiai7IlkNQj84QLmPN44wLrR059Zh
+    b3zCSnSVGPn8ska8pjJ0Y86rIIaZkl9O8vwp4xWoHcsfd3oZw>
+X-ME-Received: <xmr:6yY5ah9GWlPKHVJl_EkVY3Zw2aJCuh7kyUys2jYs0gyRV9ttAV2RbCLx>
+X-ME-Proxy-Cause: dmFkZTERqzvLcHKMxH8zx79I6BPKj5MJjiNhkPe8bKgfbSPg3rmDgaqpgBMetq8XTR/xj4
+    7dl+vN+91b/R0rRyI2Vftj/ukU2x7/wQIwsddpLWdBLXMuxSeSItpnAki+IS+Zl2Zda7f4
+    e4ejdSzqS68AMxuBS+FWMBxeEe/tP8m3FPH7ps+jCqds62adNqJ+ay8D/TWcgdSRnhHdpK
+    wB1PVnbycbVg3INa/XG22O/mGoujtnFl6u/t5b+Rm+ky2ZokuyMAcvJ56IxW/L9VIhBsKF
+    vuztLoF7qSGCPDUAgWVyu0nydAic5f4t8Bv7TmcOBX4POep3xYLv5s1j/KKdylERSFCJYV
+    Tx0wr/+5cRXCw1pZWRkdBCpLoV3S0AYHW/mmiGhLRkgN4BgyUPSYdgzf3UkqYo1aYke3eu
+    8zg4gYG6zNHJaNzIIl1/7ZX2v90cK49cA6bU44c3S25UAylwbpAOpWI8hQ/XXXRB9HipiC
+    ER5EPq2Yt60Svu7Y2eSusoQiW2s669qKkyGhbJuh1k/9HWvfreMYfvwnRKE34GpkNaG6tP
+    bF/En+aCNFAmO3uvXO47cj9uOirjUOP/ikBjy5c5/8URxey+yoyY6id9RS0yV94iFIET4e
+    UJ4IiqW7504bWYSYc3XAy2fIQTwuevlI1Z8/2hrz44TV3xh0ZxqnJWnTvnCg
+X-ME-Proxy: <xmx:6yY5auoOACMoyvOEJPd8-cJOGVTAnISwWZljlMO0U7FHJlO6leuVqQ>
+    <xmx:6yY5aqndXfbIUvofhFjtqBiYjacD_cfc_m8KGSg0-QrMOvd-MtgO7g>
+    <xmx:6yY5alh4WhgGOUG1d-XkTqXmaffQRBUrSzuWordvQ5eOiGHO2qXGvw>
+    <xmx:6yY5aieohzAYDUKh4g2Z3Q1pKyEX1aj24D17QqIKOGv4dOLYIMnT-A>
+    <xmx:7CY5aky-q9uX36BJ5KE-mU6ovnhw6zXZPpm4eoePXQlrhKNdFnEsRWkS>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 22 Jun 2026 14:13:27 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	intel-xe@lists.freedesktop.org, jani.nikula@intel.com
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
+ Xen 4.19
+Message-ID: <ajkm52RUk2T5P53J@mail-itl>
+References: <aYtznP_tT6xNPwf-@mail-itl>
+ <aY3ttvtxGCPTNgsj@Mac.lan>
+ <aY58-gyarcVoBS2a@mail-itl>
+ <aZ3KoSlIzru0Uumu@mail-itl>
+ <aaVyKFaCSuhJufW2@mail-itl>
+ <ajMD0Jsml3ytlWOY@mail-itl>
+ <ajMs2lkXmTppifK7@gsse-cloud1.jf.intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/device-tree: Parse 'cpu-map' node for CPU
- topology exploration
-To: Hirokazu Takahashi <taka@valinux.co.jp>
-Cc: Mykyta_Poturai@epam.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20260617071206.265599-1-taka@valinux.co.jp>
- <20260617071206.265599-2-taka@valinux.co.jp>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260617071206.265599-2-taka@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1782129644-4D197141-72580229/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="YHlKVsH+wm+43+zg"
+Content-Disposition: inline
+In-Reply-To: <ajMs2lkXmTppifK7@gsse-cloud1.jf.intel.com>
+X-purgate-ID: tlsNG-33051d/1782130414-E3DD7D84-AF9148E2/0/0
 X-purgate-type: clean
-X-purgate-size: 5693
+X-purgate-size: 9941
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:matthew.brost@intel.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:intel-xe@lists.freedesktop.org,m:jani.nikula@intel.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,invisiblethingslab.com:dkim,invisiblethingslab.com:from_mime,qubes-os.org:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,gitlab.freedesktop.org:url,mail-itl:mid];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	SUBJECT_HAS_QUESTION(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 75C246AF430
+X-Rspamd-Queue-Id: BB6F16AF57A
 
-On 17.06.2026 09:12, Hirokazu Takahashi wrote:
-> --- /dev/null
-> +++ b/xen/common/cpu-topology.c
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/cpumask.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/init.h>
-> +#include <xen/acpi.h>
-> +
-> +void __init init_cpu_topology(void)
-> +{
-> +    const unsigned int nr_cpus = cpumask_last(&cpu_possible_map) + 1U;
-> +
-> +    cpu_topology = xzalloc_array(struct cpu_topology, nr_cpus);
 
-cpu_topology exists as a global variable only when DT is in use. I think the
-definition needs to move here (from common/device-tree/cpu-topology.c).
+--YHlKVsH+wm+43+zg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 22 Jun 2026 14:13:27 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	intel-xe@lists.freedesktop.org, jani.nikula@intel.com
+Subject: Re: Graphical glitches (not refreshing?) with Linux's xe driver +
+ Xen 4.19
 
-As to the size of the array, it's not quite clear to me whether by doing it
-this way (instead of using nr_cpu_ids) we're not setting ourselves up for
-trouble.
+On Wed, Jun 17, 2026 at 04:25:14PM -0700, Matthew Brost wrote:
+> On Wed, Jun 17, 2026 at 10:30:08PM +0200, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > On Mon, Mar 02, 2026 at 12:19:04PM +0100, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > On Tue, Feb 24, 2026 at 04:58:25PM +0100, Marek Marczykowski-G=C3=B3r=
+ecki wrote:
+> > > > On Fri, Feb 13, 2026 at 02:23:06AM +0100, Marek Marczykowski-G=C3=
+=B3recki wrote:
+> > > > > On Thu, Feb 12, 2026 at 04:11:50PM +0100, Roger Pau Monn=C3=A9 wr=
+ote:
+> > > > > > On Tue, Feb 10, 2026 at 07:06:20PM +0100, Marek Marczykowski-G=
+=C3=B3recki wrote:
+> > > > > > > Hi,
+> > > > > > >=20
+> > > > > > > Recently I started testing compatibility with Intel Lunar Lak=
+e. This is
+> > > > > > > the first one that uses "xe" instead of "i915" Linux driver f=
+or iGPU.
+> > > > > > > I test it with Qubes OS 4.3, which uses Xen 4.19.4 and PV dom=
+0 running
+> > > > > > > Linux 6.17.9 in this test.
+> > > > > >=20
+> > > > > > Not sure it's going to help a lot, but does using a PVH dom0 ma=
+ke any
+> > > > > > difference?
+> > > > >=20
+> > > > > Ok, now with the correct Xen version, it's better with PVH dom0. =
+At
+> > > > > least on the login screen and few applications (from both dom0 an=
+d domU)
+> > > > > I don't see the glitches anymore. I can't do a full test, because=
+ PCI
+> > > > > passthrough doesn't seem to work with PVH dom0 on Xen 4.19 - and =
+I need
+> > > > > it to start most VMs.
+> > > > >=20
+> > > > > So, if the above test is representative, it's only about PV dom0.
+> > > >=20
+> > > > Some further observations:
+> > > >=20
+> > > > 1. My initial impression that Xen 4.17.6 is not affected is false.
+> > > > Apparently I got lucky and didn't waited long enough for glitches to
+> > > > appear. Unfortunately this means I have no way to bisect this...
+> > > >=20
+> > > > 1a. Updated test procedure - either:
+> > > >   - start Qubes OS in full (including default system domUs) and try=
+ to
+> > > >     open an app in one of them (for example file manager or pdf vie=
+wer)
+> > > >   - start Linux up to lightdm login page, log in, log out, click on=
+ a
+> > > >     few lightdm menus (session type selector, poewroff menu etc)
+> > > >=20
+> > > > The second version works even if toolstack version in dom0 doesn't =
+match
+> > > > Xen version. If no glitches are observed after doing either of those
+> > > > procedures, assume it's good.
+> > > >=20
+> > > > 2. Xen staging is affected too. As well as Xen staging-4.19 without
+> > > > any qubes patches.
+> > > >=20
+> > > > 3. After enabling CONFIG_DEBUG in Xen, the xe.ko fails to load firm=
+ware:
+> > > >=20
+> > > >     xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmware from xe/l=
+nl_guc_70.bin version 70.53.0
+> > > >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status =
+=3D 0x40000056, time =3D 0ms, freq =3D 1850MHz (req 1850MHz), done =3D -1
+> > > >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: load failed: status:=
+ Reset =3D 0, BootROM =3D 0x2B, UKernel =3D 0x00, MIA =3D 0x00, Auth =3D 0x=
+01
+> > > >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: firmware production =
+part check failure
+> > > >     xe 0000:00:02.0: [drm] *ERROR* Tile0: GT0: Failed to initialize=
+ uC (-EPROTO)
+> > > >     xe 0000:00:02.0: probe with driver xe failed with error -71
+> > > >=20
+> > > > CONFIG_DEBUG is the only change between "xe.ko loads fine but there=
+ are
+> > > > glitches later on" and "xe.ko fails to load at all". Full console l=
+ogs:
+> > > > https://gist.github.com/marmarek/47b5e62a2cdbae6678c2aecc5283cd3f, =
+there
+> > > > are 3 files:
+> > > >   - CONFIG_DEBUG=3Dn
+> > > >   - CONFIG_DEBUG=3Dy
+> > > >   - CONFIG_DEBUG=3Dy + iommu=3Ddebug
+> > > >=20
+> > > > 4. Updating to Linux 7.0-rc1 doesn't help, for example:
+> > > > https://openqa.qubes-os.org/tests/168119#step/desktop_linux_manager=
+_create_qube/11
+> > > >=20
+> > > > Generally, it does feel like a bug in xe.ko, but I can't exclude so=
+me issue
+> > > > on Xen side too (especially given point 3 above).
+> > >=20
+> > > After waiting some time (Linux 6.19.5 this time), Xen CONFIG_DEBUG=3D=
+n, I get some timeout messages:
+> > >=20
+> > >     [    8.122120] xe 0000:00:02.0: [drm] [ENCODER:204:DDI A/PHY A] f=
+ailed to retrieve link info, disabling eDP
+> > >     [    8.148476] xe 0000:00:02.0: [drm] Tile0: GT0: Using GuC firmw=
+are from xe/lnl_guc_70.bin version 70.53.0
+> > >     [    8.803845] xe 0000:00:02.0: [drm] Tile0: GT0: ccs1 fused off
+> > >     [    8.804208] xe 0000:00:02.0: [drm] Tile0: GT0: ccs2 fused off
+> > >     [    8.804556] xe 0000:00:02.0: [drm] Tile0: GT0: ccs3 fused off
+> > >     [    8.822426] xe 0000:00:02.0: [drm] Tile0: GT1: Using GuC firmw=
+are from xe/lnl_guc_70.bin version 70.53.0
+> > >     [    8.827140] xe 0000:00:02.0: [drm] Tile0: GT1: Using HuC firmw=
+are from xe/lnl_huc.bin version 9.4.13
+> > >     [    8.829478] xe 0000:00:02.0: [drm] Tile0: GT1: Using GSC firmw=
+are from xe/lnl_gsc_1.bin version 104.0.5.1429
+> > >     [    8.852923] xe 0000:00:02.0: [drm] Tile0: GT1: vcs1 fused off
+> > >     [    8.853513] xe 0000:00:02.0: [drm] Tile0: GT1: vcs2 fused off
+> > >     [    8.854090] xe 0000:00:02.0: [drm] Tile0: GT1: vcs3 fused off
+> > >     [    8.854706] xe 0000:00:02.0: [drm] Tile0: GT1: vcs4 fused off
+> > >     [    8.855310] xe 0000:00:02.0: [drm] Tile0: GT1: vcs5 fused off
+> > >     [    8.855904] xe 0000:00:02.0: [drm] Tile0: GT1: vcs6 fused off
+> > >     [    8.856495] xe 0000:00:02.0: [drm] Tile0: GT1: vcs7 fused off
+> > >     [    8.857079] xe 0000:00:02.0: [drm] Tile0: GT1: vecs1 fused off
+> > >     [    8.857675] xe 0000:00:02.0: [drm] Tile0: GT1: vecs2 fused off
+> > >     [    8.858272] xe 0000:00:02.0: [drm] Tile0: GT1: vecs3 fused off
+> > >     [    8.975881] xe 0000:00:02.0: [drm] Registered 3 planes with dr=
+m panic
+> > >     [    8.976586] [drm] Initialized xe 1.1.0 for 0000:00:02.0 on min=
+or 0
+> > >     [    8.980882] ACPI: video: Video Device [GFX0] (multi-head: yes =
+ rom: no  post: no)
+> > >     [    9.033754] xe 0000:00:02.0: [drm] Tile0: GT1: found GSC cv104=
+=2E1.0
+> > >     ...
+> > >     [ 1218.319232] xe 0000:00:02.0: [drm] Tile0: GT0: Engine reset: e=
+ngine_class=3Drcs, logical_mask: 0x1, guc_id=3D3
+> > >     [ 1218.319890] xe 0000:00:02.0: [drm] Tile0: GT0: Timedout job: s=
+eqno=3D9883, lrc_seqno=3D9883, guc_id=3D3, flags=3D0x0 in Xorg [3245]
+> > >     [ 1218.320736] xe 0000:00:02.0: [drm] Xe device coredump has been=
+ created
+> > >     [ 1218.321140] xe 0000:00:02.0: [drm] Check your /sys/class/drm/c=
+ard0/device/devcoredump/data
+> > >     [ 1222.285626] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] fl=
+ip_done timed out
+> > >     [ 1232.525685] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
+> > >     [ 1232.526280] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] co=
+mmit wait timed out
+> > >     [ 1242.765717] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] fl=
+ip_done timed out
+> > >     [ 1253.005696] xe 0000:00:02.0: [drm] *ERROR* flip_done timed out
+> > >     [ 1253.006248] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] co=
+mmit wait timed out
+> > >     [ 1263.245599] xe 0000:00:02.0: [drm] *ERROR* [CRTC:88:pipe A] fl=
+ip_done timed out
+> > >=20
+> > > The glitches appear much earlier, though.
+> > > Would content of /sys/class/drm/card0/device/devcoredump/data be usef=
+ul
+> > > for debugging this?
+>=20
+> Yes, it would. Jobs hanging can be a bug anywhere in the stack (e.g.,
+> Hardware bug, KMD bug, UMD bug, application bug, etc...) but the
+> devcoredump would give us some hints.
+>=20
+> > >=20
+> > > Full log at https://openqa.qubes-os.org/tests/168813/file/serial0.txt
+> > > (warning, almost 200MB of those errors...)
+> >=20
+> > The issue still happens with Linux 7.0.12. Current log (quite similar to
+> > the previous one):
+> > https://openqa.qubes-os.org/tests/184602/logfile?filename=3Dserial0.txt
+>=20
+> Hmm, the 'not started' messages in the dmesg are a bit concerning as
+> this really shouldn't be possible to trigger even if user space is doing
+> something wrong.
+>=20
+> Can you file a gitlab issue against Xe here: https://gitlab.freedesktop.o=
+rg/drm/xe/kernel/issues/new
+>=20
+> TBH, I have no idea if running Xen / Qubes OS + Xe is something anyone
+> at Intel has tried out, so please include instructions on to how
+> reproduce and we will see in someone on engineering team can take a look
+> at this and if issues in Xe KMD exist, try to get these fixed.
 
-> +    if ( !cpu_topology )
-> +        panic("Failed to allocate memory for cpu_topology array\n");
+I've opened https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
+including the crashdump and fresh logs.
 
-I question such uses of panic(): Surely we can do without any NUMA info,
-it's only performance which is going to suffer.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-> --- /dev/null
-> +++ b/xen/common/device-tree/cpu-topology.c
-> @@ -0,0 +1,343 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Derived from Linux kernel 7.0's $drivers/base/arch_topology.c
-> + * Parse cpu topology information.
-> + */
-> +
-> +#include <xen/cpumask.h>
-> +#include <xen/device_tree.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/numa.h>
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +
-> +struct cpu_map {
-> +    unsigned int thread_id;
-> +    unsigned int core_id;
-> +    unsigned int cluster_id;
-> +    unsigned int package_id;
-> +};
-> +
-> +struct cpu_topology *cpu_topology;
-> +static const unsigned int __initdata invalid_topo_id = (~0U);
-> +static struct cpu_map __initdata cpu_map[NR_CPUS] = {
-> +    [0 ... NR_CPUS-1] = {invalid_topo_id, invalid_topo_id, invalid_topo_id, 0U}
-> +};
-> +static struct dt_device_node * __initdata dt_cpu_table[NR_CPUS];
-> +
-> +static void __init setup_siblings_masks(unsigned int cpuid)
-> +{
-> +    struct cpu_topology *cpuid_topo = &cpu_topology[cpuid];
-> +    struct cpu_map *cpuid_map = &cpu_map[cpuid];
-> +    unsigned int cpu;
-> +
-> +    /* Update core and thread sibling masks */
-> +    for_each_possible_cpu(cpu)
-> +    {
-> +        struct cpu_topology *cpu_topo = &cpu_topology[cpu];
-> +        struct cpu_map *map = &cpu_map[cpu];
-> +
-> +        if ( cpuid_map->package_id != map->package_id )
-> +            continue;
-> +
-> +        cpumask_set_cpu(cpuid, &cpu_topo->core_sibling);
-> +        cpumask_set_cpu(cpu, &cpuid_topo->core_sibling);
-> +
-> +        if ( cpuid_map->cluster_id != map->cluster_id )
-> +            continue;
-> +
-> +        if ( cpuid_map->cluster_id != invalid_topo_id )
-> +        {
-> +            cpumask_set_cpu(cpu, &cpuid_topo->cluster_sibling);
-> +            cpumask_set_cpu(cpuid, &cpu_topo->cluster_sibling);
-> +        }
-> +
-> +        if ( cpuid_map->core_id != map->core_id )
-> +            continue;
-> +
-> +        cpumask_set_cpu(cpuid, &cpu_topo->thread_sibling);
-> +        cpumask_set_cpu(cpu, &cpuid_topo->thread_sibling);
-> +    }
-> +}
-> +
-> +static struct dt_device_node * __init dt_find_child_node_by_name(struct dt_device_node *from, const char *name)
+--YHlKVsH+wm+43+zg
+Content-Type: application/pgp-signature; name=signature.asc
 
-Nit: Overlong line here, and ...
+-----BEGIN PGP SIGNATURE-----
 
-> +static int __init parse_core(struct dt_device_node *core,
-> +                unsigned int package_id, unsigned int cluster_id,
-> +                unsigned int core_id)
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmo5JucACgkQ24/THMrX
+1yzI1wf5AU1sEiz6RYblyOrWAq7ESWDwbarF056r2jimgjKzRofAyCh7c0fjg7b+
+uHbSwR/yJXhwKBHT39EWyrDgfHgJlPkzlvxX0WiAZ12e9XBgjwL5utrqpq7iLJeP
+32Xp3kEVXsaO6LYK3/SU4JgruW6JtHIzOTEoxeTh2VuwKEgQMLuMPuV2yo2ABi+P
+nXi6NSwyk64GMfr+QtiCie+DEI5RTl6MDDNwujX6j/fND7IfTl46dPf+hEqBHFGv
+M7rQGfd8UJ9Qtm2tX7ujj5h+xRMbbL4s7K4UEnbIEmI7U7omqtUyI+aAQpLIfiYX
+sym+i/MaIYbyjw24T0WDeZYVwFs2kw==
+=x/cx
+-----END PGP SIGNATURE-----
 
-... bogus indentation e.g. here. Please go though yourself to check style.
-
-> --- /dev/null
-> +++ b/xen/drivers/acpi/topology.c
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/cpumask.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/init.h>
-> +#include <xen/acpi.h>
-> +
-> +/*
-> + * ToDo: Populate the topology information by scanning the ACPI
-> + *       PPTT (Processor Properties Topology Table).
-
-Please can this be spelled "TODO:", to stand out more and to be a hit also
-with case sensitive grep for "TODO"?
-
-> --- a/xen/include/xen/acpi.h
-> +++ b/xen/include/xen/acpi.h
-> @@ -101,6 +101,8 @@ void acpi_table_print (struct acpi_table_header *header, unsigned long phys_addr
->  void acpi_table_print_madt_entry (struct acpi_subtable_header *madt);
->  void acpi_table_print_srat_entry (struct acpi_subtable_header *srat);
->  
-> +void acpi_init_cpu_topology(void);
-> +
->  /* the following four functions are architecture-dependent */
->  void acpi_numa_slit_init (struct acpi_table_slit *slit);
->  void acpi_numa_processor_affinity_init(const struct acpi_srat_cpu_affinity *);
-> @@ -133,6 +135,8 @@ static inline int acpi_boot_table_init(void)
->  	return 0;
->  }
->  
-> +static inline void acpi_init_cpu_topology(void) {}
-
-This shouldn't be needed. When ACPI=y, acpi_disabled is compile-time true,
-and hence the compiler can and will DCE the call. All it needs to see is a
-declaration, which therefore wants to move outside of the CONFIG_ACPI
-conditional.
-
-> --- /dev/null
-> +++ b/xen/include/xen/cpu-topology.h
-> @@ -0,0 +1,36 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef XEN_CPU_TOPOLOGY_H
-> +#define XEN_CPU_TOPOLOGY_H
-> +
-> +#include <xen/types.h>
-> +#include <xen/dt-cpu-topology.h>
-> +
-> +struct cpu_topology {
-> +    cpumask_t thread_sibling;
-> +    cpumask_t core_sibling;
-> +    cpumask_t cluster_sibling;
-> +};
-
-With huge NR_CPUS this can be pretty large a struct (of which in init_cpu_topology()
-you allocate an array). Imo you want to use cpumask_var_t here, with allocation added
-as needed.
-
-> +
-> +
-
-Nit: No double blank lines please.
-
-Jan
+--YHlKVsH+wm+43+zg--
 
