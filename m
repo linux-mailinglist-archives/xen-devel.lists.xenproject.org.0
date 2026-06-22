@@ -2,68 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yLNbLzbgOGoJjgcAu9opvQ
+	id E/wqF+7uOGoYkQcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 09:11:50 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 10:14:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126CA6AD286
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 09:11:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A14906AD9A4
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 10:14:37 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=Ukc99H7e;
+	dkim=pass header.d=suse.com header.s=google header.b=DFBowl14;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=amd.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1343490.1602802 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1343517.1602811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbYnm-0003Aa-0f; Mon, 22 Jun 2026 07:10:38 +0000
+	id 1wbZmq-00039F-UI; Mon, 22 Jun 2026 08:13:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343490.1602802; Mon, 22 Jun 2026 07:10:37 +0000
+Received: by outflank-mailman (output) from mailman id 1343517.1602811; Mon, 22 Jun 2026 08:13:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbYnl-00037o-UF; Mon, 22 Jun 2026 07:10:37 +0000
-Received: by outflank-mailman (input) for mailman id 1343490;
- Mon, 22 Jun 2026 07:10:36 +0000
+	id 1wbZmq-000376-Rc; Mon, 22 Jun 2026 08:13:44 +0000
+Received: by outflank-mailman (input) for mailman id 1343517;
+ Mon, 22 Jun 2026 08:13:43 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wbYnj-00037i-Tg
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 07:10:36 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wbZmp-00036k-2z
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 08:13:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbYnh-00CbJN-00
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 09:10:33 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wbZml-003iq0-Cz
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 10:13:39 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a38dfe2-5cb7-0a2a0a5109dd-0a2a4508edb2-4
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 09:10:32 +0200
-Received: from [52.101.53.51]
- (helo=BL0PR03CU003.outbound.protection.outlook.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a38dfe6-9ee7-0a2a45080019-346535339a1e-3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 09:10:31 +0200
-Received: from CY8P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::22)
- by DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
- 2026 07:10:26 +0000
-Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
- (2603:10b6:930:6b:cafe::7f) by CY8P222CA0007.outlook.office365.com
- (2603:10b6:930:6b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.14 via Frontend Transport; Mon,
- 22 Jun 2026 07:10:26 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.139.8 via Frontend Transport; Mon, 22 Jun 2026 07:10:25 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
- 2026 02:10:25 -0500
-Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 22 Jun 2026 02:10:24 -0500
+ (envelope-from <jbeulich@suse.com>)
+ id 6a38eeb1-bab6-0a2a0a5309dd-0a2a4505d8b6-8
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 10:13:39 +0200
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a38eeb2-ef3d-0a2a45050019-d1558029b1a1-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 10:13:39 +0200
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-490b613a17bso32825655e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 01:13:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4924944fb71sm181974925e9.14.2026.06.22.01.13.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jun 2026 01:13:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -75,246 +60,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DQ6IKH6CR9r4UmVNN70E0Sz1bg/aBtDhbEC7tJEygOSy6ZbNnor8KCIk9eii7q6M//mzHy0ApM5JWjZveKwjs7wKCnVbXxzBSCbKILrgtOKg7HCaazCRo9wl97ksy5kmXf0zD54v3VGxU9FfI+rGzyEyudpY5bw0uI9fwrDWlobyeFqPZaHn3vb4joJ8ExOkcaIPrSp22C0jlnHJTuaV46Vcxx1OSSFn/w1QDKOV4jUBpHXKhA5okARy6W+HS5QUZyshGEwVwXdS6M8Zl2FPf9zPna0w1t+Aws66cDEDDDdzHJDiGaC6/+a2NMFyHddrPw+YzI4zZJqDIiP1lO/+NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+fArgSlxOuXpuVI2pl8L3ubFJaU7ii1NeLYbwqJBLpg=;
- b=nqgYxuzDZcc+6RYulyFSkDNpXAenYQKEPkHNC4aTti0yLA3OZakLGwC2/5qIDFikHY2FM2/UVJt7GjjOj0KVfiv4CCchoJ7sf5IuLAWiJtLQOYyqqbgXmlrBslGNmxWWDutzMTFYc855zNkQ9QySsHJCjVCqAU4u0yOJ7Bn/c/0oJdY4DjvKBgphtFLhXxzxr6dmzvIllXVuYBx8m2NavvTMYFiQNf67cQkywVnZjGovqdYDz1AJPqPdfEwIiLoQYkkchY+DGRjcJuVByGvHMeHFmR2hZFE7uY3Io85OXY0NbNr/+ogBVoN7alfTyX5Ic2ScWErQdwohRjjZSh54uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fArgSlxOuXpuVI2pl8L3ubFJaU7ii1NeLYbwqJBLpg=;
- b=Ukc99H7eOYJ1PMab+K24z1mytntZjPkzhV6BNOlmaPlXq6P5zPQTC9aJxuujTxI8eO+Z3qxzpyz2UyFZMRCsovpaI0v20i48244sX7vfYMCfQ0PO2lqe3FoABAjZPBHK4G74gKTPNIKEJBTPb5LMNN+05N6sTq6yaEZxs4USzg0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <50068b88-c7f7-4a66-a5a3-afbb2d2b6fb0@amd.com>
-Date: Mon, 22 Jun 2026 09:10:24 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782116018; x=1782720818; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rGi8z4dybdBr1jeN0JjenqNyqjpyII8CZ9iLAzxq5qM=;
+        b=DFBowl149gGTfqukohxNBqkl/gC4w0yMdj1rhrGea5t+qqKMX6BnfH40N8Ky0wSB6U
+         QQ6op0I7KdpAeRewjwe8BIZUvO4AQhW/9uqkUDvuwN4Wa183YG/ixpaNyPEmxshniwFE
+         1ilhRcQvsXVVHx92g1xO3uaCyiv335jjObY7NNcaOXt/Bw6NXrmLAiZ6Dd3O1JO/+Mzl
+         KeO1OrtJRHWnRbIhdLCqjXfGFJP7LM0hTTrjKPnkZTpsbnS3ZZvWcCKAE6x7HjbpWixB
+         ObwKK2nMXzfzWGM646SZJhoASs7gF9HLrgVPCPFGSfNiyLfNIyjc+gIx34FERcoUYRg2
+         i2xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782116018; x=1782720818;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rGi8z4dybdBr1jeN0JjenqNyqjpyII8CZ9iLAzxq5qM=;
+        b=AFblbcUzS5YTpU4UJAZ1kPJJA7jupposuDL7FkRAMBjmdE3HRSCHec9YZNdQz8O4VZ
+         DketfiRsQsOH6sA7j8smMAUKKoJRkfAld+UnSQRq79M79kSd+PHoHsaovbXlA1pNORvB
+         5IqGx7Ut2VSa0h4OJszUUnsdZdn7heINshR6OeMjXd7FYlezVc3gsCo1QmztRghXNUJM
+         hsYrLfgnB9qztly9skXzXZKV4cxxqc8kU2gypZfCZOPKOtoAhOBvAZJje+zlAUgH56ab
+         H9mT7EGb9XkYMhLX6krn9B0lhLzYf5cZKqvc6y8fNFL+AvF/E61mFxGIU0X2Q4M13hAV
+         5ePw==
+X-Forwarded-Encrypted: i=1; AFNElJ+ida0K1RnAU8rBcRTaUU65vVQpwzHJLW/yiz1cREX6toCTWy6Htki09NeXAHPXf3Zj7vmPghBgA7M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIphnZnlhZ9c/1IuVjs2tly0W+4avmKdQFMwHhChk6oTQAWWNp
+	Cx7+NUCteazRNPBfUQqAvKRlG17BSWywOfIofXmR4mEajNMe8FYBf+k2UjEAgXdk/A==
+X-Gm-Gg: AfdE7cmYvtJ3gS1b2anh+etoT52yS9VWN/3X4n8Tp6cFtrj4DOUK2QiDHyarhKYIO0g
+	wWpHctyNANv/WqCTrXxlBaPfW3kTLtdMfJSD90Z4UZsr9EOcxjZVc4i+gv0S+UumstYy80vJ6sH
+	bl23umWih/kckYeo5c6ZOh6xu+kI/OVSWBeoSqO2vtKeKB3/lYAJBwtxh/vqayuJK7BjUslu8QE
+	stcNd63fJvIsoayRFaW3wrSWMZ5LSJX1uv+++oFgQYfc/rrZi2uDPURRC+SPzWpHIRKTrDprzof
+	Qw7KPvhJsXwFnl670GMPf08oupwIEqfBpsyjayXn7ha4NJzb2LVgBgYNt0hLJeNNrx0aw9hXqGL
+	WCxM0w4DZSn5Zy3CP6Rq28lM1wmfrtxl0mewX7rYr1qGdsmwv0D1I69q56j7tgfkOWnS9erYnwv
+	nY1kXxQowlnNsNNOi6hnqCKpCK80aPQwuZuWh9glZF7tk8WAVdVmJCycxmcY1q/BL3dVHjzF8eY
+	PE5
+X-Received: by 2002:a05:600c:609a:b0:492:3fbc:556f with SMTP id 5b1f17b1804b1-49249083b99mr140214865e9.2.1782116018391;
+        Mon, 22 Jun 2026 01:13:38 -0700 (PDT)
+Message-ID: <42f16737-1aad-4e01-9966-671453cf1b52@suse.com>
+Date: Mon, 22 Jun 2026 10:13:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bootfdt: Fix infinite loop in device_tree_for_each_node()
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Oleksii
- Kurochko <oleksii.kurochko@gmail.com>
-References: <8836494cb51f6e1f4b094fc690876d344adb47f3.1781955521.git.dmytro_prokopchuk1@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v3 07/22] xen/device-tree: Read NUMA node distance from
+ Device Tree 'distance-map'
+To: Hirokazu Takahashi <taka@valinux.co.jp>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20260619075011.377116-1-taka@valinux.co.jp>
+ <20260619075011.377116-8-taka@valinux.co.jp>
+ <926d2a7a-e278-4c3a-b168-aad003da6652@suse.com>
+ <OS9P286MB7222340F4909B9873B89D45082E12@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
 Content-Language: en-US
-In-Reply-To: <8836494cb51f6e1f4b094fc690876d344adb47f3.1781955521.git.dmytro_prokopchuk1@epam.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <OS9P286MB7222340F4909B9873B89D45082E12@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|DS0PR12MB7747:EE_
-X-MS-Office365-Filtering-Correlation-Id: b63acfad-c0a1-4320-a380-08ded02d558b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|13003099007|6133799003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PATG8KcfTndhA3ME8NW0YIr2ChLSwRPcSQZ6fLMLWishb/UIPmr+qxH6+vswxWI/xeottihj/HxDsu2zNgIBvlaLdFla77XtMQjp+ept6LuWWqOcjsMiOk1xGguHgGCQ+WGtnz3jU36lJXumJH2e3SXhZ6Vto3gPoa+/+d60Awu75TxM4x9mh7LdwmhlpsEMYNMRY6Tg/HEGbDR66PhI4si7kaWnxL3DUhrqM2on6Xq+l+kx/Cqq8X662EkGzCjkURGUuYFDgrGAAqNUcAl38PuZt/0mhdJxUFC39kQCpHKSJMEiPmWXIxKGMUTSpnXQG7kvDftPBMeWy+XBtL29SW8YD7/M4V3crYegwodnIyaDguAFU44S1evcxdyfNWP+k9rqLBgKcKJ3VNbvjjC1zQ/ldR2xycc3ceaIOYrA1vUNPMRhBCGHcCjygwZDioI9IogRyh98fnZ8SoVomQb8e0/SxNK4dJHSaAZzg2USH/Lab3U9vqBUsgAAC4hOs3qCIK9GC8MEG8vPMVfnbKY00cUbgR6JN4uvKLQJxOIcfXUVqoXae5U1/iJ6qAZ1sOgxYbFvr9otFFwTSNmiESEL5rwYTxUwqkb7ltp0kDJ2YKUN263cyMBhauHtYsT1vTGZXNMZCN3U9oAB+gHbnD17RFw6ODVm+9WglBmnVjEfel9NYoBY8v3eG3+u77mD06v+TLCGqkNYIboZ6NZajsyRAg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(13003099007)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WDMqbyV0WFOhLWQiZD76b3aR39+Vqg6Ps1r4PVmJOrlUItX5dfalFzErO8HLd6ZxgPMfyifSGXSB3VvwvsMQNPES9LChZB9UUhR+8tlAqtcBCVmHALSHjK6VfxdG1wv1DH0uHADwys1QOzGJih8ROQMJAw0EkO5qxrf2vV3c4ehvj1uBMvZqiGKTKe1irLYvVHeCXZRZeUgtoMAqepvrk5jE5kk29sy750XjI86h4Pr7PgnzhrwuOkQmL47iNSuUZzYRJ7qBiBUQy8qvaQM1V1JltArZ+7mX/b4Q42szwwEA4+PTvjrOCr6wPwjQqY0wHDVQ7TeJ/asDS14UoeyrBdqWCy4hQhdlO28zsAhFks79Tn8Ldd4pmqK2+qJYfuPFVLF9YadionMlxQamhnocwoKniQzeXrvEjKc6jh2Tf8t/HXyjA3FYwJsS1MlRS7lH
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 07:10:25.9943
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b63acfad-c0a1-4320-a380-08ded02d558b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
-X-purgate-ID: tlsNG-c1860d/1782112232-5EFED0FA-AE24DC18/0/0
+X-purgate-ID: tlsNG-c201ff/1782116019-9CBCC127-D8F0E761/0/0
 X-purgate-type: clean
-X-purgate-size: 5593
+X-purgate-size: 1720
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,gmail.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,amd.com:dkim,amd.com:email,amd.com:mid,amd.com:from_mime,gitlab.com:url]
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 126CA6AD286
+X-Rspamd-Queue-Id: A14906AD9A4
 
+On 21.06.2026 01:36, Hirokazu Takahashi wrote:
+>>> +    entry_count = len / sizeof(__be32);
+>>
+>> Nit: Better sizeof(<expression>).
+> 
+> Is the following line better?
+> entry_count = len / sizeof(*matrix);
 
+Yes.
 
-On 20-Jun-26 13:49, Dmytro Prokopchuk1 wrote:
-> When a node's depth exceeds DEVICE_TREE_MAX_DEPTH inside the
-> device_tree_for_each_node() loop, the code prints a warning and
-> executes 'continue;' statement, which jumps to condition check,
-> bypassing the iterator update step:
+>>>  /*
+>>>   * Get the distance between node 'from' and node 'to'.
+>>>   */
+>>>  uint8_t numa_node_distance(unsigned int from, unsigned int to)
+>>>  {
+>>> -    if ( from != to )
+>>> -        return REMOTE_DISTANCE;
+>>> -    return LOCAL_DISTANCE;
+>>
+>> Why did you introduce the function as a fallback when now you remove the
+>> fallback logic entirely? Can't you introduce the function right here,
+>> omitting the earlier patch?
 > 
->     node = fdt_next_node(fdt, node, &depth).
+> I will remove the earlier patch.
 > 
-> The node and depth are not updated, the loop repeatedly evaluates
-> the same too-deep node, causing a hang.
+>>> +    const unsigned int nr_nodes = last_node(node_online_map) + 1U;
+>>> +
+>>> +    if ( from >= nr_nodes || to >= nr_nodes )
+>>> +        return from == to ? LOCAL_DISTANCE : REMOTE_DISTANCE;
+>>
+>> What if either node is NUMA_NO_NODE?
 > 
-> Fix this by wrapping the node processing logic in an 'else' block.
-> This ensures the loop update step is executed on every iteration,
-> safely skipping deeply nested nodes and doing the traversal.
+> This behavior comes from the Linux kernel. It seems it exists as a defensive
+> fallback to keep the system running even with invalid or unassigned nodes.
 > 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-Please add a fixes tag:
-Fixes: 40f2ea3df2e2 ("xen/arm: pass node to device_tree_for_each_node")
+> Do you think it is better to make it return 0xFF instead whenever any
+> out-of-bounds node or NUMA_NO_NODE is passed?
 
-> ---
-> 
-> Test CI pipeline: https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2615174670
-> 
-> Local tests.
-> Tests were based on "qemu-xtf.sh".
-> In the "/chosen" node were added these "levelN" nesting nodes:
-> 
-> 	chosen {
-> 		stdout-path = "/pl011@9000000";
-> 		kaslr-seed = <0x6ae81a67 0x26e92d62>;
->         level1 {
->             level2 {
->         ...
->                         level19 {
->                             level20 {
->                                 compatible = "test";
->                                 value = <1234>;
->                             };
->                         };
->         ...
->             };
->         };
-> 	};
-> 
-> Without a patch Xen stuck printing the same message in a loop:
-> 
-> (XEN) Checking for initrd in /chosen
-> (XEN) Checking for "xen,static-mem" in domain node
-> (XEN) Warning: device tree node `level15' is nested too deep
-> (XEN) Warning: device tree node `level15' is nested too deep
-> (XEN) Warning: device tree node `level15' is nested too deep
-> (XEN) Warning: device tree node `level15' is nested too deep
-> (XEN) Warning: device tree node `level15' is nested too deep
-> ...
-> 
-> With a patch these too-deep nodes were successfully skipped and Xen
-> continued to boot:
-> 
-> (XEN) Checking for initrd in /chosen
-> (XEN) Checking for "xen,static-mem" in domain node
-> (XEN) Warning: device tree node `level15' is nested too deep
-> (XEN) Warning: device tree node `level16' is nested too deep
-> (XEN) Warning: device tree node `level17' is nested too deep
-> (XEN) Warning: device tree node `level18' is nested too deep
-> (XEN) Warning: device tree node `level19' is nested too deep
-> (XEN) Warning: device tree node `level20' is nested too deep
-> (XEN) RAM: 0000000040000000 - 00000000bfffffff
-> (XEN) 
-> (XEN) MODULE[0]: 0000000043200000 - 000000004337afff Xen         
-> (XEN) MODULE[1]: 0000000043400000 - 0000000043402fff Device Tree 
-> (XEN) MODULE[2]: 0000000043000000 - 00000000430ef7f6 Ramdisk     
-> (XEN) MODULE[3]: 0000000040600000 - 0000000042f4ffff Kernel      
-> (XEN) MODULE[4]: 0000000040400000 - 0000000040412fff Kernel      
-> (XEN) 
-> (XEN) CMDLINE[0000000040600000]:domU0 console=ttyAMA0
-> ...
-> 
-> ---
->  xen/common/device-tree/bootfdt.c | 31 ++++++++++++++++---------------
->  1 file changed, 16 insertions(+), 15 deletions(-)
-> 
-> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-> index 7c790b9a4d..4d10013b2d 100644
-> --- a/xen/common/device-tree/bootfdt.c
-> +++ b/xen/common/device-tree/bootfdt.c
-> @@ -90,23 +90,24 @@ int __init device_tree_for_each_node(const void *fdt, int node,
->          {
->              printk("Warning: device tree node `%s' is nested too deep\n",
->                     name);
-> -            continue;
->          }
-> -
-> -        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
-> -        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
-> -
-> -        address_cells[depth] = device_tree_get_u32(fdt, node,
-> -                                                   "#address-cells", as);
-> -        size_cells[depth] = device_tree_get_u32(fdt, node,
-> -                                                "#size-cells", ss);
-> -
-> -        /* skip the first node */
-> -        if ( node != first_node )
-> +        else
->          {
-> -            ret = func(fdt, node, name, depth, as, ss, data);
-> -            if ( ret != 0 )
-> -                return ret;
-> +            as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
-> +            ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
-The added indentation level pushes these two lines over 80 columns (the
-ss= line was within 80 before this patch). Please wrap them while you
-are touching them. With that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Whether it's 0xff or REMOTE_DISTANCE I'm not quite sure. But it certainly
+shouldn't be LOCAL_DISTANCE.
 
+>>> +    for ( i = 0U; i < nr_nodes; i++ )
+>>> +        for ( j = 0U; j < nr_nodes; j++ )
+>>
+>> Why the U suffixes?
+> 
+> I added the U suffixes because variables i and j are unsigned types. 
+> If a plain 0 is preferred here, I will remove them.
 
-You don't carry [for-4.22] prefix, but I think it is simple enough to take it
-in, so we can ask Oleksii for his opinion to take it for 4.22. @Oleksii?
+They, even if only slightly, hamper readability. We tend to add them only
+when there actually is a need.
 
-~Michal
-
-> +
-> +            address_cells[depth] = device_tree_get_u32(fdt, node,
-> +                                                       "#address-cells", as);
-> +            size_cells[depth] = device_tree_get_u32(fdt, node,
-> +                                                    "#size-cells", ss);
-> +
-> +            /* skip the first node */
-> +            if ( node != first_node )
-> +            {
-> +                ret = func(fdt, node, name, depth, as, ss, data);
-> +                if ( ret != 0 )
-> +                    return ret;
-> +            }
->          }
->  
->          node = fdt_next_node(fdt, node, &depth);
-
+Jan
 
