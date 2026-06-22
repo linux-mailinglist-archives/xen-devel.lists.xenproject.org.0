@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HZCrBRtSOWpBqgcAu9opvQ
+	id Cu6zLx1SOWpCqgcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:17:47 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:17:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 685ED6B0A6C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:17:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AADF6B0A71
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:17:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=oahH6H2m;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b="f/GtDI3s";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=citrix.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1343889.1603124 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1343891.1603134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbgP1-0005QP-CC; Mon, 22 Jun 2026 15:17:35 +0000
+	id 1wbgP3-0005hf-PX; Mon, 22 Jun 2026 15:17:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343889.1603124; Mon, 22 Jun 2026 15:17:35 +0000
+Received: by outflank-mailman (output) from mailman id 1343891.1603134; Mon, 22 Jun 2026 15:17:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbgP1-0005Nl-8M; Mon, 22 Jun 2026 15:17:35 +0000
-Received: by outflank-mailman (input) for mailman id 1343889;
- Mon, 22 Jun 2026 15:17:33 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wbgP3-0005g5-JG; Mon, 22 Jun 2026 15:17:37 +0000
+Received: by outflank-mailman (input) for mailman id 1343891;
+ Mon, 22 Jun 2026 15:17:36 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <kevin.lampis@citrix.com>) id 1wbgOz-0005Jd-77
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 15:17:33 +0000
+ (envelope-from <kevin.lampis@citrix.com>) id 1wbgP2-0005cp-Ji
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 15:17:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbgOy-006hPz-Ja
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 17:17:32 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wbgP2-0052oN-0K
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 17:17:36 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <kevin.lampis@citrix.com>)
- id 6a39520c-bab6-0a2a0a5309dd-0a2a4502d4ac-0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:17:32 +0200
-Received: from [40.107.208.44]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ id 6a39520d-2eae-0a2a0a5409dd-0a2a450bcafe-12
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:17:35 +0200
+Received: from [52.101.53.45]
+ (helo=BL0PR03CU003.outbound.protection.outlook.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from <kevin.lampis@citrix.com>)
- id 6a39520a-fdf1-0a2a45020019-286bd02c8c05-3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:17:32 +0200
+ id 6a39520e-5e53-0a2a450b0019-3465352ddf2d-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:17:35 +0200
 Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
  by PH9PR03MB649383.namprd03.prod.outlook.com (2603:10b6:510:3e7::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Mon, 22 Jun
- 2026 15:17:28 +0000
+ 2026 15:17:33 +0000
 Received: from BY1PR03MB7996.namprd03.prod.outlook.com
  ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
  ([fe80::5068:e1b5:b478:8d07%3]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 15:17:28 +0000
+ 15:17:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,20 +64,20 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jZgDUZgRu5yd2xo7lyogtHif1/s5+Nd+wTEVTCC6yv7458SR2mNmpzsYkkumLkW5TjzlDF9XFeF7BAETKknkOlFAJZtWM/IP55pJAimaz/m1AbO7preO2hwnR1G4NbuH5C4qykTT/PMbXAvczwsRKvQJmxwC/AVIWo0/ka5gSeVYPhp5uDC0HjADCU2avJdR/0isqA+HmaCfMwpIbgXdX8CJM9OZBpkPGDEmP7Q82N8Tct3hA1nsDINsRMkyxz71melPkmETH2PuNsbNwHBFC9rCnycF21kXRmLgZbxE8EdUX7zm2ZEU0z9RhPBivtYvV29DgoGY8ZA3gGY6/YAfSg==
+ b=TTF6kwwvRVX1Xy2dtL9LJ/R/8w5YhbWUyYtQ81S8TYgaKpGkmExAhjxrTeWba8eTFxUJdchAMXmwypXs0NPwEb8ei3YJXUJtiVOZ46L2xUrFe52YE3YoshO7Px0aCnPSjgNYzif8hYH7fFSPLHXgpC9s0uGG6H6n1Rf1jCVWkEP+BKmNevUJWYk4PggtZf2V67cMk+oK6ZpsSEKQXAU0Aqqa7WuHNDR8Drj/2IuTLjvo+/5SyMcDtNCzDKFcWEn7rQAoGFGpougtodWVSVyWJ4M+LZl73s3DOV80C9+m1p1REaFZl2ZnlZiUbEekIz/Di0ICtdihno0jiGijRaQ3cA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8wWS/QFTT3jxmNODw0M8pTnOtiDA5oLNhuUJci4u7U=;
- b=AF9WNUB5C9WAJI8HOU0EaE6Y8N81ToKIvwmaAEvL+Yq8estFmkn/gNL0Li05Ph80nmLoGsgK53VQ6LluKCX510wPfgcPucV0uE8+OviGYZFh0gBwv/IB9m+6niU20Byi6GWBKQW4b9rXvfbGkI1cbU3FaVfT2lti28rkZ0DiaeRk9jbGntm9pTR71bLfyaF52gDP6VUa8Pni0JHu2kSfPqzmLEWI1xDUiMZsbNTJBUn+57hZBtx3u4U8WxyoXRGlyJ1QC2B0Rk9Iqw/E8RI9kiGlMvo6pjg3vwtIGlqSJKo/2qKvgOFp+flftu4s6yUAjulUy4zH8dqTX2hn7jdgRg==
+ bh=TAZqxPDz4iGQDAm8r7PVY0zk34ELEqip4hG1SLppqVU=;
+ b=LTkZgBXAxpW4jT1PQ1g/pZTJQbIPgQxXL70xnPM87zq/R4QB4/aDwM1XBP0OQ5YRYutiQOhKn1SjxzgA6m/HPP3Ax3sZmXpAQOR9LuBlc+lMlgHWaF8817nLzszFq3190xYQ7aIW4i16FVq5CkVcXA4Gyrdqdj69JXLUwEyih3mrCDsO+lO85tXxR25+T/gxAlJm1hxXrBzAsUsziV65Y+vAJ1anBROAhvdjU6p0L9wrfW8LTKRKZKLQX3sn7G9ANZO8VRPbBqJAw2kohASNZYGsE7r/wY2HpYCsy50Nez6WIwtDgXPLrSVgfWVPdBBZn6tiL5HPCzgSv1sTc2E6dA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8wWS/QFTT3jxmNODw0M8pTnOtiDA5oLNhuUJci4u7U=;
- b=oahH6H2mKcsu831UvkQGc0Sng4MQubGqB6wYvR2cO/qmdO/mjkr5z360CIc1AoQHlHyEQKKKOnXl9YObpGAjkAL18WmzYjkr1z5ajEvqscxv6BaWPssF1/Hi+YHIynyQVCqICtm1l/EL+EF/8Fd7VePcTZeADtwqRxXKhpPBJ5s=
+ bh=TAZqxPDz4iGQDAm8r7PVY0zk34ELEqip4hG1SLppqVU=;
+ b=f/GtDI3sypzSj7z9MZLdpCcgjIvg1EpfOgR08Eh8JwChspNIis1+zBdpuCf71cvXTQ1IstmiB5jXPIimKNnGM8f7gs30AoyXQd5SRR/AvO0yrT3DHoNgyijU85lYAlHKAQmyTTXqWsKdLOu4838ZQGD9UigshSs3vto2TUc3XuI=
 From: Kevin Lampis <kevin.lampis@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: jbeulich@suse.com,
@@ -85,75 +85,75 @@ Cc: jbeulich@suse.com,
 	roger.pau@citrix.com,
 	ross.lagerwall@citrix.com,
 	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH v2 3/7] x86/kexec: add new struct kimage_segment
-Date: Mon, 22 Jun 2026 16:18:29 +0100
-Message-ID: <20260622151833.3397692-4-kevin.lampis@citrix.com>
+Subject: [PATCH v2 4/7] x86/kexec: Support non-page-aligned kexec segments
+Date: Mon, 22 Jun 2026 16:18:30 +0100
+Message-ID: <20260622151833.3397692-5-kevin.lampis@citrix.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260622151833.3397692-1-kevin.lampis@citrix.com>
 References: <20260622151833.3397692-1-kevin.lampis@citrix.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0233.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:315::19) To BY1PR03MB7996.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0025.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::10) To BY1PR03MB7996.namprd03.prod.outlook.com
  (2603:10b6:a03:5b2::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|PH9PR03MB649383:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2600fb46-b394-4313-960e-08ded0715fab
+X-MS-Office365-Filtering-Correlation-Id: 0763b7bb-dab6-4a24-efb3-08ded071625d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|22082099003|18002099003|56012099006|11063799006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	EzoiRf+2XyVx7ElfXFPOIwMC+ZD0AE9koothaq0ya7Tpeyo8yKLB9W/k9Bt7y3s5jFqWwN/jmoyJPorszKL303QMAVIYVPPUmnIkynTkW5yOUBKXCU4W30y6/afT8BGrxkiYCI6rIt4fvQdNM9AhRez2UX124XyGQHLuSvioRUTDVVRmHSQR4eYGZFZuphD463zmbbffMI0YMQYTSYFEQq0SB56nl3aqFAbrclolNV2JQXSh1sFmcD2QRSBvV6Fj8NkRtscAeGWS1C+iSy6euiuTnlqIz4BhpB7K9NF7HEoWAzCIeAOi2f9+IC7GtYvy4ESlIlcinn+sE0MG6dNQh+X+7OV1BbRevKjGPUnMpdEeLlhYk1rfFiFZNpzwrRQDgAndoOgqL8n2v5NMQzXFvdRzaZxQmq2zMbyTM80WTysDzKwVHp3FbZnz4EMfZNaVWnGnZ5mTujEYp7zizYexJxCZK5KctuBYQMQ/PEueXixWFTlo7d3z8no6dE0+TdbKeeM6511koRIj5/V75qFCinc+Yo/lqcE0VWEEHiTNHvmOhcEkLNIuDSNlQGLaOz65LP125u4m+uoF+tt6156l2+Hjbp+tfA7VTx/en3Lv8mzf4QF1NT1YnqKF7LCn888iGxGBGrrj+d22ddCQJYm7Q+YYlnZnWUbI48/Ieypr7yw=
+	xF7qmQiiPe7r4JZc2Sq+/nSkW+Fd8GcQeBKvmdOHCwLnjI8O8xZEzoyj8s7xbIAhKnMt5Jx4MaDtdP5ZIxdMMbsPiaud3YuQCOTIsDfvA4CHHL4nNjvFMfY9yyIdO1S1nOtbXbgZAkgRpCeTI7QYfVay6hSPVFFgSa62rT1j03xZu5tTAkf4+ROEbdKJEODN4a6gVNUvXhqilO1vTtsFefGIYj90ZsCxMHMu5drtLOr7Zg9l4tMrH10begAIDDsHy1nbD9ZKdyV0TRe5OC/jEMW+hpkMFjW3YJzHJLZuWYjyv7EwYsFVZhHpVcS2DOIQnTNqPRQ2rP+7Ff6QPQcCsDfKCB6utHVzr62y/4xW2cWLM0QCfV/XO0wQVHLIqmjvfzstZW2Z3wqcjZOPBr1LFiG1ji+zRhJbCuqZuDQuIq/+Wg9BeVY47vdL73L55w8G6gD4He8rF9ZpvLYpLBK1ZL8e8u6SQQhnJBZwCTKYwXAHCh2Zt/YJ7f1rHK/0OoYolufSmDzepU+KhvgxVfVCfVPlUeQ8OHN8NoN34x9iMmvd6F42vrnD071wjyXGMpIlOyn+/+S3VRC03C80poqClKvG+3FK5XZEcTg6tNHGrZHJoMeerL+ufrX84T4wI5mcNkBM2h0AnQIVVIgvbEkOy20971Sjs3J9fhwroslu2ck=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Q5zVZjgLBWSf3tvUIS+srba9E1afCQ31szengy39CgMiwIKeTjwvBjQ8SblQ?=
- =?us-ascii?Q?7OO6KdGP/+3obIdPjKXJzI9Jq52UOqWOOX45NgUatQL1LOudcbq3HQ0ubGrL?=
- =?us-ascii?Q?GQr3/CN3nScKo7nIp1zJdEj7PLMVgTUsOjuVHCcHE7rAgdDERzrUYceKKEHb?=
- =?us-ascii?Q?t0GOdmzM2IihM8Spftvaa0aIHekMfYa9rjNmcJZAcmw9OaU70CB0o4CLAbYI?=
- =?us-ascii?Q?sum/mEfECoTozbtwsKnCYAeIrRWbAaoe+GADp27oK71wp3n6J0HZV2yzuTvn?=
- =?us-ascii?Q?OSTs0jrqCHL+SMEN4dro4lwapX06v4B9460Su74uf6VOk6MOOPMABj/7Mf7D?=
- =?us-ascii?Q?kdW4PpFpzMORBPyMGo0XHWgL2oJNt9d1A5IPlHL3IaxGwMxBDBl9opDNUqGu?=
- =?us-ascii?Q?pMoBXfXo+iL44XB52/8+fm+iMsX7syMZ04/O82IbCoKGH8gQXGwyKKeHkIRY?=
- =?us-ascii?Q?OCo/3LOc8lb/RXIchkOBEe1h5KkibKW3CLAQInk+bLiDSb3WQy61TaNrnaD0?=
- =?us-ascii?Q?EK9umAczOk32xD6hjNu9qF5n3Ko3Ja4kOYbA2rrVoA05sio+f6AOSnAIXzJX?=
- =?us-ascii?Q?TszOXEIwuHbTRORB6EgFTUJfAEL4ERdf5MKjCuwUzj+8jPVy6cxpnDSTuhzA?=
- =?us-ascii?Q?lrRKuGEhnO/JvNPQtLpikW8ANhMI7ZQqTg6greFRzT1P0zam1/XmkaSMlWfM?=
- =?us-ascii?Q?mGrbbHXypAd9cTAgOEtWpX8oxLVJjI5Wgi9wu2L1mgfbaPZvavTa1tlA7l/E?=
- =?us-ascii?Q?Sll7ngAAgbUxhVLmacCFCpMpXpOrCBqNPhwBrGjbzN1YdWh3YSWFjw5Hp1QF?=
- =?us-ascii?Q?WtNorzWQa7H4z/WfWfzMaA3BUyTEkrB1/dFlby6je/LAmDZn7WOT9wjIlaM1?=
- =?us-ascii?Q?OqK0xKr73Xza8S72qcwyT59jFjAojt88UE/EAIHWA8HAL+qvG7i/3LGaG7eM?=
- =?us-ascii?Q?cOZxlJ4107WKz+IICsRXTESH81vo6ZnocssrneGVGVyooyFADhKZAXaRRkO8?=
- =?us-ascii?Q?jNnMnkSZVQg7KEXeZmsbEvX5Liij89boUfLW2CHeC0nimO0RREIPv8DQhUL8?=
- =?us-ascii?Q?2l1JEWQRIlBf2KhSXTLUFONFolE1afickSMz5n8RzSDJWGPm7Y4ipatSPMG1?=
- =?us-ascii?Q?Uv/R+WX3LCKJlt7FKmwKWolQYhGPxfxXz0doeCtoD+kVS7/WbTwD+6XBMd9z?=
- =?us-ascii?Q?NDIIn/IPRHJ/+5ibc9Dt2N24k9tzrnSap8DQvuIdZCIqPccoE3LOMoglgD8u?=
- =?us-ascii?Q?Eba9CGyS6nBbQDKHe2XwY+zLw96KgSbaLB0woUFGzQIMw1yORzSfkOOoOxQn?=
- =?us-ascii?Q?H3DbW5DZBBqlYOaOuszJKMmuuIM6sPazHPN4KqLsPu9qiI3NjQ7uuonMwl8Y?=
- =?us-ascii?Q?WY7fxK/gnsT8CKl3acsJt11xXwCS+MnMje/5ySCxu3oBJqFCK4YuxZuPNyOc?=
- =?us-ascii?Q?PYWyXK7hYVklErNDowNusOpdGonWrN2zgbzeIX3cbbwmja0fNJLbsnrEj4je?=
- =?us-ascii?Q?0NtPYuoxdjRQsaesMYmTNI6Qhcppm0ME78p8ZMmIxkXk3hFvVpQqSDyrXsXj?=
- =?us-ascii?Q?bXkurcNoVA3QL3Fr/jdkVS/4qKEZUIvGOC9x1Nm6fbbCco6NpBWOZSiQjD5i?=
- =?us-ascii?Q?EWUDdeNGtMb/lng7O70xDCeREq+DfHF76xLy4WlivaCYbS1NxN2RL2HFF63a?=
- =?us-ascii?Q?a8Yny7oFdfxHgi4ukL1OfzZjZngicH2qA6lpy8BlFj6QvRaVi5HNxActOsIC?=
- =?us-ascii?Q?Kg84sxr84Q=3D=3D?=
+	=?us-ascii?Q?OLIaO20Y7VURev+VXZKwWuFencdeZ08fkct9v+HovPPOXxsI5+uhE+ZqUYdo?=
+ =?us-ascii?Q?XPN5P2vmfSfWj9YmoBRDc/3YlG7zkd5C+2Vx2erUKLcTDJihXuVgmt7iL+mL?=
+ =?us-ascii?Q?rLvTJnyKyEdd+GsYx0KEKrLR7o2zC52AKfiR2kIXjUMQTHUKKCGFcujjYVue?=
+ =?us-ascii?Q?VOtoEyerAJfGbqDsMnudLqCHVwuBx+fQj7Whrd0/rjSVXmmSzLsK3/lobcaZ?=
+ =?us-ascii?Q?AeSXl9krUJ+IfvRVggJNdVo7NeOv5H2Cqowg/F+UJooCxTYwEjpnCmce/nCX?=
+ =?us-ascii?Q?KIDJQhmkrGU8eGuh217ExdAOVyoPiKYg5H2LLeqRVPv2fg5FMEr8Vrlx98mA?=
+ =?us-ascii?Q?2fDfBPwpbrpMqxJ/yfNf+gkdg+uSEV7efdqZnfVbUVEL78ECAHoOsWfD7Grg?=
+ =?us-ascii?Q?q3axiwwM98c1u1sR1is/LvDKIoyiM5TO+vg9E7AWz5McyoLNAl2jtB3J58ye?=
+ =?us-ascii?Q?VXk03CR+Iy807cIpJg4pj99jBW+dKIr+IpXsUl3AIq/kHEZ7I17IBQuylp+o?=
+ =?us-ascii?Q?08biu9wtRZZxmhAMILW5AEAeCMpOPRrJiA2QOlmQhC9Chzp+gjtQ3H/2mcCR?=
+ =?us-ascii?Q?DE3wlxRDgp4cwerarN+TAMmMUW3ObPjZQZjntChsRnSRRqTLOTiWC6dqKGl2?=
+ =?us-ascii?Q?1qzmEEBs3lPsuhTCUEB8in9WtrMdrbmysJwZ7q6X3ocyzne/FiR4ERZL0TSg?=
+ =?us-ascii?Q?3tMA6iWG5URsW2m0WpwrOCFUvbGqgEz3zaIDzlgOO/htUcMVO77VhT4gi+8d?=
+ =?us-ascii?Q?ozr8j5FqQc5PiAl3valyFWUNudAtnRaBQcWMa2DQxTaX4VLWQw+5InaHL3fJ?=
+ =?us-ascii?Q?1l/qTPd5I07mbhW6M5K+NZ17632R9ypvWQjcKgx9XEl21erwjDSx/A7iOJrm?=
+ =?us-ascii?Q?jFbt9Xy268MoN9m0LRXr8/UkGir8bY3tGi8WzQUQ+/rq7hfRO/Y7wBwy3e+K?=
+ =?us-ascii?Q?dmliA6Pg3JyI/2Kj+D9FyE12CxNtykwTkcL4rBoUbz1wnWO/3GsDu9cy7zH1?=
+ =?us-ascii?Q?2sX3Qi0y0d2O9i3j2/uuhMJ0emdJOwqc3o7Si54PJgWNVciTanRIcKdR+u7i?=
+ =?us-ascii?Q?JeXVS6fenh39cT3vO/5P/lDPhpO3eM9E1yFPawktsGEQIKXcvVI4k/eXupHi?=
+ =?us-ascii?Q?s9GtHSRQ20I4Je19JkCb4QegONus9oigv+/L25n8i7/jmpxDwPbLSm9oiEyp?=
+ =?us-ascii?Q?4Sq2tUH78jY54evPXZ03bVIdzPPolfWdidhFwyCp+horcH/WLiVUNVBMIiTM?=
+ =?us-ascii?Q?1ERVzRhmDm8SK4ao9HQ4bvEMqIKwCxCwjPanPB2S/ZnyVPZep0Cr07RbCLDE?=
+ =?us-ascii?Q?+ZE7B67ZjO8VYWEBgYg3a9HK9vu5x5GFrQreNzzVJigaqnxLcU1EBBBAS61w?=
+ =?us-ascii?Q?d/L+p1wyHmVyv0vPWd/o9ZRGMGTmLeKI8qiQlNV5M1lQXh4/rtIuEEIarfb2?=
+ =?us-ascii?Q?oCi0PDCT2BRyIekg++vOX/NZ25oKeR/sdb7lPf0ZD+N2/5Q+kC8WLMiQMXc5?=
+ =?us-ascii?Q?sF8FT/KhLSfDduhHJTAoUsGYEvHQGudUOyglgE8fBtPYfZNBUYxFlcLIl43z?=
+ =?us-ascii?Q?qTfOzyBiy1mjILYF05OEXcUzEaJiJKAbmLRm5yga6NS+iD1ZTcyv111XmSBn?=
+ =?us-ascii?Q?iYxEV+m7yLhCoKxnxfo/bjEJOQiKh6XYWwKkLFgA1sNxE2tsNcyN3zg33XF6?=
+ =?us-ascii?Q?w0Kep7ntFB75SPMyGybrR+oz+ITd4vXzLjacQOCta+d2ArJXBP3RiXBRCI2c?=
+ =?us-ascii?Q?5391O/IgCg=3D=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2600fb46-b394-4313-960e-08ded0715fab
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0763b7bb-dab6-4a24-efb3-08ded071625d
 X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 15:17:28.8839
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 15:17:33.4391
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nYySxmIoFh0p1HsSpEIcEt4DK5BF2avFOEUspP8hcV5AS7ZSmXn+lkkdgVrL+Wa/P9BJl+9f/L6f5K//ZVr9ZA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: L8DkWHhFz41AVaTKWGzxdj1Q3u7cCFx3OYi0wz8/njPdir9Wy0VKkiYJ/M3/RgiCW+nJV+fBzWMBr+ZSZG46cQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR03MB649383
-X-purgate-ID: tlsNG-720697/1782141452-460643F3-658BB274/0/0
+X-purgate-ID: tlsNG-42698a/1782141455-457FD00E-1ECFEA67/0/0
 X-purgate-type: clean
-X-purgate-size: 7964
+X-purgate-size: 4633
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -187,214 +187,151 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 685ED6B0A6C
+X-Rspamd-Queue-Id: 6AADF6B0A71
 
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-New struct for internal use because Secure Boot code needs to add an
-extra field in a future patch.
+With Secure Boot, userspace passes in the entire kernel loaded for
+verification purposes. However, the kernel's startup32 function needs to
+be aligned (e.g. to 16 MiB) and this results in the start of the segment
+not being page-aligned (depending on where the startup32 function lands
+in the kernel binary). Relax this restriction in Xen to support this
+use case.
 
 Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
 ---
 Changes in v2:
-- Read into a local xen_kexec_segment_t variable and fill in segments[i]
-  manually instead of casting from a different sized type
-- Remove union and _pad from new `struct kimage_segment` type
-- Swap xen_kexec_segment_t to struct kimage_segment in separate patch
+- Remove error handling around map_domain_page because it doesn't fail
 ---
- xen/common/kexec.c       | 19 ++++++++++++++-----
- xen/common/kimage.c      | 25 +++++++++++++------------
- xen/include/xen/kimage.h | 11 +++++++++--
- 3 files changed, 36 insertions(+), 19 deletions(-)
+ xen/common/kimage.c      | 47 +++++++++++++++++++++++++++++++---------
+ xen/include/xen/kimage.h |  1 +
+ 2 files changed, 38 insertions(+), 10 deletions(-)
 
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index f31ab3fa07..5caeb19819 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -920,9 +920,10 @@ static int kexec_load_slot(struct kexec_image *kimage)
- static int kexec_load(XEN_GUEST_HANDLE_PARAM(void) uarg)
- {
-     xen_kexec_load_t load;
--    xen_kexec_segment_t *segments;
-+    struct kimage_segment *segments;
-     struct kexec_image *kimage = NULL;
-     int ret;
-+    unsigned int i;
- 
-     if ( copy_from_guest(&load, uarg, 1) )
-         return -EFAULT;
-@@ -930,14 +931,22 @@ static int kexec_load(XEN_GUEST_HANDLE_PARAM(void) uarg)
-     if ( load.nr_segments >= KEXEC_SEGMENT_MAX )
-         return -EINVAL;
- 
--    segments = xmalloc_array(xen_kexec_segment_t, load.nr_segments);
-+    segments = xmalloc_array(struct kimage_segment, load.nr_segments);
-     if ( segments == NULL )
-         return -ENOMEM;
- 
--    if ( copy_from_guest(segments, load.segments.h, load.nr_segments) )
-+    for ( i = 0; i < load.nr_segments; i++ )
-     {
--        ret = -EFAULT;
--        goto error;
-+        xen_kexec_segment_t tmp_seg = {};
-+        if ( copy_from_guest_offset(&tmp_seg, load.segments.h, i, 1) )
-+        {
-+            ret = -EFAULT;
-+            goto error;
-+        }
-+        segments[i].h = tmp_seg.buf.h;
-+        segments[i].buf_size = tmp_seg.buf_size;
-+        segments[i].dest_maddr = tmp_seg.dest_maddr;
-+        segments[i].dest_size = tmp_seg.dest_size;
-     }
- 
-     ret = kimage_alloc(&kimage, load.type, load.arch, load.entry_maddr,
 diff --git a/xen/common/kimage.c b/xen/common/kimage.c
-index 6e009529ae..dc47306223 100644
+index dc47306223..d4a695a2bd 100644
 --- a/xen/common/kimage.c
 +++ b/xen/common/kimage.c
-@@ -81,7 +81,7 @@ static struct page_info *kimage_alloc_zeroed_page(unsigned memflags)
+@@ -725,12 +725,14 @@ static int kimage_load_crash_segment(struct kexec_image *image,
+      */
+     paddr_t dest;
+     unsigned long sbytes, dbytes;
++    unsigned int dest_offset;
+     int ret = 0;
+     unsigned long src_offset = 0;
  
- static int do_kimage_alloc(struct kexec_image **rimage, paddr_t entry,
-                            unsigned long nr_segments,
--                           xen_kexec_segment_t *segments, uint8_t type)
-+                           struct kimage_segment *segments, uint8_t type)
- {
-     struct kexec_image *image;
-     unsigned long i;
-@@ -206,7 +206,7 @@ out:
+     sbytes = segment->buf_size;
+     dbytes = segment->dest_size;
+     dest = segment->dest_maddr;
++    dest_offset = segment->dest_offset;
  
- static int kimage_normal_alloc(struct kexec_image **rimage, paddr_t entry,
-                                unsigned long nr_segments,
--                               xen_kexec_segment_t *segments)
-+                               struct kimage_segment *segments)
- {
-     return do_kimage_alloc(rimage, entry, nr_segments, segments,
-                            KEXEC_TYPE_DEFAULT);
-@@ -214,7 +214,7 @@ static int kimage_normal_alloc(struct kexec_image **rimage, paddr_t entry,
- 
- static int kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
-                               unsigned long nr_segments,
--                              xen_kexec_segment_t *segments)
-+                              struct kimage_segment *segments)
- {
-     unsigned long i;
- 
-@@ -236,7 +236,7 @@ static int kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
+     while ( dbytes )
      {
-         paddr_t mstart, mend;
+@@ -740,24 +742,26 @@ static int kimage_load_crash_segment(struct kexec_image *image,
  
--        if ( guest_handle_is_null(segments[i].buf.h) )
-+        if ( guest_handle_is_null(segments[i].h) )
-             continue;
+         dest_mfn = dest >> PAGE_SHIFT;
  
-         mstart = segments[i].dest_maddr;
-@@ -664,7 +664,7 @@ found:
- }
+-        dchunk = PAGE_SIZE;
++        dchunk = PAGE_SIZE - dest_offset;
+         schunk = min(dchunk, sbytes);
  
- static int kimage_load_normal_segment(struct kexec_image *image,
--                                      xen_kexec_segment_t *segment)
-+                                      struct kimage_segment *segment)
- {
-     unsigned long to_copy;
-     unsigned long src_offset;
-@@ -698,7 +698,7 @@ static int kimage_load_normal_segment(struct kexec_image *image,
-             return ret;
+         dest_va = map_domain_page(_mfn(dest_mfn));
+-        if ( !dest_va )
+-            return -EINVAL;
  
-         dest_va = __map_domain_page(page);
--        ret = copy_from_guest_offset(dest_va, segment->buf.h, src_offset, size);
-+        ret = copy_from_guest_offset(dest_va, segment->h, src_offset, size);
+-        ret = copy_from_guest_offset(dest_va, segment->h, src_offset, schunk);
+-        memset(dest_va + schunk, 0, dchunk - schunk);
++        if ( dest_offset )
++            memset(dest_va, 0, dest_offset);
++        ret = copy_from_guest_offset(dest_va + dest_offset, segment->h,
++                                     src_offset, schunk);
++        memset(dest_va + dest_offset + schunk, 0, dchunk - schunk);
+ 
          unmap_domain_page(dest_va);
          if ( ret )
              return -EFAULT;
-@@ -717,7 +717,7 @@ static int kimage_load_normal_segment(struct kexec_image *image,
- }
  
- static int kimage_load_crash_segment(struct kexec_image *image,
--                                     xen_kexec_segment_t *segment)
-+                                     struct kimage_segment *segment)
- {
-     /*
-      * For crash dumps kernels we simply copy the data from user space
-@@ -747,7 +747,7 @@ static int kimage_load_crash_segment(struct kexec_image *image,
-         if ( !dest_va )
-             return -EINVAL;
+-        dbytes -= dchunk;
++        dbytes -= dchunk + dest_offset;
+         sbytes -= schunk;
+-        dest += dchunk;
++        dest += dchunk + dest_offset;
+         src_offset += schunk;
++        dest_offset = 0;
+     }
  
--        ret = copy_from_guest_offset(dest_va, segment->buf.h, src_offset, schunk);
-+        ret = copy_from_guest_offset(dest_va, segment->h, src_offset, schunk);
-         memset(dest_va + schunk, 0, dchunk - schunk);
- 
-         unmap_domain_page(dest_va);
-@@ -763,12 +763,13 @@ static int kimage_load_crash_segment(struct kexec_image *image,
      return 0;
- }
- 
--static int kimage_load_segment(struct kexec_image *image, xen_kexec_segment_t *segment)
-+static int kimage_load_segment(struct kexec_image *image,
-+                               struct kimage_segment *segment)
- {
-     int result = -ENOMEM;
-     paddr_t addr;
- 
--    if ( !guest_handle_is_null(segment->buf.h) )
-+    if ( !guest_handle_is_null(segment->h) )
-     {
-         switch ( image->type )
-         {
-@@ -794,7 +795,7 @@ static int kimage_load_segment(struct kexec_image *image, xen_kexec_segment_t *s
- 
- int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
-                  uint64_t entry_maddr,
--                 uint32_t nr_segments, xen_kexec_segment_t *segment)
-+                 uint32_t nr_segments, struct kimage_segment *segment)
+@@ -798,6 +802,26 @@ int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
+                  uint32_t nr_segments, struct kimage_segment *segment)
  {
      int result;
++    unsigned int i;
++
++    for ( i = 0; i < nr_segments; i++ )
++    {
++        paddr_t mend;
++
++        /*
++         * Stash the destination offset-in-page for use when copying the
++         * buffer later.
++         */
++        segment[i].dest_offset = PAGE_OFFSET(segment[i].dest_maddr);
++
++        /*
++         * Align down the start address to page size and align up the end
++         * address to page size.
++         */
++        mend = segment[i].dest_maddr + segment[i].dest_size;
++        segment[i].dest_maddr &= PAGE_MASK;
++        segment[i].dest_size = ROUNDUP(mend, PAGE_SIZE) - segment[i].dest_maddr;
++    }
  
-@@ -819,7 +820,7 @@ int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
- }
- 
- static void kimage_calc_one_digest(struct sha2_256_state *ctx,
--                                   xen_kexec_segment_t *segment)
-+                                   struct kimage_segment *segment)
+     switch( type )
+     {
+@@ -824,9 +848,11 @@ static void kimage_calc_one_digest(struct sha2_256_state *ctx,
  {
      paddr_t dest;
      unsigned long sbytes;
++    unsigned int dest_offset;
+ 
+     sbytes = segment->buf_size;
+     dest = segment->dest_maddr;
++    dest_offset = segment->dest_offset;
+ 
+     while ( sbytes )
+     {
+@@ -836,15 +862,16 @@ static void kimage_calc_one_digest(struct sha2_256_state *ctx,
+ 
+         dest_mfn = dest >> PAGE_SHIFT;
+ 
+-        dchunk = PAGE_SIZE;
++        dchunk = PAGE_SIZE - dest_offset;
+         schunk = min(dchunk, sbytes);
+ 
+         dest_va = map_domain_page(_mfn(dest_mfn));
+-        sha2_256_update(ctx, dest_va, schunk);
++        sha2_256_update(ctx, dest_va + dest_offset, schunk);
+         unmap_domain_page(dest_va);
+ 
+         sbytes -= schunk;
+-        dest += dchunk;
++        dest += dchunk + dest_offset;
++        dest_offset = 0;
+     }
+ }
+ 
 diff --git a/xen/include/xen/kimage.h b/xen/include/xen/kimage.h
-index 8ed89d4fa3..0841b6f321 100644
+index 0841b6f321..86250f2939 100644
 --- a/xen/include/xen/kimage.h
 +++ b/xen/include/xen/kimage.h
-@@ -18,12 +18,19 @@
+@@ -23,6 +23,7 @@ struct kimage_segment {
+     uint64_t buf_size;
+     uint64_t dest_maddr;
+     uint64_t dest_size;
++    unsigned int dest_offset;
+ };
  
- typedef paddr_t kimage_entry_t;
- 
-+struct kimage_segment {
-+    XEN_GUEST_HANDLE(const_void) h;
-+    uint64_t buf_size;
-+    uint64_t dest_maddr;
-+    uint64_t dest_size;
-+};
-+
  struct kexec_image {
-     uint8_t type;
-     uint16_t arch;
-     uint64_t entry_maddr;
-     uint32_t nr_segments;
--    xen_kexec_segment_t *segments;
-+    struct kimage_segment *segments;
- 
-     kimage_entry_t head;
-     struct page_info *entry_page;
-@@ -44,7 +51,7 @@ struct kexec_image {
- 
- int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
-                  uint64_t entry_maddr,
--                 uint32_t nr_segments, xen_kexec_segment_t *segment);
-+                 uint32_t nr_segments, struct kimage_segment *segment);
- void kimage_free(struct kexec_image *image);
- int kimage_load_segments(struct kexec_image *image);
- struct page_info *kimage_alloc_control_page(struct kexec_image *image,
 -- 
 2.52.0
 
