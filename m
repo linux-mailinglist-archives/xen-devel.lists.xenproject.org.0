@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 7W6eALtTOWqWqgcAu9opvQ
+	id FSNsDp1bOWo9rAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:24:43 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:58:21 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A73E6B0B0C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:24:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8042C6B0E9A
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 17:58:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=d+4YicjE;
+	dkim=pass header.d=suse.com header.s=google header.b=XUd3YSFT;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1343966.1603179 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1343982.1603190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbgVG-000294-Gr; Mon, 22 Jun 2026 15:24:02 +0000
+	id 1wbh1p-0007Pk-Tv; Mon, 22 Jun 2026 15:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343966.1603179; Mon, 22 Jun 2026 15:24:02 +0000
+Received: by outflank-mailman (output) from mailman id 1343982.1603190; Mon, 22 Jun 2026 15:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbgVG-00026x-Da; Mon, 22 Jun 2026 15:24:02 +0000
-Received: by outflank-mailman (input) for mailman id 1343966;
- Mon, 22 Jun 2026 15:24:01 +0000
+	id 1wbh1p-0007Nz-R9; Mon, 22 Jun 2026 15:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 1343982;
+ Mon, 22 Jun 2026 15:57:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wbgVF-00026r-Hp
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 15:24:01 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wbh1o-0007Lz-9h
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 15:57:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbgVE-00AdFU-N4
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 17:24:00 +0200
+ id 1wbh1m-00BFEc-Po
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 17:57:38 +0200
 Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a395381-5cb7-0a2a0a5109dd-0a2a4503ca94-26
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:24:00 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ id 6a395b43-e002-0a2a0a5209dd-0a2a4503d2bc-48
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:57:38 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from <jbeulich@suse.com>)
- id 6a395390-a3da-0a2a45030019-d1558029dcd6-3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:24:00 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49258ac7294so3901055e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 08:24:00 -0700 (PDT)
+ id 6a395b72-a3da-0a2a45030019-d155dd2decf9-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 17:57:38 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-463f1165e16so4524723f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 08:57:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-466643f4e9esm25732984f8f.1.2026.06.22.08.23.58
+ 5b1f17b1804b1-49240efc63fsm190555325e9.1.2026.06.22.08.57.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jun 2026 08:23:59 -0700 (PDT)
+ Mon, 22 Jun 2026 08:57:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,49 +61,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782141840; x=1782746640; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782143858; x=1782748658; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Jv8Wzzt1gdML5qbf7GwUS+RqFEzUNwIZfLx7jcTzmZs=;
-        b=d+4YicjEkVfZX0a/N3kHciBVh7kxCIfgHeMIS9zyiP2k4OwYCGioAbjBOXWpXOWabt
-         heagpDAprr47G5JgccV/8lgYx6xRXjBvr3ZAGXheKenBCImdgWnSWFz5oR2KFBMbE71r
-         uC7dxi7ZdOVsuumd6L5OwLlQYmOs2qRnQiAhHFbEcIZZ3yEEq+ju3WAdHucKPzKILQ1k
-         YZTMvujNG6OzJ4UAglctNL5ERWp+ZZGozbYGbbOTBKvLcHNnYe+CTGL0cvTuQU4Nyvmd
-         61P1OLPeye+47msdf6y1Lnq61pyqwrcL8SDlWdQSUsS9e5BFGKF8XIuL5GLL4K+XkVIs
-         /+HQ==
+        bh=N/aji1K5kjTpbcV5PMjcN9LFuov4EnJbGP3srzrkMlQ=;
+        b=XUd3YSFTs1sqW3jfuvtH8U2g7pXig4V9JMQimqaJxpKqo0XBbM6VEsiM4WxAWDUIc+
+         yci5WFaORlqROsy6WyDkrXL4ZwgjgNJzOBBEKI0Ei6uVEEGzKixZzccUlqw0zwqMRjbP
+         gqpXgkvkclkIc0dGjCGbUfSVmRJWAIStK95A8NosApFcvogKn+F6vsp+4xN+LJm6NJkT
+         y6lFOcFRZUYKvUqy5q2D/4GvUiQlL4smoYWMPHJS61380FC1iKBcIci+x9jZtMHwN/Q0
+         YZnBjgfezvzQeFFH18J1MlgUhL4mErZsVmQQgWwPFSWCqE6IDyt42mIDtoCtUhqG/U3x
+         3fPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782141840; x=1782746640;
+        d=1e100.net; s=20251104; t=1782143858; x=1782748658;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Jv8Wzzt1gdML5qbf7GwUS+RqFEzUNwIZfLx7jcTzmZs=;
-        b=VNLCOlJLdvdHCfQGqmUlftVySDPj6UBD0+34go7a97Jc+JeUJlRsZhxGYZ2xkynw2c
-         G5G1d6y3iGuWyVUh+3mQwUSGPu7rcMdcUyhec7JeQeZnJP3Miy8PclGHTMQipnM/qm16
-         RXoBKe4sydZpZVS9iVkxs8FxG/BbVtSdwwzaxY6Hq91hov8c2Rfo7Hd3I3DTqaaMVZFC
-         xpmZlEeI835H3s0I49xe2jwFxMSebHbAGEXgJqD725rIbBYGNc3d3QAlE2Mu3Iwb+mkU
-         XJ8B8pTgy/REO3A89vDjLGNwQV1YYbBBAao1afsBma0a1FHKphpNcRfVspbiDpjURRf6
-         d2Hw==
-X-Forwarded-Encrypted: i=1; AFNElJ96rmTAV71ot3LZaKWIZlCEQYttW6zUlLNCm3LGZ0VUb1pgSt2AYh0myf5V/mbCAP4rS44JakEogQ8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnXYwCZCI3p3XblBllZbVh73HLOUUSk0kfuCH8RrDXt27NfuPE
-	WG553UsKmnm61lycCvrzd7y22zPr5vAGmIQGHtSHv5ltxmUTZaDDz5agfEWUY/kkMg==
-X-Gm-Gg: AfdE7cmIEW7Vq1HS/GaYaoHQO7W149Pyk+QOJanVsQIJjTfEz9a+VjmYlrY8OAAXdIk
-	TnKlqPQJZGDDTqIzU7w/CXLGTbh5e6ZsDuNXDRUqTrD6BLbCP6XHHEHc5RoxVcjaE2wS4SPgq5v
-	ZiJ/L19jpBUv5kGIpAK5mm9+6G25mi0LxptYqU5aYrFtADuiA5LNlISi7/C0wbrfwxxZLFl0tsE
-	iyEqUtnn9rHPXNV0YKBSqcgj15xzT7elyPU/CMlwvcqe03ktpoy6ExM8Z/8C8Nf64HNjIVkMSds
-	diqu+2QY9nxtYEMXjCc4ySQCSXVDQh8v1xXAckg9xTAiLG4K2v7fS03mqj4OY2QLEM3fQJXPfBR
-	RNLkT4A5qv7B348tKZp60IAOT1vqjiXtpxpU7j3x33SZPVnIc+iMcCUol2iHWFnrSsQS1WY2mX2
-	SkUNMStUexEpmURBjq2Plw1WbbYSr1E0LKCYlvohMurj2cvt2x0M8YqmJOncuCFi1JikMZM79dn
-	utV
-X-Received: by 2002:a05:600d:101:b0:492:4050:d495 with SMTP id 5b1f17b1804b1-49240ea31famr167454605e9.30.1782141839875;
-        Mon, 22 Jun 2026 08:23:59 -0700 (PDT)
-Message-ID: <74f4b96e-1084-4880-addf-8ce57a0dab5f@suse.com>
-Date: Mon, 22 Jun 2026 17:23:58 +0200
+        bh=N/aji1K5kjTpbcV5PMjcN9LFuov4EnJbGP3srzrkMlQ=;
+        b=tOx3kORycyw65FzHMnr7f0fe6tIArNCewYopymDa3S30iH/oWLwU6XjM+z8uLUUNPZ
+         trO13vy0AoHkPifBuGkkKkISc0zNtjQP5UqElX/EFFVXWf2CATMDXnwx3ZwInkJRby0h
+         f+AbdCk9+BSZozGhpHmL4cCP/D1Abzt2doJqN5KjW75ohgsxUyYEaQPKZF6yNuZg2622
+         yLgLWmEwaj/9NKieTak0VoO5mdZd8ehos9RdySY/dk608cPfA2avY7ZEcR5p7cxZr0kF
+         JuJKUZHUEytTQxpv1qg4p3ewvxHv88iYyCbjprOZJU01PLqqbqgNSOV/2kE9F/wuVWQt
+         FwkA==
+X-Forwarded-Encrypted: i=1; AFNElJ8mO+rxCA5z48CWAHVb9ZsehT+8W92/G44QlKLMam0Q38ILjquH0MinTK9eB6o3eaDPGid6iN0wroY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzi6aYy7V6wsxVGT5Hh7WOl7deWUuNgpIpTc24QNg1TKhMixB3W
+	RQUlIM23GW369iqNUpXLs5uTRC51C2P+kGo1EFVYRJOhi4DV3O+CoiLpEIYRgeytDw==
+X-Gm-Gg: AfdE7cnLjy/S01ofjDPCwS2MvjWxJfWEksL6VYZeLxdME1/58gJLXVYmBFbLjgenXGm
+	BYtoJiSiZTqQ7vAqQ+xoWPYG9T+qC066u/1wcu4LBABi5yUtw0lOmIj7Nc7oMCQOHI7Nbf0sX1B
+	nw1MrC8a62SWAUIWqcBbkE4T9KbmfQvj7rLBqIT0OqAIEKXyJhqnoLk1iHrb05mP/SeoURvpnBp
+	z2jv8G8Qw81DjhWTyUuHnhfFD2PGnyVmLi2Pv0q0OkX55ILL+s3bTZdXDcjAWGa8zEzs1jJM+XJ
+	qpoCLge8uQox4jy7lWciRGqf2kx172A76h99g2bOUZNsnoYuKKmifa9qSKHorXHeIJDTHx1leRx
+	4b33LVs1EyjNeianA9qBAjyOHk3VTpaUpeFDaqMCq6NrgOt+xIh+EVBp2+/cfY2Jpw49VWquqZ1
+	xWj9dHUV4lrW/oSEJgYhFLOmwKPwC6zlBhbO/VZnClKQIVBuT7SHcpSSDJkN4jivBRsnbORCEbi
+	x0T
+X-Received: by 2002:a05:600c:2305:b0:492:2f59:4969 with SMTP id 5b1f17b1804b1-49240e5b469mr182157355e9.22.1782143857853;
+        Mon, 22 Jun 2026 08:57:37 -0700 (PDT)
+Message-ID: <3a1aca27-cc18-4b57-bb31-c50161b8c261@suse.com>
+Date: Mon, 22 Jun 2026 17:57:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/23] xen/riscv: create APLIC DT node for guest
- domains
+Subject: Re: [PATCH v3 18/23] xen/riscv: implement IRQ routing for device
+ passthrough
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -114,7 +114,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1781693963.git.oleksii.kurochko@gmail.com>
- <0b034d584b7aaec54b70e9e575c727b07930d2ed.1781693963.git.oleksii.kurochko@gmail.com>
+ <0458468cc5a6db911a9acc64f4c8cf17ceebe4c6.1781693963.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,12 +140,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b034d584b7aaec54b70e9e575c727b07930d2ed.1781693963.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <0458468cc5a6db911a9acc64f4c8cf17ceebe4c6.1781693963.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1782141840-65DC7D84-CAEC1EB5/0/0
+X-purgate-ID: tlsNG-33051d/1782143858-677D2D84-D95CCF5D/0/0
 X-purgate-type: clean
-X-purgate-size: 1533
+X-purgate-size: 7566
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -182,57 +182,260 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5A73E6B0B0C
+X-Rspamd-Queue-Id: 8042C6B0E9A
 
 On 17.06.2026 13:17, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/aplic.c
-> +++ b/xen/arch/riscv/aplic.c
-> @@ -12,8 +12,10 @@
->  #include <xen/const.h>
->  #include <xen/device_tree.h>
->  #include <xen/errno.h>
-> +#include <xen/fdt-kernel.h>
->  #include <xen/init.h>
->  #include <xen/irq.h>
-> +#include <xen/libfdt/libfdt.h>
->  #include <xen/mm.h>
->  #include <xen/sections.h>
->  #include <xen/spinlock.h>
+> --- /dev/null
+> +++ b/xen/arch/riscv/device.c
+> @@ -0,0 +1,102 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+> +#include <xen/iocap.h>
+> +#include <xen/rangeset.h>
+> +#include <xen/sched.h>
+> +
+> +#include <asm/intc.h>
+> +
+> +int map_irq_to_domain(struct domain *d, unsigned int irq,
+> +                      bool need_mapping, const char *devname)
+> +{
+> +    int res;
+> +
+> +    res = irq_permit_access(d, irq);
 
-Why's this needed all of the sudden?
+Such generally needs an XSM check up front, the more that the function isn't
+__init, i.e. is (apparently) intended for runtime use as well.
 
-> @@ -29,6 +36,74 @@ static void cf_check vaplic_deinit(struct vcpu *v)
->      return vcpu_imsic_deinit(v);
+> +    if ( res )
+> +    {
+> +        printk(XENLOG_ERR "Unable to permit %pd access to IRQ %u\n", d, irq);
+> +        return res;
+> +    }
+> +
+> +    if ( need_mapping )
+> +    {
+> +        /*
+> +         * Checking the return of vintc_reserve_virq is not
+> +         * necessary. It should not fail except when we try to map
+> +         * the IRQ twice. This can legitimately happen if the IRQ is shared.
+> +         */
+> +        vintc_reserve_virq(d, irq);
+> +
+> +        res = route_irq_to_guest(d, irq, irq, devname);
+> +        if ( res < 0 )
+> +        {
+> +            printk(XENLOG_ERR "Unable to map IRQ%u to %pd\n", irq, d);
+> +            return res;
+> +        }
+> +    }
+> +
+> +    dt_dprintk("  - IRQ: %u\n", irq);
+> +
+> +    return 0;
+> +}
+> +
+> +/*
+> + * map_device_irqs_to_domain retrieves the interrupts configuration from
+> + * a device tree node and maps those interrupts to the target domain.
+> + *
+> + * Returns:
+> + *   < 0 error
+> + *   0   success
+> + */
+> +int map_device_irqs_to_domain(struct domain *d,
+> +                              struct dt_device_node *dev,
+> +                              bool need_mapping,
+> +                              struct rangeset *irq_ranges)
+> +{
+> +    unsigned int i, nirq = dt_number_of_irq(dev);
+> +
+> +    if ( irq_ranges )
+> +        return -EOPNOTSUPP;
+> +
+> +    /* Give permission and map IRQs */
+> +    for ( i = 0; i < nirq; i++ )
+> +    {
+> +        int res, irq;
+> +        struct dt_raw_irq rirq;
+> +
+> +        res = dt_device_get_raw_irq(dev, i, &rirq);
+> +        if ( res )
+> +        {
+> +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
+> +                   i, dt_node_full_name(dev));
+> +            return res;
+> +        }
+> +
+> +        /*
+> +         * Don't map IRQ that have no physical meaning
+> +         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
+> +         */
+
+Nit: Does this comment mean to use singular or plural for IRQ?
+
+> --- a/xen/arch/riscv/imsic.c
+> +++ b/xen/arch/riscv/imsic.c
+> @@ -538,10 +538,11 @@ int __init imsic_init(const struct dt_device_node *node)
+>  
+>  static int __init guest_imsic_make_reg_property(struct domain *d, void *fdt)
+>  {
+> +    paddr_t base = GUEST_IMSIC_S_BASE;
+>      paddr_t size = IMSIC_MMIO_PAGE_SZ * d->max_vcpus;
+>      __be32 regs[4] = {
+> -        cpu_to_be32(GUEST_IMSIC_S_BASE >> 32),
+> -        cpu_to_be32(GUEST_IMSIC_S_BASE),
+> +        cpu_to_be32(base >> 32),
+> +        cpu_to_be32(base),
+>          cpu_to_be32(size >> 32),
+>          cpu_to_be32(size),
+>      };
+
+What is this change about? Does it perhaps belong into an earlier patch?
+
+> --- a/xen/arch/riscv/include/asm/intc.h
+> +++ b/xen/arch/riscv/include/asm/intc.h
+> @@ -13,6 +13,7 @@ enum intc_version {
+>  };
+>  
+>  struct cpu_user_regs;
+> +struct domain;
+>  struct irq_desc;
+>  struct kernel_info;
+>  struct vcpu;
+> @@ -32,6 +33,9 @@ struct intc_hw_operations {
+>      /* hw_irq_controller to enable/disable/eoi host irq */
+>      const struct hw_interrupt_type *host_irq_type;
+>  
+> +    /* hw_irq_controller to enable/disable/eoi guest irq */
+> +    const struct hw_interrupt_type *guest_irq_type;
+
+It's likely my limited RISC-V knowledge that I find this extremely odd:
+Separate struct hw_interrupt_type-s for host and guest?
+
+> @@ -62,6 +66,8 @@ struct vintc_ops {
+>  };
+>  
+>  struct vintc {
+> +    unsigned int irq_nums;
+
+I did ask before: Which word does "nums" stand for?
+
+> @@ -106,12 +124,25 @@ int domain_vintc_init(struct domain *d)
+>          break;
+>      }
+>  
+> +    if ( !ret )
+> +    {
+> +        d->arch.vintc->used_irqs =
+> +            xvzalloc_array(unsigned long, BITS_TO_LONGS(d->arch.vintc->irq_nums));
+> +        if ( !d->arch.vintc->used_irqs )
+> +            ret = -ENOMEM;
+> +    }
+> +
+>      return ret;
 >  }
 >  
-> +static int __init cf_check vaplic_make_domu_dt_node(struct kernel_info *kinfo)
-> +{
-> +    struct domain *d = kinfo->bd.d;
-> +    int res = 0;
-> +    void *fdt = kinfo->fdt;
-> +    unsigned int msi_parent_phandle;
-> +    char vaplic_name[128];
-
-Again an excessively large array?
-
-> +static const struct vintc_init_ops __initdata init_ops = {
-
-Like elsewhere, __initconst{,rel} with const.
-
-> +    .make_domu_dt_node = vaplic_make_domu_dt_node,
-> +};
+>  void domain_vintc_deinit(struct domain *d)
+>  {
+>      const enum intc_version ver = intc_hw_ops->info->hw_version;
+> +    unsigned int virq;
 > +
->  static const struct vintc_ops vintc_ops = {
->      .vcpu_init = vaplic_init,
->      .vcpu_deinit = vaplic_deinit,
-> @@ -43,6 +118,7 @@ int domain_vaplic_init(struct domain *d)
->  
->      d->arch.vintc = &vaplic->vintc;
->      d->arch.vintc->ops = &vintc_ops;
-> +    d->arch.vintc->init_ops = &init_ops;
+> +    for ( virq = 0; virq < d->arch.vintc->irq_nums; virq++ )
 
-The caller of ->init_ops->make_domu_dt_node() appeared in patch 11 already,
-if I'm getting things right. That is, up here there's a NULL deref there.
+Here you de-reference d->arch.intc. One of the purposes of ...
+
+> +        if ( test_bit(virq, d->arch.vintc->used_irqs) )
+> +            release_guest_irq(d, virq);
+>  
+>      switch ( ver )
+>      {
+> @@ -122,4 +153,14 @@ void domain_vintc_deinit(struct domain *d)
+>      default:
+>          break;
+>      }
+> +
+> +    XVFREE(d->arch.vintc->used_irqs);
+
+... this is to allow the function to be idempotent, i.e. to recognize that
+it was called before (or no setup was done at all), and hence it doesn't
+need to do anything.
+
+> +void release_irq(unsigned int irq, const void *dev_id)
+> +{
+> +    struct irq_desc *desc;
+> +    unsigned long flags;
+> +    struct irqaction *action, **action_ptr;
+> +
+> +    desc = irq_to_desc(irq);
+> +
+> +    spin_lock_irqsave(&desc->lock,flags);
+
+Nit: Missing blank after comma (again at least once further down).
+
+> +    action_ptr = &desc->action;
+> +#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+> +    for ( ;; )
+> +    {
+> +        action = *action_ptr;
+> +        if ( !action )
+> +        {
+> +            printk(XENLOG_WARNING "Trying to free already-free IRQ %u\n", irq);
+> +            spin_unlock_irqrestore(&desc->lock, flags);
+> +            return;
+> +        }
+> +
+> +        if ( action->dev_id == dev_id )
+> +            break;
+> +
+> +        action_ptr = &action->next;
+> +    }
+> +
+> +    /* Found it - remove it from the action list */
+> +    *action_ptr = action->next;
+> +#else
+> +    action = *action_ptr;
+> +    *action_ptr = NULL;
+> +#endif
+> +
+> +    /* If this was the last action, shut down the IRQ */
+> +    if ( !desc->action )
+> +    {
+> +        desc->handler->shutdown(desc);
+> +        __clear_bit(_IRQ_GUEST, &desc->status);
+> +    }
+> +
+> +    spin_unlock_irqrestore(&desc->lock,flags);
+> +
+> +    /* Wait to make sure it's not being used on another CPU */
+> +    do { smp_mb(); } while ( test_bit(_IRQ_INPROGRESS, &desc->status) );
+
+Can you explain to me what the purpose of this barrier is?
+
+> +int release_guest_irq(struct domain *d, unsigned int virq)
+> +{
+> +    struct irq_desc *desc = irq_to_desc(virq);
+> +    struct irq_guest *info;
+> +    unsigned long flags;
+> +
+> +    spin_lock_irqsave(&desc->lock, flags);
+> +
+> +    if ( !test_bit(_IRQ_GUEST, &desc->status) )
+> +        goto unlock_err;
+> +
+> +    info = irq_get_guest_info(desc);
+> +    if ( d != info->d )
+> +        goto unlock_err;
+> +
+> +    spin_unlock_irqrestore(&desc->lock, flags);
+> +
+> +    release_irq(desc->irq, info);
+> +    xvfree(info);
+
+So you drop the lock keeping the info associated with desc in place. How
+do you know what you free here is the correct thing, and isn't in use
+elsewhere?
 
 Jan
 
