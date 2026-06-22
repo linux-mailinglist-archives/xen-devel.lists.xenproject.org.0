@@ -2,49 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id UMVtIGUIOGoFXQcAu9opvQ
+	id yLNbLzbgOGoJjgcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Jun 2026 17:51:01 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 09:11:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B456AB34C
-	for <lists+xen-devel@lfdr.de>; Sun, 21 Jun 2026 17:51:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126CA6AD286
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 09:11:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=VR4HGiHR;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=Ukc99H7e;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	arc=pass ("google.com:s=arc-20240605:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1343366.1602792 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=amd.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1343490.1602802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbKQt-0004hb-HQ; Sun, 21 Jun 2026 15:50:03 +0000
+	id 1wbYnm-0003Aa-0f; Mon, 22 Jun 2026 07:10:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343366.1602792; Sun, 21 Jun 2026 15:50:03 +0000
+Received: by outflank-mailman (output) from mailman id 1343490.1602802; Mon, 22 Jun 2026 07:10:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbKQt-0004bs-AZ; Sun, 21 Jun 2026 15:50:03 +0000
-Received: by outflank-mailman (input) for mailman id 1343366;
- Sun, 21 Jun 2026 15:50:02 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wbYnl-00037o-UF; Mon, 22 Jun 2026 07:10:37 +0000
+Received: by outflank-mailman (input) for mailman id 1343490;
+ Mon, 22 Jun 2026 07:10:36 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wbKQr-0004Ol-Vx
- for xen-devel@lists.xenproject.org; Sun, 21 Jun 2026 15:50:02 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wbYnj-00037i-Tg
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 07:10:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbKQr-00BUVc-Cn
- for xen-devel@lists.xenproject.org; Sun, 21 Jun 2026 17:50:01 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wbYnh-00CbJN-00
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 09:10:33 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a3807fb-e002-0a2a0a5209dd-0a2a450ad092-16
- for <xen-devel@lists.xenproject.org>; Sun, 21 Jun 2026 17:50:01 +0200
-Received: from [209.85.167.43] (helo=mail-lf1-f43.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a380829-93a5-0a2a450a0019-d155a72badbc-3
- for <xen-devel@lists.xenproject.org>; Sun, 21 Jun 2026 17:50:01 +0200
-Received: by mail-lf1-f43.google.com with SMTP id
- 2adb3069b0e04-5aa68d65d24so3902294e87.1
- for <xen-devel@lists.xenproject.org>; Sun, 21 Jun 2026 08:50:01 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a38dfe2-5cb7-0a2a0a5109dd-0a2a4508edb2-4
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 09:10:32 +0200
+Received: from [52.101.53.51]
+ (helo=BL0PR03CU003.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a38dfe6-9ee7-0a2a45080019-346535339a1e-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 09:10:31 +0200
+Received: from CY8P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:930:6b::22)
+ by DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.18; Mon, 22 Jun
+ 2026 07:10:26 +0000
+Received: from CH3PEPF0000000C.namprd04.prod.outlook.com
+ (2603:10b6:930:6b:cafe::7f) by CY8P222CA0007.outlook.office365.com
+ (2603:10b6:930:6b::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.139.14 via Frontend Transport; Mon,
+ 22 Jun 2026 07:10:26 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH3PEPF0000000C.mail.protection.outlook.com (10.167.244.39) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.139.8 via Frontend Transport; Mon, 22 Jun 2026 07:10:25 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 22 Jun
+ 2026 02:10:25 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 22 Jun 2026 02:10:24 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,272 +75,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1782057001; cv=none;
-        d=google.com; s=arc-20240605;
-        b=NT1/75GAiw+z/CkNlzL7mUsNP/6X9aKLeJLBLB88T4E3ogvb/hbLva2d9OeUz3lOOh
-         jI02fYfaqEJskUMo6SA0oEc9U6Bxd3t75NGzA14fOLqET0/3hWSPANaYx4S7cTvWZ6sk
-         vQOsozgVevW7TTlYXhHIiJVHL04yKvY6eMexb1ta34ssUcMm/o3d5hwaFkBsduzLElwG
-         iyU9YDeGZcNLir5JOtE4lDcK3CP2JnxPMwtKaBqLWcTZhKppkjX/8xtemtT3ccJpYtNE
-         MO+I0kXgJEcBRbtDBodHEpWDkLfYnRZtH4gvufqIKkWyWrR94DHl1gz24c+QiKKyXLYT
-         jEgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+Ihts8Nrd/pPs41bP7NbDD2r+lVeDMvNnWwboa87a24=;
-        fh=+6+HpIV0Emk7Rv3ZPp6eyftBpuk0oVwMFn9aIOQ3wzE=;
-        b=D9NCwEgRxTeCLzA4m60MRSoGhf8r3S1rZcBkYsvpUtRhV4BCfT4klL0t+3+fF8rKGM
-         egloFNV2WVOWGyKhSaxHb68qxv7/prGaWZX+doQTAp0xGU1B6CRUSZDd6y0QYjz9GdGk
-         8QwbLXSaT0LMMomYeBj1N+MiXw4U0LCOu2RASZyAFLALntqBTkW3ifIW+YxqhtwxRE9V
-         Z80ba7yZGyxKun75YqecFdIBTJHphgw7jSt5CQJ7fUKC6Kv/t4FUbH2rzLUBn9zTMIbt
-         DeKbf6noZzC8O06rDe/YrWHJhBmnmyCy4drciTjShounp3q4OKUBAaSX7CMk+A504ETF
-         Xj8g==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782057001; x=1782661801; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+Ihts8Nrd/pPs41bP7NbDD2r+lVeDMvNnWwboa87a24=;
-        b=VR4HGiHR0xPO9fymjM6d7awv7B/kdJcNTZUfebY/HkgrgJN5iQBxMsSZaEncNIY3AA
-         DgjYWZB0/ecwL/GuugtdOJvZ1IXoEZY8sJkNTtsg1fuzlAC1miBPBKsNU4ZTFct35b/v
-         BVCJWaWYdPrm1Ipko1JN1Ynr45Lw1auMtl3GcOquzb+Wmd8syuhvgd0HB/7phSw81leC
-         t1yjn42ndJxG0/nhhPpt2qx32F5PyL1AF5Ix+4VgI8NlvoyA74Z/qXt77bqDV0bYBgh8
-         QFQYwp/a8Qo65S4v0CYvC/6eDlvmdc8GX2DeIqSRke/iQGBnjRK4w3987I1/nPgopNdx
-         pphQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782057001; x=1782661801;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+Ihts8Nrd/pPs41bP7NbDD2r+lVeDMvNnWwboa87a24=;
-        b=n0haZ/QF0wI50swTJHXaWb7U4qkumTcG0MjwvkGCJ9Yub/9lfMFRriHMndX0nGkB4C
-         eOXIcyHhG6AVLSyIONL3HwG+5zICm8EZmWXXgnm8LgyM8W3vu76dMcWivi0nEqydFgwG
-         BL8t1LaWs35ILkpuro6pOfZZ5gnH2aK0Zc0TVrLwBUmPYebXTlWCUrMLNpswisr/DSR9
-         nK0TuScgxtAfDikAzzGA5eHyijfr/vAR/nNkzDlsCzOga/z5dxhJmoleQOD41lpWLG10
-         r6h5869/+U7u8FOXNT0p/bRYnpVfbGKqwUWjDpjibaxIBkw5MoSs6fhdrFX78F0cXclI
-         5OuQ==
-X-Forwarded-Encrypted: i=1; AFNElJ97+SZKomgwMPRoF5t1II+tr8n4w107LRuSOucefQ6IuwzBPf3jOSyCfVVywqo18095AhTTeqbzKIg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy65zx7X/WEQs4AiL4xlygVOuJrSFNB0uo7kWibJDkvcHnvyYlT
-	lFWjL2V2IxY3yJhFkqxgFnGqRt2JmU5B86dwUzsxxhoAYuC+fts+IQBDLPychOeueVNX/7ek2cV
-	b1pD5nIzzDdWm9wDVN4QviVm1PDUjjSk=
-X-Gm-Gg: AfdE7cm3yV4PB2Q1dY8mOl8nMxmE+uM2QDhYug8c973llBBEqI0ut4T37jcaf9IB/ZY
-	TAFBLqZp+N1iWoTLeWEn5ScZxUl68i6fRBcDAGjve4HSTfMayywKwqydY2wRWyoItghWtVitsrr
-	ryEGiQsafvVhi4g6PcjJC1zjqBQ3Bd9DSNdDVKUfoaQo21cJkJ1hBzUCVYs9rUgdwEP1TF79kvn
-	35lHPAGXuHvR4xSnmVORMsd0aPWuPGhC9KuEsT1Yd6cFVZzA0xxAktM4rZVkcD7iWfRZ68=
-X-Received: by 2002:a05:6512:145b:10b0:5aa:6eb4:feac with SMTP id
- 2adb3069b0e04-5ad5be5c1a4mr1199061e87.28.1782057000363; Sun, 21 Jun 2026
- 08:50:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DQ6IKH6CR9r4UmVNN70E0Sz1bg/aBtDhbEC7tJEygOSy6ZbNnor8KCIk9eii7q6M//mzHy0ApM5JWjZveKwjs7wKCnVbXxzBSCbKILrgtOKg7HCaazCRo9wl97ksy5kmXf0zD54v3VGxU9FfI+rGzyEyudpY5bw0uI9fwrDWlobyeFqPZaHn3vb4joJ8ExOkcaIPrSp22C0jlnHJTuaV46Vcxx1OSSFn/w1QDKOV4jUBpHXKhA5okARy6W+HS5QUZyshGEwVwXdS6M8Zl2FPf9zPna0w1t+Aws66cDEDDDdzHJDiGaC6/+a2NMFyHddrPw+YzI4zZJqDIiP1lO/+NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+fArgSlxOuXpuVI2pl8L3ubFJaU7ii1NeLYbwqJBLpg=;
+ b=nqgYxuzDZcc+6RYulyFSkDNpXAenYQKEPkHNC4aTti0yLA3OZakLGwC2/5qIDFikHY2FM2/UVJt7GjjOj0KVfiv4CCchoJ7sf5IuLAWiJtLQOYyqqbgXmlrBslGNmxWWDutzMTFYc855zNkQ9QySsHJCjVCqAU4u0yOJ7Bn/c/0oJdY4DjvKBgphtFLhXxzxr6dmzvIllXVuYBx8m2NavvTMYFiQNf67cQkywVnZjGovqdYDz1AJPqPdfEwIiLoQYkkchY+DGRjcJuVByGvHMeHFmR2hZFE7uY3Io85OXY0NbNr/+ogBVoN7alfTyX5Ic2ScWErQdwohRjjZSh54uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+fArgSlxOuXpuVI2pl8L3ubFJaU7ii1NeLYbwqJBLpg=;
+ b=Ukc99H7eOYJ1PMab+K24z1mytntZjPkzhV6BNOlmaPlXq6P5zPQTC9aJxuujTxI8eO+Z3qxzpyz2UyFZMRCsovpaI0v20i48244sX7vfYMCfQ0PO2lqe3FoABAjZPBHK4G74gKTPNIKEJBTPb5LMNN+05N6sTq6yaEZxs4USzg0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <50068b88-c7f7-4a66-a5a3-afbb2d2b6fb0@amd.com>
+Date: Mon, 22 Jun 2026 09:10:24 +0200
 MIME-Version: 1.0
-References: <112419d3ea48ca328849c8f6647909d3eb667b40.1779922874.git.mykola_kvach@epam.com>
- <341edd8de63dcd84ccc6e7b6c03e9e8fc7105184.1781847061.git.mykola_kvach@epam.com>
- <7a0a1867-8316-4e20-971e-fab99c9f4a32@amd.com> <e43afc29-cfbb-4978-9324-e8d540040bfa@amd.com>
- <1877ea55-0c8d-4593-a310-259b4c5aef3c@xen.org> <b47b9bf3-1aa6-41b6-8c7c-48d64cca1c36@amd.com>
- <5d3dff74-f51d-4bfc-b917-3c84f2094f34@xen.org> <CAGeoDV_LM9hQch5YEqYFA07t76eXKxZRT5tzxMqzWkej5Jwidw@mail.gmail.com>
- <f06a4fe0-24a4-46e2-a7de-ede4e654f767@xen.org>
-In-Reply-To: <f06a4fe0-24a4-46e2-a7de-ede4e654f767@xen.org>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Sun, 21 Jun 2026 18:49:48 +0300
-X-Gm-Features: AVVi8Cd1KZJ2BTUKbXujgI5kK4Qspnxt9BSR0Y8MEUOUPzF956EFuZRAjsWkjKg
-Message-ID: <CAGeoDV_O0qBitauMC6saq6X6uijis2obpNVhJwKz+CSfkzPU3g@mail.gmail.com>
-Subject: Re: [PATCH for-4.22 v2.5] xen/arm: gic: defer host LPI allocation
- until after ITS init
-To: Julien Grall <julien@xen.org>
-Cc: "Orzel, Michal" <michal.orzel@amd.com>, Mykola Kvach <mykola_kvach@epam.com>, 
-	xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Luca Fancellu <luca.fancellu@arm.com>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] bootfdt: Fix infinite loop in device_tree_for_each_node()
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Oleksii
+ Kurochko <oleksii.kurochko@gmail.com>
+References: <8836494cb51f6e1f4b094fc690876d344adb47f3.1781955521.git.dmytro_prokopchuk1@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <8836494cb51f6e1f4b094fc690876d344adb47f3.1781955521.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-4011c0/1782057001-B0FFDDB8-FB3490FD/0/0
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF0000000C:EE_|DS0PR12MB7747:EE_
+X-MS-Office365-Filtering-Correlation-Id: b63acfad-c0a1-4320-a380-08ded02d558b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|13003099007|6133799003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	PATG8KcfTndhA3ME8NW0YIr2ChLSwRPcSQZ6fLMLWishb/UIPmr+qxH6+vswxWI/xeottihj/HxDsu2zNgIBvlaLdFla77XtMQjp+ept6LuWWqOcjsMiOk1xGguHgGCQ+WGtnz3jU36lJXumJH2e3SXhZ6Vto3gPoa+/+d60Awu75TxM4x9mh7LdwmhlpsEMYNMRY6Tg/HEGbDR66PhI4si7kaWnxL3DUhrqM2on6Xq+l+kx/Cqq8X662EkGzCjkURGUuYFDgrGAAqNUcAl38PuZt/0mhdJxUFC39kQCpHKSJMEiPmWXIxKGMUTSpnXQG7kvDftPBMeWy+XBtL29SW8YD7/M4V3crYegwodnIyaDguAFU44S1evcxdyfNWP+k9rqLBgKcKJ3VNbvjjC1zQ/ldR2xycc3ceaIOYrA1vUNPMRhBCGHcCjygwZDioI9IogRyh98fnZ8SoVomQb8e0/SxNK4dJHSaAZzg2USH/Lab3U9vqBUsgAAC4hOs3qCIK9GC8MEG8vPMVfnbKY00cUbgR6JN4uvKLQJxOIcfXUVqoXae5U1/iJ6qAZ1sOgxYbFvr9otFFwTSNmiESEL5rwYTxUwqkb7ltp0kDJ2YKUN263cyMBhauHtYsT1vTGZXNMZCN3U9oAB+gHbnD17RFw6ODVm+9WglBmnVjEfel9NYoBY8v3eG3+u77mD06v+TLCGqkNYIboZ6NZajsyRAg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(13003099007)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WDMqbyV0WFOhLWQiZD76b3aR39+Vqg6Ps1r4PVmJOrlUItX5dfalFzErO8HLd6ZxgPMfyifSGXSB3VvwvsMQNPES9LChZB9UUhR+8tlAqtcBCVmHALSHjK6VfxdG1wv1DH0uHADwys1QOzGJih8ROQMJAw0EkO5qxrf2vV3c4ehvj1uBMvZqiGKTKe1irLYvVHeCXZRZeUgtoMAqepvrk5jE5kk29sy750XjI86h4Pr7PgnzhrwuOkQmL47iNSuUZzYRJ7qBiBUQy8qvaQM1V1JltArZ+7mX/b4Q42szwwEA4+PTvjrOCr6wPwjQqY0wHDVQ7TeJ/asDS14UoeyrBdqWCy4hQhdlO28zsAhFks79Tn8Ldd4pmqK2+qJYfuPFVLF9YadionMlxQamhnocwoKniQzeXrvEjKc6jh2Tf8t/HXyjA3FYwJsS1MlRS7lH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2026 07:10:25.9943
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b63acfad-c0a1-4320-a380-08ded02d558b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF0000000C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7747
+X-purgate-ID: tlsNG-c1860d/1782112232-5EFED0FA-AE24DC18/0/0
 X-purgate-type: clean
-X-purgate-size: 6296
+X-purgate-size: 5593
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[amd.com,epam.com,lists.xenproject.org,kernel.org,arm.com,gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,epam.com:email,amd.com:email,xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:michal.orzel@amd.com,m:mykola_kvach@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:oleksii.kurochko@gmail.com,m:luca.fancellu@arm.com,m:oleksandr_tyshchenko@epam.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,gmail.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,amd.com:dkim,amd.com:email,amd.com:mid,amd.com:from_mime,gitlab.com:url]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C6B456AB34C
+X-Rspamd-Queue-Id: 126CA6AD286
 
-Hi Julien,
 
-Thanks.
 
-On Fri, Jun 19, 2026 at 8:23=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi,
->
-> On 19/06/2026 15:55, Mykola Kvach wrote:
-> > Hi Julien, Oleksii,
-> >
-> > On Fri, Jun 19, 2026 at 2:52=E2=80=AFPM Julien Grall <julien@xen.org> w=
-rote:
-> >>
-> >>
-> >>
-> >> On 19/06/2026 12:34, Orzel, Michal wrote:
-> >>>
-> >>>
-> >>> On 19-Jun-26 13:23, Julien Grall wrote:
-> >>>> Hi Michal,
-> >>>>
-> >>>> On 19/06/2026 10:48, Orzel, Michal wrote:
-> >>>>> @Oleksii, can we ask for a release ack here?
-> >>>>
-> >>>> Can you explain the pros/cons of introducing this patch quite late?
-> >>> The advantage is that it fixes the broken LPIs on affected hardware.
-> >>
-> >>   > The disadvantage is the reordering risk but I don't think there is
-> >> any issue.
-> >>
-> >> See more below.
-> >>>>
-> >>>> One of the risk here is that we are now initializing the LPIs *after=
-*
-> >>>> the ITSes. I understand this is because we want to know the workarou=
-nd.
-> >>>> However, I vaguely recall that there was a dependency in the
-> >>>> configuration. So are we confident the new ordering will not bring o=
-ther
-> >>>> issues? Ideally this should have been explained in the commit messag=
-e.
-> >>> gic-v3-its.c never references host LPI state, so ITS init has no depe=
-ndency on LPIs.
-> >>
-> >> My concern is at the HW level. The ITS is using LPIs. But we will
-> >> configure the ITS first and then the LPIs.
-> >>
-> >> What probaly saves us is the fact gicv3_lpi_init_host_lpis() only seem
-> >> to allocate memory. This is a bit fragile though.
-> >
-> > Regarding the ordering concern, the only operation moved by this patch
-> > is gicv3_lpi_init_host_lpis(). It does not program either the
-> > Redistributor or the ITS. It initializes Xen-side host LPI bookkeeping,
-> > registers the CPU notifier, and allocates the boot CPU pending table.
-> >
-> > gicv3_its_init() programs the ITS tables and command queue and enables
-> > the ITS, but Xen does not enqueue any ITS command there. The first
-> > MAPC/SYNC commands are issued by gicv3_its_setup_collection().
-> >
-> > The relevant hardware-visible sequence in gicv3_cpu_init() therefore
-> > remains:
-> >
-> >      gicv3_lpi_init_rdist()       /* program PENDBASER/PROPBASER */
-> >      gicv3_enable_lpis()          /* set EnableLPIs, followed by wmb() =
-*/
-> >      gicv3_its_setup_collection() /* issue MAPC/SYNC */
-> >
-> > So the ordering introduced by 95604873cc is preserved: no MAPC command
-> > is submitted before GICR_PENDBASER/GICR_PROPBASER have been programmed
-> > and the write setting GICR_CTLR.EnableLPIs has been made visible.
-> >
-> > This matches the relevant architectural requirement: while
-> > GICR_CTLR.EnableLPIs is 0, ITS translation requests or commands
-> > involving LPIs in that Redistributor are ignored. This patch changes
-> > when the backing memory is allocated, not when the Redistributor is
-> > programmed or when the first ITS command is submitted.
-> >
-> > The benefit of taking this for 4.22 is that it fixes broken LPIs on
-> > systems where an ITS workaround changes the required memory attributes.
-> > The ordering-specific fragility is that this reasoning relies on
-> > gicv3_lpi_init_host_lpis() remaining allocation/bookkeeping-only. I
-> > agree that this implicit dependency should be documented explicitly.
-> >
-> > I will respin the commit message to describe this ordering and explain
-> > why the hardware-visible sequence is unchanged.
-> >
-> > Does this address your concern about taking the fix for 4.22?
->
-> Thanks for the detailed explanation. As I wrote back to Oleksii, I think
-> the code could be re-architecture post-4.22.
+On 20-Jun-26 13:49, Dmytro Prokopchuk1 wrote:
+> When a node's depth exceeds DEVICE_TREE_MAX_DEPTH inside the
+> device_tree_for_each_node() loop, the code prints a warning and
+> executes 'continue;' statement, which jumps to condition check,
+> bypassing the iterator update step:
+> 
+>     node = fdt_next_node(fdt, node, &depth).
+> 
+> The node and depth are not updated, the loop repeatedly evaluates
+> the same too-deep node, causing a hang.
+> 
+> Fix this by wrapping the node processing logic in an 'else' block.
+> This ensures the loop update step is executed on every iteration,
+> safely skipping deeply nested nodes and doing the traversal.
+> 
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+Please add a fixes tag:
+Fixes: 40f2ea3df2e2 ("xen/arm: pass node to device_tree_for_each_node")
 
-For post-4.22, I agree with the proposed restructuring. I will take it
-into account when updating the follow-up quirk series, so that all ITS
-workarounds are queried before host LPI initialization and ITS
-activation.
-
->
-> For 4.22, no need to send a new patch. You could propose a new commit
-> message here and we update on merge.
-
-For 4.22, I propose the following commit message:
-
-xen/arm: gic: defer host LPI allocation until after ITS init
-
-gicv3_lpi_init_host_lpis() initializes Xen-side host LPI bookkeeping,
-registers the CPU notifier, and allocates the boot CPU pending table.
-The pending table allocation uses gicv3_its_get_memflags().
-
-ITS quirks are discovered by gicv3_its_init(), so allocating the boot
-CPU pending table from gicv3_dist_init() can happen before the memory
-restrictions required by the ITS are known. On affected systems this
-can leave the pending table allocated using the default memory policy.
-
-Move host LPI initialization after gicv3_its_init(), and only run it
-when a host ITS was found. The old call ignored the return value. Now
-that the call is made from gicv3_init(), check it and panic on failure
-because Redistributor LPI initialization relies on that state being
-available.
-
-Although this reorders host LPI bookkeeping with respect to ITS
-initialization, it does not change the hardware-visible LPI setup
-sequence. gicv3_lpi_init_host_lpis() does not program the
-Redistributor or submit any ITS commands. gicv3_cpu_init() still
-programs GICR_PENDBASER/GICR_PROPBASER via
-gicv3_lpi_init_rdist(), sets GICR_CTLR.EnableLPIs, and only then calls
-gicv3_its_setup_collection(), which submits the first MAPC/SYNC
-commands. Therefore, the ordering introduced by 95604873cc remains
-unchanged.
-
-This also narrows the condition for host LPI initialization from
-"GICD advertises LPIs" to "a host ITS was discovered". This is
-intentional: Xen currently has no supported LPI path without a host
-ITS, and gicv3_lpi_init_rdist() already rejects that case with
--ENODEV. Therefore, on systems where GICD_TYPE_LPIS is set but no host
-ITS is present, skipping gicv3_lpi_init_host_lpis() only avoids
-allocating host LPI state that cannot be used by a supported Xen LPI
-path.
-
-Fixes: dcb6cb263689 ("ARM: GICv3 ITS: introduce host LPI array")
-Fixes: 751ec850ec1d ("ARM: ITS: implement quirks and add support for
-Renesas Gen4 ITS")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> ---
+> 
+> Test CI pipeline: https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2615174670
+> 
+> Local tests.
+> Tests were based on "qemu-xtf.sh".
+> In the "/chosen" node were added these "levelN" nesting nodes:
+> 
+> 	chosen {
+> 		stdout-path = "/pl011@9000000";
+> 		kaslr-seed = <0x6ae81a67 0x26e92d62>;
+>         level1 {
+>             level2 {
+>         ...
+>                         level19 {
+>                             level20 {
+>                                 compatible = "test";
+>                                 value = <1234>;
+>                             };
+>                         };
+>         ...
+>             };
+>         };
+> 	};
+> 
+> Without a patch Xen stuck printing the same message in a loop:
+> 
+> (XEN) Checking for initrd in /chosen
+> (XEN) Checking for "xen,static-mem" in domain node
+> (XEN) Warning: device tree node `level15' is nested too deep
+> (XEN) Warning: device tree node `level15' is nested too deep
+> (XEN) Warning: device tree node `level15' is nested too deep
+> (XEN) Warning: device tree node `level15' is nested too deep
+> (XEN) Warning: device tree node `level15' is nested too deep
+> ...
+> 
+> With a patch these too-deep nodes were successfully skipped and Xen
+> continued to boot:
+> 
+> (XEN) Checking for initrd in /chosen
+> (XEN) Checking for "xen,static-mem" in domain node
+> (XEN) Warning: device tree node `level15' is nested too deep
+> (XEN) Warning: device tree node `level16' is nested too deep
+> (XEN) Warning: device tree node `level17' is nested too deep
+> (XEN) Warning: device tree node `level18' is nested too deep
+> (XEN) Warning: device tree node `level19' is nested too deep
+> (XEN) Warning: device tree node `level20' is nested too deep
+> (XEN) RAM: 0000000040000000 - 00000000bfffffff
+> (XEN) 
+> (XEN) MODULE[0]: 0000000043200000 - 000000004337afff Xen         
+> (XEN) MODULE[1]: 0000000043400000 - 0000000043402fff Device Tree 
+> (XEN) MODULE[2]: 0000000043000000 - 00000000430ef7f6 Ramdisk     
+> (XEN) MODULE[3]: 0000000040600000 - 0000000042f4ffff Kernel      
+> (XEN) MODULE[4]: 0000000040400000 - 0000000040412fff Kernel      
+> (XEN) 
+> (XEN) CMDLINE[0000000040600000]:domU0 console=ttyAMA0
+> ...
+> 
+> ---
+>  xen/common/device-tree/bootfdt.c | 31 ++++++++++++++++---------------
+>  1 file changed, 16 insertions(+), 15 deletions(-)
+> 
+> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
+> index 7c790b9a4d..4d10013b2d 100644
+> --- a/xen/common/device-tree/bootfdt.c
+> +++ b/xen/common/device-tree/bootfdt.c
+> @@ -90,23 +90,24 @@ int __init device_tree_for_each_node(const void *fdt, int node,
+>          {
+>              printk("Warning: device tree node `%s' is nested too deep\n",
+>                     name);
+> -            continue;
+>          }
+> -
+> -        as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+> -        ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
+> -
+> -        address_cells[depth] = device_tree_get_u32(fdt, node,
+> -                                                   "#address-cells", as);
+> -        size_cells[depth] = device_tree_get_u32(fdt, node,
+> -                                                "#size-cells", ss);
+> -
+> -        /* skip the first node */
+> -        if ( node != first_node )
+> +        else
+>          {
+> -            ret = func(fdt, node, name, depth, as, ss, data);
+> -            if ( ret != 0 )
+> -                return ret;
+> +            as = depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_CELLS_DEFAULT;
+> +            ss = depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELLS_DEFAULT;
+The added indentation level pushes these two lines over 80 columns (the
+ss= line was within 80 before this patch). Please wrap them while you
+are touching them. With that:
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Cheers,
-Mykola
+
+You don't carry [for-4.22] prefix, but I think it is simple enough to take it
+in, so we can ask Oleksii for his opinion to take it for 4.22. @Oleksii?
+
+~Michal
+
+> +
+> +            address_cells[depth] = device_tree_get_u32(fdt, node,
+> +                                                       "#address-cells", as);
+> +            size_cells[depth] = device_tree_get_u32(fdt, node,
+> +                                                    "#size-cells", ss);
+> +
+> +            /* skip the first node */
+> +            if ( node != first_node )
+> +            {
+> +                ret = func(fdt, node, name, depth, as, ss, data);
+> +                if ( ret != 0 )
+> +                    return ret;
+> +            }
+>          }
+>  
+>          node = fdt_next_node(fdt, node, &depth);
+
 
