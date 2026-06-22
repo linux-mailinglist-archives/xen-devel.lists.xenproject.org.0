@@ -2,56 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id UXqmEMYOOWp8mAcAu9opvQ
+	id riE5LrgPOWqymAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 12:30:30 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 12:34:32 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3196AEB3F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 12:30:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1990E6AEBAA
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jun 2026 12:34:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=epam.com header.s=selector1 header.b=KRPZsAEM;
+	dkim=pass header.d=suse.com header.s=google header.b=AoXdcvZ+;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=epam.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1343595.1602856 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1343605.1602864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbbuH-00055O-Uw; Mon, 22 Jun 2026 10:29:33 +0000
+	id 1wbbyv-0006hR-Hh; Mon, 22 Jun 2026 10:34:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1343595.1602856; Mon, 22 Jun 2026 10:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 1343605.1602864; Mon, 22 Jun 2026 10:34:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbbuH-00053r-RE; Mon, 22 Jun 2026 10:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 1343595;
- Mon, 22 Jun 2026 10:29:32 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wbbyv-0006fB-F4; Mon, 22 Jun 2026 10:34:21 +0000
+Received: by outflank-mailman (input) for mailman id 1343605;
+ Mon, 22 Jun 2026 10:34:19 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wbbuG-00053l-Mk
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 10:29:32 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wbbyt-0006f3-I7
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 10:34:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbbuF-00AH3e-Hn
- for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 12:29:31 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wbbyq-005jXV-UD
+ for xen-devel@lists.xenproject.org; Mon, 22 Jun 2026 12:34:16 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dmytro_prokopchuk1@epam.com>)
- id 6a390e7e-5cb7-0a2a0a5109dd-0a2a4506d112-20
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 12:29:31 +0200
-Received: from [52.101.66.138]
- (helo=DUZPR83CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <dmytro_prokopchuk1@epam.com>)
- id 6a390e8a-b690-0a2a45060019-3465428a1843-3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 12:29:31 +0200
-Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
- by PAVPR03MB9163.eurprd03.prod.outlook.com (2603:10a6:102:32f::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 22 Jun
- 2026 10:29:28 +0000
-Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
- ([fe80::904d:5820:80e1:41ba]) by AM9PR03MB7526.eurprd03.prod.outlook.com
- ([fe80::904d:5820:80e1:41ba%3]) with mapi id 15.21.0139.018; Mon, 22 Jun 2026
- 10:29:28 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 6a390f9d-2eae-0a2a0a5409dd-0a2a45019c00-40
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 12:34:16 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a390fa8-e031-0a2a45010019-d155802dc1a9-3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 12:34:16 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49222b6e871so35943805e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jun 2026 03:34:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-466648c5413sm26183013f8f.11.2026.06.22.03.34.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jun 2026 03:34:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,189 +60,356 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uj6u4GJuv5+kG06bS4rfdSBsrUzK8z9fX2V8Zm+McURm5sDu4WpDF0lMWhu/p7OZ7/mqgP540s8TgadfShuVjDCyULiDBKe1TdmpBxn6zXzY+OXToxwwgE95oUus99CNgFl5AFza3WTBsOiFavJGinc/STOiS9/azQqygh8a7UGOFTYddpETKrOsB6etY+5XsStt1JdW5ny2vXE3NqjBdT4wYdxnhL9JePJHLYF5RpBQkSe98BMvvUELRnP+v4qI7rJZFxI6e07uc6zNg3WmV7SpN903muih8Qxy2W/ndb2lhpa8/TLC5ArAayVGzGPajKZ5JzyKLPW/XBTuL0uvwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OPj2m8WuMXVs5yKVJD9WdJyJiuolgLjdQcFIMGlPs3c=;
- b=ldCPhEZtQWdCdnDDQKBc96bhLOhKVWbOExV18nOKYOztfhtlATJwCqI3WVFS2Cgr9u+DLkctxbIfWVmHgZrKQo/frqA7t5p0eH3D+KuTntCNtiI+erhMnIyVpsdA+9gO938bTRGbNZGlVIzkN9+fpyoJbxysmGhmpVUVpxVW29lbFayBmyVgK6tD3cMNBemXQPRgh5Wz+YAFEcRu5IaCJf2szEwte16Nscnuy6YZn79DyKTGdxnI3kEcGJz5m5vtIsSy+W75k5LW3gx7QRHfdSq/7uNawrMAHmNGStErR6m4M3N0KjHa4Kq/DON10O7k8hlOektzg73/3q23DFLP8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OPj2m8WuMXVs5yKVJD9WdJyJiuolgLjdQcFIMGlPs3c=;
- b=KRPZsAEMEnxMlPzZLnPcliYUqeiyg8kiV0Ga4pkN/0R92iB1pSehd4vpp2q946rNf4sGqAUPgtMOSK8TfhRYuLDy/Txgi2o9wKf8GojkSeLOSMmucmKdqtdAu3PHxy7vQW7rAc2+vtXx9S6nKRfwfGsw1qCAFdWb7Wfe6Zq2qda2dmbxJ5sfk9zYjMFgOFg+C+77rT5U8r97xvO3ylxLmZNYlpc1DOGnweP8tDg9dgwBaDvhBt0tTRy2dmCzg3Xm3nBlUrGaiTO1WAzCnByF0YVjRKaetq93fdJ7MHTBpb+sIfdvFffV02sMbPlJNd7rLlNER8T0RUP2us49G6ivUw==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] generic/altp2m: address violations of MISRA C Rule 2.1
-Thread-Topic: [PATCH] generic/altp2m: address violations of MISRA C Rule 2.1
-Thread-Index: AQHcyEeH3FAPJgz8C0q4McY6u5ZElbXXzxqAgHMEWQA=
-Date: Mon, 22 Jun 2026 10:29:28 +0000
-Message-ID: <d6dcde3d-99eb-4fa3-9078-a13e35c8a1b4@epam.com>
-References:
- <8b5ca213a097f7b221b06b6173e4621563779a73.1775752149.git.dmytro_prokopchuk1@epam.com>
- <3b2daddd-9afc-4c75-92c0-f7c6ace3f735@suse.com>
-In-Reply-To: <3b2daddd-9afc-4c75-92c0-f7c6ace3f735@suse.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|PAVPR03MB9163:EE_
-x-ms-office365-filtering-correlation-id: ccd0296f-9dea-49fc-720e-08ded04923ff
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|42112799006|366016|23010399003|38070700021|4143699003|22082099003|18002099003|11063799006|56012099006|6133799003;
-x-microsoft-antispam-message-info:
- 97EOhXidIKQpa9nm5csCAAv4pcNiqZege1Wp7VbLsziNCqph3QjURwUZzesWvi7HIBCMkGqrTxuuyaB5k8boUMIfeQUVwcna+nTqoffQXtLtmodif92pSKYPp6eBtwCT7C+dfGRQ4DXnPQQFZQSP1yw6i2KqGd+syHhHRlB6z1KElxLt6FHrgmUgd41gH4PhWzZj19zci4wgIH73/9LEKOxl8Fw97HpoI0gB3ry/m2zpf1Z4CdDLrlztf5q/i4XGpwL7FFfAW0r/IPH68G6ikwdTgzIs68E6ptmcHuwEWFE0Duxiq7trQm+xkphgWdo+W8Aaygx851K9jeuX2NHKNcB1jstDcU/SnPgx2ReO97JZXF8x4XZ2/TNMipoTZrcZ59pbD1ijeIt5hGt76AqPYN/N6aIxC++Q5g4FhCOLWfbgpSrXqHsG/ruxxrVYFoEc+IkCg0ohAJMWCalnT6IQ/TZmh4c2N0re/IMK0tQUynHS3/ubdGWjLsb9oVjq/Ifz4k/OeT8iXbkmWVrZIJNTn8N1ZP3YmvvbuYAnvoqMkxR8MRsHtnGmjz2qR7i2/AzoAiAqrWXeSWIqV8JcsET1bJkDzkzIED2jpm8MaTJ/z8wortYtgQs4K6fMyTwZqJ5BxQjebZVOtEtGw0l8en8A9YIXf0rt/QDJZv+maPw8v8WjVRnpzBn76NWdmuLx8oAavxeGFIHkSV09dVk04sD8wGKa6jUA617DErwSuJRrDXY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(42112799006)(366016)(23010399003)(38070700021)(4143699003)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Tk1ZQmx0RUxzZkRWNlgvaFh3UEZtMUI1NDBoQmNoWHMvT2V3VXRmMVFnbmJa?=
- =?utf-8?B?YXJMTnFlaDYybnJWM0JJK0VnbUxDdnJHOUN3bmI1SkUyNDFYZjdLQzhwSGlG?=
- =?utf-8?B?aU1weVdYUEpNa01WcUcreHp5NzU1bUhuVnhTZk5aRlB0cTc4K2JtRTdmMWE5?=
- =?utf-8?B?ZTBmU2NQUG1ySi9JajdKamlhVldUeEpDSnBPYzJBbjdmVVIrV0haUURROGZm?=
- =?utf-8?B?OUdPOHlTa284MmUzZUlPQW9HUVpNcHUwWGppSm1JUXFUWVR0Tnl6VW5VZCtJ?=
- =?utf-8?B?ZWttY0ZSVzJtK3NNRGZnUk1OMWF3Nm9zSFhvbjd2UWxKK2NIL2V6ZnhheXA3?=
- =?utf-8?B?S0I5T25acU9EdS95czRwTlRaZllwTkF1U1pnMXpOVHVqdVNRSHpRaVVGUVFi?=
- =?utf-8?B?RzVoWjNtY29ZOEZWaDMyYldpZkIyamEvNnlBUzdBSUJjU3VtcGlaOVBNcjl6?=
- =?utf-8?B?TUVKenc0OTU5MXE3bjhhcFJqYnh5UlRvT240K1U4MVNYSWovMUhHdjJEUjR2?=
- =?utf-8?B?QytkT3ZMMmFOL2ZCUkNNWWh2WTFtTmtFaDhBeDBIcU8wQ3gxdkVIOEpPV1Rr?=
- =?utf-8?B?N3plRHNJTzVaT0VWejkrMmRZS1NWSnZhR2VzY2ZNWC8yUktPQ1RscnEyNjF6?=
- =?utf-8?B?aFM2d3MxY0xPcFdMVWVua2JJZjl3L1ZwWUszMVBJbGxzZzNPSExPUTlSWVZz?=
- =?utf-8?B?d1crOUwwakJhVnJrRFFVS0NHNXE2QzFYYjgwbjFUaEpsWUxsd0c4VmliSmZZ?=
- =?utf-8?B?WXJZWC8wQWpEQ2lGWG5hMkhMM0VyNXE1SnRsMFZnTERhRVpMSWVEMDJkVjM4?=
- =?utf-8?B?dXZUcGtza2hWbGtOR1kwWk9iZTlERTlVZCtXSEVKcTh4RUFCYjYrOWwwZWZY?=
- =?utf-8?B?ZHcwZjVBVVFvbi9ySFNUaDVmRHZ6aG1zWjJqejBOSGJmZ3F4WFZoN0lPdVND?=
- =?utf-8?B?c2U5SXFnRkJFcC8xK2FDQ1dHMjZ3bnBxU1RpNGY1eEgyYU9IL1RFL1EzNStl?=
- =?utf-8?B?UlFLTER5L3FidlpOemVQdmxvaWpZTE12L2pLVWtjSHp1Ynd0cnp3Z0JOYVgy?=
- =?utf-8?B?Z040SU5icFVmYm5wWDNzSlFnbkJUUytHS0FmRi91ZE1Jb0lCakx5R1B1ZzVC?=
- =?utf-8?B?bkRnbzJiUEhkSnVEMG5udFkxTEcxcWRrdkZ4Z0djZUZ0bDBMMlJUMVFadEUv?=
- =?utf-8?B?Y2ozRFlacSsrMHFxcHhBYUE5Yk9YTUlENlh6bFhNS1liOU8ranZjd1pvbUo3?=
- =?utf-8?B?TVhtS3R4blJZbEtCbVoxL3c5YjVMYW1zNDNYRSsrbFJqeitnOWtqbHpSSHRZ?=
- =?utf-8?B?U01wOWNYcDZ4Q2VaMjBocWtLYVpyd292eVZid3Z6cWlWRmlBSXpoZmpjT0VN?=
- =?utf-8?B?M1hvWG80K1h0cnpNWDYrUjdZOFo1ZnkyQmM2WVUvRy82RUpkY1g5djkvV3R4?=
- =?utf-8?B?MDU4YXpyaXVnR01jbm5Zbit1b3U0YnZKR1pPZVRYdWR3cE4xaER5bnBmVTNi?=
- =?utf-8?B?aWM5WmNvaW5kZ1lZZUwrY2JCd1YwSDROR084RzhPM3NHUzJBVGtkMEx2eCsz?=
- =?utf-8?B?V3l5RGdWQ2VqSDBIbzJjTnFPWTNIV2ZNZ09qTTV6dXh6NXowbkFHNXBTZDhZ?=
- =?utf-8?B?OGt6d3hEMENqdkJ6U1VMeTJES2pyUGRDV0ZuUGlZRUw5ZkJGUll3dWhPdG8x?=
- =?utf-8?B?RzdZNFplcHc4RFpNdm5jM1RlUGV4SlhuUGh5amsvVnBwL2R1am9IMGQ3R05J?=
- =?utf-8?B?QVRsazRGSEVyRUJvZk95Um5BbVFMNFNOY2R4MThqUmMxSWdRQ3lsMksycHNv?=
- =?utf-8?B?azRBVzBHWGpiUi9QWXBjNkFsYmRPeVQ4KzZWZ3puRkc4Y3pIR1BMRlh6QVpY?=
- =?utf-8?B?aUhkd1dnaXJkcGI4bUwxMTFyeU8wZldLKzdsYjNGdnRKU2ZjUnlkNUQ4WFRL?=
- =?utf-8?B?ejlMM3pmdUZDVGZnL1dCWXlhYlFmMUR6Q0cyaVY3bkRHMmpqSkIyTXVlQmVO?=
- =?utf-8?B?NFFLdWFMRVVYM1MxeDFqM2tBTU83M0U1dzBMbDJsZkptbk9BK2VvVSsybjE4?=
- =?utf-8?B?WTZWbzR5cStBdzRZTktkK29hKzVLQlczem0xVkt1TFlOTWNlcTZFS0VEL1dK?=
- =?utf-8?B?TVBHWW1HUlZWZjJTYmkvWkFsK1lVdGRFMVhCRSt2aUJoRHpRWXBpMEVoZkdD?=
- =?utf-8?B?SFp3d1BTZHg3Znc0UEttakFwU2VZSklWQjdTWUhud3ovRDVUa09ZL0ZyS01t?=
- =?utf-8?B?QkVIN0tZY0VGTXN5WWhRSjg1eGV2L3FoSVBlUDM3ZEtDSXBxZXY2UkUzWlBn?=
- =?utf-8?B?Zkp1KzVPcmFndHU1Q2dkRVcyNVN6cWpPQk1Vb0k2MDI0Tzc3RFB6V1Uvdmkz?=
- =?utf-8?Q?JiUFyjOzLvOwrA/w=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D928434CC516AE41B4DB748D7469FBA7@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782124456; x=1782729256; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RDzNNdHd4vNMUSDZ8I4fLAZSby25qbXcfj9DT//iM4A=;
+        b=AoXdcvZ+iGSkBrBm3yJsJMZmhi18IlUa97/U9oX3Iewt5ky1PgLhACKmzZuksRMS7J
+         gZrNJEaxSUxW4uHH8EXc2kWQY9tKlBzOhhMPPnoPrTNt/FF2iI7tCfCSJ+tZ2d5jZ9Yv
+         ByKT+IntLUMY7QtKVHzA7Z98aYWbNb4ZpW2jb4BvO15qmnDED7smv64pYc80eWnMen4+
+         JggAutPprTyFom4rrlyocBfkxjaQu8YdIqTOk53zk1v2KTVfGhSVeTAdJDkHMPLsBkKu
+         6dPEnLENaPlexK5TQW45v+ZQVhRzmQFJViIn12IkqylrfWKO9qRC17oP4SZHx+W1vNn6
+         iprw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782124456; x=1782729256;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RDzNNdHd4vNMUSDZ8I4fLAZSby25qbXcfj9DT//iM4A=;
+        b=ksSUsTkcgtjRdw7wcBPOLw+yGD1/Ijgs5CftRVj3Q3qaEtihFHy9EuqQ3Qlh0OgMCB
+         WzXqpiM3h2+LnZjDCIsWRfGnd4kNkezOaxokqbj7xWnIf+DYUJQfIXZx9Neq+6vxeYCf
+         c6jMpR+yzitWKed9DaRNp/em0BHZpwXEEEuennf8IxcrtIguxeU63G49qRr4QKQS6Rxj
+         Yc7g/6+XMjRGj87Ziqdxig92IaYMp0NP225JOrTUMzQ7G4DISs2vWkULHzFQWB3hi1fX
+         hixmPqlYyer7ArVihfb4b7EFVT0yrQToECpPrEqCxl1HEmGqV5awmi40AVwN9R7iMFju
+         UumQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84ytpdAJkpZSfPXbecIEXDxplcExUKRQChGcRhI1IndhlUg6Q5YcrSleqSQ0s32i42INraqrlVQ7M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypjrmFVbtxN4D8uaWoXRkVngpjbHsfklU/hffc6Mn6orTynMrK
+	hNeG8kJuvNuiaswh/2KO/Z0AagKoCuA8PzcN3TPtBy8VGNFY0Nf2Ozp6ucXnNaovMQ==
+X-Gm-Gg: AfdE7cmgXxGBPFPkkwK7Wq5tkkBX960wDpZybEX3+dts8FvAcZUc9u4/na5j68YpM3A
+	lvNa7hXD8GVSL/ZWq3UKAd8SpiBcD6dydcjtjBbeQ2r4zi7mlnkm44Op6AgsUkesI+C4Oy+ofAk
+	FtHjyGHRoISrGAkL4GdSwqwCZHX/VM2E+MHO2yYlhWNS71Y2/R7M5OmUs817rhb2Zi1Vx53m+Rk
+	EYx93DPSU5/TIXXjU/5n6NLBD3XK9DvgB0vu2krCoSoyMdWRYzsM5Y0dk/HMEddfCsfBqnwVpm1
+	poexk1i4tfEV3SlESiSge0H1S4kpYuVICAmZWHC7aZwzxjJPvwYagjbRTUVIJTgAOV/Jx4j43cR
+	pTgtRXwaYu8I2hjb9kPfj2f5p2JSqNMDaBdfN9dUprqcmKYB/dQklP3A+ilz2t0VyNI7tCurcSp
+	2LsLmLoBQzzrk8UMZ+nO2Cp4MJd9hLJWb5xU1XWPjh2Ou9u5RmuSzQeBHf5rUQCWj3DhIHby9WM
+	VVo
+X-Received: by 2002:a05:600c:820e:b0:490:d354:d151 with SMTP id 5b1f17b1804b1-49242571659mr185438835e9.18.1782124455754;
+        Mon, 22 Jun 2026 03:34:15 -0700 (PDT)
+Message-ID: <c5f00fa4-4d9e-4227-87a0-6e657fd523e9@suse.com>
+Date: Mon, 22 Jun 2026 12:34:14 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccd0296f-9dea-49fc-720e-08ded04923ff
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jun 2026 10:29:28.8093
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N6UxvjqskK7OHsOU/JO2xIVUrhHUr4y9tjKH9mT8xTtmxKi2d3i33idthJJbtuV0vssH0LiuVlnzG5SL9wdummt5irzGG3uMrlf4Ortn1mE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR03MB9163
-X-purgate-ID: tlsNG-16d1c6/1782124171-3BBE1853-7D67AEFE/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 12/16] xen: implement new foreign copy hypercall
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
+ <20260619130501.272832-13-frediano.ziglio@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260619130501.272832-13-frediano.ziglio@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-d62444/1782124456-70DF5E30-36E85AEB/0/0
 X-purgate-type: clean
-X-purgate-size: 3322
+X-purgate-size: 7755
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:dkim,epam.com:mid,epam.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[epam.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:frediano.ziglio@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8B3196AEB3F
+X-Rspamd-Queue-Id: 1990E6AEBAA
 
-SGVsbG8sIEphbg0KDQpPbiA0LzEwLzI2IDA5OjA0LCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24g
-MDkuMDQuMjAyNiAxOTozNywgRG15dHJvIFByb2tvcGNodWsxIHdyb3RlOg0KPj4gTUlTUkEgQyBS
-dWxlIDIuMSBzdGF0ZXM6ICJBIHByb2plY3Qgc2hhbGwgbm90IGNvbnRhaW4gdW5yZWFjaGFibGUg
-Y29kZSIuDQo+Pg0KPj4gSW4gY2VydGFpbiBidWlsZCBjb25maWd1cmF0aW9ucywNCj4gDQo+IENh
-biB5b3UgZ2l2ZSBhbiBleGFtcGxlIHdoZXJlIC4uLg0KSWYgQ09ORklHX1ZNX0VWRU5UIGlzIGVu
-YWJsZWQgb24gQVJNLg0KPiANCj4+IHRoZSBmdW5jdGlvbiAnYWx0cDJtX3ZjcHVfaWR4KCknIGlz
-IGRlZmluZWQNCj4+IGFzIGFuIGlubGluZSBmdW5jdGlvbiB0aGF0IGNvbnRhaW5zIHRoZSAnQlVH
-KCknIG1hY3JvLiBUaGlzIHJlc3VsdGVkIGluIGENCj4+IHZpb2xhdGlvbiBiZWNhdXNlIHRoZSAn
-QlVHKCknIG1hY3JvIG1ha2VzIHRoZSBmdW5jdGlvbiBub24tcmV0dXJuaW5nLg0KPj4NCj4+IFRv
-IGVuc3VyZSBjb21wbGlhbmNlIHdpdGggTUlTUkEgQyBSdWxlIDIuMSwgdGhpcyBwYXRjaCByZW1v
-dmVzIHRoZSBpbmxpbmUNCj4+IGZ1bmN0aW9uIGltcGxlbWVudGF0aW9uIGFuZCBpdHMgQlVHKCkt
-YmFzZWQgdW5yZWFjaGFibGUgY29kZS4gSXQgaXMgcmVwbGFjZWQNCj4+IHdpdGggYW4gdW5jb25k
-aXRpb25hbCBmdW5jdGlvbiBkZWNsYXJhdGlvbiBmb3IgJ2FsdHAybV92Y3B1X2lkeCgpJy4NCj4g
-DQo+IC4uLiBhIGRlY2xhcmF0aW9uIGlzIG5lZWRlZD8gVGhlIHNvbGUgbm9uLXg4NiByZWZlcmVu
-Y2UgSSBzZWUgaXMgZnJvbQ0KWWVzLCBkZWNsYXJhdGlvbiBpcyBuZWVkZWQuIFRoZSBmaWxlICdj
-b21tb24vbW9uaXRvci5jJyBjb250YWlucyBhIHVzYWdlIA0Kb2YgdGhlICdhbHRwMm1fdmNwdV9p
-ZHgoKScgYW5kIGNvbXBpbGVyIG11c3Qgc2VlIGl0IHRvIGF2b2lkICJlcnJvcjogDQppbXBsaWNp
-dCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhhbHRwMm1fdmNwdV9pZHjigJkiLg0KPiBjb21t
-b24vbW9uaXRvci5jLCBhbmQgdGhlIHNvbGUgcmVsZXZhbnQgS2NvbmZpZyBvcHRpb24gSSBjYW4g
-c3BvdCBpcw0KPiBWTV9FVkVOVC4gV2hlbiB0aGF0J3Mgb2ZmLCB0aGUgZmlsZSB3b24ndCBiZSBi
-dWlsdCBhdCBhbGwuDQpCdXQgd2hlbiAnQ09ORklHX1ZNX0VWRU5UPXknIHRoaXMgZmlsZSBpcyBj
-b21waWxlZCBvbiBBUk0uDQo+IA0KPiBGdXJ0aGVyLCBCVUcoKSBhbmQgYSBmZXcgbW9yZSBjb25z
-dHJ1Y3RzIGhhdmUgYSBkZWRpY2F0ZWQgZGV2aWF0aW9uDQo+IGFscmVhZHkgaW4gcGxhY2UuIEkg
-ZG9uJ3QgbWluZCBhIHVzZWxlc3MgZnVuY3Rpb24gdG8gYmUgc2hydW5rIChvciwgYXMNCj4gcGVy
-IGFib3ZlLCBwZXJoYXBzIGV2ZW4gZHJvcHBlZCksIGJ1dCB0aGUganVzdGlmaWNhdGlvbiB0aGVu
-IG5lZWRzIHRvDQo+IGJlIGRpZmZlcmVudC4NCldlbGwsIHdpdGggU3RlZmFubydzIGNvbW1lbnQg
-cmVnYXJkaW5nIHJldHVybiB0eXBlLCB0aGUgY29tbWl0IHN1YmplY3QgDQphbmQgbWVzc2FnZSBj
-b3VsZCBiZSByZXdyaXR0ZW4gbGlrZToNCg0KZ2VuZXJpYy9hbHRwMm06IGFsaWduIGFuZCBzaW1w
-bGlmeSBhbHRwMm1fdmNwdV9pZHgoKQ0KDQpUaGUgcmV0dXJuIHR5cGUgb2YgJ2FsdHAybV92Y3B1
-X2lkeCgpJyBpbiB0aGUgZ2VuZXJpYyBhbHRwMm0uaCBoZWFkZXIgaXMNCmN1cnJlbnRseSAndW5z
-aWduZWQgaW50Jywgd2hpY2ggaXMgaW5jb25zaXN0ZW50IHdpdGggaXRzICd1aW50MTZfdCcNCnJl
-dHVybiB0eXBlIG9uIHg4NiBhbmQgdGhlICdhbHRwMm1faWR4JyBtZW1iZXIgb2YgdGhlIG1vbml0
-b3Igc3RydWN0dXJlcy4NCg0KVG8gZml4IHRoaXMgdHlwZSBpbmNvbnNpc3RlbmN5IGFuZCBzaW1w
-bGlmeSB0aGUgaGVhZGVyLCB0aGlzIHBhdGNoDQpyZXBsYWNlcyB0aGUgc3RhdGljIGlubGluZSBp
-bXBsZW1lbnRhdGlvbiBvZiAnYWx0cDJtX3ZjcHVfaWR4KCknIA0KKGNvbnRhaW5lZCBhIEJVRygp
-IHN0dWIpIHdpdGggYSBzaW1wbGUgZnVuY3Rpb24gZGVjbGFyYXRpb24gcmV0dXJuaW5nDQp1aW50
-MTZfdC4NCg0KRm9yIGFyY2hpdGVjdHVyZXMgdXNpbmcgdGhlIGdlbmVyaWMgYWx0cDJtLmggaGVh
-ZGVyIChzdWNoIGFzIEFSTSB3aGVuDQpDT05GSUdfVk1fRVZFTlQgaXMgZW5hYmxlZCksIGNvbW1v
-biBjb2RlIGNhbGxzIHRvICdhbHRwMm1fdmNwdV9pZHgoKScgaW4gDQpjb21tb24vbW9uaXRvci5j
-IGFyZSBndWFyZGVkIGJ5ICdhbHRwMm1fYWN0aXZlKCknLCB3aGljaA0Kc3RhdGljYWxseSByZXR1
-cm5zICdmYWxzZScuIFRoZSBjb21waWxlcidzIERDRSB3aWxsIG9wdGltaXplIG91dCB0aGVzZSAN
-CmNhbGxzLCBhdm9pZGluZyBhbnkgbGlua2VyIGlzc3VlcyBmb3IgdGhlIG1pc3NpbmcgZGVmaW5p
-dGlvbi4NCg0KPiANCj4gSmFuDQoNCkJSLCBEbXl0cm8u
+On 19.06.2026 15:04, Frediano Ziglio wrote:
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1545,6 +1545,139 @@ static int acquire_resource(
+>      return rc;
+>  }
+>  
+> +/*
+> + * The "noinline" qualifier avoids the compiler to create a large function
+> + * consuming quite a lot of stack.
+> + */
+> +static int noinline mem_foreigncopy(
+> +    XEN_GUEST_HANDLE_PARAM(xen_foreigncopy_t) arg)
+> +{
+> +    struct domain *d, *const currd = current->domain;
+> +    xen_foreigncopy_t copy;
+> +    int rc, direction;
+> +
+> +    if ( copy_from_guest(&copy, arg, 1) )
+> +        return -EFAULT;
+> +
+> +    if ( copy.flags & ~XENMEM_foreigncopy_direction )
+> +        return -EINVAL;
+> +
+> +    direction = copy.flags & XENMEM_foreigncopy_direction;
+> +
+> +    rc = rcu_lock_remote_domain_by_id(copy.domid, &d);
+
+Iirc I did ask before why this isn't ..._by_any_id().
+
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( copy.nr_frames == 0 )
+> +    {
+> +        rcu_unlock_domain(d);
+> +        return 0;
+> +    }
+
+Any reason this cannot also be "goto out"? The more that now that you have
+moved this past the domid validity check, imo it should further move to ...
+
+> +    /*
+> +     * Check we are allowed to map and access these foreign pages.
+> +     */
+> +    rc = xsm_map_gmfn_foreign(XSM_TARGET, currd, d);
+> +    if ( rc )
+> +        goto out;
+
+... below here. Perhaps simply as
+
+    if ( rc || !copy.nr_frames )
+        goto out;
+
+> +    do {
+> +        /*
+> +         * Arbitrary size.  Not too much stack space, and a reasonable stride
+> +         * for continuation checks.
+> +         */
+> +        xen_pfn_t gfn_list[32];
+> +        unsigned int todo = MIN(ARRAY_SIZE(gfn_list), copy.nr_frames);
+> +
+> +        rc = -EFAULT;
+> +        if ( copy_from_guest(gfn_list, copy.frame_list, todo) )
+> +            goto out;
+> +
+> +        for ( unsigned int i = 0; i < todo; i++ )
+> +        {
+> +            struct page_info *foreign_page;
+> +            mfn_t foreign_mfn;
+> +            void *foreign;
+> +            p2m_type_t p2mt;
+> +            const unsigned long valid_mask =
+> +#ifdef CONFIG_X86
+> +                p2m_to_mask(p2m_ram_rw) | p2m_to_mask(p2m_ram_logdirty);
+> +#else
+> +                p2m_to_mask(p2m_ram_rw);
+> +#endif
+
+The set of permitted types didn't change, yet a justification for the resulting
+limitation also didn't appear.
+
+> +            foreign_page = get_page_from_gfn(d, gfn_list[i], &p2mt, P2M_ALLOC);
+> +
+> +            if ( unlikely(!(p2m_to_mask(p2mt) & valid_mask)) && foreign_page )
+> +            {
+> +                put_page(foreign_page);
+> +                foreign_page = NULL;
+> +            }
+> +            if ( unlikely(!foreign_page) )
+> +            {
+> +                gdprintk(XENLOG_WARNING,
+> +                         "Error accessing foreign gfn %" PRI_gfn "\n",
+> +                         gfn_list[i]);
+> +                rc = -EINVAL;
+> +                copy.nr_frames -= i;
+> +                guest_handle_add_offset(copy.frame_list, i);
+> +                goto out;
+> +            }
+> +
+> +            foreign_mfn = page_to_mfn(foreign_page);
+> +
+> +            /* A page is dirtied when it's being copied to. */
+> +            if ( direction == XENMEM_foreigncopy_to )
+> +                paging_mark_dirty(d, foreign_mfn);
+> +
+> +            foreign = map_domain_page(foreign_mfn);
+> +            if ( direction == XENMEM_foreigncopy_from )
+> +                rc = copy_to_guest(copy.buffer, foreign, PAGE_SIZE);
+> +            else
+> +                rc = copy_from_guest(foreign, copy.buffer, PAGE_SIZE);
+
+You cannot validly write to the page without holding a PGT_writable ref.
+Else you might overwrite a page table or a descriptor table in a PV guest.
+
+Once again - can you please make sure you have addressed earlier review
+comments, before sending a new version? I did point this out before.
+
+> +            unmap_domain_page(foreign);
+> +            put_page(foreign_page);
+> +
+> +            if ( unlikely(rc) )
+> +            {
+> +                gdprintk(XENLOG_WARNING,
+> +                         "Error %d copying gfn %" PRI_gfn "\n",
+> +                         -rc, gfn_list[i]);
+
+Why "-rc"? (See other log messages including error codes.)
+
+> +                copy.nr_frames -= i;
+> +                guest_handle_add_offset(copy.frame_list, i);
+> +                goto out;
+> +            }
+> +
+> +            guest_handle_add_offset(copy.buffer, PAGE_SIZE);
+> +        }
+> +
+> +        copy.nr_frames -= todo;
+> +        guest_handle_add_offset(copy.frame_list, todo);
+
+Don't you need to also update copy.buffer?
+
+> @@ -2012,6 +2145,18 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>              start_extent);
+>          break;
+>  
+> +    case XENMEM_foreigncopy:
+> +        /*
+> +         * Instead of using "start_extent" we update the structure back,
+> +         * we update it back in anyway to tell caller were the copy
+> +         * stopped.
+> +         */
+> +        if ( unlikely(start_extent) )
+> +            return -EINVAL;
+
+As before - please be precise with comments like this. We update it back also
+when encoding a continuation. Perhaps instead "..., to indicate the point of
+failure to the caller as well as to encode continuations without being
+constrained by MEMOP_EXTENT_SHIFT".
+
+> --- a/xen/include/public/memory.h
+> +++ b/xen/include/public/memory.h
+> @@ -740,7 +740,49 @@ struct xen_vnuma_topology_info {
+>  typedef struct xen_vnuma_topology_info xen_vnuma_topology_info_t;
+>  DEFINE_XEN_GUEST_HANDLE(xen_vnuma_topology_info_t);
+>  
+> -/* Next available subop number is 29 */
+> +/*
+> + * Copy memory from/to a given domain.
+> + * As this call requires target access and guest with target access won't be
+> + * compat guests supported for compat guests this is not implemented.
+
+As before - I question this. You simply can't know. (I'm also struggling with
+wording / grammar.)
+
+> + */
+> +#define XENMEM_foreigncopy 29
+> +struct xen_foreigncopy {
+> +    /* IN - The domain whose memory is to be copied. */
+> +    domid_t domid;
+> +
+> +    /* IN - Flags. */
+> +#define XENMEM_foreigncopy_from 0
+> +#define XENMEM_foreigncopy_to 1
+> +#define XENMEM_foreigncopy_direction 1
+> +    uint16_t flags;
+> +
+> +    /*
+> +     * IN/OUT
+> +     *
+> +     * As an IN parameter number of frames of the domain to be copied.
+> +     * On output on error updated number of frames left.
+> +     */
+> +    uint32_t nr_frames;
+> +
+> +    /*
+> +     * IN/OUT
+> +     *
+> +     * Frames to be copied.
+> +     * On output on error updated to point to first frame unhandled.
+
+Is "on error" really correct / meaningful? The field can be updated at
+any intermediate point, when a continuation is scheduled. Perhaps:
+
+     * On output:
+     *  - on error updated to point to first frame which couldn't be handled,
+     *  - on success undefined.
+
+Along these lines for nr_frames then as well (if needed at all, seeing
+that it could as well be undefined in both cases, as the information is
+redundant with the frame_list update).
+
+> +     */
+> +    XEN_GUEST_HANDLE(xen_pfn_t) frame_list;
+> +
+> +    /*
+> +     * IN/OUT
+> +     *
+> +     * Userspace buffer to read/write from.
+
+s/Userspace/Guest/ ?
+
+Also still no mention of when / how this field is updated.
+
+> +     */
+> +    XEN_GUEST_HANDLE(uint8) buffer;
+> +};
+
+What was (again) left unaddressed is the question towards using GFNs on both
+sides of the copy. This would eliminate the need for the flags field, taken
+by a 2nd domid_t one then.
+
+Jan
 
