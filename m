@@ -2,49 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id TCdoKK5AOmpc4wcAu9opvQ
+	id NFlxCk5DOmrt4wcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 10:15:42 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 10:26:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B18E6B5345
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 10:15:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AA866B5445
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 10:26:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=c9hu75tV;
+	dkim=pass header.d=suse.com header.s=google header.b=WWAjVmOj;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	arc=pass ("google.com:s=arc-20240605:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1344145.1603271 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1344153.1603280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbwI5-0007Bk-Ha; Tue, 23 Jun 2026 08:15:29 +0000
+	id 1wbwSn-0000TH-Dy; Tue, 23 Jun 2026 08:26:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1344145.1603271; Tue, 23 Jun 2026 08:15:29 +0000
+Received: by outflank-mailman (output) from mailman id 1344153.1603280; Tue, 23 Jun 2026 08:26:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wbwI5-00079F-Ez; Tue, 23 Jun 2026 08:15:29 +0000
-Received: by outflank-mailman (input) for mailman id 1344145;
- Tue, 23 Jun 2026 08:15:27 +0000
+	id 1wbwSn-0000Ql-BL; Tue, 23 Jun 2026 08:26:33 +0000
+Received: by outflank-mailman (input) for mailman id 1344153;
+ Tue, 23 Jun 2026 08:26:32 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wbwI3-000798-Nu
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 08:15:27 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wbwSl-0000Qf-SR
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 08:26:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wbwI2-00ApjO-Ju
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 10:15:26 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wbwSk-00ArpN-Jp
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 10:26:30 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a3a4099-5cb7-0a2a0a5109dd-0a2a450bcda8-24
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 10:15:26 +0200
-Received: from [209.85.208.174] (helo=mail-lj1-f174.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a3a409e-5e53-0a2a450b0019-d155d0aec477-3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 10:15:26 +0200
-Received: by mail-lj1-f174.google.com with SMTP id
- 38308e7fff4ca-3997a6196c5so35307571fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 01:15:26 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3a4335-bab6-0a2a0a5309dd-0a2a4507943a-2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 10:26:30 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3a4336-4766-0a2a45070019-d1558030c9d2-3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 10:26:30 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-49241896317so19970325e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 01:26:30 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4923fd21dbdsm327494585e9.6.2026.06.23.01.26.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jun 2026 01:26:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,173 +60,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1782202526; cv=none;
-        d=google.com; s=arc-20240605;
-        b=FFN6mjy3jQIXhDRIciFWGt0QuM84eOUdFWAv+95Op+vlfm2aMIcbfz+tiTFhlPQnkq
-         EeEd3tCwZBIKxwfEVWlzXDtnccZn75+GuM19VKd7FLd1aK0IXTYYqiFQ+squMlm93fOs
-         OZBnnhp5cLLtPHzLN0UBmTSiX1HcOFH+HQgdQ0Z/srwduWoip9ReMXIK+H1afLjFUtsP
-         bSf5o8C5Vs2p2fQRWU49Bxwvxlav6kkPaodX0WmpbKpgDtd0600c4uSvcVTQosh4vk2O
-         5YUwAFLp8ZoC+oHo5u4zzFsbMqVMWrrz/0IMRX98OpyhY3za86dRI4YMdXVgpSsNIC1r
-         XHIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=nZyM20Y/Hzh/DVF8opMoFAb2fC/xYPMGctnCCvqWoqE=;
-        fh=BxAOn7jMslPpxCh+ZwJ42wvijNvg8M+sVi4YM41sbzk=;
-        b=h1ytZ0AMIKdNUpPYwwzGxqDWpSoCsJz8h45cgcK5oscoD8I9nVwvwcsQ6RO9O7k5lY
-         oRI/B1WPF1wlJJwxcGY1eWCdDSyr/bS1RgZQGT0VENO9NKBeO3CplXYSg4xvrPhXlDom
-         AX+6nwFwS7vDuzgT0UmGWTDeT6qrbIPnnneGkVwmxqDq7EkesMy2X+tPmeHczvrjhlLp
-         w6i7yWCy/Da/uJ4Jgt8ILITw4N+ZXXQiXqUwZuJ5fYqwlMTPDD1VwjXD32IlI/dhEXBj
-         AisCer2V435X08X7m+6pmqd0a7P3PQh7GL407m4P3xjFDRH2nn2o1HnSRQIcn6eQOJq2
-         r+yg==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782202526; x=1782807326; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=nZyM20Y/Hzh/DVF8opMoFAb2fC/xYPMGctnCCvqWoqE=;
-        b=c9hu75tV3MHk6s01pIQ/UXneOby9VVKEYI7kY+k/ieIlO8FUVc55dNHNe5CMRx5TKY
-         VzLhrrHvWB2RH4PTkydANfn9aJ8olK0tdw/ecNGd3jC1aL78upB1MYUy8E8jsxgLC9Gv
-         F6qPiN8zFZ9Cv7++QMxLal052N2XR5HYPEwqHMM10JJMg3CPjVo/YF80mr7KcH9iE+u2
-         06WSk3nXb7aTMXTsAE3xNDQYmYvuKq/7UvGbde1933BlYad2mx4ys/NbCS2xA6ZquCa7
-         SSx+WdszqXthm243p5+9cWfScPeuQFQDLIaFkCsBsluTc9aoesOmDviSMH5axb/WNWrn
-         8Sig==
+        d=suse.com; s=google; t=1782203190; x=1782807990; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=gbnv1qJBpBNRLbIqY6A+yfQLZHD7CDM9RcyeQ5Xuevo=;
+        b=WWAjVmOjx2kVo3mtP27o/+/+WRyOEr3KwwdYwtFAiN4gtallSi8c2O7x5lTAJHr0qo
+         SARh+MsbJsyUiHVq0BTmw+6P9BnJgyop05E7D9mXFLQKAqRVawlae9pE04oenNJ1eG8n
+         sOtX2xUQC5l58QgD8l5OsGENqBbXk9FYwa4rDLPSG3d874e1yBDYDcJmeiw4deeRtgBT
+         fquC/ys21NKiKAMjJ1y7Jtv0851Ea5ZSHVFEVA6xsUopb7yxFDlb08iCHcGAr9OMx3no
+         wVbNcwR9GLNApjMaQ4rdn+2EYRNJINlvFRLQNdjCa6V+CDU87fkUhLdmc4+rQvks68ZN
+         RQow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782202526; x=1782807326;
-        h=to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nZyM20Y/Hzh/DVF8opMoFAb2fC/xYPMGctnCCvqWoqE=;
-        b=UwM1Uik8dep7E8pP4f5LSoS1PA+lWL51g2NgaVCnaCbu9wm5adms7mkAR+14ylahY3
-         RinMWzLJUkAVljtHm8PhNGbq/JpxV1I6MdujGZrwoR63OZMIQjtFJwkccZpH+crlSq72
-         eK3iByvUjRbI/pXMdzKJWsE1A71GOrhfRFzoDj6YrOVU7zSAJ9svL/fmYYRDXN+Jq+kT
-         ZIQcrMnBQxFDRX57JVLp+ZePJ3FGE7rvZp9c9uwouXjGRmkNRNy3wajfS9OB2F8IOGqo
-         3034HmGqVEs1HZc7v2GQ5qMNGKaG7BtkNd4100f9xRMkpsE1OyAjeYCDXDRPd4co1seG
-         930g==
-X-Gm-Message-State: AOJu0YzLhRemfSzd/9kHAH0nppnv780CGdNRg/NDMsKkZFOgpVMHW4BS
-	sI/0J9L2k6PPwMphKwM0GCuuNoXAwkpsS3csQ0iQ2GL2LC/H0WQF5id8Jtu9/Wzg9qbSMFnpgJj
-	Ywk2dOqsqLSPWOVOdp1Cz8N4qYZZVmai4y0Buby4=
-X-Gm-Gg: AfdE7cmut1wi4L+lAidvFkcF9li0Qodi0unEG/5OZY2OSi6Qb3MPnqhAT6g0jaTBOTb
-	QMn6NgasDd/HdNuSuSfH7R9xQaAN+q9RLiaiIbeaTxGLOxisole8OEk8FH38NI+9xRW0QwXo1Ai
-	OzbOrlJRxMHbI88XLELG7m2+ITvo039p3NkAllYj4nY6x5Akf22tsPxT/Xnx2vxV5bIn8HsjKHN
-	Hq8BdJyu7CMAx+jd+ZfaPJ9zph/7G2O+B3OfVuUdXDHyYvy6If5aRY7WZaPzYB6Crty1nlzaTpr
-	rCTF9Q==
-X-Received: by 2002:a05:651c:1148:b0:396:375:aa7f with SMTP id
- 38308e7fff4ca-39a251ece72mr4035951fa.10.1782202525487; Tue, 23 Jun 2026
- 01:15:25 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782203190; x=1782807990;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gbnv1qJBpBNRLbIqY6A+yfQLZHD7CDM9RcyeQ5Xuevo=;
+        b=rEMjbNOkoaannMsZ+MfXkmSM9rcV0pQRLpkyeBxx9XbTOux6qcObQzrgY8TjXx+O4j
+         0k7DEdiHzgvxXi1P7WV+GLbTHL666Hg+3MNvdp4gW0pQumQO9RckUCO7k99k9gWgw6nS
+         gG0n4oZsKqcbtvmmiNHu9Kekx0rF6PvLTPyYV9lTRmFM7sMQ1D5AxhwSRDlKQSOFaw3r
+         +ApzPiBv+lp63b0d1EsyI3fw5CTv1/Q54pWLrfri2L+5JwF+OSWHElAKiRXZ5ofh7Se0
+         l5wUJ8UwkjzBb11Gvf/247Ocsdp9pf2f5K0nUTGUUJ+yTo+Y+3lQ8A2d9PjxKkiK8ktl
+         4irw==
+X-Forwarded-Encrypted: i=1; AFNElJ8OEz7Fdjg5wsfRLD6GwpAQUrImQzU/mlXJ51eV9M12MvVOb769lkG/H3a6X/Q1m8LYjVgSQiGwCMk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUgYGBCbLTF3kiis0DzN2AdvelGyZ0M84rSBERaZkYDKhbjOl1
+	ueDOIviKZcMIAkIFnhfzAUr+0TSUE5/FDHfJ2lN/jK83RCHup7jR5+TvoHBgk+dk4A==
+X-Gm-Gg: AfdE7cm8gf/v1cC/SfRFX1SvKnV3qno7+4oIo1e37fQUlkWcRfDJhGsn1tH8acPQpT9
+	MNWqF8u+5l4aLHf2OCHS2HgSRtpnzM+NPZaEB1u06OkIZpEYbCPibUvtwYrsnZz8c/nJLWNZm5W
+	XsR40Hq7RKMJTiJBh8VeeGsVFY5zwl5rlsw3E31av0zXaFfe3wcl0ELaHFN/+gQKx1dIpoT8Pd8
+	nsi+rkRE4hmh8rqBK/KfqFPug4QMJad9yukpEF42xZtnJCdjKn1vsjxgTNq6dBXJIhqz8eV0qCq
+	P6nohJDjW1p3hqEAVe4cZLpb5r96Fv6uyJ0eoFohB2SWoxrSm0M667bkOOkQWzKx3/FkCduMWKO
+	TW1lu58LfX91IKZVdrD3PDG9ZvxtmYNY4gGrNt5t8xFXpGM6lT+J7ofsJrLYz6nCJoCgqePERUs
+	hcWOCNaf5EIH66QyUPs2XagQPjGWtfzHIK5CDVsnzm1P5szrjs35yXkAab66xKRTYzXO5D2wW+c
+	fMG
+X-Received: by 2002:a05:600c:a08c:b0:492:4cce:53e2 with SMTP id 5b1f17b1804b1-4925b3867c6mr25162345e9.3.1782203189823;
+        Tue, 23 Jun 2026 01:26:29 -0700 (PDT)
+Message-ID: <2e9683f6-25d3-442b-9661-d32f979ca43b@suse.com>
+Date: Tue, 23 Jun 2026 10:26:25 +0200
 MIME-Version: 1.0
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 23 Jun 2026 11:15:13 +0300
-X-Gm-Features: AVVi8Cdaf4yNSCIBITIz3uLXG0TKO7Ca2XAulCElZyuA8loU24X21zN2rxVHKHE
-Message-ID: <CAGeoDV8j+yz7L7YA=hR8dj_=nJ6gWWRfaOzH10_wRKJdycu09g@mail.gmail.com>
-Subject: [QUESTION] Credit2 wakeup latency in 1-pCPU/2-vCPU Arm test
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-42698a/1782202526-4E5E400E-6CAD8F1D/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 22/23] xen/Kconfig: introduce HAS_STATIC_MEMORY
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1781693963.git.oleksii.kurochko@gmail.com>
+ <22c02e188a0b38806f08b7a87f00f03c14aad742.1781693963.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <22c02e188a0b38806f08b7a87f00f03c14aad742.1781693963.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1782203190-913D3979-DC67597B/0/0
 X-purgate-type: clean
-X-purgate-size: 2423
+X-purgate-size: 1530
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_ONE(0.00)[1];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0B18E6B5345
+X-Rspamd-Queue-Id: 6AA866B5445
 
-Hi all,
+On 17.06.2026 13:17, Oleksii Kurochko wrote:
+> Architectures that implement guest_physmap_add_pages() select
+> HAS_STATIC_MEMORY; STATIC_MEMORY then depends on it.  ARM selects the
+> new flag; RISC-V does not, so CONFIG_STATIC_MEMORY is unavailable there
+> and randconfig builds no longer require an explicit STATIC_MEMORY=n
+> override to avoid a compilation error.
 
-While running a wakeup-heavy Arm test, originally used for GICv4
-doorbell testing, I noticed an interesting scheduler behavior on clean
-Xen master.
+How did you come up with the connection to guest_physmap_add_pages()?
+That's a close sibling of guest_physmap_add_page(), and they all should
+fall in the same group. The fact that right now static-mem is the only
+caller of guest_physmap_add_pages() is secondary. New callers could
+appear. guest_physmap_add_page() could likely (in principle) be
+implemented in terms of guest_physmap_add_pages().
 
-The setup is synthetic on purpose:
+What you're after is a way to {en,dis}able STATIC_MEMORY on a per-arch
+basis. That's all what matters here.
 
-1 physical CPU
-2 Dom0 vCPUs
-fio pinned to vCPU1
-CPU stress pinned to vCPU0
-4 KiB random read
-iodepth=1
-Credit2 scheduler
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -161,6 +161,9 @@ config HAS_SCHED_GRANULARITY
+>  config HAS_SHARED_INFO
+>  	bool
+>  
+> +config HAS_STATIC_MEMORY
+> +	bool
+> +
+>  config HAS_SOFT_RESET
+>  	bool
+>  
+> @@ -196,7 +199,7 @@ config NUMA
+>  
+>  config STATIC_MEMORY
+>  	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
+> -	depends on DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
+> +	depends on HAS_STATIC_MEMORY && DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
 
-The goal is not to measure raw block throughput. The goal is to stress
-the wakeup path where an I/O-bound vCPU is blocked, while another vCPU
-is CPU-bound on the same pCPU.
+This may end up slightly neater as
 
-On FVP with GICv3, the result is very sensitive to IRQ placement:
+	depends on HAS_STATIC_MEMORY
+	depends on DOM0LESS_BOOT && HAS_DEVICE_TREE_DISCOVERY
 
-virtio IRQ pinned to the fio vCPU:
-2223.939 IOPS, p99 = 1122.304 us
-no IRQ pinning:
-93.508 IOPS, p99 = 17170.432 us
-
-I also ran the same test family on AWS c7g.metal with clean Xen master.
-The same low-IOPS class is visible there as well:
-
-normal run, 8 Dom0 vCPUs, Credit2:
-about 1753 IOPS, p99 = 643 us
-wakeup-heavy run, 2 Dom0 vCPUs, Credit2 default:
-about 100 IOPS, p99 = 10158 us
-wakeup-heavy run, 2 Dom0 vCPUs, Credit2 sched_ratelimit_us=100:
-about 973 IOPS, p99 = 8454 us
-wakeup-heavy run, 2 Dom0 vCPUs, Credit2 sched_ratelimit_us=0:
-about 748 IOPS, p99 = 13435 us
-wakeup-heavy run, 2 Dom0 vCPUs, RTDS:
-about 999 IOPS, p99 = 6521 us
-
-The AWS numbers above are medians from 5 repeats of the rr4k_qd1
-workload.
-
-I added debug counters around WFI, interrupt injection, vCPU kick, and
-schedule-in. In the runs checked so far, the interrupt is delivered and
-the target vCPU is kicked. The counter for entering WFI while a virtual
-interrupt is already pending stays at zero. Most of the visible delay is
-between the kick and the next schedule-in of the target vCPU.
-
-My current interpretation is that this test is valid as a wakeup stress
-test, but it is very sensitive to IRQ placement and scheduler preemption
-behavior. I would not describe these numbers as raw storage throughput.
-
-Since the same behavior is present on clean Xen master with GICv3, it
-does not look specific to the GICv4 changes.
-
-Question:
-
-Does this match the expected Credit2 behavior for this kind of
-overcommitted wakeup-heavy workload?
-
-More specifically, when an interrupt wakes a blocked I/O-bound vCPU while
-another vCPU is CPU-bound on the same pCPU, is the woken vCPU expected to
-wait for the normal Credit2 scheduling/rate-limit window, or is there
-an intended fast preemption path for this case?
-
-Regards,
-Mykola
+Jan
 
