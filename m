@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id rZ74EtebOmpCBggAu9opvQ
+	id X1yiFHueOmphBwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 16:44:39 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 16:55:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C9376B7FE2
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 16:44:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A367C6B8155
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jun 2026 16:55:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=VSzKslsf;
+	dkim=pass header.d=suse.com header.s=google header.b=aJIJPp3v;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1344352.1603443 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1344363.1603452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wc2MP-0005aG-OJ; Tue, 23 Jun 2026 14:44:21 +0000
+	id 1wc2X6-0007YM-MT; Tue, 23 Jun 2026 14:55:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1344352.1603443; Tue, 23 Jun 2026 14:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 1344363.1603452; Tue, 23 Jun 2026 14:55:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wc2MP-0005XT-Ks; Tue, 23 Jun 2026 14:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 1344352;
- Tue, 23 Jun 2026 14:44:20 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wc2X6-0007VZ-Ja; Tue, 23 Jun 2026 14:55:24 +0000
+Received: by outflank-mailman (input) for mailman id 1344363;
+ Tue, 23 Jun 2026 14:55:23 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wc2MO-0005XN-2A
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 14:44:20 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wc2X5-0007VT-5O
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 14:55:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wc2MM-00BYbX-NX
- for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 16:44:18 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wc2X4-00Fsz6-ET
+ for xen-devel@lists.xenproject.org; Tue, 23 Jun 2026 16:55:22 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3a9bbc-2eae-0a2a0a5409dd-0a2a4504d290-10
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 16:44:18 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ id 6a3a9e51-2eae-0a2a0a5409dd-0a2a4509edc0-20
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 16:55:22 +0200
+Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
  (envelope-from <jbeulich@suse.com>)
- id 6a3a9bc2-5f9f-0a2a45040019-d1558031dcac-3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 16:44:18 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-49258ac7294so12342985e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 07:44:18 -0700 (PDT)
+ id 6a3a9e5a-4999-0a2a45090019-d155dd2ac89c-3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 16:55:22 +0200
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-45f3cf907ceso2620944f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 07:55:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4923fe7ba08sm380600905e9.11.2026.06.23.07.44.17
+ ffacd0b85a97d-4666722141csm34819574f8f.34.2026.06.23.07.55.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jun 2026 07:44:17 -0700 (PDT)
+ Tue, 23 Jun 2026 07:55:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,53 +61,53 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782225858; x=1782830658; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782226522; x=1782831322; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eN/B8faHyk23z1NLnyDeWJiBbbh4GL051+ewk+EUD7w=;
-        b=VSzKslsf7qXIokknIE48HHPDvamf9OgK5eswnG3/dxdbbUq2lPLiF4vitE+Aqj3v++
-         voWfR5jtYiiswyYHv0JpP4Lg1TA2fLtMs5HrscZRQKruE1U0X2HxZhoMT/avdU714mqi
-         YLX+IefmJqvcplkefjFDFGRpi/BoLBlXDLbCUygVUdJ5zTEGvEqOLOG3y9RmYhGLf6L2
-         r/qA5Obl0DIyouigtbteYXuqAjz5y2VzjDjl1FaA8Sv3NoL/SrK9ww6/qv8hBRyrGBtr
-         sz6KEvV7EG/r2eCWGqn4vi0O5vYxjIMbPgzZ6Jc7nDGfozLtXcaoph6eQ4yuq44t4IQv
-         EvIg==
+        bh=v9XSJFdwK2Nbr6SepLM1A0MeRotoQ618aLu7Nv7SC6s=;
+        b=aJIJPp3v9nPjbx/bnEgustNK93PwXMt2yECri3n/SK3EmN5lJg4pUzxsd0aHE9axJb
+         LSo1pk5/wt1DE1jVOuP1csJmSItvjXNBca97Y+66LFsaAhkAPOVreSXO/E9qGliARuZ1
+         jVEtR6K3ZsNFG8nlGwSo1c3qE4yy+MdTXCVWgga2cSNlF47x6DVb0z382yZKQhRyy6pf
+         BVw9eg692iMjosw0CmgZH+gKVum/PyYISNnrm3sJH2nWjTdNDb1n5wlDSnIgXFvBKQ7E
+         TxQVpvDOxVQRaB0Y+j8q3irOYFAMLQqg59n8LGaCVivYFOfHIIhveXq2UjJO8OFErZDO
+         aQdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782225858; x=1782830658;
+        d=1e100.net; s=20251104; t=1782226522; x=1782831322;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eN/B8faHyk23z1NLnyDeWJiBbbh4GL051+ewk+EUD7w=;
-        b=nADAHdqnr1+wSO+lUOTpNfuJKs4G+3lqVz7rF8cHBlCbgHxxPhY9+CsLSoqXK3E8U8
-         G5PnZz56cy4v+ky4hYWdDO9pvHNX7E1GlUxxz9kGh7IbRSoiTTRgMFAR6z1qZZPuNat/
-         c+OO4Z8vktkqj7F9zYiT3whBAR2W8cuMxH44viEz0Z0RBMy4zW3QP+3j2LyUwk4u5CKJ
-         02XULWAHqBEQtMxGPS/fr7Wnq787sBu7N2uQgBwvXTsSAXr5kyOTGvAbuEg7aT/hgR7A
-         69xzxhM7TDRbE+MP8o0cvImuiOyalP2uYsLiyVCl9T504rpgAAE3db6ZNIRkPBEJiCSW
-         sEpw==
-X-Forwarded-Encrypted: i=1; AFNElJ/FX0LkwuvS9yiMDyf8txOePt+A2ng7EjQkCu2t5Tc0pQtDmBuQQaCfDep2jVI+IMwTKpvNsTNKaEY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrUQ8TbtWayqnd1gf/35fYvxn33U9VIrWcbpqddU8zJUs6O8ZA
-	i4GSaQtwD3+Xdnt6icLkP1/FIquNFHQocE2kwCPN+D9zjLfQ7m4oOgzej3IbI6HUgQ==
-X-Gm-Gg: AfdE7ckfXIlvC9ZsBPzA01FpN0ynYgts5Xvqkvto964Anlk076GcPA/5DycwpZbjRV5
-	nZGVEKna9vQWc/3Nd7qLfYQ8e1pkXU0sWFwmqYxDF6Alv2eDKl9skMsf5OxyTKr1+gPHeMWdYLz
-	CzIad7VgtS0UEoL190umVw4iyJPoAw7EfeP1BvqQWrF5h/yv7wXOmY+f+1L48qV14MLSjVJUyjX
-	c9e8l5UfAD14aAfKdA8L8IT4d7R8qkI5Dk21tbcivMfykSYFFHT95yiJaNS5oOmyFYlQFg/LAJO
-	HwmKZQgfmcg0Mn5KAI04FaLX3aU86dBic+BCnDwm/WXLR6gXE/XuYn1DkyDcL/bBX9hKSSRUGVn
-	VfOhK70ij6dJlmqQKHq7mtyZcB+CmUQsplPkVgkHpI9PS3lYPoufIslqL2/SBcXRzk3pP6ce7sa
-	rwm3wyVgBkOXeqhHuNTSM5f0r463Azqn2FRhdVSbcwcOWJX3Sx4Sy2ps87bxbMp/eEXhT333Bip
-	cD6
-X-Received: by 2002:a05:600c:c4b7:b0:492:3773:a230 with SMTP id 5b1f17b1804b1-49240e9cb38mr316895785e9.27.1782225858019;
-        Tue, 23 Jun 2026 07:44:18 -0700 (PDT)
-Message-ID: <b7bfcd3f-acad-4637-a391-32cc9bd71a38@suse.com>
-Date: Tue, 23 Jun 2026 16:44:16 +0200
+        bh=v9XSJFdwK2Nbr6SepLM1A0MeRotoQ618aLu7Nv7SC6s=;
+        b=f66X6B0imI+ofXbxEap5N+KVrNERN7fZI481evN1PiH2jrNP/Xxpd/T5jftDzW+6AS
+         WbCGGcMf0iIZehsUrzaxQVagAviB1ReDKdXvCLPDyErRnYsYuvYNUEuYLvukosvVukzY
+         QcsadPyRNkT8JxNkzzyzfFVJj+HcIFXPoCu3Gy5OuhQyiPtowG66aPxL10/Ro4Jz6seq
+         wZxN1PGrhgnJYZG8fPpRoxICFD/FyLFSwvvvaOoWFRCjpYZuLmsrv6Y/F1kjXOpQroQF
+         kzFpUfShruCIX8sg45SgpIYRWd+JZUsFBl3arxSG/5eWZYTRQA3deAqz/GZwYsUZ09in
+         nWhQ==
+X-Forwarded-Encrypted: i=1; AHgh+Row9i5Ttcei/tBttKZiOL7OFLs9ZeFEbBSdOGtqNcgeomhZZhtch4M3i/dB9RxdLtawmgpZHJ6/1ew=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwI8NSUwx+4ChTIatMF4pZC/kUWvrfTnPqx14o6T+V8DeLrBYaC
+	82GOa/8HwmhTmT0iMFX2pooMko31pah9t1BW/YsKdlRkDHCGVKvd/NeI76mfHQ8AgA==
+X-Gm-Gg: AfdE7cmtYmHBkucs0vNY4cT2LPw2X0I5UseRYNgIpCpxc5oXv94HRqcIbOKYXojwRsc
+	YINppqjokpxRCqq8hF/u6QeowR3YQyGBgbKdCZHnksSVAzm9dAbsflCMS/F6phUwn3EnmeMFbIu
+	mJR+HZVkZPI2ob2nwp4oy87MQs4JL9eW6dOjtC+n4VPK6x5PmQg2E/xmqi3Q+eX1ym8WJ0/xvTi
+	uDQekzi8LzKA81lwqZAseOnfg9gec1H4uGhefakoP70vrgt2UVoYFRRPPyMLEhFIUCLJSND61jl
+	RJ3ut2OuM1bPDY54OgUhujWY77OT1h4m1frNxf95eohDjYcaAZXgdbFvceAiP61+rpZWVgiFj8V
+	JCDxxQfJps5+0/Vv8ZOuHJNkWByNzHzYo5bn7PWa6hdXZE12Fqw/lwGenniVnxeRbj6jDJAK6vW
+	iY4lHwZHvdjuhBCoeC1TGYG3SwIC/qLIvYz7mmSfoKMJVUcma/uoVkgtKoC+47qfJ6nGPBWE0NF
+	OMI
+X-Received: by 2002:a5d:5e93:0:b0:461:a1fd:6be with SMTP id ffacd0b85a97d-46adafbd2ebmr5192366f8f.7.1782226521658;
+        Tue, 23 Jun 2026 07:55:21 -0700 (PDT)
+Message-ID: <7ae492bd-1a43-4de9-b24f-c0c8407ac916@suse.com>
+Date: Tue, 23 Jun 2026 16:55:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] x86/kexec: add digest checks
+Subject: Re: [PATCH v2 5/7] x86/kexec: Implement new EFI load type
 To: Kevin Lampis <kevin.lampis@citrix.com>
 Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
  ross.lagerwall@citrix.com, xen-devel@lists.xenproject.org
 References: <20260622151833.3397692-1-kevin.lampis@citrix.com>
- <20260622151833.3397692-2-kevin.lampis@citrix.com>
+ <20260622151833.3397692-6-kevin.lampis@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,12 +133,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260622151833.3397692-2-kevin.lampis@citrix.com>
+In-Reply-To: <20260622151833.3397692-6-kevin.lampis@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1782225858-477DD141-F15AEE86/0/0
+X-purgate-ID: tlsNG-bad1c0/1782226522-F51F3744-CA209520/0/0
 X-purgate-type: clean
-X-purgate-size: 938
+X-purgate-size: 3922
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -151,7 +151,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:kevin.lampis@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
@@ -172,28 +172,113 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9C9376B7FE2
+X-Rspamd-Queue-Id: A367C6B8155
 
 On 22.06.2026 17:18, Kevin Lampis wrote:
-> From: Ross Lagerwall <ross.lagerwall@citrix.com>
-> 
-> To support UEFI Secure Boot we must check that the kexec data has not
-> changed between signature verification and actual execution.
-> However, this is also a good check to perform generally.
-> 
-> During kexec load, calculate a digest over all the kexec segments. This
-> digest is stored and verified again later prior to entering the image.
-> 
-> For now, only kexec crash images are supported.
-> 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -71,6 +71,7 @@ obj-$(CONFIG_TBOOT) += tboot.o
+>  obj-y += hpet.o
+>  obj-$(CONFIG_VM_EVENT) += vm_event.o
+>  obj-y += xstate.o
+> +obj-$(CONFIG_KEXEC) += kexec.o
 
-I guess I'm not quite following here. For secure boot purposes, shouldn't
-the new kernel already come with a digest (or really with a signature),
-which we could check in both kexec_load() and kexec_crash()? If we check
-against a digest we calculated ourselves, we'd apply more trust than we
-should.
+While there are some anomalies down here, most of this block is suitably
+sorted (alphabetically). Please insert accordingly.
+
+> --- /dev/null
+> +++ b/xen/arch/x86/kexec.c
+> @@ -0,0 +1,58 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/kexec.h>
+> +#include <xen/kimage.h>
+> +#include <xen/guest_access.h>
+> +#include <asm/bzimage.h>
+> +
+> +/*
+> + * Find the entry point to the new kernel, we need to map the crash region into
+> + * memory in order to read the kernel header.
+> + */
+> +#define KERNEL_SEGMENT_IDX 0
+> +int64_t kimage_find_kernel_entry_maddr(struct kexec_image *image)
+> +{
+> +    uint64_t dest_maddr;
+> +    uint32_t alignment, magic;
+> +    uint16_t version;
+> +    void *dest_va;
+> +    const struct bzimage_header *hdr;
+> +    int setup_sects;
+> +    size_t kern16_size;
+> +
+> +    dest_maddr = image->segments[KERNEL_SEGMENT_IDX].dest_maddr +
+> +                 image->segments[KERNEL_SEGMENT_IDX].dest_offset;
+> +
+> +    dest_va = map_domain_page(maddr_to_mfn(dest_maddr));
+> +
+> +    hdr = (const struct bzimage_header *)dest_va;
+> +    magic = hdr->header;
+> +    version = hdr->version;
+> +    alignment = hdr->kernel_alignment;
+> +    setup_sects = hdr->setup_sects == 0 ? 4 : hdr->setup_sects;
+> +    kern16_size = (setup_sects + 1 )  * 512;
+> +
+> +    unmap_domain_page(dest_va);
+> +
+> +    if ( magic != 0x53726448 || version < 0x0202 )
+> +        return -EINVAL;
+> +
+> +    /*
+> +     * Ensure the kernel alignment is a valid LOAD_PHYSICAL_ADDR,
+> +     * which ranges from 0x200000 (2MiB) to 0x1000000 (16MiB) on 64-bit systems
+> +     * as defined in the kernel x86 Kconfig
+> +     */
+> +    if ( alignment % 0x200000 != 0 ||
+> +         alignment < 0x200000 ||
+> +         alignment > 0x1000000 )
+
+Use MB() to cover some of what the comment currently says? (The second of the
+checks would also be easier as !alignment, seeing that the first check already
+excluded all other values below MB(2).)
+
+> --- a/xen/include/public/kexec.h
+> +++ b/xen/include/public/kexec.h
+> @@ -54,13 +54,16 @@
+>   * - kexec into a regular kernel, very similar to a standard reboot
+>   *   - KEXEC_TYPE_DEFAULT is used to specify this type
+>   * - kexec into a special "crash kernel", aka kexec-on-panic
+> - *   - KEXEC_TYPE_CRASH is used to specify this type
+> + *   - KEXEC_TYPE_CRASH or KEXEC_TYPE_CRASH_EFI are used to specify this type
+> + *   - in case of KEXEC_TYPE_CRASH_EFI the first segment will point to the
+> + *     full kernel to load and entry point will point to boot params
+>   *   - parts of our system may be broken at kexec-on-panic time
+>   *     - the code should be kept as simple and self-contained as possible
+>   */
+>  
+>  #define KEXEC_TYPE_DEFAULT 0
+>  #define KEXEC_TYPE_CRASH   1
+> +#define KEXEC_TYPE_CRASH_EFI 3
+>  
+>  /*
+>   * Perform kexec having previously loaded a kexec or kdump kernel
+> @@ -167,7 +170,11 @@ typedef struct xen_kexec_load {
+>          XEN_GUEST_HANDLE(xen_kexec_segment_t) h;
+>          uint64_t _pad;
+>      } segments;
+> -    uint64_t entry_maddr; /* image entry point machine address. */
+> +    /* image entry point machine address or parameters in case of EFI. */
+
+Nit: As you touch comments, please also correct style issues.
+
+> +    union {
+> +        uint64_t entry_maddr;
+> +        uint64_t parameters;
+> +    };
+
+We don't want to use language extensions in public headers. I'm actually
+surprised this still passes the -ansi header check that we do from
+include/Makefile. Maybe with recent compilers this doesn't do anymore
+what we expect it to do?
 
 Jan
 
