@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id H4SaF6UlO2rTRggAu9opvQ
+	id 6f0EAih9O2qjYggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 02:32:37 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 08:46:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CC416BABA2
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 02:32:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E491E6BBDDB
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 08:45:58 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=invisiblethingslab.com header.s=fm1 header.b=QiQ0RqaT;
-	dkim=pass header.d=messagingengine.com header.s=fm1 header.b="NECrRj/A";
+	dkim=pass header.d=suse.com header.s=google header.b=gVBNTq83;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=invisiblethingslab.com
-Received: from list by lists.xenproject.org with outflank-mailman.1344534.1603579 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1344553.1603609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcBWd-0004Ks-F1; Wed, 24 Jun 2026 00:31:31 +0000
+	id 1wcHLx-000682-5a; Wed, 24 Jun 2026 06:44:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1344534.1603579; Wed, 24 Jun 2026 00:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 1344553.1603609; Wed, 24 Jun 2026 06:44:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcBWd-0004Jo-Ba; Wed, 24 Jun 2026 00:31:31 +0000
-Received: by outflank-mailman (input) for mailman id 1344534;
- Wed, 24 Jun 2026 00:31:29 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wcHLx-00065T-22; Wed, 24 Jun 2026 06:44:53 +0000
+Received: by outflank-mailman (input) for mailman id 1344553;
+ Wed, 24 Jun 2026 06:44:52 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wcBWa-0004Je-Sv
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 00:31:29 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wcHLv-00065L-Vq
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 06:44:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcBWY-00Brc9-JS
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 02:31:27 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wcHLs-009Wgj-GJ
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 08:44:48 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 6a3b253e-2eae-0a2a0a5409dd-0a2a4502eb7a-14
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 02:31:26 +0200
-Received: from [202.12.124.153] (helo=fhigh-b2-smtp.messagingengine.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 6a3b255c-fdf1-0a2a45020019-ca0c7c99b825-3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 02:31:25 +0200
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id DFEBB7A0138;
- Tue, 23 Jun 2026 20:31:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Tue, 23 Jun 2026 20:31:23 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 23 Jun 2026 20:31:22 -0400 (EDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3b7cd6-5cb7-0a2a0a5109dd-0a2a450ae182-34
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 08:44:48 +0200
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3b7ce0-93a5-0a2a450a0019-d155dd32c11d-3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 08:44:48 +0200
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-4626fdc829aso496996f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jun 2026 23:44:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49260915286sm70579345e9.1.2026.06.23.23.44.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jun 2026 23:44:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,294 +60,399 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1782261083;
-	 x=1782347483; bh=hEcx3YhDX7gRkr1bi4FW6e+w10i75bwc8tAPFAFDAIQ=; b=
-	QiQ0RqaTSBryTtoo73R+GcMoai1qwn0RS1HgR3KCAyXAq8r9oq7i/K6YcliSl7hm
-	KUZxim1MQfP3dEV14+ryrv/l9fApRwgfcte+fC17663VCwkZEXtat9QGqe3pkuBN
-	YkDRe/DoHFyz3ZDiBIx/RFNKLQzNmYlPaXOC+U0ta9fHKLWcbU8EXSwejYQw0YjZ
-	JWO0S95dKH5uWIDjbT3i9oa5rhseuu4lPLAHGgRfIshjMwuZdiwRsh22eUwHShCk
-	FTCR+gf4oMURMgZD2InzLrCMEvZjOBtdNz4yUSkJEzfzMve/71gEGeyevaDPNfQh
-	Ihv9SyGQi/DfLGrkkM1FQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1782261083; x=1782347483; bh=hEcx3YhDX7gRkr1bi4FW6e+w10i75bwc8tA
-	PFAFDAIQ=; b=NECrRj/AkN5ZazchGbswckN19CKoU3zZ6/BmqVpVUF1tmdD53TU
-	HcUleRmFEf8t7OdUhN7ecq7vh+gr7mABoM6FvOH/7CwgojezKPdAahLSW0K3udI1
-	zwq5+YiwCh9gzT7M8MnXs/9a9v98B6kSGkO0WNlMpgHy/HgAcmnSxkllwSH2rfhM
-	5fl+EjfImVicL54s81c5zSknoIkTfokBLwtVSINayaPu+POtfdKrWj7z2VyVfzDL
-	VhiLKT2QjXpUrxLCjkUlGCCCN2eOYFgvD9tVIsJuUbLu+GLJxf3KhqCZ1FRPidIb
-	lDVTyL9qttU1EpB2GbjiaC788Ba1tyqz0xA==
-X-ME-Sender: <xms:WyU7auZK9gg8RlLmqXmtqGbqNZXzJzpLMvL5xmREy8-1G5fpH-cFmg>
-    <xme:WyU7anYnxHCdAvkA6nwB24dZn9n74UeuTHHa5-9TOLXtwNd8MqThnsYkmf_4BrDxu
-    nKbfmuime-KHPUL9BesDLDf-nAtPM5y5iVfbUnyzAHiFwNnPw>
-X-ME-Received: <xmr:WyU7amnHCSh3BpX62r26lo-pY7PJbkgZR6x0XZSiXQ5mkMSPnA0FPIigIRMFx2fQqd1TwS1DzCrcrdji_hwLocz5H-c5h165xW8>
-X-ME-Proxy-Cause: dmFkZTFutc/TBbgcfvlUGF+8aFvqW8AKyRQxdE7ZBxFYDE2Ec4ToDqqZ8HIb+F5z7KrQTA
-    zi9+aWK62hs/qVC2FJQL7NCPZjZfeQxb8K0nwc91PX7+0w3p5jzdkcvIg+JBlXwhWWikxd
-    fNin/5Mx+CaDP3kYK0eMXwn6ogQ0qSyHiteMbpiA7uVVOzi0oyZho6+bx5p+Km0MTDrN/7
-    oV4KGI1Q9vZOkcZAm2e28eV1db1d3n4YgJs34UW+IhdNKCKJ7dOZhAnFmDykdC0RNXL0XY
-    8FNFPWKU2Szj2fqJKxxaIk27nCGg2nwALDAHJQZMVxOwkt2KYHAvv4OAUhPrvgLTxgdAHW
-    tIY8lSoTCHlrskzoGFckeal4JCIc/xwwX7RIsHXnuU4wULUMG0PqYu3WY20PK3JnOCBvW1
-    Jrj3ueZbzRmidDdzOJI+Lgw7fm8mAEiDfEq6KWj8pfuXwBvrIwDcIW9V0Qe739yTrg5a3c
-    08ezHEk8ex8Ds5Bqxo/KDZBQ5TUHoIqjzemERmgi7U8ZcVOgGQSzUoms3LsbgNdIlU15+Q
-    NglYn3XJtPyyhLsz10jfqMH26ZYh+jNAMTH0iI+VU+L9+xH9FjNqb+9QP9l0DFgpl+Vomq
-    cDkcr/mI4vXbMcrhbnnJyAkul8m0lJ9WlAc7i/O95qyq76gnNzkayeYuABjQ
-X-ME-Proxy: <xmx:WyU7aryG-N-tCijK4Q2j9sh5bYBg0g7eqPGvUWIMoNMlfs4byDZ24A>
-    <xmx:WyU7asPD9MwlrEMi1jDnzFA3zCPz4aY3ZeexVFg7X-m_Ex0-yw8seA>
-    <xmx:WyU7anR3dFuqAxuCsZHaVUzR-cQn9e4ltbfJ3PTx2QwtQ8SLz1oeyA>
-    <xmx:WyU7aibHbSYt-lqyuCxgqXURWxa9pWBoAoGePhdhRz8qi-6YmOu-ig>
-    <xmx:WyU7auuYGxTQKPPB-vMd99m_DKJxo71ZhYE4Hk-BemFYybW-giyxBviY>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 24 Jun 2026 02:31:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux dom0 hangs on boot with Xen 4.22 and Heads firmware
-Message-ID: <ajslWA63ZdPhfYvw@mail-itl>
-References: <ajVUS5F9G4Jse20i@mail-itl>
- <a6b83fc1-aa98-4b45-ab7f-503715861a7d@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782283487; x=1782888287; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=mxfCCIZ/THxTD8rvCfXotWcbwolqfXw8Vyl6IjXbpA0=;
+        b=gVBNTq83jxBfqMSSyXbXttsOFB15isJ6A92zEl0yQ6vZVjnBwKA8XNKL6sBexXjwvH
+         ZwsXZnKpe9XrNgHEZ5YLc/qZ+wlXuzuREEfHcRQqt+k5DC3FOE/+b3+AhZA9sdHJ8JFJ
+         CXjgMgR9kQO13Sn8sT/T1NdAqsth+2t4weHItk4Xp4l9fXGpwZkj2v83HQ6I13ba52Ln
+         IFU7kv3dX6or1Px/J6QTt1Rimoj9NevawTpHNICR+SBjzA9P9wTc7zL98ZaZMhDwjO5D
+         jqBNzxJ+5l64EXx7ztKdEP4LCQdzyLjV+3Qv+4qhwudA5DLvh9lXamf3Vosb9bgTY8Jb
+         iH6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782283487; x=1782888287;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mxfCCIZ/THxTD8rvCfXotWcbwolqfXw8Vyl6IjXbpA0=;
+        b=n8bvQVofNVrq8jHgNKel2N2PyR5uevPySv4mk9HHUIbi0w9Wc2TvBmWLOCNSXlhsJC
+         /MynU2woBO/XXyuTDPlF1NvBFrA68jMREbJPtMVR4Q07kvyjuCCq/dSMM77sohGa8Vg5
+         oI+M/96gJVSG7f01yCuJxwqKeqIO7QEaQbWYFrzJ5BdQiI+zK4pyW93a/keq61q0RsOf
+         N75xaUnq+r8dWt7Llmcafe0GYKszIhvx8iu2dWZfXGIJMrO8CQhqLibYUucCqhgIYexd
+         4c3+dki05Vl3ZY3syLTZ+TxCwxP0OQEPJY179RrDTAIXhYAh9JNX623x3o6c6G0fiHkl
+         MUHA==
+X-Forwarded-Encrypted: i=1; AFNElJ/1ABSzQLvnv6Rn4615ydJmo2ozoNRRGi+C1eWZ/wO0tFE5NKj8wPhCXrFr9dEqGzOpJL7vG9eRraw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzq4tCexZN8qgbXHQ1Bb7+tfB86T1pL5cxfV4LDjNdXCZ8jGVsQ
+	o6gb64F6RagR5nqdCiY+mWuER1YtrWu8ikq6NHU5sn59mAtRYp9Jfran1pWuICvDXw==
+X-Gm-Gg: AfdE7clkJyhxabl54wj7EjVhc3emyuWlx+TGiaVWxWvU9QSlUEj1AZjOt83YWK4oC5z
+	4KFMAH+iu2I2ylyWRiU4Y12KVKkb69tFvLMlIC059yP/6hTr5YzXwJ3uobvCE/n3Kr69haKLob2
+	gOKxk2pJaINB4C/QpDaB6ZHeyt4aP/z2zQOkeSRK9EaV3wgGJslkkfUeN08EE/yE3eckl5PlBsK
+	Ue+a49J/Bp8ctiEgjWQ9upoCjenQ/eSYHIUU5AbJMaPC1CRuIAIhbGdiB2T5YWtAmenkE8L5XJp
+	JNfG1inQmJv1lByrA9F7ApNEuRt1cbnFzADskcv3+rY67WxUntTXs/IrWKZdqtJ9QXGEBxze3w0
+	Q5ocC1Xsi8lfnkH9OtquxM+mXi6PLNOiFE9s9a2aSRvG5P9SWQJfzwp168bwe8PjJVa//xeu6KI
+	b2KzRkw+HJTfYlhk3iLS7GlzVz0OF/ZDVQMAwJVH2k8DhavBdj+svSshTmsZvHYGiyioBte9dVd
+	seF
+X-Received: by 2002:a05:600c:1d0a:b0:492:409d:b7c3 with SMTP id 5b1f17b1804b1-4925b359fc2mr86477655e9.13.1782283487550;
+        Tue, 23 Jun 2026 23:44:47 -0700 (PDT)
+Message-ID: <07b3bbb6-ef62-419c-b708-1b9ae2774462@suse.com>
+Date: Wed, 24 Jun 2026 08:44:46 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jMAIu2igKRfDROZy"
-Content-Disposition: inline
-In-Reply-To: <a6b83fc1-aa98-4b45-ab7f-503715861a7d@suse.com>
-X-purgate-ID: tlsNG-720697/1782261086-4566B3F3-CE9BEC9F/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 12/16] xen: implement new foreign copy hypercall
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
+ <20260619130501.272832-13-frediano.ziglio@citrix.com>
+ <c5f00fa4-4d9e-4227-87a0-6e657fd523e9@suse.com>
+ <CAHt6W4c0FDaMZK-4-7CReG_PdV+L=HNxVGNjV5vUjDkKq3EMBA@mail.gmail.com>
+ <2889dc4e-33ec-4d8f-b01d-026506a39cbf@suse.com>
+ <CAHt6W4cghz1Rh=MXqmx6ZHA0iOz9xTBDNhFWaqtZ=npd4Hb=GQ@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAHt6W4cghz1Rh=MXqmx6ZHA0iOz9xTBDNhFWaqtZ=npd4Hb=GQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-4011c0/1782283488-2D7F1DB8-4081C95A/0/0
 X-purgate-type: clean
-X-purgate-size: 8442
+X-purgate-size: 10690
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCPT_COUNT_TWO(0.00)[2];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:frediano.ziglio@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xenproject.org:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	ARC_NA(0.00)[];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,qubes-os.org:url,invisiblethingslab.com:dkim,invisiblethingslab.com:from_mime,mail-itl:mid];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7CC416BABA2
+X-Rspamd-Queue-Id: E491E6BBDDB
 
+On 23.06.2026 23:18, Frediano Ziglio wrote:
+> On Tue, 23 Jun 2026 at 14:21, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 23.06.2026 12:55, Frediano Ziglio wrote:
+>>> On Mon, 22 Jun 2026 at 11:34, Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 19.06.2026 15:04, Frediano Ziglio wrote:
+>>>>> --- a/xen/common/memory.c
+>>>>> +++ b/xen/common/memory.c
+>>>>> @@ -1545,6 +1545,139 @@ static int acquire_resource(
+>>>>>      return rc;
+>>>>>  }
+>>>>>
+>>>>> +/*
+>>>>> + * The "noinline" qualifier avoids the compiler to create a large function
+>>>>> + * consuming quite a lot of stack.
+>>>>> + */
+>>>>> +static int noinline mem_foreigncopy(
+>>>>> +    XEN_GUEST_HANDLE_PARAM(xen_foreigncopy_t) arg)
+>>>>> +{
+>>>>> +    struct domain *d, *const currd = current->domain;
+>>>>> +    xen_foreigncopy_t copy;
+>>>>> +    int rc, direction;
+>>>>> +
+>>>>> +    if ( copy_from_guest(&copy, arg, 1) )
+>>>>> +        return -EFAULT;
+>>>>> +
+>>>>> +    if ( copy.flags & ~XENMEM_foreigncopy_direction )
+>>>>> +        return -EINVAL;
+>>>>> +
+>>>>> +    direction = copy.flags & XENMEM_foreigncopy_direction;
+>>>>> +
+>>>>> +    rc = rcu_lock_remote_domain_by_id(copy.domid, &d);
+>>>>
+>>>> Iirc I did ask before why this isn't ..._by_any_id().
+>>>
+>>> I probably was confused by the question about MMUEXT and the 2 domains.
+>>> There are different similar hypercalls (like the mentioned MMUEXT but
+>>> also hypercalls to map foreign domain memory) that have this check
+>>> (not the same domain). Any domain has, obviously, access to its own
+>>> memory, so it should not have to use hypercall to access its own
+>>> memory. If it does it looks like a mistake causing performance issues
+>>> or an attempt to circumvent security; in either case you would like to
+>>> avoid it.
+>>
+>> No. Self-grants are possible as well, for example, and for a good reason.
+>> Allowing normally-remote operations on oneself helps with testing, for
+>> example. It may also help avoid needing to special-case "self" in code
+>> which needs to cover both cases.
+> 
+> But this is not a grant, it's a copy.
 
---jMAIu2igKRfDROZy
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 24 Jun 2026 02:31:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: Linux dom0 hangs on boot with Xen 4.22 and Heads firmware
+Sure, but the underlying principle is what matters. Plus you don't prevent
+self-copy by using ..._by_id(), you only preclude the use of DOMID_SELF.
 
-On Mon, Jun 22, 2026 at 10:53:01AM +0200, Jan Beulich wrote:
-> On 19.06.2026 16:38, Marek Marczykowski-G=C3=B3recki wrote:
-> > After updating Xen to 4.22-rc2 on a system with Heads firmware, dom0
-> > doesn't start anymore. It worked fine with Xen 4.19.
-> > The last messages on console are:
-> >=20
-> >     [    1.495140] installing Xen timer for CPU 2
-> >     [    1.496149] installing Xen timer for CPU 4
-> >     [    1.496587] installing Xen timer for CPU 5
-> >     [    1.496809] installing Xen timer for CPU 7
-> >     [    0.008235] [Firmware Bug]: CPU   2: APIC ID mismatch. CPUID: 0x=
-0002 APIC: 0x0028
-> >     [    0.008235] [Firmware Bug]: CPU   2: APIC ID mismatch. Firmware:=
- 0x0011 APIC: 0x0028
-> >     [    1.497055] cpu 2 spinlock event irq 200
-> >     [    0.008235] [Firmware Bug]: CPU   4: APIC ID mismatch. CPUID: 0x=
-0004 APIC: 0x0000
-> >     [    0.008235] [Firmware Bug]: CPU   4: APIC ID mismatch. Firmware:=
- 0x0019 APIC: 0x0000
-> >     [    1.497074] cpu 4 spinlock event irq 201
-> >     [    0.008235] [Firmware Bug]: CPU   5: APIC ID mismatch. CPUID: 0x=
-0005 APIC: 0x0002
-> >     [    0.008235] [Firmware Bug]: CPU   5: APIC ID mismatch. Firmware:=
- 0x0021 APIC: 0x0002
-> >     [    1.497074] cpu 5 spinlock event irq 202
-> >     [    0.008235] [Firmware Bug]: CPU   7: APIC I
-> >=20
-> > Full console log (containing both successful boot of Xen 4.19, and then
-> > reboot into 4.22):
-> > https://openqa.qubes-os.org/tests/184780/logfile?filename=3Dserial0.txt
->=20
-> The 4.19 log also has an anomaly around this point in time. Can you try
-> again with sync_console added to both the 4.19 and the 4.22 attempt?
+>>>>> +    if ( rc )
+>>>>> +        return rc;
+>>>>> +
+>>>>> +    if ( copy.nr_frames == 0 )
+>>>>> +    {
+>>>>> +        rcu_unlock_domain(d);
+>>>>> +        return 0;
+>>>>> +    }
+>>>>
+>>>> Any reason this cannot also be "goto out"? The more that now that you have
+>>>> moved this past the domid validity check, imo it should further move to ...
+>>>
+>>> The only reason was style and to avoid a memory copy, but it's not a
+>>> hot case so I'll change to "goto out" (no strong about it).
+>>>
+>>>>> +    /*
+>>>>> +     * Check we are allowed to map and access these foreign pages.
+>>>>> +     */
+>>>>> +    rc = xsm_map_gmfn_foreign(XSM_TARGET, currd, d);
+>>>>> +    if ( rc )
+>>>>> +        goto out;
+>>>>
+>>>> ... below here. Perhaps simply as
+>>>>
+>>>>     if ( rc || !copy.nr_frames )
+>>>>         goto out;
+>>>>
+>>>
+>>> I think this would be confusing with the above "Check we are allowed
+>>> to map and access these foreign pages" comment.
+>>> Are you okay with just the change above to "goto out" ?
+>>
+>> I do want the order adjusted as indicated. I won't insist on (but I would
+>> prefer) folding both if()-s.
+>>
+> 
+> What about
+> 
+>     /*
+>      * Check we are allowed to map and access these foreign pages.
+>      */
+>     rc = xsm_map_gmfn_foreign(XSM_TARGET, currd, d);
+>     if ( rc )
+>         goto out;
+> 
+>     while ( copy.nr_frames )
+>     {
+>         /*
+>          * Arbitrary size.  Not too much stack space, and a reasonable stride
+>          * for continuation checks.
+>          */
 
-Yes, sync_console helped quite a bit, now I get full dom0 panic message:
+That's fine.
 
-    [   10.334800] vesafb: cannot reserve video memory at 0x0
-    [   10.340009] vesafb: mode is 0x0x0, linelength=3D0, pages=3D0
-    [   10.345515] Oops: divide error: 0000 [#1] SMP NOPTI
-    [   10.346503] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.17.9-=
-1.qubes.fc41.x86_64 #1 PREEMPT(full)=20
-    [   10.346503] Hardware name: Notebook V54x_6x_TU/V54x_6x_TU, BIOS Dash=
-aro (coreboot+heads) v0.9.0 01/01/1970
-    [   10.346503] RIP: e030:vesafb_probe.cold+0xd4/0x5fb
-    [   10.346503] Code: 08 75 1f 83 3d a8 8c 1d 02 00 75 16 48 c7 c7 90 4a=
- fd 81 e8 8a ef f9 ff c7 05 d4 54 09 02 05 00 00 00 8b 05 c2 54 09 02 31 d2=
- <f7> 35 d2 54 09 02 8b 15 fc 54 09 02 48 89 c1 48 c1 e1 20 48 09 ca
-    [   10.346503] RSP: e02b:ffffc9004001fbb8 EFLAGS: 00010246
-    [   10.346503] RAX: 0000000000000000 RBX: ffff888101d86f28 RCX: fffffff=
-f823666e8
-    [   10.346503] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
-000000003
-    [   10.346503] RBP: ffff88810197d400 R08: 0000000000000000 R09: 6c656e6=
-96c202c30
-    [   10.346503] R10: 0000000000000030 R11: 203a626661736576 R12: 0000000=
-000000000
-    [   10.346503] R13: 0000000000000000 R14: 0000000000000000 R15: ffff888=
-106351000
-    [   10.346503] FS:  0000000000000000(0000) GS:ffff888cef7c1000(0000) kn=
-lGS:0000000000000000
-    [   10.346503] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [   10.346503] CR2: ffffc900064ff000 CR3: 000000000222c000 CR4: 0000000=
-000050660
-    [   10.346503] Call Trace:
-    [   10.346503]  <TASK>
-    [   10.346503]  ? __pfx___device_attach_driver+0x10/0x10
-    [   10.346503]  platform_probe+0x39/0x70
-    [   10.346503]  really_probe+0xdb/0x340
-    [   10.346503]  ? pm_runtime_barrier+0x54/0x90
-    [   10.346503]  __driver_probe_device+0x78/0x110
-    [   10.346503]  driver_probe_device+0x1f/0xa0
-    [   10.346503]  __device_attach_driver+0x89/0x110
-    [   10.346503]  bus_for_each_drv+0x94/0xf0
-    [   10.346503]  __device_attach+0xaf/0x1b0
-    [   10.346503]  bus_probe_device+0x8d/0xa0
-    [   10.346503]  device_add+0x508/0x710
-    [   10.346503]  platform_device_add+0xed/0x250
-    [   10.346503]  sysfb_init+0x283/0x320
-    [   10.346503]  ? __pfx_sysfb_init+0x10/0x10
-    [   10.346503]  do_one_initcall+0x57/0x310
-    [   10.346503]  do_initcalls+0x1ef/0x240
-    [   10.346503]  kernel_init_freeable+0x187/0x210
-    [   10.346503]  ? __pfx_kernel_init+0x10/0x10
-    [   10.346503]  kernel_init+0x1a/0x140
-    [   10.346503]  ret_from_fork+0xf2/0x110
-    [   10.346503]  ? __pfx_kernel_init+0x10/0x10
-    [   10.346503]  ret_from_fork_asm+0x1a/0x30
-    [   10.346503]  </TASK>
-    [   10.346503] Modules linked in:
-    [   10.559786] ---[ end trace 0000000000000000 ]---
-    [   10.564581] RIP: e030:vesafb_probe.cold+0xd4/0x5fb
-    [   10.569546] Code: 08 75 1f 83 3d a8 8c 1d 02 00 75 16 48 c7 c7 90 4a=
- fd 81 e8 8a ef f9 ff c7 05 d4 54 09 02 05 00 00 00 8b 05 c2 54 09 02 31 d2=
- <f7> 35 d2 54 09 02 8b 15 fc 54 09 02 48 89 c1 48 c1 e1 20 48 09 ca
-    [   10.588833] RSP: e02b:ffffc9004001fbb8 EFLAGS: 00010246
-    [   10.594255] RAX: 0000000000000000 RBX: ffff888101d86f28 RCX: fffffff=
-f823666e8
-    [   10.601622] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000=
-000000003
-    [   10.609000] RBP: ffff88810197d400 R08: 0000000000000000 R09: 6c656e6=
-96c202c30
-    [   10.616378] R10: 0000000000000030 R11: 203a626661736576 R12: 0000000=
-000000000
-    [   10.623755] R13: 0000000000000000 R14: 0000000000000000 R15: ffff888=
-106351000
-    [   10.631136] FS:  0000000000000000(0000) GS:ffff888cef7c1000(0000) kn=
-lGS:0000000000000000
-    [   10.639483] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [   10.645434] CR2: ffffc900064ff000 CR3: 000000000222c000 CR4: 0000000=
-000050660
-    [   10.652817] Kernel panic - not syncing: Fatal exception
-    [   10.653803] Kernel Offset: disabled
-    (XEN) Hardware Dom0 crashed: 'noreboot' set - not rebooting.
+>>>>> +    do {
+>>>>> +        /*
+>>>>> +         * Arbitrary size.  Not too much stack space, and a reasonable stride
+>>>>> +         * for continuation checks.
+>>>>> +         */
+>>>>> +        xen_pfn_t gfn_list[32];
+>>>>> +        unsigned int todo = MIN(ARRAY_SIZE(gfn_list), copy.nr_frames);
+>>>>> +
+>>>>> +        rc = -EFAULT;
+>>>>> +        if ( copy_from_guest(gfn_list, copy.frame_list, todo) )
+>>>>> +            goto out;
+>>>>> +
+>>>>> +        for ( unsigned int i = 0; i < todo; i++ )
+>>>>> +        {
+>>>>> +            struct page_info *foreign_page;
+>>>>> +            mfn_t foreign_mfn;
+>>>>> +            void *foreign;
+>>>>> +            p2m_type_t p2mt;
+>>>>> +            const unsigned long valid_mask =
+>>>>> +#ifdef CONFIG_X86
+>>>>> +                p2m_to_mask(p2m_ram_rw) | p2m_to_mask(p2m_ram_logdirty);
+>>>>> +#else
+>>>>> +                p2m_to_mask(p2m_ram_rw);
+>>>>> +#endif
+>>>>
+>>>> The set of permitted types didn't change, yet a justification for the resulting
+>>>> limitation also didn't appear.
+>>>>
+>>>
+>>> Yes, that's missing, indeed.
+>>> Should the set of types be different for reading and writing? For
+>>> instance do not allow writing to read-only memory?
+>>
+>> Of course.
+>>
+>>> Given that it looks like different architectures have different
+>>> meanings and definitions for these constants, should it not be better
+>>> to define some new constants for this specific usage? For instance
+>>> P2M_READ_TYPES and P2M_WRITE_TYPES?
+>>
+>> Perhaps, yes. The suggested names look overly generic to me, though.
+> 
+> I suppose P2M_READABLE_TYPES and P2M_WRITABLE_TYPES are more correct
+> but still too generic.
+> P2M_EXPORTABLE_TYPES and P2M_IMPORTABLE_TYPES ?
 
->=20
-> > It doesn't reach loading graphics driver in dom0, so I don't have
-> > anything interesting on VGA (the last output is about the kexec call
-> > done by Heads). But at least I have a serial console.
->=20
-> Yet interestingly Xen's "  VGA is ... mode ..." lines differ as well.
+First: Do you foresee uses of those constants anywhere else? If not (I
+don't), tie the names to this particular operation. That'll make them
+entirely non-generic.
 
-This might be relevant given the above.
+>>>>> @@ -2012,6 +2145,18 @@ long do_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>>>>              start_extent);
+>>>>>          break;
+>>>>>
+>>>>> +    case XENMEM_foreigncopy:
+>>>>> +        /*
+>>>>> +         * Instead of using "start_extent" we update the structure back,
+>>>>> +         * we update it back in anyway to tell caller were the copy
+>>>>> +         * stopped.
+>>>>> +         */
+>>>>> +        if ( unlikely(start_extent) )
+>>>>> +            return -EINVAL;
+>>>>
+>>>> As before - please be precise with comments like this. We update it back also
+>>>> when encoding a continuation. Perhaps instead "..., to indicate the point of
+>>>> failure to the caller as well as to encode continuations without being
+>>>> constrained by MEMOP_EXTENT_SHIFT".
+>>>>
+>>>
+>>> What about (trying to include your suggestion, to be fixed for line length):
+>>>
+>>>         /*
+>>>          * Instead of using "start_extent" for the continuation, we
+>>> update the structure back,
+>>>          * we update the xen_foreigncopy structure back, so we are not
+>>> constrained
+>>>          * by MEMOP_EXTENT_SHIFT.
+>>>          * We copy it back also to tell the caller where the copy stopped.
+>>>          */
+>>
+>> One of the things I take issue with (because it's hard to read that way,
+>> at least for me) is the repeated use of "update ... back", effectively
+>> saying the same things twice. The last sentence also wants disambiguating
+>> towards the "stopped" possibly being a non-error situation as well.
+>>
+> 
+> Changed to
+> 
+>         /*
+>          * Instead of using "start_extent" for the continuation, we update
+>          * the xen_foreigncopy structure back, so we are not constrained by
+>          * MEMOP_EXTENT_SHIFT.
+>          * We copy it back also to tell the caller where the copy stopped
+>          * (either for error or because all frames were copied).
+>          */
 
-> That may be a separate issue. Or maybe that's how one of the EFI changes
-> that were done a while ago actually surfaces?
+Thanks.
 
-But this isn't booting via EFI... Heads is coreboot + Linux payload and
-it uses kexec to boot Xen (via multiboot2 entry point).
+>>>>> +    XEN_GUEST_HANDLE(uint8) buffer;
+>>>>> +};
+>>>>
+>>>> What was (again) left unaddressed is the question towards using GFNs on both
+>>>> sides of the copy. This would eliminate the need for the flags field, taken
+>>>> by a 2nd domid_t one then.
+>>>>
+>>>
+>>> This was addressed in
+>>> https://lists.xenproject.org/archives/html/xen-devel/2026-06/msg00567.html
+>>
+>> Well, yes, but not in a satisfactory way. Back channels tell me that you
+>> actually got the same feedback already on internal review. Which makes it
+>> all the more puzzling that you insist on doing it differently. Multiple
+>> maintainers asking for the same thing may be an indication of something.
+> 
+> Not needing to have backchannel feedback, I already wrote that a
+> similar approach was tried and made the code more complicated.
 
-> Another difference is
->=20
-> (XEN) HWP: Using HWP for cpufreq
->=20
-> in the 4.19 log vs
->=20
-> (XEN) HPET: 8 timers usable for broadcast (8 total)
->=20
-> in the 4.22 one. Does the latter perhaps go away if you include [1] in
-> the build?
+Even if indeed so: Yet at the same time more flexible.
 
-Yes
+> Both maintainers didn't comment on my replies so I assume they were
+> fine with it.
+> And you are failing to provide positive feedback.
+> I asked (that one internally) for examples of guest buffers provided
+> as frame numbers but I got no answer (or better the answer was more
+> "currently there are not").
+> Also note that the location of xen_foreigncopy_t structure is also
+> provided using a guest pointer.
+> I remember there were some discussions about ABI changes (2/3 years
+> ago) to address this and other issues but I cannot see much progress.
 
->=20
-> For the HWP driver do you perhaps have a patch in 4.19 to default-enable
-> it, but you don't have a similar patch in 4.22?=20
+And it's that (very slowly progressing effort) which made me ask. The
+fewer virtual addresses we bake into new sub-ops, the better for that
+effort. And no, that doesn't go as far as completely eliminating
+handles (presently representing virtual addresses) - that needs to be
+part of the new ABI.
 
-Hm, I do have that patch in 4.22 too, but maybe I failed at rebase...
+To preempt the argument towards "fewer virtual addresses" not really
+being true when changing from handle-to-uint8 to handle-to-pfn: The
+former won't be able to express a buffer mapped contiguously in VA
+space, but discontiguous in PA space. The latter will, simply be
+avoiding buffer VAs in the first place (the array of frame numbers
+can e.g. be placed in a dedicated hypercall argument area known to be
+physically contiguous).
 
-> If so, to compare apples
-> to apples the driver wants enabling/disabling consistently (via command
-> line option) for both runs.
+> That's why I say this is out of scope.
 
-Since here booting just dom0 is enough, I don't need any of the qubes
-patches. So, now I tested vanilla 4.19 vs staging - both console logs at:
-https://gist.github.com/marmarek/e017f0a9ad3cc6ab2bac8849492c41a9
+There's nothing scope related here. We're discussing how to shape the
+new sub-op interface.
 
-> And then "mwait-idle: lapic_timer_reliable_states ..." differ as well.
->=20
-> Jan
->=20
-> [1] https://lists.xen.org/archives/html/xen-devel/2026-04/msg00200.html
+>>> and in minor way by
+>>> https://lists.xenproject.org/archives/html/xen-devel/2026-06/msg00847.html.
+>>> It was considered but more complicated and worse from a performance perspective.
+>>
+>> Okay, performance-wise worse would of course be relevant. But that would
+>> need supporting by numbers (for both PV and PVH Dom0, as the latter
+>> incurs extra overhead for virtual-address-based hypercall buffer operands).
+> 
+> I'm more concerned about the PV case than PVH to be honest.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+For your (immediate) internal purposes that may be fine, but PVH Dom0
+more likely being the future, for upstream both need considering
+equally.
 
---jMAIu2igKRfDROZy
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmo7JVgACgkQ24/THMrX
-1yzMJgf/UJ4CoaGNvX9Nm55jQLFIshiIvlV6obLQILxlqKwAd28vJevUyt8Ja2u9
-K3reQAG4F7km+r/PBiVTXUTzM4w8S22c5sPuAUV0Hm0f9SdrUHNbab+k+yx6xCG2
-tGNGyvz4AIghLBvoi64keTzt+Bh3jRxukue8fDBTaaEPcir9kG3DFMyq23GVei8S
-+/Ttu4yeKC3jbJRjGA/hN8s2e5gtd9Tiu3sc26//YL3v9KxmDGxE3fh9OhGexrRc
-du9ZgWpLzuPkJmrpIiyqBMLf9N+RFeN/u3CfFXIrO0QDaYXpgkQgbA1ypB95b4dH
-P0K2EbH5SWqysI6iG5BtcMuhCVSu3Q==
-=nKsO
------END PGP SIGNATURE-----
-
---jMAIu2igKRfDROZy--
+Jan
 
