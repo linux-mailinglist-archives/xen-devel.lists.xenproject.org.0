@@ -2,67 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id nkDVLzmIO2pbZQgAu9opvQ
+	id LrrnA66KO2rzZQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 09:33:13 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 09:43:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F21676BC31C
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 09:33:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51FC46BC45C
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jun 2026 09:43:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=K1WZWdxM;
+	dkim=pass header.d=suse.com header.s=google header.b=OupwdBnT;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=amd.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1344593.1603652 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1344601.1603661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcI6E-0005ty-AH; Wed, 24 Jun 2026 07:32:42 +0000
+	id 1wcIGd-0007ZV-7W; Wed, 24 Jun 2026 07:43:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1344593.1603652; Wed, 24 Jun 2026 07:32:42 +0000
+Received: by outflank-mailman (output) from mailman id 1344601.1603661; Wed, 24 Jun 2026 07:43:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcI6E-0005rB-7T; Wed, 24 Jun 2026 07:32:42 +0000
-Received: by outflank-mailman (input) for mailman id 1344593;
- Wed, 24 Jun 2026 07:32:40 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wcI6C-0005r5-8J
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 07:32:40 +0000
+	id 1wcIGd-0007XC-4P; Wed, 24 Jun 2026 07:43:27 +0000
+Received: by outflank-mailman (input) for mailman id 1344601;
+ Wed, 24 Jun 2026 07:43:26 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wcIGb-0007X4-SR
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 07:43:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcI6B-00EVY1-0h
- for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 09:32:39 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wcIGa-001QEn-7q
+ for xen-devel@lists.xenproject.org; Wed, 24 Jun 2026 09:43:24 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a3b880e-bab6-0a2a0a5309dd-0a2a45089cb2-48
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 09:32:38 +0200
-Received: from [40.107.209.43]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a3b8814-9ee7-0a2a45080019-286bd12b2cab-3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 09:32:38 +0200
-Received: from CH2PR20CA0001.namprd20.prod.outlook.com (2603:10b6:610:58::11)
- by CH3PR12MB7763.namprd12.prod.outlook.com (2603:10b6:610:145::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Wed, 24 Jun
- 2026 07:32:28 +0000
-Received: from CH2PEPF0000009A.namprd02.prod.outlook.com
- (2603:10b6:610:58:cafe::a4) by CH2PR20CA0001.outlook.office365.com
- (2603:10b6:610:58::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.13 via Frontend Transport; Wed,
- 24 Jun 2026 07:32:28 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009A.mail.protection.outlook.com (10.167.244.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.159.10 via Frontend Transport; Wed, 24 Jun 2026 07:32:28 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 24 Jun
- 2026 02:32:28 -0500
-Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 24 Jun 2026 02:32:26 -0500
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3b8a97-2eae-0a2a0a5409dd-0a2a450ab1cc-16
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 09:43:24 +0200
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a3b8a9b-93a5-0a2a450a0019-d155dd32b82f-3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 09:43:23 +0200
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-462342ac290so862521f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jun 2026 00:43:23 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-46c9f240c3dsm1538544f8f.35.2026.06.24.00.43.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 24 Jun 2026 00:43:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,330 +60,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t8ENUh9YFsLdinOKZunjy1jpO9+pIlvuT8ObaAiGBDE+PPcjwrtmoHBcoCAkb9TG568J9kzhHmJklUhCZK3XwccZ8CMh1FbE6TRWA8Zqsg6bdAA1bIJ1jhZdBMm/Wm5SkAhDoXzFE+qA1TpEMzZemp/AZOJh26TSZDMCCg5k73Vk/8U+yjm13LZ/77rAIR8uVBnbUAc33YAPHqaghxwGxKpqFVHuX8vvTTF3KaBcF8zp7zpjLSKjgmlNuhrnDlah94SYzcbyqBI20VQvM3cZU1bSRZzBwF9NbCCHhpjEAtunTJfEmf478IFkaVYYEmiivorAqkCHD6nQXe5qdmaG/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6weFsPdByucGL0R6eiDIgRHPYDNcyCA+OBVs4eXQNYY=;
- b=hkqgC2oaF8zf2cb+aZ4g8dEvPjMcvfmp13IsM8K5NhNrBOikkH2ko+gsIr4jz+zrwIOgSW0pn1tDvI/lkLiwqKdO/gz4jyRlEC/tn9OC5RUJxsJxAHk7TEdy5uC/1nyEkCeZxA57EAspTbmKJwtKzlWPuR8/SuQPW6m6fIHePUrXRg/2mGJqyrRCAxYZx0q7ydrDBMWrt1cqTLADHlGkRwgDIZdawa3CzPiBM7XoZ0ojC/rm9PFydLLUFXy8naTZUgwqlE6fm1EppMS9KS+aG8+s3hCi7+RORzQ7nqIjFtHcySinnMax6sVGKVHg7dF6ld5jv49LHP24N8S7rbu9Qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6weFsPdByucGL0R6eiDIgRHPYDNcyCA+OBVs4eXQNYY=;
- b=K1WZWdxMgRoj+9FrfBXRJgIkHmg+NzDML2jEHbH5uuAwOSwR0YeIrSgdK2ifugjgv0OIsMQaWC5iuALNEez512OcZEce4UqguT9gRSYYk1UIR0ImBXBV4T0+jhT9exQm3at8DawVow6bVVVKJtOdIwy0Y1chz9NyiT8eECtszEE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <073c5ff2-5244-4e11-a9e3-e5ecd3ce31d2@amd.com>
-Date: Wed, 24 Jun 2026 09:32:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782287003; x=1782891803; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=cuDmcXdKpgeIWxSU6IWo5VxVu5XuW44xSfqu1kHEyvw=;
+        b=OupwdBnTEw5G0rqMTjS+RD1I2Rpk6XMcfKwLNYVryYHn5b4LbKSSeLLIO+kch2G9t6
+         umZEueugUD4VZAaUz8xIheA+nYyGHDo0Q2Phj2LREBX83cNViGS5CSXWc8v0HjDca/WC
+         UbH0gl8upzK/sbQbnC8az0g0bJGd6BEMhUDNRvH0J22xwOZqpHElcQOo8CPngov2M2pj
+         fAXYRuUDBMJ/kwjkm1bGMwQqM5poa2FQkpDZgHsykV8Ls9um8oLFFZTeCG8ZhjwCgELP
+         Ob45RgHIQmPOyj88bUakLrf/jQRoeiH6X90QrZFv5N67gyewzOwBor2l5Lx7MMxusa5R
+         LhZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782287003; x=1782891803;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cuDmcXdKpgeIWxSU6IWo5VxVu5XuW44xSfqu1kHEyvw=;
+        b=ZxAI0FR07/wkEO1uuOBFfbl1XLYkNlvUYujtSn8zJLxsm5t+I6kd6rS4VU2GV3siGt
+         PEpyPDj3p29U5nHa/4Z0RAAqYCpt8NjxUhfaOD98i0h2/YqwdbMc0zH2m9N2J8cDborF
+         hMjfLIPoZT+Ug/d+FDgb1rT8oSoQPqjRxZeQdgl0hy9n9RGAaq3YVQSY6t0tZ8NE5JKl
+         UKvnivYGomxeg0l/7VTt15oMKAwMB+4nbG/p+tUJBd9VEiRpSNtraQuV2kZmsKq33peJ
+         /YqH0D6vf6faz1BXukmp+JbmP1Vp7U65MxeNwz0AIsth+W2dkH8JhjqSd5QqFXJZ90r9
+         mG5g==
+X-Gm-Message-State: AOJu0Yz/vwHTt33XAnDxKTXVrAwyYB1NM7KmKZwFscncXyjTMhDIBAop
+	AULZ6NOH/OUfhmCl4zXyo582NbT2jnTq5jVuuzQUxi0ddC2U0FGDOgURVs7rtXRe/w==
+X-Gm-Gg: AfdE7clhv1oHPlXerwE0oNNYzIBf0t43YFkJtkzEq/qCgjXPFVdzYDPSSNJSsH0adHI
+	oQsA30rew5G79rClysu279K8aqJoGAmVPPP2nPaIpQ3yMlFATst+8ehxJ+DcG92TGbyWNzQfIvk
+	V/PJVjvFO3xWvhpabRIfopZuGrtnxvWFxr7T032lO8NGsHbgu+IoiLl0CzbgbOk1lO6zVVCkKnx
+	kfcGnm8nb8N1S/W+7dRJmbi8/VfljJODjcsoaXaDK03VW1ikB+P22J/3ml5VoDHci5jLMgzo7f6
+	oTBlcHqmE21+e4auWw03ZP4DUwX5LlaBYRQhkXRDSd/4HttYuTn1WdEWYcyVtaHcgIHxXMI8ZIw
+	e8nbnbpBiJXUDiw/C0VfJWoTu+IPOoGuTP+HL3EDuYSkKPlMiUAWqxXSCzCVmmU5hBuUl4/eyx8
+	Bn0jqJ86ZlxSEMG0dtSfoUYq9uNoWuGQMXdbUWuZJIEW0V58q7dlSguT9ttseBNYtWi58hmljaP
+	L9L
+X-Received: by 2002:a05:6000:2006:b0:45e:f8d0:d22c with SMTP id ffacd0b85a97d-46adabe36fcmr9415529f8f.25.1782287003383;
+        Wed, 24 Jun 2026 00:43:23 -0700 (PDT)
+Message-ID: <1ecee09a-edd9-47cf-88d4-ad4e7e8b8216@suse.com>
+Date: Wed, 24 Jun 2026 09:43:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/23] xen: arm: update p2m_set_allocation() prototype
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Romain Caritey <Romain.Caritey@microchip.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
-References: <cover.1781693963.git.oleksii.kurochko@gmail.com>
- <a63794ac32e157ea44c3450fc5fb6f2842e00680.1781693963.git.oleksii.kurochko@gmail.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: Linux dom0 hangs on boot with Xen 4.22 and Heads firmware
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+References: <ajVUS5F9G4Jse20i@mail-itl>
+ <a6b83fc1-aa98-4b45-ab7f-503715861a7d@suse.com> <ajslWA63ZdPhfYvw@mail-itl>
 Content-Language: en-US
-In-Reply-To: <a63794ac32e157ea44c3450fc5fb6f2842e00680.1781693963.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009A:EE_|CH3PR12MB7763:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3dfaa62-dd70-4f91-d470-08ded1c2bedc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|376014|7416014|82310400026|18002099003|22082099003|11063799006|5023799004|4143699003|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	/AVgeasVvJfH3xUI7lDiaEGaplqYsSnXVF5amSZq09NYvnSKdme1oyBit0sED8fsH6Yc62TTJxi8NRIw14PwnnniASCUGg6C0LgIZ053P5u8ivze7rKq2BjzZrCjV8KZTYFxno3m7Hgprg6BksnrFoulfVEtg77MadxNH4Mq+dmFrIyuYuPSiubdnCLTIBBmfbneUTsHblds5ruFQ19xdachY5igYFw9mSgI8cFnYhp84o5TCaRoi3fY22pX0tNdn9g+0zFhn95YxbFNM2T7pXTSiOTtYsDRT+NTTDzr2seSDNCu4xx/iCATEXI5fUBKgaHbCFRpl4Sg4GmLvszQPbny6cMIqPTGy/18IO5ZLTBCfPxksaYI/fXbPo9Q+ZyLcr3nFhYkcKBmMdnOvZ7YI/y22MxTMRHjENBobK6x47VFo7YzOTyfsUledaUr0c8uTXFhrd7AztufvmpR9kP0qFmN/SxMGp1RS976UXmsD1DU1hyYIqxRObCqHzs3TW/eGubcOY8+WC/LPzOEQKy5LFjNTh90YaTvLjVBE3xnN6apalGzTdjKGiKLIS90UB/+91smS/pcdcBpCZ+s5AuiJ/tGui8Api4VmlpG7d1zTyMQWlgIIyJble2rYd72oD7DN6AMycYH+1BPRbPxkZnuXFVgYA14sRwsgXDzkl+YM/yiG6MNXEOYjEKmCj6LlMbY3cO95XNwJCzkb0occInIvA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(7416014)(82310400026)(18002099003)(22082099003)(11063799006)(5023799004)(4143699003)(6133799003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yOpklT3E4jA8Sk4ylEcWCUm+iArRIp2YrF4ZdkIQcExFohRWHro6EupdTfWQJAZ0eexZQahet4C0AosrcHydZ6R+WT4nXKNq8Rvny9tsIi5RoFKZFGdO0PAWkfd71wkavNpz4FSfjgnBo7h7MUC0WOyz+MXi51rH72pxlcoL6krJU5WQVl9lQ+cMmVn2t2J6vYmHbxoVyHZGI1JmqdTT07wwn2bEzD+TnPXD73JijrqhrUYO3ZNgzLswgsv6Clkf/8lP3CtmtJKkgTMBsb6eizPpHGE9JZPuyIYUvOu7EuXgFu3rWwlaWlH6FSJuHydhNTx9rNFIm4ECsHk/mPOE6KQPix05TvqannZF5gMJFBnDdoPjMYvEHa3VNh+knGenifF03fWseOoz9VT9Wox5/Re5pilQfj4C71xj0+SwxlUk3xAGnKnSaF1fm61AEhik
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jun 2026 07:32:28.8884
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3dfaa62-dd70-4f91-d470-08ded1c2bedc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000009A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7763
-X-purgate-ID: tlsNG-c1860d/1782286358-5DBF30FA-3E41250A/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 8784
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ajslWA63ZdPhfYvw@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-4011c0/1782287003-B01C6DB8-8D8DB4EB/0/0
+X-purgate-type: clean
+X-purgate-size: 7399
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[microchip.com,kernel.org,xen.org,arm.com,epam.com,citrix.com,vates.tech,suse.com,wdc.com,gmail.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,amd.com:dkim,amd.com:mid,amd.com:from_mime]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: F21676BC31C
+X-Rspamd-Queue-Id: 51FC46BC45C
 
-
-
-On 17-Jun-26 13:17, Oleksii Kurochko wrote:
-> p2m_set_allocation() signals preemption redundantly: via a bool *preempted
-> out-argument (set to true) and via -ERESTART return code, both at the same
-> time. This led to the caller-side ASSERT(preempted == (rc == -ERESTART))
-> added solely to document their agreement.
+On 24.06.2026 02:31, Marek Marczykowski-Górecki wrote:
+> On Mon, Jun 22, 2026 at 10:53:01AM +0200, Jan Beulich wrote:
+>> On 19.06.2026 16:38, Marek Marczykowski-Górecki wrote:
+>>> After updating Xen to 4.22-rc2 on a system with Heads firmware, dom0
+>>> doesn't start anymore. It worked fine with Xen 4.19.
+>>> The last messages on console are:
+>>>
+>>>     [    1.495140] installing Xen timer for CPU 2
+>>>     [    1.496149] installing Xen timer for CPU 4
+>>>     [    1.496587] installing Xen timer for CPU 5
+>>>     [    1.496809] installing Xen timer for CPU 7
+>>>     [    0.008235] [Firmware Bug]: CPU   2: APIC ID mismatch. CPUID: 0x0002 APIC: 0x0028
+>>>     [    0.008235] [Firmware Bug]: CPU   2: APIC ID mismatch. Firmware: 0x0011 APIC: 0x0028
+>>>     [    1.497055] cpu 2 spinlock event irq 200
+>>>     [    0.008235] [Firmware Bug]: CPU   4: APIC ID mismatch. CPUID: 0x0004 APIC: 0x0000
+>>>     [    0.008235] [Firmware Bug]: CPU   4: APIC ID mismatch. Firmware: 0x0019 APIC: 0x0000
+>>>     [    1.497074] cpu 4 spinlock event irq 201
+>>>     [    0.008235] [Firmware Bug]: CPU   5: APIC ID mismatch. CPUID: 0x0005 APIC: 0x0002
+>>>     [    0.008235] [Firmware Bug]: CPU   5: APIC ID mismatch. Firmware: 0x0021 APIC: 0x0002
+>>>     [    1.497074] cpu 5 spinlock event irq 202
+>>>     [    0.008235] [Firmware Bug]: CPU   7: APIC I
+>>>
+>>> Full console log (containing both successful boot of Xen 4.19, and then
+>>> reboot into 4.22):
+>>> https://openqa.qubes-os.org/tests/184780/logfile?filename=serial0.txt
+>>
+>> The 4.19 log also has an anomaly around this point in time. Can you try
+>> again with sync_console added to both the 4.19 and the 4.22 attempt?
 > 
-> Drop the out-argument entirely. The return code alone is sufficient to
-> distinguish preemption (-ERESTART) from success (0) or other failures.
-> Replace the pointer with a plain bool can_preempt that controls whether
-> the preemption check is performed at all, making the previous
-> NULL-to-suppress-preemption calling convention explicit and type-safe.
-As Andrew said, this paragraph contradicts the first one i.e. we still need to
-pass whether to perform the check or not, so it's not redundant.
-
+> Yes, sync_console helped quite a bit, now I get full dom0 panic message:
 > 
-> Since p2m_set_allocation() is called by the common dom0less build code,
-> move its declaration from the ARM-specific asm/p2m.h to xen/p2m-common.h.
+>     [   10.334800] vesafb: cannot reserve video memory at 0x0
+>     [   10.340009] vesafb: mode is 0x0x0, linelength=0, pages=0
+>     [   10.345515] Oops: divide error: 0000 [#1] SMP NOPTI
+>     [   10.346503] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.17.9-1.qubes.fc41.x86_64 #1 PREEMPT(full) 
+>     [   10.346503] Hardware name: Notebook V54x_6x_TU/V54x_6x_TU, BIOS Dasharo (coreboot+heads) v0.9.0 01/01/1970
+>     [   10.346503] RIP: e030:vesafb_probe.cold+0xd4/0x5fb
+>     [   10.346503] Code: 08 75 1f 83 3d a8 8c 1d 02 00 75 16 48 c7 c7 90 4a fd 81 e8 8a ef f9 ff c7 05 d4 54 09 02 05 00 00 00 8b 05 c2 54 09 02 31 d2 <f7> 35 d2 54 09 02 8b 15 fc 54 09 02 48 89 c1 48 c1 e1 20 48 09 ca
+>     [   10.346503] RSP: e02b:ffffc9004001fbb8 EFLAGS: 00010246
+>     [   10.346503] RAX: 0000000000000000 RBX: ffff888101d86f28 RCX: ffffffff823666e8
+>     [   10.346503] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+>     [   10.346503] RBP: ffff88810197d400 R08: 0000000000000000 R09: 6c656e696c202c30
+>     [   10.346503] R10: 0000000000000030 R11: 203a626661736576 R12: 0000000000000000
+>     [   10.346503] R13: 0000000000000000 R14: 0000000000000000 R15: ffff888106351000
+>     [   10.346503] FS:  0000000000000000(0000) GS:ffff888cef7c1000(0000) knlGS:0000000000000000
+>     [   10.346503] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     [   10.346503] CR2: ffffc900064ff000 CR3: 000000000222c000 CR4: 0000000000050660
+>     [   10.346503] Call Trace:
+>     [   10.346503]  <TASK>
+>     [   10.346503]  ? __pfx___device_attach_driver+0x10/0x10
+>     [   10.346503]  platform_probe+0x39/0x70
+>     [   10.346503]  really_probe+0xdb/0x340
+>     [   10.346503]  ? pm_runtime_barrier+0x54/0x90
+>     [   10.346503]  __driver_probe_device+0x78/0x110
+>     [   10.346503]  driver_probe_device+0x1f/0xa0
+>     [   10.346503]  __device_attach_driver+0x89/0x110
+>     [   10.346503]  bus_for_each_drv+0x94/0xf0
+>     [   10.346503]  __device_attach+0xaf/0x1b0
+>     [   10.346503]  bus_probe_device+0x8d/0xa0
+>     [   10.346503]  device_add+0x508/0x710
+>     [   10.346503]  platform_device_add+0xed/0x250
+>     [   10.346503]  sysfb_init+0x283/0x320
+>     [   10.346503]  ? __pfx_sysfb_init+0x10/0x10
+>     [   10.346503]  do_one_initcall+0x57/0x310
+>     [   10.346503]  do_initcalls+0x1ef/0x240
+>     [   10.346503]  kernel_init_freeable+0x187/0x210
+>     [   10.346503]  ? __pfx_kernel_init+0x10/0x10
+>     [   10.346503]  kernel_init+0x1a/0x140
+>     [   10.346503]  ret_from_fork+0xf2/0x110
+>     [   10.346503]  ? __pfx_kernel_init+0x10/0x10
+>     [   10.346503]  ret_from_fork_asm+0x1a/0x30
+>     [   10.346503]  </TASK>
+>     [   10.346503] Modules linked in:
+>     [   10.559786] ---[ end trace 0000000000000000 ]---
+>     [   10.564581] RIP: e030:vesafb_probe.cold+0xd4/0x5fb
+>     [   10.569546] Code: 08 75 1f 83 3d a8 8c 1d 02 00 75 16 48 c7 c7 90 4a fd 81 e8 8a ef f9 ff c7 05 d4 54 09 02 05 00 00 00 8b 05 c2 54 09 02 31 d2 <f7> 35 d2 54 09 02 8b 15 fc 54 09 02 48 89 c1 48 c1 e1 20 48 09 ca
+>     [   10.588833] RSP: e02b:ffffc9004001fbb8 EFLAGS: 00010246
+>     [   10.594255] RAX: 0000000000000000 RBX: ffff888101d86f28 RCX: ffffffff823666e8
+>     [   10.601622] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+>     [   10.609000] RBP: ffff88810197d400 R08: 0000000000000000 R09: 6c656e696c202c30
+>     [   10.616378] R10: 0000000000000030 R11: 203a626661736576 R12: 0000000000000000
+>     [   10.623755] R13: 0000000000000000 R14: 0000000000000000 R15: ffff888106351000
+>     [   10.631136] FS:  0000000000000000(0000) GS:ffff888cef7c1000(0000) knlGS:0000000000000000
+>     [   10.639483] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+>     [   10.645434] CR2: ffffc900064ff000 CR3: 000000000222c000 CR4: 0000000000050660
+>     [   10.652817] Kernel panic - not syncing: Fatal exception
+>     [   10.653803] Kernel Offset: disabled
+>     (XEN) Hardware Dom0 crashed: 'noreboot' set - not rebooting.
 > 
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v3:
->  - Nothing changed. Only rebase.
-> ---
-> Changes in v2:
->  - new patch
-> ---
-> ---
->  xen/arch/arm/include/asm/p2m.h          |  1 -
->  xen/arch/arm/mmu/p2m.c                  | 22 ++++++++--------------
->  xen/arch/riscv/include/asm/paging.h     |  2 +-
->  xen/arch/riscv/p2m.c                    |  7 ++++---
->  xen/arch/riscv/paging.c                 |  7 ++-----
->  xen/common/device-tree/dom0less-build.c |  2 +-
->  xen/include/xen/p2m-common.h            |  2 ++
->  7 files changed, 18 insertions(+), 25 deletions(-)
+>>
+>>> It doesn't reach loading graphics driver in dom0, so I don't have
+>>> anything interesting on VGA (the last output is about the kexec call
+>>> done by Heads). But at least I have a serial console.
+>>
+>> Yet interestingly Xen's "  VGA is ... mode ..." lines differ as well.
 > 
-> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-> index 4a4913716bdd..737da60dcf58 100644
-> --- a/xen/arch/arm/include/asm/p2m.h
-> +++ b/xen/arch/arm/include/asm/p2m.h
-> @@ -238,7 +238,6 @@ void p2m_restore_state(struct vcpu *n);
->  /* Print debugging/statistial info about a domain's p2m */
->  void p2m_dump_info(struct domain *d);
->  
-> -int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted);
->  int p2m_teardown_allocation(struct domain *d);
->  
->  static inline void p2m_write_lock(struct p2m_domain *p2m)
-> diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-> index 51abf3504fcf..e5c6be7c0890 100644
-> --- a/xen/arch/arm/mmu/p2m.c
-> +++ b/xen/arch/arm/mmu/p2m.c
-> @@ -67,10 +67,11 @@ int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
->  
->  /*
->   * Set the pool of pages to the required number of pages.
-> - * Returns 0 for success, non-zero for failure.
-> + * Returns 0 for success, -ERESTART if preempted, or a negative error code on
-It returns -ERESTART if preempted *AND* preemption is allowed - please clarify
-in the description.
+> This might be relevant given the above.
 
-> + * failure.
->   * Call with d->arch.paging.lock held.
->   */
-> -int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
-> +int p2m_set_allocation(struct domain *d, unsigned long pages, bool can_preempt)
->  {
->      struct page_info *pg;
->  
-> @@ -112,11 +113,8 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->              break;
->  
->          /* Check to see if we need to yield and try again */
-> -        if ( preempted && general_preempt_check() )
-> -        {
-> -            *preempted = true;
-> +        if ( can_preempt && general_preempt_check() )
->              return -ERESTART;
-> -        }
->      }
->  
->      return 0;
-> @@ -125,7 +123,6 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->  int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
->  {
->      unsigned long pages = size >> PAGE_SHIFT;
-> -    bool preempted = false;
->      int rc;
->  
->      if ( (size & ~PAGE_MASK) ||          /* Non page-sized request? */
-> @@ -133,27 +130,24 @@ int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
->          return -EINVAL;
->  
->      spin_lock(&d->arch.paging.lock);
-> -    rc = p2m_set_allocation(d, pages, &preempted);
-> +    rc = p2m_set_allocation(d, pages, true);
->      spin_unlock(&d->arch.paging.lock);
->  
-> -    ASSERT(preempted == (rc == -ERESTART));
-> -
->      return rc;
->  }
->  
->  int p2m_teardown_allocation(struct domain *d)
->  {
->      int ret = 0;
-> -    bool preempted = false;
->  
->      spin_lock(&d->arch.paging.lock);
->      if ( d->arch.paging.p2m_total_pages != 0 )
->      {
-> -        ret = p2m_set_allocation(d, 0, &preempted);
-> -        if ( preempted )
-> +        ret = p2m_set_allocation(d, 0, true);
-> +        if ( ret == -ERESTART )
->          {
->              spin_unlock(&d->arch.paging.lock);
-> -            return -ERESTART;
-> +            return ret;
->          }
->          ASSERT(d->arch.paging.p2m_total_pages == 0);
->      }
-> diff --git a/xen/arch/riscv/include/asm/paging.h b/xen/arch/riscv/include/asm/paging.h
-> index e487c89a4ccd..103384723dc5 100644
-> --- a/xen/arch/riscv/include/asm/paging.h
-> +++ b/xen/arch/riscv/include/asm/paging.h
-> @@ -9,7 +9,7 @@ struct page_info;
->  int paging_domain_init(struct domain *d);
->  
->  int paging_freelist_adjust(struct domain *d, unsigned long pages,
-> -                           bool *preempted);
-> +                           bool can_preempt);
->  
->  int paging_ret_to_domheap(struct domain *d, unsigned int nr_pages);
->  int paging_refill_from_domheap(struct domain *d, unsigned int nr_pages);
-> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-> index 703b9f4d2540..41d6d3d5e699 100644
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -430,15 +430,16 @@ int p2m_init(struct domain *d, const struct xen_domctl_createdomain *config)
->  
->  /*
->   * Set the pool of pages to the required number of pages.
-> - * Returns 0 for success, non-zero for failure.
-> + * Returns 0 for success, -ERESTART if preempted, or a negative error code on
-> + * failure.
->   * Call with d->arch.paging.lock held.
->   */
-Move the description where a prototype lives. This way you will avoid adding one
-at each definition (remove from here and Arm then).
+Indeed. It looks like d5a73cdc6b90 ("x86/boot: Use boot_vid_info variable
+directly from C code") is at fault, breaking this piece of pre-existing
+code at the bottom of mbi2_reloc():
 
-> -int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
-> +int p2m_set_allocation(struct domain *d, unsigned long pages, bool can_preempt)
->  {
->      struct p2m_domain *p2m = p2m_get_hostp2m(d);
->      int rc;
->  
-> -    if ( (rc = paging_freelist_adjust(d, pages, preempted)) )
-> +    if ( (rc = paging_freelist_adjust(d, pages, can_preempt)) )
->          return rc;
->  
->      /*
-> diff --git a/xen/arch/riscv/paging.c b/xen/arch/riscv/paging.c
-> index 76a203edbb0c..35f572689a7c 100644
-> --- a/xen/arch/riscv/paging.c
-> +++ b/xen/arch/riscv/paging.c
-> @@ -47,7 +47,7 @@ static int _paging_add_to_freelist(struct domain *d)
->  }
->  
->  int paging_freelist_adjust(struct domain *d, unsigned long pages,
-> -                           bool *preempted)
-> +                           bool can_preempt)
->  {
->      ASSERT(spin_is_locked(&d->arch.paging.lock));
->  
-> @@ -66,11 +66,8 @@ int paging_freelist_adjust(struct domain *d, unsigned long pages,
->              return rc;
->  
->          /* Check to see if we need to yield and try again */
-> -        if ( preempted && general_preempt_check() )
-> -        {
-> -            *preempted = true;
-> +        if ( can_preempt && general_preempt_check() )
->              return -ERESTART;
-> -        }
->      }
->  
->      return 0;
-> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-> index eacfd93087ae..c3818ffed45f 100644
-> --- a/xen/common/device-tree/dom0less-build.c
-> +++ b/xen/common/device-tree/dom0less-build.c
-> @@ -747,7 +747,7 @@ static int __init domain_p2m_set_allocation(struct domain *d, uint64_t mem,
->                  domain_p2m_pages(mem, d->max_vcpus);
->  
->      spin_lock(&d->arch.paging.lock);
-> -    rc = p2m_set_allocation(d, p2m_pages, NULL);
-> +    rc = p2m_set_allocation(d, p2m_pages, false);
->      spin_unlock(&d->arch.paging.lock);
->  
->      return rc;
-> diff --git a/xen/include/xen/p2m-common.h b/xen/include/xen/p2m-common.h
-> index f0bd9a6b9896..1b44ec8ce36c 100644
-> --- a/xen/include/xen/p2m-common.h
-> +++ b/xen/include/xen/p2m-common.h
-> @@ -43,5 +43,7 @@ int __must_check check_get_page_from_gfn(struct domain *d, gfn_t gfn,
->                                           bool readonly, p2m_type_t *p2mt_p,
->                                           struct page_info **page_p);
->  
-> +int p2m_set_allocation(struct domain *d, unsigned long pages,
-I think it's worth adding __must_check given that rc is now the only preemption
-status checker.
+#ifdef CONFIG_VIDEO
+    if ( video )
+        video->orig_video_isVGA = 0x23;
+#endif
 
-~Michal
+Does the patch below help?
+
+Jan
+
+x86/boot: don't blindly mark VGA in graphics mode on MB2 path
+
+Setting ->orig_video_isVGA to the specific marker should be done only when
+the VBE tag is present and the FRAMEBUFFER is either absent or indicates
+RGB type. Since the "video" variable now starts out non-NULL, this
+property was broken when in particular neither of the tags are present. To
+move back to at least close to original behavior, add a 2nd check to said
+conditional.
+
+Fixes: d5a73cdc6b90 ("x86/boot: Use boot_vid_info variable directly from C code")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/boot/reloc.c
++++ b/xen/arch/x86/boot/reloc.c
+@@ -339,7 +339,7 @@ static multiboot_info_t *mbi2_reloc(uint
+  end:
+ 
+ #ifdef CONFIG_VIDEO
+-    if ( video )
++    if ( video && video->lfb_size )
+         video->orig_video_isVGA = 0x23;
+ #endif
+ 
 
 
