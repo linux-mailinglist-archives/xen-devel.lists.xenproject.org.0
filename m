@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id VF8CHDIYPWrKwwgAu9opvQ
+	id KPjgNuwaPWpcxAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 13:59:46 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:11:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B346C5560
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 13:59:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D586C56E2
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:11:24 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=JXDroEhI;
+	dkim=pass header.d=suse.com header.s=google header.b=LFejnZkt;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345549.1604392 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1345563.1604401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcijK-0002Dg-2W; Thu, 25 Jun 2026 11:58:50 +0000
+	id 1wcivC-0005IE-7b; Thu, 25 Jun 2026 12:11:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345549.1604392; Thu, 25 Jun 2026 11:58:50 +0000
+Received: by outflank-mailman (output) from mailman id 1345563.1604401; Thu, 25 Jun 2026 12:11:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcijJ-0002BL-Vz; Thu, 25 Jun 2026 11:58:49 +0000
-Received: by outflank-mailman (input) for mailman id 1345549;
- Thu, 25 Jun 2026 11:58:49 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wcivC-0005Fs-4u; Thu, 25 Jun 2026 12:11:06 +0000
+Received: by outflank-mailman (input) for mailman id 1345563;
+ Thu, 25 Jun 2026 12:11:04 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wcijI-0002BF-VJ
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 11:58:49 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wcivA-0005Fm-Cv
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 12:11:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcijI-003cYv-8N
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 13:58:48 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wciv9-00DP6c-CU
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:11:03 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d17ef-e002-0a2a0a5209dd-0a2a4502c44a-26
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 13:58:48 +0200
-Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3d1ad6-e002-0a2a0a5209dd-0a2a4505b84e-2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:11:03 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d17f7-5a27-0a2a45020019-d155dd2ba8a5-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 13:58:48 +0200
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-4631679f204so463450f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 04:58:48 -0700 (PDT)
+ id 6a3d1ad7-3cb2-0a2a45050019-d155802fb589-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:11:03 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-490cf3000f0so22232065e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 05:11:03 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46c9787dddbsm14542073f8f.3.2026.06.25.04.58.46
+ 5b1f17b1804b1-49265c89253sm30227015e9.0.2026.06.25.05.11.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 04:58:47 -0700 (PDT)
+ Thu, 25 Jun 2026 05:11:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,56 +61,55 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782388727; x=1782993527; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782389463; x=1782994263; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VgaRhSXevnMm9oMm+Kf4wda22FuiE6H2iz33JnJ+iNs=;
-        b=JXDroEhIegMAFBi8FEBq3bGHK/QYNeCxoZxmtXD7QsHKRDf3ul0HslGfcdiJMVSvZG
-         vvw1BkJSDlgDIyHFS5beXyIbJtJtL/w7GlpmAAYdq+ofuUUBpNbjWGqbtdnXj3Brci4T
-         chxdafas7QtLeStT7akduW/yog+1BUUG65MXiASmlyXEi8WRCwUSoW2Bd0xLKSZiIGfi
-         KQxMFOCxKjfuIDWwcyPZGeZqzrftzeHIyWoaUi+oRjmB+ov2rgrB9nl1A03urBhKnzn7
-         1ZMaV+RxrIBezYSfTJ2rnSn/lzpI8yAzPiKMgXOHrEpzASOrGqnhrR+hPqeFkZeVImNF
-         ZFNg==
+        bh=0RTohjRGWkZvsbKvM9Em1lITJ+oOC+v0ko+4dMOmK44=;
+        b=LFejnZkt3TEUd2Hb0mXbYwtuQkK6FPMb3urMpkLMdtLVuc1j+CDw+PoCi++2bNcGPJ
+         qsB6tk99LX24k6vMoaTMn/SBGD2bY6BY4IQbWFPUkUNYqEXJcBCxptE6X0yU0GFjn8BK
+         TwGM+sueX+8r0RPK28l0vU7cFuXFtHDh2qincpU9gegeH3qPh83x3e4EUcpjXKxw+u6W
+         AG8FUr66XXZ7+MH611iMkYacZf8rJJ348hJ3xucldtaikOwUGingKO9oz48IJMmFpKx+
+         29qPCFSf4JSPsUAr8A7olPRkwpdg90z5FTvrJOfYGr/rr1UQAqtFUOIy+WTC26LL0ZP2
+         Mlfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782388727; x=1782993527;
+        d=1e100.net; s=20251104; t=1782389463; x=1782994263;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VgaRhSXevnMm9oMm+Kf4wda22FuiE6H2iz33JnJ+iNs=;
-        b=Op5Wh/aQNtXfRky4djNZkA95aftdcUf4aehs9U7z9mHfr0r1FNfsBB5NCgiyAPLPFN
-         yUZzCCIp/WTnK9viOpBtTuFSRgXnuxQGHJv6oU1uwzLAUBcMiHYbiBsuNxCULq4HpG90
-         Qcr3bshavlpelX8bnU3qgLXbaJw3VWIhlY0UnSaqpJFcB+h7pfbI6QUfFos1WEaUXLsE
-         B5JaZZ/jjSqIAz0E23eagL9kzihdjO5igiB3JxWgNUhUD7SGIodr9DrU75K8/71ZP9Xn
-         LSs1HCO2R2xdTBmZ6IZJ6L53TJDqcvzbqf6h4/OiX1QJWKdvbXZPdrysUIzraJmSi1iZ
-         Qkrw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6J+vb7VPSZQaIb+ZVTJdOtFmSpKEzMVs2LM5w3CR3hWTC2hCjcJ25ilkW7RKpbxMstGvsMXjDwr8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzbXmJpWt0s7Zby2ogdPalrniyvT/tMBlzh9B9TQgDVA2lBtl6H
-	7cuSKfSoUipEXYvE6JoBwY5kXelIQdYg7b9fA4YkqIkGVwX0zxGqn91/vR2uaWdALd78TQ0kNqK
-	DIWH0rg==
-X-Gm-Gg: AfdE7cnQkUmdvD6BQmZG352j/dNEYyd6ZdLa7kWThtd5+f+7A7E1N5p6kJkpubJ2a3/
-	rt/ieBB+RsKtJboKBBp0sfNpb1jAmWxkbbLdJijbd4oPi8YlQXVmUt69mzeZ+K/p3spSA18Nr4a
-	YpJgpRiIJlPMYhyjaHNxx/7ADGxGVIFvoI4QQ+LqrlQ8cLqXKODS7owNPKy4jubw/vzJvqC+2oa
-	dTtsYKB/jBczdxoMiqfhbocZtwQ293VG9CmbENSas9xy/lap1kk4xQDU9MOFA2dN72J0UlXGjWM
-	L6XNKi0xojxJBAvGTwpkzN5uuSlDh4mJJ4hqm0xyy1+JYOPM3ev2q7uWQyY2MTQojcUkZhn5Oon
-	jrc83Ffk73zhuHSGvtuK7YPCKLjjAL7yTzVSB+lMq6xLkLSDLIdmoE3QkN0iy1H9bIrxR42kwyK
-	jJ7S5XQV1F/7ewsVGKo8cfqgwdbXBk7QpNa7Rw4ZVrfJZL1O96LtEb7ZbmpKwA04+mV/gzYlJdV
-	rJ7
-X-Received: by 2002:a05:6000:2904:b0:462:caf6:8d06 with SMTP id ffacd0b85a97d-46a7e9f3ea0mr21398579f8f.3.1782388727505;
-        Thu, 25 Jun 2026 04:58:47 -0700 (PDT)
-Message-ID: <6b4564ff-49b4-4332-b2ac-5ae093b62de1@suse.com>
-Date: Thu, 25 Jun 2026 13:58:46 +0200
+        bh=0RTohjRGWkZvsbKvM9Em1lITJ+oOC+v0ko+4dMOmK44=;
+        b=rxEtqnuDTUNmSD95/iM3C+s4F1OWF6fKkkFptYiE99QOd37ssDTvhaPlnqYClw9BMi
+         IPznvZPg4A7rxoVt4NYBU1QAFKDJrihhWJJgDy+5og+dpiKSASGOpaoezXK5rd/+GJ0d
+         HyHRkEM5myIymmIVvbcKFH/CCIxQez/xPqqPFtjOS5RXYKCOKhIqB+RXhEtp+b3rpxdI
+         81nuvHOFPLSkp321JBL1doJK97bLnRmC97kXy8E+a6FYxfvIvEv2mme2kRWNHpFxys7q
+         2JivDtjxcwt5TUK7QZGdeAc07yPmSz0pNysk39dckkI6LiNyerajnQm8TFg1fOp6a4Mo
+         xMLQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+ddgiDKGJm3P6loFVr8sBG0KuH8780Rd75KBJRhq7SuM/8sGQIGmW1onLNPvyeGmvzP2hPSvEVLRo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YytHqTyDKBJ29CSGT2T0orlxOLeG1natFpY+wkXxJ1At4aBg6aY
+	x8auLd4INKXuZUSRWr1Uitw1sUyOpMvzyl05nUxjE4AMqTaf4sv4JA4BvFwh/6JUtg==
+X-Gm-Gg: AfdE7clVujny/+mOVVZQQWpXeATO0mfrxpw9kOMc1/loye05nVoDeZ4qRWy2rwxnUk/
+	tSap7xNMzVeFgOSPYkP5OEsIenDE+FDFilRKK3b5yem/tAqDBrqruLCly75ClUrhmqIEJs5/HBC
+	P3+Epwk4M10qgwWmYpM027xQOQWhOx68NmugctmAqi9GjDyFpl4ObfXUR7EvVV8WvX2r6VjFLBi
+	uS6TsDO6VH7J5VfvpNacDnnD7aeo1liV+fSvj/gPNfvt9xycoSD5MBvw+Fw3rDYWprys0n94Dyl
+	GvEu8cQeL6w4notI7Kx9E4yhA7UkisXvSD8q6i13qgQHEfKW59OAAEnDTUpwjw3co162RSYzBJs
+	OVcrptwPds7YFOYCdFSLivgZZ6bsJbRgKKHPITO39aZtfHaCldldRWsy2J6rw6Bd2qqpmxBgkpr
+	g9NGKH3hqyrPwOGqwO/iVPJidFOxZq5khI+sGY5AYTEaPQEPNn7bT8TSbXzBAhXkVf6fnawGioP
+	0As
+X-Received: by 2002:a05:600c:138b:b0:492:4a50:41fe with SMTP id 5b1f17b1804b1-49266891ffcmr26493055e9.22.1782389462665;
+        Thu, 25 Jun 2026 05:11:02 -0700 (PDT)
+Message-ID: <1e0fd5bd-8472-4d6c-9df6-0a6d22af51c7@suse.com>
+Date: Thu, 25 Jun 2026 14:11:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/6] nestedsvm: Fix CR3 MBZ check
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v1 6/6] nestedsvm: Allow destroying the domain fully
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20260526124027.573412-1-ross.lagerwall@citrix.com>
- <20260526124027.573412-2-ross.lagerwall@citrix.com>
- <b9ddc37c-216b-4c18-8d77-03ce641d2614@citrix.com>
+ <20260526124027.573412-7-ross.lagerwall@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,12 +135,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b9ddc37c-216b-4c18-8d77-03ce641d2614@citrix.com>
+In-Reply-To: <20260526124027.573412-7-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1782388728-4CF017C5-DDC4F85E/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c201ff/1782389463-171142B8-B0CBC202/0/0
 X-purgate-type: clean
-X-purgate-size: 2078
+X-purgate-size: 703
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -152,9 +151,9 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:ross.lagerwall@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ARC_NA(0.00)[];
@@ -175,55 +174,23 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 95B346C5560
+X-Rspamd-Queue-Id: 39D586C56E2
 
-On 26.05.2026 15:01, Andrew Cooper wrote:
-> On 26/05/2026 1:40 pm, Ross Lagerwall wrote:
->> The existing code checks for any reserved bit set while the APM only
->> considers it invalid if an MBZ bit is set. Relax the check to match the
->> APM and hardware.
->>
->> Some of the reserved bits were observed to be set running Rocky Linux
->> 10.1 on Xen on Xen.
->>
->> Fixes: 9a779e4fc161 ("Implement SVM specific part for Nested Virtualization")
->> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->> ---
->>  xen/arch/x86/hvm/svm/vmcb.c | 6 ++----
->>  1 file changed, 2 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
->> index 975a1eaef806..9ada491e57db 100644
->> --- a/xen/arch/x86/hvm/svm/vmcb.c
->> +++ b/xen/arch/x86/hvm/svm/vmcb.c
->> @@ -347,10 +347,8 @@ bool svm_vmcb_isvalid(
->>          PRINTF("CR0: bits [63:32] are not zero (%#"PRIx64")\n", cr0);
->>  
->>      if ( (cr0 & X86_CR0_PG) &&
->> -         ((cr3 & 7) ||
->> -          ((!(cr4 & X86_CR4_PAE) || (efer & EFER_LMA)) && (cr3 & 0xfe0)) ||
->> -          ((efer & EFER_LMA) &&
->> -           (cr3 >> v->domain->arch.cpuid->extd.maxphysaddr))) )
->> +         ((efer & EFER_LMA) &&
->> +           (cr3 >> v->domain->arch.cpuid->extd.maxphysaddr)) )
->>          PRINTF("CR3: MBZ bits are set (%#"PRIx64")\n", cr3);
->>  
->>      valid = hvm_cr4_guest_valid_bits(v->domain);
+On 26.05.2026 14:40, Ross Lagerwall wrote:
+> Unmapping the virtual VMCB is performed near the end of the domain
+> destroy procedure but the mapped guest frame prevents domain destroy
+> from getting to that point. This means guests that call VMRUN cannot
+> be fully destroyed.
 > 
-> The APM does say MBZ for VMRUN, but the end result of a VMEntry (virtual
-> or otherwise) must be a legal CR3 value.
+> Move the unmap of the virtual VMCB earlier to fix the issue.
 > 
-> For 5.2.1 CR3 Register (Legacy) and 5.3.2 CR3 (Long), the APM states:
-> 
-> Reserved Bits. Reserved fields should be cleared to 0 by software when
-> writing CR3.
-> 
-> What's the real behaviour for trying to set a reserved, non-MBZ bit in
-> CR3?  On Intel it's strictly a #GP, and I really hope it's the same on AMD.
+> Fixes: bcf557675d85 ("x86: properly use map_domain_page() in nested HVM code")
+> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-As to Intel - are you sure? The MOV to/from control register page has this:
-"When PCIDs are not enabled, bits 2:0 and bits 11:5 of CR3 are not used and
-attempts to set them are ignored."
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Afaict this is independent of the earlier patches, and hence could go in once
+the tree is properly (or at least partly) open again after branching?
 
 Jan
 
