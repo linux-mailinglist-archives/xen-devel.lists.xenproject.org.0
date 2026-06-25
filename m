@@ -2,49 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id z6ZFEsv/PGoovggAu9opvQ
+	id 5q9pOy8IPWqGwAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 12:15:39 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 12:51:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4B9F6C4881
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 12:15:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 461306C4DAB
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 12:51:27 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=axNBEGRF;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=ThWc3B0M;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	arc=pass ("google.com:s=arc-20260327:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1345431.1604298 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1345447.1604308 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wch7E-0004Gv-0j; Thu, 25 Jun 2026 10:15:24 +0000
+	id 1wchf1-0002wZ-Ij; Thu, 25 Jun 2026 10:50:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345431.1604298; Thu, 25 Jun 2026 10:15:23 +0000
+Received: by outflank-mailman (output) from mailman id 1345447.1604308; Thu, 25 Jun 2026 10:50:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wch7D-0004F7-UF; Thu, 25 Jun 2026 10:15:23 +0000
-Received: by outflank-mailman (input) for mailman id 1345431;
- Thu, 25 Jun 2026 10:15:22 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wch7C-0004F1-QQ
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 10:15:22 +0000
+	id 1wchf1-0002uN-FU; Thu, 25 Jun 2026 10:50:19 +0000
+Received: by outflank-mailman (input) for mailman id 1345447;
+ Thu, 25 Jun 2026 10:50:18 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wchf0-0002tC-DS
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 10:50:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wch7C-003IJ9-3j
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 12:15:22 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wchey-0051Ut-KU
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 12:50:16 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a3cffb9-5cb7-0a2a0a5109dd-0a2a4508e1da-4
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 12:15:22 +0200
-Received: from [74.125.224.54] (helo=mail-yx1-f54.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a3cffb8-edec-0a2a45080019-4a7de036c5f3-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 12:15:21 +0200
-Received: by mail-yx1-f54.google.com with SMTP id
- 956f58d0204a3-662b76dabfcso2258086d50.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 03:15:21 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d07e7-2eae-0a2a0a5409dd-0a2a45078f0c-10
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 12:50:16 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d07e8-9c8e-0a2a45070019-d1558030b033-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 12:50:16 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-49249707788so11008945e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 03:50:16 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-492660adaecsm56246185e9.5.2026.06.25.03.50.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Jun 2026 03:50:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,85 +59,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1782382520; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qSz/2IkQ0OeaFarbwCXz8xLMP1rzOPaBVIxYXMrUSJTUH0HmrET+zpzermYctb8Vko
-         Jd5Ie4yARxgoUK6iNr1JOmViIpSJVJJmqFxZhia0GqmeQclGJluV/2IaNYYtWTJGiYFM
-         ZJvvMMd9FwNwDWD2auWTbMpT3068GW7HXn3OfImHefRwJqaOe6ukRbA155MOMPZvv08w
-         x7CQjygfHfArbRIt1vdBtasIvJHobLyERR6UI+tWPNdcSNVItE/wmZXWUiVSzmStJg0k
-         vLaj6d4AZcLa2lkvTc/SGGS1c55y1hH64QY3Yv/WlIXrmzQ9K2J+VhxvxnxrbnXiW4z8
-         SG2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rJMz87qcV148+hDePpnfbNzyQ+RUWqyNTEgcxV03/Ss=;
-        fh=7tMtp6uEeXxjORmxPocc/AXK2doTA2Uq8+EKLOU+wQ0=;
-        b=JBz0Fw+JGsAXdcfzrShXKy44zumtiUouVBryUYVedn5qQetYciGZI8MTaf4dzD12yO
-         HfwVxGRFfP4D2w7Vy5q+RcYZy2Si/jrW55htXBjCrlHsqP3N+bpAOvxx/78FCRy8pWjZ
-         KIl6HgP/ucTuT3jkTcmEt861VN4+2kpqkDW3iucma9BSNq7o9n/Q9FQqNwXv6BK1ZBsJ
-         mGFFJFMuJYLkhRB8ekAn2pq1FDQfLMpMvyx8HgfTjwajB8pd2sP0uUFcNsiQtfObIMvV
-         IP0WkWsWafmvQDX2t1xsXlRpVxTUhMbwT151EoQM8OpwVyX39HBOAeqTUvKQM+SdtRUb
-         R3TA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782382520; x=1782987320; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rJMz87qcV148+hDePpnfbNzyQ+RUWqyNTEgcxV03/Ss=;
-        b=axNBEGRFBPODoARTGwNaRvCorTl7WqAWO8Or1IW2ppkO3IrFJCwgg+p5Y2k0oHb1it
-         7ASUkYibMmYhAEHipqZ2xU5U7NovnOZ0MKkNvmHbizXrY64P4TVZMYcKhQFvEDotmmzk
-         t4hZ2Pm1azD9Gf5OoPk0iUlFvMuePCfAhae6/fNzukc6ttOahuCA4YAyka2OxpY33Zxf
-         FoQTP1kTj+djvMSeJKuuqvh3T0uQIgvetHxc2VSBA+b34htbgMw59KwfABwdSKefyiTX
-         2bAgnVANJc9V51jXW0VyfGZd10kuT4Ea/uDhM9tW39LaoydOeFnMBtY6hpfsk+i5uB0Z
-         3HLw==
+        d=gmail.com; s=20251104; t=1782384616; x=1782989416; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/VbRxrhkkvQ69KcDgyWBeAh/AWDqsTD3yHTB1dbJ6Ro=;
+        b=ThWc3B0MHSBnxyD5Q9lEjjWLE+mtYFSahqcvlwAybVensARtf0H8Ifo6e+qWENL9r0
+         PjtR5rIarzvSZ46+PN7nOp9JUL5XioZa5kBcnXwP7lfWm4RRP0gZ8IgYS03aFcerPDgU
+         lyJOI5lqTg5CLaBPOyud8tOsOlXOSDYAbglVdzJfnUQmkA/Hj5u3xw4FuC7eT9DTjPaD
+         RFyWpqf8fB6+Jt4n2FFf+T0m6PfTsexSTkGthmDNkhIvymASUfuHxuy8g32536RFR0T/
+         E95CXqEoDLSPwliV36olf8N9Zycgjy05QRTfGDEiL3Q/gxRDozumqV+uAZqUCJPtZSbZ
+         aEFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782382520; x=1782987320;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rJMz87qcV148+hDePpnfbNzyQ+RUWqyNTEgcxV03/Ss=;
-        b=fsh2tXTs9JzaoUxtEYyVE35UyO892kw+78KSJukD6rJhpKiv0vnpOqpC72SyWUkDUj
-         8EnYtHbyPRQ2RqBL52/vUfSUvAKjVYeBPrnczeP9y6+JRrQBGui1VgJT6bXTA08zSNPt
-         qyVXdsfpERqWqMd9sy7awyKzRIsTyBo9tDY19HHDBmODajQtXU40mnmSrZc4HLDVOx8N
-         q7XFEBaTf9FvaqMtzaiNo9FN8xhrHYiwwaZuDxnHddUl5fbxmHafdWbCCenmR5m095fA
-         +SdBnbu9f19ZkcCGYstfwRCss8YC1djTQwxqmPNpgGrHREf2UtPCNBf/i0kTj105YWnT
-         7dVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrAyyjXeG5yDN2mLTnhfx7VnwKgQgDJBX5gMPnK8PviPSZ4JMOMHhWsulHRSgd3ISfKPr5lnFmZYp8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywh9sxpk+lZidA4bNdFuIsMMz6+0NaFrkpiJCU5zn6CIGUncnRX
-	/a4aleAqkvFwQ5+1iOsu57d+8tkxManu9OC0Q9yHjPiU/fKY9BQT2F1ki6SJod5zEINx5Acp12w
-	/MYOhWNqxhCejCgKnCjUNhSuePVH1fjs=
-X-Gm-Gg: AfdE7cl6IpWw+eMNcxsYntR2PRVJu/FKpTCxovcNyHo36mSs20PgEkMpJXyL+L0eA/Q
-	wAg0y8alIMi484f2ctBh+PnErx5vgP0T/btxGIpLfoJB1q7x0dzuMoplaPeUMbkg5zJVcFZ50Ae
-	CVidsKIWIZWJnrIa08FJ3Jk6yGimJYGkg8iy6JKrpAgLaNO8mlSEGNfoaz58biSmnljGxQS2/xW
-	/Jttc4fptMTpUtOLNHYkmb+thAh+7QdotkT5RlIN03iRo5YgR+1QF/u8CVKMq08MkEdSeidOX81
-	IJZGeD34FUpBguG9RzcE5kw=
-X-Received: by 2002:a05:690e:4087:b0:663:21f7:2d72 with SMTP id
- 956f58d0204a3-66487f0ec2bmr1343760d50.60.1782382520006; Thu, 25 Jun 2026
- 03:15:20 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782384616; x=1782989416;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/VbRxrhkkvQ69KcDgyWBeAh/AWDqsTD3yHTB1dbJ6Ro=;
+        b=dx3gJBkXcUH3i//FlG7WehzuxRmo9hF9qZNhkrMRjp4B42UpME/9eojtFY9ryR+qdJ
+         algOoN1mrQ7y8+f+fUPmvFFkMoriYnTyQcwer5hrnRHukvkRQ4pHChrXLI+QEUfXtDnP
+         vp/pN5LWqGSwBvUDNXQNoRxmeY2JR6Nz2gY/J0mzyoFUPVMDCj/4l5Xof6cG/9QNvazP
+         5tCoLi8jvxueJG66Sqgil3tX1zdoSYIB9NC7g8ZgBtaJy9iWa4TjcizZwCXJkc2zTuTq
+         Wr4No6fVJx5DoQ4+BUBtM2fNNswWHJgY1WUs51bqcoHLq/bO43kxkVY/UnFq6aqW4GqC
+         u7Ug==
+X-Forwarded-Encrypted: i=1; AHgh+RpJ/lS8eJcKIqL46RKcARX+YbB+1U9bVKq/NeMLceeA4xaodIPNZso7zG05wlX4bSyzrqnpmG6ZDYM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHNpCov1AXrpd8g32M3cfumHY1fLtfHeam2p9Vk+Ti6/tHhSyW
+	6Jfegdyy7Dy2fNpjbbj/PoFMPqeTNtbzHCzpxN1qjp1NBQ2d3JxRpqHR
+X-Gm-Gg: AfdE7cnO/pSefsZUjvlQd5+h1/x9OEe9wvsiK7AYsgdXbpAKZNWst9Cd14SQgGjHU9F
+	zSFVNavOmtz2u/bzqqK3qtCYDcphqSZBYwinKh6BBKkXv4Pkdk2EIlBieayQsET0SBwMh+cOztT
+	tnUvkGswGTqO0FRg/xmPWF5SIt9H8RkbBcQGINHs3ebYWxJTI9HuCGGTBbQ9lCF6Tno3rrR1kk/
+	Ejij/JJ3xwlHjAfpJT1tBjHQum4tyAx6vdfJe4o0pwOSc9e/xFxRa7vss3v2FZ3CpFEGrjTEG4i
+	iOPgf/Ex5+harfEoN1UJZdFE+MktyLy2c1SmtgLlxScnbcHPizssz1Ryx9o4LHdJcLkXsYxBGKy
+	EVry4/qpQxFr2HRb4RikMjoZLjCWb6+1M4engDtbkuXCpjLnwGluBaO7iVfGqFIsydPLWBd5vMl
+	9vBWKbS/YEubcaOd1jlg0nqtChJkz7njNo+ZUz+lMJVlH+Ltr2hVoAx/RlBugWacJaWhQ=
+X-Received: by 2002:a05:600c:c4aa:b0:490:b189:212d with SMTP id 5b1f17b1804b1-492668a83dbmr24226115e9.33.1782384615899;
+        Thu, 25 Jun 2026 03:50:15 -0700 (PDT)
+Message-ID: <910ed097-10d8-41a2-9035-a3f10d60c214@gmail.com>
+Date: Thu, 25 Jun 2026 12:50:14 +0200
 MIME-Version: 1.0
-References: <20260616172830.111393-1-frediano.ziglio@citrix.com>
- <20260616172830.111393-3-frediano.ziglio@citrix.com> <070ff282-5ee4-4c24-b0bc-92d187c40dd9@suse.com>
-In-Reply-To: <070ff282-5ee4-4c24-b0bc-92d187c40dd9@suse.com>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Thu, 25 Jun 2026 11:15:08 +0100
-X-Gm-Features: AVVi8CfieW3_p2OmHBM1qOOgAMJYC5TuLWbCWEAWsxrmYa4T1hOvTFA8NnZ38So
-Message-ID: <CAHt6W4de1ddW_xMWhbJ15vA171tuHVGJu0TO0bAH845EDQN4gg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] x86/efi: discard multiboot support for PE binary
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] xen: introduce CONFIG_HAS_SHARED_INFO for archs
+ without a shared page
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Teddy Astie <teddy.astie@vates.tech>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Frediano Ziglio <frediano.ziglio@citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-c1860d/1782382521-40F2A3FC-B489E871/0/0
-X-purgate-type: clean
-X-purgate-size: 2848
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1780494838.git.oleksii.kurochko@gmail.com>
+ <7ed7b888e203b7cc6c3a3a82b3bcc89d90b3fb48.1780494838.git.oleksii.kurochko@gmail.com>
+ <d63a3877-286a-43fe-97fa-301985c3a0ac@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <d63a3877-286a-43fe-97fa-301985c3a0ac@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1782384616-7D72125E-721C110A/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 1565
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20260327:i=1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
@@ -143,113 +132,83 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,m:frediano.ziglio@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:email,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A4B9F6C4881
+X-Rspamd-Queue-Id: 461306C4DAB
 
-On Wed, 24 Jun 2026 at 15:18, Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 16.06.2026 19:28, Frediano Ziglio wrote:
-> > From: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> >
-> > Multiboot and PVH booting are not supported for PE, hence discards them
-> > in the linker script when doing a PE build.
-> >
-> > That removes some relocations that otherwise appear due to the usage of=
- the
-> > start and __efi64_mb2_start symbols in the multiboot2 header.
-> >
-> > Section discarding is not done updating DISCARD_SECTIONS definition as =
-the
-> > change is specific for x86.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> > Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
-> > Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.=
-com>
->
-> While on the surface this looks okay, there are still concerns:
->
-> For one, this also discards the PVH entry point. That's technically fine =
-aiui,
-> yet shouldn't go without mentioning.
->
 
-Considering that the code/data is not exported in EFI as
 
-#if defined(CONFIG_PVH_GUEST) && !defined(EFI)
-  /*
-   * In principle this should be fine to live in .note (below), but let's k=
-eep
-   * it separate in case anyone decided to find these notes by section name=
-.
-   */
-  DECL_SECTION(.note.Xen) {
-      *(.note.Xen)
-  } PHDR(note) PHDR(text)
-#endif
+On 6/17/26 3:26 PM, Jan Beulich wrote:
+>> +#define shared_info(d, field) \
+>> +    (*(typeof(__shared_info(d, (d)->shared_info, field)) *)shared_info_absent())
+> How about the simpler
+> 
+> extern struct shared_info *shared_info_absent;
+> #define shared_info(d, field) (shared_info_absent->field)
+> 
+> ?
 
-yes, technically it's surely fine.
+This could lead to compilation error:
 
-There's a mention in the commit log:
+common/domain.c: In function 'vcpu_info_reset':
+common/domain.c:316:20: error: unused variable 'd' [-Werror=unused-variable]
+   316 |     struct domain *d = v->domain;
+       |                    ^
+cc1: all warnings being treated as errors
 
-    Multiboot and PVH booting are not supported for PE, hence discards them
-    in the linker script when doing a PE build.
+One of fixes could be just drop usage of local variable d in 
+vcpu_info_reset():
 
-But not in the subject:
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index fba8e9161937..d3b0bd571609 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -313,11 +313,9 @@ static void vcpu_check_shutdown(struct vcpu *v)
 
-    x86/efi: discard multiboot support for PE binary
+  void vcpu_info_reset(struct vcpu *v)
+  {
+-    struct domain *d = v->domain;
+-
+      v->vcpu_info_area.map =
+          IS_ENABLED(CONFIG_HAS_SHARED_INFO) && v->vcpu_id < 
+XEN_LEGACY_MAX_VCPUS
+-        ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
++        ? (vcpu_info_t *)&shared_info(v->domain, vcpu_info[v->vcpu_id])
+          : &dummy_vcpu_info;
+  }
 
-What about simply changing the subject to:
 
-    x86/efi: discard multiboot and PVH support for PE binary
+OR shared_info() defintion should be updated to:
 
-> Otoh you discard call sites of functions without discarding the functions
-> themselves, violating Misra's "no unreachable code" rule. Eclair may not =
-be
-> able to spot this, but imo we should still adhere to the rule. Proper
-> coverage analysis, for example, would likely turn this up.
->
+#define shared_info(d, field) (*((void)(d), &shared_info_absent->field))
 
-That makes sense. Given that most code in head.S is now discarded most
-data sections are now not used and the only thing left will be the
-trampoline.
-It'll take a bit of time to search for removed symbols.
+IMO, an update of macros defintion looks a little bit more common.
 
-About the "no unreachable code" I think we are violating that anyway.
-We package "built-in.o" files and then use them to craft the final
-executable. I don't think the linker will be able to discard unused
-functions for that reason. That does not mean that more things can be
-discarded.
+Which one do you prefer? Any better suggestion?
 
-About discarding more (I think a bit out of scope here) for the EFI
-application I don't think we need BIOS/EDD code. Not sure how easy is
-to do this without having 2 objects (one for EFI and one for ELF).
+Thanks.
 
-> Jan
-
-Frediano
+~ oleksii
 
