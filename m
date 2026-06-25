@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id sdJ5FitQPWqb1AgAu9opvQ
+	id IXN1LFNRPWrf1AgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:58:35 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 18:03:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68BF6C73C9
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:58:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE37F6C7443
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 18:03:28 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=eI17pX0G;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=gtIgQ56a;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345771.1604515 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1345783.1604525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcmTA-0006Ij-MV; Thu, 25 Jun 2026 15:58:24 +0000
+	id 1wcmXr-0000Ak-8G; Thu, 25 Jun 2026 16:03:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345771.1604515; Thu, 25 Jun 2026 15:58:24 +0000
+Received: by outflank-mailman (output) from mailman id 1345783.1604525; Thu, 25 Jun 2026 16:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcmTA-0006Fz-Jf; Thu, 25 Jun 2026 15:58:24 +0000
-Received: by outflank-mailman (input) for mailman id 1345771;
- Thu, 25 Jun 2026 15:58:22 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wcmT8-0006Em-MI
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 15:58:22 +0000
+	id 1wcmXr-00008q-4G; Thu, 25 Jun 2026 16:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 1345783;
+ Thu, 25 Jun 2026 16:03:13 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wcmXp-00008k-4K
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 16:03:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcmT8-00Dx70-2g
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 17:58:22 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wcmXo-003dBi-Gz
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 18:03:12 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a3d5001-e002-0a2a0a5209dd-0a2a4506c372-48
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:58:21 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a3d501d-08de-0a2a45060019-d1558032a82d-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:58:21 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-490b8ac62baso10620955e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 08:58:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-492691f60bcsm3998665e9.1.2026.06.25.08.58.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 08:58:21 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d512a-2eae-0a2a0a5409dd-0a2a450c83ca-44
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 18:03:12 +0200
+Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d5140-f399-0a2a450c0019-d155d0afb066-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 18:03:12 +0200
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-39979f72d0cso322051fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 09:03:12 -0700 (PDT)
+Received: from fedora (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-3999af9f376sm46047991fa.9.2026.06.25.09.03.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jun 2026 09:03:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,173 +60,425 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782403101; x=1783007901; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H7bSvGIPZxGW6MLYYg2d4bLpUbLQynRVhiLMNkDxye4=;
-        b=eI17pX0GAMqR7ATcH9p8A0volmz+YcWXYv1SamBEz0cuk1vjMYpvmW+AmGeU4Wi4rz
-         WRDQovS1LKIOecJDo2m/1n8cMRyKkIDj4mTW8jUMRxJSixj5dAkTLwq3GAp16pGHN65I
-         D7xJscgORoKy/5qbEyxBAcG5VQ6ki7llCwtJ9sMW0jYuCj/BPvykYkRDpDXQe5tzwlxe
-         XnV+vnCSe+6O+aFC6L4d4yk7fQWzUQZnlmq0KT5SIa9i2sjWgknk/8NnQyoeWd10onMU
-         UxNhF+7OhAtj9GBfrRazj56bMNyPsmXvjeBvXE/xuLvUifLqWF9ugdxPXqiB29I0KRXx
-         xFJA==
+        d=gmail.com; s=20251104; t=1782403392; x=1783008192; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=2uZPCPrBYs7CuTTD0DNQCjFYGHnRqYaTxkjXjS+5fu4=;
+        b=gtIgQ56aN7ed/MIVey3L1+gjdVXWeukBCbOGKx1oyQxQvAH5SaJmC7drqjYhLxDnLu
+         zOyZzILDdas5ATYnOu++MOyka6uoiCMzFvaG0vNUy/2LahBpIeymOjhkRf1gOuFhzHoy
+         NlF8d/1egGED1O9ccc9HnjMRIjP07BTrd+lG/DFXj103HppFUSNppLEXvNrbHKwVyxh3
+         UVv7/X0R6DvP3PX0E+SE35jxvRaz5eon1GTpgOtrTv7r7ZmBl/mne4qCiWi1gv0KTXwA
+         JFMDF1vg5rj6S1NaK/qwbfAa3wXtH27PUi6xG1NN1iG8BT5kyCw5NjbQHoWsNWCY0qrq
+         eb5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782403101; x=1783007901;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1782403392; x=1783008192;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H7bSvGIPZxGW6MLYYg2d4bLpUbLQynRVhiLMNkDxye4=;
-        b=ZGGZrRZjH7qU54BZlExhWsA4mgV77rSl79TBN++B/sabsWZr/n4YbKkiFP6s6dsvrm
-         yvsnndha0DR1iYmQTSEbVhTn7nOkIA3agonnRk2VtlSWd+D8BqtH4x+oLbkUiZeRoSie
-         NzOKR9UUEWHThF/eu+vVAL4YIlYqixgz9qQ3scaZ9+ClKEwSid3zlz6UHpaFy4zhMC+T
-         pJEwXaHsCeQKu5Uw+LUEmyN8nDUp+tRJwgvytMGRsjIpjrZtaPk7va1Ej278bUPv9S2K
-         pMtMLwMVWwIn4f8kpDtO1/6bAvRw2vUpLz8NFBlsFowMXV9KkMVFg3IPhQofmmrWesBn
-         gSog==
-X-Forwarded-Encrypted: i=1; AFNElJ+yVhSfe7v7BigFBLgxI+M/LjhBfcz9voxTwUfxDsvS79qCNWr3J4pxCMBC+gghzFjyeEhsgSzhjJQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwEJekyn+vFOOT+t8Adp9h4Ps0k1+ci4UAK9CerBAS0wqe8Y8/p
-	YU9skCiUet/eECN6TnFEOlkjVpoPP+VgYB0E/hWXbArwNVT3Zlz8cBkANF3kBMfGtg==
-X-Gm-Gg: AfdE7cmbpvLbyLc1NK7jc4iti4cEp1nb3athDOo3hIMCAcmSp1OV8J8AjALdotVkATH
-	RLHqXJzY3Sjfg6EeXwGl/4yTufmGPtE+FUzUuEDFZtpstGBhTnhf1KMoypGHOD7pcGDtY1GFYCU
-	iR563W7SntHkR+HE8HiD0et2Aao7gkDRPhvZE99aUmuIzElYK5SdTeJm7BngRgW6FDFXjYbX83d
-	XRLz9MuiQ2uuArKMvQP9SAOUBBcBJnMSMHyTGNReV1r0Sw2LXW5Yib3DjWCXLJI5WWj6n1z/SOM
-	m/jHbG89dv/2fw/1FNqIKnmrLyA2paovhC/OOGNlSjf4vC/pFmpImKqeXNWmTLkFVPbXFd5P8n3
-	nmOvG+8p1DeyPpsG7KKDGyVsgYccKGWZzjCo6+cWDlglVwXYT84M9hYDBfobPILB0fFL9QqR/ZV
-	f4jfJes2rPT6dMXADPLzvdKfOvctWg6WDVSFI5d/NylL8Io+HeKA0wFHdNaLLmPYfIrpDyIxM+L
-	ULd
-X-Received: by 2002:a05:600c:8b63:b0:490:e19b:9632 with SMTP id 5b1f17b1804b1-492664294b3mr39234155e9.17.1782403101450;
-        Thu, 25 Jun 2026 08:58:21 -0700 (PDT)
-Message-ID: <9a94b240-b75e-4201-be05-ddfef16f5c6c@suse.com>
-Date: Thu, 25 Jun 2026 17:58:20 +0200
+        bh=2uZPCPrBYs7CuTTD0DNQCjFYGHnRqYaTxkjXjS+5fu4=;
+        b=nFJN9/UziLwaWXp4rRSK4IgeIlKqxPw5AjVZsv1WXKxCpUI1bGkc4tB+HSfzTBzXHM
+         vP3bfoaWRXasWOba3w5869gxJynhrbcM94cNKDi+XX+f3qAEcCAiiz0ISHVEc3E1gS/+
+         WsTUpzk1/B67t5IBmI095nPAP1aLVHCdzj8L+pdPnSb2D7vEugKnHizVGyA6R2hN2Jc8
+         DZ2IlgHieIvxtpFpOQvma+dombYRyHxIlEWZlBBYaVNXmC28NFf0ObDqyIu7bssMjsgu
+         j6essgUnY94RnRCkvLyqrLmk9jdWjJEfOrqwdK3zW18ljBIuaIuIw4J8yjX4lsHwkOnQ
+         lXOQ==
+X-Gm-Message-State: AOJu0Yyi5LrR2OF4ay8SvK37hX4fcLFGXe7TXe7LpmbD59HFd4aysquz
+	8VCusXB4/dYA7+u/eadG454lhbM7IULQNyTzo/YywOOE4TNZGjIcMqA2J4E+kA==
+X-Gm-Gg: AfdE7cnk86MfTrtxdEjJV3pGzS6BR6PgStuqCybiL0++2FRaxPqp5jAsivjz7bZVlsv
+	V4MSPuA0zywi/XOdeC3FxdVZRqY7qwMz/d0Co4TFuFrBS55pWgIhreOAl1HnxWhMsz+5oCDUHMU
+	oNezWBw9ZK4Bu5mIyFw4VtO/z3M9Fxba2rNtUTyi8NJcjZjDcOG2AwbLe3N2/Lkocv5hYkdjx6t
+	2Ls6ZwCviRyTJ6DbiJfIAenpg2qvyLWeOJndcB1D4wLmHk/+p3aYfZS9cvVVEeeWTFwmnE3BzvA
+	HdyuNj5x9FXTw38g9Z6Hq/dGDv3PVig+jAoFka0Z/ipIq2CgZ0If8NfDDcCbQ5RR5lgROuRtqFo
+	CewPpSJ2av9GLCzzgs8DHTjBkDrQ8Z/JduDpPtugHNvnOqrFrX9USbFhal87tfEy0sx82hSGLo1
+	5N23Iz2gyBZTqHQJhuLswUWSbN3zwEOgUbPFdN2Dklao39K5wwwNPfsiaRWYplosGvh6fv
+X-Received: by 2002:a2e:a547:0:b0:396:ae32:860 with SMTP id 38308e7fff4ca-39acb9235a5mr11861531fa.16.1782403391127;
+        Thu, 25 Jun 2026 09:03:11 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+	Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH v4] xen: introduce CONFIG_HAS_SHARED_INFO for archs without a shared page
+Date: Thu, 25 Jun 2026 18:02:54 +0200
+Message-ID: <775c88457e5ec7fc7889002c6f9829669f9bce97.1782388193.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/9] x86/passthrough: Introduce pt_irq_bind_msi() as
- canonical MSI bind path
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260427135406.1281424-1-julian.vetter@vates.tech>
- <1777298080.8631fc262581453bbf619ec5b2062170.19dcf3882f5000f373@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1777298080.8631fc262581453bbf619ec5b2062170.19dcf3882f5000f373@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1782403101-C5D3D68D-C8B4BABA/0/0
-X-purgate-type: clean
-X-purgate-size: 2179
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d25034/1782403392-91128D51-D54A806F/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 12811
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B68BF6C73C9
+X-Rspamd-Queue-Id: CE37F6C7443
 
-On 27.04.2026 15:54, Julian Vetter wrote:
-> @@ -448,13 +451,29 @@ int pt_irq_create_bind(
->      switch ( pt_irq_bind->irq_type )
->      {
->      case PT_IRQ_TYPE_MSI:
-> -        return pt_irq_bind_msi(d, pirq,
-> -                               pt_irq_bind->u.msi.gvec,
-> -                               pt_irq_bind->u.msi.gflags &
-> -                                   ~XEN_DOMCTL_VMSI_X86_UNMASKED,
-> +    {
-> +        uint32_t gflags = pt_irq_bind->u.msi.gflags;
-> +        uint64_t msi_addr;
-> +        uint32_t msi_data;
-> +
-> +        msi_addr = MSI_ADDR_HEADER |
-> +                   MASK_INSR(MASK_EXTR(gflags, XEN_DOMCTL_VMSI_X86_DEST_ID_MASK),
-> +                             MSI_ADDR_DEST_ID_MASK) |
-> +                   (gflags & XEN_DOMCTL_VMSI_X86_RH_MASK ?
-> +                    MSI_ADDR_REDIRECTION_LOWPRI : MSI_ADDR_REDIRECTION_CPU) |
-> +                   (gflags & XEN_DOMCTL_VMSI_X86_DM_MASK ?
-> +                    MSI_ADDR_DESTMODE_LOGIC : MSI_ADDR_DESTMODE_PHYS);
-> +        msi_data = pt_irq_bind->u.msi.gvec |
-> +                   MASK_INSR(MASK_EXTR(gflags, XEN_DOMCTL_VMSI_X86_DELIV_MASK),
-> +                             MSI_DATA_DELIVERY_MODE_MASK) |
-> +                   (gflags & XEN_DOMCTL_VMSI_X86_TRIG_MASK ?
-> +                    MSI_DATA_TRIGGER_LEVEL : 0);
-> +
-> +        return pt_irq_bind_msi(d, pt_irq_bind->machine_irq,
-> +                               msi_addr, msi_data,
->                                 pt_irq_bind->u.msi.gtable,
-> -                               !!(pt_irq_bind->u.msi.gflags &
-> -                                  XEN_DOMCTL_VMSI_X86_UNMASKED));
-> +                               !!(gflags & XEN_DOMCTL_VMSI_X86_UNMASKED));
-> +    }
->  
->      case PT_IRQ_TYPE_PCI:
->      case PT_IRQ_TYPE_MSI_TRANSLATE:
-> @@ -617,7 +636,6 @@ int pt_irq_create_bind(
->      }
->  
->      default:
-> -        write_unlock(&d->event_lock);
->          return -EOPNOTSUPP;
->      }
+On architectures that run guests in dom0less mode without the PV ABI
+(currently RISC-V), no shared_info page is allocated and d->shared_info
+remains NULL throughout the domain lifetime.  Several places in common
+code access d->shared_info through the shared_info() macro or directly,
+causing UBSAN null-pointer errors on such architectures.
 
-Just as a preliminary comment, as I had to come look here for patch 2:
-With no other locking changes in this function, how can the above be
-correct? Does this hunk belong into another patch?
+Rather than adding runtime NULL guards that are logically unreachable
+on x86 and Arm (where shared_info is always allocated), introduce a new
+Kconfig symbol CONFIG_HAS_SHARED_INFO selected by x86 and Arm.
 
-Jan
+On !HAS_SHARED_INFO the shared_info() macro expands to a dereference
+of a pointer returned by shared_info_absent(), which is declared but
+intentionally never defined.  Any use of shared_info() that is not
+dead-code-eliminated will therefore cause a link-time failure, making
+missed guards impossible to overlook.
+
+The 2L event-channel ops call shared_info() and must not be compiled on
+architectures without a shared_info page, so event_2l.o is gated on
+CONFIG_HAS_SHARED_INFO.  On such architectures evtchn_init() installs
+the FIFO ops as a placeholder instead; evtchn_fifo_word_from_port() is
+guarded against uninitialised d->evtchn_fifo so the FIFO ops are safe
+before evtchn_fifo_init_control() is called by the guest.
+
+With CONFIG_HAS_SHARED_INFO=n all vCPUs fall back to the global
+dummy_vcpu_info, so writes through vcpu_info() could leak data between
+vCPUs. Reviewing the write paths in common code: the write in
+map_guest_area() stores the constant ~0 so nothing serious would happen
+if it were leaked; the event_2l.c paths are unreachable because the
+preceding shared_info() call would trap first; the write in
+vcpu_info_populate() targets the new mapping buffer, not
+dummy_vcpu_info.
+
+Outside common code, the remaining writes are x86 PV-specific, for which
+CONFIG_HAS_SHARED_INFO=y. No code changes are needed.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+Changes in v4:
+ - event_channel.c: drop the redundant evtchn_fifo_init_ops() in the
+   else branch of evtchn_reset(); evtchn_fifo_destroy() does not undo the
+   ops installed by evtchn_init(), so only the switch back to 2-level ABI
+   needs an explicit call.
+ - shared.h: simplify the !HAS_SHARED_INFO shared_info() definition to use
+   an undefined "extern struct shared_info *shared_info_absent" instead of
+   shared_info_absent() with a typeof cast.
+ - Extend the commit description to note that vcpu_info()/__vcpu_info()
+   uses were also audited: on !HAS_SHARED_INFO vcpu_info_area.map points at
+   dummy_vcpu_info, reads are harmless, and writes in common code do not
+   open a cross-domain info-leak side channel, so no code changes are
+   needed on that path.
+---
+Changes in v3:
+ - Introduce CONFIG_HAS_SHARED_INFO Kconfig symbol selected by x86
+   and Arm; RISC-V does not select it.
+ - Gate shared_info() macro on CONFIG_HAS_SHARED_INFO; on
+   !HAS_SHARED_INFO it calls shared_info_absent() (declared, never
+   defined) so any unguarded use produces a link-time error.
+ - Replace runtime if (!d->shared_info) guards with IS_ENABLED() at
+   call sites so both branches type-check and dead code is eliminated.
+ - Guard shared_info_frame assignment in domctl.c.
+ - Gate event_2l.o on CONFIG_HAS_SHARED_INFO; use FIFO ops as
+   placeholder on !HAS_SHARED_INFO archs instead of dedicated stub
+   ops; guard evtchn_fifo_word_from_port() against uninitialised
+   d->evtchn_fifo.
+ - Add static inline stubs for evtchn_2l_init() (!HAS_SHARED_INFO)
+   and evtchn_fifo_init_ops() (!EVTCHN_FIFO) so call sites can use
+   IS_ENABLED() without #ifdef.
+ - Drop inaccurate changelog entry about "only FIFO ABI" migration.
+ - Update the commit message.
+ - Drop R-by: Baptiste ... as some extra checks are added.
+---
+Changes in v2:
+ - Update commit message + subject.
+ - Drop Fixes tag.
+---
+ xen/arch/arm/Kconfig       |  1 +
+ xen/arch/x86/Kconfig       |  1 +
+ xen/common/Kconfig         |  3 +++
+ xen/common/Makefile        |  2 +-
+ xen/common/domain.c        |  6 +++---
+ xen/common/domctl.c        | 11 ++++++++---
+ xen/common/event_channel.c | 12 +++++++++---
+ xen/common/event_channel.h |  6 ++++++
+ xen/common/event_fifo.c    | 11 ++++++++++-
+ xen/common/time.c          |  2 ++
+ xen/include/xen/shared.h   |  8 +++++++-
+ xen/include/xen/time.h     |  4 ++++
+ 12 files changed, 55 insertions(+), 12 deletions(-)
+
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 5fa89fcb2428..683ab7d25a1e 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -20,6 +20,7 @@ config ARM
+ 	select HAS_DEVICE_TREE_DISCOVERY
+ 	select HAS_DOM0LESS
+ 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
++	select HAS_SHARED_INFO
+ 	select HAS_STACK_PROTECTOR
+ 	select HAS_UBSAN
+ 
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 2ce4747f6ea7..49697b795259 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -29,6 +29,7 @@ config X86
+ 	select HAS_PCI_MSI
+ 	select HAS_PIRQ
+ 	select HAS_SCHED_GRANULARITY
++	select HAS_SHARED_INFO
+ 	imply HAS_SOFT_RESET
+ 	select HAS_UBSAN
+ 	select HAS_VMAP
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 5ff71480eebe..8b48d84c79e8 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -158,6 +158,9 @@ config HAS_PMAP
+ config HAS_SCHED_GRANULARITY
+ 	bool
+ 
++config HAS_SHARED_INFO
++	bool
++
+ config HAS_SOFT_RESET
+ 	bool
+ 
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 6018e256147f..f69d47d18934 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -12,7 +12,7 @@ obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
+ obj-$(CONFIG_IOREQ_SERVER) += dm.o
+ obj-y += domain.o
+ obj-y += domid.o
+-obj-y += event_2l.o
++obj-$(CONFIG_HAS_SHARED_INFO) += event_2l.o
+ obj-y += event_channel.o
+ obj-$(CONFIG_EVTCHN_FIFO) += event_fifo.o
+ obj-$(CONFIG_GRANT_TABLE) += grant_table.o
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 8f2bfcae2890..fba8e9161937 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -316,9 +316,9 @@ void vcpu_info_reset(struct vcpu *v)
+     struct domain *d = v->domain;
+ 
+     v->vcpu_info_area.map =
+-        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
+-         ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
+-         : &dummy_vcpu_info);
++        IS_ENABLED(CONFIG_HAS_SHARED_INFO) && v->vcpu_id < XEN_LEGACY_MAX_VCPUS
++        ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
++        : &dummy_vcpu_info;
+ }
+ 
+ static struct domain *alloc_domain_struct(void)
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index e30b38a337ac..5e5632f912d3 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -102,9 +102,14 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
+ #ifdef CONFIG_MEM_PAGING
+     info->paged_pages       = atomic_read(&d->paged_pages);
+ #endif
+-    info->shared_info_frame =
+-        gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
+-    BUG_ON(SHARED_M2P(info->shared_info_frame));
++    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
++    {
++        info->shared_info_frame =
++            gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
++        BUG_ON(SHARED_M2P(info->shared_info_frame));
++    }
++    else
++        info->shared_info_frame = INVALID_GFN_RAW;
+ 
+     info->cpupool = cpupool_get_id(d);
+ 
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index a3d18bc464e8..fae58985e501 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -1323,9 +1323,11 @@ int evtchn_reset(struct domain *d, bool resuming)
+         rc = -EAGAIN;
+     else if ( d->evtchn_fifo )
+     {
+-        /* Switching back to 2-level ABI. */
+         evtchn_fifo_destroy(d);
+-        evtchn_2l_init(d);
++
++        if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
++            /* Switching back to 2-level ABI. */
++            evtchn_2l_init(d);
+     }
+ 
+     write_unlock(&d->event_lock);
+@@ -1624,7 +1626,11 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
+ 
+ int evtchn_init(struct domain *d, unsigned int max_port)
+ {
+-    evtchn_2l_init(d);
++    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
++        evtchn_2l_init(d);
++    else
++        evtchn_fifo_init_ops(d);
++
+     d->max_evtchn_port = min_t(unsigned int, max_port, INT_MAX);
+ 
+     d->evtchn = alloc_evtchn_bucket(d, 0);
+diff --git a/xen/common/event_channel.h b/xen/common/event_channel.h
+index dc94a43cc2dd..91f6d7b3d4bf 100644
+--- a/xen/common/event_channel.h
++++ b/xen/common/event_channel.h
+@@ -44,7 +44,11 @@ static inline void evtchn_port_print_state(struct domain *d,
+ 
+ /* 2-level */
+ 
++#ifdef CONFIG_HAS_SHARED_INFO
+ void evtchn_2l_init(struct domain *d);
++#else
++static inline void evtchn_2l_init(struct domain *d) {}
++#endif
+ 
+ /* FIFO */
+ 
+@@ -55,6 +59,7 @@ struct evtchn_expand_array;
+ int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
+ int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
+ void evtchn_fifo_destroy(struct domain *d);
++void evtchn_fifo_init_ops(struct domain *d);
+ #else
+ static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
+ {
+@@ -68,6 +73,7 @@ static inline void evtchn_fifo_destroy(struct domain *d)
+ {
+     return;
+ }
++static inline void evtchn_fifo_init_ops(struct domain *d) {}
+ #endif /* CONFIG_EVTCHN_FIFO */
+ 
+ #endif /* EVENT_CHANNEL_H */
+diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
+index 37cba9bc4564..4aa34ca13a56 100644
+--- a/xen/common/event_fifo.c
++++ b/xen/common/event_fifo.c
+@@ -62,6 +62,9 @@ static inline event_word_t *evtchn_fifo_word_from_port(const struct domain *d,
+      */
+     smp_rmb();
+ 
++    if ( unlikely(!d->evtchn_fifo) )
++        return NULL;
++
+     if ( unlikely(port >= d->evtchn_fifo->num_evtchns) )
+         return NULL;
+ 
+@@ -420,6 +423,11 @@ static const struct evtchn_port_ops evtchn_port_ops_fifo =
+     .print_state   = evtchn_fifo_print_state,
+ };
+ 
++void evtchn_fifo_init_ops(struct domain *d)
++{
++    d->evtchn_port_ops = &evtchn_port_ops_fifo;
++}
++
+ static int map_guest_page(struct domain *d, uint64_t gfn, void **virt)
+ {
+     struct page_info *p;
+@@ -562,7 +570,8 @@ static void setup_ports(struct domain *d, unsigned int prev_evtchns)
+ 
+         evtchn = evtchn_from_port(d, port);
+ 
+-        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
++        if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) &&
++             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
+             evtchn->pending = true;
+ 
+         evtchn_fifo_set_priority(d, evtchn, EVTCHN_FIFO_PRIORITY_DEFAULT);
+diff --git a/xen/common/time.c b/xen/common/time.c
+index 04a65f00b35c..cdfdc53b6a17 100644
+--- a/xen/common/time.c
++++ b/xen/common/time.c
+@@ -89,6 +89,7 @@ struct tm gmtime(unsigned long t)
+     return tbuf;
+ }
+ 
++#ifdef CONFIG_HAS_SHARED_INFO
+ void update_domain_wallclock_time(struct domain *d)
+ {
+     uint32_t *wc_version;
+@@ -117,6 +118,7 @@ void update_domain_wallclock_time(struct domain *d)
+ 
+     spin_unlock(&wc_lock);
+ }
++#endif /* CONFIG_HAS_SHARED_INFO */
+ 
+ /* Set clock to <secs,usecs> after 00:00:00 UTC, 1 January, 1970. */
+ void do_settime(u64 secs, unsigned int nsecs, u64 system_time_base)
+diff --git a/xen/include/xen/shared.h b/xen/include/xen/shared.h
+index 5b71342cab32..f20a46801181 100644
+--- a/xen/include/xen/shared.h
++++ b/xen/include/xen/shared.h
+@@ -43,7 +43,13 @@ typedef struct vcpu_info vcpu_info_t;
+ 
+ extern vcpu_info_t dummy_vcpu_info;
+ 
+-#define shared_info(d, field)      __shared_info(d, (d)->shared_info, field)
++#ifdef CONFIG_HAS_SHARED_INFO
++#define shared_info(d, field) __shared_info(d, (d)->shared_info, field)
++#else
++extern struct shared_info *shared_info_absent;
++#define shared_info(d, field) (((void)(d), shared_info_absent)->field)
++#endif /* CONFIG_HAS_SHARED_INFO */
++
+ #define vcpu_info(v, field)        \
+         __vcpu_info(v, (vcpu_info_t *)(v)->vcpu_info_area.map, field)
+ 
+diff --git a/xen/include/xen/time.h b/xen/include/xen/time.h
+index e9c0822e6f31..2f872f580ffc 100644
+--- a/xen/include/xen/time.h
++++ b/xen/include/xen/time.h
+@@ -66,7 +66,11 @@ struct tm wallclock_time(uint64_t *ns);
+ #define version_update_begin(v) (((v) + 1) | 1)
+ #define version_update_end(v)   ((v) + 1)
+ extern void update_vcpu_system_time(struct vcpu *v);
++#ifdef CONFIG_HAS_SHARED_INFO
+ extern void update_domain_wallclock_time(struct domain *d);
++#else
++static inline void update_domain_wallclock_time(struct domain *d) {}
++#endif
+ 
+ extern void do_settime(
+     u64 secs, unsigned int nsecs, u64 system_time_base);
+-- 
+2.54.0
+
 
