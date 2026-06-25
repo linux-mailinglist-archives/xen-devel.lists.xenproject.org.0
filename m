@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id KPjgNuwaPWpcxAgAu9opvQ
+	id uqS3KagjPWq0xggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:11:24 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:48:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39D586C56E2
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:11:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28D86C5B7A
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 14:48:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=LFejnZkt;
+	dkim=pass header.d=suse.com header.s=google header.b=FIXReWoG;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345563.1604401 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1345585.1604410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcivC-0005IE-7b; Thu, 25 Jun 2026 12:11:06 +0000
+	id 1wcjV3-0003Qk-TX; Thu, 25 Jun 2026 12:48:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345563.1604401; Thu, 25 Jun 2026 12:11:06 +0000
+Received: by outflank-mailman (output) from mailman id 1345585.1604410; Thu, 25 Jun 2026 12:48:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcivC-0005Fs-4u; Thu, 25 Jun 2026 12:11:06 +0000
-Received: by outflank-mailman (input) for mailman id 1345563;
- Thu, 25 Jun 2026 12:11:04 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wcjV3-0003Nz-Qo; Thu, 25 Jun 2026 12:48:09 +0000
+Received: by outflank-mailman (input) for mailman id 1345585;
+ Thu, 25 Jun 2026 12:48:08 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wcivA-0005Fm-Cv
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 12:11:04 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wcjV2-0003Ml-1u
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 12:48:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wciv9-00DP6c-CU
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:11:03 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wcjUz-008s3l-LD
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:48:05 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d1ad6-e002-0a2a0a5209dd-0a2a4505b84e-2
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:11:03 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3d2380-bab6-0a2a0a5309dd-0a2a450990d4-32
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:48:05 +0200
+Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d1ad7-3cb2-0a2a45050019-d155802fb589-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:11:03 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-490cf3000f0so22232065e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 05:11:03 -0700 (PDT)
+ id 6a3d2385-97e6-0a2a45090019-d1558035d487-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 14:48:05 +0200
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-49249072f03so12603075e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 05:48:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49265c89253sm30227015e9.0.2026.06.25.05.11.01
+ ffacd0b85a97d-46c1eef84d7sm17029247f8f.16.2026.06.25.05.48.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 05:11:02 -0700 (PDT)
+ Thu, 25 Jun 2026 05:48:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,55 +61,59 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782389463; x=1782994263; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782391685; x=1782996485; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0RTohjRGWkZvsbKvM9Em1lITJ+oOC+v0ko+4dMOmK44=;
-        b=LFejnZkt3TEUd2Hb0mXbYwtuQkK6FPMb3urMpkLMdtLVuc1j+CDw+PoCi++2bNcGPJ
-         qsB6tk99LX24k6vMoaTMn/SBGD2bY6BY4IQbWFPUkUNYqEXJcBCxptE6X0yU0GFjn8BK
-         TwGM+sueX+8r0RPK28l0vU7cFuXFtHDh2qincpU9gegeH3qPh83x3e4EUcpjXKxw+u6W
-         AG8FUr66XXZ7+MH611iMkYacZf8rJJ348hJ3xucldtaikOwUGingKO9oz48IJMmFpKx+
-         29qPCFSf4JSPsUAr8A7olPRkwpdg90z5FTvrJOfYGr/rr1UQAqtFUOIy+WTC26LL0ZP2
-         Mlfg==
+        bh=F6s7KQweRtxfVNBQzgv/IxFoTXoEaHz5+xNzZ7eaob8=;
+        b=FIXReWoGWqxgESwoh9l3Yp/yQW6GTTfbOtZQ/EUoZGpXIA5EzWaajKZWx8qnR7e4o5
+         rfEtN0hb3BKq0Svi/mjVsfBTQT3EW/oihSTIBto6icu1/QDg8UMfmTtE/txRg6XQ9Ok0
+         WxUw/ZY3SjKk0ORnDbP/jH/lmNMPZ5ogm1Z5FBQSRTOLb+jhh7oMNqSvlSU5p0/py2wI
+         zfC0gvW1eNYB1wfc4gegj9MdWtk8raWyrZZghq+59vouAW1JPqjmqHw9E2Mp5QmfDZ3v
+         XqwRZeS1M+0Wy5UMdOaN4lhxVhlFuOajhLa6YThSpWQnzZ8tS0ioBmmNKjAmCBgzcLSV
+         LeEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782389463; x=1782994263;
+        d=1e100.net; s=20251104; t=1782391685; x=1782996485;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0RTohjRGWkZvsbKvM9Em1lITJ+oOC+v0ko+4dMOmK44=;
-        b=rxEtqnuDTUNmSD95/iM3C+s4F1OWF6fKkkFptYiE99QOd37ssDTvhaPlnqYClw9BMi
-         IPznvZPg4A7rxoVt4NYBU1QAFKDJrihhWJJgDy+5og+dpiKSASGOpaoezXK5rd/+GJ0d
-         HyHRkEM5myIymmIVvbcKFH/CCIxQez/xPqqPFtjOS5RXYKCOKhIqB+RXhEtp+b3rpxdI
-         81nuvHOFPLSkp321JBL1doJK97bLnRmC97kXy8E+a6FYxfvIvEv2mme2kRWNHpFxys7q
-         2JivDtjxcwt5TUK7QZGdeAc07yPmSz0pNysk39dckkI6LiNyerajnQm8TFg1fOp6a4Mo
-         xMLQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+ddgiDKGJm3P6loFVr8sBG0KuH8780Rd75KBJRhq7SuM/8sGQIGmW1onLNPvyeGmvzP2hPSvEVLRo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytHqTyDKBJ29CSGT2T0orlxOLeG1natFpY+wkXxJ1At4aBg6aY
-	x8auLd4INKXuZUSRWr1Uitw1sUyOpMvzyl05nUxjE4AMqTaf4sv4JA4BvFwh/6JUtg==
-X-Gm-Gg: AfdE7clVujny/+mOVVZQQWpXeATO0mfrxpw9kOMc1/loye05nVoDeZ4qRWy2rwxnUk/
-	tSap7xNMzVeFgOSPYkP5OEsIenDE+FDFilRKK3b5yem/tAqDBrqruLCly75ClUrhmqIEJs5/HBC
-	P3+Epwk4M10qgwWmYpM027xQOQWhOx68NmugctmAqi9GjDyFpl4ObfXUR7EvVV8WvX2r6VjFLBi
-	uS6TsDO6VH7J5VfvpNacDnnD7aeo1liV+fSvj/gPNfvt9xycoSD5MBvw+Fw3rDYWprys0n94Dyl
-	GvEu8cQeL6w4notI7Kx9E4yhA7UkisXvSD8q6i13qgQHEfKW59OAAEnDTUpwjw3co162RSYzBJs
-	OVcrptwPds7YFOYCdFSLivgZZ6bsJbRgKKHPITO39aZtfHaCldldRWsy2J6rw6Bd2qqpmxBgkpr
-	g9NGKH3hqyrPwOGqwO/iVPJidFOxZq5khI+sGY5AYTEaPQEPNn7bT8TSbXzBAhXkVf6fnawGioP
-	0As
-X-Received: by 2002:a05:600c:138b:b0:492:4a50:41fe with SMTP id 5b1f17b1804b1-49266891ffcmr26493055e9.22.1782389462665;
-        Thu, 25 Jun 2026 05:11:02 -0700 (PDT)
-Message-ID: <1e0fd5bd-8472-4d6c-9df6-0a6d22af51c7@suse.com>
-Date: Thu, 25 Jun 2026 14:11:01 +0200
+        bh=F6s7KQweRtxfVNBQzgv/IxFoTXoEaHz5+xNzZ7eaob8=;
+        b=J8pqsoMeu7rbx7eqqUORaELE7zcZLxAYp5ioHteAZpDmjaz8TPr9Tz5dztv0M5uCZs
+         cXtQIpP5JEYcXEMrLrMP/LE1krG9+h0HJCgcHEyq1d65tyH4qzRTtBw2GcjPXPVBhD93
+         rOw312kJiJjWTVXydYFQK56qjXCvd7ChxoAOicE3Juv4msY8eKumEmv258pxwPi7jFrE
+         UmNWpNNR7DLdCbI7Uuj8dmo4FLh7Mc6iCPc5FyPT5unXweVsDaz5MUxRdf5KbFCKP7vI
+         bk2tReFskD1xMIXIUAHCNoaUmra7KnDIGnoUrpQqS2YGiN+yg89GuHJvwZkDXn9/0UwR
+         SrNA==
+X-Forwarded-Encrypted: i=1; AFNElJ80WvRyes/D18R5u7iC+IxY0HvNeufHrT0TS7oOXOx/PNZ+N/conHHoAD+5tu436eaHEAmVxlQc8XQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzYM0VocqZph4wm7xAr+TVUoq5DCcO4Qp7RcPvZRGkNIwFt2iDv
+	7PCSR987uUlmEUfp+jJBojnQdL0P4QalYHWXlRKoTY89QhFYRG5ufsiYp7qZzrn3Hg==
+X-Gm-Gg: AfdE7cnbOImH/VVwI7ubLcOdlsRb/bg49M18db4JWRfDg2Hxp04YaoJbuzzarLk+Buj
+	UCdRMEzm3+9CWIsIAzo+mjsfFVx92wzIS3wCWFgaRDWuR0aGVvYX/0SXxzjCGKYaR2r60iUpJtf
+	3LzFAxDVhGbv/IygiwH8n6UlCVvuZ/toyZq+1mHz7miDmFH8skqCqCplQ3BfKIQ5/3WPu+tGl/p
+	9qtHXo/C47zteH+xwdo5qKsYDuOJQcJPKoA6RoJEayyzZj1638aqyx0cYFVbYlOuLu0FF+3ZlQx
+	ffBBcAtoKOhKupPWmruA1d4gV5nnhSIsPwbnhaPXzLDSnL9G/UDnPESmT5FpTkM1t5Z4aNBkRqq
+	+sL9GdS05QN1jLE4TAEO501QqLA+sNtyyub0629wg2Hi6+iBjZCIwfmLSkDzRMwDMA8WwZkunmj
+	ZcjIY8kiUeC8Qw6mKu0fHgMDKLqXpNMe5Fq4264cfg08S3cscCRy+wTBLsJIOmqkLHvRL02iDwh
+	yz3
+X-Received: by 2002:a05:600c:8b72:b0:492:46c2:f5b9 with SMTP id 5b1f17b1804b1-4926684a6f7mr32624465e9.3.1782391684699;
+        Thu, 25 Jun 2026 05:48:04 -0700 (PDT)
+Message-ID: <d5ad16d1-3eec-4fda-9897-146f803d9c7c@suse.com>
+Date: Thu, 25 Jun 2026 14:48:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] nestedsvm: Allow destroying the domain fully
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: Re: [PATCH] tests: Improve 'make test': Run all build-time runnable
+ tests
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
  xen-devel@lists.xenproject.org
-References: <20260526124027.573412-1-ross.lagerwall@citrix.com>
- <20260526124027.573412-7-ross.lagerwall@citrix.com>
+References: <72ab1053a6d04f007f70620dace33c1e675353d5.1779981804.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,62 +139,171 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260526124027.573412-7-ross.lagerwall@citrix.com>
+In-Reply-To: <72ab1053a6d04f007f70620dace33c1e675353d5.1779981804.git.bernhard.kaindl@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1782389463-171142B8-B0CBC202/0/0
+X-purgate-ID: tlsNG-bad1c0/1782391685-47B33986-28820B77/0/0
 X-purgate-type: clean
-X-purgate-size: 703
+X-purgate-size: 4356
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:teddy.astie@vates.tech,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 39D586C56E2
+X-Rspamd-Queue-Id: F28D86C5B7A
 
-On 26.05.2026 14:40, Ross Lagerwall wrote:
-> Unmapping the virtual VMCB is performed near the end of the domain
-> destroy procedure but the mapped guest frame prevents domain destroy
-> from getting to that point. This means guests that call VMRUN cannot
-> be fully destroyed.
-> 
-> Move the unmap of the virtual VMCB earlier to fix the issue.
-> 
-> Fixes: bcf557675d85 ("x86: properly use map_domain_page() in nested HVM code")
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+On 28.05.2026 17:25, Bernhard Kaindl wrote:
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -92,6 +92,7 @@ build-docs:
+>  .PHONY: test
+>  test:
+>  	$(MAKE) -C tools/python test
+> +	$(MAKE) -C tools/tests test
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This means they're run sequentially, when really they could run in parallel.
 
-Afaict this is independent of the earlier patches, and hence could go in once
-the tree is properly (or at least partly) open again after branching?
+> --- a/tools/Rules.mk
+> +++ b/tools/Rules.mk
+> @@ -189,7 +189,7 @@ INSTALL_PYTHON_PROG = \
+>  %.opic: %.S
+>  	$(CC) $(CPPFLAGS) -DPIC $(CFLAGS) -fPIC -c -o $@ $< $(APPEND_CFLAGS)
+>  
+> -subdirs-all subdirs-clean subdirs-install subdirs-distclean subdirs-uninstall: .phony
+> +subdirs-all subdirs-clean subdirs-install subdirs-distclean subdirs-run subdirs-test subdirs-uninstall: .phony
+>  	@set -e; for subdir in $(SUBDIRS) $(SUBDIRS-y); do \
+>  		$(MAKE) subdir-$(patsubst subdirs-%,%,$@)-$$subdir; \
+>  	done
+> @@ -200,6 +200,20 @@ subdir-all-% subdir-clean-% subdir-install-% subdir-uninstall-%: .phony
+>  subdir-distclean-%: .phony
+>  	$(MAKE) -C $* distclean
+>  
+> +subdir-run-%: .phony
+> +	$(MAKE) -C $* run
+> +
+> +subdir-test-%: .phony
+> +	$(MAKE) -C $* test
+> +
+> +ifeq ($(CC),$(HOSTCC))
+
+I understand you lift this up from uses elsewhere, but I'd suggest thinking
+of ways to improve things while generalizing. CC and HOSTCC can very well
+be different, and the output can still be run. What wants to be sufficiently
+similar is e.g. the output of -dumpmachine (whether the middle part of the
+triplet needs to match is not quite clear to me; whether e.g. the last part
+differing in a suffix [e.g. -linux vs -linux-gnu] may also want considering
+a match I similarly can't quite say; what I can say it that pre-built
+compilers on the distro I'm looking at yield x86_64-suse-linux, while my
+self-built gcc-s yield x86_64-pc-linux-gnu, yet both obviously target the
+same thing).
+
+> +define RUN_TARGETS_IF_CC_IS_HOSTCC
+> +set -ex; for test in $? ; do LD_LIBRARY_PATH=$(DISTDIR)/install$(libdir) ./$$test ; done
+
+If LD_LIBRARY_PATH wants fiddling with here, I think you want to prepend to
+what may already be there. Since quite a few of the tests don't reference
+any of our libraries, I'm not convinced though that this wants/needs doing
+here (instead of perhaps per test).
+
+> --- a/tools/tests/cpu-policy/Makefile
+> +++ b/tools/tests/cpu-policy/Makefile
+> @@ -15,9 +15,9 @@ endif
+>  .PHONY: all
+>  all: $(TARGETS)
+>  
+> -.PHONY: run
+> -run: $(TARGETS)
+> -	./$<
+> +.PHONY: run test
+> +run test: $(TARGETS)
+> +	$(call RUN_TARGETS_IF_CC_IS_HOSTCC)
+
+Try (perhaps with a trivial, independent Makefile containing just
+
+run test:
+	@echo $@
+
+) to invoke "make run test". You'll see the rule is executed twice, once for
+each target. I think you want
+
+run: test
+
+or the other way around. Generally I'd expect "run" to be the "on build host"
+target (based on how we use it right now, with ./$(TARGET) invocations). The
+other mode might better run stuff from the install/ directory. However, which
+one is "run" and which one is "test" is of course simply a matter of
+convention / agreement.
+
+> --- a/tools/tests/mem-claim/Makefile
+> +++ b/tools/tests/mem-claim/Makefile
+> @@ -11,14 +11,7 @@ all: $(TARGETS)
+>  #  Can also be called with "make run-tests-mem-claim" from the toplevel.
+>  .PHONY: run
+>  run: $(TARGETS)
+> -ifeq ($(CC),$(HOSTCC))
+> -	set -e;             \
+> -	for test in $? ; do \
+> -		./$$test ;  \
+> -	done
+> -else
+> -	$(warning HOSTCC != CC, will not run test)
+> -endif
+> +	$(RUN_TARGETS_IF_CC_IS_HOSTCC)
+>  
+>  # The tests in this directory need to run in a privileged domain (Dom0)
+>  # with libxenctrl and a matching the hypervisor to test running it.
+
+Hmm, this doesn't match present staging, yet you also don't mention any
+prereq-s this is to go on top of.
+
+> --- a/tools/tests/vpci/Makefile
+> +++ b/tools/tests/vpci/Makefile
+> @@ -8,11 +8,13 @@ all: $(TARGET)
+>  
+>  .PHONY: run
+>  run: $(TARGET)
+> -ifeq ($(CC),$(HOSTCC))
+> -	./$(TARGET)
+> -else
+> -	$(warning HOSTCC != CC, will not run test)
+> -endif
+> +	$(call RUN_TARGETS_IF_CC_IS_HOSTCC)
+> +
+> +# The tests in this directory need to run in a privileged domain (Dom0)
+> +# with libxenctrl and a matching the hypervisor to test running it.
+> +# Therefore, they don't run with the native test target for build-time tests.
+> +.PHONY: test
+> +test:
+
+I don't think this is true here.
 
 Jan
 
