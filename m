@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hSf+CLgtPWoiyggAu9opvQ
+	id S3X6Iyw8PWpSzwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 15:31:36 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:33:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 359EC6C6250
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 15:31:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBBE56C6AC9
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:33:15 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=YHwFvWbv;
+	dkim=pass header.d=suse.com header.s=google header.b=Zko7r+yG;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345633.1604446 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1345678.1604471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wckAU-0004Wn-Ed; Thu, 25 Jun 2026 13:30:58 +0000
+	id 1wcl7m-0006RX-No; Thu, 25 Jun 2026 14:32:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345633.1604446; Thu, 25 Jun 2026 13:30:58 +0000
+Received: by outflank-mailman (output) from mailman id 1345678.1604471; Thu, 25 Jun 2026 14:32:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wckAU-0004U9-Bk; Thu, 25 Jun 2026 13:30:58 +0000
-Received: by outflank-mailman (input) for mailman id 1345633;
- Thu, 25 Jun 2026 13:30:57 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wcl7m-0006Or-KQ; Thu, 25 Jun 2026 14:32:14 +0000
+Received: by outflank-mailman (input) for mailman id 1345678;
+ Thu, 25 Jun 2026 14:32:13 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wckAT-0004U3-8C
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 13:30:57 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wcl7l-0006Ol-I8
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:32:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wckAS-003wvN-Kh
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 15:30:56 +0200
+ id 1wcl7k-0038W0-5C
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 16:32:12 +0200
 Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d2d8a-2eae-0a2a0a5409dd-0a2a4503c326-22
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 15:30:56 +0200
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ id 6a3d3be4-bab6-0a2a0a5309dd-0a2a4503e610-16
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:32:11 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d2d8f-ec1a-0a2a45030019-d1558036d95a-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 15:30:56 +0200
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-490b3637b90so15061535e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 06:30:56 -0700 (PDT)
+ id 6a3d3beb-ec1a-0a2a45030019-d1558034dc11-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:32:11 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-49258ac7294so14309565e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 07:32:11 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49264082426sm77120365e9.9.2026.06.25.06.30.54
+ ffacd0b85a97d-46c1ee01c6csm16755030f8f.14.2026.06.25.07.32.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 06:30:54 -0700 (PDT)
+ Thu, 25 Jun 2026 07:32:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,58 +61,64 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782394255; x=1782999055; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782397931; x=1783002731; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=70o//AS/ueYIBHfWCHjMu1YWzzj9a1OdpJnyPS470L4=;
-        b=YHwFvWbvxCQFN5qavULP+zcQeNzkeIJXySnASmkVdtzJeULBbk/VFMhdCT2ZVhwHpy
-         0ZC1H1zBEcPEjK4Q61IZHNsEkGeUT3Ue8ZJjCbE3nFnAcmKkTdfkHP+oJqc2Ffu9tPoU
-         nkjfsz5ziOvzVS+9PDV9zsZQ+tenu2Q+zEqF53p13f5WfBgCPYIwIkgGRCugRigiSs1d
-         40QZQ5aT66DYE036KrQ7LaYZMV6tug3h/rMt8aqbw8A92u8GSefG8bmi52j/mG+2JEqd
-         N22F2mvrp5E5VrenO4M7soiI8TjLAPbhn4wiIj29mhmaSb1A4uKCwmlU1EF+NMP8m/gR
-         +pOQ==
+        bh=/liUJLF7TlYWbOabsKpGvAzaswY3tOi0vTFxHzDXPdY=;
+        b=Zko7r+yGmw4LxndaMGmpsCGmK692D83V1eC8x8QDSbwy3lggDVvFWTWQdUamHf9r4X
+         Ot7LMXskgZbW1k2YI5pIBO0iGPRjZ8KUOUxsnfClDwhieF4IY0xomdlE1NAvF333H1fu
+         01k5E87d73/8UOh4/FJ/XtRSOFpc9ScTzON0klAr+8vS7zLKZGZgSgdkCQRoazocTKTo
+         aJR+VwXbYgmVhEwqEd2ZLDWZH5nKJwcDnEA+Am+UUBpV8Jbr8HxAMaj1dC3/faoGU/Ib
+         TCKQ+iQEQvvZAH9goJGt2HWz7FzrRwxIY0h9QydZ/9vcK4p61hewO1oPstA/PiTKqhWS
+         Wtvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782394255; x=1782999055;
+        d=1e100.net; s=20251104; t=1782397931; x=1783002731;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=70o//AS/ueYIBHfWCHjMu1YWzzj9a1OdpJnyPS470L4=;
-        b=I2O9fzJU6eU+lArFKsW8x2+ACUlx8aTbeU7Xo2fASF+NJE2WZ5IiLYiDP26HB4hYv4
-         pXhLFv8wtqaz3P7JA3hrb88g9ayt9r/B+93hbKcQhnw/1QYFVYhmozD7iF1m9Dmlx6/k
-         DQlTp5S1EhN8qtZYvDj1CTdv93UdvrHN2UFVB3RqKw1a/NJGh7iLlmgVBsP+jICNuf1n
-         IR/bkq+zxTyG/l3TACLbLH8HNZPof8+S+5xzfnxyrnruiueHpdWg2oLGSD0Sz42IwGen
-         iCr1z5G/qA8wl9kIYyO1CHlosTfWY79VxgrUXMpjogUJq8vslXYDiYYcUghli+ySkIOB
-         H/Eg==
-X-Forwarded-Encrypted: i=1; AFNElJ8XPIjkWD2WCNfGzvOaYUttgRBnC06CWmLMvK69C8YhRy7q0g+ZaSTWJKLTKJNGnsK1uIEvbl4O6bo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywk5CM80fbhxlZSB9v9G9h45lV65EX11cOD4xY6gUlZOvUR2LMg
-	1npvV6hq01yKtppkohmQweisC2JV0OqQ7hYLg9L3XpS41RdkpPhJU+oZF74hko5GCA==
-X-Gm-Gg: AfdE7cmAXiA1ot8QBFIYeaKmjtCwyQfLCfmMuz2bpkQySPqhtzjD/c8h1YwQ2rIZhub
-	7v5/NjCNPBGxVayfAJXXPJikyGGET1GqCbrGUpu99t2uAYQU0oyZ49gRLG5yeBkIXa4qtpx5e9U
-	MlsLdHZLoFIGMroxosWqGD/vo8VP69vZLWPBA45Sb/hvM+Y8OmebwH85i4biVi/HiPd9w31Hwo5
-	PiIBwQ1S5AsZFXllG2/KhEbTYkPI0MZaq2TZQMv7M1JGMWRoBevB/giBD/BntaA/bJWRep0zRJG
-	FcCaoSGfYQmuwxl9eDzjfdt72+QQGm4ApvndOr/hJqpQCs8YEIvJP498n/EM4v1RvcvnSWZEqSH
-	s5j4irrtaLDh7t1kfFehFDC0E5m3XRyZedu47bd2Ih4N6/AGyb1q1A8DOpt8HmKOSy6xs+eJATW
-	x2Kg6EHa9dRmo5qiIoQ5ZplfPuSEvOjAWF8JSTNWZW/6b04g06L+ytJ29Dg/m3XqjSCNfaExyAD
-	sWG
-X-Received: by 2002:a05:600c:6b70:b0:490:b06a:649e with SMTP id 5b1f17b1804b1-49266893253mr23158155e9.25.1782394255316;
-        Thu, 25 Jun 2026 06:30:55 -0700 (PDT)
-Message-ID: <28707464-ecd0-40a5-96e2-0afd3d33f34d@suse.com>
-Date: Thu, 25 Jun 2026 15:30:53 +0200
+        bh=/liUJLF7TlYWbOabsKpGvAzaswY3tOi0vTFxHzDXPdY=;
+        b=lNDcrKEew2Kuu2xcHCDf7eJGHlieC/nukrVdfTvC+DISQfQ4TZEn5AV3vnZTtQzuND
+         8DVn8G+gZ1wWrzdybCMsA9AklaeGA0Y/tGmZHM5zkm8os7gvpEeRseAPDPLSohGWz32k
+         64TvopQeXP9aCjoSt/gyOCDjqRuxXJF5037mH5cS8Tj7N/EoKo++uONaiTB10XZFLBz/
+         WnKCpD+Q6kgIwBrD24eyv7ENuTXtka66AL8s1P4taOJMzOJffxnuINcbY1kKMDvc7EsI
+         +Yby6FxA5ScyYL3n7OSe9xXJ6RlNTlOt7gLPRjqnv3U95abHqPLEF5f5p09oRIcJVjLg
+         6Vpw==
+X-Forwarded-Encrypted: i=1; AFNElJ93dt8fsbL1vnSJC7iKbYItltLEUI3QzEesHpoDihqMPSWe12kQSu+zUh2TfvZpdopgODduQbEqlRs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzpf/Wgk5y1kg8KcrBDbQhfg765Pc2cQQfcJgqmGuSH5dHf+ot6
+	Fx461OwB4+IK1OwnKnW1x2d18pxjrI8dwGvUkBWZ5DrLS8r+bPANRzyUYp2vm/aDLA==
+X-Gm-Gg: AfdE7cmZwxtUOtmb3n5a5oSXYk1JuwDmRSDaw9uzyVqMWesoC0PtdyRm5RtK4cBgybi
+	G8zxQQSmz4Uwza59/1vPWl91iL5Jc2Z9UWZtx/HQW6bLlIgdXrK2bZTGTq+6YxCoMmZc0BNqMTu
+	wp2w78LgrDGSuA4LAywv7T/DMo9zlp0YtECta8bXGz4a/PynfnJeiHQq3o4tMLjgcWLGLvSfqMC
+	EXS0uNNBSesz7H/JSv3ZfOizGqPQtvARfN8Ib4wVc5sVbyxvpSvqdalOUNObTx1AeF6FENyYYOd
+	Ol45BoIibm1K7F4yaSs8YWsAFKK6kSOuWFIJzwPkl+0P7FT0NG9jwPJqpBl+Ma/wTLH15yM040T
+	l/awzmT0+BIq3I0xVaOBhQWxZyHaKJtLhABxTRqN26Y1M/Ne5Fk5QTeQqirOjUicPrhymu73t20
+	sXpa8giJ6hBbduzeq6zPNeN8dwaNYf00HOv8WTOnKGW7LSpbn01pfrw0gjX2Ddkb9Gve/J/SFY0
+	eCJ+RttbHwmOy0=
+X-Received: by 2002:a05:600d:844e:10b0:488:b187:3c with SMTP id 5b1f17b1804b1-49266869597mr30917225e9.14.1782397930992;
+        Thu, 25 Jun 2026 07:32:10 -0700 (PDT)
+Message-ID: <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
+Date: Thu, 25 Jun 2026 16:32:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/3] xen/mm: Introduce NUMA-aware memory claim sets
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH for-4.22] char/ns16550: bound execution time of
+ ns16550_interrupt()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1778272036.git.bernhard.kaindl@citrix.com>
- <ddcc692d642aaf6dec84dcdb17ebaf2b8c09c7b0.1778272036.git.bernhard.kaindl@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260623103145.76383-1-roger.pau@citrix.com>
+ <06c8caab-4722-4b02-991f-bdc4a4ac0ea6@suse.com>
+ <ajqVNtt02XMUGk-X@macbook.local>
+ <cdf9f154-896d-4faa-8c76-ca15cf5e706e@suse.com>
+ <ajqsQr-bhf4SGf8Q@macbook.local>
+ <d7920786-7424-4634-80f0-994ea2857d1c@suse.com>
+ <ajz-GVoEG4toMs3P@macbook.local>
+ <2b574332-61f6-4a78-9dea-4b0973c8a3f1@suse.com>
+ <aj0oEQ6_g94Rg83D@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,280 +144,163 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ddcc692d642aaf6dec84dcdb17ebaf2b8c09c7b0.1778272036.git.bernhard.kaindl@citrix.com>
+In-Reply-To: <aj0oEQ6_g94Rg83D@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1782394256-B61315D1-B4E21B97/0/0
+X-purgate-ID: tlsNG-33051d/1782397931-059355D1-871AF04E/0/0
 X-purgate-type: clean
-X-purgate-size: 9202
+X-purgate-size: 4981
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FREEMAIL_CC(0.00)[gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 359EC6C6250
+X-Rspamd-Queue-Id: DBBE56C6AC9
 
-On 08.05.2026 22:27, Bernhard Kaindl wrote:
-> This commit extends Xen's memory claim design to support installing claim
-> sets spanning multiple NUMA nodes atomically. As Roger Pau Monné suggested:
+On 25.06.2026 15:07, Roger Pau Monné wrote:
+> On Thu, Jun 25, 2026 at 01:31:26PM +0200, Jan Beulich wrote:
+>> On 25.06.2026 12:08, Roger Pau Monné wrote:
+>>> On Wed, Jun 24, 2026 at 10:01:36AM +0200, Jan Beulich wrote:
+>>>> On 23.06.2026 17:54, Roger Pau Monné wrote:
+>>>>> On Tue, Jun 23, 2026 at 04:27:12PM +0200, Jan Beulich wrote:
+>>>>>> On 23.06.2026 16:16, Roger Pau Monné wrote:
+>>>>>>> On Tue, Jun 23, 2026 at 03:44:06PM +0200, Jan Beulich wrote:
+>>>>>>>> On 23.06.2026 12:31, Roger Pau Monne wrote:
+>>>>>>>>> +    if ( uart->force_polling )
+>>>>>>>>> +        return;
+>>>>>>>>
+>>>>>>>> As the IRQ was disabled, is this even possible? I.e. should this be some
+>>>>>>>> kind of assertion or alike?
+>>>>>>>
+>>>>>>> Hm, I wasn't setting IRQ_DISABLED before, and hence needed this guard.
+>>>>>>> But now with IRQ_DISABLED being set in ->status do_IRQ() should filter
+>>>>>>> any stray interrupts.  I will attempt to add an ASSERT_UNREACHABLE()
+>>>>>>> here.
+>>>>>>
+>>>>>> Simply ASSERT(!uart->force_polling) should do here? It is not wrong to
+>>>>>> run the code below in release builds in such an event. If we kept getting
+>>>>>> interrupts (perhaps at a high frequency) we'd be in trouble anyway.
+>>>>>
+>>>>> No, I'm afraid I can't do it like that, I can't put an ASSERT there,
+>>>>> because we can still get into ns16550_interrupt() after the interrupt
+>>>>> has been disabled.  In do_IRQ() we have the following loop:
+>>>>>
+>>>>>     while ( desc->status & IRQ_PENDING )
+>>>>>     {
+>>>>>         desc->status &= ~IRQ_PENDING;
+>>>>>         spin_unlock_irq(&desc->lock);
+>>>>>
+>>>>>         tsc_in = tb_init_done ? get_cycles() : 0;
+>>>>>         action->handler(irq, action->dev_id);
+>>>>>         TRACE_TIME(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
+>>>>>
+>>>>>         spin_lock_irq(&desc->lock);
+>>>>>     }
+>>>>>
+>>>>> So if the device is generating further interrupts in the window with
+>>>>> IRQs enabled (while we execute the handler), we will keep looping
+>>>>> around this, without taking into account the setting of IRQ_DISABLED.
+>>>>
+>>>> Ah yes.
+>>>>
+>>>>> This is something that we might want to fix, so that the loop is bound
+>>>>> by IRQ_PENDING being set, and IRQ_DISABLED not, ie:
+>>>>>
+>>>>>     while ( (desc->status & (IRQ_PENDING | IRQ_DISABLED)) == IRQ_PENDING )
+>>>>
+>>>> Or perhaps ahead of the loop
+>>>>
+>>>>     desc->status &= ~IRQ_REPLAY;
+>>>>
+>>>>     if ( desc->status & IRQ_DISABLED )
+>>>>         goto out;
+>>>>
+>>>>     desc->status |= IRQ_PENDING;
+>>>>
+>>>>     /*
+>>>>      * Since we set PENDING, if another processor is handling a different
+>>>>      * instance of this same irq, the other processor will take care of it.
+>>>>      */
+>>>>     if ( desc->status & IRQ_INPROGRESS )
+>>>>         goto out;
+>>>>
+>>>>     desc->status |= IRQ_INPROGRESS;
+>>>>
+>>>> thus also having the comment no longer describe only part of the conditional.
+>>>
+>>> I think this is racy.  An interrupt hitting in the window with
+>>> interrupts enabled ahead of the handler having set IRQ_DISABLED will
+>>> still set IRQ_PENDING, and thus the loop would get executed a further
+>>> time, and the handler called after IRQ_DISABLED having been set.
+>>
+>> Hmm, I don't quite agree with how you put it, but I think I see what you mean.
+>> There's one question here, though: If PENDING is set first, and DISABLED only
+>> later, shouldn't that IRQ instance still be handled? If so, ...
+>>
+>>> I think we need an extra condition in the loop, I see no way this can
+>>> be solved only by dealing with the concurrent setting of IRQ_PENDING.
+>>
+>> ... such an extra condition would be wrong. If not, yes, I agree.
 > 
->   Ideally, we would need to introduce a new hypercall that allows
->   making claims from multiple nodes in a single locked region, as to
->   ensure success or failure in an atomic way.
+> But PENDING is always set, regardless of whether the IRQ is disabled,
+> the normal flow in do_IRQ() is:
 > 
-> A claim set can contain multiple node-specific claims and a host-wide
-> claim for memory that may come from any NUMA node. The new domctl
-> installs the full claim set atomically, and the allocator is updated
-> so that claim checks and claim consumption follow the new semantics.
+>     desc->status |= IRQ_PENDING;
 > 
-> This adds:
-> 
-> 1. installing multi-node claim sets atomically,
-> 2. protecting claimed pages from other claim requests and allocations, and
-> 3. redeeming held claims when satisfying allocations.
-> 
-> Legacy XENMEM_claim_pages behaviour is preserved; the interface is
-> deprecated and superseded by XEN_DOMCTL_claim_memory.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-> 
-> ---
-> The v7 design document submitted ahead of this series may help with review.
-> It explains the background, design rationale, and implementation details.
-> 
-> Rendered version: https://xen.kaindl.dev/claims-v7-design/designs/claims
-> 
-> Many thanks to everyone who contributed to the earlier work and review:
-> especially Roger Pau Monné, Alejandro Vallejo, Jan Beulich, Andrew Cooper,
-> Marcus Granado, and Edwin Török.
-> 
-> Thanks,
-> Bernhard
-> ---
->  tools/include/xenctrl.h             |  11 +
->  tools/libs/ctrl/xc_domain.c         |  28 ++
->  xen/common/domain.c                 |   5 +-
->  xen/common/domctl.c                 |  57 ++++
->  xen/common/memory.c                 |   5 +-
->  xen/common/page_alloc.c             | 410 +++++++++++++++++++++++-----
->  xen/include/public/domctl.h         |  38 +++
->  xen/include/public/memory.h         |   2 +
->  xen/include/xen/mm.h                |   6 +-
->  xen/include/xen/sched.h             |   4 +
->  xen/xsm/flask/hooks.c               |   1 +
->  xen/xsm/flask/policy/access_vectors |   1 +
->  12 files changed, 493 insertions(+), 75 deletions(-)
+>     /*
+>      * Since we set PENDING, if another processor is handling a different
+>      * instance of this same irq, the other processor will take care of it.
+>      */
+>     if ( desc->status & (IRQ_DISABLED | IRQ_INPROGRESS) )
+>         goto out;
 
-And there's no way to split this some? I'll only do some light review for now.
+Well, see the adjusted flow I did suggest earlier (still in context above).
 
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -1319,7 +1319,10 @@ int domain_kill(struct domain *d)
->          rspin_barrier(&d->domain_lock);
->          argo_destroy(d);
->          vnuma_destroy(d->vnuma);
-> -        domain_set_outstanding_pages(d, 0);
-> +        /* Release all outstanding claims of the domain. */
-> +        domain_set_claim_entries(d, 1, &(xen_memory_claim_t){
-> +            .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 0,
-> +        });
+> I think it's valid to have both PENDING and DISABLED set with the
+> current logic.  In fact, the code in ack_edge_ioapic_irq() relies on
+> having both PENDING and DISABLED set to mask the source, as the
+> ->disable hook for edge triggered IO-APIC pins is a no-op.
 
-This is pretty badly formatted. Maybe
+Yet this can be of use for a corner case only anyway, as we set PENDING only
+after having called ->ack(). That is, after setting PENDING _another_ IRQ
+has to fire. Which is possible, but likely can be dealt with differently.
 
-        domain_set_claim_entries(
-            d, 1,
-            &(xen_memory_claim_t){
-                .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 0,
-            });
+> We could likely change all this to be more straight forward, but as
+> with the serial interrupt handling I would rather not do that change
+> during a code freeze.
 
-? (Applies elsewhere as well, obviously.)
-
-Whether the .pages field needs explicitly mentioning is questionable.
-
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -51,6 +51,57 @@ static int xenctl_bitmap_to_nodemask(nodemask_t *nodemask,
->                                     MAX_NUMNODES);
->  }
->  
-> +/* Set or get memory claims for a domain. */
-> +static int claim_memory(struct domain *d,
-> +                        struct xen_domctl_claim_memory *uinfo, bool *copyback)
-> +{
-> +    xen_memory_claim_t *entries;
-> +    int rc = -EFAULT;
-> +
-> +    /* Reject LLC coloring; alloc_color_heap_page() does not handle claims. */
-> +    if ( llc_coloring_enabled )
-> +        return -EOPNOTSUPP;
-> +
-> +    switch ( uinfo->mode )
-> +    {
-> +    case XEN_DOMCTL_CLAIM_MEMORY_SET:
-> +        if ( !uinfo->nr_entries )
-> +            return -EINVAL;
-> +        if ( uinfo->nr_entries > MAX_NUMNODES + 1 )
-
-Why's MAX_NUMNODES and MAX_NUMNODES + 1 as an input permitted?
-
-> +            return -E2BIG;
-> +        break;
-> +    case XEN_DOMCTL_CLAIM_MEMORY_GET:
-> +        if ( uinfo->nr_entries > MAX_NUMNODES + 1 )
-> +            uinfo->nr_entries = MAX_NUMNODES + 1;
-> +        break;
-> +    default:
-> +        return -EOPNOTSUPP;
-> +    }
-
-Here and elsewhere - blank lines please between non-fall-through case blocks.
-
-> +    if ( d->is_dying )
-> +        return -ESRCH;
-> +
-> +    entries = xmalloc_array(xen_memory_claim_t, uinfo->nr_entries);
-
-Better xzalloc_array() (really xvzalloc_array()) seeing ...
-
-> +    if ( entries == NULL )
-> +        return -ENOMEM;
-> +
-> +    switch ( uinfo->mode )
-> +    {
-> +    case XEN_DOMCTL_CLAIM_MEMORY_SET:
-> +        if ( !copy_from_guest(entries, uinfo->claim_set, uinfo->nr_entries) )
-> +            rc = domain_set_claim_entries(d, uinfo->nr_entries, entries);
-> +        break;
-> +    case XEN_DOMCTL_CLAIM_MEMORY_GET:
-> +        rc = domain_get_claim_entries(d, &uinfo->nr_entries, entries);
-> +        *copyback = true;
-> +        if ( !rc && copy_to_guest(uinfo->claim_set, entries,
-> +                                  uinfo->nr_entries) )
-
-... this copy-out.
-
-> +            rc = -EFAULT;
-> +        break;
-> +    }
-
-Missing default:.
-
-> @@ -865,6 +916,12 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->              copyback = true;
->          break;
->  
-> +    case XEN_DOMCTL_claim_memory:
-> +        ret = xsm_claim_pages(XSM_PRIV, d);
-
-This and the xsm/flask/hooks.c change will need reworking, to fit the spirit
-of XSA-492.
-
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1276,6 +1276,42 @@ struct xen_domctl_get_domain_state {
->      uint64_t unique_id;      /* Unique domain identifier. */
->  };
->  
-> +struct xen_memory_claim {
-> +    uint64_aligned_t pages; /* Number of pages to claim. */
-> +    uint32_t target;        /* NUMA node or special target constant. */
-> +    uint32_t cmd;           /* Reserved, must be zero. */
-
-Why is this named "cmd" when it's reserved?
-
-> +};
-> +typedef struct xen_memory_claim xen_memory_claim_t;
-> +DEFINE_XEN_GUEST_HANDLE(xen_memory_claim_t);
-> +
-> +/* Special claim targets for the target field of xen_memory_claim_t. */
-> +#define XEN_DOMCTL_CLAIM_MEMORY_HOST     0x80000000U /* Host-wide claims. */
-> +#define XEN_DOMCTL_CLAIM_MEMORY_LEGACY   0x40000000U /* Legacy semantics. */
-
-I think the latter should be internal to Xen, and in particular not be
-permitted with this new domctl.
-
-> +/*
-> + * XEN_DOMCTL_claim_memory
-> + *
-> + * Install or query a domain memory claim set. A SET operation replaces the
-> + * existing claim set atomically. Claims are redeemed by later allocations to
-> + * the domain. A SET request whose entries all have pages == 0 releases any
-> + * existing claims.
-> + *
-> + * For GET, callers may pass nr_entries == 0 and claim_set == NULL to query the
-> + * number of records needed. Xen returns -ERANGE and updates nr_entries. If the
-> + * supplied array is too small, Xen returns -ERANGE and updates nr_entries
-> + * without copying partial records.
-> + */
-> +struct xen_domctl_claim_memory {
-> +    /* IN/OUT: Array of struct xen_memory_claim. */
-> +    XEN_GUEST_HANDLE_64(xen_memory_claim_t) claim_set;
-> +    /* IN/OUT: Number of records in the claim_set array. */
-> +    uint32_t nr_entries;
-
-What is IN and what is OUT looks to differ between GET and SET.
-
-> +    /* IN: Operation to perform on the claim set (GET or SET). */
-> +    uint32_t mode;
-> +#define XEN_DOMCTL_CLAIM_MEMORY_SET 0U /* Set the claim set for the domain. */
-> +#define XEN_DOMCTL_CLAIM_MEMORY_GET 1U /* Get the claim set of the domain. */
-> +};
-
-And there's no way to fetch overall claims?
-
-> @@ -131,7 +132,10 @@ int populate_pt_range(unsigned long virt, unsigned long nr_mfns);
->  /* Claim handling */
->  unsigned long __must_check domain_adjust_tot_pages(struct domain *d,
->      long pages);
-> -int domain_set_outstanding_pages(struct domain *d, unsigned long pages);
-> +int domain_set_claim_entries(struct domain *d, uint32_t nr_entries,
-> +                             const struct xen_memory_claim *claim_set);
-> +int domain_get_claim_entries(struct domain *d, uint32_t *nr_entries,
-> +                             struct xen_memory_claim *claim_set);
-
-Please see ./CODING_STYLE as to the use of fixed-width types. In the latter
-case I can see justification, but in the former I can't.
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -419,6 +419,10 @@ struct domain
->      unsigned int     xenheap_pages;     /* pages allocated from Xen heap */
->      /* Pages claimed but not possessed, protected by global heap_lock. */
->      unsigned int     outstanding_pages;
-> +    unsigned int     node_claims;       /* Sum of per-node claims. */
-> +    /* Domain objects use dedicated pages, leaving room for per-node claims. */
-> +    unsigned int     claims[MAX_NUMNODES]; /* Per-NUMA-node claims. */
-
-Potentially too big an array to embed directly here.
+I definitely agree here. So perhaps indeed best to go with what you did
+proposed.
 
 Jan
 
