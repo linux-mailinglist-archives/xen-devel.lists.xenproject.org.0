@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id S3X6Iyw8PWpSzwgAu9opvQ
+	id 3kaAJms/PWqa0AgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:33:16 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:47:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBBE56C6AC9
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E06826C6C9B
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:47:06 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=Zko7r+yG;
+	dkim=pass header.d=suse.com header.s=google header.b=KvAn0866;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345678.1604471 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1345692.1604480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcl7m-0006RX-No; Thu, 25 Jun 2026 14:32:14 +0000
+	id 1wclLk-0000jk-To; Thu, 25 Jun 2026 14:46:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345678.1604471; Thu, 25 Jun 2026 14:32:14 +0000
+Received: by outflank-mailman (output) from mailman id 1345692.1604480; Thu, 25 Jun 2026 14:46:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcl7m-0006Or-KQ; Thu, 25 Jun 2026 14:32:14 +0000
-Received: by outflank-mailman (input) for mailman id 1345678;
- Thu, 25 Jun 2026 14:32:13 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wclLk-0000gw-Qe; Thu, 25 Jun 2026 14:46:40 +0000
+Received: by outflank-mailman (input) for mailman id 1345692;
+ Thu, 25 Jun 2026 14:46:39 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wcl7l-0006Ol-I8
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:32:13 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wclLj-0000gq-GO
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:46:39 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcl7k-0038W0-5C
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 16:32:12 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wclLi-005jTR-Sb
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 16:46:38 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d3be4-bab6-0a2a0a5309dd-0a2a4503e610-16
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:32:11 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3d3f43-bab6-0a2a0a5309dd-0a2a4509d1f2-26
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:46:38 +0200
+Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a3d3beb-ec1a-0a2a45030019-d1558034dc11-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:32:11 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-49258ac7294so14309565e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 07:32:11 -0700 (PDT)
+ id 6a3d3f4e-97e6-0a2a45090019-d155dd2bd5e9-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:46:38 +0200
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-46dc0d0eb2aso711556f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 07:46:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46c1ee01c6csm16755030f8f.14.2026.06.25.07.32.10
+ ffacd0b85a97d-46dd5f9da4fsm6087595f8f.23.2026.06.25.07.46.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 07:32:10 -0700 (PDT)
+ Thu, 25 Jun 2026 07:46:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,64 +61,60 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782397931; x=1783002731; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782398798; x=1783003598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/liUJLF7TlYWbOabsKpGvAzaswY3tOi0vTFxHzDXPdY=;
-        b=Zko7r+yGmw4LxndaMGmpsCGmK692D83V1eC8x8QDSbwy3lggDVvFWTWQdUamHf9r4X
-         Ot7LMXskgZbW1k2YI5pIBO0iGPRjZ8KUOUxsnfClDwhieF4IY0xomdlE1NAvF333H1fu
-         01k5E87d73/8UOh4/FJ/XtRSOFpc9ScTzON0klAr+8vS7zLKZGZgSgdkCQRoazocTKTo
-         aJR+VwXbYgmVhEwqEd2ZLDWZH5nKJwcDnEA+Am+UUBpV8Jbr8HxAMaj1dC3/faoGU/Ib
-         TCKQ+iQEQvvZAH9goJGt2HWz7FzrRwxIY0h9QydZ/9vcK4p61hewO1oPstA/PiTKqhWS
-         Wtvw==
+        bh=GXm0GVGKhdsVpoTo1dWrOJZD0tzMGODvnRJAUs+lf1A=;
+        b=KvAn0866lIfNae+DVj90ZFIWV9qfSeSBZaCe8RciK5fp810ut9JtDNkVESFiWjdZdP
+         xkp1mFvXL0sXAjfgJ2fbsZLmzgZgbFqtJXjhFgaRhCCJuG+v/l+X3yaoOPkb2w4b6PXK
+         lYr38ong4C4E5LaDEMi1pusu2AH5isrBO6Evg9L6j0D22k7/DyjXPMs0QM5XGiWdw1E2
+         VKQrG4mwa1jdPMJ62UqFJXVwtUxXpNNWzVq1xL8f/tPyaMAEFar5xGkdiqIWMA1hAz2P
+         4l7Wt0Y4EUB7vS/Tn3U608CndsjHApq1709oCO9s3EnFbAspH29M9Etg3ApsLUxcLJLO
+         Chzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782397931; x=1783002731;
+        d=1e100.net; s=20251104; t=1782398798; x=1783003598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/liUJLF7TlYWbOabsKpGvAzaswY3tOi0vTFxHzDXPdY=;
-        b=lNDcrKEew2Kuu2xcHCDf7eJGHlieC/nukrVdfTvC+DISQfQ4TZEn5AV3vnZTtQzuND
-         8DVn8G+gZ1wWrzdybCMsA9AklaeGA0Y/tGmZHM5zkm8os7gvpEeRseAPDPLSohGWz32k
-         64TvopQeXP9aCjoSt/gyOCDjqRuxXJF5037mH5cS8Tj7N/EoKo++uONaiTB10XZFLBz/
-         WnKCpD+Q6kgIwBrD24eyv7ENuTXtka66AL8s1P4taOJMzOJffxnuINcbY1kKMDvc7EsI
-         +Yby6FxA5ScyYL3n7OSe9xXJ6RlNTlOt7gLPRjqnv3U95abHqPLEF5f5p09oRIcJVjLg
-         6Vpw==
-X-Forwarded-Encrypted: i=1; AFNElJ93dt8fsbL1vnSJC7iKbYItltLEUI3QzEesHpoDihqMPSWe12kQSu+zUh2TfvZpdopgODduQbEqlRs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzpf/Wgk5y1kg8KcrBDbQhfg765Pc2cQQfcJgqmGuSH5dHf+ot6
-	Fx461OwB4+IK1OwnKnW1x2d18pxjrI8dwGvUkBWZ5DrLS8r+bPANRzyUYp2vm/aDLA==
-X-Gm-Gg: AfdE7cmZwxtUOtmb3n5a5oSXYk1JuwDmRSDaw9uzyVqMWesoC0PtdyRm5RtK4cBgybi
-	G8zxQQSmz4Uwza59/1vPWl91iL5Jc2Z9UWZtx/HQW6bLlIgdXrK2bZTGTq+6YxCoMmZc0BNqMTu
-	wp2w78LgrDGSuA4LAywv7T/DMo9zlp0YtECta8bXGz4a/PynfnJeiHQq3o4tMLjgcWLGLvSfqMC
-	EXS0uNNBSesz7H/JSv3ZfOizGqPQtvARfN8Ib4wVc5sVbyxvpSvqdalOUNObTx1AeF6FENyYYOd
-	Ol45BoIibm1K7F4yaSs8YWsAFKK6kSOuWFIJzwPkl+0P7FT0NG9jwPJqpBl+Ma/wTLH15yM040T
-	l/awzmT0+BIq3I0xVaOBhQWxZyHaKJtLhABxTRqN26Y1M/Ne5Fk5QTeQqirOjUicPrhymu73t20
-	sXpa8giJ6hBbduzeq6zPNeN8dwaNYf00HOv8WTOnKGW7LSpbn01pfrw0gjX2Ddkb9Gve/J/SFY0
-	eCJ+RttbHwmOy0=
-X-Received: by 2002:a05:600d:844e:10b0:488:b187:3c with SMTP id 5b1f17b1804b1-49266869597mr30917225e9.14.1782397930992;
-        Thu, 25 Jun 2026 07:32:10 -0700 (PDT)
-Message-ID: <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
-Date: Thu, 25 Jun 2026 16:32:09 +0200
+        bh=GXm0GVGKhdsVpoTo1dWrOJZD0tzMGODvnRJAUs+lf1A=;
+        b=d7mFPbTpu8wvOeAxsfRo3Mw7lY5vh8/fj1182tLLZmoWAPPaEgwN3L1xUYN3opsAUX
+         7ukcu7+LfI0lU34o3NfEiw7ucLl3Uu4xOMmbL2OxNkncAPsROg0iad5MNy6+13M2owo+
+         MAUOHGDAK8bSBMIKE8PyuP30QaxKXzsWddBzZ5TDf/m4Ky1KWn8BxYWyTDudSBJ5BDss
+         Oz8naPddmLR6i6tgaHDE414ZALermho7ujtBOyI1oD4w7lOfUVeYDzRoQ8dD4UlaUFOt
+         8BoYZiiRulzX9dyCQm1jaITFhKb0Jq4oxasOig4vXYg4JVAT2DNzv01rzkNde9WssaGO
+         fQWw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro68T1ZjFftRvZO0lVHAMtcIt2RTxISJMJtKnenTkB6IO9vkjgsIu5YLa8vzedrtOFmJ90kdI9sqm4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFsk0n8ni5mXdAYahMksNSMK/8RYXlIfDsCSOwv3GfdFwtVqvO
+	Z/4eDNAzhrwmaeNh1asl1uVVqXIeZ1IvhOVcd3xKxOWu3b6FkRmE6eHd0aQ5anTMpg==
+X-Gm-Gg: AfdE7clwaIWDPIflqAOW3HjMJr3XiqzOGDfuOWdMzJCyMFUJNWrg5QQHdWMtbWRNN0Q
+	pC95/mb8oLIFNmG/3oi29sze3tELSX/PptualX5+S+gHgrY1wVQLmXxuZddqTHrFiDgM+C8/go9
+	QI7wUUPVJ7Bc1hxbqgL5lXWOcIx9A6QqplAAWvkSL+fyeJSA6GsYvZSEb0hPN6HV1bqRggmalLf
+	oibY+Qdoya0ei8vbO2nRHPdrovqTl25PnCO41cWPAiNvZ66JoPIqfkdJgnSUgZMnw04G1UMYZ+a
+	9yRQlY/qI72tEtAbD+OwParlBJI8FFku3kJpvqy+c75fYHFvQYd6kQAH/8PdFG/wxOqRSE6rOpZ
+	Ozvqy8SZaAnTpP/ao+/tGGb3E6eAEyuKcI0trTSufo0pClbX1PQojcTNnzWEpTSNdnlTEBE+/da
+	NiSDBuasMiU5b9czdp/fl4vhLBeONVHr8bfnVVqORJLNa8P9AYNM65Dg6Sn1oAgsw8QEczd9YVW
+	hi4
+X-Received: by 2002:a05:6000:46dc:b0:46e:341b:45d6 with SMTP id ffacd0b85a97d-46e341b46d5mr1927865f8f.9.1782398798184;
+        Thu, 25 Jun 2026 07:46:38 -0700 (PDT)
+Message-ID: <cbb164f1-502d-44f0-850d-ed42ea690c02@suse.com>
+Date: Thu, 25 Jun 2026 16:46:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22] char/ns16550: bound execution time of
- ns16550_interrupt()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v4 1/9] x86/vioapic: Add ioapic_check() to validate
+ IO-APIC state before restore
+To: Julian Vetter <julian.vetter@vates.tech>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260623103145.76383-1-roger.pau@citrix.com>
- <06c8caab-4722-4b02-991f-bdc4a4ac0ea6@suse.com>
- <ajqVNtt02XMUGk-X@macbook.local>
- <cdf9f154-896d-4faa-8c76-ca15cf5e706e@suse.com>
- <ajqsQr-bhf4SGf8Q@macbook.local>
- <d7920786-7424-4634-80f0-994ea2857d1c@suse.com>
- <ajz-GVoEG4toMs3P@macbook.local>
- <2b574332-61f6-4a78-9dea-4b0973c8a3f1@suse.com>
- <aj0oEQ6_g94Rg83D@macbook.local>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260427135406.1281424-1-julian.vetter@vates.tech>
+ <1777298079.8631fc262581453bbf619ec5b2062170.19dcf387cf6000f373@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -144,163 +140,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aj0oEQ6_g94Rg83D@macbook.local>
+In-Reply-To: <1777298079.8631fc262581453bbf619ec5b2062170.19dcf387cf6000f373@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1782397931-059355D1-871AF04E/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-bad1c0/1782398798-44B2B986-D197F6A2/0/0
 X-purgate-type: clean
-X-purgate-size: 4981
+X-purgate-size: 1497
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: DBBE56C6AC9
+X-Rspamd-Queue-Id: E06826C6C9B
 
-On 25.06.2026 15:07, Roger Pau Monné wrote:
-> On Thu, Jun 25, 2026 at 01:31:26PM +0200, Jan Beulich wrote:
->> On 25.06.2026 12:08, Roger Pau Monné wrote:
->>> On Wed, Jun 24, 2026 at 10:01:36AM +0200, Jan Beulich wrote:
->>>> On 23.06.2026 17:54, Roger Pau Monné wrote:
->>>>> On Tue, Jun 23, 2026 at 04:27:12PM +0200, Jan Beulich wrote:
->>>>>> On 23.06.2026 16:16, Roger Pau Monné wrote:
->>>>>>> On Tue, Jun 23, 2026 at 03:44:06PM +0200, Jan Beulich wrote:
->>>>>>>> On 23.06.2026 12:31, Roger Pau Monne wrote:
->>>>>>>>> +    if ( uart->force_polling )
->>>>>>>>> +        return;
->>>>>>>>
->>>>>>>> As the IRQ was disabled, is this even possible? I.e. should this be some
->>>>>>>> kind of assertion or alike?
->>>>>>>
->>>>>>> Hm, I wasn't setting IRQ_DISABLED before, and hence needed this guard.
->>>>>>> But now with IRQ_DISABLED being set in ->status do_IRQ() should filter
->>>>>>> any stray interrupts.  I will attempt to add an ASSERT_UNREACHABLE()
->>>>>>> here.
->>>>>>
->>>>>> Simply ASSERT(!uart->force_polling) should do here? It is not wrong to
->>>>>> run the code below in release builds in such an event. If we kept getting
->>>>>> interrupts (perhaps at a high frequency) we'd be in trouble anyway.
->>>>>
->>>>> No, I'm afraid I can't do it like that, I can't put an ASSERT there,
->>>>> because we can still get into ns16550_interrupt() after the interrupt
->>>>> has been disabled.  In do_IRQ() we have the following loop:
->>>>>
->>>>>     while ( desc->status & IRQ_PENDING )
->>>>>     {
->>>>>         desc->status &= ~IRQ_PENDING;
->>>>>         spin_unlock_irq(&desc->lock);
->>>>>
->>>>>         tsc_in = tb_init_done ? get_cycles() : 0;
->>>>>         action->handler(irq, action->dev_id);
->>>>>         TRACE_TIME(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
->>>>>
->>>>>         spin_lock_irq(&desc->lock);
->>>>>     }
->>>>>
->>>>> So if the device is generating further interrupts in the window with
->>>>> IRQs enabled (while we execute the handler), we will keep looping
->>>>> around this, without taking into account the setting of IRQ_DISABLED.
->>>>
->>>> Ah yes.
->>>>
->>>>> This is something that we might want to fix, so that the loop is bound
->>>>> by IRQ_PENDING being set, and IRQ_DISABLED not, ie:
->>>>>
->>>>>     while ( (desc->status & (IRQ_PENDING | IRQ_DISABLED)) == IRQ_PENDING )
->>>>
->>>> Or perhaps ahead of the loop
->>>>
->>>>     desc->status &= ~IRQ_REPLAY;
->>>>
->>>>     if ( desc->status & IRQ_DISABLED )
->>>>         goto out;
->>>>
->>>>     desc->status |= IRQ_PENDING;
->>>>
->>>>     /*
->>>>      * Since we set PENDING, if another processor is handling a different
->>>>      * instance of this same irq, the other processor will take care of it.
->>>>      */
->>>>     if ( desc->status & IRQ_INPROGRESS )
->>>>         goto out;
->>>>
->>>>     desc->status |= IRQ_INPROGRESS;
->>>>
->>>> thus also having the comment no longer describe only part of the conditional.
->>>
->>> I think this is racy.  An interrupt hitting in the window with
->>> interrupts enabled ahead of the handler having set IRQ_DISABLED will
->>> still set IRQ_PENDING, and thus the loop would get executed a further
->>> time, and the handler called after IRQ_DISABLED having been set.
->>
->> Hmm, I don't quite agree with how you put it, but I think I see what you mean.
->> There's one question here, though: If PENDING is set first, and DISABLED only
->> later, shouldn't that IRQ instance still be handled? If so, ...
->>
->>> I think we need an extra condition in the loop, I see no way this can
->>> be solved only by dealing with the concurrent setting of IRQ_PENDING.
->>
->> ... such an extra condition would be wrong. If not, yes, I agree.
-> 
-> But PENDING is always set, regardless of whether the IRQ is disabled,
-> the normal flow in do_IRQ() is:
-> 
->     desc->status |= IRQ_PENDING;
-> 
->     /*
->      * Since we set PENDING, if another processor is handling a different
->      * instance of this same irq, the other processor will take care of it.
->      */
->     if ( desc->status & (IRQ_DISABLED | IRQ_INPROGRESS) )
->         goto out;
+On 27.04.2026 15:53, Julian Vetter wrote:
+> --- a/xen/arch/x86/hvm/vioapic.c
+> +++ b/xen/arch/x86/hvm/vioapic.c
+> @@ -594,6 +594,32 @@ int vioapic_get_trigger_mode(const struct domain *d, unsigned int gsi)
+>      return vioapic->redirtbl[pin].fields.trig_mode;
+>  }
+>  
+> +static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h)
+> +{
+> +    const HVM_SAVE_TYPE(IOAPIC) *s;
+> +
+> +    if ( !has_vioapic(d) )
+> +        return -ENODEV;
+> +
+> +    s = hvm_get_entry(IOAPIC, h);
+> +    if ( !s )
+> +        return -ENODATA;
+> +
+> +    /* base_address of 0 is never valid for the IO-APIC MMIO window. */
+> +    if ( !s->base_address )
+> +        return -EINVAL;
 
-Well, see the adjusted flow I did suggest earlier (still in context above).
+It also wants to be suitably aligned, and it wants to be below the domain's
+phys-addr limit.
 
-> I think it's valid to have both PENDING and DISABLED set with the
-> current logic.  In fact, the code in ack_edge_ioapic_irq() relies on
-> having both PENDING and DISABLED set to mask the source, as the
-> ->disable hook for edge triggered IO-APIC pins is a no-op.
+> +    /* IO-APIC APIC ID is a 4-bit field. */
+> +    if ( s->id > 0xf )
+> +        return -EINVAL;
 
-Yet this can be of use for a corner case only anyway, as we set PENDING only
-after having called ->ack(). That is, after setting PENDING _another_ IRQ
-has to fire. Which is possible, but likely can be dealt with differently.
+This wants to remain in sync with what vioapic_write_indirect() does, i.e.
+there likely wants to be a cross-referencing comment at each site, and the
+logic likely also wants to be similar here.
 
-> We could likely change all this to be more straight forward, but as
-> with the serial interrupt handling I would rather not do that change
-> during a code freeze.
+> +    /* ioregsel must address a defined register. */
+> +    if ( s->ioregsel > VIOAPIC_REG_RTE0 + (ARRAY_SIZE(s->redirtbl) - 1) * 2 + 1 )
+> +        return -EINVAL;
 
-I definitely agree here. So perhaps indeed best to go with what you did
-proposed.
+Why would this be? vioapic_write() doesn't apply any restrictions.
+
+> +    return 0;
+> +}
+
+What about the redirtbl[] entries? Values vioapic_write_redirent() would
+never store shouldn't be accepted here.
 
 Jan
 
