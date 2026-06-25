@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id b11hByJLPWqm0wgAu9opvQ
+	id oKkCLFVPPWpZ1AgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:37:06 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:55:01 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 139856C71CD
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:37:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 152CF6C7316
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:55:01 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=O4t7H08I;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=DxVXqsUq;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1345736.1604489 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1345754.1604498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcm7W-0000bF-FX; Thu, 25 Jun 2026 15:36:02 +0000
+	id 1wcmPT-0004rt-U1; Thu, 25 Jun 2026 15:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345736.1604489; Thu, 25 Jun 2026 15:36:02 +0000
+Received: by outflank-mailman (output) from mailman id 1345754.1604498; Thu, 25 Jun 2026 15:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wcm7W-0000Z3-CO; Thu, 25 Jun 2026 15:36:02 +0000
-Received: by outflank-mailman (input) for mailman id 1345736;
- Thu, 25 Jun 2026 15:36:00 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wcm7U-0000Yw-CW
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 15:36:00 +0000
+	id 1wcmPT-0004qO-Qp; Thu, 25 Jun 2026 15:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 1345754;
+ Thu, 25 Jun 2026 15:54:35 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wcmPS-0004q2-QG
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 15:54:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wcm7T-004JVZ-2D
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 17:35:59 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wcmPS-005snI-18
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 17:54:34 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a3d4ad0-5cb7-0a2a0a5109dd-0a2a4503abe4-40
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:35:58 +0200
-Received: from [52.101.52.70]
- (helo=BL2PR02CU003.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a3d4add-ec1a-0a2a45030019-34653446199b-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:35:58 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BN8PR03MB5092.namprd03.prod.outlook.com (2603:10b6:408:da::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
- 2026 15:35:55 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
- 15:35:55 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d4f2a-5cb7-0a2a0a5109dd-0a2a450bafaa-14
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:54:33 +0200
+Received: from [209.85.167.46] (helo=mail-lf1-f46.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a3d4f39-ac48-0a2a450b0019-d155a72eade2-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:54:33 +0200
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5aa68d65d24so2972699e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 08:54:33 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5ae9bbc49a6sm2169165e87.76.2026.06.25.08.54.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Jun 2026 08:54:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,280 +59,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e/GMcbHLhnhu3I9Ow718P3sqEIztjUFte5yeyZiDdCRTWVK2IBoRJvU35y5oJOmlS2zAMZF5grORI+58TKY/vyRSJbCm2O5DeFTQR4tqNWFHXUf77YeCxDyVnH1my77B1mlOG1MgTLKu6uq78YeF6yWg+COPaZFhYH0YNQ0ywX8ud3HQBVNg1ayUSemSoNTkt5Z40V7WMmTonU6Ze4E2T4nF8PvVLr5O+29AIi9t6eNirnOetElBw4l5SqHfEKtRNOV+ORHBlB33tqTemYUzVkjJR+F78HS7A1UQBjUVwLO1SkBoMCGvEGEkFBuofqGcVcd5j1t6HjNLt75LPlmsVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XN8BmwkWLykHIa8VHYutYH9f2IJU6FyEs2YBbdxLIV8=;
- b=VOtWFJ+z2XX/ueqlgkSUCZNanQjfzVbaAm0CH5GX1YCpviYdL07rkYc/Bg+iTk2Vpe3uAHhvbmTBr9AhRIJa3ICP87/ZRNF7o1HIusnd0evx0ZvtEZk7JjvVugBsXnM4BRIrotFa/0jEn9TrFc0i+Lk2UuAXlPCKL8jH62Cu1lrgOtLZ7GoWpafoe97SmG1+FzWN8ROllz+9M7q9Sb7O6qPf75gO2I3A3iS4wz+9ZwpDhDAMGrWMaYXjcxnGMKq8+HN6LMWTGqNpR6JJkJMiOWhmNtdhq0BjdIlHTEJ5u/mS4rmfgnNGkWOOGov8grx4RgYvpcawnIIEFY+sgsTS3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XN8BmwkWLykHIa8VHYutYH9f2IJU6FyEs2YBbdxLIV8=;
- b=O4t7H08IjiAaxsQ3a9BLBxuAEuvhg99KqBt3Q88ODBGLbHujchzAZFqDXTrcYmQ4BdcuC3CXu0IBisWLal+WA9ovQ7S74qUHXTK48or4WTcfkk0Gy4qYj8Ln9L3HJjMBwn/QcHst8YGL7xyRxq0ynwlpKZcxaO/whKiCm9pwXGs=
-Date: Thu, 25 Jun 2026 17:35:52 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-4.22] char/ns16550: bound execution time of
- ns16550_interrupt()
-Message-ID: <aj1K2OerxdkPtqUn@macbook.local>
-References: <20260623103145.76383-1-roger.pau@citrix.com>
- <06c8caab-4722-4b02-991f-bdc4a4ac0ea6@suse.com>
- <ajqVNtt02XMUGk-X@macbook.local>
- <cdf9f154-896d-4faa-8c76-ca15cf5e706e@suse.com>
- <ajqsQr-bhf4SGf8Q@macbook.local>
- <d7920786-7424-4634-80f0-994ea2857d1c@suse.com>
- <ajz-GVoEG4toMs3P@macbook.local>
- <2b574332-61f6-4a78-9dea-4b0973c8a3f1@suse.com>
- <aj0oEQ6_g94Rg83D@macbook.local>
- <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
-X-ClientProxiedBy: MA3P292CA0063.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:49::10) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782402873; x=1783007673; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=prGqf45KMotqct1Fbj9ZpgPV+/IL1f0q9EviHV0+SCo=;
+        b=DxVXqsUq/dfGCAgVDBwBuqLwsd7I8yqIOTxd4/4ssfKB3aAZefs3TXCdGz+jwqVAlA
+         2YTYkBY86NXUJ1/1V6iFbn92hcEeXzHijAJWii5mTr6j1wVt+QqjVOyrxVt0IZ5tjJZt
+         RnpajpfSqYCOF6Gx62dk/y+3fxhumbP2B6OslENpxMlTvf/VfE9LWSic3HUwt/Ai5LCk
+         TP/71I9Pf63veMsPCEOOvVOMWwg/e9j9EkRX8uFoGZVzHYpzdUh443qCa4xlDwF+VLj7
+         k0eLq4BEip0uQoGgUdoAA/C2INBHtXoErob3qpkwavHkF7Rep+q3dzAdoCQMTKDmyLJR
+         95FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782402873; x=1783007673;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=prGqf45KMotqct1Fbj9ZpgPV+/IL1f0q9EviHV0+SCo=;
+        b=FczissqXIOsj+u8CTPn6tFu315Dp7lefacTmJgjqn91DFeKL6PonS6UNYItmr+wuHs
+         sgRkVFjARsa3KXsmWxyNgrKi61IKRf1Db9cDQh9l6tz5b7j9ijvp6xwOXF12cvjCXWk0
+         9fxrM4+nSVYm/tA26Mr4iQN66MFmhMlw93cpfnSjfO8L9rFKlnDhUZvPXxYfgPL1C9J+
+         GhtQ2HVb5d63IVzwS9OgkdRVkrpKwF4/diLpChLtcayxbxcraKOCjKTDFGUfVkU/OirF
+         SIu0AAKdqYfKu8UAqEnGkNbhupjkYg34u39vut/qGqXyNlJfHon4/qt1K8dlv5VUBtjW
+         frmg==
+X-Forwarded-Encrypted: i=1; AHgh+RrS8o8qCE/a8A3P3wq4Z8IFqqGH15nc2VvGwwIJNpxzWl7fn37XEAKjeHFreJibz15BIXcqvMeEBGY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YylUh1ZtwwJU/rptA33SL9BQIPF4o9nkoSaCoNhXH1lKFMJvOtP
+	8juhAWV3/exjqKCrxahUuabmm4iQ0/0XE3RKIYMhaP9xHYHbbufVtOBh
+X-Gm-Gg: AfdE7clHNvHa+vrwCiFTykUMIe1xGAieMeQeXLJWIlcSWHpozo6QiF3iQkpTriitrSc
+	kKmcz+N+bTOzS9OTJf7o+n1xZ92Dw1KOBmXBY7JgR8K0bvqqPKiurBFX/6KFrCzOJIGIr+CtOsM
+	7Fei7xSLKO0xqFhegKIlg3GfSYFCcubPjput2NUVtPbPaQtRVuDsqPJcDDZvrJmCJZElQCZQ/3H
+	X5ql1FDqZqjQE96tOUBe8E/aiaTud1RnTdBWG76kxC1UVXG0LatGxNbVkLges2qMsf4AvnizfSo
+	KHHxpkYuT3gX4u2S94hLyzgwlmro6cPsD0B1mfm2MaIfxvYu3GJPjzW8vOdvO5Jym9CDam71vxp
+	oHT1Qg3LPryR/zMu3wY4uARcZhuongRdHc6/65oMphQircUhBmKgFCsV8moIMVs7sTUToZlT/5A
+	J2Ro4d9rvXA00TTzCC6WlTKQBm6rmWq7ckWB/jpiUmtzCb5l+BJOPbDf+VHqYaUWDPuzc=
+X-Received: by 2002:ac2:4bce:0:b0:5aa:6db6:537 with SMTP id 2adb3069b0e04-5aea1f41d4emr1306588e87.16.1782402872870;
+        Thu, 25 Jun 2026 08:54:32 -0700 (PDT)
+Message-ID: <454e633b-2de6-4a04-a711-36bb8b2c8c00@gmail.com>
+Date: Thu, 25 Jun 2026 17:54:31 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BN8PR03MB5092:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38d8a2c0-61a1-4161-a4fa-08ded2cf7242
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	bzYhQtnq6nGQc70EBStLGa95FeXMIzDSVLArelo8okvQPYxgM0dIctUFucfE1VLxqB9KNY95LYXJ8+1x1s06dRuqKJbG5KQUSvG7hrXQqKeZOSKdwhgLlzfl4aVMq65K5M0MIwML5l3im0umqkS/LsojElt0ndSC+UdPhbSy5wrYsEBsvyPCey2okHuoiMCtocyCL0Yg40TPc097KAo/2g+bskeLMi7OhCIWN7e1WIc0G0/QJoCXq801RxjCNnKFKxBScEbg1AHe9lO6Meg7tUqtGgT3lUNXSLk4u7QR93DFjc1Y3PPTanBuRmhoXVsiXTLul9kxTr17JIehw7kMAKIArcXCWGem4014PuW+ki+9RJE5eaqeviND2wAFYdZZfzSfKuDX5p/QchseiD7qpmn0btCsQHQiKppyQPecKdRcN7mxXW5geUdR/CP/d2R2yEjwB898Y1vfpT5UhTY1KDGwzPsOEgDJ+qacjhy0qSpzoNZ4JBxfCATFObMIWwej5sC40BvAe+mQAHva/6eei+rQPH2UZ0IxNVq6J6qGVL31yj6dHFJHMnglEI/bIcL04Q/LvxxTwuaeHiDcEh1TuZ2N8mgV5YGCTcktOSoBnu5BoZ7Jq+Yp9zlqCSU/EB5srWiP3Y/d8OCCwtzHUVyZpJnuEqfXwICUFhT3XMKom50=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c240NGpvVFI4NXg1eE1zYlNvOUxsS3lNTGkxYm9jNmVoUVpyY1FYTy8wdmRG?=
- =?utf-8?B?cmgxN3hRUUdXM25SZ1RUd2NGMnI4a0NINWlGNVFMM1FtL3NpOEt0TTQ3Rit3?=
- =?utf-8?B?YnFBZ3ZHNlpJL01laUNXMDJLZDlQemxsSGJQV2llOHlncWhRUWg5TzVqOVNZ?=
- =?utf-8?B?YmpRbVFwaUpvODBVcVkwTE1qNTZUNTcwU0EzTTJta0prVUFRMlZLU2prUEhq?=
- =?utf-8?B?N00yMVRyL21wM2tQUDR5MlI5RW1hd2JaQklZcXFMeHpTRzJiVHNLRVNodVND?=
- =?utf-8?B?Q2MwSGMxdWRhWXdMd2JNQ1hIZ2VrYm5UMnJUclZsaWdkWDlHMWdmTCs2THN5?=
- =?utf-8?B?clJRb3h4OHl5SUdTRzJZL1N0WFMzd1ZWelRNcGxlcnJET3BhOWE5QkxlUmZY?=
- =?utf-8?B?UmZ1VlAyQU1qVkZxOGwvVDVJL1JxVzh3MHhYZUlzRTJmVnhWaW1CMGJVVDB6?=
- =?utf-8?B?TllkNmVmdGxTcXpURURmRjBsK3YyYitNejdUK1pmeUEzRHQ5V0o1Unk4ejRy?=
- =?utf-8?B?RU5jMDNKV3pkbUI2UXVBZ0dITFhCWEwzQkViYndhYWZTS3JnQWxrOTNGMHZr?=
- =?utf-8?B?ek44Y1l6RzBWMmdQM0xNTXNvY1dzM1p1WHp1WHlvdFRKWWo4R3B4MGlXSllC?=
- =?utf-8?B?bVVTR0c3RW8vQ3BCckJuVm1mbUZNemUzVXYzWlY0UENhQytSRCtLTm5CaC9x?=
- =?utf-8?B?ekpIVVFwdG5FWFdvcmduaE82cTh1cFJ2dkZlYm1xWGtKRUtMUTZvakpxQ211?=
- =?utf-8?B?bFI1aFVlVXZaenNsYnR1bnJscnVuT2NHR0Z2bE9DaTJJQ0FRK24vM2t2Vm4r?=
- =?utf-8?B?MEJUbllMWFhzWXQyTEZQYUIvdldsZk1qS3Z5Z1NUZHJrTjh4NTNQR1hsVEZ4?=
- =?utf-8?B?cUVpajZSaURIWjR1eFBCMDBnMlh3cVdmalJuWmVoQW5UT1VQK0MzQnJZUmlw?=
- =?utf-8?B?SnI2Z1NYV1F4cElhR0VlUEIzQTNHRTFsU2ZHQzVGaWUrNWRIZzhTMFU0QzEx?=
- =?utf-8?B?L1gwR21xUS9RMzZsTUZqUUZhN1BaZ1ZpZTRsVHBVRDhhN3VCenhaMmZsUlA3?=
- =?utf-8?B?RFBuTzZNK3NLMm5jSFp5T1AwY2FYOEkxTDJDQmRxYWJPdDRGNzl3WHRUZ0U5?=
- =?utf-8?B?NjhrencrbGJWbU1uckFvTWdidTFyYVhReW5HTmxBcFczczhwRjJQNy9CMXV1?=
- =?utf-8?B?dW1tcUJoYmlDelg0Znk2QWxhWG5YZk5ndTFlNzY2Qi80bVc3U1daZ25XWFpk?=
- =?utf-8?B?MFh3eWhTWFRyTTVaZmFHbzMrb1dINndZL1ZtQlAvNzNCOTVPV1hzZzN0UHpF?=
- =?utf-8?B?Nk9zKzRmQytKaDRmd2VMeDNNenpQalI2Vi9pWnRTWU5VTnpYUnRVTGQyL2Qv?=
- =?utf-8?B?aHBIQzU5cnBoMUd0OFdzNkttaDgwaXBUMTAvTi9KR1lodTBDWWZEdmh0cE9I?=
- =?utf-8?B?YnJwMDJ0QVg2VkZPdk5sMUh0dldObjNKazVkMWk3U250Y2Nnc3FDY1VPbk90?=
- =?utf-8?B?WXJPQUtVQXBReFljc0o2bXg0N2ZtZ0lFdGxyenUwVnNBSE5PelpiU2FFWm01?=
- =?utf-8?B?MlhaY25KZ0VhaDM2V0xxbit3dDZRckwvNTR6bXpld1lRcnRPeHFXMVpaSWpk?=
- =?utf-8?B?UERCQjFIYWJvTnhqYzBpNGorU1NmbTQycWJrcDZ3N3F6ZGlablpoQllGQmVK?=
- =?utf-8?B?SG5KTVJCL1lDbk5xR3djK3poMW12M1RDbWY1cHc5aGhkZ09aOG9qWmx5Qnh3?=
- =?utf-8?B?N0w0MkFKMDNkZ2hXQ25qU0hHZDR5WlNDUUNQOGhJTmtWakg4dTdwSXl5LzZ5?=
- =?utf-8?B?bG8zdEE5cmtSMUU3dzVLQWluSS9LOEZNdXBDWFhFcXF5TE5SNjFMNWJpRmFP?=
- =?utf-8?B?dXlEeTRzZ0ZHNlZOekFYTEs0V2NuaUM2RmR0WU9MajlycTJDZTIvYkdBWmZ3?=
- =?utf-8?B?UDFoSnpDSytiSnVFaUFHcU04V0hEdEdXNDFJSjVndExGMFVFaHV2WVhYV3NK?=
- =?utf-8?B?TDdyei9iV0UyNzdUVkdxUHZ4UXVvRSs4ckVqS04vTDUrZGdtbHBiMGkwZ2F5?=
- =?utf-8?B?VWViYVhERk41Vk9ycnpFc3BuN01Kcm9JUE95QVA0SnI3SlpUQTNtWXFTWXdB?=
- =?utf-8?B?OEpQaTBqSXpsTEpMN0h3am83Q0hrbHphZU11dFZhSXFvT3cyZWVsVlFqUWF2?=
- =?utf-8?B?YnJXVzZTYVlScWd3ZGFsVVNsUmRCS2JhNDVmTGZJNVU5dlNrckhIVlVBRlJU?=
- =?utf-8?B?NGZ4RVc2SVBwZzErai9HZE9EWEdUcW9TbVlkckc5K0VZbDAyYnFYaHU5bW9n?=
- =?utf-8?B?T1BSQkhuRkFVaVNoRVliV2xuZy9tNkFvNi8xUnRrcGxBV0FvbmREQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38d8a2c0-61a1-4161-a4fa-08ded2cf7242
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 15:35:55.2547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UhC4fWG1FzIcbrGv6rbPFC1y7UuwNcw+LLqKV/eMNbhYviq1ajzqnwGPYpbygu7sZakGKUrZzoApTyOMrmSoJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB5092
-X-purgate-ID: tlsNG-33051d/1782401758-05F325D1-D240240F/0/0
-X-purgate-type: clean
-X-purgate-size: 5888
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 18/23] xen/riscv: implement IRQ routing for device
+ passthrough
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1781693963.git.oleksii.kurochko@gmail.com>
+ <0458468cc5a6db911a9acc64f4c8cf17ceebe4c6.1781693963.git.oleksii.kurochko@gmail.com>
+ <3a1aca27-cc18-4b57-bb31-c50161b8c261@suse.com>
+ <b4770ce2-9456-4dae-a322-c8e3f9239472@gmail.com>
+ <d0b60963-6711-44ed-833d-83ac9de50aa9@suse.com>
+ <04195c2e-0cb1-45a2-9844-2ce802692704@gmail.com>
+ <9640e0eb-ea38-41ba-b99c-aafa6c6d7bc7@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9640e0eb-ea38-41ba-b99c-aafa6c6d7bc7@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1782402873-38942220-2AE34C84/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 8848
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 139856C71CD
+X-Rspamd-Queue-Id: 152CF6C7316
 
-On Thu, Jun 25, 2026 at 04:32:09PM +0200, Jan Beulich wrote:
-> On 25.06.2026 15:07, Roger Pau Monné wrote:
-> > On Thu, Jun 25, 2026 at 01:31:26PM +0200, Jan Beulich wrote:
-> >> On 25.06.2026 12:08, Roger Pau Monné wrote:
-> >>> On Wed, Jun 24, 2026 at 10:01:36AM +0200, Jan Beulich wrote:
-> >>>> On 23.06.2026 17:54, Roger Pau Monné wrote:
-> >>>>> On Tue, Jun 23, 2026 at 04:27:12PM +0200, Jan Beulich wrote:
-> >>>>>> On 23.06.2026 16:16, Roger Pau Monné wrote:
-> >>>>>>> On Tue, Jun 23, 2026 at 03:44:06PM +0200, Jan Beulich wrote:
-> >>>>>>>> On 23.06.2026 12:31, Roger Pau Monne wrote:
-> >>>>>>>>> +    if ( uart->force_polling )
-> >>>>>>>>> +        return;
-> >>>>>>>>
-> >>>>>>>> As the IRQ was disabled, is this even possible? I.e. should this be some
-> >>>>>>>> kind of assertion or alike?
-> >>>>>>>
-> >>>>>>> Hm, I wasn't setting IRQ_DISABLED before, and hence needed this guard.
-> >>>>>>> But now with IRQ_DISABLED being set in ->status do_IRQ() should filter
-> >>>>>>> any stray interrupts.  I will attempt to add an ASSERT_UNREACHABLE()
-> >>>>>>> here.
-> >>>>>>
-> >>>>>> Simply ASSERT(!uart->force_polling) should do here? It is not wrong to
-> >>>>>> run the code below in release builds in such an event. If we kept getting
-> >>>>>> interrupts (perhaps at a high frequency) we'd be in trouble anyway.
-> >>>>>
-> >>>>> No, I'm afraid I can't do it like that, I can't put an ASSERT there,
-> >>>>> because we can still get into ns16550_interrupt() after the interrupt
-> >>>>> has been disabled.  In do_IRQ() we have the following loop:
-> >>>>>
-> >>>>>     while ( desc->status & IRQ_PENDING )
-> >>>>>     {
-> >>>>>         desc->status &= ~IRQ_PENDING;
-> >>>>>         spin_unlock_irq(&desc->lock);
-> >>>>>
-> >>>>>         tsc_in = tb_init_done ? get_cycles() : 0;
-> >>>>>         action->handler(irq, action->dev_id);
-> >>>>>         TRACE_TIME(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
-> >>>>>
-> >>>>>         spin_lock_irq(&desc->lock);
-> >>>>>     }
-> >>>>>
-> >>>>> So if the device is generating further interrupts in the window with
-> >>>>> IRQs enabled (while we execute the handler), we will keep looping
-> >>>>> around this, without taking into account the setting of IRQ_DISABLED.
-> >>>>
-> >>>> Ah yes.
-> >>>>
-> >>>>> This is something that we might want to fix, so that the loop is bound
-> >>>>> by IRQ_PENDING being set, and IRQ_DISABLED not, ie:
-> >>>>>
-> >>>>>     while ( (desc->status & (IRQ_PENDING | IRQ_DISABLED)) == IRQ_PENDING )
-> >>>>
-> >>>> Or perhaps ahead of the loop
-> >>>>
-> >>>>     desc->status &= ~IRQ_REPLAY;
-> >>>>
-> >>>>     if ( desc->status & IRQ_DISABLED )
-> >>>>         goto out;
-> >>>>
-> >>>>     desc->status |= IRQ_PENDING;
-> >>>>
-> >>>>     /*
-> >>>>      * Since we set PENDING, if another processor is handling a different
-> >>>>      * instance of this same irq, the other processor will take care of it.
-> >>>>      */
-> >>>>     if ( desc->status & IRQ_INPROGRESS )
-> >>>>         goto out;
-> >>>>
-> >>>>     desc->status |= IRQ_INPROGRESS;
-> >>>>
-> >>>> thus also having the comment no longer describe only part of the conditional.
-> >>>
-> >>> I think this is racy.  An interrupt hitting in the window with
-> >>> interrupts enabled ahead of the handler having set IRQ_DISABLED will
-> >>> still set IRQ_PENDING, and thus the loop would get executed a further
-> >>> time, and the handler called after IRQ_DISABLED having been set.
-> >>
-> >> Hmm, I don't quite agree with how you put it, but I think I see what you mean.
-> >> There's one question here, though: If PENDING is set first, and DISABLED only
-> >> later, shouldn't that IRQ instance still be handled? If so, ...
-> >>
-> >>> I think we need an extra condition in the loop, I see no way this can
-> >>> be solved only by dealing with the concurrent setting of IRQ_PENDING.
-> >>
-> >> ... such an extra condition would be wrong. If not, yes, I agree.
-> > 
-> > But PENDING is always set, regardless of whether the IRQ is disabled,
-> > the normal flow in do_IRQ() is:
-> > 
-> >     desc->status |= IRQ_PENDING;
-> > 
-> >     /*
-> >      * Since we set PENDING, if another processor is handling a different
-> >      * instance of this same irq, the other processor will take care of it.
-> >      */
-> >     if ( desc->status & (IRQ_DISABLED | IRQ_INPROGRESS) )
-> >         goto out;
+
+
+On 6/25/26 1:14 PM, Jan Beulich wrote:
+> On 25.06.2026 11:48, Oleksii Kurochko wrote:
+>> On 6/25/26 8:08 AM, Jan Beulich wrote:
+>>> On 24.06.2026 17:21, Oleksii Kurochko wrote:
+>>>> On 6/22/26 5:57 PM, Jan Beulich wrote:
+>>>>> On 17.06.2026 13:17, Oleksii Kurochko wrote:
+>>>>>> --- a/xen/arch/riscv/include/asm/intc.h
+>>>>>> +++ b/xen/arch/riscv/include/asm/intc.h
+>>>>>> @@ -13,6 +13,7 @@ enum intc_version {
+>>>>>>     };
+>>>>>>     
+>>>>>>     struct cpu_user_regs;
+>>>>>> +struct domain;
+>>>>>>     struct irq_desc;
+>>>>>>     struct kernel_info;
+>>>>>>     struct vcpu;
+>>>>>> @@ -32,6 +33,9 @@ struct intc_hw_operations {
+>>>>>>         /* hw_irq_controller to enable/disable/eoi host irq */
+>>>>>>         const struct hw_interrupt_type *host_irq_type;
+>>>>>>     
+>>>>>> +    /* hw_irq_controller to enable/disable/eoi guest irq */
+>>>>>> +    const struct hw_interrupt_type *guest_irq_type;
+>>>>>
+>>>>> It's likely my limited RISC-V knowledge that I find this extremely odd:
+>>>>> Separate struct hw_interrupt_type-s for host and guest?
+>>>>
+>>>> The guest and host interrupt controllers may handle some
+>>>> hw_irq_controller operations differently, even though the operations
+>>>> themselves are conceptually the same. The hw_irq_controller interface
+>>>> provides fairly abstract interrupt controller operations, but the
+>>>> underlying implementation may differ depending on whether the controller
+>>>> is used by the host or a guest.
+>>>>
+>>>> As an example, the Arm code already follows this approach:
+>>>>
+>>>> /* XXX different for level vs edge */
+>>>> static hw_irq_controller gicv2_host_irq_type = {
+>>>>        .typename     = "gic-v2",
+>>>>        .startup      = gicv2_irq_startup,
+>>>>        .shutdown     = gicv2_irq_shutdown,
+>>>>        .enable       = gicv2_irq_enable,
+>>>>        .disable      = gicv2_irq_disable,
+>>>>        .ack          = gicv2_irq_ack,
+>>>>        .end          = gicv2_host_irq_end,
+>>>>        .set_affinity = gicv2_irq_set_affinity,
+>>>> };
+>>>>
+>>>> static hw_irq_controller gicv2_guest_irq_type = {
+>>>>        .typename     = "gic-v2",
+>>>>        .startup      = gicv2_irq_startup,
+>>>>        .shutdown     = gicv2_irq_shutdown,
+>>>>        .enable       = gicv2_irq_enable,
+>>>>        .disable      = gicv2_irq_disable,
+>>>>        .ack          = gicv2_irq_ack,
+>>>>        .end          = gicv2_guest_irq_end,
+>>>>        .set_affinity = gicv2_irq_set_affinity,
+>>>> };
+>>>>
+>>>> These implementations reuse almost all interrupt controller operations,
+>>>> differing only in the .end callback.
+>>>
+>>> Which I'm having trouble with as well. Interrupts are handled by Xen. What
+>>> guests get to see are virtualized interrupts (no matter how much HW
+>>> acceleration may be in use). Hence I'm having difficulty to see such a
+>>> split justified.
+>>
+>> I think that I don't fully understand what is wrong with splitting. If
+>> there are cases exist when I need such separation for virtual interrupt
+>> controller operations then it looks fine to introduce such separation,
+>> right?
+>>
+>> Lets take an example of PLIC.
+>>
+>> For each source the PLIC has a "gateway":
+>> 1. Claim (read CONTEXT_CLAIM): returns the pending IRQ id and closes the
+>> gateway for that source, it will not forward that source to any context
+>> again until completed.
+>> 2. Complete (write the id back to CONTEXT_CLAIM): reopens the gateway.
+>> If the device line is still asserted (level high), the PLIC immediately
+>> re-marks it pending and delivers it again.
+>>
+>> The "closed gateway" between claim and complete is effectively the
+>> hardware masking the source while it's being serviced.
+>>
+>> Then if we will handle guest interrupt in the following way:
+>> 1. Passthrough device asserts its line (level stays high).
+>> 2. Xen takes the physical IRQ, claims (gateway closes), completes
+>> (gateway reopens), injects a virtual IRQ into the guest's vPLIC.
+>> 3. The guest hasn't run yet, it hasn't touched the device's registers,
+>> so the device line is still high.
+>> 4. The PLIC sees the source still asserted with an open gateway -> marks
+>> pending -> fires another physical interrupt into Xen -> ... -> repeat.
+>>
+>> So we get a storm of physical interrupts for a device the guest hasn't
+>> even begun servicing. The device line only drops when the guest driver
+>> writes the device's own registers, which happens long after, and on the
+>> guest's schedule.
+>>
+>> So the solution is that the physical complete must wait until the guest
+>> has actually quiesced the device. The only signal Xen gets for "guest is
+>> done" is the guest writing its virtual complete to the emulated vPLIC. So:
+>> 1. guest_irq->ack: the claim already happened (the readl(CONTEXT_CLAIM)
+>> in plic_handle_interrupt); ack just records which context claimed it.
+>> The gateway stays closed - good, the source is masked while the guest works.
+>> 2. inject vIRQ → guest services the device (line drops) -> guest writes
+>> vPLIC complete.
+>> 3. guest_irq->end: now do the physical complete, reopening the gateway.
+>> Device is quiet -> no spurious re-trigger; if it's a new legitimate
+>> assertion, it fires once, correctly.
+>>
+>> Is it clear enough now?
 > 
-> Well, see the adjusted flow I did suggest earlier (still in context above).
+> Well, yes and no. On x86 we have to deal with the situation you describe as
+> problematic anyway, as IRQs have priorities associated with them, and higher
+> prio ones block equal/lower prio ones until they are "completed" (in the
+> terminology you use). 
 
-But that flow above could still set PENDING ahead of the handler
-having set DISABLED, and hence won't avoid at least an extra handler
-call despite the IRQ having been disabled?  IOW: I think it's
-partially racy w.r.t setting DISABLED in the handler.
+Just for my understand what is the problem here that until "completed" 
+isn't done for this high priority interrupt all other will just wait so 
+basically responsiveness of the system in general will be bad? Or some 
+other problem is hidden?
 
-> > I think it's valid to have both PENDING and DISABLED set with the
-> > current logic.  In fact, the code in ack_edge_ioapic_irq() relies on
-> > having both PENDING and DISABLED set to mask the source, as the
-> > ->disable hook for edge triggered IO-APIC pins is a no-op.
-> 
-> Yet this can be of use for a corner case only anyway, as we set PENDING only
-> after having called ->ack(). That is, after setting PENDING _another_ IRQ
-> has to fire. Which is possible, but likely can be dealt with differently.
+> If you don't have anything similar in RISC-V, then
+> you may indeed get somewhat simpler code overall with such a split.
 
-Well, if the ->disable handler wasn't a no-op for edge triggered
-interrupts it wouldn't require this weird logic.  However then IRQ
-migration will likely involve a mask/unmask for edge triggered
-interrupts, which we want to avoid in general.  I would need to think
-about it.
+IIUC, if the word "block" above is used correctly I would say that 
+behavior on RISC-V is different, at least, for PLIC as basically, if we 
+have three IRQs and let's say `irq1` has the highest priority.
 
-> > We could likely change all this to be more straight forward, but as
-> > with the serial interrupt handling I would rather not do that change
-> > during a code freeze.
-> 
-> I definitely agree here. So perhaps indeed best to go with what you did
-> proposed.
+`irq2` and `irq3` may become pending in the PLIC core, but they will not 
+be visible to the CPU until `irq1` is CLAIMed, even if `irq1` is never 
+completed (i.e., if you fail to write back to the CLAIM/COMPLETE register).
 
-Thanks, let me see if I can sort out a minimally invasive solution.
+When the hart reads the CLAIM/COMPLETE register, the PLIC core 
+atomically retrieves the ID of the highest-priority pending interrupt 
+(`irq1`) and clears its Interrupt Pending (IP) bit in the PLIC core.
 
-Regards, Roger.
+Once the IP bit for `irq1` is cleared, the PLIC core immediately 
+re-evaluates all remaining pending interrupts. If `irq2` and `irq3` are 
+pending, `irq2` (the next-highest-priority interrupt) becomes the 
+highest-priority pending interrupt.
+
+The PLIC core will continue to signal the hart (by asserting the `MEIP` 
+or `SEIP` bits) as long as there is any pending and enabled interrupt 
+whose priority exceeds the hart's threshold.
+
+So the IRQ handler can run for irq2 and irq3 before irq1 is COMPLETED.
+
+So irqs are blocked only until they are claimed.
+
+  Yet if
+> there's nothing like that in RISC-V, you can get (almost) arbitrarily deeply
+> nested interrupts, which in turn would be a problem you need to deal with.
+> IOW I suspect the architecture has something to limit nesting depth.
+
+The trap handler, where the IRQ handler is called, starts with 
+interrupts disabled, so nested interrupts cannot really occur at that point.
+
+Therefore, I'm not sure this is what you meant by, "IOW, I suspect the 
+architecture has something to limit nesting depth."
+
+Other than interrupts automatically being disabled on trap entry, I 
+don't see any additional architectural mechanism that limits nesting 
+depth. Therefore, it seems that any further limitation would need to be 
+implemented at the software level what is a separate case to implement 
+if someone will enable interrupts during trap handler.
+
+Instead of full preemption, interrupt controller handlers often use a 
+loop to check for the next highest-priority interrupt before exiting. 
+This allows a handler to service irq2, irq1 (mentioned above) 
+immediately after finishing the critical work for irq1 without the 
+overhead of a full trap entry/exit sequence. Something like:
+https://elixir.bootlin.com/linux/v7.1.1/source/drivers/irqchip/irq-sifive-plic.c#L382
+https://elixir.bootlin.com/linux/v7.1.1/source/drivers/irqchip/irq-riscv-aplic-direct.c#L138
+
+As an option if nested interrupts are really needed probably they could 
+be implemented as increasing interrupt controller threshold register 
+each nested trap so at some point interrupts will be stopped to 
+occur/visible to CPU. But I think nested interrupts shouldn't be a 
+discussion for now.
+
+~ Oleksii
+
 
