@@ -2,53 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 3kaAJms/PWqa0AgAu9opvQ
+	id b11hByJLPWqm0wgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:47:07 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:37:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E06826C6C9B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 16:47:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 139856C71CD
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jun 2026 17:37:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=KvAn0866;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=O4t7H08I;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1345692.1604480 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1345736.1604489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wclLk-0000jk-To; Thu, 25 Jun 2026 14:46:40 +0000
+	id 1wcm7W-0000bF-FX; Thu, 25 Jun 2026 15:36:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1345692.1604480; Thu, 25 Jun 2026 14:46:40 +0000
+Received: by outflank-mailman (output) from mailman id 1345736.1604489; Thu, 25 Jun 2026 15:36:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wclLk-0000gw-Qe; Thu, 25 Jun 2026 14:46:40 +0000
-Received: by outflank-mailman (input) for mailman id 1345692;
- Thu, 25 Jun 2026 14:46:39 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wcm7W-0000Z3-CO; Thu, 25 Jun 2026 15:36:02 +0000
+Received: by outflank-mailman (input) for mailman id 1345736;
+ Thu, 25 Jun 2026 15:36:00 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wclLj-0000gq-GO
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 14:46:39 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wcm7U-0000Yw-CW
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 15:36:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wclLi-005jTR-Sb
- for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 16:46:38 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wcm7T-004JVZ-2D
+ for xen-devel@lists.xenproject.org; Thu, 25 Jun 2026 17:35:59 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a3d3f43-bab6-0a2a0a5309dd-0a2a4509d1f2-26
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:46:38 +0200
-Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a3d3f4e-97e6-0a2a45090019-d155dd2bd5e9-3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 16:46:38 +0200
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-46dc0d0eb2aso711556f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 07:46:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-46dd5f9da4fsm6087595f8f.23.2026.06.25.07.46.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jun 2026 07:46:37 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a3d4ad0-5cb7-0a2a0a5109dd-0a2a4503abe4-40
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:35:58 +0200
+Received: from [52.101.52.70]
+ (helo=BL2PR02CU003.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a3d4add-ec1a-0a2a45030019-34653446199b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jun 2026 17:35:58 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by BN8PR03MB5092.namprd03.prod.outlook.com (2603:10b6:408:da::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.17; Thu, 25 Jun
+ 2026 15:35:55 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0159.015; Thu, 25 Jun 2026
+ 15:35:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,171 +63,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782398798; x=1783003598; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GXm0GVGKhdsVpoTo1dWrOJZD0tzMGODvnRJAUs+lf1A=;
-        b=KvAn0866lIfNae+DVj90ZFIWV9qfSeSBZaCe8RciK5fp810ut9JtDNkVESFiWjdZdP
-         xkp1mFvXL0sXAjfgJ2fbsZLmzgZgbFqtJXjhFgaRhCCJuG+v/l+X3yaoOPkb2w4b6PXK
-         lYr38ong4C4E5LaDEMi1pusu2AH5isrBO6Evg9L6j0D22k7/DyjXPMs0QM5XGiWdw1E2
-         VKQrG4mwa1jdPMJ62UqFJXVwtUxXpNNWzVq1xL8f/tPyaMAEFar5xGkdiqIWMA1hAz2P
-         4l7Wt0Y4EUB7vS/Tn3U608CndsjHApq1709oCO9s3EnFbAspH29M9Etg3ApsLUxcLJLO
-         Chzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782398798; x=1783003598;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GXm0GVGKhdsVpoTo1dWrOJZD0tzMGODvnRJAUs+lf1A=;
-        b=d7mFPbTpu8wvOeAxsfRo3Mw7lY5vh8/fj1182tLLZmoWAPPaEgwN3L1xUYN3opsAUX
-         7ukcu7+LfI0lU34o3NfEiw7ucLl3Uu4xOMmbL2OxNkncAPsROg0iad5MNy6+13M2owo+
-         MAUOHGDAK8bSBMIKE8PyuP30QaxKXzsWddBzZ5TDf/m4Ky1KWn8BxYWyTDudSBJ5BDss
-         Oz8naPddmLR6i6tgaHDE414ZALermho7ujtBOyI1oD4w7lOfUVeYDzRoQ8dD4UlaUFOt
-         8BoYZiiRulzX9dyCQm1jaITFhKb0Jq4oxasOig4vXYg4JVAT2DNzv01rzkNde9WssaGO
-         fQWw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro68T1ZjFftRvZO0lVHAMtcIt2RTxISJMJtKnenTkB6IO9vkjgsIu5YLa8vzedrtOFmJ90kdI9sqm4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxFsk0n8ni5mXdAYahMksNSMK/8RYXlIfDsCSOwv3GfdFwtVqvO
-	Z/4eDNAzhrwmaeNh1asl1uVVqXIeZ1IvhOVcd3xKxOWu3b6FkRmE6eHd0aQ5anTMpg==
-X-Gm-Gg: AfdE7clwaIWDPIflqAOW3HjMJr3XiqzOGDfuOWdMzJCyMFUJNWrg5QQHdWMtbWRNN0Q
-	pC95/mb8oLIFNmG/3oi29sze3tELSX/PptualX5+S+gHgrY1wVQLmXxuZddqTHrFiDgM+C8/go9
-	QI7wUUPVJ7Bc1hxbqgL5lXWOcIx9A6QqplAAWvkSL+fyeJSA6GsYvZSEb0hPN6HV1bqRggmalLf
-	oibY+Qdoya0ei8vbO2nRHPdrovqTl25PnCO41cWPAiNvZ66JoPIqfkdJgnSUgZMnw04G1UMYZ+a
-	9yRQlY/qI72tEtAbD+OwParlBJI8FFku3kJpvqy+c75fYHFvQYd6kQAH/8PdFG/wxOqRSE6rOpZ
-	Ozvqy8SZaAnTpP/ao+/tGGb3E6eAEyuKcI0trTSufo0pClbX1PQojcTNnzWEpTSNdnlTEBE+/da
-	NiSDBuasMiU5b9czdp/fl4vhLBeONVHr8bfnVVqORJLNa8P9AYNM65Dg6Sn1oAgsw8QEczd9YVW
-	hi4
-X-Received: by 2002:a05:6000:46dc:b0:46e:341b:45d6 with SMTP id ffacd0b85a97d-46e341b46d5mr1927865f8f.9.1782398798184;
-        Thu, 25 Jun 2026 07:46:38 -0700 (PDT)
-Message-ID: <cbb164f1-502d-44f0-850d-ed42ea690c02@suse.com>
-Date: Thu, 25 Jun 2026 16:46:37 +0200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e/GMcbHLhnhu3I9Ow718P3sqEIztjUFte5yeyZiDdCRTWVK2IBoRJvU35y5oJOmlS2zAMZF5grORI+58TKY/vyRSJbCm2O5DeFTQR4tqNWFHXUf77YeCxDyVnH1my77B1mlOG1MgTLKu6uq78YeF6yWg+COPaZFhYH0YNQ0ywX8ud3HQBVNg1ayUSemSoNTkt5Z40V7WMmTonU6Ze4E2T4nF8PvVLr5O+29AIi9t6eNirnOetElBw4l5SqHfEKtRNOV+ORHBlB33tqTemYUzVkjJR+F78HS7A1UQBjUVwLO1SkBoMCGvEGEkFBuofqGcVcd5j1t6HjNLt75LPlmsVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XN8BmwkWLykHIa8VHYutYH9f2IJU6FyEs2YBbdxLIV8=;
+ b=VOtWFJ+z2XX/ueqlgkSUCZNanQjfzVbaAm0CH5GX1YCpviYdL07rkYc/Bg+iTk2Vpe3uAHhvbmTBr9AhRIJa3ICP87/ZRNF7o1HIusnd0evx0ZvtEZk7JjvVugBsXnM4BRIrotFa/0jEn9TrFc0i+Lk2UuAXlPCKL8jH62Cu1lrgOtLZ7GoWpafoe97SmG1+FzWN8ROllz+9M7q9Sb7O6qPf75gO2I3A3iS4wz+9ZwpDhDAMGrWMaYXjcxnGMKq8+HN6LMWTGqNpR6JJkJMiOWhmNtdhq0BjdIlHTEJ5u/mS4rmfgnNGkWOOGov8grx4RgYvpcawnIIEFY+sgsTS3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XN8BmwkWLykHIa8VHYutYH9f2IJU6FyEs2YBbdxLIV8=;
+ b=O4t7H08IjiAaxsQ3a9BLBxuAEuvhg99KqBt3Q88ODBGLbHujchzAZFqDXTrcYmQ4BdcuC3CXu0IBisWLal+WA9ovQ7S74qUHXTK48or4WTcfkk0Gy4qYj8Ln9L3HJjMBwn/QcHst8YGL7xyRxq0ynwlpKZcxaO/whKiCm9pwXGs=
+Date: Thu, 25 Jun 2026 17:35:52 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.22] char/ns16550: bound execution time of
+ ns16550_interrupt()
+Message-ID: <aj1K2OerxdkPtqUn@macbook.local>
+References: <20260623103145.76383-1-roger.pau@citrix.com>
+ <06c8caab-4722-4b02-991f-bdc4a4ac0ea6@suse.com>
+ <ajqVNtt02XMUGk-X@macbook.local>
+ <cdf9f154-896d-4faa-8c76-ca15cf5e706e@suse.com>
+ <ajqsQr-bhf4SGf8Q@macbook.local>
+ <d7920786-7424-4634-80f0-994ea2857d1c@suse.com>
+ <ajz-GVoEG4toMs3P@macbook.local>
+ <2b574332-61f6-4a78-9dea-4b0973c8a3f1@suse.com>
+ <aj0oEQ6_g94Rg83D@macbook.local>
+ <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9db0885e-0257-40ec-bbf9-b242cd953e3a@suse.com>
+X-ClientProxiedBy: MA3P292CA0063.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:49::10) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/9] x86/vioapic: Add ioapic_check() to validate
- IO-APIC state before restore
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260427135406.1281424-1-julian.vetter@vates.tech>
- <1777298079.8631fc262581453bbf619ec5b2062170.19dcf387cf6000f373@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1777298079.8631fc262581453bbf619ec5b2062170.19dcf387cf6000f373@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1782398798-44B2B986-D197F6A2/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BN8PR03MB5092:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38d8a2c0-61a1-4161-a4fa-08ded2cf7242
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|4143699003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	bzYhQtnq6nGQc70EBStLGa95FeXMIzDSVLArelo8okvQPYxgM0dIctUFucfE1VLxqB9KNY95LYXJ8+1x1s06dRuqKJbG5KQUSvG7hrXQqKeZOSKdwhgLlzfl4aVMq65K5M0MIwML5l3im0umqkS/LsojElt0ndSC+UdPhbSy5wrYsEBsvyPCey2okHuoiMCtocyCL0Yg40TPc097KAo/2g+bskeLMi7OhCIWN7e1WIc0G0/QJoCXq801RxjCNnKFKxBScEbg1AHe9lO6Meg7tUqtGgT3lUNXSLk4u7QR93DFjc1Y3PPTanBuRmhoXVsiXTLul9kxTr17JIehw7kMAKIArcXCWGem4014PuW+ki+9RJE5eaqeviND2wAFYdZZfzSfKuDX5p/QchseiD7qpmn0btCsQHQiKppyQPecKdRcN7mxXW5geUdR/CP/d2R2yEjwB898Y1vfpT5UhTY1KDGwzPsOEgDJ+qacjhy0qSpzoNZ4JBxfCATFObMIWwej5sC40BvAe+mQAHva/6eei+rQPH2UZ0IxNVq6J6qGVL31yj6dHFJHMnglEI/bIcL04Q/LvxxTwuaeHiDcEh1TuZ2N8mgV5YGCTcktOSoBnu5BoZ7Jq+Yp9zlqCSU/EB5srWiP3Y/d8OCCwtzHUVyZpJnuEqfXwICUFhT3XMKom50=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c240NGpvVFI4NXg1eE1zYlNvOUxsS3lNTGkxYm9jNmVoUVpyY1FYTy8wdmRG?=
+ =?utf-8?B?cmgxN3hRUUdXM25SZ1RUd2NGMnI4a0NINWlGNVFMM1FtL3NpOEt0TTQ3Rit3?=
+ =?utf-8?B?YnFBZ3ZHNlpJL01laUNXMDJLZDlQemxsSGJQV2llOHlncWhRUWg5TzVqOVNZ?=
+ =?utf-8?B?YmpRbVFwaUpvODBVcVkwTE1qNTZUNTcwU0EzTTJta0prVUFRMlZLU2prUEhq?=
+ =?utf-8?B?N00yMVRyL21wM2tQUDR5MlI5RW1hd2JaQklZcXFMeHpTRzJiVHNLRVNodVND?=
+ =?utf-8?B?Q2MwSGMxdWRhWXdMd2JNQ1hIZ2VrYm5UMnJUclZsaWdkWDlHMWdmTCs2THN5?=
+ =?utf-8?B?clJRb3h4OHl5SUdTRzJZL1N0WFMzd1ZWelRNcGxlcnJET3BhOWE5QkxlUmZY?=
+ =?utf-8?B?UmZ1VlAyQU1qVkZxOGwvVDVJL1JxVzh3MHhYZUlzRTJmVnhWaW1CMGJVVDB6?=
+ =?utf-8?B?TllkNmVmdGxTcXpURURmRjBsK3YyYitNejdUK1pmeUEzRHQ5V0o1Unk4ejRy?=
+ =?utf-8?B?RU5jMDNKV3pkbUI2UXVBZ0dITFhCWEwzQkViYndhYWZTS3JnQWxrOTNGMHZr?=
+ =?utf-8?B?ek44Y1l6RzBWMmdQM0xNTXNvY1dzM1p1WHp1WHlvdFRKWWo4R3B4MGlXSllC?=
+ =?utf-8?B?bVVTR0c3RW8vQ3BCckJuVm1mbUZNemUzVXYzWlY0UENhQytSRCtLTm5CaC9x?=
+ =?utf-8?B?ekpIVVFwdG5FWFdvcmduaE82cTh1cFJ2dkZlYm1xWGtKRUtMUTZvakpxQ211?=
+ =?utf-8?B?bFI1aFVlVXZaenNsYnR1bnJscnVuT2NHR0Z2bE9DaTJJQ0FRK24vM2t2Vm4r?=
+ =?utf-8?B?MEJUbllMWFhzWXQyTEZQYUIvdldsZk1qS3Z5Z1NUZHJrTjh4NTNQR1hsVEZ4?=
+ =?utf-8?B?cUVpajZSaURIWjR1eFBCMDBnMlh3cVdmalJuWmVoQW5UT1VQK0MzQnJZUmlw?=
+ =?utf-8?B?SnI2Z1NYV1F4cElhR0VlUEIzQTNHRTFsU2ZHQzVGaWUrNWRIZzhTMFU0QzEx?=
+ =?utf-8?B?L1gwR21xUS9RMzZsTUZqUUZhN1BaZ1ZpZTRsVHBVRDhhN3VCenhaMmZsUlA3?=
+ =?utf-8?B?RFBuTzZNK3NLMm5jSFp5T1AwY2FYOEkxTDJDQmRxYWJPdDRGNzl3WHRUZ0U5?=
+ =?utf-8?B?NjhrencrbGJWbU1uckFvTWdidTFyYVhReW5HTmxBcFczczhwRjJQNy9CMXV1?=
+ =?utf-8?B?dW1tcUJoYmlDelg0Znk2QWxhWG5YZk5ndTFlNzY2Qi80bVc3U1daZ25XWFpk?=
+ =?utf-8?B?MFh3eWhTWFRyTTVaZmFHbzMrb1dINndZL1ZtQlAvNzNCOTVPV1hzZzN0UHpF?=
+ =?utf-8?B?Nk9zKzRmQytKaDRmd2VMeDNNenpQalI2Vi9pWnRTWU5VTnpYUnRVTGQyL2Qv?=
+ =?utf-8?B?aHBIQzU5cnBoMUd0OFdzNkttaDgwaXBUMTAvTi9KR1lodTBDWWZEdmh0cE9I?=
+ =?utf-8?B?YnJwMDJ0QVg2VkZPdk5sMUh0dldObjNKazVkMWk3U250Y2Nnc3FDY1VPbk90?=
+ =?utf-8?B?WXJPQUtVQXBReFljc0o2bXg0N2ZtZ0lFdGxyenUwVnNBSE5PelpiU2FFWm01?=
+ =?utf-8?B?MlhaY25KZ0VhaDM2V0xxbit3dDZRckwvNTR6bXpld1lRcnRPeHFXMVpaSWpk?=
+ =?utf-8?B?UERCQjFIYWJvTnhqYzBpNGorU1NmbTQycWJrcDZ3N3F6ZGlablpoQllGQmVK?=
+ =?utf-8?B?SG5KTVJCL1lDbk5xR3djK3poMW12M1RDbWY1cHc5aGhkZ09aOG9qWmx5Qnh3?=
+ =?utf-8?B?N0w0MkFKMDNkZ2hXQ25qU0hHZDR5WlNDUUNQOGhJTmtWakg4dTdwSXl5LzZ5?=
+ =?utf-8?B?bG8zdEE5cmtSMUU3dzVLQWluSS9LOEZNdXBDWFhFcXF5TE5SNjFMNWJpRmFP?=
+ =?utf-8?B?dXlEeTRzZ0ZHNlZOekFYTEs0V2NuaUM2RmR0WU9MajlycTJDZTIvYkdBWmZ3?=
+ =?utf-8?B?UDFoSnpDSytiSnVFaUFHcU04V0hEdEdXNDFJSjVndExGMFVFaHV2WVhYV3NK?=
+ =?utf-8?B?TDdyei9iV0UyNzdUVkdxUHZ4UXVvRSs4ckVqS04vTDUrZGdtbHBiMGkwZ2F5?=
+ =?utf-8?B?VWViYVhERk41Vk9ycnpFc3BuN01Kcm9JUE95QVA0SnI3SlpUQTNtWXFTWXdB?=
+ =?utf-8?B?OEpQaTBqSXpsTEpMN0h3am83Q0hrbHphZU11dFZhSXFvT3cyZWVsVlFqUWF2?=
+ =?utf-8?B?YnJXVzZTYVlScWd3ZGFsVVNsUmRCS2JhNDVmTGZJNVU5dlNrckhIVlVBRlJU?=
+ =?utf-8?B?NGZ4RVc2SVBwZzErai9HZE9EWEdUcW9TbVlkckc5K0VZbDAyYnFYaHU5bW9n?=
+ =?utf-8?B?T1BSQkhuRkFVaVNoRVliV2xuZy9tNkFvNi8xUnRrcGxBV0FvbmREQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38d8a2c0-61a1-4161-a4fa-08ded2cf7242
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2026 15:35:55.2547
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UhC4fWG1FzIcbrGv6rbPFC1y7UuwNcw+LLqKV/eMNbhYviq1ajzqnwGPYpbygu7sZakGKUrZzoApTyOMrmSoJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB5092
+X-purgate-ID: tlsNG-33051d/1782401758-05F325D1-D240240F/0/0
 X-purgate-type: clean
-X-purgate-size: 1497
+X-purgate-size: 5888
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: E06826C6C9B
+X-Rspamd-Queue-Id: 139856C71CD
 
-On 27.04.2026 15:53, Julian Vetter wrote:
-> --- a/xen/arch/x86/hvm/vioapic.c
-> +++ b/xen/arch/x86/hvm/vioapic.c
-> @@ -594,6 +594,32 @@ int vioapic_get_trigger_mode(const struct domain *d, unsigned int gsi)
->      return vioapic->redirtbl[pin].fields.trig_mode;
->  }
->  
-> +static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h)
-> +{
-> +    const HVM_SAVE_TYPE(IOAPIC) *s;
-> +
-> +    if ( !has_vioapic(d) )
-> +        return -ENODEV;
-> +
-> +    s = hvm_get_entry(IOAPIC, h);
-> +    if ( !s )
-> +        return -ENODATA;
-> +
-> +    /* base_address of 0 is never valid for the IO-APIC MMIO window. */
-> +    if ( !s->base_address )
-> +        return -EINVAL;
+On Thu, Jun 25, 2026 at 04:32:09PM +0200, Jan Beulich wrote:
+> On 25.06.2026 15:07, Roger Pau Monné wrote:
+> > On Thu, Jun 25, 2026 at 01:31:26PM +0200, Jan Beulich wrote:
+> >> On 25.06.2026 12:08, Roger Pau Monné wrote:
+> >>> On Wed, Jun 24, 2026 at 10:01:36AM +0200, Jan Beulich wrote:
+> >>>> On 23.06.2026 17:54, Roger Pau Monné wrote:
+> >>>>> On Tue, Jun 23, 2026 at 04:27:12PM +0200, Jan Beulich wrote:
+> >>>>>> On 23.06.2026 16:16, Roger Pau Monné wrote:
+> >>>>>>> On Tue, Jun 23, 2026 at 03:44:06PM +0200, Jan Beulich wrote:
+> >>>>>>>> On 23.06.2026 12:31, Roger Pau Monne wrote:
+> >>>>>>>>> +    if ( uart->force_polling )
+> >>>>>>>>> +        return;
+> >>>>>>>>
+> >>>>>>>> As the IRQ was disabled, is this even possible? I.e. should this be some
+> >>>>>>>> kind of assertion or alike?
+> >>>>>>>
+> >>>>>>> Hm, I wasn't setting IRQ_DISABLED before, and hence needed this guard.
+> >>>>>>> But now with IRQ_DISABLED being set in ->status do_IRQ() should filter
+> >>>>>>> any stray interrupts.  I will attempt to add an ASSERT_UNREACHABLE()
+> >>>>>>> here.
+> >>>>>>
+> >>>>>> Simply ASSERT(!uart->force_polling) should do here? It is not wrong to
+> >>>>>> run the code below in release builds in such an event. If we kept getting
+> >>>>>> interrupts (perhaps at a high frequency) we'd be in trouble anyway.
+> >>>>>
+> >>>>> No, I'm afraid I can't do it like that, I can't put an ASSERT there,
+> >>>>> because we can still get into ns16550_interrupt() after the interrupt
+> >>>>> has been disabled.  In do_IRQ() we have the following loop:
+> >>>>>
+> >>>>>     while ( desc->status & IRQ_PENDING )
+> >>>>>     {
+> >>>>>         desc->status &= ~IRQ_PENDING;
+> >>>>>         spin_unlock_irq(&desc->lock);
+> >>>>>
+> >>>>>         tsc_in = tb_init_done ? get_cycles() : 0;
+> >>>>>         action->handler(irq, action->dev_id);
+> >>>>>         TRACE_TIME(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
+> >>>>>
+> >>>>>         spin_lock_irq(&desc->lock);
+> >>>>>     }
+> >>>>>
+> >>>>> So if the device is generating further interrupts in the window with
+> >>>>> IRQs enabled (while we execute the handler), we will keep looping
+> >>>>> around this, without taking into account the setting of IRQ_DISABLED.
+> >>>>
+> >>>> Ah yes.
+> >>>>
+> >>>>> This is something that we might want to fix, so that the loop is bound
+> >>>>> by IRQ_PENDING being set, and IRQ_DISABLED not, ie:
+> >>>>>
+> >>>>>     while ( (desc->status & (IRQ_PENDING | IRQ_DISABLED)) == IRQ_PENDING )
+> >>>>
+> >>>> Or perhaps ahead of the loop
+> >>>>
+> >>>>     desc->status &= ~IRQ_REPLAY;
+> >>>>
+> >>>>     if ( desc->status & IRQ_DISABLED )
+> >>>>         goto out;
+> >>>>
+> >>>>     desc->status |= IRQ_PENDING;
+> >>>>
+> >>>>     /*
+> >>>>      * Since we set PENDING, if another processor is handling a different
+> >>>>      * instance of this same irq, the other processor will take care of it.
+> >>>>      */
+> >>>>     if ( desc->status & IRQ_INPROGRESS )
+> >>>>         goto out;
+> >>>>
+> >>>>     desc->status |= IRQ_INPROGRESS;
+> >>>>
+> >>>> thus also having the comment no longer describe only part of the conditional.
+> >>>
+> >>> I think this is racy.  An interrupt hitting in the window with
+> >>> interrupts enabled ahead of the handler having set IRQ_DISABLED will
+> >>> still set IRQ_PENDING, and thus the loop would get executed a further
+> >>> time, and the handler called after IRQ_DISABLED having been set.
+> >>
+> >> Hmm, I don't quite agree with how you put it, but I think I see what you mean.
+> >> There's one question here, though: If PENDING is set first, and DISABLED only
+> >> later, shouldn't that IRQ instance still be handled? If so, ...
+> >>
+> >>> I think we need an extra condition in the loop, I see no way this can
+> >>> be solved only by dealing with the concurrent setting of IRQ_PENDING.
+> >>
+> >> ... such an extra condition would be wrong. If not, yes, I agree.
+> > 
+> > But PENDING is always set, regardless of whether the IRQ is disabled,
+> > the normal flow in do_IRQ() is:
+> > 
+> >     desc->status |= IRQ_PENDING;
+> > 
+> >     /*
+> >      * Since we set PENDING, if another processor is handling a different
+> >      * instance of this same irq, the other processor will take care of it.
+> >      */
+> >     if ( desc->status & (IRQ_DISABLED | IRQ_INPROGRESS) )
+> >         goto out;
+> 
+> Well, see the adjusted flow I did suggest earlier (still in context above).
 
-It also wants to be suitably aligned, and it wants to be below the domain's
-phys-addr limit.
+But that flow above could still set PENDING ahead of the handler
+having set DISABLED, and hence won't avoid at least an extra handler
+call despite the IRQ having been disabled?  IOW: I think it's
+partially racy w.r.t setting DISABLED in the handler.
 
-> +    /* IO-APIC APIC ID is a 4-bit field. */
-> +    if ( s->id > 0xf )
-> +        return -EINVAL;
+> > I think it's valid to have both PENDING and DISABLED set with the
+> > current logic.  In fact, the code in ack_edge_ioapic_irq() relies on
+> > having both PENDING and DISABLED set to mask the source, as the
+> > ->disable hook for edge triggered IO-APIC pins is a no-op.
+> 
+> Yet this can be of use for a corner case only anyway, as we set PENDING only
+> after having called ->ack(). That is, after setting PENDING _another_ IRQ
+> has to fire. Which is possible, but likely can be dealt with differently.
 
-This wants to remain in sync with what vioapic_write_indirect() does, i.e.
-there likely wants to be a cross-referencing comment at each site, and the
-logic likely also wants to be similar here.
+Well, if the ->disable handler wasn't a no-op for edge triggered
+interrupts it wouldn't require this weird logic.  However then IRQ
+migration will likely involve a mask/unmask for edge triggered
+interrupts, which we want to avoid in general.  I would need to think
+about it.
 
-> +    /* ioregsel must address a defined register. */
-> +    if ( s->ioregsel > VIOAPIC_REG_RTE0 + (ARRAY_SIZE(s->redirtbl) - 1) * 2 + 1 )
-> +        return -EINVAL;
+> > We could likely change all this to be more straight forward, but as
+> > with the serial interrupt handling I would rather not do that change
+> > during a code freeze.
+> 
+> I definitely agree here. So perhaps indeed best to go with what you did
+> proposed.
 
-Why would this be? vioapic_write() doesn't apply any restrictions.
+Thanks, let me see if I can sort out a minimally invasive solution.
 
-> +    return 0;
-> +}
-
-What about the redirtbl[] entries? Values vioapic_write_redirent() would
-never store shouldn't be accepted here.
-
-Jan
+Regards, Roger.
 
