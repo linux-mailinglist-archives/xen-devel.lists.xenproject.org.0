@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 8yiuJn7/PmpMOAkAu9opvQ
+	id ehiRGH7/PmpKOAkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Sat, 27 Jun 2026 00:38:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B66B6D0735
+	by mail.lfdr.de (Postfix) with ESMTPS id 1023B6D072E
 	for <lists+xen-devel@lfdr.de>; Sat, 27 Jun 2026 00:38:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="mCgwg1/0";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Z7xmlt9G;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1346560.1604963 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1346561.1604973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wdFBs-0001OU-Py; Fri, 26 Jun 2026 22:38:28 +0000
+	id 1wdFBu-0001eE-Vx; Fri, 26 Jun 2026 22:38:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1346560.1604963; Fri, 26 Jun 2026 22:38:28 +0000
+Received: by outflank-mailman (output) from mailman id 1346561.1604973; Fri, 26 Jun 2026 22:38:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wdFBs-0001Lf-M7; Fri, 26 Jun 2026 22:38:28 +0000
-Received: by outflank-mailman (input) for mailman id 1346560;
- Fri, 26 Jun 2026 22:38:27 +0000
+	id 1wdFBu-0001cY-SR; Fri, 26 Jun 2026 22:38:30 +0000
+Received: by outflank-mailman (input) for mailman id 1346561;
+ Fri, 26 Jun 2026 22:38:29 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <alhouseenyousef@gmail.com>) id 1wdFBr-0001LA-KF
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 22:38:27 +0000
+ (envelope-from <alhouseenyousef@gmail.com>) id 1wdFBt-0001bm-Sy
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 22:38:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wdFBr-009Icy-11
- for xen-devel@lists.xenproject.org; Sat, 27 Jun 2026 00:38:27 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wdFBt-00HIwS-9v
+ for xen-devel@lists.xenproject.org; Sat, 27 Jun 2026 00:38:29 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <alhouseenyousef@gmail.com>)
- id 6a3eff01-5cb7-0a2a0a5109dd-0a2a4509be28-34
- for <xen-devel@lists.xenproject.org>; Sat, 27 Jun 2026 00:38:27 +0200
-Received: from [209.85.128.172] (helo=mail-yw1-f172.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3eff65-e002-0a2a0a5209dd-0a2a4505d7a8-0
+ for <xen-devel@lists.xenproject.org>; Sat, 27 Jun 2026 00:38:29 +0200
+Received: from [209.85.128.180] (helo=mail-yw1-f180.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <alhouseenyousef@gmail.com>)
- id 6a3eff61-97e6-0a2a45090019-d15580acc058-3
- for <xen-devel@lists.xenproject.org>; Sat, 27 Jun 2026 00:38:26 +0200
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-7fe36f1be74so19316147b3.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 15:38:26 -0700 (PDT)
+ id 6a3eff64-3cb2-0a2a45050019-d15580b4b4ef-3
+ for <xen-devel@lists.xenproject.org>; Sat, 27 Jun 2026 00:38:29 +0200
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-7dfceeaf168so19491497b3.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 15:38:28 -0700 (PDT)
 Received: from Dev-Null-MSI ([2a0d:3344:52ac:a808:98a4:4381:be45:536f])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-80abc3d1734sm23177557b3.15.2026.06.26.15.38.23
+ 00721157ae682-80abc3d1734sm23177557b3.15.2026.06.26.15.38.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 15:38:24 -0700 (PDT)
+ Fri, 26 Jun 2026 15:38:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,40 +61,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782513505; x=1783118305; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1782513508; x=1783118308; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BBo303ZgWe06b+c3DpyLbageNFD263eKZHcTV1IiJqg=;
-        b=mCgwg1/08YaxQxt19iXhDoH5kfu1LX6QGSX6DePRmnoCj3zWlbOJ3YnA9YkKCheVdP
-         6AYdonCp/bIfT0qGPT1xS9nq/k447pXfU1NcPHcgKX/1CHUD38HulwbtPzAt+cFR/tzh
-         8J31Y2tHqMUPmiI/0jKRn9oFS2DUitX5q6d5kZ6JonnAl4SdctzddAfJcxPo0NlQTFBo
-         fWFTReL3YwnADQ/y8K04elPKWQlZjsXnppS/qcoV+A4ZZgIcx88mkR3n5Ev6yZ3ttDMe
-         jd9qMh5PQvKiLGNKTMQfczfo3EviJu0zTnhGjuDoa9Vrbw+ke4IwJJM3c6873tSDVfym
-         0ntQ==
+        bh=CI5He4iihLUJokMNvGv1uiqx/8mjJsZ4EoloRA/RmsI=;
+        b=Z7xmlt9G5qI5F5hLtJCPPL9j2rTkf/2XiJz+zUFi2Qw56YSfZyp6r6Vk6tEhLwBdM+
+         NtiJesZqb96cT+2woidIUXBjJNZVjfiyU2KyeS4hhDj1Xdu6CrmSYoO24vi5CS9QPLFQ
+         2b0WO05LycaHdOVYcqtcZZZsftk2/ToXdLx5sqMG2IWESDkkDSpCpRUB4x6Z5iNY9QuJ
+         N9akgfcXxsYNixxXe/k2KZXNbo+g8ZQLTLWQVYOQSltjr1Y8+ZcdeeatRULYYFKnhBOG
+         LOTQM69TnB6aROUc6BrcCDKL8e6aGFuWFyl1K/wt8jP01FFijlgpudy/L73JvrrGU1TE
+         VkBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782513505; x=1783118305;
+        d=1e100.net; s=20251104; t=1782513508; x=1783118308;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=BBo303ZgWe06b+c3DpyLbageNFD263eKZHcTV1IiJqg=;
-        b=X0FOoe4PmOPfqqIF7bcR6lK2w3hhwnFDYw7eK2DPtnhR917EsFiKoEnVIO5mZ1bpxw
-         wscqwMapLHHSKx7+0mDriVcYj/RXLVZAAGyW/urlSqAN7wtPg5AlsfCA6BAwOUB4saOi
-         x3JKxjpqj0yFrU/JxFOyyD9vK+rFi9lMaGSl7iZw1Vt04ntP19sgnUiQqFkxOU06LRXC
-         hITfbN32IYE8h/23lmSkOeajQqpE85v7RoNhMgxaKCf6NBQ+vxj0UaDpzwFsaO33ELr3
-         tNxNsbGARY+joMjsmgwctw3c4u7OPYsJR+l6aew20WKCDOFRJu/fduA2XIm6TYZWK1fk
-         t/rA==
-X-Gm-Message-State: AOJu0Yw6YX1Keqy7TDZreDNAdaMsDEgFClRWT9j5TxjMA6DkcWHOUVaa
-	GyksjOFO3yXonKLCW8mNpLJZJeZ3MuCxafMLb7WGhe6UxpcyOEnP2gox
-X-Gm-Gg: AfdE7clsHTqQ8tud4FGuUriwQfEFyrD4/8c4YJJlrkm/jCA2K0H7D5bV8tkQMuw8mKs
-	Tdbm7L9LXk64j/pFC4BsIkUX8+apDbVQAFNMfrXblolcC+hu+WeNOxf5xR4rpl+s4hcs3D9a2mf
-	ZGbtpGx4niQvWphVRX2/NJ0gm96BFqocbnXG5aMm8+qQ4X+3qlVnE2Cm3rwf3Au1fiEHSfWmSsV
-	GBZIyTHOGmwe6z2giRs09vBP6xmzZC+kFQbAq2JqNPEJ5yx/ywf2wYmwmy/HpxtwssyNrSh1bKh
-	6EHRxBiG1fIbQngQJtHRRBca1P2UjmBJKl8tSTCqxfbqFoTNgaSfSXvu5TR2XZ45YVZXsc7LbVm
-	xAR+i3FdAjVmi74k6iD0ICMMnhuS4CyWo5qcgwqWvOQ7SKJjY3qWRUqPzxsUKOmrTsbsC27JaUj
-	GSv7Q+CqxL+TEGRZR+8U3lFqy2UKPIDyBs+ICO
-X-Received: by 2002:a05:690c:7243:b0:80c:85b6:75b0 with SMTP id 00721157ae682-80c85b68489mr22744667b3.57.1782513505253;
-        Fri, 26 Jun 2026 15:38:25 -0700 (PDT)
+        bh=CI5He4iihLUJokMNvGv1uiqx/8mjJsZ4EoloRA/RmsI=;
+        b=EiAbY1inSyRjEMKZXx9w4QlL85kh6if89qsfIBC7cELOafoD6MrkrU7YXYeqWmalH9
+         0X6Qlgyqbytt+T01TKwbqlkmgEgdJtPV01Rs6DH1wpyrwSJmEzuzx9iCMHsbnK9JM8A2
+         PqijTb4FTb++vrK5pFZbGG9ATHpVu2e/CQSRZSVn0UJ4Zpb34okTOVAsNDiNFScqDeqZ
+         ecO8H14k6jnpL8KzdEmZK+gAVqaPFGdP/A0VATpeUaC2/1MUHxRhS0DsiaunBMwCFlbL
+         f2ILx7UmkG5VwpCa79g3+tKgV+FMJJ8rfbyumgr59JecgaS7afPZ6dzpiV5TM0E0z5Ru
+         w8ww==
+X-Gm-Message-State: AOJu0YwarzXJuxU95xfjpEd5djDEq5DXATtXsjpADL2yldbVxbTGWF+K
+	8iuJ8NUXVdiJDO6yZlaO7bPRuyv7JQIQdJcvQqXK6cyUCU3JYLAzhTsY
+X-Gm-Gg: AfdE7clcYTD+23nE2aRyIGyk5/0sOPjG+DwEs5baNZAgZWPBHtFRoGyWAMtw5ZuRsMs
+	o09+XARAb3aqoLiwfVk1v9u1rTRsDlokwhg5TXg1PgwpX59jSY63hqDPDXSufewks4+R0HT5I44
+	BNQGwwOMVAm0l1MnYx+WDlIUFbCG+COqqtgt9XnR1geWwrQWSGJOFyXaWP1hDVaU5gI9JqHZP9k
+	a7BZyHumvpb+AZYm+kp8wSZvn8JnMdCa2F3hS6Fr/f1QjDcxR6HaFYbkeYV2HCH7yRs0ahOhpum
+	dnDVI2vg9BYKqghBJq+CcOWGJkRnyspmi/VJV7lS1nKe2DY01P7BIkEbFNgXVVKdKH+fxZns+un
+	gk1dR4c1Z8eoLyTAIcLMZSbrU2j5Cz2t5SyOMaXYSwQSmqUwy+KB8iATM+/zgiw5sp7ZEF8cUvJ
+	siKyPvmrgzHBbWa1YPPoN+Bxv2xVnjgKTammi6
+X-Received: by 2002:a05:690c:d8d:b0:7bd:5af9:f0a2 with SMTP id 00721157ae682-80a691c3383mr84757587b3.14.1782513507711;
+        Fri, 26 Jun 2026 15:38:27 -0700 (PDT)
 From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 To: Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
@@ -102,18 +102,18 @@ To: Juergen Gross <jgross@suse.com>,
 Cc: xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org,
 	Yousef Alhouseen <alhouseenyousef@gmail.com>
-Subject: [PATCH v2 1/2] xen/gntalloc: make grant counters unsigned
-Date: Sat, 27 Jun 2026 00:38:04 +0200
-Message-ID: <20260626223805.43781-2-alhouseenyousef@gmail.com>
+Subject: [PATCH v2 2/2] xen/gntalloc: validate grant count before allocation
+Date: Sat, 27 Jun 2026 00:38:05 +0200
+Message-ID: <20260626223805.43781-3-alhouseenyousef@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260626223805.43781-1-alhouseenyousef@gmail.com>
 References: <20260624124745.10073-1-alhouseenyousef@gmail.com>
  <20260626223805.43781-1-alhouseenyousef@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1782513506-5F530986-A4A0AF3C/0/0
+X-purgate-ID: tlsNG-c201ff/1782513509-17D1E2B8-D2A491A2/0/0
 X-purgate-type: clean
-X-purgate-size: 1209
+X-purgate-size: 2040
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -149,43 +149,67 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8B66B6D0735
+X-Rspamd-Queue-Id: 1023B6D072E
 
-The module limit and current allocation count cannot validly be
-negative. Give both variables unsigned types so their representation
-matches the u32 grant count supplied through the ioctl and negative
-module parameter values are rejected by parameter parsing.
+gntalloc_ioctl_alloc() allocates the grant-id array before checking
+whether the requested count fits within the global grant limit. Counts
+above that limit cannot succeed, so reject them before the
+user-controlled allocation reaches kcalloc().
 
-This also prepares the limit check for overflow-safe unsigned
+Use a subtraction-based check while holding gref_mutex so adding the
+requested count cannot wrap. Also cast the count before advancing the
+per-file index so the page-size multiplication is performed in 64-bit
 arithmetic.
 
 Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 ---
- drivers/xen/gntalloc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/xen/gntalloc.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/xen/gntalloc.c b/drivers/xen/gntalloc.c
-index eadedd1e9..9279f1521 100644
+index 9279f1521..3218686be 100644
 --- a/drivers/xen/gntalloc.c
 +++ b/drivers/xen/gntalloc.c
-@@ -70,14 +70,14 @@
- #include <xen/gntalloc.h>
- #include <xen/events.h>
+@@ -272,6 +272,7 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
+ 	int rc = 0;
+ 	struct ioctl_gntalloc_alloc_gref op;
+ 	uint32_t *gref_ids;
++	unsigned int limit_snapshot;
  
--static int limit = 1024;
--module_param(limit, int, 0644);
-+static unsigned int limit = 1024;
-+module_param(limit, uint, 0644);
- MODULE_PARM_DESC(limit, "Maximum number of grants that may be allocated by "
- 		"the gntalloc device");
+ 	pr_debug("%s: priv %p\n", __func__, priv);
  
- static LIST_HEAD(gref_list);
- static DEFINE_MUTEX(gref_mutex);
--static int gref_size;
-+static unsigned int gref_size;
+@@ -280,6 +281,12 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
+ 		goto out;
+ 	}
  
- struct notify_info {
- 	uint16_t pgoff:12;    /* Bits 0-11: Offset of the byte to clear */
++	limit_snapshot = READ_ONCE(limit);
++	if (op.count > limit_snapshot) {
++		rc = -ENOSPC;
++		goto out;
++	}
++
+ 	gref_ids = kcalloc(op.count, sizeof(gref_ids[0]), GFP_KERNEL);
+ 	if (!gref_ids) {
+ 		rc = -ENOMEM;
+@@ -292,14 +299,16 @@ static long gntalloc_ioctl_alloc(struct gntalloc_file_private_data *priv,
+ 	 * are about to enforce, removing them here is a good idea.
+ 	 */
+ 	do_cleanup();
+-	if (gref_size + op.count > limit) {
++	limit_snapshot = READ_ONCE(limit);
++	if (gref_size > limit_snapshot ||
++	    op.count > limit_snapshot - gref_size) {
+ 		mutex_unlock(&gref_mutex);
+ 		rc = -ENOSPC;
+ 		goto out_free;
+ 	}
+ 	gref_size += op.count;
+ 	op.index = priv->index;
+-	priv->index += op.count * PAGE_SIZE;
++	priv->index += (uint64_t)op.count * PAGE_SIZE;
+ 	mutex_unlock(&gref_mutex);
+ 
+ 	rc = add_grefs(&op, gref_ids, priv);
 -- 
 2.54.0
 
