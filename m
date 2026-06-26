@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RfFMIQmfPmoTJQkAu9opvQ
+	id 1JJ0KwifPmoPJQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:21 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 749716CEA37
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6AA6CEA21
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=HA03ZnS8;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=HEvLfG4D;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1346291.1604853 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1346294.1604858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wd8ln-0003ss-6l; Fri, 26 Jun 2026 15:47:07 +0000
+	id 1wd8lp-0004MB-1u; Fri, 26 Jun 2026 15:47:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1346291.1604853; Fri, 26 Jun 2026 15:47:06 +0000
+Received: by outflank-mailman (output) from mailman id 1346294.1604858; Fri, 26 Jun 2026 15:47:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wd8lm-0003mp-6R; Fri, 26 Jun 2026 15:47:06 +0000
-Received: by outflank-mailman (input) for mailman id 1346291;
- Fri, 26 Jun 2026 15:47:03 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wd8lj-00036u-2Z
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 15:47:03 +0000
+	id 1wd8lo-0003yp-95; Fri, 26 Jun 2026 15:47:08 +0000
+Received: by outflank-mailman (input) for mailman id 1346294;
+ Fri, 26 Jun 2026 15:47:04 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wd8lk-0003SW-Gj
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 15:47:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wd8li-008hTo-Ep
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 17:47:02 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wd8lj-00D1eP-T7
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 17:47:03 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3e9eed-2eae-0a2a0a5409dd-0a2a4504e35c-26
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:02 +0200
-Received: from [209.85.167.51] (helo=mail-lf1-f51.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3e9ef7-5cb7-0a2a0a5109dd-0a2a4505e2d0-6
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:03 +0200
+Received: from [209.85.167.41] (helo=mail-lf1-f41.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3e9ef6-a01d-0a2a45040019-d155a733c95f-3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:02 +0200
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5ad58584037so851614e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 08:47:02 -0700 (PDT)
+ id 6a3e9ef7-3cb2-0a2a45050019-d155a729b04d-3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:03 +0200
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5ad58f31846so1048619e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 08:47:03 -0700 (PDT)
 Received: from fedora (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ae9cd5b232sm2612888e87.29.2026.06.26.08.47.00
+ 2adb3069b0e04-5ae9cd5b232sm2612888e87.29.2026.06.26.08.47.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 08:47:01 -0700 (PDT)
+ Fri, 26 Jun 2026 08:47:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,40 +60,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782488822; x=1783093622; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1782488823; x=1783093623; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zWZ84aMqxsVJocBQ/1piJw1YHKrWxdOI1LLzqv702F8=;
-        b=HA03ZnS8vvxdBJFay1S2Z0w97hjvEaudZ37JQWy11+J/lafHUD64oNb2OFUrUntr1O
-         1EPUl7FSskOaYLwDRcsfFV46B2y7ukaSLOQeBzkwn8m0f3b9Qm906mGXwpcJR1Upd0Z6
-         Bym81WKLgRRKQXJcLuhY6UetCMsg927lC9aS/lHLuoFQnDM2V9NoFg0l5Wov/q6CVIUB
-         ZUFwy1aRkGPolWYdiIZVOWoNXCTDrHRBMUrJUwfIZqMVVxq9NwzpSaeuBeyt1sJNNJZF
-         zikx0r0nlyLGij53Qy+F3F4umrZFpSTGURoh8zNU4dG+D2hAUpg0I5UtrB0g0hGNymyx
-         2+HA==
+        bh=ayLS/4Tj1pdUVipiDBa+IiAffN+x6DQ9eb41/7qATdY=;
+        b=HEvLfG4D39IkI0Eb3HpoIhrttyISSxWWWkdiIO/N6ReJJ+6kyq0lFcTUtI5Wbt9zoU
+         sZqgqD8aFI+LsvosqqA2jMDcSmUg9Ik5x19YiQyHhGHsafTTDchDUV+9yUckk/kG4JUS
+         jRd91Fk1vv/I6kvke145Eki1j3+TNaoNICvINsOaxlROYivtw/FFKPrw5P2AyRUkyune
+         lx9HpAhiIkQ+fiARJX4MoGH0tsh+9PysWC8jj17VXMq9HRtxbwlxNEA1Osa0MYa2lUIM
+         YER0Qpkck8FrQU6EX3AM5K8bVadsQgj2nKvRLmDKgTtlzLjjeDoKSF5gScL2x9idN7oT
+         9Blw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782488822; x=1783093622;
+        d=1e100.net; s=20251104; t=1782488823; x=1783093623;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=zWZ84aMqxsVJocBQ/1piJw1YHKrWxdOI1LLzqv702F8=;
-        b=BrpuGxOsbIl7Jb9vMJ2/7eO9wHGzfqbQY9ob3fdbPODEWhE82PlD61W7lq6X8hkyU+
-         LWTZG2Kn013+K1rheBQT2WIlWPzckj78yy/O21uS3MUa0r7bgsJTBbChhI6nCJJKB52I
-         oRJKN8vf2wRtq8vl1Iqqh0IfOed9XOSz+AO5LNfh3cJ2HTdLE3nYtkb/nWOawYK/IU77
-         kJwN9GRMvglXhnRDz+Bf2UjWfbLio51iL1NF25hrHioDVlIgLtk+V9//NvFG5+c9z7og
-         9mL4Gsd0q6km+HPAOL/avVIe2RB6RMMKjLLU4/PcaJobWX+KRUeuMEdkrtMZWFTlvAed
-         YtFQ==
-X-Gm-Message-State: AOJu0YzwIxR2QCZf1H2TjaGbBNQWMLjspjXgmv2cBLQgEW8LLM5qODOJ
-	XCOLCj93qLeNadNGYF25ZO3Al+5V7wCiJXSAk737NGW7eFUyltKphqIOjjWkLw==
-X-Gm-Gg: AfdE7ckUzhnya3gEOvxRhXWp0FG/iPPzne/O7CuU6DAsWxhDsoJfkg2yj8M5GpXzRfd
-	fbCsxeUxKMzoN9808ZMYpq3RYh0dWDZckKujPx9DLDDhpfYHxPKlQPzfF0j3qTpYak3pLIlpY8K
-	caqOurqc0X7UOf/NCqTt5birus6xIlEM6a76+206p0ohaYpA5Yz/nUKIltklW9+9dGr15s1NVDI
-	Qu98hj6uxpqlch4i9LIR6BNXjDKP5T9yLg9MiTyfdlQng30rPt/jA4kFx7wnPY7FrGefMWGeWBU
-	BqN2emUNWmyd/a76lFET+y8E7q8wqZUqYLGsO1ZsVqNCGzz6+Y619rcjixXf/QVKavjEXmlmeSN
-	i0zkqPJwb/gUw2bUKL1Hbh/THS7q25XSD5Hs6zkZXbjBlBXYFpOq/iPaDeJoP7rhb5PVnPGGVOf
-	16KQHJIal2qqeAjRGzWMPUYhM0uimJkGynNZxl9nHi62ouEts9IXuchYIhvQ==
-X-Received: by 2002:a05:6512:220d:b0:5aa:b6b:f6ec with SMTP id 2adb3069b0e04-5aea1f68d40mr2321858e87.42.1782488821629;
-        Fri, 26 Jun 2026 08:47:01 -0700 (PDT)
+        bh=ayLS/4Tj1pdUVipiDBa+IiAffN+x6DQ9eb41/7qATdY=;
+        b=qIgpNVnzbQGKEsHu5IQJqn6Wgs7BjOTlIXaDFUHxIMw/kCowvbfLOQyi2e/bcjddrk
+         /Pyq2YTFWwPO4Bmh0QRXSXPZLdQNI9KEeljSwS4QGGe45x8UgLCeccuCYXhaVCo9/mmv
+         OjK6uQ2fcfl3dkkXouKW+9mk1jHnvPPKrFPlvjb3DRuyPm3dewmKBWyo8nc3Vyk8nNQ9
+         Z+yTem38z5JCP0WPFJ8lsZIgGwRRma/mWF7mOmtbPy+Xina1FPRep9tQoTC/9GfeHT2O
+         p83oFpD3LTNp5FAjAWYdMq+HbbVY3V0xyuKgMcyGPd9ZjFoQk2NBs1EbquohWhX7C+PC
+         mKBQ==
+X-Gm-Message-State: AOJu0Yz1xby/z2hx8TTV1RPjDB652zYt0Yp3QcnHwZA7r4rW+uZTRH66
+	ZEj8NKo8wRTn+WmV8hN5rMd6RAw+6iXwL/xse3J5GDsrz0T8tbonox1T1h3Jcw==
+X-Gm-Gg: AfdE7cllAcXOXwRmtfoVRP8RXDGslNTGMViIuSSs1qCh6zDVmNNLj+E8E3ZQ2SqJI9j
+	Q8b2rX0xRzKdOqm1t0Gede0CN4xmhraoORzLOh+9VcwdpUFg34rQ/vZASG7/PUueSFmfYUSbn3q
+	nJhLfI3sBfLh5okNeIP5oAkpW9tTh3MrySulFaaOaVbiVMuxlvjmPzhBnjH8X4BbS1fW7DKZVAD
+	M2ZhknUFYKZcRAfClyM3ALkIHNDje6nG0h/Diwr2hwppJi47mbPtdoWtPBArNqB3R1Aw+Gj84iZ
+	E4rLGeM31Va2u8cBOYuyKac8TmazHc99tv0j++aQBs41auMl8xZnRAoObhABX05KfHv+IPnA1wN
+	X/z03FGjvLBzEDdTEecYwE3Q+H2TWum6MJkIR1PbeNLqSEFHA4sey0KLpx+vGXqhDBglpSuiKfb
+	Me5DHM5583dTdYdksF0Kc3oIXHbBBXKkDfjbAZF36cZgLUIMt9DSAG+peeAA==
+X-Received: by 2002:a05:6512:3983:b0:5aa:6e86:55e5 with SMTP id 2adb3069b0e04-5aea945b98emr249770e87.13.1782488822877;
+        Fri, 26 Jun 2026 08:47:02 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -108,17 +108,17 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 17/25] xen/riscv: rename enum intc_version to intc_variant
-Date: Fri, 26 Jun 2026 17:46:26 +0200
-Message-ID: <542b22adf7bfb2a60baba201ef89df260d9bfd1c.1782487661.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 18/25] xen/riscv: introduce (de)initialization helpers for vINTC
+Date: Fri, 26 Jun 2026 17:46:27 +0200
+Message-ID: <ac0b9a985afc35023822150062b4f14f5a583bea.1782487661.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782487661.git.oleksii.kurochko@gmail.com>
 References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1782488822-AC93A1CC-3BB7C0C2/10/73395122804
+X-purgate-ID: tlsNG-c201ff/1782488823-17B192B8-1FB907BE/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1507
+X-purgate-size: 3430
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -155,57 +155,117 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 749716CEA37
+X-Rspamd-Queue-Id: 5A6AA6CEA21
 
-Rename the enum to intc_variant and the structure member from hw_version
-to hw_variant to better reflect that these values select between
-different controller variants, not versions of the same one.
+Add common helpers domain_vintc_init() and domain_vintc_deinit() to
+allocate and deallocate a virtual interrupt controller (vINTC)
+structure and initialize basic virtual interrupt controller registers.
+
+domain_vintc_deinit() isn't called at the moment as arch_domain_destroy()
+is implemented as stub at the moment.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v4:
- - New patch. Prereq for the next patch.
+ - Drop the comment from domain_vintc_init() about guests receiving a
+   virtual interrupt controller that mirrors the host hardware as there
+   can (and eventually should) be alternatives.
+ - Finish renaming intc_version to intc_variant in domain_vintc_(de)init()
+   (enum intc_variant, info->hw_variant, local variable) started in the
+   prev patch.
+---
+Changes in v3:
+ - Drop redundant printk() from domain_vintc_deinit()'s default case to
+   avoid duplicate messages when init fails.
+ - Add a comment to domain_vintc_init() clarifying that guests currently
+   receive a virtual interrupt controller that mirrors the host hardware.
+---
+Changes in v2:
+ - Drop __init for domain_vintc_(de)init().
+ - Update the commit message.
 ---
 ---
- xen/arch/riscv/aplic.c            | 2 +-
- xen/arch/riscv/include/asm/intc.h | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ xen/arch/riscv/domain.c           |  3 +++
+ xen/arch/riscv/include/asm/intc.h |  3 +++
+ xen/arch/riscv/intc.c             | 35 +++++++++++++++++++++++++++++++
+ 3 files changed, 41 insertions(+)
 
-diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
-index def15f792d62..126d56fb7ea8 100644
---- a/xen/arch/riscv/aplic.c
-+++ b/xen/arch/riscv/aplic.c
-@@ -35,7 +35,7 @@ static struct aplic_priv aplic = {
- };
+diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+index 129e775c52cb..3499c25dcfe0 100644
+--- a/xen/arch/riscv/domain.c
++++ b/xen/arch/riscv/domain.c
+@@ -309,6 +309,9 @@ int arch_domain_create(struct domain *d,
+     if ( (rc = p2m_init(d, config)) != 0)
+         goto fail;
  
- static struct intc_info __ro_after_init aplic_info = {
--    .hw_version = INTC_APLIC,
-+    .hw_variant = INTC_APLIC,
- };
++    if ( (rc = domain_vintc_init(d)) )
++        goto fail;
++
+     return rc;
  
- static void __init aplic_init_hw_interrupts(void)
+  fail:
 diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index 46a0073c2d59..f7d42aa9fc40 100644
+index f7d42aa9fc40..62260155dc6b 100644
 --- a/xen/arch/riscv/include/asm/intc.h
 +++ b/xen/arch/riscv/include/asm/intc.h
-@@ -8,7 +8,7 @@
- #ifndef ASM__RISCV__INTERRUPT_CONTOLLER_H
- #define ASM__RISCV__INTERRUPT_CONTOLLER_H
+@@ -75,4 +75,7 @@ void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority);
  
--enum intc_version {
-+enum intc_variant {
-     INTC_APLIC,
- };
+ void intc_handle_external_irqs(struct cpu_user_regs *regs);
  
-@@ -18,7 +18,7 @@ struct kernel_info;
- struct vcpu;
++int domain_vintc_init(struct domain *d);
++void domain_vintc_deinit(struct domain *d);
++
+ #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
+diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
+index 2864a896b677..0eb7eb924e9c 100644
+--- a/xen/arch/riscv/intc.c
++++ b/xen/arch/riscv/intc.c
+@@ -11,6 +11,7 @@
  
- struct intc_info {
--    enum intc_version hw_version;
-+    enum intc_variant hw_variant;
-     const struct dt_device_node *node;
+ #include <asm/aia.h>
+ #include <asm/intc.h>
++#include <asm/vaplic.h>
  
-     /* number of irqs */
+ static const struct intc_hw_operations *__ro_after_init intc_hw_ops;
+ 
+@@ -83,3 +84,37 @@ int __init make_intc_domU_node(struct kernel_info *kinfo)
+ 
+     return vintc->init_ops->make_domu_dt_node(kinfo);
+ }
++
++int domain_vintc_init(struct domain *d)
++{
++    int ret = -EOPNOTSUPP;
++    const enum intc_variant variant = intc_hw_ops->info->hw_variant;
++
++    switch ( variant )
++    {
++    case INTC_APLIC:
++        ret = domain_vaplic_init(d);
++        break;
++
++    default:
++        printk("vintc (variant:%d) isn't implemented\n", variant);
++        break;
++    }
++
++    return ret;
++}
++
++void domain_vintc_deinit(struct domain *d)
++{
++    const enum intc_variant variant = intc_hw_ops->info->hw_variant;
++
++    switch ( variant )
++    {
++    case INTC_APLIC:
++        domain_vaplic_deinit(d);
++        break;
++
++    default:
++        break;
++    }
++}
 -- 
 2.54.0
 
