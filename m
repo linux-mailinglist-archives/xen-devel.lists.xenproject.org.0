@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id vcWRIg6fPmocJQkAu9opvQ
+	id dRitBBSfPmohJQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:26 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:32 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BF7B6CEA5F
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 030876CEA73
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jun 2026 17:47:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=ZRHLVDGL;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Tljjas2u;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1346303.1604890 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1346315.1604908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wd8lz-0006MO-C3; Fri, 26 Jun 2026 15:47:19 +0000
+	id 1wd8m3-0007Ek-O9; Fri, 26 Jun 2026 15:47:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1346303.1604890; Fri, 26 Jun 2026 15:47:18 +0000
+Received: by outflank-mailman (output) from mailman id 1346315.1604908; Fri, 26 Jun 2026 15:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wd8lx-0005xC-M5; Fri, 26 Jun 2026 15:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 1346303;
- Fri, 26 Jun 2026 15:47:09 +0000
+	id 1wd8m2-0006vH-7H; Fri, 26 Jun 2026 15:47:22 +0000
+Received: by outflank-mailman (input) for mailman id 1346315;
+ Fri, 26 Jun 2026 15:47:13 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wd8lo-0004HM-Hd
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 15:47:08 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wd8lr-0004ra-Hc
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 15:47:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wd8ln-008hTo-UF
- for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 17:47:07 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wd8lq-008hTo-SI
+ for xen-devel@lists.xenproject.org; Fri, 26 Jun 2026 17:47:10 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3e9ec9-2eae-0a2a0a5409dd-0a2a45038a38-48
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:07 +0200
-Received: from [209.85.167.50] (helo=mail-lf1-f50.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a3e9eed-2eae-0a2a0a5409dd-0a2a4504e35c-38
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:10 +0200
+Received: from [209.85.167.52] (helo=mail-lf1-f52.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a3e9efb-ec1a-0a2a45030019-d155a732d90d-3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:07 +0200
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5aea915df15so438567e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 08:47:07 -0700 (PDT)
+ id 6a3e9efc-a01d-0a2a45040019-d155a734a43b-3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 17:47:08 +0200
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5aea1f4dc7fso1077205e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jun 2026 08:47:08 -0700 (PDT)
 Received: from fedora (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ae9cd5b232sm2612888e87.29.2026.06.26.08.47.06
+ 2adb3069b0e04-5ae9cd5b232sm2612888e87.29.2026.06.26.08.47.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Jun 2026 08:47:06 -0700 (PDT)
+ Fri, 26 Jun 2026 08:47:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,40 +60,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782488827; x=1783093627; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1782488828; x=1783093628; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tGVs0W5yuF//qwARTLwYow22/uS7Po5fojk55jJOeWQ=;
-        b=ZRHLVDGLanKzMM7ZWMUVg9kgeNY3HQmQRt86jnFNrit/+NUC2f4fEXrABOqwYyLAKc
-         229BR7nB+OgXNPu225bpcP694JKcJOHxIDmq12SDHJ5lewAY3w5caPjTpLdFNaOiS6vK
-         XeaE8szFGlF0psM/VGT4x4Xs6rTAm/cJCm6jzNrInwuiVSyOa9+s6IHZUx6ysHv/dzMt
-         QFttU9Y0CmZG0k6LUoIqUBbkwPxwMGaYq3N5ei06Dv10QsIJsmIhxc5uMlXLLDYahdAY
-         R2u4x1d1ABloub+P0kSW/b+2GxQaWPy4F1/b9ivwozHsLYslheC1j1R2BIjc6FdWk39J
-         mBEA==
+        bh=q+nhDaDUJkCW0waY+Zvj1Fm8pm8i//taC/XFR+qPzKk=;
+        b=Tljjas2u/Tw+NXK7EKfGLuDIVxm2fBdJSTXze1DwjP0nHErpof1Moy4IvOw6vd6SiN
+         QWGoQ9ilD+yn1jg16fdxCiWr7AeR90f2WFjcO90URuPKpaBVALO+b7gx4ZijP2baxrGf
+         3ktycjDVUTlJfV20xQv7aLBwQ8k6Z3R5CU1/mfByuUX/g7P+JnQBJRq84tueQa9brQ/5
+         InHdOqTATkvjaNWMLFryNfF5uRn0kaLvRWPw/cKc8dSyqjxUauM0DsvnfxV6UQYXfYV4
+         VEROcOhCSES70V2hPdMtbh9jK5JZs0hO88E++o5OL/zkvgv6wZTSkB9cRorLh7TnUI7m
+         lICQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782488827; x=1783093627;
+        d=1e100.net; s=20251104; t=1782488828; x=1783093628;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=tGVs0W5yuF//qwARTLwYow22/uS7Po5fojk55jJOeWQ=;
-        b=JVwlKGK1EZ4khCgD20q7tRJ9Cn6wdJdf81hAT9LLSOQNUkdzV6J2FwPphWtUnoYPfs
-         sfeNl3omxIsg8L//XCR0BhHRraDMrR/dUPk3gRa1IgEK4hCfbJj03VLv4FOoO2QiavgO
-         TwPpfUW0mU3zQKTYWvKJXqC5JxFYU4M14SM6YX5yrRYmngbzFMqEUYQomEJqgVRLHSjY
-         PfluhCTWT84ddwrH1hFslX7mvfhLczIsywHpgyRYguVSLVfUYI7T5WqknbQc0zE4jMll
-         6ATN8pY4C/qmvcOCAgd14wssKb6RkaR2ZgTQWEVsWEnlLu/ts6UBdoKSt0bah19Dmboe
-         J7sA==
-X-Gm-Message-State: AOJu0YzDIgow/AvlzRBNJlP3q8JLI75TApWxvbkcDphjwdKIE0DmGYnn
-	IJSvgch7DjGjI1kyerkJyn8u/hU8Ygv2FG+aw+sEDoegmQ34KmQ3Uv+/e/tZSQ==
-X-Gm-Gg: AfdE7cmcIUqSTBsQsPpGuN3/WU6h1dvIo8FQe185o4z4XU7i1gd92II4z+qKMPRum9g
-	kXoBNWLyLIzGnAfSuoXhfGEwvshl9CiPvidjk0yeUpyOlfW7lrdM4/IqqJgqEdeYRoxrIEaKm2W
-	F/vY1sc+ZdU+W4SQktguhGPjzAB6By6SyRbDXIiha2890fu3H3uXki0JwfHJoPeBrUCqH2UEMVg
-	EYuuqcEQrDv7capbHZPwhTbVDz/1cM2bnL+fW8RSk+yp0Lox5k2I69kYoM3I0F2bJuqrLEHK9Wz
-	Hnvtp2ZBGg5l7yKGdBRFh5t6jGbYNAn8w317K3CN5FhNPdPIAE7O92BhELAy+Eu9UFTUMw0Kt6z
-	g+FDDWrbbDY9r7RvA5vE6yBp3+IZMaf7vES0zJ4WqHVQh98jnakRU/iSpbXyu1mGo5plPAsdlRR
-	4i4jmL/1SKCnHBR7ocvWYmW4YpBoZ4Hj574psZJl5jXx+NjRJj21zk+u+VAg==
-X-Received: by 2002:a05:6512:6085:b0:5ae:a488:cda8 with SMTP id 2adb3069b0e04-5aea488ce07mr1932782e87.42.1782488827120;
-        Fri, 26 Jun 2026 08:47:07 -0700 (PDT)
+        bh=q+nhDaDUJkCW0waY+Zvj1Fm8pm8i//taC/XFR+qPzKk=;
+        b=CuFksLNGor2KCvfoX4/beHh15Z+rW3vtY8pUzl3Ps+mUFQKzpCIHnBlC2RLJb4Dy82
+         Dh1Rt299ITO324Zo5MyQoLXxMrf7cd0zx8MJRw+wBqW3YgcXBpo+ZGidbmDyWuB7oesw
+         jI03RBXVDvYkYwc08WmbmzOn/dM29cQefO62Fisy+nRCkzSvEX69Yg7eVAfnLgH+wa24
+         OwD0KdzC8hSZvLYKSy+GXevuUEPo9QOQHKpiPXVkhNPsTrzmXJDeOw0yw2pyU4RFTWBG
+         jY7mVZ8pw3+do6NpqHpuL1NNDc8kKNXNvb4yTU+oB07F5J18xMZbs7FjEVNo6W0pgtQx
+         vSGQ==
+X-Gm-Message-State: AOJu0Ywwo5qg9n2Ga2BhjPcfOe0BMjqN/5xAgzuIw/FkCAs+8epncVjR
+	k5pDnCL3JfXTITwiQ6jwAtxFPJqjKyZ0TILDK62k/B7Fr6iheyjycfKyDZ7nuQ==
+X-Gm-Gg: AfdE7cka8PO6vhq+mlaMcAMFfQgXNEAznimQZRNRBPrSUVrbmwfP/Vem48a/UUMlFvC
+	VGd1l67izE2Dso5mG5tyy1js5X+C4kTam0EIICMwepkmd/D9MAztgFOq82p0pzOwG3Fh0QnHfgQ
+	57yXGqLbJyA6L+kHIc3V+6eDznWQseTQWhnlWOZuD1eVd8D81hnINBhjrBVRaJHF1Dy/Hm8/2D4
+	ZFysI2/+nQrzGX345vF6yB0wDh3BBTbSw5tLn4MzrnJH6a5i6ayfKoc5ofEYz9AT1afDoM4/rYJ
+	A0ZFncnPXkrPv7esKx4Ri9yJlC9WkQg+z7IOA0S7yvTkYDPaAQUWMWwYz9cu8RzwLGhsWLaE2dR
+	p7hZcNUyS4fx9DDrk9BYUvwgICD2ylq1MZoNO1ybH8AcGEyTPTeHz49Akt4C3tJSO1n6+QtxthS
+	USSkLT1j6pT2KZke0ix1Z6nBGj1g76MeWz+Fqv2yWSr/fzZkGZClAyZuJqODPe4lnME2SV
+X-Received: by 2002:a05:6512:2251:b0:5aa:65a3:468c with SMTP id 2adb3069b0e04-5aea1e246f6mr2021690e87.7.1782488828078;
+        Fri, 26 Jun 2026 08:47:08 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -108,17 +108,17 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 22/25] xen/riscv: implement init_intc_phandle()
-Date: Fri, 26 Jun 2026 17:46:31 +0200
-Message-ID: <3d06d182ab718707ddce2445f317bfd6e661fb5b.1782487661.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 23/25] xen/riscv: initialize RCU, scheduler, and system domains in start_xen()
+Date: Fri, 26 Jun 2026 17:46:32 +0200
+Message-ID: <b1b73269c314940b959043dffd2183c180208035.1782487661.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782487661.git.oleksii.kurochko@gmail.com>
 References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1782488827-BC7875D1-CF050ACD/10/73395122804
+X-purgate-ID: tlsNG-ebf023/1782488828-AF32F1CC-AC15FB50/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1376
+X-purgate-size: 1558
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -142,7 +142,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -156,11 +156,13 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6BF7B6CEA5F
+X-Rspamd-Queue-Id: 030876CEA73
 
-Implement init_intc_phandle() to read phandle of interrupt controller
-node and save it in kernel->phandle_intc for the future usage during
-creation of guest interrupt controller node.
+Wire up the missing early-boot initialization steps in start_xen().
+
+The scheduler must be initialized prior to do_initcalls() because
+cpupool_create_pool() is called during initcalls; without it,
+BUG_ON(IS_ERR(pool)) is triggered inside cpupool_create_pool().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
@@ -168,41 +170,55 @@ Acked-by: Jan Beulich <jbeulich@suse.com>
 Changes in v4:
  - Nothing changed. Only rebase.
 ---
+Changes in v3:
+ - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
- xen/arch/riscv/dom0less-build.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Changes in v2:
+ - New patch. Several patches were folded into one.
+---
+---
+ xen/arch/riscv/setup.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/xen/arch/riscv/dom0less-build.c b/xen/arch/riscv/dom0less-build.c
-index 4cc00012aa8d..a1fa51b996a7 100644
---- a/xen/arch/riscv/dom0less-build.c
-+++ b/xen/arch/riscv/dom0less-build.c
-@@ -4,9 +4,26 @@
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 56a0907a855f..c3e98733ebc3 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -6,9 +6,12 @@
+ #include <xen/compile.h>
+ #include <xen/console.h>
  #include <xen/device_tree.h>
- #include <xen/fdt-kernel.h>
++#include <xen/domain.h>
  #include <xen/init.h>
-+#include <xen/libfdt/libfdt.h>
+ #include <xen/irq.h>
+ #include <xen/mm.h>
++#include <xen/rcupdate.h>
++#include <xen/sched.h>
+ #include <xen/serial.h>
+ #include <xen/shutdown.h>
+ #include <xen/smp.h>
+@@ -156,12 +159,21 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
  
- #include <asm/p2m.h>
+     timer_init();
  
-+int __init init_intc_phandle(struct kernel_info *kinfo, const char *name,
-+                             const int node_next, const void *pfdt)
-+{
-+    if ( dt_node_cmp(name, "intc") == 0 )
-+    {
-+        uint32_t phandle_intc = fdt_get_phandle(pfdt, node_next);
++    rcu_init();
 +
-+        if ( phandle_intc != 0 )
-+            kinfo->phandle_intc = phandle_intc;
++    setup_system_domains();
 +
-+        return 0;
-+    }
+     local_irq_enable();
+ 
+     console_init_postirq();
+ 
+     guest_mm_init();
+ 
++    scheduler_init();
++    set_current(idle_vcpu[0]);
 +
-+    return 1;
-+}
++    do_initcalls();
 +
- int __init make_arch_nodes(struct kernel_info *kinfo)
- {
-     /* No RISC-V specific nodes need to be made, at the moment. */
+     printk("All set up\n");
+ 
+     machine_halt();
 -- 
 2.54.0
 
