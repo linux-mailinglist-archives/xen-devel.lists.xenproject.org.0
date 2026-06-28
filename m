@@ -2,55 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id EOUOII5HQWpYnAkAu9opvQ
+	id ci1ZCgmcQWrWsgkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Jun 2026 18:10:54 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 00:11:21 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F996D4573
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Jun 2026 18:10:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE5B6D523A
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 00:11:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=3mdeb.com header.s=ovhmo3617313-selector1 header.b=SZS3m2Ka;
+	dkim=pass header.d=3mdeb.com header.s=ovhmo3617313-selector1 header.b=d0qpTCHo;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=none
-Received: from list by lists.xenproject.org with outflank-mailman.1347021.1604981 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1347100.1604990 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wds4e-00048k-Sw; Sun, 28 Jun 2026 16:09:36 +0000
+	id 1wdxhW-0005V2-Mj; Sun, 28 Jun 2026 22:10:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347021.1604981; Sun, 28 Jun 2026 16:09:36 +0000
+Received: by outflank-mailman (output) from mailman id 1347100.1604990; Sun, 28 Jun 2026 22:10:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wds4e-000460-MS; Sun, 28 Jun 2026 16:09:36 +0000
-Received: by outflank-mailman (input) for mailman id 1347021;
- Sun, 28 Jun 2026 16:09:35 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wdxhW-0005RS-J2; Sun, 28 Jun 2026 22:10:06 +0000
+Received: by outflank-mailman (input) for mailman id 1347100;
+ Sun, 28 Jun 2026 22:10:04 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sergii.dmytruk@3mdeb.com>) id 1wds4c-00045u-Rc
- for xen-devel@lists.xenproject.org; Sun, 28 Jun 2026 16:09:35 +0000
+ (envelope-from <sergii.dmytruk@3mdeb.com>) id 1wdxhT-0004am-Av
+ for xen-devel@lists.xenproject.org; Sun, 28 Jun 2026 22:10:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wds4c-00CKvn-0u
- for xen-devel@lists.xenproject.org; Sun, 28 Jun 2026 18:09:34 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wdxhP-00ATm9-CM
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 00:09:59 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <sergii.dmytruk@3mdeb.com>)
- id 6a4146c6-bab6-0a2a0a5309dd-0a2a4502d77a-16
- for <xen-devel@lists.xenproject.org>; Sun, 28 Jun 2026 18:09:33 +0200
-Received: from [178.33.251.19] (helo=14.mo581.mail-out.ovh.net)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a419b93-5cb7-0a2a0a5109dd-0a2a4505cf8a-24
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 00:09:59 +0200
+Received: from [178.32.96.204] (helo=9.mo583.mail-out.ovh.net)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <sergii.dmytruk@3mdeb.com>)
- id 6a41473d-5a27-0a2a45020019-b221fb13a513-3
- for <xen-devel@lists.xenproject.org>; Sun, 28 Jun 2026 18:09:33 +0200
-Received: from director6.ghost.mail-out.ovh.net (unknown [10.110.43.172])
- by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4gpDrF0Gv5z5x0p
- for <xen-devel@lists.xenproject.org>; Sun, 28 Jun 2026 16:09:32 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-vj844 (unknown [10.111.174.17])
- by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id C568A80195;
- Sun, 28 Jun 2026 16:09:31 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.112])
- by ghost-submission-7d8d68f679-vj844 with ESMTPSA
- id Gei7GjtHQWr13QQAAvAMOA
- (envelope-from <sergii.dmytruk@3mdeb.com>); Sun, 28 Jun 2026 16:09:31 +0000
+ id 6a419bb6-3cb2-0a2a45050019-b22060cc887b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 00:09:58 +0200
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.109.249.149])
+ by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4gpNr62P4yz5vwr
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Jun 2026 22:09:58 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-ltgjr (unknown [10.110.168.82])
+ by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 81CB4C0778;
+ Sun, 28 Jun 2026 22:09:57 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.108])
+ by ghost-submission-7d8d68f679-ltgjr with ESMTPSA
+ id PMeyErWbQWphYg8Au2xH8w
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Sun, 28 Jun 2026 22:09:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,39 +63,37 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 X-OVh-ClientIp:176.111.183.249
-Date: Sun, 28 Jun 2026 19:09:24 +0300
+Date: Mon, 29 Jun 2026 01:09:49 +0300
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 10/22] x86/tpm.c: code for early hashing and extending
- PCRs (for TPM1.2)
-Message-ID: <akFHNFIuGGALeaw4@MjU3Nj>
+Subject: Re: [PATCH v3 11/22] x86/tpm.c: support extending PCRs of TPM2.0
+Message-ID: <akGbrdHHrBGk8UrI@MjU3Nj>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <0c249037eeda4809b565a55c6473bb21cdd0304e.1748611041.git.sergii.dmytruk@3mdeb.com>
- <45ad9ee7-e4a4-4f31-b8d0-723a97d7f45b@suse.com>
+ <dae740e8eef63af59993791d27ce490095f7cca8.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <91835e2e-cf59-484e-9583-f0c07513cfc1@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <45ad9ee7-e4a4-4f31-b8d0-723a97d7f45b@suse.com>
-x-ovh-tracer-id: 5132977677708436956
+In-Reply-To: <91835e2e-cf59-484e-9583-f0c07513cfc1@suse.com>
+x-ovh-tracer-id: 11220155525683619292
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEuKw4bPc6CkhqtFY7u3KiWiLJTQBhAQeHah/xYhif2o363wsmlzYbYPov482CGV7zuDmsNI6k/OydnzeHioz0pyt/h333iGp1pxoAmvY5ETAU/pQbv8Ku9pBupVY51IT4fWsvFiQKxuaZH65y9rjqklLia+3zUMixyifLDg6VjS9n3A47tevFkmgdsWqoGi800IET9spP65ZZNeuMwuWMO0yeyVrdBe25hvPwFHc928p6fMv4/VB9cQrLt67/Ldo6R7We6b5SFRxG98EF56Havdzkb6BsEknlPtNub9XpqWx4ugBz+R0K4bzvtZtkViuYs4Xs5qTSwKxAU0uLfx3DNr3KznokLRPV2bX6WkPSN6tHUEbnX313X6Q4k1ibxEw3kQpaBMQBhOTCZcMX94hOpnFaAKh7UOiV3tSmMZiCh7y+f7NRxhEMwLapgz534ROesZc4mDDIS3pXqZMUwuEVmpquyPawBuO+BabpfWUbNwlOKe00vz2NY4I4FdaFohCG7bdFsFwLQDjvcQlJevrOpJ0SCGkoVqX/Gp2ZJ6AvOGR0FeJXp2p07SR4m9Xq6KiRDrGyj6C818aoqKSWhtRUZkUaPNmL7aMZLq/70SOiX9VHpVQrhNiQ5j6/FvgTROMOK+PXgJPSaMOEjsfn8G5+nCUfbSkXus9e09C2J3kFQwA
-DKIM-Signature: a=rsa-sha256; bh=Cm4QNnE09bT/cx71YTnM0FRHZKt0ocHAbs5bEJ/Zv8M=;
+X-VR-SPAMCAUSE: dmFkZTFxMCv0YiROW6IGpZILz9rEiTwkceLHqrxR1DhVgt0INUxPOC22G7qsykZuFUjNTTHz9YGwQNIQsbReG/hOexKIBpHsHfXsw6JiPFH4M8Eb2KIJH9yN87PdD/pn6zx63qsCrS/Cp64QDTH9JHNuQVWv4XNCqwTVbKAq4XYc3Lcf2V+mHj0iTRbwndEybn5vMbFOmY4RhcvuzJh7Q1ca5o85pBoMjWJiY2s3vWXno2FDsN81e2yQqoE/EjpKokTRXHfnezAk8BT8P1voEhpc9R7SvdIgyv22YnoJxiSEUJ/EPoZpg/V8wgy2emSdKNIT8RKRdouzcXeXF1X4LEtcUN0igjVqFonRvIDhqmVs+dJdoJsPACRbVGbayu9dVCdexlUOhR2txPMY04BSwFs68XSwp5yHuMGAROlXzWJOcNImps50O2TIY9w+jAzgZZO6b4iV6TYRLEAfk0arWQqzjJb6heIb8wChmDHbWGRy0+6bU6B4t2KwVR+5GefOHO4c5gTdbwRKboedkGdAxthdXyUMH8UBNudiasrN5Vg334xRktmuTr95h6XRe5w+ICQtbg/zV6V7sgF9ecyaipZuyAJYquXsukUqXp2BwQUG3UFadmCMt94mu/qTb3y5Qy8VXbbU4qeMbpq6FKSbkSwuQcNKPt3aQ4fMjPdN/bvk+ITQMg
+DKIM-Signature: a=rsa-sha256; bh=6qnhV0KfRzRNTOXtgcrPk3Utj4TtwNy5dHr6skQlwwM=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1782662973; v=1;
- b=SZS3m2Ka1BkVDV2qQLyYhlYEDT/VXh2O5kh9XAHltARZ9rUdRf9jwE7Yw5c2mclSFfZyCmos
- jIl5/sCZ69gne1d98XC4qQEWapviVRq7XbyvDajUztMThiJtrSFeacP4Sa+BxMmRhKrn/QLHPSK
- WahICNEHasAyTd7Mq0GldAgzIDO6VEyVu7wfv7b9ziClECS4sDDtPRtIzILEZWEwWvHy7nQvbEM
- WgS16LPHKIDj6IdgosZB+4K7dxbSXEFvwQ+Ih/zk5ZIOqYDJFmbUv9ag7ewUBIYwAlmL7NlXpi9
- xeh7Kg3fHUASXYeIgZWDUHt9ku1htBU3sMq4OHoQ7OAvA==
-X-purgate-ID: tlsNG-720697/1782662973-4FB1F7C5-5A5438FC/0/0
+ t=1782684598; v=1;
+ b=d0qpTCHoDW2YuMmcXqx2pJ6l6lxdLfuCW8eb9xmzHtJcDSSI1B6sqqtbTnUDMURCFYawYynW
+ AQilE6qrMoG479olSXs33fCQqJDopV58W/unDltao2Uy157Msw6370dreEyYnKDzpDgPwnS9mWX
+ Z1CFqpHBF9R8W/0QiQkGW497GFcBWo1R4nNE91/rgfjLLwik4IiY8jsYN8QDYVqQRaBSGfuSOoc
+ Bd57fwsKkLPNisaEPoxk0629fhSE7OqFG6hB3Gj/O06FsfKcJoSOuFGBjkclTn9hgqDT3hIg8Di
+ yT0hMthpou+z0pQhfLmy2lH7wm83IF7nZYsGy5U1a3LDQ==
+X-purgate-ID: tlsNG-c201ff/1782684598-5461D2B8-51F223CD/0/0
 X-purgate-type: clean
-X-purgate-size: 6295
+X-purgate-size: 5469
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
@@ -104,229 +102,177 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:ross.philipson@oracle.com,m:trenchboot-devel@googlegroups.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	DMARC_NA(0.00)[3mdeb.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[3mdeb.com:dkim,3mdeb.com:from_mime,MjU3Nj:mid];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:dpsmith@apertussolutions.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:trenchboot-devel@googlegroups.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER(0.00)[sergii.dmytruk@3mdeb.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[3mdeb.com:+];
-	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[sergii.dmytruk@3mdeb.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sergii.dmytruk@3mdeb.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[3mdeb.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B7F996D4573
+X-Rspamd-Queue-Id: 5FE5B6D523A
 
-On Wed, Oct 22, 2025 at 04:07:35PM +0200, Jan Beulich wrote:
-> > +void tpm_hash_extend(unsigned loc, unsigned pcr, const uint8_t *buf,
-> > +                     unsigned size, uint32_t type, const uint8_t *log_data,
-> > +                     unsigned log_data_size);
->
-> Here and elsewhere: We prefer "unsigned int" over just "unsigned".
-
-Will update.
-
-> > +    while ( (tis_read8(TPM_ACCESS_(loc)) & ACCESS_ACTIVE_LOCALITY) == 0 );
->
-> Here and below - please put such semicolons on a separate line, to make more
-> recognizable that no loop body follows. Also generally we prefer ! over == 0
-> for such checks.
-
-OK.
-
-> > +static void send_cmd(unsigned loc, uint8_t *buf, unsigned i_size,
-> > +                     unsigned *o_size)
-> > +{
-> > +    /*
-> > +     * Value of "data available" bit counts only when "valid" field is set as
-> > +     * well.
-> > +     */
-> > +    const unsigned data_avail = STS_VALID | STS_DATA_AVAIL;
+On Wed, Oct 22, 2025 at 05:13:26PM +0200, Jan Beulich wrote:
+> > -/****************************** TPM1.2 specific *******************************/
+> > -#define TPM_ORD_Extend              0x00000014
+> > -#define TPM_ORD_SHA1Start           0x000000A0
+> > -#define TPM_ORD_SHA1Update          0x000000A1
+> > -#define TPM_ORD_SHA1CompleteExtend  0x000000A3
+> > +/****************************** TPM1.2 & TPM2.0 *******************************/
+> >
+> > -#define TPM_TAG_RQU_COMMAND         0x00C1
+> > -#define TPM_TAG_RSP_COMMAND         0x00C4
+> > +/*
+> > + * TPM1.2 is required to support commands of up to 1101 bytes, vendors rarely
+> > + * go above that. Limit maximum size of block of data to be hashed to 1024.
+> > + *
+> > + * TPM2.0 should support hashing of at least 1024 bytes.
+> > + */
+> > +#define MAX_HASH_BLOCK      1024
+> >
+> >  /* All fields of following structs are big endian. */
+> >  struct tpm_cmd_hdr {
+> > @@ -168,6 +179,17 @@ struct tpm_rsp_hdr {
+> >      uint32_t    returnCode;
+> >  } __packed;
+> >
+> > +/****************************** TPM1.2 specific *******************************/
 > > +
-> > +    unsigned i;
+> > +#define TPM_ORD_Extend              0x00000014
+> > +#define TPM_ORD_SHA1Start           0x000000A0
+> > +#define TPM_ORD_SHA1Update          0x000000A1
+> > +#define TPM_ORD_SHA1CompleteExtend  0x000000A3
 > > +
-> > +    /* Make sure TPM can accept a command. */
-> > +    if ( (tis_read8(TPM_STS_(loc)) & STS_COMMAND_READY) == 0 )
-> > +    {
-> > +        /* Abort current command. */
-> > +        tis_write8(TPM_STS_(loc), STS_COMMAND_READY);
-> > +        /* Wait until TPM is ready for a new one. */
-> > +        while ( (tis_read8(TPM_STS_(loc)) & STS_COMMAND_READY) == 0 );
-> > +    }
+> > +#define TPM_TAG_RQU_COMMAND         0x00C1
+> > +#define TPM_TAG_RSP_COMMAND         0x00C4
 > > +
-> > +    for ( i = 0; i < i_size; i++ )
-> > +        tis_write8(TPM_DATA_FIFO_(loc), buf[i]);
+> > +/* All fields of following structs are big endian. */
+> >  struct extend_cmd {
+> >      struct tpm_cmd_hdr h;
+> >      uint32_t pcrNum;
+>
+> Can the previous patch please put these right in their final resting place?
+
+Some earlier comment of yours requested separate headers for these
+definitions, so they aren't moved anymore.
+
+> > +#define PUT_BYTES(p, bytes, size)  do {  \
+> > +        memcpy((p), (bytes), (size));    \
+>
+> Preferably without the excess parentheses, much like you have it ...
+>
+> > +        (p) += (size);                   \
+> > +    } while ( 0 )
 > > +
-> > +    tis_write8(TPM_STS_(loc), STS_TPM_GO);
-> > +
-> > +    /* Wait for the first byte of response. */
-> > +    while ( (tis_read8(TPM_STS_(loc)) & data_avail) != data_avail);
+> > +#define PUT_16BIT(p, data) do {          \
+> > +        *(uint16_t *)(p) = swap16(data); \
 >
-> Here you properly follow the comment at the top of the function, while ...
+> ... e.g. in the function call here.
 >
-> > +    for ( i = 0; i < *o_size && tis_read8(TPM_STS_(loc)) & data_avail; i++ )
->
-> ... here you don't. Why?
+> > +        (p) += 2;                        \
+> > +    } while ( 0 )
 
-Right, `== data_avail` was missing here.  Likely a remnant from an
-earlier version.
+OK, just tend to always parenthesise parameters in macros.
 
-> > +        buf[i] = tis_read8(TPM_DATA_FIFO_(loc));
-> > +
-> > +    if ( i < *o_size )
-> > +        *o_size = i;
+> > +    cmd_rsp.finish_c = (struct tpm2_sequence_complete_cmd) {
+> > +        .h.tag = swap16(TPM_ST_SESSIONS),
+> > +        .h.paramSize = swap32(sizeof(cmd_rsp.finish_c) + size),
+> > +        .h.ordinal = swap32(TPM2_PCR_EventSequenceComplete),
+> > +        .pcrHandle = swap32(HR_PCR + pcr),
+> > +        .sequenceHandle = swap32(seq_handle),
+> > +        .sessionHdrSize = swap32(sizeof(struct tpm2_session_header)*2),
 >
-> Is there any real need for this assignment to be conditional?
-
-There isn't, as far as I can tell, will be unconditional.
-
-> > +    uint32_t intf_version = tis_read32(TPM_INTF_CAPABILITY_(0))
-> > +                          & INTF_VERSION_MASK;
+> Why *2? Where to the two session headers go? (Also nit: blanks missing around *.)
 >
-> Nit: The & wants to move to the previous line and indentation of the
-> continuation line wants to increase by 2.
-
-OK.
-
-> > +    cmd_rsp.start_c = (struct sha1_start_cmd) {
-> > +        .h.tag = swap16(TPM_TAG_RQU_COMMAND),
-> > +        .h.paramSize = swap32(sizeof(struct sha1_start_cmd)),
->
-> While here it may be viewed as on the edge, ...
->
-> > +        .h.ordinal = swap32(TPM_ORD_SHA1Start),
+> > +        .pcrSession.handle = swap32(TPM_RS_PW),
+> > +        .sequenceSession.handle = swap32(TPM_RS_PW),
+> > +        .dataSize = swap16(size),
 > > +    };
-> > +
-> > +    send_cmd(loc, cmd_rsp.buf, sizeof(struct sha1_start_cmd), &o_size);
->
-> ... here and ...
->
-> > +    if ( o_size < sizeof(struct sha1_start_rsp) )
->
-> ... here (and elsewhere) you would better use sizeof(<expression>), to make
-> the connection there more clear.
 
-OK and I'll update send_cmd() to be like in TPM2.0 case which gets rid
-of duplicated expressions.
+Because TPM2_PCR_EventSequenceComplete command has two sessions filled directly
+below in .pcrSession and .sequenceSession fields.  Will fix the spacing.
 
-> > +            max_bytes = size & ~(64 - 1);
->
-> ROUNDDOWN(size, 64)
-
-Right, didn't see this macro.
-
-> > +        o_size = sizeof(cmd_rsp);
-> > +
-> > +        cmd_rsp.update_c = (struct sha1_update_cmd){
->
-> Please, at least within a single patch, be consistent about whether there is
-> a blank between ) and {.
-
-Sure.
-
-> > +error:
->
-> Nit: Labels indented by at least one blank please.
-
-OK, didn't see that note about `diff -p` before.
-
-> > +    new_entry = (void *)(((uint8_t *)evt_log) + evt_log->NextEventOffset);
->
->    new_entry = (void *)evt_log + evt_log->NextEventOffset;
->
-
-OK.
-
-> > +    if ( evt_log->NextEventOffset + sizeof(struct TPM12_PCREvent) + data_size
-> > +         > evt_log_size )
->
-> Nit: Operator placement again.
-
-OK.
-
-> > +        return NULL;
-> > +
-> > +    evt_log->NextEventOffset += sizeof(struct TPM12_PCREvent) + data_size;
-> > +
-> > +    new_entry->PCRIndex = pcr;
-> > +    new_entry->Type = type;
-> > +    new_entry->Size = data_size;
-> > +
-> > +    if ( data && data_size > 0 )
-> > +        memcpy(new_entry->Data, data, data_size);
->
-> What about "data && !data_size" or "!data && data_size"? Are these legal
-> inputs that are fine to ignore? Otherwise - why the if()?
-
-Not every event has event data, so it can be NULL and/or of zero size.
-Will state that in a comment.
-
-> > +void tpm_hash_extend(unsigned loc, unsigned pcr, const uint8_t *buf,
-> > +                     unsigned size, uint32_t type, const uint8_t *log_data,
-> > +                     unsigned log_data_size)
+> > +static uint32_t tpm2_hash_extend(unsigned loc, const uint8_t *buf,
+> > +                                 unsigned size, unsigned pcr,
+> > +                                 const struct tpm2_log_hashes *log_hashes)
 > > +{
-> > +    void *evt_log_addr;
-> > +    uint32_t evt_log_size;
+> > +    uint32_t rc;
+> > +    unsigned i;
+> > +    struct tpm2_log_hashes supported_hashes = {0};
 > > +
-> > +    find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
-> > +    evt_log_addr = __va((uintptr_t)evt_log_addr);
+> > +    request_locality(loc);
 > > +
-> > +    if ( is_tpm12() )
+> > +    for ( i = 0; i < log_hashes->count; ++i )
 > > +    {
-> > +        uint8_t sha1_digest[SHA1_DIGEST_SIZE];
+> > +        const struct tpm2_log_hash *hash = &log_hashes->hashes[i];
+> > +        if ( !tpm_supports_hash(loc, hash) )
+> > +        {
+> > +            printk(XENLOG_WARNING "Skipped hash unsupported by TPM: %d\n",
+> > +                   hash->alg);
+> > +            continue;
+> > +        }
 > > +
-> > +        struct txt_ev_log_container_12 *evt_log = evt_log_addr;
-> > +        void *entry_digest = create_log_event12(evt_log, evt_log_size, pcr,
-> > +                                                type, log_data, log_data_size);
+> > +        if ( hash->alg == TPM_ALG_SHA1 )
+> > +        {
+> > +            sha1_hash(hash->data, buf, size);
+> > +        }
+> > +        else if ( hash->alg == TPM_ALG_SHA256 )
+> > +        {
+> > +            sha2_256_digest(hash->data, buf, size);
+> > +        }
+> > +        else
+>
+> Is this really just "else", not "else if ( ... )"?
+>
+> > +        {
+> > +            /* This is called "OneDigest" in TXT Software Development Guide. */
+> > +            memset(hash->data, 0, size);
+> > +            hash->data[0] = 1;
+> > +        }
+
+Yes, only these two algorithms are supported, others are expected to
+have some fake values (the next version won't do anything in the
+else-branch, leaving that to the caller).
+
+> > +        if ( supported_hashes.count == MAX_HASH_COUNT )
+> > +        {
+> > +            printk(XENLOG_ERR "Hit hash count implementation limit: %d\n",
+> > +                   MAX_HASH_COUNT);
+> > +            return -1;
+>
+> This is an odd return value for a function returning uint32_t. And it's also ...
+
+Will `#define TPM_INTERNAL_ERROR 0xffffffffU`.  TPM only uses the lower
+12 bits of UINT32, so there is no ambiguity.
+
 > > +
-> > +        /* We still need to write computed hash somewhere. */
-> > +        if ( entry_digest == NULL )
-> > +            entry_digest = sha1_digest;
-> > +
-> > +        if ( !tpm12_hash_extend(loc, buf, size, pcr, entry_digest) )
+> > +        rc = tpm2_hash_extend(loc, buf, size, pcr, &log_hashes);
+> > +        if ( rc != 0 )
 > > +        {
 > > +#ifndef __EARLY_SLAUNCH__
-> > +            printk(XENLOG_ERR "Extending PCR%u failed\n", pcr);
-> > +#endif
-> > +        }
-> > +    }
+> > +            printk(XENLOG_ERR "Extending PCR%u failed with TPM error: 0x%08x\n",
+> > +                   pcr, rc);
 >
-> And implicitly "else { ignore everything }"?
+> ... not exactly a TPM error.
 
-Yes, but the next version of the patch will return an error instead.
-
-> > +#ifdef __EARLY_SLAUNCH__
-> > +void asmlinkage tpm_extend_mbi(uint32_t *mbi, uint32_t slrt_pa)
->
-> Pointer to const please, and then make sure ...
->
-> > +{
-> > +    /* Need this to implement slaunch_get_slrt() for early TPM code. */
-> > +    slrt_location = slrt_pa;
-> > +
-> > +    /* MBI starts with uint32_t total_size. */
-> > +    tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)mbi, *mbi,
->
-> ... not to cast away const-ness here.
->
-> Jan
-
-Will do.
+Will s/TPM/an/.
 
 Regards,
 Sergii
