@@ -2,56 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id CuTaJb7pQWrIvwkAu9opvQ
+	id Xql+A3ELQmpozQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 05:42:54 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 08:06:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7A696D5B1A
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 05:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34ADA6D6278
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 08:06:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=LtRPwwOI;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=rQOhue7e;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=rQOhue7e;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=valinux.co.jp;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1347128.1605008 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1347140.1605018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1we2sS-0005pV-7Y; Mon, 29 Jun 2026 03:41:44 +0000
+	id 1we57h-00058V-WC; Mon, 29 Jun 2026 06:05:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347128.1605008; Mon, 29 Jun 2026 03:41:44 +0000
+Received: by outflank-mailman (output) from mailman id 1347140.1605018; Mon, 29 Jun 2026 06:05:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1we2sS-0005nB-0d; Mon, 29 Jun 2026 03:41:44 +0000
-Received: by outflank-mailman (input) for mailman id 1347128;
- Mon, 29 Jun 2026 02:01:58 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1we57h-00056v-RJ; Mon, 29 Jun 2026 06:05:37 +0000
+Received: by outflank-mailman (input) for mailman id 1347140;
+ Mon, 29 Jun 2026 06:05:36 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <takakura@valinux.co.jp>) id 1we1Jt-0000Pk-9N
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 02:01:58 +0000
+ (envelope-from <jgross@suse.com>) id 1we57g-00056p-J3
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 06:05:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1we1Js-00DHGq-0x
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 04:01:56 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1we57e-003k2Z-RO
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 08:05:34 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <takakura@valinux.co.jp>)
- id 6a41d1ee-bab6-0a2a0a5309dd-0a2a4502b8ec-24
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 04:01:55 +0200
-Received: from [52.101.229.138]
- (helo=TY3P286CU002.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <takakura@valinux.co.jp>)
- id 6a41d20f-5a27-0a2a45020019-3465e58a9170-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 04:01:54 +0200
-Received: from TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:30e::6)
- by TYRP286MB5864.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:2ea::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 02:01:48 +0000
-Received: from TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
- ([fe80::a377:45d3:a376:f515]) by TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
- ([fe80::a377:45d3:a376:f515%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 02:01:48 +0000
+ (envelope-from <jgross@suse.com>)
+ id 6a420b27-5cb7-0a2a0a5109dd-0a2a450cb836-16
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 08:05:34 +0200
+Received: from [195.135.223.131] (helo=smtp-out2.suse.de)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <jgross@suse.com>)
+ id 6a420b2e-f399-0a2a450c0019-c387df83b06e-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 08:05:34 +0200
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7B3FE75D0F;
+ Mon, 29 Jun 2026 06:05:32 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0872E779A8;
+ Mon, 29 Jun 2026 06:05:30 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id JTiaACoLQmotEQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 29 Jun 2026 06:05:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,508 +69,390 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aAaux/coelTE9SNl29mDXZUFVwSC9oXuRKTDnXpL00KsjgSZhYKWOvkqYSsJmq6FyoATMDJsAqWbWbPu1C3jTj6UTwu4ZvPSwZVFWVnBvWXuu60sUzkBInpjIF7LoFsLRacX96U6SoC/SUghbQr7mT5RqJgAJ6b6Y88RUHPECxcvhq91PdC6WF2W6M797IaZx3h96cs5rZDu/FVhJezMpReEHLrlX58+3Np5NF9nd+dGwAKs8VYtkx3GUa+uebQSqze3hPSjD7IRzT064P7t01WriAMcE8lPC8teuHo0k41ZEmuCtC0rOibo0nZOQAy0CdlCpX3IPpsxgw4sstaz6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JjMi6goWu6dnJNcUo0E7KxWnlD36ags8JxTs8eDXz54=;
- b=lLeJHAKrA6kwcvCVKxk0GxvLaIuC0jNWWWHvfZMJbk5Wdm37s0kOe8JR4WNs4eI36n8eOrhkjfF2tlpC6KC1aORHf0o1Nsxrx+fw10jrpDu5ZIR3JzjrDPjkRu2iRmjMGOe23M4H9uH2Dt6cNUTnuccxJEo4Jxr3pQ7hx/fgYVF9mfuaTlL2stb9pdUZ7AfKaVcQrBdDkNSeUCHA6CqVPrOGfyIv9GZUa584FQC1U322Bcj2ah+0DBLdQN8lJeyzIEVDZyGzos/YeR7KKYz6avgSeywj7/vZ34Jrgqf1kb8hMLAWg9ug/taYrBAajdcMD8m47UfPAKDjf2zjTVSg3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JjMi6goWu6dnJNcUo0E7KxWnlD36ags8JxTs8eDXz54=;
- b=LtRPwwOIyZbcQd/0LrUsDIBMst+xv8KQbA58r1ixyKVBdievUX3BpGS1C7+27abdnSyuFtWh1ot3vzSQo/QxRQ4G72vZuCFx8+l8N2PY/PaxW+B2ODtgNaK2h2G5vayk6F4Sg7b2KXjUHXL2PdehHlWEa3t6cWLR6qVm2Yd0USo=
-From: Ryo Takakura <takakura@valinux.co.jp>
-To: xen-devel@lists.xenproject.org
-Cc: roger.pau@citrix.com,
-	ross.lagerwall@citrix.com,
-	sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	michal.orzel@amd.com,
-	Volodymyr_Babchuk@epam.com,
-	andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech,
-	jbeulich@suse.com,
-	taka@valinux.co.jp,
-	den@valinux.co.jp,
-	Ryo Takakura <takakura@valinux.co.jp>
-Subject: [RFC] xen/arm64: livepatch: enable attaching callbacks
-Date: Mon, 29 Jun 2026 11:01:28 +0900
-Message-Id: <20260629020128.30561-1-takakura@valinux.co.jp>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0095.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37a::17) To TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:30e::6)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782713132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ucXwQadpGPBgriEK86cLgPUeZrADzv4dSH5gZLBm9SU=;
+	b=rQOhue7eG1RqOZRWiTw8jbCuylMHgYcRVVXmqtOaxabAsUR6H290EGbG1g90SBE8kfAqwf
+	xu2wV5hF+XiJ5Gzn226V2je0ZU54Dy6cNLbgR6f3rixfzMkKJrxVD78cfU42kZcGy4TTPt
+	MteQ3NP7j5ZUp3ss3go9PMVdq5ajvlo=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1782713132; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=ucXwQadpGPBgriEK86cLgPUeZrADzv4dSH5gZLBm9SU=;
+	b=rQOhue7eG1RqOZRWiTw8jbCuylMHgYcRVVXmqtOaxabAsUR6H290EGbG1g90SBE8kfAqwf
+	xu2wV5hF+XiJ5Gzn226V2je0ZU54Dy6cNLbgR6f3rixfzMkKJrxVD78cfU42kZcGy4TTPt
+	MteQ3NP7j5ZUp3ss3go9PMVdq5ajvlo=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	x86@kernel.org,
+	linux-acpi@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-coco@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-ide@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	platform-driver-x86@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Jason Baron <jbaron@akamai.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Pu Wen <puwen@hygon.cn>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	David Airlie <airlied@redhat.com>,
+	Helge Deller <deller@gmx.de>,
+	linux-geode@lists.infradead.org,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Perry Yuan <perry.yuan@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+	Artem Bityutskiy <dedekind1@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Ashok Raj <ashok.raj.linux@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	David E Box <david.e.box@intel.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
+Date: Mon, 29 Jun 2026 08:04:51 +0200
+Message-ID: <20260629060526.3638272-1-jgross@suse.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYP286MB2946:EE_|TYRP286MB5864:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5eb2585a-4781-43c4-9859-08ded5826114
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|7416014|3023799007|6133799003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	+Dx5dVgDnb0sPUvil99Iy2UJiKmhZchB9nZVr+0Ua5WF5u2QDH8vhvElBmCPjnij/mDaVD0dv72mJiCPYlnjaQSlPJjbJ57/S0PpWb6+IF2Pt8SU8Hjghy3fNDSuYn8l0pWeTTfoY3gLIS2WDlPEj+RHKADKjhDby3Lh3Faa8Mib/vW2vScNegO491UknIGCuRpsnKTnZkY2ibAFQSNA2t75rPXsx0gCVl43Q9uhIgMF/fHqPAursxgjqHTJRGZSwfZaWYR3lWhRAYpTD4SbFCvtiMadSRnK8gM6I+Sa2h3du68gWPX5A1SAO0Z6gyHHsA14J2HCpH0xIcJgN42QVyOSe/xWPUv4yMuirxzHpbMHKV/fQToievFkumXcHI65FlJRb3D8M+lLLwrO7dUru7/NIKHvvVmf3FXHilFAxZQgS0dXqDMneBwlNlsnNQkpVWa5I3oK4wuPAwU+wgU29E5aXAMMnWqxggRjXWDHZgrGOXxCkmISpI3DMhueufAoIY8K3mXRLOuD1j+/8wIaDCtJiC5Xnai3erojB4JUkKoFzB22vPrrQVAd+FNmQVOBeoMCy2lDvySownvmDz2W96Kac9pFZTnYmaFtzAkELsvsEOCE3ao9DJ0IczMurJcjNdRRqYYoWURHaOmkTpUhsvNTS1qJ2iwUedP99IBAdlk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(7416014)(3023799007)(6133799003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7UodhO7XxhVNE+FHrL8ENOabCFbIkg7GrJSOly/+y+a8IgwzqbWWDXfEQb5z?=
- =?us-ascii?Q?ssGeo4m3AnJAWiN1M6x9Zw6wGOLyzDx8W6o4PQ6MTkLS47RocabAifbhq8ir?=
- =?us-ascii?Q?ZaDTNtY3XPlKBPKaxObQWE6vd2ANPZBlfaPwkoSWgzpQKReZjN8WO7ooJBFJ?=
- =?us-ascii?Q?p9MGy2hK4rjXZWe8wI+UCnbbkKrgnOEDcQVXmZ2qMyMFPf9e7bZn50D6s7jM?=
- =?us-ascii?Q?8VeQfjE2UNS+udcLE5EJyn2OdZGgOOf0l7J3v7sSVB1bIYy9uhyRrezFqV8l?=
- =?us-ascii?Q?2sN2ZAOaWkY903m3pXPbWG9NwZ5tN/yBhCPGhXyCm73lC89DotpRGz4T9wN0?=
- =?us-ascii?Q?g+JOcofEsDwxP9LV4mQjsLWdXsECtjB94XgflNQ4lYoDIrL3fVE8BZJ/B0tZ?=
- =?us-ascii?Q?yyjO4vvS0pxylgZeynz+NbK/TOG7c+wBClBR09OqGy8YY1eCMaK4bBrROZ/c?=
- =?us-ascii?Q?WCytmQVqhAnaZ6nDU1syFjkc8cqswaMBbDcECsU832vHW8mwyq11HDWvA+kR?=
- =?us-ascii?Q?wuYiRrgzVBd64sxP8uG8j/8291pm9P6wxitUXQbBshqe8r2pXzpPUa/2JAnb?=
- =?us-ascii?Q?0SswSYds/7uPM2gjXyAXGGs44FWb/i/ubJB9G49c1ExNNJX8Lj5AHutZqy1z?=
- =?us-ascii?Q?C3jE3KykKiU/QKErH6CYRvX3R3jsHd43GOCzC+XsUJMIURDadSvg3VvTLTdV?=
- =?us-ascii?Q?mTfhDsYMKRQC63lbns6TW9ATNXjXSTHboHhtU74SY7/r1JrpV4jn4vdOpK1W?=
- =?us-ascii?Q?2oYyPTaLVI3K+r1/LlPiuOUeH9UMoIPloxPf+Sr2CaMN+pdr5zc4EsTGTRkY?=
- =?us-ascii?Q?qHEh6wKjvpQ1PoGpd93qvZXrna7HLKIXXJstBdi9JJzVm5i6FTn1uaBTM7S8?=
- =?us-ascii?Q?HwrQ3HaE4YZSk03AlaJDdruDGFq02tftAUv99ZX9SwQ8HXjPVRfRnmAfQWr1?=
- =?us-ascii?Q?pP6iEqagYlenkzR7aJ9TCcLt4A6uWEGXBC3LMw58juv1IoctFkNxVHbUd/jn?=
- =?us-ascii?Q?ucloXDQihnfIncnUvlAqVgAA2A+X9RlXJgqRSQ7OhUlBTAvVoukuwc38J0No?=
- =?us-ascii?Q?GsJd/pcnvpTk6EOBFfmI24qeMZMJGGlaq+ahsOK/XMnJl2eat/vl6RjCR/3U?=
- =?us-ascii?Q?M2u7hxO6HXzIudOY+C6YOWJOQP004ismXC9GszqSCJPhSauwOxq5HAN9KEfZ?=
- =?us-ascii?Q?cZ0I7xiAX0yvJwRvYPkVH4Spl784qktYUTuFLLuKuGIge80S2XGS5C6njMnG?=
- =?us-ascii?Q?HRv6jJJ0RBCnkR2qu0m0XS558fuba5DIYCnwdiBA/QElK0awyhFVygp/jG6x?=
- =?us-ascii?Q?CFxXg/vh/ehRWdQiS6BLus2ktknH2RiD9SnFi3sOVFwP4Y7Q/LywxHJT8emA?=
- =?us-ascii?Q?ZRtDtVcsxZHmO4Ywf0JMIduekcLdAJoruSBgeS+mGdodQ/aBXADakNpJkYby?=
- =?us-ascii?Q?NKITncth9Bt2jv4C01N4t/jSmPUZVBkDaA9+yA6KpHCDlmxfLkFUVKTY3m5V?=
- =?us-ascii?Q?LIEmWrxCDAnbGOkORKbRZjk+Q4rgi6TFzicBkALTyM6PGj4lLgC5ic/1UgFL?=
- =?us-ascii?Q?heW9Fgt19IKBQwX1px5eLXneIAJGu7x7ndepjgt/QYuY3ahk6gicwCprMB00?=
- =?us-ascii?Q?xfMPS5axKUGxPpq0gMgfk0Jwb6D24bm8Q5hGnMywaC9UgEe5iR1Xs7H2sC7w?=
- =?us-ascii?Q?qsryK0xcI+vYRncfr6i0hJOjz4nOheb9JZcP5oQ+9SD3h01N8k4tK8ayU+gC?=
- =?us-ascii?Q?QLPyQ+6mig=3D=3D?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eb2585a-4781-43c4-9859-08ded5826114
-X-MS-Exchange-CrossTenant-AuthSource: TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 02:01:48.5666
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oX/fdhrwIpK7PfgSvHLkdoAJh0iibOBmx2+q95zRxmN2xbwGJCBg5X4zVJaORZ0j4K8lPOajIR4DltHvThpwrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRP286MB5864
-X-purgate-ID: tlsNG-720697/1782698515-4CF017C5-8B9764E0/0/0
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -1.51
+X-Spam-Level: 
+X-purgate-ID: tlsNG-d25034/1782713134-93339D51-DDE11D53/0/0
 X-purgate-type: clean
-X-purgate-size: 13541
+X-purgate-size: 11632
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
+X-Spamd-Result: default: False [1.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
-	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:taka@valinux.co.jp,m:den@valinux.co.jp,m:takakura@valinux.co.jp,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[takakura@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[takakura@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	FREEMAIL_CC(0.00)[suse.com,kernel.org,intel.com,arm.com,akamai.com,alien8.de,amd.com,redhat.com,linux.intel.com,zytor.com,google.com,hygon.cn,broadcom.com,linaro.org,zhaoxin.com,gmx.de,lists.infradead.org,selenic.com,gondor.apana.org.au,arndb.de,linuxfoundation.org,microsoft.com,roeck-us.net,infradead.org,oracle.com,gmail.com,bootlin.com,nod.at,ti.com,lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:linux-pm@vger.kernel.org,m:linux-edac@vger.kernel.org,m:x86@kernel.org,m:linux-acpi@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-pci@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-ide@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-fbdev@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-hwmon@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:platform-driver-x86@vger.kernel.org,m:jgross@suse.com,m:rafael@kernel.org,m:daniel.lezcano@kernel.org,m:rui.zhang@intel.com,m:lukasz.luba@arm.com,m:jbaron@akamai.com,m:bp@alien8.de,m:tony.luck@intel.com,m:yazen.ghannam@amd.com,m:lenb@kernel.org,m:pavel@kernel.org,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:seanjc@google.com,m:pbonzini@redhat.com,m:kas@kernel.org,m:rick.p.edgecombe@intel.com,m:puwen@hyg
+ on.cn,m:bhelgaas@google.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:viresh.kumar@linaro.org,m:reinette.chatre@intel.com,m:Dave.Martin@arm.com,m:james.morse@arm.com,m:babu.moger@amd.com,m:TonyWWang-oc@zhaoxin.com,m:dlemoal@kernel.org,m:cassel@kernel.org,m:airlied@redhat.com,m:deller@gmx.de,m:linux-geode@lists.infradead.org,m:olivia@selenic.com,m:herbert@gondor.apana.org.au,m:linusw@kernel.org,m:brgl@kernel.org,m:arnd@arndb.de,m:gregkh@linuxfoundation.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:linux@roeck-us.net,m:peterz@infradead.org,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,m:alexander.shishkin@linux.intel.com,m:jolsa@kernel.org,m:irogers@google.com,m:adrian.hunter@intel.com,m:james.clark@linaro.org,m:jpoimboe@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:vkuznets@redhat.com,m:luto@kernel.org,m:boris.ostrovsky@oracle.com,m:ray.h
+ uang@amd.com,m:mario.limonciello@amd.com,m:perry.yuan@amd.com,m:kprateek.nayak@amd.com,m:srinivas.pandruvada@linux.intel.com,m:artem.bityutskiy@linux.intel.com,m:dedekind1@gmail.com,m:miquel.raynal@bootlin.com,m:richard@nod.at,m:vigneshr@ti.com,m:ashok.raj.linux@gmail.com,m:hansg@kernel.org,m:ilpo.jarvinen@linux.intel.com,m:irenic.rajneesh@gmail.com,m:david.e.box@intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RCPT_COUNT_GT_50(0.00)[96];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A7A696D5B1A
+X-Rspamd-Queue-Id: 34ADA6D6278
 
-Linux ftrace allows registering callbacks which is useful
-for debugging and tracing events. On Linux, it is done by
-reserving function entry points at compile time which can
-later be patched to branch to a trampoline.
+For accessing the MSR registers on the local CPU, there are 2 types of
+interfaces: the "modern" 64-bit ones (rdmsrq() etc.) and the 32-bit
+ones (rdmsr() etc.) which are using the upper and lower 32-bit halves
+of the 64-bit wide MSR register values.
 
-This patch implements similar callback feature, but with
-different approach using existing livepatch infrastructure.
-Instead of reserving function entry points at compile time,
-the traced function will be livepatched so that it branches
-to the trampoline.
+The 32-bit interfaces are not optimal for 3 reasons:
 
-The role of the trampoline(illustrated below) is to preserve
-the context while jumping to the tracer function, and return
-back to the traced function with its context restored.
+- They are based on primitives using 64-bit sized values anyway.
 
-trampoline:
-    Save regs
-    Call tracer function
-    Restore regs
-    old_addr
-    return old_addr + 4
+- Modern x86 CPUs have added support for MSR access instructions using
+  an immediate value instead of a register for addressing the MSR,
+  while the value is in a 64-bit register.
 
-One can request the feature by setting @trampoline_buf to 1
-which will allocate a buffer for trampoline.
+- rdmsr() is a macro storing the upper and lower 32-bit halves in
+  variables specified as macro parameters. This is obscuring variable
+  assignment through a macro. Additionally rdmsrq() is mimicking this
+  pattern by being a macro, too, with the target variable specified as
+  a parameter as well.
 
-Signed-off-by: Ryo Takakura <takakura@valinux.co.jp>
----
+For those reasons drop the 32-bit interfaces for accessing the x86 MSR
+registers completely and only use the 64-bit variants.
 
-Hi!
+This allows to switch all "high-level" MSR access macros to inline
+functions in the end.
 
-For the future, I'm thinking of linux-like extensions
-which help tracing and debugging by passing:
-- saved registers
-- caller information
-- private data
-- and so on ...
+This series will be used as the base for further reorganisation of the
+MSR access functions, especially for completely inlining the MSR
+access instructions even with paravirtualization being active.
 
-I would appreciate any advice or suggestion.
-Thanks!
+Note that most patches of this series are independent from each other.
+Only the patches removing a specific interface (patches 7, 15, 26 and
+30) and the last two patches of the series depend on all previous
+patches.
 
-Example payload file:
+Based on kernel 7.2-rc1, tested with and without parvirtualization
+active, compile tested for x86 with 64- and 32-bit allyes and allno
+configs.
 
-#include <xen/lib.h>
-#include <xen/livepatch.h>
+Juergen Gross (32):
+  thermal/intel: Stop using 32-bit MSR interfaces
+  powercap: Stop using 32-bit MSR interfaces
+  edac: Stop using 32-bit MSR interfaces
+  acpi: Stop using 32-bit MSR interfaces
+  x86/mtrr: Stop using 32-bit MSR interfaces
+  x86/msr: Stop using 32-bit MSR interfaces in lib/msr-smp.c
+  x86/msr: Remove wrmsr_safe()
+  x86/mce: Stop using 32-bit MSR interfaces
+  KVM/x86: Stop using 32-bit MSR interfaces
+  x86/hygon: Stop using 32-bit MSR interfaces
+  x86/pci: Stop using 32-bit MSR interfaces
+  x86/amd: Stop using 32-bit MSR interfaces
+  x86/featctl: Stop using 32-bit MSR interfaces
+  x86/tsc: Stop using 32-bit MSR interfaces
+  x86/msr: Remove rdmsr_safe()
+  cpufreq: Stop using 32-bit MSR interfaces
+  x86/resctrl: Stop using 32-bit MSR interfaces
+  x86/apic: Stop using 32-bit MSR interfaces
+  x86/cpu: Stop using 32-bit MSR interfaces
+  drivers/ata: Stop using 32-bit MSR interfaces
+  agp/nvidia: Stop using 32-bit MSR interfaces
+  fbdev/geode: Stop using 32-bit MSR interfaces
+  hw_random/via-rng: Stop using 32-bit MSR interfaces
+  drivers/gpio: Stop using 32-bit MSR interfaces
+  drivers/misc: Stop using 32-bit MSR interfaces
+  x86/msr: Remove wrmsr()
+  x86/hyperv: Stop using 32-bit MSR interfaces
+  x86/olpc: Stop using 32-bit MSR interfaces
+  hwmon: Stop using 32-bit MSR interfaces
+  x86/msr: Remove rdmsr()
+  treewide: convert rdmsrq() from a macro to an inline function
+  x86/msr: Simplify some rdmsrq() use cases
 
-static void my_tracer(void)
-{
-    printk("livepatch: do_domctl was called\n");
-}
+ arch/x86/coco/sev/core.c                      |  2 +-
+ arch/x86/events/amd/brs.c                     |  4 +-
+ arch/x86/events/amd/core.c                    |  8 +-
+ arch/x86/events/amd/ibs.c                     | 18 ++--
+ arch/x86/events/amd/lbr.c                     | 16 +--
+ arch/x86/events/amd/power.c                   |  8 +-
+ arch/x86/events/amd/uncore.c                  |  4 +-
+ arch/x86/events/core.c                        | 20 ++--
+ arch/x86/events/intel/core.c                  | 14 +--
+ arch/x86/events/intel/cstate.c                |  5 +-
+ arch/x86/events/intel/ds.c                    |  2 +-
+ arch/x86/events/intel/knc.c                   | 10 +-
+ arch/x86/events/intel/lbr.c                   | 25 ++---
+ arch/x86/events/intel/p4.c                    |  6 +-
+ arch/x86/events/intel/p6.c                    |  4 +-
+ arch/x86/events/intel/pt.c                    | 12 +--
+ arch/x86/events/intel/uncore.c                |  6 +-
+ arch/x86/events/intel/uncore_nhmex.c          |  4 +-
+ arch/x86/events/intel/uncore_snb.c            |  2 +-
+ arch/x86/events/intel/uncore_snbep.c          |  6 +-
+ arch/x86/events/msr.c                         |  2 +-
+ arch/x86/events/perf_event.h                  |  6 +-
+ arch/x86/events/rapl.c                        |  6 +-
+ arch/x86/events/zhaoxin/core.c                | 10 +-
+ arch/x86/hyperv/hv_apic.c                     | 17 ++--
+ arch/x86/hyperv/hv_init.c                     | 26 ++---
+ arch/x86/hyperv/hv_spinlock.c                 |  2 +-
+ arch/x86/include/asm/apic.h                   |  7 +-
+ arch/x86/include/asm/debugreg.h               |  6 +-
+ arch/x86/include/asm/fsgsbase.h               |  2 +-
+ arch/x86/include/asm/kvm_host.h               |  5 +-
+ arch/x86/include/asm/msr.h                    | 39 +-------
+ arch/x86/include/asm/paravirt.h               | 26 +----
+ arch/x86/include/asm/resctrl.h                |  5 +-
+ arch/x86/kernel/acpi/sleep.c                  | 20 ++--
+ arch/x86/kernel/apic/apic.c                   | 45 ++++-----
+ arch/x86/kernel/apic/apic_numachip.c          |  6 +-
+ arch/x86/kernel/cet.c                         |  2 +-
+ arch/x86/kernel/cpu/amd.c                     | 42 ++++----
+ arch/x86/kernel/cpu/aperfmperf.c              |  8 +-
+ arch/x86/kernel/cpu/bugs.c                    | 12 +--
+ arch/x86/kernel/cpu/bus_lock.c                |  8 +-
+ arch/x86/kernel/cpu/centaur.c                 | 35 +++----
+ arch/x86/kernel/cpu/common.c                  | 22 +++--
+ arch/x86/kernel/cpu/feat_ctl.c                | 27 +++---
+ arch/x86/kernel/cpu/hygon.c                   |  9 +-
+ arch/x86/kernel/cpu/intel.c                   | 12 +--
+ arch/x86/kernel/cpu/intel_epb.c               |  4 +-
+ arch/x86/kernel/cpu/mce/amd.c                 | 89 ++++++++---------
+ arch/x86/kernel/cpu/mce/core.c                | 10 +-
+ arch/x86/kernel/cpu/mce/inject.c              |  2 +-
+ arch/x86/kernel/cpu/mce/intel.c               | 18 ++--
+ arch/x86/kernel/cpu/mce/p5.c                  | 16 +--
+ arch/x86/kernel/cpu/mce/winchip.c             | 10 +-
+ arch/x86/kernel/cpu/microcode/intel.c         |  2 +-
+ arch/x86/kernel/cpu/mshyperv.c                |  6 +-
+ arch/x86/kernel/cpu/mtrr/amd.c                | 36 ++++---
+ arch/x86/kernel/cpu/mtrr/centaur.c            | 18 ++--
+ arch/x86/kernel/cpu/mtrr/cleanup.c            | 18 ++--
+ arch/x86/kernel/cpu/mtrr/generic.c            | 97 ++++++++++---------
+ arch/x86/kernel/cpu/mtrr/mtrr.c               |  4 +-
+ arch/x86/kernel/cpu/resctrl/core.c            |  9 +-
+ arch/x86/kernel/cpu/resctrl/monitor.c         | 27 +++---
+ arch/x86/kernel/cpu/resctrl/pseudo_lock.c     | 12 +--
+ arch/x86/kernel/cpu/resctrl/rdtgroup.c        |  2 +-
+ arch/x86/kernel/cpu/topology.c                |  2 +-
+ arch/x86/kernel/cpu/topology_amd.c            |  4 +-
+ arch/x86/kernel/cpu/transmeta.c               |  9 +-
+ arch/x86/kernel/cpu/tsx.c                     | 10 +-
+ arch/x86/kernel/cpu/umwait.c                  |  2 +-
+ arch/x86/kernel/cpu/zhaoxin.c                 | 12 +--
+ arch/x86/kernel/fpu/core.c                    |  2 +-
+ arch/x86/kernel/hpet.c                        |  2 +-
+ arch/x86/kernel/kvm.c                         |  2 +-
+ arch/x86/kernel/mmconf-fam10h_64.c            |  6 +-
+ arch/x86/kernel/process.c                     |  4 +-
+ arch/x86/kernel/process_64.c                  | 14 +--
+ arch/x86/kernel/shstk.c                       |  8 +-
+ arch/x86/kernel/traps.c                       |  4 +-
+ arch/x86/kernel/tsc.c                         |  8 +-
+ arch/x86/kernel/tsc_msr.c                     | 15 +--
+ arch/x86/kernel/tsc_sync.c                    |  6 +-
+ arch/x86/kvm/svm/pmu.c                        |  4 +-
+ arch/x86/kvm/svm/svm.c                        |  4 +-
+ arch/x86/kvm/vmx/nested.c                     |  4 +-
+ arch/x86/kvm/vmx/pmu_intel.c                  |  8 +-
+ arch/x86/kvm/vmx/sgx.c                        |  6 +-
+ arch/x86/kvm/vmx/vmx.c                        | 54 ++++++-----
+ arch/x86/kvm/x86.c                            | 12 +--
+ arch/x86/lib/insn-eval.c                      |  6 +-
+ arch/x86/lib/msr-smp.c                        |  8 +-
+ arch/x86/mm/pat/memtype.c                     |  2 +-
+ arch/x86/pci/amd_bus.c                        |  8 +-
+ arch/x86/pci/mmconfig-shared.c                |  8 +-
+ arch/x86/platform/olpc/olpc-xo1-rtc.c         |  6 +-
+ arch/x86/platform/olpc/olpc-xo1-sci.c         | 11 ++-
+ arch/x86/power/cpu.c                          | 10 +-
+ arch/x86/realmode/init.c                      |  2 +-
+ arch/x86/virt/hw.c                            |  8 +-
+ arch/x86/virt/svm/sev.c                       | 18 ++--
+ arch/x86/virt/vmx/tdx/tdx.c                   |  8 +-
+ arch/x86/xen/suspend.c                        |  2 +-
+ drivers/acpi/processor_perflib.c              | 11 ++-
+ drivers/acpi/processor_throttling.c           | 14 +--
+ drivers/ata/pata_cs5535.c                     | 20 ++--
+ drivers/ata/pata_cs5536.c                     | 17 ++--
+ drivers/char/agp/nvidia-agp.c                 | 32 +++---
+ drivers/char/hw_random/via-rng.c              | 29 +++---
+ drivers/cpufreq/acpi-cpufreq.c                | 24 ++---
+ drivers/cpufreq/amd-pstate.c                  |  4 +-
+ drivers/cpufreq/e_powersaver.c                | 52 +++++-----
+ drivers/cpufreq/intel_pstate.c                | 30 +++---
+ drivers/cpufreq/longhaul.c                    | 23 ++---
+ drivers/cpufreq/longrun.c                     | 78 ++++++++-------
+ drivers/cpufreq/powernow-k6.c                 | 12 +--
+ drivers/cpufreq/powernow-k7.c                 | 10 +-
+ drivers/cpufreq/powernow-k8.c                 | 67 ++++++-------
+ drivers/cpufreq/speedstep-centrino.c          | 16 +--
+ drivers/cpufreq/speedstep-lib.c               | 63 ++++++------
+ drivers/edac/amd64_edac.c                     |  6 +-
+ drivers/edac/ie31200_edac.c                   | 10 +-
+ drivers/edac/mce_amd.c                        |  8 +-
+ drivers/gpio/gpio-cs5535.c                    | 10 +-
+ drivers/hv/mshv_vtl_main.c                    |  2 +-
+ drivers/hwmon/hwmon-vid.c                     | 11 ++-
+ drivers/idle/intel_idle.c                     | 26 ++---
+ drivers/misc/cs5535-mfgpt.c                   | 33 +++----
+ drivers/mtd/nand/raw/cs553x_nand.c            |  6 +-
+ drivers/platform/x86/intel/ifs/load.c         | 10 +-
+ drivers/platform/x86/intel/ifs/runtest.c      |  8 +-
+ drivers/platform/x86/intel/pmc/cnp.c          |  2 +-
+ .../intel/speed_select_if/isst_if_mbox_msr.c  |  6 +-
+ .../intel/speed_select_if/isst_tpmi_core.c    |  2 +-
+ drivers/platform/x86/intel_ips.c              | 20 ++--
+ drivers/powercap/intel_rapl_common.c          | 20 ++--
+ drivers/powercap/intel_rapl_msr.c             |  2 +-
+ drivers/thermal/intel/intel_hfi.c             |  8 +-
+ drivers/thermal/intel/intel_tcc.c             | 10 +-
+ drivers/thermal/intel/therm_throt.c           | 74 +++++++-------
+ drivers/thermal/intel/x86_pkg_temp_thermal.c  | 32 +++---
+ drivers/video/fbdev/geode/display_gx.c        |  8 +-
+ drivers/video/fbdev/geode/gxfb_core.c         |  2 +-
+ drivers/video/fbdev/geode/lxfb_ops.c          | 50 +++++-----
+ drivers/video/fbdev/geode/suspend_gx.c        | 24 ++---
+ drivers/video/fbdev/geode/video_gx.c          |  8 +-
+ include/linux/cs5535.h                        | 10 +-
+ 146 files changed, 1044 insertions(+), 1128 deletions(-)
 
-static struct livepatch_func funcs[]
-    __attribute__((section(".livepatch.funcs"))) =
-{
-    {
-        .name = "do_domctl",
-        .old_size = 4572,
-        .new_addr = my_tracer,
-        .new_size = 32,
-        .trampoline_buf = (void *)1,
-        .version = LIVEPATCH_PAYLOAD_VERSION,
-    }
-};
-
-Sample output:
-
-$ tools/misc/xen-livepatch list
- ID                                     | status     | metadata
-----------------------------------------+------------+---------------
-trace_do_domctl                         | APPLIED    |
-$ xl vcpu-list Domain-0
-Name                                ID  VCPU   CPU State   Time(s) Affinity (Hard / Soft)
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-(XEN) livepatch: do_domctl was called
-Domain-0                             0     0    1   -b-      67.7  all / all
-Domain-0                             0     1    3   -b-     457.2  all / all
-Domain-0                             0     2    2   -b-      42.4  all / all
-Domain-0                             0     3    0   r--      32.4  all / all
-
-Sincerely,
-Ryo Takakura
-
----
- xen/arch/arm/arm64/livepatch.c      | 104 +++++++++++++++++++++++++++-
- xen/common/livepatch.c              |  40 +++++++++--
- xen/include/public/sysctl.h         |   3 +-
- xen/include/xen/livepatch.h         |  13 +++-
- xen/include/xen/livepatch_payload.h |   2 +
- 5 files changed, 150 insertions(+), 12 deletions(-)
-
-diff --git a/xen/arch/arm/arm64/livepatch.c b/xen/arch/arm/arm64/livepatch.c
-index e135bd5bf9..b7c9aba94e 100644
---- a/xen/arch/arm/arm64/livepatch.c
-+++ b/xen/arch/arm/arm64/livepatch.c
-@@ -15,6 +15,29 @@
- #include <asm/insn.h>
- #include <asm/livepatch.h>
- 
-+
-+#define AARCH64_REG_SP 31
-+
-+static uint32_t aarch64_insn_gen_stp_pre(unsigned int rt,
-+                                         unsigned int rt2)
-+{
-+    return 0xa9800000 |
-+           (((-16 / 8) & 0x7f) << 15) |
-+           (rt2 << 10) |
-+           (AARCH64_REG_SP << 5) |
-+           rt;
-+}
-+
-+static uint32_t aarch64_insn_gen_ldp_post(unsigned int rt,
-+                                          unsigned int rt2)
-+{
-+    return 0xa8c00000 |
-+           (((16 / 8) & 0x7f) << 15) |
-+           (rt2 << 10) |
-+           (AARCH64_REG_SP << 5) |
-+           rt;
-+}
-+
- void arch_livepatch_apply(const struct livepatch_func *func,
-                           struct livepatch_fstate *state)
- {
-@@ -34,12 +57,87 @@ void arch_livepatch_apply(const struct livepatch_func *func,
-     /* Save old ones. */
-     memcpy(state->insn_buffer, func->old_addr, len);
- 
--    if ( func->new_addr )
-+    if ( !func->new_addr )
-+    {
-+        insn = aarch64_insn_gen_nop();
-+    }
-+    else if ( func->trampoline_buf )
-+    {
-+        int rc;
-+        uint32_t *trampoline = func->trampoline_buf;
-+        uint32_t *tp = trampoline;
-+        void *orig_cont_addr = (void *)func->old_addr + len;
-+        unsigned int trampoline_code_size = len + 12 * ARCH_PATCH_INSN_SIZE;
-+        unsigned long trampoline_start = (unsigned long)trampoline & PAGE_MASK;
-+        unsigned long trampoline_end =
-+            PAGE_ALIGN((unsigned long)trampoline + trampoline_code_size);
-+
-+        /*
-+         * Make the payload text area writeable while generating
-+         * the trampoline instructions.
-+         */
-+        rc = modify_xen_mappings(trampoline_start, trampoline_end,
-+                                 PAGE_HYPERVISOR);
-+        if ( rc )
-+        {
-+            printk(XENLOG_ERR LIVEPATCH
-+                   "Failed to make trampoline writable: %d\n", rc);
-+            return;
-+        }
-+
-+        /* Save state before calling the tracer. */
-+        *tp++ = aarch64_insn_gen_stp_pre(0, 1);
-+        *tp++ = aarch64_insn_gen_stp_pre(2, 3);
-+        *tp++ = aarch64_insn_gen_stp_pre(4, 5);
-+        *tp++ = aarch64_insn_gen_stp_pre(6, 7);
-+        *tp++ = aarch64_insn_gen_stp_pre(29, 30);
-+
-+        /* Call user's tracing function. */
-+        insn = aarch64_insn_gen_branch_imm(
-+            (unsigned long)tp,
-+            (unsigned long)func->new_addr,
-+            AARCH64_INSN_BRANCH_LINK);
-+        *tp++ = insn;
-+
-+        /* Restore state before continuing original function. */
-+        *tp++ = aarch64_insn_gen_ldp_post(29, 30);
-+        *tp++ = aarch64_insn_gen_ldp_post(6, 7);
-+        *tp++ = aarch64_insn_gen_ldp_post(4, 5);
-+        *tp++ = aarch64_insn_gen_ldp_post(2, 3);
-+        *tp++ = aarch64_insn_gen_ldp_post(0, 1);
-+
-+        /* Original instruction. */
-+        memcpy(tp, state->insn_buffer, len);
-+        tp += len / ARCH_PATCH_INSN_SIZE;
-+
-+        /* Branch back to original function. */
-+        insn = aarch64_insn_gen_branch_imm(
-+            (unsigned long)tp,
-+            (unsigned long)orig_cont_addr,
-+            AARCH64_INSN_BRANCH_NOLINK);
-+        *tp++ = insn;
-+
-+        clean_and_invalidate_dcache_va_range(trampoline, trampoline_code_size);
-+
-+        rc = modify_xen_mappings(trampoline_start, trampoline_end,
-+                                 PAGE_HYPERVISOR_RX);
-+        if ( rc )
-+        {
-+            printk(XENLOG_ERR LIVEPATCH
-+                   "Failed to restore trampoline RX mapping: %d\n", rc);
-+            return;
-+        }
-+
-+        /* Branch from original function to trampoline. */
-+        insn = aarch64_insn_gen_branch_imm(
-+            (unsigned long)func->old_addr,
-+            (unsigned long)func->trampoline_buf,
-+            AARCH64_INSN_BRANCH_NOLINK);
-+    }
-+    else if ( func->new_addr )
-         insn = aarch64_insn_gen_branch_imm((unsigned long)func->old_addr,
-                                            (unsigned long)func->new_addr,
-                                            AARCH64_INSN_BRANCH_NOLINK);
--    else
--        insn = aarch64_insn_gen_nop();
- 
-     /* Verified in livepatch_verify_distance. */
-     ASSERT(insn != AARCH64_BREAK_FAULT);
-diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index 7515a040ad..8863ad5ca3 100644
---- a/xen/common/livepatch.c
-+++ b/xen/common/livepatch.c
-@@ -280,10 +280,30 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
- {
-     void *text_buf, *ro_buf, *rw_buf;
-     unsigned int i, rw_buf_sec, rw_buf_cnt = 0;
--    size_t size = 0;
-+    const struct livepatch_elf_sec *sec;
-+    const struct livepatch_func *funcs;
-+    unsigned int nfuncs, trampolines_needed = 0;
-+    size_t size = 0, trampoline_size = 0;
-     unsigned int *offset;
-     int rc = 0;
- 
-+    sec = livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_FUNC);
-+    if ( sec )
-+    {
-+        funcs = sec->addr;
-+        nfuncs = sec->sec->sh_size / sizeof(*funcs);
-+
-+        for ( i = 0; i < nfuncs; ++i )
-+            if ( funcs[i].trampoline_buf == (void *)1 )
-+                trampolines_needed++;
-+
-+        if ( trampolines_needed )
-+        {
-+            payload->n_trampolines = trampolines_needed;
-+            trampoline_size = trampolines_needed * LIVEPATCH_TRAMPOLINE_SIZE;
-+        }
-+    }
-+
-     offset = xmalloc_array(unsigned int, elf->hdr->e_shnum);
-     if ( !offset )
-         return -ENOMEM;
-@@ -323,8 +343,8 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
-      * them on separate pages. The last one will by default fall on its
-      * own page.
-      */
--    size = PAGE_ALIGN(payload->text_size) + PAGE_ALIGN(payload->rw_size) +
--                      payload->ro_size;
-+    size = PAGE_ALIGN(payload->text_size + trampoline_size) +
-+           PAGE_ALIGN(payload->rw_size) + payload->ro_size;
- 
-     size = PFN_UP(size); /* Nr of pages. */
-     text_buf = vmalloc_xen(size * PAGE_SIZE);
-@@ -335,9 +355,12 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
-         rc = -ENOMEM;
-         goto out;
-     }
--    rw_buf = text_buf + PAGE_ALIGN(payload->text_size);
-+    rw_buf = text_buf + PAGE_ALIGN(payload->text_size + trampoline_size);
-     ro_buf = rw_buf + PAGE_ALIGN(payload->rw_size);
- 
-+    if ( trampoline_size )
-+        payload->trampoline_addr = text_buf + payload->text_size;
-+
-     payload->pages = size;
-     payload->text_addr = text_buf;
-     payload->rw_addr = rw_buf;
-@@ -690,7 +713,7 @@ static int prepare_payload(struct payload *payload,
- {
-     const struct livepatch_elf_sec *sec;
-     const struct payload *data;
--    unsigned int i;
-+    unsigned int i, trampoline_idx = 0;
-     struct livepatch_func *funcs;
-     struct livepatch_func *f;
-     struct virtual_region *region;
-@@ -737,6 +760,13 @@ static int prepare_payload(struct payload *payload,
-             if ( rc )
-                 return rc;
- 
-+            if ( f->trampoline_buf == (void *)1 )
-+            {
-+                f->trampoline_buf = (char *)payload->trampoline_addr +
-+                                    trampoline_idx * LIVEPATCH_TRAMPOLINE_SIZE;
-+                trampoline_idx++;
-+            }
-+
-             rc = livepatch_verify_distance(f);
-             if ( rc )
-                 return rc;
-diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
-index c7cd9b4eb0..e79615d7c9 100644
---- a/xen/include/public/sysctl.h
-+++ b/xen/include/public/sysctl.h
-@@ -1010,10 +1010,11 @@ struct livepatch_func {
-     const char *name;       /* Name of function to be patched. */
-     void *new_addr;
-     void *old_addr;
-+    void *trampoline_buf;   /* Trampoline buffer when set to (void *)1. */
-     uint32_t new_size;
-     uint32_t old_size;
-     uint8_t version;        /* MUST be LIVEPATCH_PAYLOAD_VERSION. */
--    uint8_t _pad[39];
-+    uint8_t _pad[31];
-     livepatch_expectation_t expect;
- };
- typedef struct livepatch_func livepatch_func_t;
-diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-index 45c8924f34..7a81763cf2 100644
---- a/xen/include/xen/livepatch.h
-+++ b/xen/include/xen/livepatch.h
-@@ -48,6 +48,8 @@ struct xen_sysctl_livepatch_op;
- #define ELF_LIVEPATCH_POSTREVERT_HOOK ".livepatch.hooks.postrevert"
- /* Arbitrary limit for payload size and .bss section size. */
- #define LIVEPATCH_MAX_SIZE     MB(2)
-+/* Size of a trampoline used for function tracing */
-+#define LIVEPATCH_TRAMPOLINE_SIZE 128
- 
- struct livepatch_symbol {
-     const char *name;
-@@ -109,13 +111,18 @@ unsigned int livepatch_insn_len(const struct livepatch_func *func,
- 
- static inline int livepatch_verify_distance(const struct livepatch_func *func)
- {
-+    const void *target;
-     long offset;
-     long range = ARCH_LIVEPATCH_RANGE;
- 
--    if ( !func->new_addr ) /* Ignore NOPs. */
--        return 0;
-+    if ( func->trampoline_buf )
-+	target = func->trampoline_buf;
-+    else if ( func->new_addr )
-+	target = func->new_addr;
-+    else
-+	return 0; /* Ignore NOPs. */
- 
--    offset = func->old_addr - func->new_addr;
-+    offset = func->old_addr - target;
-     if ( offset < -range || offset >= range )
-         return -EOVERFLOW;
- 
-diff --git a/xen/include/xen/livepatch_payload.h b/xen/include/xen/livepatch_payload.h
-index c6dc7cb5fa..7ed8be3fd6 100644
---- a/xen/include/xen/livepatch_payload.h
-+++ b/xen/include/xen/livepatch_payload.h
-@@ -52,6 +52,8 @@ struct payload {
-     size_t ro_size;                      /* .. and its size (if any). */
-     unsigned int pages;                  /* Total pages for [text,rw,ro]_addr */
-     struct list_head applied_list;       /* Linked to 'applied_list'. */
-+    void *trampoline_addr;               /* Virtual address of trampoline area. */
-+    unsigned int n_trampolines;          /* Number of trampolines to be allocated */
-     const struct livepatch_func *funcs;  /* The array of functions to patch. */
-     struct livepatch_fstate *fstate;     /* State of patched functions. */
-     unsigned int nfuncs;                 /* Nr of functions to patch. */
 -- 
-2.34.1
+2.54.0
 
 
