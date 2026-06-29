@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id K7oEFNGBQmom8wkAu9opvQ
+	id /W1dNHyCQmpM8wkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:31:45 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:34:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A43876DC135
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35A006DC19E
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:34:36 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=AA8Q3oKz;
+	dkim=pass header.d=suse.com header.s=google header.b=VgIFW6cu;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1347615.1605450 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1347624.1605459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weD1L-0004Us-O7; Mon, 29 Jun 2026 14:31:35 +0000
+	id 1weD46-00055M-4u; Mon, 29 Jun 2026 14:34:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347615.1605450; Mon, 29 Jun 2026 14:31:35 +0000
+Received: by outflank-mailman (output) from mailman id 1347624.1605459; Mon, 29 Jun 2026 14:34:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weD1L-0004S7-KX; Mon, 29 Jun 2026 14:31:35 +0000
-Received: by outflank-mailman (input) for mailman id 1347615;
- Mon, 29 Jun 2026 14:31:34 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weD1K-0004Rz-Cz
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 14:31:34 +0000
+	id 1weD46-00053g-14; Mon, 29 Jun 2026 14:34:26 +0000
+Received: by outflank-mailman (input) for mailman id 1347624;
+ Mon, 29 Jun 2026 14:34:24 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1weD44-00053a-KT
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 14:34:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weD1J-00DBrU-PX
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 16:31:33 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1weD44-002OGB-0n
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 16:34:24 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4281b8-2eae-0a2a0a5409dd-0a2a450bde28-30
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:31:33 +0200
-Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a428265-bab6-0a2a0a5309dd-0a2a45039b70-30
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:34:23 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4281c5-ac48-0a2a450b0019-d1558033c4b8-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:31:33 +0200
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4926f8e02e8so20609705e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 07:31:33 -0700 (PDT)
+ id 6a42826f-ec1a-0a2a45030019-d155dd36bd83-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:34:23 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-472a14c9965so1299726f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 07:34:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49268ffe204sm326025345e9.7.2026.06.29.07.31.31
+ ffacd0b85a97d-4728072189asm16711717f8f.30.2026.06.29.07.34.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2026 07:31:32 -0700 (PDT)
+ Mon, 29 Jun 2026 07:34:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,57 +60,65 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782743493; x=1783348293; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782743663; x=1783348463; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AWhYxewr7i6uMl2HLdHiGjnS984rLOBv41VMjNqnD1o=;
-        b=AA8Q3oKz1sL3+KvUNgbD8zq2dYUNxAHQwJQnlzlh6UERSmP639wNgxymaHzkeKS/xQ
-         VTINN+ImUdff3r+PB2TQLmuOnC/QclbpQj7Dtao+cFXfQ1hk4as74LSFSD6UnANNULz8
-         odY/rMkK2xHgwjwknzvXbYy4HxprTVPDtA4NTWZ4QxODx1ZbHmbJ5+pzRwo0SqMOT85L
-         OL/9mIZA08FpteQgoxSCXXFdp7ekXJfR75mXwlU6IOOr0ftrIG+1gJY7jh7HFNBQ3KhM
-         NnlproEESqNhdpsLo5WUsataZs0QLE7m4VbvyF/4exJsfOEVqaORS+pFFOkSWQynpt8u
-         8OzQ==
+        bh=N/8KpGOepGaMgthCrwAAgXryR7rPpRRa8k7sLniQhFI=;
+        b=VgIFW6cupXQZDx4G3/knbsCqvOj7UAJOZqHF3mWyNkU7P/KmG+M4Ukp9r3O211lBqt
+         MROVYs7isiB/rSlRHlBC7pzufRfrnkfdeSH6E2y7ArfJv0zYxgUPjOXTCcEsk9JSPVXV
+         AmdSi+lwPlG+75FcjaxxAhMLJ1oOXLhI5VH9Z4ejYpL4lKVZZXxaJgewkie+jaf/PtqM
+         g6+PJRnYfzeOgwCFxGzSiNYsc3WOSQuftzf9IkRnXFrWfMxxRvhfNv0dAFlxMJV9qw/p
+         ttih6b7kwva0C+OCxV5eBQCqJLwHAWH3H6ewQiFfo87z6oZiu4QxITqpmchorjcRIoAt
+         WYMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782743493; x=1783348293;
+        d=1e100.net; s=20251104; t=1782743663; x=1783348463;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AWhYxewr7i6uMl2HLdHiGjnS984rLOBv41VMjNqnD1o=;
-        b=otFeq+dCybwquweFXAEfDrqPIAtFvheDIQuT/9gzPTXU60/TfqkkWBjXiv+9O3+9H3
-         dCv3EOhxC0Q0Md5cSdR486IX8Dq73ZXmiwNemSMUiNe7plvHbjFUrLg3owcHuZ0Yyd1V
-         FHfoApVlJZ/ka47CpFOd3jWjVSocqN9V20BO2APUeboUW7+e7eJkT3AVWnHBSLxdhetQ
-         FMX0cU812QGJLmXrzrBvM0qxnBgKloG4ZsKHHocLM19IDJGAuDXKTtiHJwUlCS/7EvzS
-         EXRgsrECGnB2q3qqJzEsT7fD/gLfIiryTKrhae2VuOYv7UPZMmVB57FDRWSkXiR14VH0
-         xs0A==
-X-Forwarded-Encrypted: i=1; AFNElJ/a0Zpp9E6DkxuuZKtR+pj5sFlK6KgEndExpjpLF6rcuLGpsVPAdQaOcVQ62bG747PWy0fcEqh1pI4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWDt/57suWNpBGXbLPfA8rMty+6c+y2y1wx9Cef4gzcK621efz
-	61XSwHg9xzI/gIupGo8vK7zJgxV/Pm7fwnpOaSDPt2NIU7Q4nw540QYa91D6RRfxEA==
-X-Gm-Gg: AfdE7ckU17yo7AHiePaKbGFa2kOu8kjfSKYZGaPDPHdQTm1pMZEu7PCzAIBmrv4/Jlz
-	1ofXY78fB1vxZaADTHbKJYLj72+VIZvEFR0I0lHGD8TNAQXv79ZjbjV6Z+FDBr3kceQJ3f5p6kX
-	NybnCLYByyF0LjCCTE4lBj25ZXTY51kvzQtUR+Cg82DbnVwC3p6DRTLW5GYzstUguzEnrR3uImr
-	Dlj30Nrr7WQhYRr2Aesl5sJnFE1/w/9UC+/F3PgicvZ/q67zC57V/NjUtrmEJMrIxaSO+dZchhQ
-	GWT9Jd76WrKskR///AhS3IHTjYfd4fZC4ABpkay3llT6ROSReVepZOIY9Tv0Cf07a0E0XfYRMO7
-	/K77hSbF+QjoJoJb46WzlA4JhSC4Nt1s/MB3C4SuIfTm5itwsm5dJG3M/JdK3lDLYK4j5XKbBOx
-	bijxpxt8Z9y15y96RsE1SO0W/PQumG6ORvbnxp1DhzHnCallcV+Q3ThRRfBhWbDurfL7PJ88vVX
-	vn6
-X-Received: by 2002:a05:600d:8489:20b0:493:aaf5:6e04 with SMTP id 5b1f17b1804b1-493aaf56f86mr53851705e9.15.1782743493175;
-        Mon, 29 Jun 2026 07:31:33 -0700 (PDT)
-Message-ID: <fc302914-02ec-4d6d-a8c9-493e4d6153d4@suse.com>
-Date: Mon, 29 Jun 2026 16:31:31 +0200
+        bh=N/8KpGOepGaMgthCrwAAgXryR7rPpRRa8k7sLniQhFI=;
+        b=iYFnTq+VHgKEoo84t6YQTNe66ncOfg6+FmBSpZNP+xk1cJk3jhWsSaQaQFS3WxIUOm
+         ZHTS+OSeiWme2e35mJiqdFV6oJr44Gun3GSMovRopBDW8D6l6V0+3kxy0BZPBjcIW0PU
+         +b7M3PSwsIVNt8BumjN19e8/MIuRvaDK3nWrIkS/0d9VDS4jJREHcDlKkrdt/xucz/TM
+         zdv/blD2FMbUJvf0bYbOaqVknCHKSOYcN1t3WU/zIxzBMuCbrAapRWS9V3ITyXRxa3tp
+         DX2VKVaONhWIClkGn6zmdZBA6x21ucOLmk2neNx2bnB+OSqw1BdsyHV6hzcTUFAHatNZ
+         mreA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp898zYiGkPOHOzj5XlHZOncRcMUB9EoPG8q1TsuKwkK0emLE9OtmCGN1bmBrlmknNWFgiO2zXg2XI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwOKSvHBC8D7CkHPa33pPsHBewoTHh918GdgQHTCcGPbKmQi0JW
+	7/DuxCje0EwjL5HIDES9i1xW6TQgbs+FnkBvSvz8ixLsQ7ObEwKXwy+AnDUCQRT4hA==
+X-Gm-Gg: AfdE7clcfkQyBIAWmOcfObMtBHGzGibZbFsCqfkyRgZ6Rn6XWcx9RjZS/T/mhR/WNBp
+	bvi9+cmR12ybTBqNZUUJasiacB0I79IyNQjeOmoewpWkIpDr/qNuZaAAhiwIUBCHcpEXE0S2iiN
+	Xx4zqITZ/uU8rrYUewH+QifE1au1Hr6QcKHcTMfWoscxCDg1bIiTI9C1Elp53NEVw/tOV0CYMtV
+	DK/29/ulSk4Mqvh+fI2Pb/ATaFGOluh2c8cbDbVyTBDh/d1MF+XcNZBX83tzCP+744f3g8c+DpQ
+	M4IxEM+UltXsifWSP1SovOjoaMVQelzBaSlpaVISaWg21ins0RqGquM2UumnypEGr2PsIGqo90b
+	LGAz3c3RBAxJ30zILeBj77OQM4r6KUGFGqd64kBtqBggChJj0oJRr7twd1M/CPv5JASsPwRkcUv
+	5gTm0Az4WbVcKUsM++CUVn9FBNZKu+gC9I53EnRP3bkrdJKtr0MufhrQiTIZzZu7drxctS19Zec
+	EHO
+X-Received: by 2002:a05:6000:bd0:b0:46c:8f47:3b5a with SMTP id ffacd0b85a97d-47500d5eb3bmr1042335f8f.23.1782743663295;
+        Mon, 29 Jun 2026 07:34:23 -0700 (PDT)
+Message-ID: <b28a9027-c811-4415-9a3a-c66d5d642706@suse.com>
+Date: Mon, 29 Jun 2026 16:34:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22 v2 3/4] xen/irq: handle IRQ being disabled while
- executing its handler
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+Subject: Re: [PATCH v4 01/25] xen/dom0less: turn max_init_domid into a common
+ variable
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260629094531.55555-1-roger.pau@citrix.com>
- <20260629094531.55555-4-roger.pau@citrix.com>
- <d965a04d-c66b-4c7c-8ce7-c1da029a6b7e@suse.com>
- <akKBWHftre8AF3f7@macbook.local>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>, Teddy Astie <teddy.astie@vates.tech>,
+ xen-devel@lists.xenproject.org
+References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
+ <2c60cbed167fda0f90ce3aa4324ea4c4b076c43d.1782487661.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,38 +144,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <akKBWHftre8AF3f7@macbook.local>
+In-Reply-To: <2c60cbed167fda0f90ce3aa4324ea4c4b076c43d.1782487661.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1782743493-A4D2F220-6F5F67AC/0/0
-X-purgate-type: clean
-X-purgate-size: 1175
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1782743663-075275D1-CF46E18B/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 1886
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[gmail.com,citrix.com,vates.tech,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,raptorengineering.com,wdc.com,gmail.com,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -178,35 +186,44 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A43876DC135
+X-Rspamd-Queue-Id: 35A006DC19E
 
-On 29.06.2026 16:29, Roger Pau Monné wrote:
-> On Mon, Jun 29, 2026 at 12:31:56PM +0200, Jan Beulich wrote:
->> On 29.06.2026 11:45, Roger Pau Monne wrote:
->>> It's possible for IRQ_DISABLED to be set while running the handler
->>> execution loop in do_IRQ().  Such disabling can be done by the handler
->>> itself, or from a remote CPU.
->>
->> I don't think the handler itself can legitimately call any of the functions
->> setting IRQ_DISABLED.
+On 26.06.2026 17:46, Oleksii Kurochko wrote:
+> Until now every architecture carried its own notion of max_init_domid:
+> Arm defined a real variable (declared in asm/setup.h, defined in
+> setup.c), while ppc, riscv and x86 each provided a "#define
+> max_init_domid (0)" stub in their asm/setup.h. This duplicated the same
+> declaration across all arches and placed a purely dom0less concept in
+> arch setup headers.
 > 
-> Hm, yes, we still have no interrupt handlers that set IRQ_DISABLED,
-> but we will gain one in the next patch, where ns16550_interrupt() will
-> call disable_irq() that does set IRQ_DISABLED.
+> Now that the dom0less build code lives in common (xen/common/
+> device-tree/dom0less-build.c sets max_init_domid, and the console
+> serial-input switcher reads it), there is no reason for the symbol to be
+> per-arch. Provide a single declaration in <xen/dom0less-build.h>, with
+> the !CONFIG_DOM0LESS_BOOT stub kept there as well, so there is one source
+> of truth and the arch headers no longer need to mention it. Update
+> console.c to include <xen/dom0less-build.h> for the declaration instead
+> of relying on asm/setup.h.
 > 
->>> Check for IRQ_DISABLED not being set in the loop condition, as to not
->>> execute the handler if the IRQ has been disabled.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Preferably with the description adjusted (or it being pointed out what I may
->> be overlooking):
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> Place the definition in xen/common/domid.c rather than in dom0less-
+> build.c. The latter is built as dom0less-build.init.o, i.e. the whole
+> object is relocated into the .init.* sections and freed after boot,
+> whereas max_init_domid must outlive boot because it is read at runtime
+> by the console serial-input switcher. domid.c is always linked (obj-y)
+> and resides in regular (non-init) sections, so it is a correct home for
+> the variable. It is marked __ro_after_init since it is only updated
+> while creating boot-time domains and read-only afterwards, and guarded
+> by CONFIG_DOM0LESS_BOOT as domid.c itself is unconditional.
 > 
-> I'm happy to clarify the commit message to note that while we have no
-> instances ATM, but that future changes might introduce some.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Better leave as is.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+> ---
+> Regarding last paragraph it is also alternative option just make
+> dom0less-build.init.o no-init.
+
+That would be a pretty bad move imo.
 
 Jan
 
