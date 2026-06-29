@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id rsMnCDSqQmqJ/QkAu9opvQ
+	id qYjkDDWqQmqX/QkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FAD46DDA73
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D241F6DDA91
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=VTrFpWyp;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=qKw0hz9S;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1347810.1605676 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1347811.1605684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weFhv-0000NP-65; Mon, 29 Jun 2026 17:23:43 +0000
+	id 1weFhw-0000ad-Dm; Mon, 29 Jun 2026 17:23:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347810.1605676; Mon, 29 Jun 2026 17:23:43 +0000
+Received: by outflank-mailman (output) from mailman id 1347811.1605684; Mon, 29 Jun 2026 17:23:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weFhv-0000Kq-2C; Mon, 29 Jun 2026 17:23:43 +0000
-Received: by outflank-mailman (input) for mailman id 1347810;
- Mon, 29 Jun 2026 17:23:41 +0000
+	id 1weFhw-0000ZC-8a; Mon, 29 Jun 2026 17:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 1347811;
+ Mon, 29 Jun 2026 17:23:42 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@swg.vates.tech>)
- id 1weFhs-0000J1-TH
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 17:23:41 +0000
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14685a98000701b@swg.vates.tech>)
+ id 1weFhu-0000K4-3B
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 17:23:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weFhs-002p2h-7X
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 19:23:40 +0200
+ id 1weFht-002p2h-GN
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 19:23:41 +0200
 Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@swg.vates.tech>)
- id 6a42a9ff-e002-0a2a0a5209dd-0a2a450bdb1c-34
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:23:40 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14685a98000701b@swg.vates.tech>)
+ id 6a42a9ff-e002-0a2a0a5209dd-0a2a450bdb1c-38
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:23:41 +0200
 Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@swg.vates.tech>)
- id 6a42aa19-ac48-0a2a450b0019-b9ff1c128383-4
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:23:40 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14685a98000701b@swg.vates.tech>)
+ id 6a42aa19-ac48-0a2a450b0019-b9ff1c128383-5
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:23:41 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
  by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f1468572a000701b.006 for <xen-devel@lists.xenproject.org>
+ 19f14685a98000701b.004 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 29 Jun 2026 17:23:30 +0000
+ Mon, 29 Jun 2026 17:23:31 +0000
 Received: from bazzite.gpn.vates.fr (88-188-240-210.subs.proxad.net
  [88.188.240.210]) (Authenticated sender: teddy.astie@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id 8A2C986BC8;
- Mon, 29 Jun 2026 19:23:29 +0200 (CEST)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 7C00D86BC8;
+ Mon, 29 Jun 2026 19:23:30 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,21 +66,21 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=E9MnU1xylyDhQm1sThGsgm70acbfdMrznyI8t/q1/Lk=;
+ q=dns/txt; s=selector1; bh=gKqul1sncHHIvfoSLcVuvKWVtDJg96a4jRk+K+dvwqU=;
  h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=VTrFpWypnX/deqnwPdq7XVIL2yvjH6adOX/Mhvn19FERRZbx9vgQqiVybwWhpi3QkAM8gWnle
- dwmRwXNompRrGnMRyR8hqPIiGl3f3J72qsxp8nkiSmKyY7kMWy9ii9ygflxgpc62O2XBQOroP0p
- s2N2xmH/4hY9gGinYXTCG7gmh/Xc5QTwyhLQIjlViRd5zTtMQuAjjMnEu9def1WzwuvikstUsni
- qhJ0T8/fABcZKxzkTcW8qfwcrriAKLKtSjgRGqI4hFedw+rVmX97+E2aiLOeIDPPAr5YH8+lZl1
- 0iBgiK8NTPx3XgvEKFpI7JAYfKNprcynJ5kp2arNJN2A==
-X-Zone-Loop: 83ea0c93201044baa4d747c7fa97c3ca37b4ad8253f9
+ b=qKw0hz9SouDtCH3keEG6wf0qScfhzqURkx6fHIkQoyLjB5X0Uoa7EwoZsnR7v0DdtdFyQ8Xb+
+ 5F91iOYKLs2rnn0w3BfqfWKspJLfsNkHFd4IKNr6QZH9vbgKADQV0ogzdWlc0GU+ZidvOJGAyZj
+ XiGq3WMN9Dr1NozNeOq4lYBZg3CY/MCEXcthptbXOYAehyEeYSeLAVQ7palyjlFqGum7aRhjSfS
+ AEpVtM26LHAcJ4nVBM+Gx7cHX9iWajZ/88YN6w3xzpt2LqP0eeqqU7gk0IjO1hcm5eZZ6an6OHq
+ diQn1TqYPoEmMb3jagwKWVbljKAGbxLaJarfioZG1CLA==
+X-Zone-Loop: 73a7c46cfd04ffc52a91faef551107260488ca28bc34
 x-campaign-type: default
-x-transaction-id: db1c7420-03ff-4f89-ae28-8654dd9d5f90
-x-swg-uid: 01-b5680b76-2982-40e0-8312-cf6d41627219
+x-transaction-id: 6515623f-247d-4ad8-b45e-bbc2dd803aff
+x-swg-uid: 01-9a768d62-5426-4246-a8f7-0d03e2045d9e
 X-Mailer: Sweego
 Message-ID:
- <1782753810.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@vates.tech>
-x-swg-bid: 1782753810.8631fc262581453bbf619ec5b2062170.19f1468572a000701b
+ <1782753811.8631fc262581453bbf619ec5b2062170.19f14685a98000701b@vates.tech>
+x-swg-bid: 1782753811.8631fc262581453bbf619ec5b2062170.19f14685a98000701b
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
@@ -91,274 +91,147 @@ Cc: Teddy Astie <teddy.astie@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v3 02/18] pci: Use pci_sbdf_t in pci_add_device()
-Date: Mon, 29 Jun 2026 19:21:20 +0200
+Subject: [PATCH v3 03/18] pci: Use pci_sbdf_t in pci_prepare_msix()
+Date: Mon, 29 Jun 2026 19:21:21 +0200
 In-Reply-To: <cover.1782747421.git.teddy.astie@vates.tech>
 References: <cover.1782747421.git.teddy.astie@vates.tech>
 MIME-Version: 1.0
 X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.80d.ba081fc169147fa5.19f14685577.3c62e32deccb73f7=-"
+Content-Type: multipart/alternative; boundary="-=Part.80e.4fc5b141411e492a.19f146858df.ee67ccdb5713eeac=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1782753809783
-X-purgate-ID: tlsNG-42698a/1782753820-A7931220-0AF6D886/0/0
+X-Bm-Transport-Timestamp: 1782753810655
+X-purgate-ID: tlsNG-42698a/1782753821-40B4D220-29000606/0/0
 X-purgate-type: clean
-X-purgate-size: 8355
+X-purgate-size: 3440
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.82 / 15.00];
-	URI_COUNT_ODD(1.00)[1];
 	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+,1:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
 	DKIM_TRACE(0.00)[vates.tech:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4FAD46DDA73
+X-Rspamd-Queue-Id: D241F6DDA91
 
----=Part.80d.ba081fc169147fa5.19f14685577.3c62e32deccb73f7=-
+---=Part.80e.4fc5b141411e492a.19f146858df.ee67ccdb5713eeac=-
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
+Also take the opportunity to clean up a bit PHYSDEVOP_{prepare,release}_msi=
+x=2E
+
 Signed-off-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
 ---
-v3: Don't adjust adjacent code=2E
+v3: Reorganize PHYSDEVOP_{prepare,release}_msix
 ---
- xen/arch/x86/physdev=2Ec        |  6 +++---
- xen/drivers/passthrough/pci=2Ec | 36 +++++++++++++++++------------------
- xen/drivers/pci/physdev=2Ec     |  3 ++-
- xen/include/xen/pci=2Eh         |  4 ++--
- 4 files changed, 24 insertions(+), 25 deletions(-)
+ xen/arch/x86/include/asm/msi=2Eh |  2 +-
+ xen/arch/x86/msi=2Ec             |  4 ++--
+ xen/arch/x86/physdev=2Ec         | 18 +++++++++++-------
+ 3 files changed, 14 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/x86/physdev=2Ec b/xen/arch/x86/physdev=2Ec
-index 5bbcf3b530=2E=2E60c02076d6 100644
---- a/xen/arch/x86/physdev=2Ec
-+++ b/xen/arch/x86/physdev=2Ec
-@@ -472,7 +472,7 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(vo=
-id) arg)
-         if ( copy_from_guest(&manage_pci, arg, 1) !=3D 0 )
-             break;
-=20
--        ret =3D pci_add_device(0, manage_pci=2Ebus, manage_pci=2Edevfn,
-+        ret =3D pci_add_device(PCI_SBDF(0, manage_pci=2Ebus, manage_pci=
-=2Edevfn),
-                              NULL, NUMA_NO_NODE);
-         break;
-     }
-@@ -503,8 +503,8 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(vo=
-id) arg)
-         pdev_info=2Eis_virtfn =3D manage_pci_ext=2Eis_virtfn;
-         pdev_info=2Ephysfn=2Ebus =3D manage_pci_ext=2Ephysfn=2Ebus;
-         pdev_info=2Ephysfn=2Edevfn =3D manage_pci_ext=2Ephysfn=2Edevfn;
--        ret =3D pci_add_device(0, manage_pci_ext=2Ebus,
--                             manage_pci_ext=2Edevfn,
-+        ret =3D pci_add_device(PCI_SBDF(0, manage_pci_ext=2Ebus,
-+                                      manage_pci_ext=2Edevfn),
-                              &pdev_info, NUMA_NO_NODE);
-         break;
-     }
-diff --git a/xen/drivers/passthrough/pci=2Ec b/xen/drivers/passthrough/pci=
-=2Ec
-index 0adf573150=2E=2E3038827e28 100644
---- a/xen/drivers/passthrough/pci=2Ec
-+++ b/xen/drivers/passthrough/pci=2Ec
-@@ -662,12 +662,11 @@ unsigned int pci_size_mem_bar(pci_sbdf_t sbdf, unsig=
-ned int pos,
-     return is64bits ? 2 : 1;
+diff --git a/xen/arch/x86/include/asm/msi=2Eh b/xen/arch/x86/include/asm/m=
+si=2Eh
+index 00059d4a3a=2E=2E6fb663b2e7 100644
+--- a/xen/arch/x86/include/asm/msi=2Eh
++++ b/xen/arch/x86/include/asm/msi=2Eh
+@@ -83,7 +83,7 @@ struct msi_desc;
+ extern int pci_enable_msi(struct pci_dev *pdev, struct msi_info *msi,
+                           struct msi_desc **desc);
+ extern void pci_disable_msi(struct msi_desc *msi_desc);
+-extern int pci_prepare_msix(u16 seg, u8 bus, u8 devfn, bool off);
++extern int pci_prepare_msix(pci_sbdf_t sbdf, bool off);
+ extern void pci_cleanup_msi(struct pci_dev *pdev);
+ extern void pci_disable_msi_all(void);
+ extern int setup_msi_irq(struct irq_desc *desc, struct msi_desc *msidesc)=
+;
+diff --git a/xen/arch/x86/msi=2Ec b/xen/arch/x86/msi=2Ec
+index 3fe22b3b6d=2E=2E8831ce068c 100644
+--- a/xen/arch/x86/msi=2Ec
++++ b/xen/arch/x86/msi=2Ec
+@@ -1153,7 +1153,7 @@ static void __pci_disable_msix(struct msi_desc *entr=
+y)
+     _pci_cleanup_msix(dev->msix);
  }
 =20
--int pci_add_device(u16 seg, u8 bus, u8 devfn,
--                   const struct pci_dev_info *info, nodeid_t node)
-+int pci_add_device(pci_sbdf_t sbdf, const struct pci_dev_info *info, node=
-id_t node)
+-int pci_prepare_msix(u16 seg, u8 bus, u8 devfn, bool off)
++int pci_prepare_msix(pci_sbdf_t sbdf, bool off)
  {
-     struct pci_seg *pseg;
+     int rc;
      struct pci_dev *pdev;
--    unsigned int slot =3D PCI_SLOT(devfn), func =3D PCI_FUNC(devfn);
-+    unsigned int slot =3D sbdf=2Edevfn, func =3D sbdf=2Efn;
-     const char *type;
-     int ret;
-=20
-@@ -680,17 +679,17 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-     else
-         type =3D "device";
-=20
--    ret =3D xsm_resource_plug_pci(XSM_PRIV, (seg << 16) | (bus << 8) | de=
-vfn);
-+    ret =3D xsm_resource_plug_pci(XSM_PRIV, sbdf=2Esbdf);
-     if ( ret )
-         return ret;
-=20
-     ret =3D -ENOMEM;
+@@ -1162,7 +1162,7 @@ int pci_prepare_msix(u16 seg, u8 bus, u8 devfn, bool=
+ off)
+         return 0;
 =20
      pcidevs_lock();
--    pseg =3D alloc_pseg(seg);
-+    pseg =3D alloc_pseg(sbdf=2Eseg);
-     if ( !pseg )
-         goto out;
--    pdev =3D alloc_pdev(pseg, bus, devfn);
-+    pdev =3D alloc_pdev(pseg, sbdf=2Ebus, sbdf=2Edevfn);
+-    pdev =3D pci_get_pdev(NULL, PCI_SBDF(seg, bus, devfn));
++    pdev =3D pci_get_pdev(NULL, sbdf);
      if ( !pdev )
-         goto out;
+         rc =3D -ENODEV;
+     else if ( pdev->msix->used_entries !=3D !!off )
+diff --git a/xen/arch/x86/physdev=2Ec b/xen/arch/x86/physdev=2Ec
+index 60c02076d6=2E=2E9f5a9f2dc8 100644
+--- a/xen/arch/x86/physdev=2Ec
++++ b/xen/arch/x86/physdev=2Ec
+@@ -512,15 +512,19 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(=
+void) arg)
+     case PHYSDEVOP_prepare_msix:
+     case PHYSDEVOP_release_msix: {
+         struct physdev_pci_device dev;
++        pci_sbdf_t sbdf;
 =20
-@@ -701,16 +700,15 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-         pdev->info =3D *info;
-         if ( pdev->info=2Eis_virtfn )
-         {
--            struct pci_dev *pf_pdev =3D
--                pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn=2Ebus,
--                                            info->physfn=2Edevfn));
-+            pci_sbdf_t pf_sbdf =3D PCI_SBDF(sbdf=2Eseg, info->physfn=2Ebu=
-s,
-+                                          info->physfn=2Edevfn);
-+            struct pci_dev *pf_pdev =3D pci_get_pdev(NULL, pf_sbdf);
-=20
-             if ( !pf_pdev )
-             {
-                 printk(XENLOG_WARNING
-                        "Attempted to add SR-IOV VF %pp without PF %pp\n",
--                       &pdev->sbdf,
--                       &PCI_SBDF(seg, info->physfn=2Ebus, info->physfn=2E=
-devfn));
-+                       &sbdf, &pf_sbdf);
-                 free_pdev(pseg, pdev);
-                 ret =3D -ENODEV;
-                 goto out;
-@@ -729,14 +727,14 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-             if ( !pdev->ext_cfg )
-                 printk(XENLOG_WARNING
-                        "%pp: VF without extended config space?\n",
--                       &pdev->sbdf);
-+                       &sbdf);
-         }
-     }
-=20
-     if ( !pdev->info=2Eis_virtfn && !pdev->physfn=2Evf_rlen[0] )
-     {
-         unsigned int pos =3D pci_find_ext_capability(pdev, PCI_EXT_CAP_ID=
-_SRIOV);
--        uint16_t ctrl =3D pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_CTR=
-L);
-+        uint16_t ctrl =3D pci_conf_read16(sbdf, pos + PCI_SRIOV_CTRL);
-=20
-         if ( !pos )
-             /* Nothing */;
-@@ -750,18 +748,18 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-             for ( i =3D 0; i < PCI_SRIOV_NUM_BARS; )
-             {
-                 unsigned int idx =3D pos + PCI_SRIOV_BAR + i * 4;
--                uint32_t bar =3D pci_conf_read32(pdev->sbdf, idx);
-+                uint32_t bar =3D pci_conf_read32(sbdf, idx);
-=20
-                 if ( (bar & PCI_BASE_ADDRESS_SPACE) =3D=3D
-                      PCI_BASE_ADDRESS_SPACE_IO )
-                 {
-                     printk(XENLOG_WARNING
-                            "SR-IOV device %pp with vf BAR%u in IO space\n=
-",
--                           &pdev->sbdf, i);
-+                           &sbdf, i);
-                     ++i;
-                     continue;
-                 }
--                ret =3D pci_size_mem_bar(pdev->sbdf, idx, NULL,
-+                ret =3D pci_size_mem_bar(sbdf, idx, NULL,
-                                        &pdev->physfn=2Evf_rlen[i],
-                                        PCI_BAR_VF |
-                                        ((i =3D=3D PCI_SRIOV_NUM_BARS - 1)=
- ?
-@@ -772,7 +770,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-         }
-         else
-             printk(XENLOG_WARNING "SR-IOV device %pp has its virtual"
--                   " functions already enabled (%04x)\n", &pdev->sbdf, ct=
-rl);
-+                   " functions already enabled (%04x)\n", &sbdf, ctrl);
-     }
-=20
-     check_pdev(pdev);
-@@ -818,14 +816,14 @@ out:
-     pcidevs_unlock();
-     if ( !ret )
-     {
--        printk(XENLOG_DEBUG "PCI add %s %pp\n", type, &pdev->sbdf);
-+        printk(XENLOG_DEBUG "PCI add %s %pp\n", type, &sbdf);
-         while ( pdev->phantom_stride )
-         {
-             func +=3D pdev->phantom_stride;
-             if ( PCI_SLOT(func) )
-                 break;
-             printk(XENLOG_DEBUG "PCI phantom %pp\n",
--                   &PCI_SBDF(seg, bus, slot, func));
-+                   &PCI_SBDF(sbdf=2Eseg, sbdf=2Ebus, slot, func));
-         }
-     }
-     return ret;
-diff --git a/xen/drivers/pci/physdev=2Ec b/xen/drivers/pci/physdev=2Ec
-index d46501b884=2E=2E46735a5fc9 100644
---- a/xen/drivers/pci/physdev=2Ec
-+++ b/xen/drivers/pci/physdev=2Ec
-@@ -50,7 +50,8 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(voi=
-d) arg)
-         }
- #endif
-=20
--        ret =3D pci_add_device(add=2Eseg, add=2Ebus, add=2Edevfn, &pdev_i=
-nfo, node);
-+        ret =3D pci_add_device(PCI_SBDF(add=2Eseg, add=2Ebus, add=2Edevfn=
-),
-+                             &pdev_info, node);
++        ret =3D -EFAULT;
+         if ( copy_from_guest(&dev, arg, 1) )
+-            ret =3D -EFAULT;
+-        else
+-            ret =3D xsm_resource_setup_pci(XSM_PRIV,
+-                                         (dev=2Eseg << 16) | (dev=2Ebus <=
+< 8) |
+-                                         dev=2Edevfn) ?:
+-                  pci_prepare_msix(dev=2Eseg, dev=2Ebus, dev=2Edevfn,
+-                                   cmd !=3D PHYSDEVOP_prepare_msix);
++            break;
++       =20
++        sbdf =3D PCI_SBDF(dev=2Eseg, dev=2Ebus, dev=2Edevfn);
++
++        ret =3D xsm_resource_setup_pci(XSM_PRIV, sbdf=2Esbdf);
++        if ( ret )
++            break;
++
++        ret =3D pci_prepare_msix(sbdf, cmd !=3D PHYSDEVOP_prepare_msix);
          break;
      }
 =20
-diff --git a/xen/include/xen/pci=2Eh b/xen/include/xen/pci=2Eh
-index ade882caee=2E=2E26c0c6e449 100644
---- a/xen/include/xen/pci=2Eh
-+++ b/xen/include/xen/pci=2Eh
-@@ -229,8 +229,8 @@ void setup_hwdom_pci_devices(struct domain *d,
- int pci_release_devices(struct domain *d);
- int pci_add_segment(u16 seg);
- const unsigned long *pci_get_ro_map(u16 seg);
--int pci_add_device(u16 seg, u8 bus, u8 devfn,
--                   const struct pci_dev_info *info, nodeid_t node);
-+int pci_add_device(pci_sbdf_t sbdf, const struct pci_dev_info *info,
-+                   nodeid_t node);
- int pci_remove_device(u16 seg, u8 bus, u8 devfn);
- int pci_ro_device(int seg, int bus, int devfn);
- int pci_hide_device(unsigned int seg, unsigned int bus, unsigned int devf=
-n);
 --=20
 2=2E54=2E0
 
@@ -371,5 +244,5 @@ XCP-ng & Xen Orchestra - Vates s=
 olutions
 
 web: https://vates=2Etech
----=Part.80d.ba081fc169147fa5.19f14685577.3c62e32deccb73f7=---
+---=Part.80e.4fc5b141411e492a.19f146858df.ee67ccdb5713eeac=---
 
