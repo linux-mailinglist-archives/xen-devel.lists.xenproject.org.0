@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id MIwaFDjVQmokEAoAu9opvQ
+	id W75DLavqQmqeIAoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 22:27:36 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 23:59:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC776DEA49
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 22:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C0726DEF85
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 23:59:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=Nvidia.com header.s=selector2 header.b=aYnFAIn2;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=Q9RmgmDo;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=nvidia.com;
+	dmarc=pass (policy=none) header.from=valinux.co.jp;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1348245.1606065 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1348266.1606073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weIYx-0004Md-B2; Mon, 29 Jun 2026 20:26:39 +0000
+	id 1weJzl-0002kX-Q8; Mon, 29 Jun 2026 21:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1348245.1606065; Mon, 29 Jun 2026 20:26:39 +0000
+Received: by outflank-mailman (output) from mailman id 1348266.1606073; Mon, 29 Jun 2026 21:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weIYx-0004Jy-7c; Mon, 29 Jun 2026 20:26:39 +0000
-Received: by outflank-mailman (input) for mailman id 1348245;
- Mon, 29 Jun 2026 20:26:38 +0000
+	id 1weJzl-0002io-NH; Mon, 29 Jun 2026 21:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 1348266;
+ Mon, 29 Jun 2026 21:58:24 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ziy@nvidia.com>) id 1weIYv-0004Js-QS
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 20:26:37 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1weJzi-0002iR-Qh
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 21:58:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weIYu-001R42-Aj
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 22:26:36 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1weJzc-001eUD-D1
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 23:58:21 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ziy@nvidia.com>)
- id 6a42d4d3-5cb7-0a2a0a5109dd-0a2a4505e628-32
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 22:26:35 +0200
-Received: from [52.101.48.42]
- (helo=MW6PR02CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <ziy@nvidia.com>)
- id 6a42d4f9-3cb2-0a2a45050019-3465302ac3d8-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 22:26:35 +0200
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM4PR12MB7551.namprd12.prod.outlook.com (2603:10b6:8:10d::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a42ea72-e002-0a2a0a5209dd-0a2a4509a9aa-4
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 23:58:15 +0200
+Received: from [52.101.229.81]
+ (helo=TY3P286CU002.outbound.protection.outlook.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a42ea74-97e6-0a2a45090019-3465e55169fb-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 23:58:15 +0200
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
+ by OS7P286MB7274.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:439::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Mon, 29 Jun
- 2026 20:26:20 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
- 20:26:20 +0000
+ 2026 21:58:10 +0000
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0159.018; Mon, 29 Jun 2026
+ 21:58:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,303 +64,236 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T/v44OCgZVv8TnwMyFEqZ59yu11oCB/L8D/YmJ45y3NQvoZQNhrxzCH34Xr4RtJnlmGEbegSVMRmMjurJ9k44Z0/gng+ZdY6mFprMUoGrSiOIiBPpTCnIzNz7C4PAKic1QMjjhB3wrZhwhZWvYn8GEMWsnjwJCqvDm0xSVemHrfuoO+LWQ3P6OJXsI6Q7WguJ8UxcHY5cf3FpmmnpBsQWjSzqxFD3CQYu4gMk9u6t6uC1DIwIwB1teUbMbQf4Q8hZmMYkUC7uOHG7VX2amk9Ekjy/AEO+CuR8vv6qVeoSSMBMi4p0J6sHcCEnLZckLWf+ZiWQ2cdDcfH3MKASIkBKg==
+ b=KcFMOqujsJN1v7qsWfOuJJQjKuOj/h782ByHQRaL4i1p1hTrcGglctQNJCrke+kpJoTIjL2fefNQbq68X20cAfvC+avgsglQLlfORZlmjxo9pY5PqxVOtiDywDunCW0qhYm6rwEHdBvSlbYec2JYwlZ7FwHdv5QjtrkOcLjdIzXQW9wPhbhRB2rQ9PqFHutj7VE1mF26DCEIQJtTmXJcx2PgRVyLn/fLNIqw4rlIa1pmDFd+HvJFX8+xLGU9gjusg2YtW0tC2cObQoGNNs+KQi2j1kwzZ3ao1DZjiF2+4flKO4q0ontRRa0DNS1g8E++8PR8CwcaPmj+MTlqOOgYpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UjOcawimHyWmxgix9NetNoPKlptEq1gcNWDAjaT9jQw=;
- b=ETjNpAbP7ey+4SFFarO0HFFa58CsUMqTPhTZ6MoEu77yNuv4XlJ7z3qHfH3wTBDxqWfKmR1eryM06/wAPJhYsEGSkpOH1e+zrVfLpV7gTfVNHMv2XWr4LoMAzE6xqFlTDtjubMihZQ4daGCdHxAcmjZ6U3ZkRMFN9whuNWqz+kx2MURGE9CXq2XBL08JCwvBzMyfIav1tWO3vSUJdC/R8nHwqSB9Q7xd7DobDUmWZsd+2fGSr41wxtOt00KtskVCttuCm/WLc+ss4CRZqD1t6b/yJQkHchvV77pB42Thcv1Czd3D2i/HEOuOd39PjMIdMgZqFPxRPF0ADL7YZuJEQw==
+ bh=8206NVqXCPTNVxkDSfDdIXT3kJSrarb4kGiH6emSyTg=;
+ b=PrM+SjEdTb/WCuTqN+LTGEqCDphQLd4h0wCldH+fREo8QVdO+aGRH4DhSQPOMSyLTc39uUkMKzsgYJOdNSyadnQeYjr01z+Hf2eF+ELi20uilTEavD/ik27tLnlI3p9YF8LJ1KGwbHWMbxEiAk6cbh0PwA5xGYImYzvos5f8mTSjAYBtlNc63JuGKPdF2KZvZZgWitRQ1V8TcQ0V6JqyHhWb+qePmpFa3B40BGfM7LuL85PJoAi9tZ5fYS5dqkFSxQhV2rTy4C97ftotRP/Akrh8nQZ0MdA0FcBHqFN4ovTKpizM+Rw/sXhiEo1CVnXHkPJKgLe8Wp2UrcJUulOcMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UjOcawimHyWmxgix9NetNoPKlptEq1gcNWDAjaT9jQw=;
- b=aYnFAIn2X9xFXp3Fs19l/6YLTYATk0NbcZ68EnMprL3spbrD7OTb6WKPkVm3IDu+1b67fgyFwo2ywI5nr0JLH8dFvemEbfWOqMDPcJ0SRokU7U960JH25I7aq/aXIytsuh+SAvoaScfzHXZqJ1KLvbE0frQpLu7XQ81i5xO9wMFQM+XhAWzbrAMV6Wgm7KvK+uQlpFVY3NFDs9c80F4Ndy5zMVpf2DBZmYM1asChhVA/SAK6YBw6g61oj8S5j4CMJkUGMor7NCUA3QJbWJy7Ea5FbzGl0z6UuXdhOeT8AVUeKTgEC6Cu0UBvlnTLPjJkJ3PePzU5itCa1iBHsubWeQ==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 29 Jun 2026 16:26:18 -0400
-Message-Id: <DJLTDCPWMXDL.4ICZ77A1LPZZ@nvidia.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH 01/13] mm: introduce vma_flags_can_grow() and
- vma_can_grow()
-Cc: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, "Madhavan Srinivasan"
- <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Lucas
- Stach" <l.stach@pengutronix.de>, "Inki Dae" <inki.dae@samsung.com>,
- "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin Park"
- <kyungmin.park@samsung.com>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Peter Griffin" <peter.griffin@linaro.org>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Sandy Huang"
- <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Gerd Hoffmann"
- <kraxel@redhat.com>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
- "Zack Rusin" <zack.rusin@broadcom.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Thomas Hellstrom"
- <thomas.hellstrom@linux.intel.com>, "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>, "Helge Deller" <deller@gmx.de>,
- "Benjamin LaHaise" <bcrl@kvack.org>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Muchun Song" <muchun.song@linux.dev>, "Oscar Salvador"
- <osalvador@suse.de>, "David Hildenbrand" <david@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
- "Nico Pache" <npache@redhat.com>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Hugh Dickins" <hughd@google.com>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jann
- Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Kees Cook"
- <kees@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai"
- <tiwai@suse.com>, <linux-mips@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
- <dri-devel@lists.freedesktop.org>, <etnaviv@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-tegra@vger.kernel.org>, <virtualization@lists.linux.dev>,
- <intel-xe@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>,
- <linux-fbdev@vger.kernel.org>, <linux-aio@kvack.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-sound@vger.kernel.org>
-To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>
-X-Mailer: aerc 0.21.0
-References: <cover.1782760670.git.ljs@kernel.org>
- <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
-In-Reply-To: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
-X-ClientProxiedBy: BLAP220CA0026.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:32c::31) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ bh=8206NVqXCPTNVxkDSfDdIXT3kJSrarb4kGiH6emSyTg=;
+ b=Q9RmgmDok1wshIQDtJ0qqdqsKMozZYQztfmkwTV2cw+hvkSdSb69acssCKWQMwB2HKJqW1kbt2FXEDCHF6c2Yc9r+EIMAzdIo1TUpX1ARnD+9/Tj1yGIFmjK3f4gkz8WlReoJDR8t9U01RTFlZq9+8DfW8+gVypvrD84sR+3iF0=
+From: Hirokazu Takahashi <taka@valinux.co.jp>
+To: xen-devel@lists.xenproject.org
+Cc: Hirokazu Takahashi <taka@valinux.co.jp>
+Subject: [PATCH v3 0/3] xen/arm: Device Tree based CPU topology support
+Date: Tue, 30 Jun 2026 06:58:03 +0900
+Message-ID: <20260629215806.11610-1-taka@valinux.co.jp>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY6P301CA0011.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::15) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB7551:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcdbfcab-ac89-4e05-59d2-08ded61cadfd
+X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|OS7P286MB7274:EE_
+X-MS-Office365-Filtering-Correlation-Id: c6dbf8d2-9384-406f-f8ab-08ded6298205
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|56012099006|22082099003|18002099003|4143699003|11063799006|6133799003;
+	BCL:0;ARA:13230040|1800799024|23010399003|10070799003|376014|366016|6133799003|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	xUj0Wbi7enOgdR8SfgVuT5C73lXoevgkzScl9VL1vsj0miycsDySQxzOAN6+yVwlaeVhGLKqkIayPxmq1HCPnZhRw9vOk0gDDPPvKfEOz0ZESjcbEs2cEZs+hdnh1i6oSi+6AXAZTLt3IC4T0HDKPuXI4C5I7J7/sY1eAn9xAt7rXgSTZZtq7IPZUawDx5rf/pGGcPoP0WbHVGYEQxe/34QBIUrEPJTadYzWQ6LUdRd7P4lrz0HdM37EY6/SdwgCz4BT+XqhdE8Xk9yIbGKKoq9a1mR4/qDOHqdpxghkHsLKvAh4kMHvncz1akgnhR38twHjIjyWGz5BLMeX/aVmnb5qxlyvFDm78GZ7ImdEZeL53JW1o8KwzX4mNIZF/c3zaupiC5x4htPFwOTc43ztfGKot0S5JrSyb+dQR2v9OK2EHhkGUjCPmyGfWXm1r/2C6x6zAcOukC0FS4O0eeOKmRwDGrRxFVgXiQh+QbqyhEvF7FpPwf8Bysr1zlerwRkHyc/66RHdmHSD7dIUzmBBKD6QiONcCzV3YPuK0oklR2Fm4kKr5Sg5ELEzaT6wKluIZ5441stoCvpJiPxZec3UMiuJ9lNzczUR+PvqcWFEAE1eEnXBbjPwCJpX38bIlBAIjfH6Py1HcGoT1a14UjGCntdei7oGEa5zchpvlGderDM=
+	tmUTKxMIpiAey3YjBriK1w42EOyWPYnHeh6ncbOl5Sh7dCm6YaSMNp+4fSd4YZzWqRi/Sk0Fxcx0SdGNoa98EkiyKfrDFlansKDASLlpObkE7lULQbNqMCfX/b1A4FKTFjdOGxSnDc2YanJoLKJ/O3lU25l/F58eZpIP/XboQQvqj8nd+w9ibDa2Z1I6f2+zkXE0zMjMgq9TvphViy96rPtfQ5yGGko1hTr+UYKOpKh0F1OOPnwloRwwtaBdblVney/0ZNVd8h6WYVmWVOLBwQiyUVrU4nmGVuWRU4wIMkHn2qJUlTvb4Cpnpvb8tLeZJG5vDbYKecEasJ/oDCIdxbN202MCzGPUSZf8O+LnOlyxV9q9L1Enh1LrgPdCoI6U1fBHxLSj0+3Hl64vItkMZg8RkOECKQepQAk+8qUIGHEbhQ4DQDw/tiq9GB6oWpe8KlnyxxjcLriM/M/hfgAC/kmEAfxi9m1WEetU6MBjtQife2/SUnHjoOJSp5hi+6BiPsrDqFmRuqNv9S8Mk6PV4o1J4bPNH5DWywrP91VPckeT4uRrWuJVcmq/aA+nCezuCjVbtVgz/VqZWYyiyzwEPaozQSKS4E+ZwwskyJYd3hFmmay6Dn1bJefhNhTGtYy3/7NiRmzOZWD6CcXYTt5G06LTZ2l4sAgfM0fmR+2ntag=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(10070799003)(376014)(366016)(6133799003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2FSYUZmZVN3Q25LK0llMFRzY2EwNkZRQ1lMWjdiT3U1Q1RoU2c5NUZuNjJC?=
- =?utf-8?B?VWllTW01dWZFZ1NVVFhDQXVXT0ZZdXBNLytTc3RySWlibWREOGJsYkNNKzMx?=
- =?utf-8?B?MC9DekxkRnAybzNZVVhlZldFYWlhRW1JYnpSWFRHR1NsOGh5T2tqNmY1MStZ?=
- =?utf-8?B?ZHptdS81RGorTFB0dldWZkNvSlRYTEtPay94UkZTVnF6eFNOZjJRUVB1WHVX?=
- =?utf-8?B?clNneWFrVlNiTU1zRXBBOEVHSGpGVkdUM2hoNElUcElOVUdlQ0wvbHZjNXRH?=
- =?utf-8?B?TlRGenUxUHAvUENnMUIxc3pucGVpMHJWODBwVjcxRmRER3BYVnBSdGljSjlu?=
- =?utf-8?B?MXN5SUJrVjNvVGxzYkMxRlFlbU00QTRURnJNUmJCK1pWVmxla2d3RHpWaFpz?=
- =?utf-8?B?SHgvcnFtZUdTK2hMMFRDR0lJRFEvYnRFSnBReTF4SXBFZ1lwMUJyOU1xVzd2?=
- =?utf-8?B?ZWJBMmwwUC9KRFZQRkJwaFV1RHJlTG1iOC83TWRZRlcrRUxjSVk1RHdTZ2h1?=
- =?utf-8?B?bGUvS1RFcUdLaC95YW5PenVLOXFPUVM2MThSMUkvQWx2MEprZHNHTS9tNmRF?=
- =?utf-8?B?RElqcFZlUGpudlJNVUZPZHBXNWdzNGEremdlWkJzZG5YbjVrTWJ4Tld4bHlK?=
- =?utf-8?B?eVF5aEswK2poLzFUVmtmQ0JtNG5vbzBNZTNtYjRaVWIxcmxrMjVHTEorUzZY?=
- =?utf-8?B?Q3Y2aThOTzIxdTVrbGVwZ044L1Z1NkNaNXgrSXUvbFBDak4yYXhOT3RTTXFN?=
- =?utf-8?B?SnpkS3EyTkk1TC8yOFBTNVlBMkVsZ21YZzlObDcrS1ZPSG1KYVNnZDVCYWV6?=
- =?utf-8?B?cnByMVVwWVU5MExBTEpFcGxmRGlWOHowYS81QU1IaElqL0hZZU9zclZxR0VV?=
- =?utf-8?B?UWNyWTFnLzFRbCswSWVnNzNDL08yQS8rZU4yVnZMQm9pVDQrdzEvZEttQUp0?=
- =?utf-8?B?b0VvQm5vUHUwTzJTVDU4dHFaY1Jkc1RBakNxK3VZdVZzd2hVTnZ5Um9XWDIv?=
- =?utf-8?B?cFc0d0F4dzM2c3NaMEZRajBRTkF4MW9wQ1gzbTVnNm1aSlNaVE5YS295dUxH?=
- =?utf-8?B?NzRnMjA5MXRCcVBIVURVd0VqWHkvaVg3dUtwR0Evc0Y5RUUvWjEzS3hzTWNj?=
- =?utf-8?B?Qm9DSXRqTzh1QzdkQ2s3OW1wNlRTZUx0cUFpUkhoc1FpOEpCZS9RdkRvaTk3?=
- =?utf-8?B?aTd4THNCZUlpY2VBU2c1SGVzYzBvd2R0dForRWZzUnMyMzdYUkljTHU1aktK?=
- =?utf-8?B?OXBKTmV2NUNpeGZjaTc5ODhLM2JMaEJaM054UUF6RTdHTndTbDY2RHZxRy9i?=
- =?utf-8?B?M1NiNGRZQUZOWnVJYXRtcW96STVNbHhScndhZmtLVWlud0FCdnRBMjhENTRN?=
- =?utf-8?B?cmpsb25CS2JaNU9WY2pPNDdPNXJmaTVOVlIrWGJxcmgzMERuRDZzdmhRZGRU?=
- =?utf-8?B?UVN2RlRqSzhVN1BLMTM3R3JDWGpOWWVBUFRFNGV6dDRuZCtoSjM0K0s5UG9W?=
- =?utf-8?B?Z2FybXh3enRDcUxPUGNHWjYvMVdiaHpVQlFyenRReFprVXhhQWNsZU81OFd0?=
- =?utf-8?B?OW5XRXlEZ20wYlBLWlZsYmFobDBJVXNSeExVMmM5eTgwTGcyQ20zZ0lWcWJ4?=
- =?utf-8?B?V0d1OG1STXJ6T2U5eThmS1AxTElCK2lZK2lCcWZ3OFJpZmtldndsTDFPRVMz?=
- =?utf-8?B?TVk4STNTU0V5MDFMV0xhOFRTbkxhQWJXdFpEYWxtZTdyWVUyK0FpQkpXYnhN?=
- =?utf-8?B?SXgvMi8zUEtYRTFNWmdTMU90cUVTNGhrZjBZcGNlYVBHSytsOVlJcndSdjU0?=
- =?utf-8?B?YXFrU1ZZakRMeGJUVGdvekhQeFl0ZVNINGFkTjZRbSt1bUorTzI3cDgvaFNP?=
- =?utf-8?B?QmJuakREYjN5bllIMVIzeWd0ZCtza2NwS0lESzNNZkdhamJYRXhMNzRaVGNh?=
- =?utf-8?B?c25kMko0VlRqTXdJT1JCOHBOK1N5ejV4bm54MkQvRW5YcHRnMVpPOWtSaHpL?=
- =?utf-8?B?QldRbGZxZHUwRGlNaUF5MnNvaXFNeWlhV29aRUcyQWRKZG8wVXRjbHR6anZu?=
- =?utf-8?B?c04wV3Y4RHBTU3M5QkFVVXRYVlllZG40eEZlVWJ4UmtSdEs4eDhsMEx0d2ky?=
- =?utf-8?B?NmdKTzVUWlduS0VDODcvakRvaURQMllyQys3OFl6Q04wVmR0VWxMdzNJSnEw?=
- =?utf-8?B?K2xXQ0k1SnV3Z2NaaUFIbk1PUGI2ZTkrOFV6NVBaNURNMnJRNUIyTDZoaXF3?=
- =?utf-8?B?aytMQ0tLdENFU1Y2ZUZ4OUw4TTlGcFJFR25MaFhTWkNsME03SFIrYzFKcVph?=
- =?utf-8?Q?+t2YN/oXnRlwZEOT5Y?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcdbfcab-ac89-4e05-59d2-08ded61cadfd
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+	=?us-ascii?Q?uTip1aSJjZA9v7K/oLgLbHtWoD7WecL1mF8ewYLVyhnhhqvXyIwiJgkhYNQ6?=
+ =?us-ascii?Q?lAXBV3bn6enTKiJoa5278n9QFC0Y7KXwOPhzAsik343Yuxo1XjU0oI5q7a/1?=
+ =?us-ascii?Q?sOYebyEFc42sCABqEI8niYtDFQGXFyjBGbxPcgI9jXDNLaNtd8UpeBLOltAB?=
+ =?us-ascii?Q?UQWQXLlTs2qZMyWWRY/ehkIFx72YeVNZBoHEay2mK+fRUZAeYaI1j4kz8i1C?=
+ =?us-ascii?Q?zWHryNa9NLBX4Y2PqL5lGheGtMGs6EuxbVVy6ZfRL/b8GTELAPkTaBT9eI69?=
+ =?us-ascii?Q?38IajF8GHta4fVEOBx+klDGlP3Stt51lNgJg+usJ0c/mtsaUuX5slxB8L4Ai?=
+ =?us-ascii?Q?7wnszzWez+I7CDZxDU5SIyE5aOeIzMsaYjB04RFuf3QltsD8Eqi+k2XrTvur?=
+ =?us-ascii?Q?9DU+QTpqk/huoIalV1qqh832KD3ieotpNzsQmAqDhI5Gf3hxBG3l06XSnQM8?=
+ =?us-ascii?Q?IJWaFmbf/SHw223d7DVEJJdrSRONUIjq/d7VvKj2DXrsUzCXszFwCWgcIEoJ?=
+ =?us-ascii?Q?sQQSxklFLvEu8h9htHOPdPwKK4u4SQ8fTonVwUmuVkYcqIusLi+zCNPGP0YA?=
+ =?us-ascii?Q?8+V7wHcX9szleH2HFkkAUy2ALTO4mIm7CUouK8u5wOmfaXJIS5oh/NELdy8o?=
+ =?us-ascii?Q?YMQ4tWzmhlWSqhGz/y/qt1kDWHbRmjfqDQdE2OP0Id2B+psljwenU1m1YPKH?=
+ =?us-ascii?Q?b0WKvfe0SLirulXVAPrfsVG0GVP3ocDDCW84weHDPD7GUiGFzVMLQ/f+PP2d?=
+ =?us-ascii?Q?h8kyv4fm9tSdEmcVwvL3ka5fWG9b9sBLSDGMVf5A/FxfEJHda+DYguCgi8UT?=
+ =?us-ascii?Q?AKY+16dV+HCdCxk3hy9vNHyTEqeZC3Fom28eCENEoIKeB+OkovP6thLu2Fat?=
+ =?us-ascii?Q?lstKF29R0x2H4s5PWhdYvLjfFWi5pKOBQkh8xVFjF2yTtmpXkQ68kRmpnNW6?=
+ =?us-ascii?Q?w0FuZl54vfZWM48COj1hut2vmZhMrUOqjm1nheoGk5aQjKbcqAMEAfTzfuas?=
+ =?us-ascii?Q?gU8x5hVAH6pXgwJtKpPGPKGzoe9kzIYFL4thsBEyroQ8by0aGzi8RVbl/Frd?=
+ =?us-ascii?Q?Iwv/hezLEhafi5JhiucsOvPbPRh5TzzQED0lEhU9YauMEuNq1IVO1NXpEmqi?=
+ =?us-ascii?Q?YJRcCp0vmN2ls76o4//0PE/4rvocBC1+l+VLj1/rbkdqLCqnah9CbnGlm4Bb?=
+ =?us-ascii?Q?VsEwluLXD3GjX0y8KOADlDP+/+npHT4pYY6D7r76iEhHRdXLTgHlmgBEfpVg?=
+ =?us-ascii?Q?jvBhneeq3JGDZWBQbw/ajf5X41Ws3d7N8OizcQopgc+fz4gVQe7CQ7uqaxqt?=
+ =?us-ascii?Q?6LqdM9mRCvXXjfeIaeeSzw8TTQ+2uD+XnaUJREkq6lRsw+RBuY8Hyxv2mGrG?=
+ =?us-ascii?Q?ER2nn2H8Ln4r75NP4RgntvkRAgIXQIn3WdSlQUySp8rTrCKFwgLoiSKEdDpg?=
+ =?us-ascii?Q?seEA9PQGdqnsZTyepaosaip9E89X2fT3X9M3nZvj0qwz8w3gL5ytAql2hgyM?=
+ =?us-ascii?Q?a0z6Nt2qZcy9SeUCBCdanxbXBD5eORLFY+IKUqUckW0CAqtTJEVO4WF8seLs?=
+ =?us-ascii?Q?YSprKPo0oEXsOg+62YnxVvto6R64xKLa2yPvjlLKFvzfBcJWj9LQibxyESz+?=
+ =?us-ascii?Q?+tVSMNG4uzPhrBHjAuoVK4CclO8iyJZxcemlpMS6ojgjJ7H0cjMDyUCEcWgK?=
+ =?us-ascii?Q?IMa+D4Hfpt+1KpsBvsBhZEOzDyBA/i4zj2vo3Uz86osuq/2uPZ9lzRLubm1Z?=
+ =?us-ascii?Q?Z+1HAaFafs2z3a8OIk19dGfdrWhKIorG+nnPQbql2hUqp+7ap0Wp23rsG9Gf?=
+X-MS-Exchange-AntiSpam-MessageData-1: sn8/sx4nEV1tiw==
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: c6dbf8d2-9384-406f-f8ab-08ded6298205
+X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 20:26:20.1258
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jun 2026 21:58:09.7576
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZeOF9AEynETVEVXKwzskEDGmMEHuAC1VcI7guFM1cBS66AuhSMQ4skmiFHWDXKMV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7551
-X-purgate-ID: tlsNG-c201ff/1782764795-0E9102B8-6DA169BB/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0zgdgUO/JYTzyD7ETu80b8MkuWhpChg6Q9VGuFErsIKRUEqS/B7+ru5oRrIMRJC49bIiFRJzrvtFldaJU59myg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB7274
+X-purgate-ID: tlsNG-bad1c0/1782770295-47B33986-44BD7F28/0/0
 X-purgate-type: clean
-X-purgate-size: 3790
+X-purgate-size: 4710
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-9.19 / 15.00];
-	WHITELIST_DMARC(-7.00)[nvidia.com:D:+];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[nvidia.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[Nvidia.com:s=selector2];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
+	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:tsbogend@alpha.franken.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:zack.rusin@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:muchun.son
- g@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:baolin.wang@linux.alibaba.com,m:liam@infradead.org,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:hughd@google.com,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:jannh@google.com,m:pfalcato@suse.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:linux-mips@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fbdev@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger
- .kernel.org,m:linux-mm@kvack.org,m:linux-sound@vger.kernel.org,m:ljs@kernel.org,m:akpm@linux-foundation.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[Nvidia.com:+];
+	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[Nvidia.com:dkim,nvidia.com:mid,nvidia.com:from_mime];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,s:lists@lfdr.de];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_GT_50(0.00)[82];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7AC776DEA49
+X-Rspamd-Queue-Id: 2C0726DEF85
 
-On Mon Jun 29, 2026 at 3:25 PM EDT, Lorenzo Stoakes wrote:
-> These test whether the VMA has stack sematics, i.e. is able to grow upwar=
-ds
-> or downwards depending on the architecture.
->
-> In order to account for arches which do not support upward-growing stacks=
-,
-> introduce VMA_GROWSUP whose definition depends on the architecture
-> supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow=
-()
-> to account for this.
->
-> Update the VMA userland tests to reflect the changes
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  include/linux/mm.h              | 21 ++++++++++++++++++---
->  tools/testing/vma/include/dup.h |  4 ++++
->  2 files changed, 22 insertions(+), 3 deletions(-)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 868b2334bff3..cf7df1569052 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -472,6 +472,7 @@ enum {
->  #define VM_SAO		INIT_VM_FLAG(SAO)
->  #elif defined(CONFIG_PARISC)
->  #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
-> +#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
->  #elif defined(CONFIG_SPARC64)
->  #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
->  #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
-> @@ -483,6 +484,7 @@ enum {
->  #endif
->  #ifndef VM_GROWSUP
->  #define VM_GROWSUP	VM_NONE
-> +#define VMA_GROWSUP	EMPTY_VMA_FLAGS
->  #endif
->  #ifdef CONFIG_ARM64_MTE
->  #define VM_MTE		INIT_VM_FLAG(MTE)
-> @@ -1563,11 +1565,24 @@ static inline bool vma_is_initial_stack(const str=
-uct vm_area_struct *vma)
->  		vma->vm_end >=3D vma->vm_mm->start_stack;
->  }
-> =20
-> -static inline bool vma_is_temporary_stack(const struct vm_area_struct *v=
-ma)
-> +static inline bool vma_flags_can_grow(const vma_flags_t *flags)
->  {
-> -	int maybe_stack =3D vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
-> +	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
-> +		return true;
-> +	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
-> +		return true;
-> +
-> +	return false;
-> +}
-> =20
-> -	if (!maybe_stack)
-> +static inline bool vma_can_grow(const struct vm_area_struct *vma)
-> +{
-> +	return vma_flags_can_grow(&vma->flags);
+Hello,
 
-Would it save vma_flags_can_grow() if we do below?
+This patch series introduces basic CPU topology support for ARM Xen.
 
-return vma_test(vma, VMA_GROWSDOWN_BIT) || vma_test_single_mask(vma, VMA_GR=
-OWSUP);
+I'm a bit torn on the best way to implement the fallback macros like
+cpu_to_socket() in cpu-topology.h when CONFIG_CPU_TOPOLOGY is off.
+Specifically, I want non-x86 architectures to share these fallbacks
+while keeping x86 from seeing them.
 
-I find these two functions when I am reading mm.h.
+The first approach is simple, but it will break if x86 changes how it
+defines these helpers in the future. For example, if it switches from
+macros to inline functions:
 
-> +}
-> +
-> +static inline bool vma_is_temporary_stack(const struct vm_area_struct *v=
-ma)
-> +{
-> +	if (!vma_can_grow(vma))
->  		return false;
-> =20
->  	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) =3D=3D
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/=
-dup.h
-> index 5d7d0afd7765..6f5bcd7fbcd8 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -245,8 +245,10 @@ enum {
->  #define VM_STACK	INIT_VM_FLAG(STACK)
->  #ifdef CONFIG_STACK_GROWS_UP
->  #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
-> +#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
->  #else
->  #define VM_STACK_EARLY	VM_NONE
-> +#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
->  #endif
->  #ifdef CONFIG_ARCH_HAS_PKEYS
->  #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
-> @@ -315,6 +317,8 @@ enum {
-> =20
->  /* Bits set in the VMA until the stack is in its final location */
->  #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK=
-_EARLY)
-> +#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
-> +	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
-> =20
->  #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
->  		       VM_EXEC_BIT : VM_READ_BIT)
+#ifndef cpu_to_socket
+#define cpu_to_socket(cpu) (0)
+#endif
 
-Why are VMA_STACK_EARLY and VMA_STACK_INCOMPLETE_SETUP added here but
-not in mm.h?
+The second approach is to make them active only for Device Tree setups
+via CONFIG_DEVICE_TREE_PARSE. However, this might not be the "right"
+way either, just in case an architecture comes along that doesn't use
+DT but still populates the topology table via another method like
+ACPI.
 
+#ifdef CONFIG_DEVICE_TREE_PARSE
+#define cpu_to_socket(cpu) (0)
+#endif /* CONFIG_DEVICE_TREE_PARSE */
 
---=20
-Best Regards,
-Yan, Zi
+Then again, if ARM, RISC-V, and PPC all end up enabling
+CONFIG_CPU_TOPOLOGY by default anyway, we won't even need this =n
+fallback code. So I'm maybe just overthinking this.
+
+Future Work:
+ - Support for the "credit2_runqueue=cluster" option.
+ - CPU topology support for RISC-V and PPC (once SMP support is available).
+ - Topology information generation from the ACPI PPTT.
+
+Changes in v3:
+ - Use (nr_cpu_ids - 1) as the maximum CPU ID here. The fix for the sparse
+   map mismatch issue on ARM Xen has been split out into a separate patch.
+ - Switch topology sibling masks to cpumask_var_t for dynamic allocation.
+ - Allow the system to keep running with a degraded fallback even if
+   the topology table allocation fails.
+ - Remove the temporary definitions of cpu_to_core() and cpu_to_socket()
+   from RISC-V and PPC processor.h.
+ - Minimize the use of #ifdef blocks, leveraging compiler Dead Code
+   Elimination (DCE) where possible.
+ - Clean up the code to follow the Xen coding style. Please let me know
+   if I missed any style nits!
+ - Verify successful builds across x86, RISC-V, and PPC environments.
+
+Changes in v2:
+ - Generate topology information even when ACPI is enabled. Note that
+   this is a temporary implementation and doesn't yet parse the PPTT
+   (Processor Properties Topology Table).
+ - Added support for cpu-map node in Device Tree that doesn't contain
+   explicit cluster node definitions.
+
+Changes in v1 from the previous series "Introduce Device Tree based NUMA
+support for ARM Xen":
+
+1. Optimized Memory Allocation:
+   The series now allocates only the minimum required memory area to manage
+   the essential data for the CPUs.
+
+2. Flexible Device Tree Parsing:
+   The parsing logic no longer depends on the definition order of the 'cpu'
+   nodes and 'cpu-map' nodes in the Device Tree. They can now be read
+   correctly even if their orders do not match.
+
+3. CPU Hotplug Readiness:
+   To support future CPU hotplug, the system assumes that inactive CPUs are
+   also described in the Device Tree. Xen will pre-load and generate the
+   topology information for these inactive CPUs during the boot phase so
+   it stays available in memory.
+
+Thank you,
+Hirokazu Takahashi
+
+Hirokazu Takahashi (3):
+  xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
+  xen/sched: Link CPU topology to scheduler
+  xen/sched: Make cpu_nr_siblings() architecture-specific
+
+ xen/arch/arm/Kconfig                   |  10 +
+ xen/arch/arm/include/asm/processor.h   |   4 -
+ xen/arch/arm/smpboot.c                 |  29 +-
+ xen/arch/ppc/include/asm/processor.h   |   4 -
+ xen/arch/riscv/include/asm/processor.h |   4 -
+ xen/arch/x86/include/asm/processor.h   |   1 +
+ xen/common/Kconfig                     |   8 +
+ xen/common/Makefile                    |   1 +
+ xen/common/cpu-topology.c              |  59 ++++
+ xen/common/device-tree/Makefile        |   1 +
+ xen/common/device-tree/cpu-topology.c  | 403 +++++++++++++++++++++++++
+ xen/common/sched/credit2.c             |  21 +-
+ xen/common/sysctl.c                    |   1 +
+ xen/drivers/acpi/Kconfig               |   3 +
+ xen/drivers/acpi/Makefile              |   2 +
+ xen/drivers/acpi/topology.c            |  41 +++
+ xen/include/xen/acpi.h                 |   2 +
+ xen/include/xen/cpu-topology.h         |  55 ++++
+ xen/include/xen/dt-cpu-topology.h      |  29 ++
+ 19 files changed, 642 insertions(+), 36 deletions(-)
+ create mode 100644 xen/common/cpu-topology.c
+ create mode 100644 xen/common/device-tree/cpu-topology.c
+ create mode 100644 xen/drivers/acpi/topology.c
+ create mode 100644 xen/include/xen/cpu-topology.h
+ create mode 100644 xen/include/xen/dt-cpu-topology.h
+
+-- 
+2.43.0
 
 
