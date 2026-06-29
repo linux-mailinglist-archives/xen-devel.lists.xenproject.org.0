@@ -2,58 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RUYdAkKqQmqp/QkAu9opvQ
+	id K5eJBoDAQmoRAgoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:18 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 20:59:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A97FD6DDADD
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 19:24:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A618E6DE2C1
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 20:59:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=X7xxfZV+;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=NAk9z7oQ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1347861.1605817 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1347994.1605829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weFiM-0005dC-Ou; Mon, 29 Jun 2026 17:24:10 +0000
+	id 1weHBL-0000RX-IP; Mon, 29 Jun 2026 18:58:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347861.1605817; Mon, 29 Jun 2026 17:24:10 +0000
+Received: by outflank-mailman (output) from mailman id 1347994.1605829; Mon, 29 Jun 2026 18:58:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weFiM-0005Rh-18; Mon, 29 Jun 2026 17:24:10 +0000
-Received: by outflank-mailman (input) for mailman id 1347861;
- Mon, 29 Jun 2026 17:24:07 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14688d8c000701b@swg.vates.tech>)
- id 1weFiI-0004nI-U3
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 17:24:06 +0000
+	id 1weHBL-0000Om-Fj; Mon, 29 Jun 2026 18:58:11 +0000
+Received: by outflank-mailman (input) for mailman id 1347994;
+ Mon, 29 Jun 2026 18:58:10 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <vishal.moola@gmail.com>) id 1weHBK-0000NO-02
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 18:58:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weFiI-00FsZ2-A8
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 19:24:06 +0200
-Received: from [10.42.69.11] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14688d8c000701b@swg.vates.tech>)
- id 6a42aa23-bab6-0a2a0a5309dd-0a2a450be43e-44
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:24:06 +0200
-Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f14688d8c000701b@swg.vates.tech>)
- id 6a42aa19-ac48-0a2a450b0019-b9ff1c128383-20
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 19:24:06 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f14688d8c000701b.005 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 29 Jun 2026 17:23:44 +0000
-Received: from bazzite.gpn.vates.fr (88-188-240-210.subs.proxad.net
- [88.188.240.210]) (Authenticated sender: teddy.astie@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id 7927C86C10;
- Mon, 29 Jun 2026 19:23:43 +0200 (CEST)
+ id 1weHBI-001Dud-SL
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 20:58:08 +0200
+Received: from [10.42.69.5] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <vishal.moola@gmail.com>)
+ id 6a42c01e-2eae-0a2a0a5409dd-0a2a4505c51e-34
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 20:58:08 +0200
+Received: from [209.85.210.172] (helo=mail-pf1-f172.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <vishal.moola@gmail.com>)
+ id 6a42c03f-3cb2-0a2a45050019-d155d2acec7d-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 20:58:08 +0200
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-845537740ddso2122410b3a.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 11:58:08 -0700 (PDT)
+Received: from fedora.hsd1.ca.comcast.net
+ ([2601:644:937c:6c90:6d4e:7b2d:4a39:fb0c])
+ by smtp.googlemail.com with ESMTPSA id
+ d2e1a72fcca58-8479ff8f959sm223955b3a.3.2026.06.29.11.58.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jun 2026 11:58:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,168 +61,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=FvevOb+avCePNC2AXp3wN3a3driU5EWKRv49KgdpPsA=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=X7xxfZV+XlMbj918WWxoSr994iVnKA2GnGiwZqBQ0TB8/+O0cQlclZ1S0srE1R28PSW3yFRRp
- delDxThGEExi6hiShM+IVYmE3Mj6CZ/d8xRXEx+xw/qHcbMxDBw+qMkDlfejnTKXI777/tdFlV9
- wr9D3th31itbToN61TTr9nsdwBYzZ42cu+tPbCb+c26FMrCOn1RTTDk6jA/SEtBTuS9TNl2l1mv
- b/tZTJwN0FIG1ivecPQ27a2ZxKZEvQi/mH+yyTVDNtljtc5RJJAcbfX6WFjbZvzAxUd8bKf/A/j
- uYwRvrvfLVWdNDpQL/TvwmxUXMfhyAtWr+qYGtw+le/g==
-X-Zone-Loop: b63051e513338b3b53e7f69a8a72eb4b41e4a406d879
-x-campaign-type: default
-x-transaction-id: 0f9c1c5b-da14-4dcf-a92a-bd3a0faf8ff3
-x-swg-uid: 01-8fe55683-3bc5-4786-b5bf-f8e48b1f3789
-X-Mailer: Sweego
-Message-ID:
- <1782753824.8631fc262581453bbf619ec5b2062170.19f14688d8c000701b@vates.tech>
-x-swg-bid: 1782753824.8631fc262581453bbf619ec5b2062170.19f14688d8c000701b
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-From: Teddy Astie <teddy.astie@vates.tech>
-To: xen-devel@lists.xenproject.org
-Cc: Teddy Astie <teddy.astie@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [RFC PATCH v3 18/18]: docs: Document support for PCI segment in dbgp and comN parameter
-Date: Mon, 29 Jun 2026 19:21:36 +0200
-In-Reply-To: <cover.1782747421.git.teddy.astie@vates.tech>
-References: <cover.1782747421.git.teddy.astie@vates.tech>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782759487; x=1783364287; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V216nmU9ttJM2RugBVItOUGA9QghN1LSEfvMALpwJOA=;
+        b=NAk9z7oQzLMh1Z60re/RW0xj4SxnlenoSOCoJeizb1nr/8bzfaWmenId5Qxkd6hckh
+         WDJujAlQjITr5mM+2Pcdqvl4osyqjf8OowRpn4bY8S9tDmgW1oWcLOCIq1fLH1KxJ3Un
+         YP1tRmrlHYhTq/eZDLNLSx96qnLWlg24fC4F5PZfJzeRUwoI9YrPo8W4xAPcFbMTlTZF
+         9mMUSG7TAq/zL430F4XPGywJOs0nVOEASwnS7fR6DhjOMYQrpIaTNoYIRx8XqwFFH6FW
+         bq6amxIL1Rhp13AhdIRZDNdswK+Z29xPuEWSI70jMq2HQS7WK82AM2fAENreyRObzPt2
+         Dxtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782759487; x=1783364287;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V216nmU9ttJM2RugBVItOUGA9QghN1LSEfvMALpwJOA=;
+        b=SsryBbioYxlArwMYMDjxt1gHvR9iG9kbdpWZSQ2D+20hR2tB4ADhjlcn1MGRm0VFy/
+         Qt8GSf6c8bYSvRKm4ELp4bu6xJPHOEW9rQLo7GqNARPhWZDR+jqXWAnqUB3vtozoRQpg
+         jcKevPNrdPdZtS0/aUP38GG7ehByhjHZDMDFR+J4cUcS35lDUNAuTxnRbvmCyxvDcoCh
+         tlkhbYGzpnAt6i5IuHDAx8WF40bU8sopMjf9Jixq6SaISxP9Tcfdlpe0qvrW1R5jS+2v
+         oV0l6Q53tzuM4Xpz5QnSecvZcIzOD00e6reDxzFgPDpkjapCgepRYvPfhrIrzIeewsqo
+         cWVQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq2mSzSvyTp5iu98pyvo5F/hfkC8pJ40iVIlvR6rMz3tTIgQOd1WpM0vNTMTnsoAx5HWofUHKMQvdU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw+c7t1tKjEp/CIG5lnea8AsoC4WbX7XiL2PBiE19Biauyql6Lr
+	YpJe81K1DlmEZjZYc5nXrhcl0ZjBKCQDUZtwtuDq9rCMByPh/1PCCo5j
+X-Gm-Gg: AfdE7cluoWfPW7YTE7a4t6E62oucjutS9Uzgvc2WWc+xJUBm4ratX1Wy7BU6xxj3sxQ
+	YnSOmd58ntSkeuauPQZPHlK82O2IqZQFejZS6m9ikBy68DmvDEO+tWyD7GIQHvkP6EJE2Ps2yrG
+	3wzu7IyXatTg+MtuPPfzJjDvDNZ/y4zdfGgV9uSZiUhj8L3UOH/MuIu3ENH3GzraHBuiOxD2sqO
+	ukcCbBDEptyyKq3gsbcs1aaxEfxSle2Vwwjpd9OTklV1oMdV0W5H4CAgMhDX0aDq3nQC7v+Px7Y
+	yHL8WW6o8KfYrDsmiXhw6PQwuzJ6sMBEWHDXSXt1hjoV2CP6tre+zRjqoe47EMio6lCn/0ReC7C
+	Ra5bKtxQAS8FYdVM4dxph8a4wf8cma6VafYpFuwT96sz4U2H1kC5rvY9+H7Sdh11Bqsi654tPyW
+	85svvvtnHR4ZxhnBHUFMLw74F4u9Anh4BLeImZqv5WkYfgNGoeRyOfpuO4FJBHMzZ6/jHJAv4=
+X-Received: by 2002:a05:6a00:8c8:b0:847:9c3a:b77f with SMTP id d2e1a72fcca58-8479f232bebmr511836b3a.35.1782759486753;
+        Mon, 29 Jun 2026 11:58:06 -0700 (PDT)
+From: Vishal Moola <vishal.moola@gmail.com>
+To: Dave Hansen <dave.hansen@intel.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	xen-devel@lists.xenproject.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Vishal Moola <vishal.moola@gmail.com>
+Subject: [PATCH v2 0/9] Convert x86 pgd_lists to ptdescs
+Date: Mon, 29 Jun 2026 11:57:33 -0700
+Message-ID: <20260629185742.126987-1-vishal.moola@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.81d.fae55310681497d3.19f14688bd2.6295c36242107fd6=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1782753823698
-X-purgate-ID: tlsNG-42698a/1782753846-38B4D220-4B3F0D99/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-c201ff/1782759488-153052B8-37CE1B43/0/0
 X-purgate-type: clean
-X-purgate-size: 3120
+X-purgate-size: 1903
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.82 / 15.00];
-	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[1];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
-	XM_UA_NO_VERSION(0.01)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[kernel.org,linux.intel.com,lists.xenproject.org,redhat.com,alien8.de,zytor.com,infradead.org,suse.com,oracle.com,gmail.com];
+	FORGED_SENDER(0.00)[vishalmoola@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:dave.hansen@intel.com,m:linux-mm@kvack.org,m:linux-kernel@vger.kernel.org,m:x86@kernel.org,m:rppt@kernel.org,m:baolu.lu@linux.intel.com,m:xen-devel@lists.xenproject.org,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:hpa@zytor.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:vishal.moola@gmail.com,m:vishalmoola@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
+	FROM_NEQ_ENVFROM(0.00)[vishalmoola@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A97FD6DDADD
+X-Rspamd-Queue-Id: A618E6DE2C1
 
----=Part.81d.fae55310681497d3.19f14688bd2.6295c36242107fd6=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+This continues the ptdesc conversions for x86[1]. This is a necessary step
+in preparation for the separate allocation of ptdescs from struct page.
+Once ptdescs are not wrappers, the pgd_list should be used to find our
+ptdesc, not page.
 
-Now that we accept full PCI SBDF (with segments), update the documentation
-accordingly=2E
+In fact, after patch 4 we can successfully boot a 32-bit x86 kernel
+that separately allocates ptdescs.
 
-Signed-off-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
----
-In principle, it's correct, but I don't think ECAM is usable
-at the moment EHCI dbgp is initialized, which would prevent
-the device from being probed correctly if it's not on segment 0=2E
+All of the patches are rather straightforward, I just kept them split up
+for ease of review. There are no intended functional changes as ptdescs
+are currently still wrappers around struct page.
 
-Same remark for comN=2E
----
- docs/misc/xen-command-line=2Epandoc | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+[1] https://lore.kernel.org/linux-mm/20260211195233.368497-1-vishal.moola@gmail.com/
 
-diff --git a/docs/misc/xen-command-line=2Epandoc b/docs/misc/xen-command-l=
-ine=2Epandoc
-index 1c711fa980=2E=2E3b35a1962c 100644
---- a/docs/misc/xen-command-line=2Epandoc
-+++ b/docs/misc/xen-command-line=2Epandoc
-@@ -349,7 +349,7 @@ ACPI indicating none to be there=2E
-=20
- ### com1 (x86)
- ### com2 (x86)
--> `=3D <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi][,[<p=
-ort-bdf>][,[<bridge-bdf>]]]]]]`
-+> `=3D <baud>[/<base-baud>][,[DPS][,[<io-base>|pci|amt][,[<irq>|msi][,[<p=
-ort-sbdf>][,[<bridge-sbdf>]]]]]]`
-=20
- Both option `com1` and `com2` follow the same format=2E
-=20
-@@ -371,10 +371,10 @@ Both option `com1` and `com2` follow the same format=
-=2E
-   registers=2E
- * `<irq>` is the IRQ number to use, or `0` to use the UART in poll
-   mode only, or `msi` to set up a Message Signaled Interrupt=2E
--* `<port-bdf>` is the PCI location of the UART, in
--  `<bus>:<device>=2E<function>` notation=2E
--* `<bridge-bdf>` is the PCI bridge behind which is the UART, in
--  `<bus>:<device>=2E<function>` notation=2E
-+* `<port-sbdf>` is the PCI location of the UART, in
-+  `[<seg>:]<bus>:<device>=2E<function>` notation=2E
-+* `<bridge-sbdf>` is the PCI bridge behind which is the UART, in
-+  `[<seg>:]<bus>:<device>=2E<function>` notation=2E
- * `pci` indicates that Xen should scan the PCI bus for the UART,
-   avoiding Intel AMT devices=2E
- * `amt` indicated that Xen should scan the PCI bus for the UART,
-@@ -731,11 +731,11 @@ for the `all` value=2E If that isn't intended, raise
- the `sched_credit2_max_cpus_runqueue` value=2E
-=20
- ### dbgp
--> `=3D ehci[ <integer> | @pci<bus>:<slot>=2E<func> ]`
--> `=3D xhci[ <integer> | @pci<bus>:<slot>=2E<func> ][,share=3D<bool>|hwdo=
-m]`
-+> `=3D ehci[ <integer> | @pci[<seg>:]<bus>:<slot>=2E<func> ]`
-+> `=3D xhci[ <integer> | @pci[<seg>:]<bus>:<slot>=2E<func> ][,share=3D<bo=
-ol>|hwdom]`
-=20
- Specify the USB controller to use, either by instance number (when going
--over the PCI busses sequentially) or by PCI device (must be on segment 0)=
-=2E
-+over the PCI busses sequentially in segment 0) or by PCI device=2E
-=20
- Use `ehci` for EHCI debug port, use `xhci` for XHCI debug capability=2E
- XHCI driver will wait indefinitely for the debug host to connect - make s=
-ure
---=20
-2=2E54=2E0
+----------------
 
+v2:
+  - Collect Review tags
+  - Rebase on 7.2-rc1
 
+I've compiled and booted both 64 and 32 bit on a kernel with separately
+allocated ptdescs. I ensured the codepaths were hit for all the changes
+except Xen.
+
+This applies cleanly to 7.2-rc1. Dave, can you please take this through
+the x86 mm tree?
+
+Vishal Moola (9):
+  x86/mm/pat: Use IS_ENABLED() instead of ifdef
+  x86/mm/pat: Convert __set_pmd_pte() to ptdescs
+  x86/mm/pat: Convert collapse_pmd_page() to ptdescs
+  x86/mm: Convert arch_sync_kernel_mappings() to ptdescs
+  x86/mm: Convert sync_global_pgds_l5() to ptdescs
+  x86/mm: Convert sync_global_pgds_l4() to ptdescs
+  x86/mm: Convert pgd_page_get_mm() to ptdescs
+  x86/xen: Convert xen_mm_pin_all() to ptdescs
+  x86/xen: Convert xen_mm_unpin_all() to ptdescs
+
+ arch/x86/include/asm/pgtable.h       |  2 +-
+ arch/x86/include/asm/pgtable_types.h |  2 +-
+ arch/x86/mm/fault.c                  |  8 ++++----
+ arch/x86/mm/init_64.c                | 16 ++++++++--------
+ arch/x86/mm/pat/set_memory.c         | 17 ++++++++---------
+ arch/x86/mm/pgtable.c                |  4 ++--
+ arch/x86/xen/mmu_pv.c                | 22 +++++++++++-----------
+ 7 files changed, 35 insertions(+), 36 deletions(-)
 
 -- 
-Teddy Astie | Vates XCP-ng Developer
+2.54.0
 
-XCP-ng & Xen Orchestra - Vates s=
-olutions
-
-web: https://vates=2Etech
----=Part.81d.fae55310681497d3.19f14688bd2.6295c36242107fd6=---
 
