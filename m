@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6VsQJqzIQmrpBwoAu9opvQ
+	id TJlJLKzIQmrsBwoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 21:34:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832F66DE726
+	by mail.lfdr.de (Postfix) with ESMTPS id DA2376DE728
 	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 21:34:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=WOjc9JyG;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=a5KeyFTe;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1348090.1605940 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1348092.1605943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weHjd-0002zy-3X; Mon, 29 Jun 2026 19:33:37 +0000
+	id 1weHjd-00032X-7r; Mon, 29 Jun 2026 19:33:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1348090.1605940; Mon, 29 Jun 2026 19:33:37 +0000
+Received: by outflank-mailman (output) from mailman id 1348092.1605943; Mon, 29 Jun 2026 19:33:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weHjc-0002xv-TY; Mon, 29 Jun 2026 19:33:36 +0000
-Received: by outflank-mailman (input) for mailman id 1348090;
- Mon, 29 Jun 2026 19:25:59 +0000
+	id 1weHjd-0002zu-4K; Mon, 29 Jun 2026 19:33:37 +0000
+Received: by outflank-mailman (input) for mailman id 1348092;
+ Mon, 29 Jun 2026 19:26:02 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1weHcF-0001RT-Bu
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 19:25:59 +0000
+ (envelope-from <ljs@kernel.org>) id 1weHcH-0001Rg-Ux
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 19:26:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weHcE-00FK17-LH
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 21:25:58 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1weHcH-005j20-Bg
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 21:26:01 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a42c6a9-5cb7-0a2a0a5109dd-0a2a4504a5ee-30
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 21:25:58 +0200
+ id 6a42c6a7-e002-0a2a0a5209dd-0a2a45088d28-32
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 21:26:01 +0200
 Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <ljs@kernel.org>)
- id 6a42c6c5-a01d-0a2a45040019-ac6904fee83c-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 21:25:58 +0200
+ id 6a42c6c8-edec-0a2a45080019-ac6904fea33c-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 21:26:01 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 723DC60008;
- Mon, 29 Jun 2026 19:25:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F6D1F000E9;
- Mon, 29 Jun 2026 19:25:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F8DE600AA;
+ Mon, 29 Jun 2026 19:25:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564721F000E9;
+ Mon, 29 Jun 2026 19:25:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,15 +58,15 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1782761156;
-	bh=uYIw6aQ9I+77XwEcGZ5sLAkEEwuPzF6gubx9MILGtr0=;
-	h=From:To:Cc:Subject:Date;
-	b=WOjc9JyG02UBcXhhgV9ic0phr0uZCFD5k0ILdv6ONhCv8Z1XYDxBYiwvpukl7K1Fg
-	 a8aIrsAXippHTg2Wibb6tHWkzlE4E0fWXgBDrHzByOJL4F8jISF06sHckyYY+PF7tK
-	 OiAiSmS9jz9wRn1oMBm18e5Uavo00IhgOxFuVQdHvJLDYYtq4uXlvS/eQXpk6KaIDD
-	 GN3rVLuuxb69YleGJzixCH/hWeHWpFDPzoCr2KQROO1CK5H8VnjBM1FKT5hXUj42/o
-	 WOenPbgoWzQyVU21Y69V/YrWJ0M+K8b+G7Zlo5u3zMESofU5MsPpKfLAYEn9kt+uGS
-	 wlAF5pba2Dehg==
+	s=k20260515; t=1782761159;
+	bh=RyicGxsSOzJTaoBcRQGH27oUytYBKCYLUF6jDOpzH7I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a5KeyFTeJjh7TJORUpSdmde4WrAK8BTgTPTho1LlZNtgrXh/Yqn9mD6/L1E9zfs8r
+	 e8za/mcjsoGeYfC+55PxZM0hLi0ZRJB+0Gbcm0U2F6Fn97SZIJM1N8XKGpsR2xQKrI
+	 yYMjTnXxd/YQ9zzdgYLIPjHCFJPa2KKvIAraY8mhyi19FlYp5ghqePfdzpdkTUseC1
+	 had3a1qZv4Z9B8qbb5LsCMcPsRJ2m5HWJRYLpaEMWR5rYHXsAk6QucmLYIa0UzO6lQ
+	 Pqa24H5c5iEEZidrzYUke9zV+idmE8KbclhOGbVFF/6WTC2VNdnFmcT1ViYuCVE/mn
+	 cARBGEsTONhTA==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -150,15 +150,17 @@ Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-sound@vger.kernel.org
-Subject: [PATCH 00/13] convert more vm_flags_t users to vma_flags_t
-Date: Mon, 29 Jun 2026 20:25:23 +0100
-Message-ID: <cover.1782760670.git.ljs@kernel.org>
+Subject: [PATCH 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
+Date: Mon, 29 Jun 2026 20:25:24 +0100
+Message-ID: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1782761158-2F15F1CC-38506203/0/0
+X-purgate-ID: tlsNG-c1860d/1782761161-42F3A3FC-D21E5706/0/0
 X-purgate-type: clean
-X-purgate-size: 3713
+X-purgate-size: 3205
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -196,85 +198,99 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 832F66DE726
+X-Rspamd-Queue-Id: DA2376DE728
 
-This series makes further progress in converting usage of the deprecated
-vm_flags_t type to its replacement, vma_flags_t.
+These test whether the VMA has stack sematics, i.e. is able to grow upwards
+or downwards depending on the architecture.
 
-It focuses on mm, though updates some users of mm APIs also.
+In order to account for arches which do not support upward-growing stacks,
+introduce VMA_GROWSUP whose definition depends on the architecture
+supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
+to account for this.
 
-It updates:
+Update the VMA userland tests to reflect the changes
 
-* The core do_mmap() code path for VMA mapping.
-* Unmapped area logic.
-* The usage of mm->def_vma_flags.
-* VMA page protection bit logic.
-* General usage of VMA flags in core mm code, mlock, mprotect, mremap.
+No functional change intended.
 
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ include/linux/mm.h              | 21 ++++++++++++++++++---
+ tools/testing/vma/include/dup.h |  4 ++++
+ 2 files changed, 22 insertions(+), 3 deletions(-)
 
-REVIEWER/MERGER NOTE: This is dependent on [0], which must be merged before
-this.
-
-[0]:https://lore.kernel.org/linux-mm/cover.1782735110.git.ljs@kernel.org/
-
-Lorenzo Stoakes (13):
-  mm: introduce vma_flags_can_grow() and vma_can_grow()
-  mm/vma: update do_mmap() to use vma_flags_t
-  mm: convert __get_unmapped_area() to use vma_flags_t
-  mm: update generic_get_unmapped_area[_topdown]() to use vma_flags_t
-  mm: prefer mm->def_vma_flags in mm logic
-  mm/vma: convert vm_pgprot_modify() to use vma_flags_t and rename
-  mm/vma: rename vma_get_page_prot to vma_flags_to_page_prot
-  mm: introduce vma_get_page_prot() and use it
-  mm/vma: update create_init_stack_vma() to use vma_flags_t
-  mm/vma: convert miscellaneous uses of VMA flags in core mm
-  mm/mlock: convert mlock code to use vma_flags_t
-  mm/mprotect: convert mprotect code to use vma_flags_t
-  mm/mremap: convert mremap code to use vma_flags_t
-
- arch/mips/kernel/vdso.c                     |   4 +-
- arch/powerpc/mm/book3s64/slice.c            |   6 +-
- drivers/gpu/drm/drm_gem.c                   |   2 +-
- drivers/gpu/drm/drm_gem_dma_helper.c        |   2 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c      |   2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem.c       |   2 +-
- drivers/gpu/drm/exynos/exynos_drm_gem.c     |   6 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c    |  12 +-
- drivers/gpu/drm/msm/msm_gem.c               |   2 +-
- drivers/gpu/drm/nouveau/nouveau_gem.c       |   2 +-
- drivers/gpu/drm/omapdrm/omap_fbdev.c        |   2 +-
- drivers/gpu/drm/omapdrm/omap_gem.c          |   6 +-
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c |   2 +-
- drivers/gpu/drm/tegra/gem.c                 |   2 +-
- drivers/gpu/drm/virtio/virtgpu_vram.c       |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |   2 +-
- drivers/gpu/drm/xe/xe_device.c              |   2 +-
- drivers/gpu/drm/xe/xe_mmio_gem.c            |   2 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.c     |   2 +-
- drivers/video/fbdev/core/fb_io_fops.c       |   2 +-
- fs/aio.c                                    |   2 +-
- fs/hugetlbfs/inode.c                        |   3 +-
- include/linux/huge_mm.h                     |  10 +-
- include/linux/memfd.h                       |   6 +-
- include/linux/mm.h                          |  51 ++++--
- include/linux/sched/mm.h                    |  16 +-
- ipc/shm.c                                   |   3 +-
- mm/debug.c                                  |   2 +-
- mm/huge_memory.c                            |  21 +--
- mm/memfd.c                                  |  15 +-
- mm/mlock.c                                  |  97 ++++++------
- mm/mmap.c                                   | 164 +++++++++++---------
- mm/mprotect.c                               |  16 +-
- mm/mremap.c                                 |  38 ++---
- mm/nommu.c                                  |   3 +-
- mm/util.c                                   |  10 +-
- mm/vma.c                                    |  27 ++--
- mm/vma.h                                    |   8 +-
- mm/vma_exec.c                               |  20 ++-
- sound/core/memalloc.c                       |   2 +-
- tools/testing/vma/include/dup.h             |  22 ++-
- 41 files changed, 339 insertions(+), 261 deletions(-)
-
---
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 868b2334bff3..cf7df1569052 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -472,6 +472,7 @@ enum {
+ #define VM_SAO		INIT_VM_FLAG(SAO)
+ #elif defined(CONFIG_PARISC)
+ #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
++#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
+ #elif defined(CONFIG_SPARC64)
+ #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
+ #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
+@@ -483,6 +484,7 @@ enum {
+ #endif
+ #ifndef VM_GROWSUP
+ #define VM_GROWSUP	VM_NONE
++#define VMA_GROWSUP	EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARM64_MTE
+ #define VM_MTE		INIT_VM_FLAG(MTE)
+@@ -1563,11 +1565,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
+ 		vma->vm_end >= vma->vm_mm->start_stack;
+ }
+ 
+-static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++static inline bool vma_flags_can_grow(const vma_flags_t *flags)
+ {
+-	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
++	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
++		return true;
++	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
++		return true;
++
++	return false;
++}
+ 
+-	if (!maybe_stack)
++static inline bool vma_can_grow(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_grow(&vma->flags);
++}
++
++static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++{
++	if (!vma_can_grow(vma))
+ 		return false;
+ 
+ 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 5d7d0afd7765..6f5bcd7fbcd8 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -245,8 +245,10 @@ enum {
+ #define VM_STACK	INIT_VM_FLAG(STACK)
+ #ifdef CONFIG_STACK_GROWS_UP
+ #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
++#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
+ #else
+ #define VM_STACK_EARLY	VM_NONE
++#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARCH_HAS_PKEYS
+ #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
+@@ -315,6 +317,8 @@ enum {
+ 
+ /* Bits set in the VMA until the stack is in its final location */
+ #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
++#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
++	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
+ 
+ #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
+ 		       VM_EXEC_BIT : VM_READ_BIT)
+-- 
 2.54.0
+
 
