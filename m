@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id oEDMOCB1Qmqd7gkAu9opvQ
+	id 1ksGFQ14Qmrg7wkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 15:37:36 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 15:50:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AB206DB517
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 15:37:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D32246DB891
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 15:50:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="RZby1/D9";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=S53NKLaz;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1347525.1605360 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1347534.1605368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weCAg-0007Mt-V2; Mon, 29 Jun 2026 13:37:10 +0000
+	id 1weCMs-0001wT-UE; Mon, 29 Jun 2026 13:49:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347525.1605360; Mon, 29 Jun 2026 13:37:10 +0000
+Received: by outflank-mailman (output) from mailman id 1347534.1605368; Mon, 29 Jun 2026 13:49:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weCAg-0007Kx-Rg; Mon, 29 Jun 2026 13:37:10 +0000
-Received: by outflank-mailman (input) for mailman id 1347525;
- Mon, 29 Jun 2026 13:37:09 +0000
+	id 1weCMs-0001uJ-RJ; Mon, 29 Jun 2026 13:49:46 +0000
+Received: by outflank-mailman (input) for mailman id 1347534;
+ Mon, 29 Jun 2026 13:49:45 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1weCAf-0007Kr-FX
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 13:37:09 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1weCMr-0001t8-M7
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 13:49:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weCAe-00EcKm-8n
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 15:37:08 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1weCMq-00EeYR-4F
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 15:49:44 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4274f8-2eae-0a2a0a5409dd-0a2a450182da-40
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 15:37:08 +0200
-Received: from [209.85.208.182] (helo=mail-lj1-f182.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4277f6-5cb7-0a2a0a5109dd-0a2a4508a2d8-6
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 15:49:43 +0200
+Received: from [209.85.167.41] (helo=mail-lf1-f41.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a427503-400f-0a2a45010019-d155d0b6ecad-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 15:37:08 +0200
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-39669bcaadfso35660421fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 06:37:07 -0700 (PDT)
+ id 6a4277f7-edec-0a2a45080019-d155a729e5b9-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 15:49:43 +0200
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5aeb5829fd5so1285701e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 06:49:43 -0700 (PDT)
 Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad6954a63csm5751233e87.12.2026.06.29.06.37.04
+ 2adb3069b0e04-5ad69580f7fsm5934492e87.61.2026.06.29.06.49.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2026 06:37:06 -0700 (PDT)
+ Mon, 29 Jun 2026 06:49:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,116 +60,118 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782740227; x=1783345027; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1782740983; x=1783345783; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5zAhzn9WefsR3GOpsdi8q8Rxdn+skBuNnioTX+PM5M8=;
-        b=RZby1/D9m0W2n/OdHymjBZwBuhnKTr37g5Tv5Hxd7tuXCrTFpRrCjQD5ImEBiJAqWW
-         hgDS5jTHsFIxJvDMvEhaMoOXW3dE8bbvupaliETs302CQn6IeNTz+AqcwlLDK+XTClIe
-         Nry9b5EwizRMkTZaFBdyItwpTaUa40M9urXkGPehMfb0ZIEpEzXd9ggAA1WQV2m8OgqP
-         xA1PVlSi5KhulWvujCY1kYwS1M/eWOUoDzy3BeQCDB+ud0oSXsbVWvflrJSeAaxXDkQr
-         SpSrSGDqOgvIlUTQOZbXaRmJTgvpMFHJsdhKteVVoonZStP9cPXSd0oPdSwqxwrKP3i3
-         1yaw==
+        bh=495slxjqKmCy38FTYb4GpyK5CV8lVyW69ubl9euwJ/E=;
+        b=S53NKLazZfwiCYb2mJ/WSwlY6AY5/8Le5jLMgsyyNO+m+pscKSdYcPsL2iT7dYuhgM
+         pn6CoojLdecwxEfr2XeDq+Y5btr6ke71/KnIOO2qycAm65K1HtaDRS+M8kNpwykCWezZ
+         XjTTxgbn6eqVZbC2m6N7sr+a23SltISXL9cKoVsYLurxcTPmgQIsNJKNtp1TFuIQZAC9
+         gPovTBOnp9VFNxkC7r0sqTguE8eAo+jxSqZ8A4h2X94mPn5MrlTwY1elDPWaP32i3nE3
+         N5lUqnvJvvQhTzNGNH6xK50a+VdQCdYL2TCBF618fLvGbO/mkS2GiloGTQUaOMM7Lv4x
+         axow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782740227; x=1783345027;
+        d=1e100.net; s=20251104; t=1782740983; x=1783345783;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=5zAhzn9WefsR3GOpsdi8q8Rxdn+skBuNnioTX+PM5M8=;
-        b=n0lOoYAs04ydj+9hCoW6EKbucRir25vbkvOeC/JbGSvEFnL56ip7SqTuf41ldwlJXW
-         4CDk7wvTEZd0Dp8S2eg7xpr4XUEOt8CRq60cfKP+7tLh7xQrKT5yNJ6FDwnX0699pQC+
-         0kL2fxFEeBoYp4hVnXDJy4sk75mRKN4bQc9RBC8i1rMeajMpN0wLBxkxb9213krkq/NZ
-         vUHQYtv8fZRZQSE5mf6GUn+0EJsT4F8gRcElyJzHtGlbP+lIi1yDlBz6TI6wmbPBCIlU
-         PxZ0Ts3iYWMz8JdYNPLmk99KtFJV5no6nTqidF7/I7LmFntb1SJ+PH+TTSIVkVjh6ips
-         swbw==
-X-Forwarded-Encrypted: i=1; AHgh+RpkFmdCx0QG8A+vyOp7455WU19aUZOvMYHQQ4aIWOA43L8mZ9V0vVgJ9vMIpjbyMRAfbV12DXtLgcc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxGFAfH/FP2FHF1HKCcdRo6KtLkJomV/sS0gsZ3z7mSoD0H5CfL
-	rDkLuolnUD9DbQ2bwJh8+S6NVq8P7PeMMquRUiHiZgE4SHn6WxqDpzjq
-X-Gm-Gg: AfdE7cnAGIhEmUDESHFiBBKLYUFSpGSlu43fLQ+P2tNEpGHkNoc9bTyVKd8vvvHzzFv
-	UzCAxY51sZaQWidtBkBw2LVXy8eLA7JN6nrYZXJrxt+stWt3d0qgnPubqejMyB/fjVdPm2zYuT6
-	PkB6YgDvILiw6LX72ORT7CYmR89C6l+BVDUibR1Slt8phIO9Yf1gD/NB25hMe7PLWC8GxZkHDj+
-	E9FSzWh8jZoQmnQWkZTiVwzy2iPaahhFnqswOQBZyunca4D9yKPhoomVBV9PLS1vpqEHbn+MzAU
-	tohPHse7kn3q9sApLfGBTc/8TMdic80bD2b0xLbxG9P8ingGCbaNdmgrpENFn+0jA9BpfCETfTS
-	CbGJJfAzKX0ffq4lhbT58rJquSuVA4qrl6ZuD0g1qiKjGcc23rx1BLy9bwOOLC82duop24jDwky
-	f4HmvSKZUm8AImqgWUxynef7XcjuqMPWXrZ1MdDxO7dlfoGPCl0ta1fFngKxgfl6JwSWHdmYRUf
-	Gw6eQ==
-X-Received: by 2002:a05:6512:1396:b0:5ae:ba0a:5984 with SMTP id 2adb3069b0e04-5aeba0a5a4cmr692378e87.53.1782740226859;
-        Mon, 29 Jun 2026 06:37:06 -0700 (PDT)
-Message-ID: <075c7302-d2c5-45d2-9fb7-bb7b49bc6dd6@gmail.com>
-Date: Mon, 29 Jun 2026 15:37:04 +0200
+        bh=495slxjqKmCy38FTYb4GpyK5CV8lVyW69ubl9euwJ/E=;
+        b=fcbUznjbhK9qRQ9E6RI89j0inOknSDSxerdGuOO4u0M9u0FGGpoCZ0q5aNZ3PXpZYz
+         KLOCE8ve1oUBpfnI1cnzZyLBYrm7JClKAIPtP4FEGRDQjtLSclabrY47S2WjGmSv97en
+         bsMeizja79AFNaBTSJL/n+79J/F2GuTTv9goNjrMzuquXClS7FkuEs5+23V3GcX6HWJ4
+         Nq4s/RtNoTiszoHmB5SMXYlg7S6iTMUpR/25LyYD7ygQQ3Q+rcJwqJ+YY52dIRw9YjIF
+         /rbWKPxVvDSOcUoPQp8o/ekkEjRdgXvKK82HIeVMFn2PYJPZE1l5r2va3K372YN6Q3PF
+         CAmQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpejy6o4GZCb8lBXDekyipQtELKHRPYk1DYjTS4xq9r479nRHNn+/QeqjpBkK5zkwOrN0D0nApg9nQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywi2hpSv/PpQdU5XBsLqml4gqVBd67lXJiJdT/MNVQOis5M9yxC
+	a3h66ICZzxJeiEVmnTuOW7PgRU15xJkYrBxUaRVES1wPBWIwXclYSQYU
+X-Gm-Gg: AfdE7clLWqdz//BmvdgL9RaZ0OiQcXUd4Wqcvutl8xTYdVnmBF8fBOdtGh6hq1GYi1Y
+	CHiVQRpKjibbgt79SdrZCrf74SY0flmSaZ51l9G8J5vgzxml3c1x6KAYr17na/gJ2tjbFtlWIpF
+	NojaGmN8/yZlGb8UsSGnltXRzREDaSnVG2Ppz1uE8v1Two2we9hqCLLlcXiTpVXZDqCDflXGVox
+	recqjidrTuWzUdhqnqobrhIy+UJw4s6KWUaH3VNcxMX4CKjf/Ph9a2U88UxHwhTjkto34/JJEk0
+	D5FXGvGz2YhVQT8fpreEVYt1tNfaeGb5Z6Tu8/BJ0zchS1Y/1L+NDmCUDqd3HZwOJm5wQOUVWz2
+	c1/MNo2A5CKr7tmsCEQ8KAWQBik5ZWAgoTCGV5nuDa4GBrmSNNU70E1VDqtNUZ1BKX2jBKueaAi
+	0qbgsMwSF9IPKtUcewBqIHM14AgA7TbzqxFoZrOt5Ul+KIDtzpXM7dj6wrANSUFKwKgHM=
+X-Received: by 2002:a05:6512:6513:b0:5ae:b7d4:7dd7 with SMTP id 2adb3069b0e04-5aeb7d47e82mr875497e87.24.1782740982857;
+        Mon, 29 Jun 2026 06:49:42 -0700 (PDT)
+Message-ID: <cea435f8-9805-4b41-988c-433714fad8ba@gmail.com>
+Date: Mon, 29 Jun 2026 15:49:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH for-4.22 v2 3/4] xen/irq: handle IRQ being disabled while
- executing its handler
+Subject: Re: [PATCH for-4.22 v2 4/4] char/ns16550: bound execution time of
+ ns16550_interrupt()
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <20260629094531.55555-1-roger.pau@citrix.com>
- <20260629094531.55555-4-roger.pau@citrix.com>
+ <20260629094531.55555-5-roger.pau@citrix.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20260629094531.55555-4-roger.pau@citrix.com>
+In-Reply-To: <20260629094531.55555-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1782740228-832C51E0-908A275F/10/73395122804
+X-purgate-ID: tlsNG-c1860d/1782740983-43D333FC-FAAD670B/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 740
+X-purgate-size: 1031
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email];
+	FORWARDED(0.00)[mailman];
 	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7AB206DB517
+X-Rspamd-Queue-Id: D32246DB891
 
 
 
 On 6/29/26 11:45 AM, Roger Pau Monne wrote:
-> It's possible for IRQ_DISABLED to be set while running the handler
-> execution loop in do_IRQ().  Such disabling can be done by the handler
-> itself, or from a remote CPU.
+> The current logic in ns16550_interrupt() will loop until the device sets
+> the NOINT in IIR.  At least on the Lenovo ThinkSystem SR630 V4 the flow
+> control of the serial-over-lan emulated UART seems to be broken, as it
+> doesn't set the NOINT bit consistently.  The Transmitter Holding Register
+> Empty in LSR also seems to not be properly signaled, as even with it set
+> writes to the transmit register take ~6ms.  This leads to the watchdog
+> triggering very easily on such system.
 > 
-> Check for IRQ_DISABLED not being set in the loop condition, as to not
-> execute the handler if the IRQ has been disabled.
+> Introduce an upper bound on the execution time of ns16550_interrupt(), this
+> is currently set as 4x the polling interval, which is calculated as the
+> time to fill RX FIFO and/or empty TX FIFO.  The current maximum is 5ms.
+> Once the timeout triggers the interrupt is disabled and the uart is
+> switched to polling mode.
 > 
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> I wanted to add a fixes tag, but this has been broken since forever, and
-> hence I should add:
-> 
-> Fixes: 4676bbf96dc8 ("bitkeeper revision 1.2 (3ddb79c9KusG02eh7i-uXkgY0IksKA)")
-> 
-> Which is pointless IMO.
-> ---
+
 
 Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
