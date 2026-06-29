@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Jyw/MbR7Qmos8QkAu9opvQ
+	id bMvnMgZ8QmpT8QkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:05:40 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:07:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 281EF6DBB94
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:05:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 320FD6DBBD1
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jun 2026 16:07:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=B6nLgqWV;
+	dkim=pass header.d=suse.com header.s=google header.b=KBwyb2bD;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1347561.1605395 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1347569.1605404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weCc6-0005uo-L2; Mon, 29 Jun 2026 14:05:30 +0000
+	id 1weCdR-0006Qx-V3; Mon, 29 Jun 2026 14:06:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1347561.1605395; Mon, 29 Jun 2026 14:05:30 +0000
+Received: by outflank-mailman (output) from mailman id 1347569.1605404; Mon, 29 Jun 2026 14:06:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weCc6-0005tg-IE; Mon, 29 Jun 2026 14:05:30 +0000
-Received: by outflank-mailman (input) for mailman id 1347561;
- Mon, 29 Jun 2026 14:05:29 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1weCdR-0006PZ-Ry; Mon, 29 Jun 2026 14:06:53 +0000
+Received: by outflank-mailman (input) for mailman id 1347569;
+ Mon, 29 Jun 2026 14:06:52 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weCc5-0005tV-Jm
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 14:05:29 +0000
+ (envelope-from <jbeulich@suse.com>) id 1weCdQ-0006PM-AZ
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 14:06:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weCc4-00EWGJ-Bp
- for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 16:05:28 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1weCdP-000OE0-NZ
+ for xen-devel@lists.xenproject.org; Mon, 29 Jun 2026 16:06:51 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a427b9e-e002-0a2a0a5209dd-0a2a4504b6d8-18
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:05:28 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a427be5-5cb7-0a2a0a5109dd-0a2a450aa978-42
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:06:51 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a427ba8-a01d-0a2a45040019-d155802cadca-3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:05:28 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-490b1bbcf3aso17490905e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 07:05:28 -0700 (PDT)
+ id 6a427bfb-e40e-0a2a450a0019-d155802dcce5-3
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 16:06:51 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-49395888c7bso27394525e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jun 2026 07:06:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4926c2954efsm209178635e9.2.2026.06.29.07.05.26
+ 5b1f17b1804b1-493a55be64esm168239805e9.7.2026.06.29.07.06.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jun 2026 07:05:27 -0700 (PDT)
+ Mon, 29 Jun 2026 07:06:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,44 +61,44 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782741928; x=1783346728; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782742011; x=1783346811; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=D4I9wUbIVvvTjP7ZMlkcpb2mh95VgkljGsAJESVpA+4=;
-        b=B6nLgqWVNXmiSVpXwdHPxN3kda6d+4tF2A+0K0sOYyNzNB0BNvo8l3a8U4ShWJL6Gf
-         C+0g9tHpv/P+4HQu5SyGyQ7a13lAWPd1es8FezaHYKyAq1HadWIj84qVuM3lr/ifof3D
-         9BfMGMvbnWJmzCYRTSfTYgjdfL8gCpkqmHLAHKfocXJMRL7QP2WGKI+1XTmJHV+hOaYu
-         JNGDj/oc3A36CEXgacdYVpyCCjU9g3GleKqaw39oiUFmN3pYMZzAHdTGDD2eEGQGgaCm
-         CaRnigF6p/PQYR8Igvkm0kAY8Kascnjj+66m66xOg7eGFvTgrKshhERi0/7rBiZsbyXU
-         3FEQ==
+        bh=hu+gcgibmQ+tgMitLClBSqjV8kD6KM0JeAaRvCaPyF4=;
+        b=KBwyb2bDquMg7PFbVo99RkD1s3eXAsufe0Q0orHLk1UpBjwqLc5ZQebfKy8TWhKUVY
+         SWt/iLnZ8GxNk1GU4IJuml8j+JoWLCHKuMWiEBews0AfD2t7w5xWIz+gF/sUM0S1tcdD
+         ZvW8lMRygwKWYGheBCI7R4Wvn6DXpWnC2BowTYLrL9MZZd/MKFQJvTwKiqsGhvacUvhg
+         +Tea63MXMD8TA119gre2xZok6KDDr3lHg+Cg0o1uoSIf7wFwAdto8Vn3DC2sLYbv2pGT
+         zHZjFwWrFw4IY8otgz5hVoLyMNAgDMPvUxYHLRqjwJglt3tSdjhQ7jfuYDmLzyFHp+wd
+         4Htg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782741928; x=1783346728;
+        d=1e100.net; s=20251104; t=1782742011; x=1783346811;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D4I9wUbIVvvTjP7ZMlkcpb2mh95VgkljGsAJESVpA+4=;
-        b=TC50xErqgYbmK9Vpv8fVJvVxuGdjKTWz5c0cniyF4ucspQ95t/ZyTEQwTX342MpiWN
-         TJqU2zQOmg2vgDeQDKuzQVXMaKurVMlhOR7FuAD9/2TDb2UCxyUHfcmUotIXm2B2r9O7
-         /sJ3KAKqCpke7JeUy+um5leGFq6wKKTgJIgeFJKd4SeKD1VR/rz6Ms5g5sNquwUq09oG
-         pnmC5x4g+/GEUHz1ZPHNT0ipolEDHx74Q9y/8EUHqQQinIYsQfaqEzPL7x4Ps2YTSC81
-         +oo/UNXRGXaFXRBzzOmGHEpjoOwUnhjgmm7U9vyoEsvUE+egMSCQqw3/KdMZHGMLkITa
-         pymw==
-X-Gm-Message-State: AOJu0Yx0b2MTgvdm0tVGy4lzCf1JQeHgY4pO98MFgQEVAqE4hPXR6R15
-	5Y7sCFQEfrbrRUFXlFRQGL8oA4D005MBt7L5eAlvXoVR8rmjYqLKyAcTzL9ljZsErZ9q3jAHXPZ
-	j9Yz69Q==
-X-Gm-Gg: AfdE7cnyhH6z00ARbSviC01G2f9QmxEfojLonacp2phPd1Dw47m1/qhxqk3KzzaykCP
-	Cy2vhdfiyAb3NIQ032k0byAjvkLCjkM7NV3z83l2uSUewfF8tK31EdFFAFsfgJEIv02tfbUXyFY
-	5hxntbifj16gYJ/TjXXDtOZZkhU5OR866WaYkQyW/6GOyzvdshkhgDSS2UxdD3FdOwh4qjyBufi
-	TUSLv1v94nYef5r7kh5DYHjASqIPWqYja7yhvF1ilVi59P+UwrmHPiJ5Xjp5kc/vXeufidcwugQ
-	/i9uSFSLYcV4fNU/GPxoPqyUWN5cQ22u/XqQLC9hB4jTOLkd0UwKvMV3rCPnIVfTv0U+rwAHpuJ
-	nlqKBkbU6GqaLGlx6hEPvXGCKPSZoUoVMuyLuqAyhrzi9V5pflS8q9ZKiH6/Syr3sPBJTmW2cqg
-	X75LRcaMgwC+vGYWGhjmWQA4WfPKlHbyA084UDrskqbskE/m7AHJfukI6lB/5C5VFNuEk4uOUK5
-	dOEopjwyoVbVgM=
-X-Received: by 2002:a05:600c:3b93:b0:493:b2e8:6378 with SMTP id 5b1f17b1804b1-493b2e863b6mr43109965e9.4.1782741927649;
-        Mon, 29 Jun 2026 07:05:27 -0700 (PDT)
-Message-ID: <c511b3fb-2bf6-4739-a3fd-114976b77cfc@suse.com>
-Date: Mon, 29 Jun 2026 16:05:26 +0200
+        bh=hu+gcgibmQ+tgMitLClBSqjV8kD6KM0JeAaRvCaPyF4=;
+        b=SMVq+Bg82qOzgSha5EDtBEO4Z5osHD1/EmABuSq8IJhfnzI/vbpSklmQHFk9QsJtUR
+         ufxUw+U3yXkGvAnyLA/1Q7U/avWAeaDsCxIcdQwUawqKoAqN0cmqsDz0BCTtzFveD6Hz
+         TJpYCgzGy/0AijyWOSR637yu5eO4MTQeRuETAL4Eeh+Q676V9zCtLHbYL8ILB0xBwFgr
+         YBWZo+6sXtCe/l5D7KBOfJ4CHLtB9yaQHcBQgcswlhygysnzLZoLG+TmeZA/OwKPF16B
+         5TMuDFl++o3fsayGUNLZxsEM2hIlK6+lpSqmoFznZp35blbdOsbOXNm1TGsGHCXpT+PC
+         pshw==
+X-Gm-Message-State: AOJu0Yz21pXlncChOJBV9Z/WmJzK6R8UHQA3W1HAzIpslN7hSIo+TYz/
+	N3prT2uf2IkTW1fYa3t2D9cq+Tf1bjXXW+EWUhKKfjAsJZULSTWA8Gc0wzmJRZv33n8WwtAhZMQ
+	sW1NVwA==
+X-Gm-Gg: AfdE7cnIdWkrlIrmgraTKKD1EnNw5ZwWSRTfOiRygObWXuOVhhVK+eqIwrEKjbCSoQU
+	R+/vcp3KdP3kYrLaf7/gu2nqwMTebPss7rTg2XH/SyGpExSPYv76CHJ73S8x5xviUZiNJCyJ6OH
+	tFrYxj2e3/ZA/EuCJtK+iCngh1e2aMNR501TzrSwsieIjWE+g/E5+DNmLa4Y5FyQCPeTuA0wjn5
+	0nv5yhd3qhee+fSipmD6uBbawu+6MW3PfNuyCVDJtG54keXWOWJmej19r7pnH9N5poMAAFWTpDT
+	Zhdm/hbXV1tESI+p2kq0+kFSK+k7ipw86IWRdO5Fwy7NiJbI/IkYUZoV+cOc3mzxce1P2T1SEin
+	wfUUbqydWZHNDoWj+G7CH4GZi91tOchZRYgCVsjt0fzWgGF97dJn7WwJ7RPWkjsovMM9uJeVtGv
+	6/rxLtudxLIStyEExItoNdgnrXrExlpdi/wLQ4awMOxXcHFk4fiakL8cTq5WK0hFpDMuRus2c7o
+	841
+X-Received: by 2002:a05:600c:8519:b0:493:b637:60a0 with SMTP id 5b1f17b1804b1-493b63760b2mr23218005e9.36.1782742011025;
+        Mon, 29 Jun 2026 07:06:51 -0700 (PDT)
+Message-ID: <cd22dc70-9496-4f18-8476-62d445ff4518@suse.com>
+Date: Mon, 29 Jun 2026 16:06:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -109,7 +109,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
  Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] domain: domlist_update_lock can be static
+Subject: [PATCH] xmalloc: drop pool list
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -135,9 +135,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1782741928-AD13E1CC-24E2C06F/0/0
+X-purgate-ID: tlsNG-4011c0/1782742011-3D275DDE-4BEDEC23/0/0
 X-purgate-type: clean
-X-purgate-size: 1124
+X-purgate-size: 1380
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -172,38 +172,55 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 281EF6DBB94
+X-Rspamd-Queue-Id: 320FD6DBBD1
 
-For a long time (if not forever) this lock has been referenced only from a
-single CU. Misra C:2012 rule 8.7 (which we didn't accept yet) wants us to
-have such identifiers non-external.
+From its introduction it has been used solely to add and remove pools.
+No list traversal or alike did ever occur. Drop all of this as being dead
+code.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -58,7 +58,7 @@ bool opt_dom0_vcpus_pin;
- boolean_param("dom0_vcpus_pin", opt_dom0_vcpus_pin);
+--- a/xen/common/xmalloc_tlsf.c
++++ b/xen/common/xmalloc_tlsf.c
+@@ -66,9 +66,6 @@
+ #define PREV_FREE       (0x2)
+ #define PREV_USED       (0x0)
  
- /* Protect updates/reads (resp.) of domain_list and domain_hash. */
--DEFINE_SPINLOCK(domlist_update_lock);
-+static DEFINE_SPINLOCK(domlist_update_lock);
- DEFINE_RCU_READ_LOCK(domlist_read_lock);
+-static DEFINE_SPINLOCK(pool_list_lock);
+-static LIST_HEAD(pool_list_head);
+-
+ struct free_ptr {
+     struct bhdr *prev;
+     struct bhdr *next;
+@@ -113,8 +110,6 @@ struct xmem_pool {
+     xmem_pool_get_memory *get_mem;
+     xmem_pool_put_memory *put_mem;
  
- #define DOMAIN_HASH_SIZE 256
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -697,8 +697,10 @@ static inline unsigned int domain_tot_pa
-     return d->tot_pages - d->extra_pages;
+-    struct list_head list;
+-
+     char name[MAX_POOL_NAME_LEN];
+ };
+ 
+@@ -340,10 +335,6 @@ struct xmem_pool *xmem_pool_create(
+ 
+     spin_lock_init(&pool->lock);
+ 
+-    spin_lock(&pool_list_lock);
+-    list_add_tail(&pool->list, &pool_list_head);
+-    spin_unlock(&pool_list_lock);
+-
+     return pool;
  }
  
--/* Protect updates/reads (resp.) of domain_list and domain_hash. */
--extern spinlock_t domlist_update_lock;
-+/*
-+ * Protect updates/reads (resp.) of domain_list and domain_hash, together with
-+ * domlist_update_lock.
-+ */
- extern rcu_read_lock_t domlist_read_lock;
+@@ -373,10 +364,6 @@ void xmem_pool_destroy(struct xmem_pool
+                "%lu bytes still in use.\n",
+                pool->name, pool, xmem_pool_get_used_size(pool));
  
- extern struct vcpu *idle_vcpu[NR_CPUS];
+-    spin_lock(&pool_list_lock);
+-    list_del_init(&pool->list);
+-    spin_unlock(&pool_list_lock);
+-
+     pool_bytes = ROUNDUP_SIZE(sizeof(*pool));
+     pool_order = get_order_from_bytes(pool_bytes);
+     free_xenheap_pages(pool,pool_order);
 
