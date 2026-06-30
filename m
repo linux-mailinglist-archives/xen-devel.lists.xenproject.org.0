@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 5VKoLlfKQ2o4iAoAu9opvQ
+	id i8JgAYvKQ2pSiAoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:53:27 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:54:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61FAF6E514C
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:53:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AA526E516E
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:54:18 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=frjAhOlG;
+	dkim=pass header.d=suse.com header.s=google header.b=TZTXZbyQ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1348963.1606752 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1348972.1606760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weYtL-0001Da-Oj; Tue, 30 Jun 2026 13:52:47 +0000
+	id 1weYuf-0001lT-4d; Tue, 30 Jun 2026 13:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1348963.1606752; Tue, 30 Jun 2026 13:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 1348972.1606760; Tue, 30 Jun 2026 13:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weYtL-0001Bs-Kj; Tue, 30 Jun 2026 13:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 1348963;
- Tue, 30 Jun 2026 13:52:46 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1weYuf-0001il-1s; Tue, 30 Jun 2026 13:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 1348972;
+ Tue, 30 Jun 2026 13:54:07 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weYtK-0001Bm-IX
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 13:52:46 +0000
+ (envelope-from <jbeulich@suse.com>) id 1weYud-0001ia-Ct
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 13:54:07 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weYtJ-0009ZA-CM
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 15:52:45 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1weYuc-00GrL2-HD
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 15:54:06 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43ca24-e002-0a2a0a5209dd-0a2a450cb896-26
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:52:45 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a43ca78-e002-0a2a0a5209dd-0a2a4509e71c-18
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:54:06 +0200
+Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43ca2c-f399-0a2a450c0019-d155dd2cdd22-3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:52:45 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-4720d22c94aso2403508f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 06:52:45 -0700 (PDT)
+ id 6a43ca7e-97e6-0a2a45090019-d155dd2ec5f5-3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:54:06 +0200
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-47640541585so235378f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 06:54:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47566743895sm8080989f8f.25.2026.06.30.06.52.43
+ ffacd0b85a97d-47563d194bbsm7216382f8f.3.2026.06.30.06.54.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 06:52:44 -0700 (PDT)
+ Tue, 30 Jun 2026 06:54:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,52 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782827564; x=1783432364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=4ws2CV8i71ht0gnqCCmjfpewVAKUX+xeim5UzDiEZaA=;
-        b=frjAhOlG95Wqy0oV1lsAMQe54r+aDJCfYl3bm0qVZ9aDS0QWw2KgbCEigI6Qd2UB8v
-         Akc3pSVM1pf7yj9mUgDAbUJKBp5X/ELV5DOE26oNboiFVSa2euic16fx2eEnwaU9BCYw
-         7tHMZXRfHxAkPNzgGqCFqK/1RupeehUvBfBXQf0U5rU608qR0ZrcY2RMQ8LqS0snce9I
-         fOVr+WobyI3CjXRE+16yCV0pFZM7wNIcXH0H1FtFolBSz5AVcH+mt4WzoRzVzTyW6njc
-         leRNL5KOlGpajgVTV9865feU2Ik/R7dOl0R2BqPRV2d/tGSOCQOJ0FtaRisuGb29jJfS
-         jJQw==
+        d=suse.com; s=google; t=1782827646; x=1783432446; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FL3xJ3R9ME6XiZOg1Vkm6Xt5EM0+KhV2x1X4ZdfMeFw=;
+        b=TZTXZbyQg4PTdpqGQ3oXQpcIgnLoFkLFvRF4bE8Yn5U3vjxI7bgySM8ur4VEpXwu9t
+         EE6HWqN9YR16zNRy2lknnBMg0CzhXk1fks039/3Nq+2jnjYi9Q43r46AsOY1KvXVElE4
+         2JaYtsv2y11kmf27NZWXrcFUeqmxGQqD3un86fJdtUzFjM0OnDqxxaubPqznjJmkPTPx
+         chzs6L33XooYxKSXR2ZA2Bx6ygI4xvGLWGCruy7oiiDeARNYE6t9Uf34cXNLDlDR8mWj
+         zJ/CU8J/XaLW+4PwxyAD67IklKuxkq7FeNwZtMlIA4leU+mKvjfCEEZPnbbbWQcFeb25
+         kTeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782827564; x=1783432364;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4ws2CV8i71ht0gnqCCmjfpewVAKUX+xeim5UzDiEZaA=;
-        b=kozPiQbaxX7zntFa8greBCWtUzA6oF4eCpXfgeeKVTwUXIL0Fu1FFwLQ7jTnEyYPiS
-         6DtF9r1ff6TFbF69fvybLxUwm75jAwF1gv1kIk6/CCtMDtUnw6kU9OXRgV+pD98bkyPv
-         xFtrPmZK0HWWjToXlnMzLxgvjWXVT0n66uQdFp0mVFLCXzZj9qY/3hk0oed1XffbX8UU
-         WJWxzodLZm/IrLWlgQ/kl+jjSPFrh6PuEI/TzaxKkscvMcmf0jgt3+dKFSrrzNfy628E
-         jrP+DTQj68KnAe+cszGZ6JgsCDFVyrrAvDsPmVIC+ZDqiI+sy++x3LbRuHSrTbRNsgEK
-         frFA==
-X-Gm-Message-State: AOJu0YzdJFrnKaCTVgagiBXoCxhUJIW4fXnn6jbngaSRsJs+/Ee3T4lL
-	UZzEWe4Q/sAPB+qFY4GsoBhoMlOTNFT95r9XkRbk9xVrl2VxdLd0LUAarC7p34QSqpC4SZTjDql
-	aLeRgww==
-X-Gm-Gg: AfdE7cnUerAUOZW+yNHoniE2XvVrYKV3ULXCOzmhqHO8Gx4OAe7nmnXH0WQhSn3gCxj
-	h6i1l2qwAdqIzyX/ZngOvK8NBmbs2pEBAJdzngrYQs/KlqN6RMM4YUR0uTBEQ5WDc1nR8Zr1kMR
-	apUSpmYlkTmM9ap3HcO4nSkp8819QcXC7UJFTxxl0qQtzohx1Bdu+VT3Fah1WxF/VfeWlynB0JR
-	tcZt9KxOIW5thnLbiIHR/bA/GW9/D1XWH8FAChKG99KWtX6rH1Y1t6pE8Q3zDcSOC8X887RvbvF
-	vdGcD1A2a9gm9sgxJC1nDe0zOIGoXD7u1tmU6gg0/yOzbtYGveve4hyLaHgoqQ1fKWmahoCcdgd
-	1szd54JXybUrOoW3+CSkgRqmLqaAiC5/otgg9ROVopJ3/lbTUlcN7pXe807KH5i0rvwEf+sIyju
-	zyfZe97a9M1oq3UJbdvEuvIrNOKs0QQi32NBODwpGjmhup1j1CblAs2noeywODD1poWUpWumpgh
-	Ztp
-X-Received: by 2002:a05:6000:460d:b0:472:55a:ef9c with SMTP id ffacd0b85a97d-475505f51cfmr5250620f8f.9.1782827564585;
-        Tue, 30 Jun 2026 06:52:44 -0700 (PDT)
-Message-ID: <65f69026-f284-4cfd-b502-8d8955b412f5@suse.com>
-Date: Tue, 30 Jun 2026 15:52:43 +0200
+        d=1e100.net; s=20251104; t=1782827646; x=1783432446;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FL3xJ3R9ME6XiZOg1Vkm6Xt5EM0+KhV2x1X4ZdfMeFw=;
+        b=JM40bEfGTp+vcjxdpKCBFAjkTHzVEXGaBZBOQQBz2fNjGyceIlU8K1zC2ffhLjxKnh
+         mNKzENbDrrXLfejbYfI3o8kVRZCTElbAoEND+nwHbtF89jNJhFwBpzMk+sG6OHVouI2N
+         QnEPyevE4NHEplcuQokc+b6jW8QGpSfpZiv1KaYTT4L+vxOJ3tuUx8KyZJVh57VROB2r
+         5w3ewEzXi6o9C24ybvEuPDAzf3bUjWv7UZFxZJ6Ot/N1ZlR5zEOYfXurrbv2Iv54KtMM
+         cgQbdx8K3h8dY4PJeiTOX0DNbqdDTfq3hDL+e9dRGpQZ6QlC68giIK6WdZ8jH3I3V0xg
+         XKoA==
+X-Gm-Message-State: AOJu0YyBMxy+JEyIeWzzs7GX/Hh2x3qNUblIJo4jwTB9Ag3JuVKCaecQ
+	TsyGh8M4tEavTttKQ3X0GPbciMw41rzeKwM5n06gSfsC0Z/N8ast/vYILLcBwE8XDR2iuJwof5q
+	ov8bqlw==
+X-Gm-Gg: AfdE7ckoZS4Ks9KI9kWNB8rSn293wI7zX5l2bHTIkwaU9bTUbmufn5OnlX8DE8EXHNl
+	bfZS5eQf8gNSSKfIFu4zGf7DUDTOiz8Ich9IeRi6wNeOYOF2r+4IZjjP6SKRjQAFy+d4uQyuHry
+	PUOBo+HaIKRalZOkydtpSZdTcTslQzVzRzZ2RphJOsH2lAodqoo8r1q+ywPGh4+d2mmn3XjsKwH
+	aJZL9c+QxrgRf37DqrKyhVzC10jGqeNoI2tkpqvRIdUy/4+YTNqd7Fp75zE8mYW6+1Y/CU5z55C
+	huOgxXT3ju0IzKstXosoNOd5rpU+PdhNhYzf9+qFbxlvb+viN6W6IKJXY7g17GcF7qrKx6WwBOU
+	n3BKvWleKH/4PkWY+iHhxwuFXNJZfII1fpQJX0L8hOFoXiajV5Z5FIaOEmyw9KTgAMAiVglpFYs
+	sE6pa+JceqmOiiWSq8Lsmbh9Lmpd3u0EqsLGEunOsjRvQuZh9SB88r1Z59RertSDNmU8+StQTyj
+	Ktr
+X-Received: by 2002:a5d:6308:0:b0:475:f0f0:9f04 with SMTP id ffacd0b85a97d-4765b418b0bmr840570f8f.59.1782827645814;
+        Tue, 30 Jun 2026 06:54:05 -0700 (PDT)
+Message-ID: <724bd14c-ebba-4e29-be7c-012aa7aa82b2@suse.com>
+Date: Tue, 30 Jun 2026 15:54:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v3 1/2] x86/domctl: don't imply I/O port permissions from I/O
+ port mapping
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 0/2] x86: remaining XSA-492 and -491 follow-on
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>
+ Teddy Astie <teddy.astie@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <65f69026-f284-4cfd-b502-8d8955b412f5@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -131,49 +135,175 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <65f69026-f284-4cfd-b502-8d8955b412f5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1782827565-A86AAD51-9C57A3C2/0/0
+X-purgate-ID: tlsNG-bad1c0/1782827646-44B2B986-E511BD74/0/0
 X-purgate-type: clean
-X-purgate-size: 135
+X-purgate-size: 4935
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:mid,suse.com:from_mime];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,vates.tech,gmail.com];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,xenproject.org:url];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 61FAF6E514C
+X-Rspamd-Queue-Id: 5AA526E516E
 
-1: x86/domctl: don't imply I/O port permissions from I/O port mapping
-2: x86/HVM: more checking for XEN_DOMCTL_ioport_mapping
+Rather than granting permissions when mapping (an operation that DM-s are
+allowed to carry out, while they can't invoke ioport-permission), check
+whether permissions actually were granted when adding a mapping. This then
+also allows relaxing the necessary locking.
 
-Jan
+While no longer granting permissions upon mapping is "only" at risk of
+breaking guests, no longer revoking permissions upon unmapping strictly
+requires callers to additionally invoke XEN_DOMCTL_ioport_permission. Or
+else a security issue would arise. In-tree code already does so.
+
+While there switch to using %pd in the two log messages.
+
+Fixes: 192c4dabc344 ("domctl and p2m changes for PCI passthru")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+libxl has libxl__grant_vga_iomem_permission(), but I can't spot any I/O
+port equivalent (nor a revoke counterpart, btw). Everywhere else MMIO and
+I/O ports look to be treated equally.
+
+Qemu uses both xc_domain_{iomem_permission,memory_mapping}() in
+igd_write_opregion(), but only xc_domain_{memory,ioport}_mapping() in
+xen_pt_region_update() and xen_pt_{,un}register_vga_regions(). Is the IGD
+region special in any way? Clearly this can't work from a stubdom.
+---
+v3: Further extend ChangeLog entry.
+v2: Avoid double evaluation of "add". Add ChangeLog entry.
+
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog
+ ## [4.23.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
+ 
+ ### Changed
++ - On x86:
++   - XEN_DOMCTL_ioport_mapping no longer implicitly grants or revokes
++     permissions for the port range in question.
++     XEN_DOMCTL_ioport_permission now needs invoking up front /
++     afterwards.
+ 
+ ### Added
+ 
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -714,15 +714,35 @@ long arch_do_domctl(
+             break;
+ 
+         hvm = &d->arch.hvm;
+-        iocaps_double_lock(d, true);
++        /*
++         * NB: The double lock isn't really needed when !add, but is used anyway
++         * to keep things simple.
++         */
++        iocaps_double_lock(d, false);
+ 
+         if ( !ioports_access_permitted(currd, fmp, fmp + np - 1) )
+             ret = -EPERM;
+-        else if ( add )
++        else if ( !add )
+         {
+             printk(XENLOG_G_INFO
+-                   "ioport_map:add: dom%d gport=%x mport=%x nr=%x\n",
+-                   d->domain_id, fgp, fmp, np);
++                   "ioport_map:remove: %pd gport=%x mport=%x nr=%x\n",
++                   d, fgp, fmp, np);
++
++            write_lock(&hvm->g2m_ioport_lock);
++            list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
++                if ( g2m_ioport->mport == fmp )
++                {
++                    list_del(&g2m_ioport->list);
++                    xfree(g2m_ioport);
++                    break;
++                }
++            write_unlock(&hvm->g2m_ioport_lock);
++        }
++        else if ( ioports_access_permitted(d, fmp, fmp + np - 1) )
++        {
++            printk(XENLOG_G_INFO
++                   "ioport_map:add: %pd gport=%x mport=%x nr=%x\n",
++                   d, fgp, fmp, np);
+ 
+             write_lock(&hvm->g2m_ioport_lock);
+             list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
+@@ -747,40 +767,11 @@ long arch_do_domctl(
+                 list_add_tail(&g2m_ioport->list, &hvm->g2m_ioport_list);
+             }
+             write_unlock(&hvm->g2m_ioport_lock);
+-            if ( !ret )
+-                ret = ioports_permit_access(d, fmp, fmp + np - 1);
+-            if ( ret && !found && g2m_ioport )
+-            {
+-                write_lock(&hvm->g2m_ioport_lock);
+-                list_del(&g2m_ioport->list);
+-                write_unlock(&hvm->g2m_ioport_lock);
+-                xfree(g2m_ioport);
+-            }
+         }
+         else
+-        {
+-            printk(XENLOG_G_INFO
+-                   "ioport_map:remove: dom%d gport=%x mport=%x nr=%x\n",
+-                   d->domain_id, fgp, fmp, np);
+-
+-            write_lock(&hvm->g2m_ioport_lock);
+-            list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
+-                if ( g2m_ioport->mport == fmp )
+-                {
+-                    list_del(&g2m_ioport->list);
+-                    xfree(g2m_ioport);
+-                    break;
+-                }
+-            write_unlock(&hvm->g2m_ioport_lock);
+-
+-            ret = ioports_deny_access(d, fmp, fmp + np - 1);
+-            if ( ret && is_hardware_domain(currd) )
+-                printk(XENLOG_ERR
+-                       "ioport_map: error %ld denying dom%d access to [%x,%x]\n",
+-                       ret, d->domain_id, fmp, fmp + np - 1);
+-        }
++            ret = -EPERM;
+ 
+-        iocaps_double_unlock(d, true);
++        iocaps_double_unlock(d, false);
+         break;
+     }
+ 
+
 
