@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 4eZQLyN4Q2oXZAoAu9opvQ
+	id yreLE9R/Q2qCZQoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 10:02:43 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 10:35:32 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646226E181A
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 10:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9392A6E1B52
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 10:35:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=fbnU8ho4;
+	dkim=pass header.d=citrix.com header.s=google header.b=LcEakgAe;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1348458.1606227 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com
+Received: from list by lists.xenproject.org with outflank-mailman.1348511.1606251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weTQB-00041P-Rz; Tue, 30 Jun 2026 08:02:19 +0000
+	id 1weTvc-0001eY-IC; Tue, 30 Jun 2026 08:34:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1348458.1606227; Tue, 30 Jun 2026 08:02:19 +0000
+Received: by outflank-mailman (output) from mailman id 1348511.1606251; Tue, 30 Jun 2026 08:34:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weTQB-0003yo-P0; Tue, 30 Jun 2026 08:02:19 +0000
-Received: by outflank-mailman (input) for mailman id 1348458;
- Tue, 30 Jun 2026 08:02:18 +0000
+	id 1weTvc-0001cA-FV; Tue, 30 Jun 2026 08:34:48 +0000
+Received: by outflank-mailman (input) for mailman id 1348511;
+ Tue, 30 Jun 2026 08:34:47 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weTQA-0003yi-IQ
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 08:02:18 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1weTvb-0001c3-3J
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 08:34:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weTQ4-003GD6-VH
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 10:02:12 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1weTvY-003PS9-SO
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 10:34:44 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a437803-5cb7-0a2a0a5109dd-0a2a4505a018-4
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 10:02:12 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a437804-3cb2-0a2a45050019-d1558031d5df-3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 10:02:12 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so29611375e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 01:02:12 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493b8c66c15sm51335005e9.2.2026.06.30.01.02.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 01:02:11 -0700 (PDT)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a437fa3-2eae-0a2a0a5409dd-0a2a450bdf58-6
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 10:34:44 +0200
+Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a437fa4-ac48-0a2a450b0019-d155dd2eed29-3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 10:34:44 +0200
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-47231f1f8f3so3501349f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 01:34:44 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-248-75.as13285.net.
+ [78.146.248.75]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4756636d2cfsm6306996f8f.17.2026.06.30.01.34.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Jun 2026 01:34:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,141 +60,242 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782806532; x=1783411332; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GEZnOyt2AKXn+DK3V3NAplo0he5189VlXr9TYOOq5yM=;
-        b=fbnU8ho4Yb0vJfpN6u+jMX2FN6Do2VYtz36dp8px0u35TfkPyHH5b7TVKFKilOWxel
-         JGLegZwvLRw2IM429BiCDUMdWjTJSBL3QQLPOTOBiwgvWwsXByOJWiGi4+CXDa37Tc3N
-         VrSCiE+rYhrQ5yISoNDnQmEPVGIBK4PcM9CiLD1xs6N/GjXlmeR8PAvhLdHIzrVw+sgf
-         cidAAphypWzHdIRkuCzi+SB25ZkC2GidfyBJFxXecdYDFBWiSAxbQMUj29O+mCwIEzwH
-         Mo5Bp0D6XcaAsk56qeImIJ9zkcmHqHI1qBav40u4n5pdBvYRkjPuh15F4iLElc3DKv/D
-         OG6g==
+        d=citrix.com; s=google; t=1782808484; x=1783413284; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Stvk80CR3chS5Z0V0o9Pg2KxjOrTFl4jjb9JGEwO3GY=;
+        b=LcEakgAeM/YIyC5+Y6DpF7OAFi4sP7ljYEsK2YLLlIsrz+pF2+4SF9o0KgEMWypy0r
+         ozQiXLvSHYClfItJPr6v37Ef0HzY2csGCLeakx+6jSUWlW1B807TzcBwTXZjfFfW+I/C
+         6aqlnHShDquXw5PwPwWBtbmd/UcVTEfcTBG60=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782806532; x=1783411332;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1782808484; x=1783413284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GEZnOyt2AKXn+DK3V3NAplo0he5189VlXr9TYOOq5yM=;
-        b=GnFc6QRRD7jX2WztZCzukSlr+bN79cT8fMLcVl5R91d1qJTtPon2z0vR0Z0SZ7WwIE
-         a2hwi+74DWe1Twq7TPeSArvYVOKiVH2NwpIRYaQ2jSMkMCNRNC5m8iHJpLDlXf35Slk4
-         vhyvUlPIVVYhuNwJ5uQJL0Dvj2MzskdCfmg6Sx/QJIS68AX+QrPXME3Wapcfaez8krk9
-         tRtcULhB4gsMxy/wl9YBLSUIDjtJt9sht3Ox5K90GkuxWKfNA3i/RB9KJj9pkJ+SQW8a
-         Uc3tGxWWazDb7AorJBwQczr8Zqz2/V6ZLS5Ka9+zBWHdqkEQSpKNk0uoou8JmOYLvSpj
-         L+WA==
-X-Forwarded-Encrypted: i=1; AFNElJ+Y/jA8WiI+bYjC1eYAumZ55qR5cmeuuE1leDs/clz4v3gin5qMC7vhHJTrtoh4F/o34oSJVwzvYjo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzN0dR5lwaCpQZEKNwbUU7R3D8/ZfoxWm5QIVFNdNfOfeHVq7X5
-	yQfoH/fvY3msoKDc44ldYt4FJoI/gswvt1W/cfVmDhyla5TDvwPIAmbc8rJ7fScOoA==
-X-Gm-Gg: AfdE7ckf3k/J4gTfc2SKG2Uwm61JUjQV7qvt3s6ZRWngqh2fOHwAkPCJgq8Xs4fXODO
-	x6BYH3Dr5NvmYm4VGdBhUWIaXjTzVFxcqdeusQ+Od3vn0JzX20uOxCJQRTPhUX159RzKcRgw0v9
-	8RIpIYgIkRB5nQ34MP1I1wD+4FqRORW9EHdhTsYL/ha6UQuoNKO1udive32VIqaoO/OPP9dd/se
-	ZB0j/M/WiwXv2D+62m++V5W2NC+Cc/IyzpUsiWrQnursjBA4EYW+KC/Bba+VOyDDj281ctPxLRb
-	mZHy4CdOVwvC8AMxSj46+JtRWnoDMdv5r+PqskoRvD8h7So/z6g9kBmbrRb0s2Td3gyL3y5hUId
-	MjAS0y5gTPhpFw4sCZM2pY/NhSyh7OT8qduSS6lfE4e6eQ0sbGBo7C16A3d8Om+2yKXnILFwbPG
-	dcGVBy0hkyoYCgUgtYmRscAd0e992od3LB4/7zlyPVVSewA1pBPIajGTRTpmv5LNkSHFSd+Nuvs
-	wDm7lVM/4QFSBw=
-X-Received: by 2002:a05:600c:3e16:b0:492:5a58:3c6a with SMTP id 5b1f17b1804b1-493b827f54cmr37521355e9.5.1782806532230;
-        Tue, 30 Jun 2026 01:02:12 -0700 (PDT)
-Message-ID: <ab0c89f9-8610-42f6-95ef-5e58a011e02f@suse.com>
-Date: Tue, 30 Jun 2026 10:02:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/22] xen/common: Allow building ARM32 Xen with
- CONFIG_NUMA
-To: Hirokazu Takahashi <taka@valinux.co.jp>
+        bh=Stvk80CR3chS5Z0V0o9Pg2KxjOrTFl4jjb9JGEwO3GY=;
+        b=UQ7wdnBNFV4GmCx/E+tt+oX7QJNbKHNeGrGqSY5j4DsHi3Qpg7uaSYXVd95HB22dbH
+         yzdoaqft10FqxOOfBRXxIa11s1C55zAwe636bXtbNlHMHyztoPsaPPETqnWnKsYTsotx
+         vhogpQu8dXkJJwmr44bFBGDW4XtPejML2/P12LaNGZ+0O+3cIi5IBg0GpNoPxgPIV0yN
+         cFqgNBNm4+mV1s5Jm42//VoejH9croN71ERJqQEOsNWNxrjkJNkXz0r8J9zq1GOY6nVa
+         x/3ApOE3m6rfrElodIRTAAGjT/FDJn2IZNQ5TsQdXhx9YH2InlccJpHlo20trh9hLlyl
+         XD/g==
+X-Gm-Message-State: AOJu0YyLhpji9HtE1bL/bNkSc/5Ymymo0iCyjON0rKTuybUNkxg+DBLd
+	Gou8M9NZqcD5n5RgKkEbffVSitaC8Mp282YnmvuSaaIXksB5xuKg1+LUclnouPIplL9iMEINN/3
+	MfvVj3uY=
+X-Gm-Gg: AfdE7cnl/k2t6m5aHDjEQNSxjb15/wfD2tu/Fly4mUg86p9eQ2MJXJVmaM9cW3s2W11
+	vfkC2tJT2vZd75JrjRaWqdcteRhBWS4Jo1Od2jrE2lTUlAiuci3fhBc2keH15o0ZpkJgJIejYep
+	1+masEUfUAgGhhSl+THOqks67I02uvOTxlO8f/+K2Vz7TNZvGYY0l4YlHeJTzMRKm1ihgDyf0Uf
+	0H26DcSdkF6Tqevgzmq3VaCnpLPgJpFp8YslutWYEfSxuH+/PgbGoRJzH2fw3AwKOdz6I37HtpD
+	lMl1XU1tNxX4gQJYW5P3Wo/EIoEgWDeSVjdiHuIF16c6KYixEm6TaQ5lpVxVhG+4FPygPz3SILy
+	EglBiyPkXN52zRYrl9j930QC1EmheT4vXRvKnNqmycnYfejTNzQ+aiY5ByrLd1QFObmUB390IAl
+	PFx67SC/voKYSy/GvVLOyFrklBsNzoQlHfH9ZvTehUd0Ihn7re4xIBZzQpDYNb4RwERKf+XCSqB
+	Q==
+X-Received: by 2002:adf:ed44:0:b0:474:64bf:8fb6 with SMTP id ffacd0b85a97d-47552f33493mr2549497f8f.39.1782808483817;
+        Tue, 30 Jun 2026 01:34:43 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260619075011.377116-1-taka@valinux.co.jp>
- <20260619075011.377116-9-taka@valinux.co.jp>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260619075011.377116-9-taka@valinux.co.jp>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH for-4.22 v2] xen/mm: Remove INVALID_{MFN,GFN}_INITIALIZER
+Date: Tue, 30 Jun 2026 09:34:41 +0100
+Message-Id: <20260630083441.726684-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1782806532-549E22B8-729F5B0F/0/0
-X-purgate-type: clean
-X-purgate-size: 798
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1782808484-40942220-2835CC53/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 5580
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RSPAMD_URIBL_FAIL(0.00)[lists.xenproject.org:query timed out];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
+	TO_DN_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org,epam.com,arm.com,gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid,citrix.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,vates.tech:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 646226E181A
+X-Rspamd-Queue-Id: 9392A6E1B52
 
-On 19.06.2026 09:49, Hirokazu Takahashi wrote:
-> --- a/xen/common/numa.c
-> +++ b/xen/common/numa.c
-> @@ -439,7 +439,7 @@ static int __init allocate_cachealigned_memnodemap(void)
->      if ( !memnodemap )
->          panic("Unable to map the NUMA node map. Retry with numa=off");
->      size <<= PAGE_SHIFT;
-> -    printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
-> +    printk(KERN_DEBUG "NUMA: Allocated memnodemap from %"PRIpaddr" - %"PRIpaddr"\n",
->             mfn_to_maddr(mfn), mfn_to_maddr(mfn) + size);
->      memnodemapsize = size / sizeof(*memnodemap);
->  
+These existed to work around a bug in older GCC when using struct-casting for
+variable initialisation.  However, our baseline toolchain is new enough to not
+suffer this bug.
 
-According to [1] this looks to break the 32-bit toolstack build on x86.
-tools/tests/numa/ re-uses the source file.
+Removing these resolves two MISRA Rule 9.2 violations which exist in release
+builds of Xen only, where "= { ... }" is disallowed for simple scalar
+initialisation.
 
-Jan
+The BUILD_BUG_ON() in xenmem_add_to_physmap() cannot stay as it is, because
+INVALID_GFN is not an Integer Constant Expression.  Replace it BUILD_ERROR()
+which is the nearest available alternative.
 
-[1] https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/15098327812
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+v2:
+ * Drop INVALID_{MFN,GFN}_INITIALIZER entirely.
+
+For 4.22.  staging-4.22 is currently blocked by this bug, following the switch
+from debug builds to release builds.
+
+Passing pipeline:
+  https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2638483933
+---
+ xen/arch/arm/mmu/setup.c   |  2 +-
+ xen/arch/riscv/mm.c        |  2 +-
+ xen/arch/x86/efi/runtime.h |  2 +-
+ xen/common/memory.c        |  4 +++-
+ xen/common/page_alloc.c    |  2 +-
+ xen/include/xen/mm-frame.h | 16 ++--------------
+ 6 files changed, 9 insertions(+), 19 deletions(-)
+
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index d042f7359703..8fb0157aff98 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -59,7 +59,7 @@ DEFINE_BOOT_PAGE_TABLE(xen_fixmap);
+ static DEFINE_PAGE_TABLES(xen_xenmap, XEN_NR_ENTRIES(2));
+ 
+ /* Limits of the Xen heap */
+-mfn_t directmap_mfn_start __read_mostly = INVALID_MFN_INITIALIZER;
++mfn_t directmap_mfn_start __read_mostly = INVALID_MFN;
+ mfn_t directmap_mfn_end __read_mostly;
+ vaddr_t directmap_virt_end __read_mostly;
+ #ifdef CONFIG_ARM_64
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index e9ce182d066c..4d3b8c220442 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -480,7 +480,7 @@ static void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+ static void __init setup_directmap_mappings(unsigned long base_mfn,
+                                             unsigned long nr_mfns)
+ {
+-    static mfn_t __initdata directmap_mfn_start = INVALID_MFN_INITIALIZER;
++    static mfn_t __initdata directmap_mfn_start = INVALID_MFN;
+ 
+     mfn_t base_mfn_t = _mfn(base_mfn);
+     unsigned long base_addr = mfn_to_maddr(base_mfn_t);
+diff --git a/xen/arch/x86/efi/runtime.h b/xen/arch/x86/efi/runtime.h
+index 88ab5651e9ce..f92d7af95e00 100644
+--- a/xen/arch/x86/efi/runtime.h
++++ b/xen/arch/x86/efi/runtime.h
+@@ -7,7 +7,7 @@
+ #include <asm/mc146818rtc.h>
+ 
+ #ifndef COMPAT
+-mfn_t __read_mostly efi_l4_mfn = INVALID_MFN_INITIALIZER;
++mfn_t __read_mostly efi_l4_mfn = INVALID_MFN;
+ 
+ void efi_update_l4_pgtable(unsigned int l4idx, l4_pgentry_t l4e)
+ {
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index 3672bda0253d..2ca7723e50aa 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -991,7 +991,9 @@ int xenmem_add_to_physmap(struct domain *d, struct xen_add_to_physmap *xatp,
+          * guaranteeing that it won't fall in the middle of the
+          * [xatp->gpfn, xatp->gpfn + xatp->size) range checked above.
+          */
+-        BUILD_BUG_ON(INVALID_GFN_RAW + 1);
++        if ( gfn_x(INVALID_GFN) + 1 )
++            BUILD_ERROR("bad INVALID_GFN");
++
+         return -EOVERFLOW;
+     }
+ 
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index e01ac3e99c72..40b0f73563a5 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -275,7 +275,7 @@ static PAGE_LIST_HEAD(page_broken_list);
+  * When !CONFIG_NUMA first_valid_mfn is non-static, for use by respective
+  * stubs.
+  */
+-STATIC_IF(CONFIG_NUMA) mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
++STATIC_IF(CONFIG_NUMA) mfn_t first_valid_mfn = INVALID_MFN;
+ 
+ struct bootmem_region {
+     unsigned long s, e; /* MFNs @s through @e-1 inclusive are free */
+diff --git a/xen/include/xen/mm-frame.h b/xen/include/xen/mm-frame.h
+index d973aec901fa..1402c2049778 100644
+--- a/xen/include/xen/mm-frame.h
++++ b/xen/include/xen/mm-frame.h
+@@ -6,13 +6,7 @@
+ 
+ TYPE_SAFE(unsigned long, mfn);
+ #define PRI_mfn          "05lx"
+-#define INVALID_MFN_RAW  (~0UL)
+-#define INVALID_MFN      _mfn(INVALID_MFN_RAW)
+-/*
+- * To be used for global variable initialization. This workaround a bug
+- * in GCC < 5.0.
+- */
+-#define INVALID_MFN_INITIALIZER { INVALID_MFN_RAW }
++#define INVALID_MFN      ((mfn_t){ ~0UL })
+ 
+ #if 0
+ #define mfn_t /* Grep fodder: mfn_t, _mfn() and mfn_x() are defined above */
+@@ -42,13 +36,7 @@ static inline bool mfn_eq(mfn_t x, mfn_t y)
+ 
+ TYPE_SAFE(unsigned long, gfn);
+ #define PRI_gfn          "05lx"
+-#define INVALID_GFN_RAW  (~0UL)
+-#define INVALID_GFN      _gfn(INVALID_GFN_RAW)
+-/*
+- * To be used for global variable initialization. This workaround a bug
+- * in GCC < 5.0 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64856
+- */
+-#define INVALID_GFN_INITIALIZER { INVALID_GFN_RAW }
++#define INVALID_GFN      ((gfn_t){ ~0UL })
+ 
+ #if 0
+ #define gfn_t /* Grep fodder: gfn_t, _gfn() and gfn_x() are defined above */
+-- 
+2.39.5
+
 
