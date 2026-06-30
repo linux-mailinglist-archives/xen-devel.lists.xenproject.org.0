@@ -2,56 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id q1SzAXf4Q2qpmQoAu9opvQ
+	id Q9tyC1H7Q2oDmwoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 19:10:15 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 19:22:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FB266E6C55
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 19:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7786E6DBE
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 19:22:24 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=BRCGeh+i;
+	dkim=fail ("headers rsa verify failed") header.d=igalia.com header.s=20170329 header.b=sOrXeRW4;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1349270.1607136 (Exim 4.92)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=igalia.com (policy=none)
+Received: from list by lists.xenproject.org with outflank-mailman.1349278.1607145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1webxM-0006dC-GF; Tue, 30 Jun 2026 17:09:08 +0000
+	id 1wec9y-0001Tq-I4; Tue, 30 Jun 2026 17:22:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1349270.1607136; Tue, 30 Jun 2026 17:09:08 +0000
+Received: by outflank-mailman (output) from mailman id 1349278.1607145; Tue, 30 Jun 2026 17:22:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1webxM-0006bQ-DF; Tue, 30 Jun 2026 17:09:08 +0000
-Received: by outflank-mailman (input) for mailman id 1349270;
- Tue, 30 Jun 2026 17:09:06 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wec9y-0001RL-EZ; Tue, 30 Jun 2026 17:22:10 +0000
+Received: by outflank-mailman (input) for mailman id 1349278;
+ Tue, 30 Jun 2026 17:22:09 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1webxK-0006bK-N5
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 17:09:06 +0000
+ (envelope-from <mfo@igalia.com>) id 1wec9x-0001R7-0u
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 17:22:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1webxJ-000k9t-Oh
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 19:09:05 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wec9v-006hKZ-V3
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 19:22:07 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a43f81d-bab6-0a2a0a5309dd-0a2a45069c52-24
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 19:09:05 +0200
-Received: from [52.101.57.42]
- (helo=BN8PR05CU002.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a43f830-08de-0a2a45060019-3465392ab7d6-3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 19:09:05 +0200
-Received: from IA1PR03MB8288.namprd03.prod.outlook.com (2603:10b6:208:59e::6)
- by CH0PR03MB6019.namprd03.prod.outlook.com (2603:10b6:610:be::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Tue, 30 Jun
- 2026 17:09:02 +0000
-Received: from IA1PR03MB8288.namprd03.prod.outlook.com
- ([fe80::b5ee:28c6:e04b:5599]) by IA1PR03MB8288.namprd03.prod.outlook.com
- ([fe80::b5ee:28c6:e04b:5599%3]) with mapi id 15.21.0159.018; Tue, 30 Jun 2026
- 17:09:02 +0000
+ (envelope-from <mfo@igalia.com>)
+ id 6a43fb15-2eae-0a2a0a5409dd-0a2a4508e38a-48
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 19:22:07 +0200
+Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <mfo@igalia.com>)
+ id 6a43fb3e-edec-0a2a45080019-d561b338dcb8-3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 19:22:07 +0200
+Received: from 186-249-148-121.shared.desktop.com.br ([186.249.148.121]
+ helo=[127.0.1.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wec9Z-007CH3-93; Tue, 30 Jun 2026 19:21:45 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,204 +56,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eCNXqNEKTPjjO5UMyTFSbiIC9t7rQ2iUCLL6+XTnzBRRyVSceE88+uWkQewRbDwPQPKKvet7DjNOq+nLJMn+klTqfu897EOWhtl4pO7eHBwBmFsgBOq6ykHv/uIToeKDGXunWh5lOQdMA9aJby0nUKWMBMFOi5LRC9sbv70THJHevY89BmPaAmaLJY1+iorNIPPKY0PCxoVZwJqjk4Ro3H4/ZJwk9USVuuV30UbrkwWP8ksj9Q4we/1WvYueodWZIImny6Alf+x2Pqu/DXZ48oLDcXdV7bcDKcO+/LoS1NangHm+HuK2RDdNqu5DY/lz9g3lz9MHP+mfUzupIBVEQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ucFCkASotLFZ+/lSRlPe0gjVFCije0xgmN+KR5/eGcs=;
- b=wOzg6l8P+b3K96jAeET+VRmb1VzddRxgeYi9AIGOyV6Kt7/bDIRjpaUduDCOXsR3jIM/K3+yxtHWfAqoBL163kg7ZFmbLS4HOgylNvNf/ZnyUad/5zhQk5RU+sBdRghiyxvEBS91KOu1XZGJ1nrIjFMRRCKvg5EfN1fh/xIje+dAf4OMwtRfdNXf6/Ixg6hnRboOK34J07yCT7FxPU85nQN8CApA9MZ0Mc3IMp/aUmmC9vfXDf38CD3EMUTyV7NznqkGualrdh/adkrVpZ4yf4HVY3AGhhpruFCvYQdaF912dtZcAgCcBWef5MpqFyIAJBSxExyuD/IGhsrZnvJd/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ucFCkASotLFZ+/lSRlPe0gjVFCije0xgmN+KR5/eGcs=;
- b=BRCGeh+igRcI04p7Fexdceg/xbdohqNDytzHKVGWKOOCredlor81rPx9NcWZ+X9pxTlivWkV4+Ad4kf86br5aIs2NHHDuNVwjQKbXqKO5ps/smHsxOuWyD29dWOOYa6bZzGVWWlk3p30MDTUM/cugJ00lczQgEtQDTOJ+W/RL1s=
-Message-ID: <f746831d-c40b-4af2-a69e-f6ec0f52b78f@citrix.com>
-Date: Tue, 30 Jun 2026 18:08:59 +0100
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Frediano Ziglio <frediano.ziglio@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v6 09/16] libs/ctrl: Allows writev_exact to change iov
- array
-To: Frediano Ziglio <freddy77@gmail.com>, xen-devel@lists.xenproject.org
-References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
- <20260619130501.272832-10-frediano.ziglio@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20260619130501.272832-10-frediano.ziglio@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0057.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::8) To IA1PR03MB8288.namprd03.prod.outlook.com
- (2603:10b6:208:59e::6)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=7MQytiJiRfFH71U0gvZqh+EfaM2Wca2NqErcBk6rRw0=; b=sOrXeRW4/Ohpy2IrsKTZGsCfXB
+	33mbwb1etP/A2yn3De5nSOlf4N7ZiM5QpIFuDU67/MhC+J0WbA9r8tsYn+B7ObQ0qgDg2keimPCcS
+	yLF6unqpfXSZfNsdjHugt1kgByfcFAkoxgDSN7AbKtSAyVoaIoQwc8ZATNczEPKuGVg/m+BLn4PxN
+	HXnxNTQO/uqEubm1grci9W7a+8Ga2lalvYqiJca3QsEfOeG/c4i4WsmFlprZYThK2mLL2gA+MUTQv
+	kY3C5QFYD5t//jV5e+IB/qFA1+GWub5FOMW0wnhZ2o7mz4k1iJGb+IsnJ71xbZ0hbCvEmcTqd5Zi8
+	d0VPJCEQ==;
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Subject: [PATCH RESEND v5 0/3] x86/pvh: fix unbootable VMs again (PVH +
+ KASAN)
+Date: Tue, 30 Jun 2026 14:21:45 -0300
+Message-Id: <20260630-pvh-kasan-inline-v5-0-52afc979be81@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR03MB8288:EE_|CH0PR03MB6019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 734802e2-62ab-4275-c134-08ded6ca489a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	bl0ht4e72iS7jtTobBddkmQQFFWjbzxcnXUZikzLhisKrBcoBCxUdm//UeB86BOJgQbalXFpj/pVnkENSleOl+Lj9sVpGWUjdceJMBoH5C/Gka2xDt4oshTbcm21xAoy0yKSuuWR7jx57G9M6AszH7l74R3/9TX2d+LjZqK4EcdDpfJ06UY4Vc7/jG+bP0xOBi5OiMQtAasUyycXCZVhndnXzwkPSMaab16LAUloRfDY3hPd/h6t7l3CG42xuuA2I0qSrLannU5Z2H8ncJlIUSNJWNdkXq+pteZfGvXqDKo/tZMs3O+g9lcL7U/clt+KqmcPSgGn7604C+qzpiRQP+mJdwXyLD6TxTe5p2aZuOwV7SeOGvF8/dvtyOaOS6ltIy4yT8tOB3lwVK1V4ChkYZxGl4pooSlmtJMV58bpacBjw0RSdPPRExdOLtXZ59/e7xs7x9skt+y7squY+jZHNNK9liOXLuhccCO718xDwDN33WUHrpK2Qa8EDw1Fz+aXGL9rNY0P0HWAwsXhIMaBX3ljNpcz3tMJSQfYb5jW8PX8NXYQOPj+ILUPREgvRXVVM1o+Vdb5PfeiZSln3yx8EOl+ZOBOuT8/Re5X5a1sNXBYY/UvAPuGS9yjYQqmzivWpL9Jmcnrk8khIEUVqmRNkWDuK8dg2vU3ZLvbC5YV9JI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR03MB8288.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V2ZCSC82ZUZVejBqYkQyYUx4bmNYZFRuTzE4dnRlTnczNXhFZVY1SytmbVZM?=
- =?utf-8?B?MVc3UmJKcUpReWlaZWViM1NWcnNDaG45eHExQUxzZ2hsWVNnVmpCQ1dxS0lm?=
- =?utf-8?B?VG5QVUlUZ21zSXplQzJLa0NRaThURU5KRFE2dXdrRnhRN25WR25tWERCcmlU?=
- =?utf-8?B?WWJqdE9zZHBuSWg0bVJ1YXVtdkpOTHUyQVZYOUIyaWg0alg5aklZOEk5alJG?=
- =?utf-8?B?aTFwQ2lKWm8wM1ZIeUVKbDcvM1pUQ240bDQ2d0xPWFNWbThmUHlMcmNFQkF3?=
- =?utf-8?B?NmtYUTRBUGU4d1Q4b1loNVNwTFEralRyK2hkTFo1clJEUmhQNDhEaktZeWRz?=
- =?utf-8?B?SDZsbWNxRjdiTTRDc21wa3UxdVRkcW14cmpCRHd1RnNKaDA0RTZsY1FyWkls?=
- =?utf-8?B?SE9EMXBKL01lbHZ5aDJvMEpFWlBkT0s5TE9Qek5Ja2pXcUhPaXZVZHU2b1hu?=
- =?utf-8?B?MkdOaENFTnRjclBlT3FBeGhVaUdkWCtlYnRQNklGaFJuOTFXMCtJcmhpK2lu?=
- =?utf-8?B?b0hLU1RlcU01amZ0WkZreGxXMnRVLzR4d1NHSjNQUGR3bDNycmlhRDhWekFD?=
- =?utf-8?B?TTFLZVM2Q0ZDYXlkUU43TWlQSEVMR3BxaU5jeVVoRUNQM0wzc1RRZ1g2TGJh?=
- =?utf-8?B?MVZ6UTZOTjJxK0YxbElYVTdDbFBQcDhSRUlZZmtmSk5iT2Q1cjAwakdmbEY5?=
- =?utf-8?B?R3UwcE5QbVZqc3Z2ZWk5SEtZdjhzMWNhWExaNEw3czlsbkE0bFM2SWp1bVNX?=
- =?utf-8?B?NEtxMWVwVmJGUjhzaklxL2JPVlhDOWR4OEo2c3J2UDBXWHJlUkxVU01GR2ZC?=
- =?utf-8?B?QjBtWEJEWUVBS1lDeFRyUkluaTRSWnJoOXJWa3M3TEl4MUM5d0lUVHhZRCtk?=
- =?utf-8?B?ck92TWlrTXhhQ1Z5SnY4RnRSYkM3VHN2Ty9JRGtoL1NxbVJQZjB1MkhQdDIw?=
- =?utf-8?B?bVJZZWYwME9tQnJpamY3RG5kdlBvSWZ6OXI1eDkyNUl4TitmTS9mOWIyakx1?=
- =?utf-8?B?aDR1K1E3R0J0Qk9tQnBUQmp0UExHczRydjRiSFVsTno4cjNyazd5S0JadHcy?=
- =?utf-8?B?NXhjNnpuOEJDNUFNcjJON2VJYVd5RklISEtnUTROdytoMHIrMURjVUpjaTli?=
- =?utf-8?B?UVptMDRtcmdnRFBTU3lCemlFUDl1VFZ2QncxNUFTaWF1VjZYSDBCTVIzOUFx?=
- =?utf-8?B?TUs2TDhjSTZlcXdQQkNUNyttdFdWcDlFZ2NnZEdnSnV1elJ3clo5Wk8vUjlK?=
- =?utf-8?B?VVV6SUQ4RldOc3pzRnZCNm5oS3lhUHk1SUhhM0pHQXgyWFhWY0hFK3NTaDlL?=
- =?utf-8?B?WVNJYlp2TExnWnp3NHNlaFB1cFg0VGVvZGp1cWt6RitrRklLeVVoR2dXVW1I?=
- =?utf-8?B?dXpqS3BaUkZzNFVhZW02OEJmOEN6aUp2dE11Wk15dVE2N1lVYzA2QktvOVo2?=
- =?utf-8?B?UHk0RTVZOWFoMXRFbEdVRXNLWGJNWVk4a01UcVF2L1dTdWIvRVc2M2NFRHk5?=
- =?utf-8?B?RFdZb2NzU3RFYmpiaGo0Q21LR3RmbnJIWW9ITVE0dzFJZkpEVHVxKzgvR1lR?=
- =?utf-8?B?cTNRZUM2SjJKQmEzZHFpNUZHbEhQUWhHRzQvd2pRZ3ljZkVISm9LQ0JscVRR?=
- =?utf-8?B?Wm5Xb1NXeC9WbWR0VkNzc3ZoMkVlbkFDdS9GZS9SK1ZKWHVPNW1UOU1VY2N0?=
- =?utf-8?B?NTRWbHZrV1ByUVFxRGsveXp2Qis2eTNoWE5INExJUnR4aEJOTVFOVDFPbExO?=
- =?utf-8?B?a1QwMno2RVJMSFhIbFo5a3hPTDRLWkd6aTZKL2puY0hqUmYzeU5qSDd2Tk52?=
- =?utf-8?B?NkdGR0h1MmNheVowMGRabVc3cEhzRjNVbEwwbjlMbVBSa0ZMQk1lSkdYdi9s?=
- =?utf-8?B?Zi9DWDZEeEZwYTF3S2xYK1N5RlRQYlo4dWd4VzV2NitSRFVlYkRJcWJHdVdt?=
- =?utf-8?B?citHVmJZeWVIMURUN3FGaU1qTjYwdStNTjh3K2hHcVVBYWtWckJ2c0ZFSHRt?=
- =?utf-8?B?U2FLTEllRXRKSkhDN1lPV1k0M2RrbVV5QU5RVERma2FPN1NIVEZwU2dwdERz?=
- =?utf-8?B?UXRGdWdNNEJvV2tnSm54Z1hVR1Vjd21uTERDTlVlVzZJUVBSYnRxb1BwZ3J0?=
- =?utf-8?B?eEJOMHNXVjQzR2xNK3QwYVRudWJYVzY0a1RaclhYN0JTQkQ1NitueDFwNndv?=
- =?utf-8?B?N3l1SFJwNmhBSk9KMm9mZHhVbWVlakhuRUtLTUNaRlp3RFdJLzcwaGJkeXFQ?=
- =?utf-8?B?WWN4bldGSFZMb1kxbjdIOWpQaWprVlRvSksvZ0VRaTBTSmxTUUFaa01BZ0Ja?=
- =?utf-8?B?ZzJFZjBlV0dCM0NyWlVBdyt2Kzl0YnBRL09UcFB3TjFPd2tHRmtVemhleCtI?=
- =?utf-8?Q?mJofEyexalNC0iC8=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 734802e2-62ab-4275-c134-08ded6ca489a
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR03MB8288.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 17:09:02.4586
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AwrcMXFvpTpfqgk7CrSu8ezubvH13WrWxNBf3zM20e0LI8FSkBxGaLcm9FYLw2kLntV3eWHNYEq1hR6bYe8NOo8gN86zxkPpQoJq/JVNCfc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6019
-X-purgate-ID: tlsNG-16d1c6/1782839345-F97EE68D-28C4B61C/0/0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACn7Q2oC/3XNMU/DMBAF4L9SecbIvjg2YWKgKwOMiOFyOTcni
+ lPFyAJV+e9YWShqGN893ffOKvMsnNX97qxmLpJlSjW0NztFI6YDaxlqVmDAGwegT2XU75gxaUl
+ HSaw9R6QQou0hqPp2mjnK10q+quf9y/7pUb3V+yj5c5q/16Vi1/Z/tFhtdGBvO9c4Rx08yAGPg
+ rc0faxagUshbAhQBaA29HcDxejxSmh+hRbMhtBUoeeBg+/IM4UrwV0KfkNwVcDGGvYILdPwR1i
+ W5QdkEVVdfwEAAA==
+X-Change-ID: 20260422-pvh-kasan-inline-6efac77f1b27
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, Mauricio Faria de Oliveira <mfo@igalia.com>
+X-Mailer: b4 0.14.2
+X-purgate-ID: tlsNG-c1860d/1782840127-415273FC-C417F0C2/0/0
 X-purgate-type: clean
-X-purgate-size: 879
+X-purgate-size: 6926
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [0.61 / 15.00];
+	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
+	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mfo@igalia.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email,igalia.com:mid,igalia.com:from_mime];
+	FREEMAIL_TO(0.00)[kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com];
+	FORGED_SENDER(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[igalia.com:-];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5FB266E6C55
+X-Rspamd-Queue-Id: 9F7786E6DBE
 
-On 19/06/2026 2:04 pm, Frediano Ziglio wrote:
-> diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-> index b5892ae8dc..3af996e900 100644
-> --- a/tools/libs/ctrl/xc_private.h
-> +++ b/tools/libs/ctrl/xc_private.h
-> @@ -383,7 +383,7 @@ int xc_flush_mmu_updates(xc_interface *xch, struct xc_mmu *mmu);
->  /* Return 0 on success; -1 on error setting errno. */
->  int read_exact(int fd, void *data, size_t size); /* EOF => -1, errno=0 */
->  int write_exact(int fd, const void *data, size_t size);
-> -int writev_exact(int fd, const struct iovec *iov, int iovcnt);
-> +int writev_exact(int fd, struct iovec *iov, int iovcnt);
+[RESEND v5 (2026-06-01): address feedback from Borislav Petkov in Patch 1.]
 
-No callers care, but this is written with a const pointer to match writev().
+The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
 
-If we really do want to take this change, then it needs to come with a
-comment saying /* May edit iov to cope with partial writes. */
+Booting directly from vmlinux (instead of bzImage) now fails with gcc-14/15
+(but works with gcc-12/13) if CONFIG_KASAN_GENERIC is set, on Ubuntu 25.10.
 
-~Andrew
+The PVH code is required/supposed not to use the KASAN memory access check
+in the kernel entry point as KASAN has not yet been setup, or an exception
+is hit and the boot fails.
+
+This was previously described and addressed with __builtin_mem{cmp,set}():
+- commit 661362e3dcab ("xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)")
+- commit 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
+- commit fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
+
+However, even with __builtin the compiler may decide to use the out of line
+function instead of the inline implementation. So, that does not really fix
+the issue unconditionally; see details below.
+
+In order to address this, it's required to switch to inline implementations
+that do not depend on the compiler.
+
+There's such a memset() in <asm/string.h> and memcmp() in 'boot/string.c'.
+Use them instead of builtins in PVH entry.
+
+Testing:
+
+- Booting from vmlinux (fixed) and bzImage (still works) using
+  allnoconfig + CONFIG_PVH + CONFIG_KASAN with gcc-12/13/14/15.
+
+- Building with CONFIG_KEXEC_FILE, CONFIG_CFI and !CONFIG_KASAN with LLVM 20
+  (check for a build error not caught previously).
+
+Details/Debugging:
+
+- Only CONFIG_PVH (works):
+
+  make allnoconfig
+  ./scripts/config \
+    -e 64BIT -e HYPERVISOR_GUEST -e PVH \
+    -e SERIAL_8250 -e SERIAL_8250_CONSOLE
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  Linux version ...
+  ...
+  <Ctrl-C>
+
+- With CONFIG_KASAN (fails)
+
+  ./scripts/config -e KASAN
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  <QEMU reboot loop, flashing the text above>
+
+- Debugging:
+
+  Enable debug info and rebuild.
+
+  QEMU: enable and wait for GDB, stop rebooting, remain running.
+
+  qemu-system-x86_64 \
+    -s -S -no-reboot -no-shutdown \
+    <other options>
+
+  gdb vmlinux
+  (gdb) target remote localhost:1234
+  ...
+  (gdb) c
+  ...
+  Thread 2 received signal SIGQUIT, Quit.
+  ...
+  (gdb) info threads
+    Id   Target Id                    Frame
+    1    Thread 1.1 (CPU#0 [running]) bytes_is_nonzero (
+      start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  * 2    Thread 1.2 (CPU#1 [halted ]) 0x00000000000fd0a9 in ?? ()
+  ...
+  (gdb) thr 1
+  ...
+  (gdb) bt
+  #0  bytes_is_nonzero (start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  #1  memory_is_nonzero (start=0xfffffbfff031eebe, end=0xfffffbfff031eebf) at .../linux/mm/kasan/generic.c:115
+  #2  memory_is_poisoned_n (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:140
+  #3  memory_is_poisoned (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:172
+  #4  check_region_inline (addr=0xffffffff818f75f0, size=8, write=false, ret_ip=18446744071585002062)
+      at .../linux/mm/kasan/generic.c:191
+  #5  kasan_check_range (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8, write=write@entry=false,
+      ret_ip=18446744071585002062) at .../linux/mm/kasan/generic.c:200
+  #6  0xffffffff813eb283 in __asan_loadN (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8)
+      at .../linux/mm/kasan/generic.c:278
+  #7  0xffffffff815df24e in memcmp (cs=cs@entry=0xffffffff818f75f0, ct=ct@entry=0x1be2fe4, count=<optimized out>,
+      count@entry=12) at .../linux/lib/string.c:683
+  #8  0xffffffff81ba2323 in cpuid_base_hypervisor (sig=0xffffffff818f75f0 "XenVMMXenVMM", leaves=2)
+      at .../linux/arch/x86/include/asm/cpuid/api.h:206
+  #9  xen_cpuid_base () at .../linux/arch/x86/include/asm/xen/hypervisor.h:46
+  #10 xen_prepare_pvh () at .../linux/arch/x86/platform/pvh/enlighten.c:119
+  #11 0x0000000001ba2588 in ?? ()
+  #12 0x0000000000000000 in ?? ()
+  (gdb)
+
+  Frames #7-#8 show the non-builtin memcmp() (lib/string.c) was called
+  even with __builtin_memcmp() being used in cpuid_base_hypervisor().
+
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+---
+Changes in v5:
+- Create a minimal separate header in <asm/shared/string.h> instead,
+  to be used by 'boot/setup.c' and <asm/string.h> (Borislav Petkov).
+- Patch 1 (in v4/v3) is no longer needed; removed.
+- Patch 1 (in v5):
+  - Briefly mention there are issues with <asm/string.h>.
+  - Remove 'Reviewed-by: Jurgen Gross' to be conservative
+    (same code change and result, but the means changed).
+- Link to v4: https://lore.kernel.org/r/20260526-pvh-kasan-inline-v4-0-a310e6a25ecd@igalia.com
+
+Changes in v4:
+- Patch 1: address Juergen's feedback:
+  - s/In next patch/In a future patch/.
+  - Move footnote (Reasons not to include...) after "---".
+- Add 'Reviewed-by: Juergen Gross' in patches 1 and 2 as well.
+- Link to v3: https://lore.kernel.org/r/20260520-pvh-kasan-inline-v3-0-bede769c6ec7@igalia.com
+
+Changes in v3:
+- Create and use a separate header for inline string functions
+  to fix a build error reported by kernel test robot (patch 1).
+- That also removes '#ifndef _SETUP/#endif' in <asm/string.h>.
+- Link to v2: https://lore.kernel.org/r/20260427-pvh-kasan-inline-v2-0-2c57b8dcff6a@igalia.com
+
+Changes in v2:
+- Add comment about the return value of __inline_memcmp() in patch 1. (v3: now 2)
+- Add 'Reviewed-by: Juergen Gross' in patches 2 and 3 (v3: now 3 and 4).
+- Link to v1: https://lore.kernel.org/r/20260422-pvh-kasan-inline-v1-0-7e6194344c92@igalia.com
+
+---
+Mauricio Faria de Oliveira (3):
+      x86/asm, x86/boot: expose inline memcmp
+      x86/cpuid: fix unbootable VMs by really inlining memcmp() in hypervisor_cpuid_base()
+      x86/pvh: fix unbootable VMs by really inlining memset() in xen_prepare_pvh()
+
+ arch/x86/boot/string.c               |  6 ++----
+ arch/x86/include/asm/cpuid/api.h     |  2 +-
+ arch/x86/include/asm/shared/string.h | 16 ++++++++++++++++
+ arch/x86/include/asm/string.h        |  1 +
+ arch/x86/platform/pvh/enlighten.c    |  3 ++-
+ 5 files changed, 22 insertions(+), 6 deletions(-)
+---
+base-commit: 7de6ae9e12207ec146f2f3f1e58d1a99317e88bc
+change-id: 20260422-pvh-kasan-inline-6efac77f1b27
+
+Best regards,
+-- 
+Mauricio Faria de Oliveira <mfo@igalia.com>
+
 
