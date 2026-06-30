@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id k+/QOGjNQ2pfigoAu9opvQ
+	id XJkQFYDNQ2p3igoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:06:32 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:06:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EAFE6E5381
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:06:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42FE6E5398
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:06:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=Dvd3rSRH;
+	dkim=pass header.d=suse.com header.s=google header.b=FX5sGYet;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1349001.1606797 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1349012.1606806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weZ6X-0006Aq-Ry; Tue, 30 Jun 2026 14:06:25 +0000
+	id 1weZ6s-0006gZ-4T; Tue, 30 Jun 2026 14:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1349001.1606797; Tue, 30 Jun 2026 14:06:25 +0000
+Received: by outflank-mailman (output) from mailman id 1349012.1606806; Tue, 30 Jun 2026 14:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weZ6X-00068Y-Oy; Tue, 30 Jun 2026 14:06:25 +0000
-Received: by outflank-mailman (input) for mailman id 1349001;
- Tue, 30 Jun 2026 14:06:23 +0000
+	id 1weZ6s-0006e9-0B; Tue, 30 Jun 2026 14:06:46 +0000
+Received: by outflank-mailman (input) for mailman id 1349012;
+ Tue, 30 Jun 2026 14:06:44 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weZ6V-00064h-Qb
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 14:06:23 +0000
+ (envelope-from <jbeulich@suse.com>) id 1weZ6q-0006dU-1Q
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 14:06:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weZ6V-001DFv-6x
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 16:06:23 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1weZ6p-001DQy-Ec
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 16:06:43 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43cd56-2eae-0a2a0a5409dd-0a2a4502b914-18
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:06:23 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a43cd6c-2eae-0a2a0a5409dd-0a2a450bb082-38
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:06:43 +0200
+Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43cd5e-5a27-0a2a45020019-d1558031e9ad-3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:06:23 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-493ba729dbdso4037665e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 07:06:23 -0700 (PDT)
+ id 6a43cd73-ac48-0a2a450b0019-d155dd35c005-3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:06:43 +0200
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-4758b2a9e2aso514502f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 07:06:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47563d195b3sm8581655f8f.8.2026.06.30.07.06.21
+ ffacd0b85a97d-475641e4659sm8380977f8f.12.2026.06.30.07.06.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 07:06:22 -0700 (PDT)
+ Tue, 30 Jun 2026 07:06:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,49 +61,48 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782828382; x=1783433182; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782828403; x=1783433203; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yi1J6oBQQCDF544YYXBhrqWzrznLLlVPi+0upj+pGUE=;
-        b=Dvd3rSRHyLiDHGHVr3xqezpDx2wF5qbLH5pWmA30t64udIPYdOZ55hPgkK4CtRSvpB
-         8K0+jC10tmqWJfKNvgCwc9JxYzO/0CpMZ48tB2ukEkrWw3pbmVh6WrPsh18We3W3OOzA
-         XgplcLJuM7EsVpy3d6rHoaJgTMjZtv9omB7DHWUe9ye6Tlb6pVPCeQf0WaOlx4o0Sds8
-         hLxcN+BYK7+zUbZcl+CeV7j4HFzrCO5NCFynl5N+V0f6DZ5KfjjZoDqj4sxapuUjizUx
-         mjS1lfVceWt9USXbBmAfiQsUXVqtROg9irfuxdp7fzk7Q4ijwzH1i2Z5LdHMeZV37dlQ
-         Cl/Q==
+        bh=VjQBjU4tlaZc2czbe1uHDpNUNQT539ySugQmprLUVZ0=;
+        b=FX5sGYet1vTEYctxXEU2pCrtRAitNGkUGHovGjbOab4mRCErDpnbsUnvW8jZbpDwJr
+         8lLHDYfFBvWsSjFp7bVjLqX/3Gx0QrDQo7BtT83HOaT7KpmW/f1wE2OYpX/vMcuR6vFe
+         7mIrW+/Oa5D41lJaTuGhnPKYvUBQfYlKAJ3XU+i2Bd0j4w3+7uSaNmYo+gdtOSszg40Y
+         HB0LTJa0IOb1rViCtA8w7JCXFw3aP4+mpBIP23Y+D6zZSgc1U7/PL2hkTilWHX+jvBqP
+         iesxEohz+cJEmMflKF9YvWq8x0+jUZNI+Iy+7WidK1HKI0gFeESoeCIuXyWywJdVo3NA
+         DX4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782828382; x=1783433182;
+        d=1e100.net; s=20251104; t=1782828403; x=1783433203;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yi1J6oBQQCDF544YYXBhrqWzrznLLlVPi+0upj+pGUE=;
-        b=RnbeYbBRqwvV9ymKSvPd/LEvBRFsXyr7NhPDF1pIQqgossAwu2LRWkzKsiUdRFfhfS
-         xWkAMimUSgPVF+7yrUNNxzls6ubtKTS07mZ+aEbr/XCmjaQhbCNHqSZ/shgjO5qg3xOE
-         WDZECWZ84nhz8FGXaKxoxHK51KnC6GlNCcbdaFB8jN2XwX8d4Au6an7mcQs7SkRLu7zS
-         OQArLjsGDcXJ+8Vdk1pvmuOwQrs0sBHTRS1cDbRZih+SHlLCUQKcfkn0hiDTBpKKb6vP
-         mo1CKzX3izC/WjhW54CO5BQWfv+TxdOkg+Bh8+DICftMV56vE48Zb1KHhj/0QXmWjmCg
-         ZBRw==
-X-Gm-Message-State: AOJu0Yz2qW4mrMPQb8eyBVcDcDj5RLHWOOhkz/JWyBIUisxCariKVKo9
-	RQMdBFQSL0d+1xW0MvuoAhMJUCMgmUloQZvQYAR4oEg6/Iwz3u05eR+3k7TWDCKUXro+ISHrmhK
-	7fk0bCg==
-X-Gm-Gg: AfdE7ckOY7YxtSBbth5RJTpDNDdCPKR5hDvvpX97SERU7/sfuHrPlL7Rd6PQQTH04iC
-	ZnNvBeOmuy8OTmRHi32uWAc8Wv4VDogtVY/lWzIGB+rb0eNzL7sPBKVFSdnUhQ3M/pCxSnA+qWr
-	57kqM7VFAvVzsJwGf3UwZMUkdv2jqjcKl5cSV6L0OgylImzOkWoWncBFgIvVkBCtAxL6xYawuE+
-	HDVrkDj8bwMwbdsCxsirLkfmTgra6Aw2wJ1UhT/ZkHmIL/U0vhHgolQzWCoWreFYEoB0t4RKdUd
-	IhGKo8hDyCQi4p2eo6BJFnJydvgc2a0PSGsZ4VOFWvkQ9NhX7JpMvZKhiSkoakg5Rp8STTU0yOQ
-	A2ckrK8M289c/AQFzby82hvPhn1HqzGp7svt8j97Dlu2wLKr8M905Rdy8k1LDkQw+q8K44GG1oc
-	gTEEu0iBnpjN3YmJL0dvgnHxY+l1X5AEdOo6DQO9LX7x1g/UgbdOGgoVRTc+GpvSl0LAroEre2P
-	Qi9
-X-Received: by 2002:a05:600c:8411:b0:493:a893:1200 with SMTP id 5b1f17b1804b1-493b82815d4mr49963145e9.5.1782828382542;
-        Tue, 30 Jun 2026 07:06:22 -0700 (PDT)
-Message-ID: <80b20aa4-8954-47ed-85f0-3f09d46717cf@suse.com>
-Date: Tue, 30 Jun 2026 16:06:21 +0200
+        bh=VjQBjU4tlaZc2czbe1uHDpNUNQT539ySugQmprLUVZ0=;
+        b=bgCZVFz35VkYE2fh5fwP6ktEx7XaIpPUzOt4CsoT+co9WxvvnVQ9WdBvdtU7DI1acc
+         dKCQlSG/GzyUpV+6ePAG637t8U7k26vnNSh09cs33fccsefFmtseXZm8emqx1tupGUaA
+         w9SbHWX51U5vpcZJfeEr+3M1jjtbeYaILrO9ulaKAB4MwbW0RUuhlJXvVMs0VNLm+Nkq
+         ImG7AJ4ctZlN9hpyPjDuG2uaq6jGiUi0ov5UgvMbY/8vzA+LDrS0UtC5hTU4R3bzbcVm
+         sWu5wEYaAcnobGhC2Nt8JdysYuupwcYEArVX6MxiYnz/FC7CdfvQrazyFuSsa/+Dk3LJ
+         0ChQ==
+X-Gm-Message-State: AOJu0YxIjzN5owLcz2PIRh+BiCDQqQHsAm6BaH4fYuqo+QQbtzctTlt7
+	Mv1p0G78SGafO2E7J5UcB47a2j+QHQ9cJ+miMsnpV2b4ewEho7Ky0Ckoe0nU6mpKXvqIj+fZ7oX
+	d1rD2SQ==
+X-Gm-Gg: AfdE7ckqSzPhOmnFi+x27C19YZh4PCBN5QguSbpu8W9gbUSjJLU23QCRqKcbrk65zWj
+	Y8+ct9r/ZGowuZFXjXWqMST6Z02jO03KrZOS1sPdOH2VucXjW+ZslhRLGnDhZM3i731qJZJrnm+
+	kDFeASDCdhDrhEzeClocKLeriuRNTJZU4e92zz4AG1qaeBdyoSQ8gae16yqYgvmtZ7Ijj5yQ79S
+	8gGFCmWaFbQQiLN2QOpE07ZRz+6VE2V9G9PmT+l7Uc+7JTbZKn7rU9WvTE1k7m6NdznAiVGsKhs
+	iFFwsK0AoEwKgTgCx4MzoH9rTc7a41eUdwxyPa5NWLZppFsOVPu5z+8VtVkzm3h0VOnAUzwXTCu
+	MUA680amg/WT9EEc8SdIktHcOSqvdLWGenSly6pyeYCz00LHN/hXJsR10UlqVfEeGMAYMDyR9tT
+	08ay4zoyP6Ed4aYfoyxbKGj6b6i/g59GHqKbghJp0zpY9HI4c22EnMxnmUTMA78a8eW5LfWiFmN
+	V/D
+X-Received: by 2002:a05:6000:248a:b0:46b:7f57:7109 with SMTP id ffacd0b85a97d-47550f8e22cmr5238707f8f.20.1782828402457;
+        Tue, 30 Jun 2026 07:06:42 -0700 (PDT)
+Message-ID: <a53601c4-dab7-4d75-9cf0-323acc980ede@suse.com>
+Date: Tue, 30 Jun 2026 16:06:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 2/3] x86/Intel: split model-specific freq calculation off
- of intel_log_freq()
+Subject: [PATCH v4 3/3] x86/time: avoid early uses of NOW() to return zero
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -136,10 +135,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <f5040939-b166-4050-9a27-117b772547d4@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1782828383-4E7157C5-4ECB21C3/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1782828403-39D27220-25993D5B/0/0
 X-purgate-type: clean
-X-purgate-size: 4526
+X-purgate-size: 6199
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -151,7 +150,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,citrix.com:email];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -174,152 +173,187 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4EAFE6E5381
+X-Rspamd-Queue-Id: B42FE6E5398
 
-..., for that logic to become reusable. While doing so undo the open-
-coding of DIV_ROUND_UP(). Also switch to the new struct cpuinfo_x86 field
-names.
+Waiting loops like the one in flush_command_buffer() will degenerate to
+infinite ones when used early enough for NOW() to still return constant
+zero. Make sure the returned value at least monotonically increases. When
+available, use nominal frequency values as initial approximation.
 
+Do this only in get_s_time(), as producing a sane value in
+get_s_time_fixed() for non-zero inputs won't be reasonably possible.
+Put an assertion there.
+
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-If Misra didn't dislike non-static functions without external callers, the
-new function could be put below the old one, thus reducing churn and
-improving readability of the diff (really I moved the code for the new
-function up, but the diff representation is the other way around).
----
-v3: New.
+RFC: While generally the mentioned waiting loops will take longer to time
+     out, on a very fast CPU tight loops may time out too early.
 
+RFC: On the 2nd pass through early_cpu_init() it may be okay to skip the
+     new additions.
+
+With "x86/time: set AP's TSC scale estimate earlier" the counter update
+may not need to be atomic anymore, as then only the BSP can reasonably hit
+that path.
+
+I don't think Fixes: tags should be put here. If we did, we'd have to
+enumerate all introductions of early uses of NOW() (or get_s_time()), with
+the exception of those dealing with getting back 0 (which I expect is only
+printk_start_of_line()). Will want backporting nevertheless (unless deemed
+too risky).
+---
+v3: Use "high" / "max" freq if "nominal" isn't available. Set NOW_good.
+v2: Add assertion to get_s_time_fixed(). Use nominal frequencies for very
+    early setting, if available.
+
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -19,6 +19,7 @@
+ #include <asm/random.h>
+ #include <asm/setup.h>
+ #include <asm/shstk.h>
++#include <asm/time.h>
+ #include <asm/xstate.h>
+ 
+ #include <public/sysctl.h>
+@@ -403,6 +404,36 @@ void __init early_cpu_init(bool verbose)
+ 				    &c->x86_capability[FEATURESET_7d1]);
+ 	}
+ 
++	if (c->cpuid_level >= 0x15) {
++		cpuid(0x15, &eax, &ebx, &ecx, &edx);
++
++		if (ecx && ebx && eax)
++			preset_tsc_scale(DIV_ROUND_UP(ecx * 1UL * ebx, eax));
++		else if (c->cpuid_level >= 0x16) {
++			/* Assume CPU base freq ≈ TSC freq. */
++			cpuid(0x16, &eax, &ebx, &ecx, &edx);
++			if (eax)
++				preset_tsc_scale(eax * 1000000UL);
++			else if (ebx) /* See preset_tsc_scale() for why. */
++				preset_tsc_scale(ebx * 1000000UL);
++		}
++	} else if (c->vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) {
++		unsigned int nom_mhz = 0, hi_mhz = 0;
++
++		amd_process_freq(c, NULL, &nom_mhz, &hi_mhz);
++		if (nom_mhz)
++			preset_tsc_scale(nom_mhz * 1000000UL);
++		else if (hi_mhz) /* See preset_tsc_scale() for why. */
++			preset_tsc_scale(hi_mhz * 1000000UL);
++	} else if (c->vendor & X86_VENDOR_INTEL) {
++		unsigned int hi_mhz = 0;
++
++		/* See preset_tsc_scale() for why. */
++		intel_process_freq(c, NULL, &hi_mhz);
++		if (hi_mhz)
++			preset_tsc_scale(hi_mhz * 1000000UL);
++	}
++
+ 	eax = cpuid_eax(0x80000000);
+ 	if ((eax >> 16) == 0x8000 && eax >= 0x80000008) {
+ 		ebx = eax >= 0x8000001f ? cpuid_ebx(0x8000001f) : 0;
+--- a/xen/arch/x86/include/asm/time.h
++++ b/xen/arch/x86/include/asm/time.h
+@@ -23,6 +23,7 @@ mktime (unsigned int year, unsigned int
+ int time_suspend(void);
+ int time_resume(void);
+ 
++void preset_tsc_scale(unsigned long freq);
+ void init_percpu_time(void);
+ void time_latch_stamps(void);
+ 
 --- a/xen/arch/x86/cpu/intel.c
 +++ b/xen/arch/x86/cpu/intel.c
-@@ -476,51 +476,14 @@ static int num_cpu_cores(struct cpuinfo_
+@@ -476,8 +476,8 @@ static int num_cpu_cores(struct cpuinfo_
  		return 1;
  }
  
--static void intel_log_freq(const struct cpuinfo_x86 *c)
-+static void intel_process_freq(const struct cpuinfo_x86 *c,
-+                               unsigned int *min_mhz, unsigned int *max_mhz)
+-static void intel_process_freq(const struct cpuinfo_x86 *c,
+-                               unsigned int *min_mhz, unsigned int *max_mhz)
++void intel_process_freq(const struct cpuinfo_x86 *c,
++                        unsigned int *min_mhz, unsigned int *max_mhz)
  {
--    unsigned int eax, ebx, ecx, edx, factor;
      uint64_t msrval;
      uint8_t max_ratio, min_ratio;
-+    unsigned int factor;
- 
--    if ( c->cpuid_level >= 0x15 )
--    {
--        cpuid(0x15, &eax, &ebx, &ecx, &edx);
--        if ( ecx && ebx && eax )
--        {
--            unsigned long long val = ecx;
--
--            val *= ebx;
--            printk("CPU%u: TSC: %u Hz * %u / %u = %Lu Hz\n",
--                   smp_processor_id(), ecx, ebx, eax, val / eax);
--        }
--        else if ( ecx | eax | ebx )
--        {
--            printk("CPU%u: TSC:", smp_processor_id());
--            if ( ecx )
--                printk(" core: %u Hz", ecx);
--            if ( ebx && eax )
--                printk(" ratio: %u / %u", ebx, eax);
--            printk("\n");
--        }
--    }
--
--    if ( c->cpuid_level >= 0x16 )
--    {
--        cpuid(0x16, &eax, &ebx, &ecx, &edx);
--        if ( ecx | eax | ebx )
--        {
--            printk("CPU%u:", smp_processor_id());
--            if ( ecx )
--                printk(" bus: %u MHz", ecx);
--            if ( eax )
--                printk(" base: %u MHz", eax);
--            if ( ebx )
--                printk(" max: %u MHz", ebx);
--            printk("\n");
--        }
--    }
--
--    switch ( c->x86 )
-+    switch ( c->family )
-     {
-         static const unsigned short core_factors[] =
-             { 26667, 13333, 20000, 16667, 33333, 10000, 40000 };
-@@ -533,7 +496,7 @@ static void intel_log_freq(const struct
-         if ( !max_ratio )
-             return;
- 
--        switch ( c->x86_model )
-+        switch ( c->model )
-         {
-         case 0x0e: /* Core */
-         case 0x0f: case 0x16: case 0x17: case 0x1d: /* Core2 */
-@@ -578,10 +541,61 @@ static void intel_log_freq(const struct
-         return;
-     }
- 
-+    if ( min_mhz )
-+        *min_mhz = DIV_ROUND_UP(factor * min_ratio, 100);
-+    *max_mhz = DIV_ROUND_UP(factor * max_ratio, 100);
-+}
-+
-+static void intel_log_freq(const struct cpuinfo_x86 *c)
-+{
-+    unsigned int eax, ebx, ecx, edx, min_mhz = 0, max_mhz = 0;
-+
-+    if ( c->cpuid_level >= 0x15 )
-+    {
-+        cpuid(0x15, &eax, &ebx, &ecx, &edx);
-+        if ( ecx && ebx && eax )
-+        {
-+            unsigned long long val = ecx;
-+
-+            val *= ebx;
-+            printk("CPU%u: TSC: %u Hz * %u / %u = %Lu Hz\n",
-+                   smp_processor_id(), ecx, ebx, eax, val / eax);
-+        }
-+        else if ( ecx | eax | ebx )
-+        {
-+            printk("CPU%u: TSC:", smp_processor_id());
-+            if ( ecx )
-+                printk(" core: %u Hz", ecx);
-+            if ( ebx && eax )
-+                printk(" ratio: %u / %u", ebx, eax);
-+            printk("\n");
-+        }
-+    }
-+
-+    if ( c->cpuid_level >= 0x16 )
-+    {
-+        cpuid(0x16, &eax, &ebx, &ecx, &edx);
-+        if ( ecx | eax | ebx )
-+        {
-+            printk("CPU%u:", smp_processor_id());
-+            if ( ecx )
-+                printk(" bus: %u MHz", ecx);
-+            if ( eax )
-+                printk(" base: %u MHz", eax);
-+            if ( ebx )
-+                printk(" max: %u MHz", ebx);
-+            printk("\n");
-+        }
-+    }
-+
-+    intel_process_freq(c, &min_mhz, &max_mhz);
-+    if ( !max_mhz )
-+        return;
-+
-     printk("CPU%u: ", smp_processor_id());
--    if ( min_ratio )
--        printk("%u ... ", (factor * min_ratio + 50) / 100);
--    printk("%u MHz\n", (factor * max_ratio + 50) / 100);
-+    if ( min_mhz )
-+        printk("%u ... ", min_mhz);
-+    printk("%u MHz\n", max_mhz);
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -417,6 +417,9 @@ static inline uint8_t get_cpu_family(uin
+     return fam;
  }
  
- static void init_intel_perf(struct cpuinfo_x86 *c)
++void intel_process_freq(const struct cpuinfo_x86 *c,
++                        unsigned int *min_mhz, unsigned int *max_mhz);
++
+ #ifdef CONFIG_INTEL
+ extern int8_t opt_tsx;
+ extern bool rtm_disabled;
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1664,6 +1664,9 @@ s_time_t get_s_time_fixed(uint64_t at_ts
+     const struct cpu_time *t = &this_cpu(cpu_time);
+     uint64_t tsc, delta;
+ 
++    /* scale_delta() degenerates when the scale wasn't set yet. */
++    ASSERT(t->tsc_scale.mul_frac);
++
+     if ( at_tsc )
+         tsc = at_tsc;
+     else
+@@ -1679,6 +1682,20 @@ s_time_t get_s_time_fixed(uint64_t at_ts
+ 
+ s_time_t get_s_time(void)
+ {
++    /*
++     * Before the TSC scale is set, avoid returning constant 0 (or whatever
++     * this_cpu(cpu_time).stamp.local_stime is set to).  While the returned
++     * value is in no way representing time, it at least increases
++     * monotonically, thus avoiding e.g. waiting loops to degenerate to
++     * entirely infinite ones.
++     */
++    if ( unlikely(!this_cpu(cpu_time).tsc_scale.mul_frac) )
++    {
++        static s_time_t counter;
++
++        return arch_fetch_and_add(&counter, 1);
++    }
++
+     return get_s_time_fixed(0);
+ }
+ 
+@@ -2632,6 +2649,22 @@ int __init init_xen_time(void)
+     return 0;
+ }
+ 
++/* BSP-only function to pre-set an approximate TSC scale. */
++void __init preset_tsc_scale(unsigned long freq)
++{
++    struct cpu_time *t = &this_cpu(cpu_time);
++
++    /*
++     * The incoming frequency is only approximate (nominal).  Increase it by
++     * 1% to make NOW() output rather a little too slow than too fast, thus
++     * avoiding a possible backwards jump once the final scale is set.
++     */
++    freq += DIV_ROUND_UP(freq, 100);
++
++    set_time_scale(&t->tsc_scale, freq);
++    t->stamp.local_tsc = boot_tsc_stamp;
++    NOW_good = true;
++}
+ 
+ /* Early init function. */
+ void __init early_time_init(void)
+@@ -2649,6 +2682,9 @@ void __init early_time_init(void)
+                    "TSC ADJUST set to %lx on boot CPU - clearing\n", tmp);
+             wrmsrl(MSR_IA32_TSC_ADJUST, 0);
+             boot_tsc_stamp -= tmp;
++
++            if ( t->stamp.local_tsc )
++                t->stamp.local_tsc -= tmp;
+         }
+     }
+ 
 
 
