@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id siaoEJzKQ2pgiAoAu9opvQ
+	id dBhpFBDNQ2ooigoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:54:36 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:05:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6B6B6E5178
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 15:54:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF9326E5339
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jun 2026 16:05:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=Ieqq6+GG;
+	dkim=pass header.d=suse.com header.s=google header.b=RV+EJw1K;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1348977.1606770 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1348991.1606778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weYux-00029L-Dw; Tue, 30 Jun 2026 13:54:27 +0000
+	id 1weZ4y-00057j-8I; Tue, 30 Jun 2026 14:04:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1348977.1606770; Tue, 30 Jun 2026 13:54:27 +0000
+Received: by outflank-mailman (output) from mailman id 1348991.1606778; Tue, 30 Jun 2026 14:04:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weYux-00026b-AH; Tue, 30 Jun 2026 13:54:27 +0000
-Received: by outflank-mailman (input) for mailman id 1348977;
- Tue, 30 Jun 2026 13:54:26 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1weZ4y-00055D-5Y; Tue, 30 Jun 2026 14:04:48 +0000
+Received: by outflank-mailman (input) for mailman id 1348991;
+ Tue, 30 Jun 2026 14:04:47 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1weYuw-000269-Aa
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 13:54:26 +0000
+ (envelope-from <jbeulich@suse.com>) id 1weZ4x-000553-5I
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 14:04:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weYuv-000DWt-MY
- for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 15:54:25 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1weZ4t-004i6K-Gr
+ for xen-devel@lists.xenproject.org; Tue, 30 Jun 2026 16:04:43 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43ca85-2eae-0a2a0a5409dd-0a2a45078548-46
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:54:25 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a43ccf2-5cb7-0a2a0a5109dd-0a2a4502b822-18
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:04:43 +0200
+Received: from [209.85.167.50] (helo=mail-lf1-f50.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a43ca91-9c8e-0a2a45070019-d1558030c43b-3
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 15:54:25 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4926f8e02e8so27978785e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 06:54:25 -0700 (PDT)
+ id 6a43ccfb-5a27-0a2a45020019-d155a732d1bb-3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 16:04:43 +0200
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5aea9d606f0so3881867e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jun 2026 07:04:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493b8ca8a81sm71394735e9.10.2026.06.30.06.54.24
+ ffacd0b85a97d-47567979eafsm7894204f8f.34.2026.06.30.07.04.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 06:54:24 -0700 (PDT)
+ Tue, 30 Jun 2026 07:04:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,54 +61,52 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782827665; x=1783432465; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7VObdJ/Ay7YvnO1Jkamyr9ljoHlqZ5SKP2YYwI2w7ZY=;
-        b=Ieqq6+GGBU3va/ophsoGd+rAU038dOVIdmTXiVOz699blm/AuZT0+IWHiTdIkJI1kZ
-         +Fm3YOdbFpH/lK0+AdaLAXJhKpFvgiBPJTq1wqVya4rS5KpK4xOFp4Tkwvf18DW/RfT1
-         zA1gQpEv++b12ppIw/VNkLqU3ElKHRWsRo+oMpg3Vas3yMz/lfD9V+EjNzovLNKmaNzn
-         6IgXTKZ6xXw7iDqfFO8sD1gRf85wdmXKaat39IK5wUWV3RIXq4KwvbLo0nHEABlzbWLG
-         NKDKVjs2Dr4EvLGZcwBWm9sdQMo5Y3vXca8bHbUxXsviGjt+X9vNqMibbF7kmWOhr+fy
-         q5MA==
+        d=suse.com; s=google; t=1782828283; x=1783433083; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZcOAlBpFp1uV5ukROrRc2ePZRsnF5Urz+vBxuRHz/00=;
+        b=RV+EJw1Kfao5I6wa3Q9tpA0YPLaJHv1qktcEOtNblWsZQj1xy9LZ7CqaWPncP1e3yo
+         DgLPF1YWso3ZTs6RyjMy9BJGs8NECWJObVhiN0clbhxQeMCEeX2l+m0N9sdv0lq6Rbtg
+         m1SN6jEc+WxHu0RnHH6+Xyq+yjRs8DrU8utLCxOztUfRjfNw+x+9Hh5yURAPAlhic6JT
+         UVL/185zhnrA+rYSew+7wVvTAcwae50vzaza/cNw/MxxR4MZ10ZnD63aUhJysqZV96Fa
+         zCB7ZSLDwomrqGcNYeQSSWpjc7r35jClhSh+/q2ZlntQroaqvuYvwOIuu9Uwv5Gdwzms
+         mYEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782827665; x=1783432465;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7VObdJ/Ay7YvnO1Jkamyr9ljoHlqZ5SKP2YYwI2w7ZY=;
-        b=Il2dEkJ1y0H4dtgYr2ciHM667Bc1P3bzuIS08O5S4dpfmVf0dbJP/qUUOcIy2MaYdj
-         bShAGbMfBPG7CcNe1XFAhX3GYyKwbymHoULwtWFCkDYtsWJ/3G0lRYkfrGSLwW7kw06t
-         eSO31e0kL+6IGzQD+rQx3+6IkJvSbc9DyN0Z7WOrmvpxZlIdqndUGsDSG5BoKJar/P2O
-         /0FQtgq1fX94xbecBM2cBiVHYrGLD2wF88X9oR/eHczALnB1mQ8b06qjjVGecLwCeEi3
-         EsAV0kgJL8HggTDTobgvZngJumckPiTRefxukVl94HEXXMMo1cv+jVjgKqopxvF3x3DO
-         hYtg==
-X-Gm-Message-State: AOJu0Yzr2CcXmGzlgZhnwRumXxi8UyoL1NQ8zp1cWz1s/JteM3hWyUzC
-	LPiws9bu21xju92unpVaSMt89KPevBHKm+KEYPTPZ9+l0K40I/Yceg/5yl5oKsRdnKRbZSDfSvo
-	6l/lg7A==
-X-Gm-Gg: AfdE7cnHthfTS6nYNTTEOVBTqlv6HfRV4IN9VRAIEkq+eRq7fVTWtzVy4OgMPBr45OJ
-	e85Jlf26M0scEqP4+hdffmgM6EW+IhbJIiP6EoxKzy1ME+Hvbo6yUFtIiHi/O5zWPSPeKVE73F9
-	FkAOik7GLsJoqgM3/obAfWarDcHi3TF87kB44BKnVgp++NMerCLY2qTzS0QEt29Wm8EliDYrFvK
-	LI8gWUfVQ2+7QG3qwiwQ6cXMGHuo8cGtsk3mxVV3rQqpmV9xH4iR8gWa3dkLbvetucKZrzHOgzr
-	ewFsrR1Ys6Z0sMULrSh8rkct4I8Uot9LeuojR9ANn2FKLLlFnLraaIRNcghX6CMdF0VVs0YV1Vt
-	m03fq+lz6jxQ5D1useZRxZrn/HSPx0lKtcieZQgunmf0JYNrxr/BE+gTg+BfmoI99zrL67vR9Gw
-	Iq7rv1xfZek2aZyr5RD770SJCoM+BMlP5mBIhXZd7DJgH25yd2vPs872A20T+GQWfDd4H80KsS1
-	YK4
-X-Received: by 2002:a05:600c:810b:b0:493:bc4a:d5f5 with SMTP id 5b1f17b1804b1-493bda928edmr10545345e9.39.1782827664971;
-        Tue, 30 Jun 2026 06:54:24 -0700 (PDT)
-Message-ID: <e7fe9dc2-a7e1-4d9c-a6fe-d57b4d39944d@suse.com>
-Date: Tue, 30 Jun 2026 15:54:24 +0200
+        d=1e100.net; s=20251104; t=1782828283; x=1783433083;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZcOAlBpFp1uV5ukROrRc2ePZRsnF5Urz+vBxuRHz/00=;
+        b=omIdbsP+1x/ZFJq/bEf4y3Q6T7yR8skvDuc5WYjL+Azr91HB+w8rYnazgjHc7p3/pQ
+         fcd/6Uvbci1H8dyXqfSslrBxXj6Cidr/Bsgxp11YUCkHWSkdopsVario8NamS19hRKO9
+         vqjl93e6/TLoWEKSrrCX3/tMIPXbIKTV4hHSgu1LhTCey/gsun6nLo3BYjpXbko5AMd2
+         21RJJOObkVJfXZEINf/b5Kf8WhVJGP0U0JG4z+Vs2QOTl7RTqEVETrRhnPx86WCQ32Pq
+         5K2BflHfBZrQ4tvvkTtKq1BAQaZuZyakQB82Lo1QEbRc1bzRZ9x+KLgn6wATJHTOH9Es
+         fLpg==
+X-Gm-Message-State: AOJu0YzMttxQJx6x/4BGikZABiIJ0FoTwc+sStbpaMKPrVs8qpicaPkA
+	9BNqUenbiB0phExxanggnVmpYVik/tkUN04hlG7LVXr47tt3DQlTFIJWafPaw7yLTNLulYL1NQU
+	7kP7iHw==
+X-Gm-Gg: AfdE7ckbnyG0LirrIVUDtqME8FjEierz47PPesJJuhEpqUUPQ7regQGIR6in6391Q+c
+	UnKCorCRCV6ZHCT86zd0SMuXiVYtLYL3lpDuDZ/ZjJ28LbKd3HOpOc5mLvB1pMBBFOZXPNZ6hIA
+	Rc9htHAzWeKvdvOzRPrcekV9mKE+jgWnK496+nmZEFB/t7oC41yotZsBDkhJxe1Kwl7Oc/kSqUg
+	f+hnGYsY1C1QHEzVWla8pu5m1R2c2OD4Bp95fAUBUEnr/X0JeVgQMp05tEAqNLwlclo5xK+Ca54
+	VS90sbJPXqNOPp0PHhcqP4fEErD0WclgDmKvl6oxiTmOh5wIu/eOS362CqRbIgKHuHF3fF31B8+
+	RWlaLVxJuCs8i8xKCjf/ZKid9HQvmx2LmmO7me3/vrLXAARzpFu6/toI7qOzKJE7P91mVpXoaT9
+	wKgvH+B0DM3hrSS86xPCUYWqN1KH++cSlV2SkAffl7yMsFDX5SOMvxScgc9JaG7Z7Q01WBYpt8B
+	uaZ
+X-Received: by 2002:a05:6512:8341:b0:5ae:b7a8:17c3 with SMTP id 2adb3069b0e04-5aec10bc96bmr243027e87.37.1782828282613;
+        Tue, 30 Jun 2026 07:04:42 -0700 (PDT)
+Message-ID: <f5040939-b166-4050-9a27-117b772547d4@suse.com>
+Date: Tue, 30 Jun 2026 16:04:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 2/2] x86/HVM: more checking for XEN_DOMCTL_ioport_mapping
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 0/3] x86/time: avoid early uses of NOW() to return zero
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Teddy Astie <teddy.astie@vates.tech>
-References: <65f69026-f284-4cfd-b502-8d8955b412f5@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -133,33 +131,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <65f69026-f284-4cfd-b502-8d8955b412f5@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1782827665-FC11625E-240ED00C/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-720697/1782828283-76D107C5-D9D2524E/0/0
 X-purgate-type: clean
-X-purgate-size: 2315
+X-purgate-size: 176
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -173,66 +170,11 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A6B6B6E5178
+X-Rspamd-Queue-Id: DF9326E5339
 
-When adding ranges, only alter existing ones when there is an exact match.
-Don't accept ranges overlapping existing ones.
+1: time: add "NOW() good" indicator
+2: x86/Intel: split model-specific freq calculation off of intel_log_freq()
+3: x86/time: avoid early uses of NOW() to return zero
 
-When removing ranges, only remove a range if there's an exact match.
-Return an error when the range isn't found.
-
-Fixes: 192c4dabc344 ("domctl and p2m changes for PCI passthru")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Should "exact match" perhaps also include the guest port number? I'm
-uncertain here as that kind of conflicts with "add" being treated as
-"change" when the host port (and now count) match.
----
-v2: Re-base over change to earlier patch.
-
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -728,12 +728,14 @@ long arch_do_domctl(
-                    "ioport_map:remove: %pd gport=%x mport=%x nr=%x\n",
-                    d, fgp, fmp, np);
- 
-+            ret = -ENOENT;
-             write_lock(&hvm->g2m_ioport_lock);
-             list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
--                if ( g2m_ioport->mport == fmp )
-+                if ( g2m_ioport->mport == fmp && g2m_ioport->np == np )
-                 {
-                     list_del(&g2m_ioport->list);
-                     xfree(g2m_ioport);
-+                    ret = 0;
-                     break;
-                 }
-             write_unlock(&hvm->g2m_ioport_lock);
-@@ -746,14 +748,21 @@ long arch_do_domctl(
- 
-             write_lock(&hvm->g2m_ioport_lock);
-             list_for_each_entry(g2m_ioport, &hvm->g2m_ioport_list, list)
--                if (g2m_ioport->mport == fmp )
-+            {
-+                if ( g2m_ioport->mport == fmp && g2m_ioport->np == np )
-                 {
-                     g2m_ioport->gport = fgp;
--                    g2m_ioport->np = np;
-                     found = 1;
-                     break;
-                 }
--            if ( !found )
-+                if ( fmp + np >= g2m_ioport->mport &&
-+                     g2m_ioport->mport + g2m_ioport->np >= fmp )
-+                {
-+                    ret = -EBUSY;
-+                    break;
-+                }
-+            }
-+            if ( !found && !ret )
-             {
-                 g2m_ioport = xmalloc(struct g2m_ioport);
-                 if ( !g2m_ioport )
-
+Jan
 
