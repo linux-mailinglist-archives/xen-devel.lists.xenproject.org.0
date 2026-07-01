@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id JP6PEnVrRWrB/goAu9opvQ
+	id ulkXHbRrRWrW/goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:09 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:34:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6156F0E57
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E36DE6F0E97
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:34:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=google.com header.s=20251104 header.b=lxViW8WA;
+	dkim=pass header.d=google.com header.s=20251104 header.b=EqcKxy9L;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=google.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350423.1607987 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350548.1608054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0gA-0005Os-2D; Wed, 01 Jul 2026 19:33:02 +0000
+	id 1wf0h7-0002RY-KO; Wed, 01 Jul 2026 19:34:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350423.1607987; Wed, 01 Jul 2026 19:33:01 +0000
+Received: by outflank-mailman (output) from mailman id 1350548.1608054; Wed, 01 Jul 2026 19:34:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0g9-0005HZ-Br; Wed, 01 Jul 2026 19:33:01 +0000
-Received: by outflank-mailman (input) for mailman id 1350423;
- Wed, 01 Jul 2026 19:32:59 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wf0h7-0002OX-EQ; Wed, 01 Jul 2026 19:34:01 +0000
+Received: by outflank-mailman (input) for mailman id 1350548;
+ Wed, 01 Jul 2026 19:34:00 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3Z2tFagYKCaweQMZVOSaaSXQ.OaYjQZ-PQhQXXUefe.jQZbdaVQOf.adS@flex--seanjc.bounces.google.com>)
- id 1wf0g6-0004kx-P4
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:32:58 +0000
+ <3aGtFagYKCa0fRNaWPTbbTYR.PbZkRa-QRiRYYVfgf.kRacebWRPg.beT@flex--seanjc.bounces.google.com>)
+ id 1wf0h6-00029t-6I
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:34:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf0g6-00B3ua-4v
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:32:58 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wf0h5-003oMF-JB
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:33:59 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3Z2tFagYKCaweQMZVOSaaSXQ.OaYjQZ-PQhQXXUefe.jQZbdaVQOf.adS@flex--seanjc.bounces.google.com>)
- id 6a456b66-5cb7-0a2a0a5109dd-0a2a4506dc64-10
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:58 +0200
+ <3aGtFagYKCa0fRNaWPTbbTYR.PbZkRa-QRiRYYVfgf.kRacebWRPg.beT@flex--seanjc.bounces.google.com>)
+ id 6a456b9c-2eae-0a2a0a5409dd-0a2a4509e6b8-18
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:33:59 +0200
 Received: from [209.85.215.202] (helo=mail-pg1-f202.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <3Z2tFagYKCaweQMZVOSaaSXQ.OaYjQZ-PQhQXXUefe.jQZbdaVQOf.adS@flex--seanjc.bounces.google.com>)
- id 6a456b68-08de-0a2a45060019-d155d7cabd77-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:57 +0200
+ <3aGtFagYKCa0fRNaWPTbbTYR.PbZkRa-QRiRYYVfgf.kRacebWRPg.beT@flex--seanjc.bounces.google.com>)
+ id 6a456b69-97e6-0a2a45090019-d155d7cab074-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:59 +0200
 Received: by mail-pg1-f202.google.com with SMTP id
- 41be03b00d2f7-c88d7a75507so1270513a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:57 -0700 (PDT)
+ 41be03b00d2f7-c891ed872ddso919055a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,44 +58,45 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782934376; x=1783539176; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1782934377; x=1783539177; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=3ZuhwNx9YXpitDLlgZzJCjWGiYgYUv+Ggq0FniuPOLw=;
-        b=lxViW8WAJLXW6fMwttCfBrvJau12GH0yFmxR3UbXxuiFGU96fiEtXlscE74f+R07WE
-         lOhlDvbXsKo/qw/Pc4zPtWO6sRS+YPeUtMgA8yKHXicnQ0OArimn24MxhzRlTSIJ27oC
-         1V9D+8cbZTWYAZu3SBz5nfMzYVYJjMl23hLDeR4ZLCV0R+6gFT4dkkE7uVZexeRw4naU
-         T/1+tSlVELR60wesaF+Jesfw4vkNb2Zvr68vakCLdahpH4ZgWUH8EifVOtWD9J+9skOx
-         hXSSpTUP9NmD0izmzISOz84bkNiVLSd2ueF9QQW+e2+So5rvS1IQCcurWwHagmqz52P9
-         MnpQ==
+        bh=uJ3m/TrNbE4SFzRsHKX+8uSq+s8U3KdnfXDvnqXCgWk=;
+        b=EqcKxy9LijNW5TOqgFn7ZLTojtCinJRrqyx2RWIR+TWzn5eGPRCcuYV2FiAfiaSJkU
+         4QEbq8yOzaQgwhIekJZ3uTBYEeuRL+BUuvNgRHUhGM+/e+OvAkz9SX14z7hCAvBW9o/a
+         m9MPeZzOxJ8Elo3XbVEeU6YRc98ZZRZ5oNm3QkAZIfRgvhP2+oYaDwzNe54NY3Z3LE6P
+         3LdygURw7xJOADrNuWCL9aEf28t3xNCiMVO0/WGMdBHqEDez1vqqrgm3F2a8sSJRkqSy
+         gEC8nya3OzLWaMlzPW9kfTFzL5xrk4soB4ImEBai/h4yGDqm8m5WLPnT21/PwceKd/9m
+         fNyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782934376; x=1783539176;
+        d=1e100.net; s=20251104; t=1782934377; x=1783539177;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=3ZuhwNx9YXpitDLlgZzJCjWGiYgYUv+Ggq0FniuPOLw=;
-        b=k8vy7BY1tyIgE2nAztY3G1w39a9vo1OdTg+rcOtZXD9SPP0RMLBvi+yZRCadIFVO9R
-         UCylPxrqFk5rJxjNwi00k/g4WobgsrHjlr2qXQNNQLoA1/9h3lXNmvr29LrMyAEsh4T1
-         llWMsHJAdnq/fRBNKwBJTYJbPSzfSBD2dke4+1pgDudB1vhe2UUFbwFyJcr92ccJbiGg
-         L+kzQQlgmnKOyjMjsqvyK4cWWQ9y9969tkTmlhhBgsvg7KR2GZ3Vi32Kr5Zse7R8dUT1
-         sHeVFCZ3DMkL6Tl8/v732QLHNDw4kqXbk77Xnn+Zdy2lXRHKPJd58+mZdIAj+gHBMYA/
-         Y8Tg==
-X-Forwarded-Encrypted: i=1; AFNElJ9FhIlk1G5iIAk9Gchk4MbQDEbfi30zXL3PgfyB+w7IjAgp4wNAqyC6B3oYV2eqb2Kx6rHvuQBio5c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTOqWjB5ezIPJWmvIMshp73BuQwMX+foOzfpFzqO7L8B4EUI67
-	6WMaB6e+xwyhv71x1kVdNkVdo7ptplCGbLg/WmOQcMiRxdF8XwfDMu+3gTx6VD99AQMqAEHENiw
-	h0V2Jng==
-X-Received: from pglx30.prod.google.com ([2002:a63:171e:0:b0:c9e:a22d:15c4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6e8f:b0:3bf:d0c8:2aa4
- with SMTP id adf61e73a8af0-3bfed1c3990mr3189645637.8.1782934375853; Wed, 01
- Jul 2026 12:32:55 -0700 (PDT)
+        bh=uJ3m/TrNbE4SFzRsHKX+8uSq+s8U3KdnfXDvnqXCgWk=;
+        b=nsLYrAtvTk8WNj746MbeD4r5gGWNsMNtrU75LOAC/i2yuFwxAWCGtj7zu01FMA/y6Q
+         k6Ir0CUugQ6wIWbQ+3Bz38ZOulRU3bafYhRI6GrxFujMg+eO04yL2jElsMszX7ELZFvV
+         lIwJSyNz7ZxeQmzS93+cESrvgifitc+ggVeFQguImnhH00/OFX0FMV63AFgxVTvphWLG
+         LvJlWDKQPm3TGOuGGHwwMS/H0M3mloQ38s1wLiUzzxK5jwP9yvwx8k6EPYV/Atzp8ltL
+         OgARaPF6wklw+WpC69eDkOU/+6pVC+0Axib3hycGDx8SXjhxtibCM9/rTmH/eUpk2bT4
+         +TQA==
+X-Forwarded-Encrypted: i=1; AFNElJ8XAEnkk0NeaXIMpRoM+xlsGYnhKPnV2SavL6geqlW94hq2Yrf7X+OlQ4jZ3xjgmkCaKGZ28oVoV24=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxB3lr9HRy0e8cvZH7GzTM0gxuvjWvune9wZUo6iG5gW78knNX1
+	pLKdHWp7IrEbuEdL4UhbA1iUQ+bFKJ9y+bBTnUWJvAFeyQnOw2DQmcIlnTAtkgHzudoMS0uiN06
+	BDjVSIQ==
+X-Received: from pgwa12.prod.google.com ([2002:a65:654c:0:b0:c8a:eb2c:4d63])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:1b84:b0:398:9b42:69f7
+ with SMTP id adf61e73a8af0-3bfed3b19b0mr3537498637.39.1782934376998; Wed, 01
+ Jul 2026 12:32:56 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  1 Jul 2026 12:31:45 -0700
+Date: Wed,  1 Jul 2026 12:31:46 -0700
 In-Reply-To: <20260701193212.749551-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260701193212.749551-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260701193212.749551-25-seanjc@google.com>
-Subject: [PATCH v5 24/51] x86/kvm: Get CPU base frequency from CPUID when it's available
+Message-ID: <20260701193212.749551-26-seanjc@google.com>
+Subject: [PATCH v5 25/51] clocksource: hyper-v: Register sched_clock
+ save/restore iff it's necessary
 From: Sean Christopherson <seanjc@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -119,9 +120,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>, 
 	Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-16d1c6/1782934378-41F3C68D-88305DC7/0/0
+X-purgate-ID: tlsNG-bad1c0/1782934379-56B97986-478C3F8D/13/0
 X-purgate-type: clean
-X-purgate-size: 1781
+X-purgate-size: 6607
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -147,7 +148,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	HAS_REPLYTO(0.00)[seanjc@google.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,outlook.com:email];
 	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[google.com:+];
@@ -159,59 +160,177 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EC6156F0E57
+X-Rspamd-Queue-Id: E36DE6F0E97
 
-If CPUID.0x16 is present and valid, use the CPU frequency provided by
-CPUID instead of assuming that the virtual CPU runs at the same
-frequency as TSC and/or kvmclock.  Back before constant TSCs were a
-thing, treating the TSC and CPU frequencies as one and the same was
-somewhat reasonable, but now it's nonsensical, especially if the
-hypervisor explicitly enumerates the CPU frequency.
+Register the Hyper-V reference counter (refcounter) callbacks for saving
+and restoring its PV sched_clock, if and only if the refcounter is
+actually being used for sched_clock.  Currently, Hyper-V overrides the
+save/restore hooks if the reference TSC available, whereas the Hyper-V
+refcounter code only overrides sched_clock if the reference TSC is
+available *and* it's not invariant.  The flaw is effectively papered over
+by invoking the "old" save/restore callbacks as part of save/restore, but
+that's unnecessary and fragile.
 
+To avoid introducing more complexity, and to allow for additional cleanups
+of the PV sched_clock code, move the save/restore hooks and logic into
+hyperv_timer.c and simply wire up the hooks when overriding sched_clock
+itself.
+
+Note, while the Hyper-V refcounter code is intended to be architecture
+neutral, CONFIG_PARAVIRT is firmly x86-only, i.e. adding a small amount of
+x86 specific code (which will be reduced in future cleanups) doesn't
+meaningfully pollute generic code.
+
+Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Michael Kelley <mhklinux@outlook.com>
+Acked-by: Wei Liu <wei.liu@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kernel/kvm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ arch/x86/kernel/cpu/mshyperv.c     | 58 ------------------------------
+ drivers/clocksource/hyperv_timer.c | 50 ++++++++++++++++++++++++++
+ 2 files changed, 50 insertions(+), 58 deletions(-)
 
-diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
-index 1cef54e1e7d9..6c7011ff7bd1 100644
---- a/arch/x86/kernel/kvm.c
-+++ b/arch/x86/kernel/kvm.c
-@@ -50,6 +50,7 @@
- #include <asm/e820/api.h>
- 
- static unsigned int kvm_tsc_khz_cpuid __initdata;
-+static unsigned int kvm_cpu_khz_cpuid __initdata;
- 
- DEFINE_STATIC_KEY_FALSE_RO(kvm_async_pf_enabled);
- 
-@@ -928,6 +929,11 @@ static unsigned int __init kvm_get_tsc_khz(void)
- 	return kvm_tsc_khz_cpuid;
+diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
+index e03c69a4db33..c4da8e35319a 100644
+--- a/arch/x86/kernel/cpu/mshyperv.c
++++ b/arch/x86/kernel/cpu/mshyperv.c
+@@ -275,63 +275,6 @@ static void hv_guest_crash_shutdown(struct pt_regs *regs)
  }
+ #endif /* CONFIG_CRASH_DUMP */
  
-+static unsigned int __init kvm_get_cpu_khz(void)
+-static u64 hv_ref_counter_at_suspend;
+-static void (*old_save_sched_clock_state)(void);
+-static void (*old_restore_sched_clock_state)(void);
+-
+-/*
+- * Hyper-V clock counter resets during hibernation. Save and restore clock
+- * offset during suspend/resume, while also considering the time passed
+- * before suspend. This is to make sure that sched_clock using hv tsc page
+- * based clocksource, proceeds from where it left off during suspend and
+- * it shows correct time for the timestamps of kernel messages after resume.
+- */
+-static void save_hv_clock_tsc_state(void)
+-{
+-	hv_ref_counter_at_suspend = hv_read_reference_counter();
+-}
+-
+-static void restore_hv_clock_tsc_state(void)
+-{
+-	/*
+-	 * Adjust the offsets used by hv tsc clocksource to
+-	 * account for the time spent before hibernation.
+-	 * adjusted value = reference counter (time) at suspend
+-	 *                - reference counter (time) now.
+-	 */
+-	hv_adj_sched_clock_offset(hv_ref_counter_at_suspend - hv_read_reference_counter());
+-}
+-
+-/*
+- * Functions to override save_sched_clock_state and restore_sched_clock_state
+- * functions of x86_platform. The Hyper-V clock counter is reset during
+- * suspend-resume and the offset used to measure time needs to be
+- * corrected, post resume.
+- */
+-static void hv_save_sched_clock_state(void)
+-{
+-	old_save_sched_clock_state();
+-	save_hv_clock_tsc_state();
+-}
+-
+-static void hv_restore_sched_clock_state(void)
+-{
+-	restore_hv_clock_tsc_state();
+-	old_restore_sched_clock_state();
+-}
+-
+-static void __init x86_setup_ops_for_tsc_pg_clock(void)
+-{
+-	if (!(ms_hyperv.features & HV_MSR_REFERENCE_TSC_AVAILABLE))
+-		return;
+-
+-	old_save_sched_clock_state = x86_platform.save_sched_clock_state;
+-	x86_platform.save_sched_clock_state = hv_save_sched_clock_state;
+-
+-	old_restore_sched_clock_state = x86_platform.restore_sched_clock_state;
+-	x86_platform.restore_sched_clock_state = hv_restore_sched_clock_state;
+-}
+-
+ #ifdef CONFIG_X86_64
+ DEFINE_STATIC_CALL(hv_hypercall, hv_std_hypercall);
+ EXPORT_STATIC_CALL_TRAMP_GPL(hv_hypercall);
+@@ -736,7 +679,6 @@ static void __init ms_hyperv_init_platform(void)
+ 
+ 	/* Register Hyper-V specific clocksource */
+ 	hv_init_clocksource();
+-	x86_setup_ops_for_tsc_pg_clock();
+ 	hv_vtl_init_platform();
+ #endif
+ 	/*
+diff --git a/drivers/clocksource/hyperv_timer.c b/drivers/clocksource/hyperv_timer.c
+index df567795d175..4293173c3a27 100644
+--- a/drivers/clocksource/hyperv_timer.c
++++ b/drivers/clocksource/hyperv_timer.c
+@@ -554,10 +554,60 @@ static __always_inline void hv_setup_sched_clock(void *sched_clock)
+ #elif defined CONFIG_PARAVIRT
+ #include <asm/timer.h>
+ 
++static u64 hv_ref_counter_at_suspend;
++static void (*old_save_sched_clock_state)(void);
++static void (*old_restore_sched_clock_state)(void);
++
++/*
++ * Hyper-V clock counter resets during hibernation. Save and restore clock
++ * offset during suspend/resume, while also considering the time passed
++ * before suspend. This is to make sure that sched_clock using hv tsc page
++ * based clocksource, proceeds from where it left off during suspend and
++ * it shows correct time for the timestamps of kernel messages after resume.
++ */
++static void save_hv_clock_tsc_state(void)
 +{
-+	return kvm_cpu_khz_cpuid;
++	hv_ref_counter_at_suspend = hv_read_reference_counter();
 +}
 +
- unsigned int kvm_arch_para_features(void)
- {
- 	return cpuid_eax(kvm_cpuid_base() | KVM_CPUID_FEATURES);
-@@ -1041,6 +1047,14 @@ static void __init kvm_init_platform(void)
- 		}
- 	}
- 
++static void restore_hv_clock_tsc_state(void)
++{
 +	/*
-+	 * Prefer CPUID.0x16 over KVM's PV CPUID when possible, as the base CPU
-+	 * frequency isn't necessarily the same as the TSC frequency.
++	 * Adjust the offsets used by hv tsc clocksource to
++	 * account for the time spent before hibernation.
++	 * adjusted value = reference counter (time) at suspend
++	 *                - reference counter (time) now.
 +	 */
-+	kvm_cpu_khz_cpuid = __cpu_khz_from_cpuid();
-+	if (kvm_cpu_khz_cpuid)
-+		x86_init.hyper.get_cpu_khz = kvm_get_cpu_khz;
++	hv_adj_sched_clock_offset(hv_ref_counter_at_suspend - hv_read_reference_counter());
++}
++/*
++ * Functions to override save_sched_clock_state and restore_sched_clock_state
++ * functions of x86_platform. The Hyper-V clock counter is reset during
++ * suspend-resume and the offset used to measure time needs to be
++ * corrected, post resume.
++ */
++static void hv_save_sched_clock_state(void)
++{
++	old_save_sched_clock_state();
++	save_hv_clock_tsc_state();
++}
 +
-         /*
-          * If the TSC counts at a constant frequency across P/T states and in
-          * deep C-states, treat the TSC reliable, as guaranteed by KVM.
++static void hv_restore_sched_clock_state(void)
++{
++	restore_hv_clock_tsc_state();
++	old_restore_sched_clock_state();
++}
++
+ static __always_inline void hv_setup_sched_clock(void *sched_clock)
+ {
+ 	/* We're on x86/x64 *and* using PV ops */
+ 	paravirt_set_sched_clock(sched_clock);
++
++	old_save_sched_clock_state = x86_platform.save_sched_clock_state;
++	x86_platform.save_sched_clock_state = hv_save_sched_clock_state;
++
++	old_restore_sched_clock_state = x86_platform.restore_sched_clock_state;
++	x86_platform.restore_sched_clock_state = hv_restore_sched_clock_state;
+ }
+ #else /* !CONFIG_GENERIC_SCHED_CLOCK && !CONFIG_PARAVIRT */
+ static __always_inline void hv_setup_sched_clock(void *sched_clock) {}
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
