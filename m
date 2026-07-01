@@ -2,61 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id jCULMpEnRWq37woAu9opvQ
+	id DP/ONCAoRWrW7woAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:43:29 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:45:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21EA66EEE65
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:43:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 383A36EEEB3
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:45:52 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=peSBuBHe;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=ur25LJ2A;
+	dkim=pass header.d=suse.com header.s=google header.b="ACry/BGe";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350041.1607601 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350054.1607639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wew9b-0008Ub-9j; Wed, 01 Jul 2026 14:43:07 +0000
+	id 1wewC7-0000pi-Rg; Wed, 01 Jul 2026 14:45:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350041.1607601; Wed, 01 Jul 2026 14:43:07 +0000
+Received: by outflank-mailman (output) from mailman id 1350054.1607639; Wed, 01 Jul 2026 14:45:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wew9b-0008ST-6L; Wed, 01 Jul 2026 14:43:07 +0000
-Received: by outflank-mailman (input) for mailman id 1350041;
- Wed, 01 Jul 2026 14:43:05 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wewC7-0000nR-Oj; Wed, 01 Jul 2026 14:45:43 +0000
+Received: by outflank-mailman (input) for mailman id 1350054;
+ Wed, 01 Jul 2026 14:45:42 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wew9Z-0008SM-KJ
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 14:43:05 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wewC6-0000mG-FC
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 14:45:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wew9Y-0049NV-I0
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 16:43:04 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wewC5-003l9Q-Dz
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 16:45:41 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 6a452778-e002-0a2a0a5209dd-0a2a4505baea-0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:43:04 +0200
-Received: from [195.135.223.131] (helo=smtp-out2.suse.de)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jgross@suse.com>)
- id 6a452778-3cb2-0a2a45050019-c387df8389ec-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:43:04 +0200
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CAEBF76059;
- Wed,  1 Jul 2026 14:43:02 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A2F2F779AA;
- Wed,  1 Jul 2026 14:43:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id k69xJnYnRWrRUwAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 01 Jul 2026 14:43:02 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 6a452803-2eae-0a2a0a5409dd-0a2a450be7a6-32
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:45:41 +0200
+Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a452815-ac48-0a2a450b0019-d155dd2cb49a-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:45:41 +0200
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-476d8e647e9so709657f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 07:45:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-477db8a450bsm390780f8f.10.2026.07.01.07.45.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Jul 2026 07:45:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,278 +60,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1782916984; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=xGF2+lZzYIrDrm427lt7ssQD3mGyRMVR8LXNsjrebZg=;
-	b=peSBuBHedet+PH3Kzhne5hX9O4XePlG5fkEi42h4Asv4h0PbzLDZC4j1G/GlSobbnFuLkN
-	Eg7xPgkQjKEJw5QyTPk9fiMVp9RzsRtjbS2emNCAhzd3XAqQXoFDq3nC/AJkzFwOnlBEaT
-	bOR1ZNgbsh9vR9V/XcU8YFfTctd+63Y=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1782916982; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=xGF2+lZzYIrDrm427lt7ssQD3mGyRMVR8LXNsjrebZg=;
-	b=ur25LJ2ATm6nrtBkHBwiT1Zyl46mc8OpB6GO3c6fyd0l+LOWbJfYs7XblAbJaGw9on0EUL
-	ayREc5dxcRnJWnceosDvuWGrHNzEY1b8LZL9Y0okTOHrsNG99Bg9p7gI5LXkzxUdSmAMpZ
-	L2LpEmnrjOAXaHpUYcIM9BSBAJTJq3w=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH] stubdom: remove c-stubdom
-Date: Wed,  1 Jul 2026 16:42:59 +0200
-Message-ID: <20260701144259.4077884-1-jgross@suse.com>
-X-Mailer: git-send-email 2.54.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1782917141; x=1783521941; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=irMRNbgKvuqITnobG7iDWOXfBogQaMWuiiyBaILdGAQ=;
+        b=ACry/BGewSTOVcBOT1L21q4RoFjtXYIqYeZUJGUNjUY/Gy9/wklliU3OZaqsfu2g4B
+         xtmcogaaIJq2TawIJAPskuZNjrESwzErnHQ1P3d92pNyfHBSnKkp4dTgJJjsqZnjcXRt
+         NerTPJ9wS9DO6j7wA9xDmr/SFbabZRdduMaVF2lW+2wMXHlptFjWSsfAODCY7ON6MH+u
+         QU5iTSs4jFUyI+lbldC/hJS8WaCllSAeTLKX/kKlKeY2G5RwsXXG4XdoR/aCkzg9e+gx
+         BTCpBFtw1rEAzCIzYDertiYZMBbt6+XmYe3+WKRQZvYYE+PQAaIj5TNMft+Na23dqNk+
+         7PUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782917141; x=1783521941;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=irMRNbgKvuqITnobG7iDWOXfBogQaMWuiiyBaILdGAQ=;
+        b=gTtay7kt2dI582wH6XEZRIfMKYPzTDXiKI9QhF1kzA99B7/Tml+fEVjm+taL8jKv/o
+         JEj+9ON7TTDE4cBdArrhG54vntM1CDWiqaRt7aF/vhQytgUdInfSGkeRfClu5keau1+Q
+         YMRA+2kEgtJzbBRrPx3Bv4LVA/wuFS8KEe4UBCqq3R+oh2jzONXHYvplv6zVMyPhXkyx
+         65U7r6W2+sAEqdHTHmiD8/ZIns54HMqYxnr5MtAd7Li03qpVMbyFpUaPeldaUAOl5nkB
+         wjNjVcy4AfzZNYzOE2R/dnnQJOldZ3HrHjZkUDSCl+FlbdOeclBxV+Amfwdp1L/YCAA/
+         t1Og==
+X-Gm-Message-State: AOJu0Yw3lcNbbsewqeNLFcE4nN58asq3sGkti7U/xbPgXJMdbRqGCq+l
+	V1Xk4o3TkZNyYkHAwT1B4Xs+FbdQiY8x/PHGrLxWd56c2gTRzq1fLbbRq8rX8akgL81sE0J5cMy
+	D4NTO+w==
+X-Gm-Gg: AfdE7ckdN5nEq1iBR3pcukPUNqpiPywXwoGA9v83sTO96jYVjMegAa0A/EynzDK1JJq
+	C9IHOxy/wejNieR8fRCj2KT3mbmfLgkfGxPeJN++/YcwwJGdCS+cSDCE1s4W4vuB2Z+6PRPZZik
+	TrFlNmrXNZT0u76PS8bCoQSoM45ADvPTRwHQjKq/OktLxMzw7/xSJSQmbWeiDoay9EsMGHmi/Xb
+	VTyjjBWXfkrkUuwjfnH8eJCTqmdP521WGxXbiv/XqcDHAIoMf9EyLBQMrkyBo0k6wgc2hM/NCv4
+	oj4kehBEJL5do+mGpjysGtKfG0LTOO8m9XjdRWEIFm0FKr9CvScZOim38sjxu4Tk+HNzsb0xWzz
+	YwFFcMB34WmeUTWs2QK2Vf9SmzWnncAtheUfDV7wBEDB6TVhO9UwH0N/sXVQVO23+sLZOOtH/xv
+	TrWiMcm4oiqGp+lSGYlFqAxSFqg4CfZj9fUcA5WQvO8n261uvKlsUWNlq5x0clPg+GaIaCvn0zw
+	+aAorMyTUuph0c=
+X-Received: by 2002:a05:600c:570f:b0:493:ad1b:b38d with SMTP id 5b1f17b1804b1-493c2ba7db3mr22090225e9.37.1782917140681;
+        Wed, 01 Jul 2026 07:45:40 -0700 (PDT)
+Message-ID: <ba863889-b389-4264-824e-121a5daeba61@suse.com>
+Date: Wed, 1 Jul 2026 16:45:39 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-purgate-ID: tlsNG-c201ff/1782916984-17D1E2B8-2E324319/0/0
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 0/2] hypercall string inputs
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1782917141-3A125220-A9F24B94/0/0
 X-purgate-type: clean
-X-purgate-size: 5963
+X-purgate-size: 573
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:jgross@suse.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:anthony.perard@vates.tech,m:samuel.thibault@ens-lyon.org,s:lists@lfdr.de];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[c-minios-config.mk:url,xenstorepvh-minios-config.mk:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ALIAS_RESOLVED(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 21EA66EEE65
+X-Rspamd-Queue-Id: 383A36EEEB3
 
-C-stubdom was meant as a base for building new Mini-OS based stubdoms.
-It hasn't seen any work for many years now and creating new stubdoms
-should use UNIKRAFT instead of Mini-OS.
+While doing the XSA-492 work I further noticed an inefficiency with
+safe_copy_string_from_guest(). All callers pass PAGE_SIZE as the maximum
+buffer size, and with the function adding 1 to append a nul terminator
+the resulting allocations are all order-1 ones. Which we'd better avoid.
+Require respective callers of hypercalls to nul-terminate the strings
+within the buffer supplied. While an ABI change, I think it's an
+acceptable one.
 
-So remove c-stubdom.
+1: libxc: drop size parameter from xc_flask_context_to_sid()
+2: lib: make safe_copy_string_from_guest() validate input
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- stubdom/Makefile     | 19 -------------------
- stubdom/c/Makefile   | 13 -------------
- stubdom/c/main.c     |  8 --------
- stubdom/c/minios.cfg |  2 --
- stubdom/configure    | 44 --------------------------------------------
- stubdom/configure.ac |  1 -
- 6 files changed, 87 deletions(-)
- delete mode 100644 stubdom/c/Makefile
- delete mode 100644 stubdom/c/main.c
- delete mode 100644 stubdom/c/minios.cfg
-
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 9aa0d3dee4..acd5e56f16 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -339,17 +339,6 @@ $(TARGETS_MINIOS): mini-os-%:
-                 mkdir -p $@/$$i ; \
- 	done
- 
--###
--# C
--###
--
--c-minios-config.mk: $(CURDIR)/c/minios.cfg
--	MINIOS_CONFIG="$<" CONFIG_FILE="$(CURDIR)/$@" $(MAKE) DESTDIR= -C $(MINI_OS) config
--
--.PHONY: c
--c: $(CROSS_ROOT) c-minios-config.mk
--	CPPFLAGS="$(TARGET_CPPFLAGS) $(shell cat c-minios-config.mk)" CFLAGS="$(TARGET_CFLAGS)" $(MAKE) DESTDIR= -C $@ LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) 
--
- ######
- # VTPM
- ######
-@@ -432,10 +421,6 @@ xenstorepvh: $(CROSS_ROOT) xenstorepvh-minios-config.mk
- # minios
- ########
- 
--.PHONY: c-stubdom
--c-stubdom: mini-os-$(XEN_TARGET_ARCH)-c lwip-$(XEN_TARGET_ARCH) libxenguest c
--	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/c/minios.cfg" $(MAKE) DESTDIR= -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< LWIPDIR=$(CURDIR)/lwip-$(XEN_TARGET_ARCH) APP_OBJS=$(CURDIR)/c/main.a
--
- .PHONY: vtpm-stubdom
- vtpm-stubdom: mini-os-$(XEN_TARGET_ARCH)-vtpm vtpm
- 	DEF_CPPFLAGS="$(TARGET_CPPFLAGS)" DEF_CFLAGS="$(TARGET_CFLAGS)" DEF_LDFLAGS="$(TARGET_LDFLAGS)" MINIOS_CONFIG="$(CURDIR)/vtpm/minios.cfg" $(MAKE) -C $(MINI_OS) OBJ_DIR=$(CURDIR)/$< APP_OBJS="$(CURDIR)/vtpm/vtpm.a" APP_LDLIBS="-ltpm -ltpm_crypto -lgmp -lpolarssl"
-@@ -485,8 +470,6 @@ else
- install-grub-if-enabled:
- endif
- 
--install-c: c-stubdom
--
- install-xenstore: xenstore-stubdom
- 	$(INSTALL_DIR) "$(DESTDIR)$(XENFIRMWAREDIR)"
- 	$(INSTALL_DATA) mini-os-$(XEN_TARGET_ARCH)-xenstore/mini-os.gz "$(DESTDIR)$(XENFIRMWAREDIR)/xenstore-stubdom.gz"
-@@ -540,13 +523,11 @@ uninstall-vtpmmgr:
- .PHONY: clean
- clean: $(foreach lib,$(STUB_LIBS),clean-libxen$(lib))
- clean:
--	rm -fr mini-os-$(XEN_TARGET_ARCH)-c
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-grub
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-xenstore
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-xenstorepvh
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-vtpm
- 	rm -fr mini-os-$(XEN_TARGET_ARCH)-vtpmmgr
--	$(MAKE) DESTDIR= -C c clean
- 	$(MAKE) -C vtpm clean
- 	$(MAKE) -C vtpmmgr clean
- 	rm -fr grub-$(XEN_TARGET_ARCH)
-diff --git a/stubdom/c/Makefile b/stubdom/c/Makefile
-deleted file mode 100644
-index b252dcad0b..0000000000
---- a/stubdom/c/Makefile
-+++ /dev/null
-@@ -1,13 +0,0 @@
--XEN_ROOT = $(CURDIR)/../..
--
--ifeq (,$(findstring clean,$(MAKECMDGOALS)))
--include $(XEN_ROOT)/Config.mk
--endif
--
--all: main.a
--
--main.a: main.o 
--	$(AR) cr $@ $^
--
--clean:
--	rm -f *.a *.o
-diff --git a/stubdom/c/main.c b/stubdom/c/main.c
-deleted file mode 100644
-index f97a0f72d4..0000000000
---- a/stubdom/c/main.c
-+++ /dev/null
-@@ -1,8 +0,0 @@
--#include <stdio.h>
--#include <unistd.h>
--
--int main(void) {
--        sleep(2);
--        printf("Hello, world!\n");
--        return 0;
--}
-diff --git a/stubdom/c/minios.cfg b/stubdom/c/minios.cfg
-deleted file mode 100644
-index 56d65510cd..0000000000
---- a/stubdom/c/minios.cfg
-+++ /dev/null
-@@ -1,2 +0,0 @@
--CONFIG_LIBC=y
--CONFIG_LWIP=y
-diff --git a/stubdom/configure b/stubdom/configure
-index e127ef44eb..8a0a798bd2 100755
---- a/stubdom/configure
-+++ b/stubdom/configure
-@@ -661,7 +661,6 @@ debug
- xenstorepvh
- xenstore
- grub
--c
- host_os
- host_vendor
- host_cpu
-@@ -712,7 +711,6 @@ SHELL'
- ac_subst_files=''
- ac_user_opts='
- enable_option_checking
--enable_c_stubdom
- enable_pv_grub
- enable_xenstore_stubdom
- enable_xenstorepvh_stubdom
-@@ -1360,7 +1358,6 @@ Optional Features:
-   --disable-option-checking  ignore unrecognized --enable/--with options
-   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
-   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
--  --enable-c-stubdom      Build and install c-stubdom (default is DISABLED)
-   --enable-pv-grub        Build and install pv-grub (default is DISABLED)
-   --disable-xenstore-stubdom
-                           Build and install xenstore-stubdom (default is
-@@ -2406,47 +2403,6 @@ case $host_os in *\ *) host_os=`echo "$host_os" | sed 's/ /-/g'`;; esac
- 
- # Enable/disable stub domains
- 
--# Check whether --enable-c-stubdom was given.
--if test ${enable_c_stubdom+y}
--then :
--  enableval=$enable_c_stubdom;
--
--if test "x$enableval" = "xyes"
--then :
--
--
--c=y
--STUBDOM_TARGETS="$STUBDOM_TARGETS c"
--STUBDOM_BUILD="$STUBDOM_BUILD c-stubdom"
--STUBDOM_INSTALL="$STUBDOM_INSTALL install-c"
--STUBDOM_UNINSTALL="$STUBDOM_UNINSTALL install-c"
--
--
--else $as_nop
--
--if test "x$enableval" = "xno"
--then :
--
--
--c=n
--
--
--fi
--
--fi
--
--
--else $as_nop
--
--
--c=n
--
--
--fi
--
--
--
--
- # Check whether --enable-pv-grub was given.
- if test ${enable_pv_grub+y}
- then :
-diff --git a/stubdom/configure.ac b/stubdom/configure.ac
-index f07b08c5b3..33f170144e 100644
---- a/stubdom/configure.ac
-+++ b/stubdom/configure.ac
-@@ -18,7 +18,6 @@ m4_include([../m4/depends.m4])
- m4_include([../m4/fetcher.m4])
- 
- # Enable/disable stub domains
--AX_STUBDOM_DEFAULT_DISABLE([c-stubdom], [c])
- AX_STUBDOM_DEFAULT_DISABLE([pv-grub], [grub])
- AX_STUBDOM_DEFAULT_ENABLE([xenstore-stubdom], [xenstore])
- AX_STUBDOM_DEFAULT_ENABLE([xenstorepvh-stubdom], [xenstorepvh])
--- 
-2.54.0
-
+Jan
 
