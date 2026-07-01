@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id bzhAGC4xRWre8QoAu9opvQ
+	id 3kw9LYUxRWry8QoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:24:30 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:25:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5C2A6EF370
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:24:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A1346EF39B
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:25:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="N/ptbj7j";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="rmxzl/zz";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350141.1607702 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350153.1607711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewnS-0002nL-6D; Wed, 01 Jul 2026 15:24:18 +0000
+	id 1wewou-0003Ps-Ij; Wed, 01 Jul 2026 15:25:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350141.1607702; Wed, 01 Jul 2026 15:24:18 +0000
+Received: by outflank-mailman (output) from mailman id 1350153.1607711; Wed, 01 Jul 2026 15:25:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewnS-0002l3-3M; Wed, 01 Jul 2026 15:24:18 +0000
-Received: by outflank-mailman (input) for mailman id 1350141;
- Wed, 01 Jul 2026 15:24:16 +0000
+	id 1wewou-0003N8-FB; Wed, 01 Jul 2026 15:25:48 +0000
+Received: by outflank-mailman (input) for mailman id 1350153;
+ Wed, 01 Jul 2026 15:25:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wewnQ-0002kx-Pp
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:24:16 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wewot-0003N2-LM
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:25:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wewnP-00ASPr-Qr
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 17:24:15 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wewot-003rfm-2C
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 17:25:47 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a45310e-e002-0a2a0a5209dd-0a2a4508d0c6-30
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:24:15 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a453176-2eae-0a2a0a5409dd-0a2a450ab4a4-26
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:25:46 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a45311f-edec-0a2a45080019-d155802bf0bd-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:24:15 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-493b77b150aso7061995e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:24:15 -0700 (PDT)
+ id 6a45317a-e40e-0a2a450a0019-d155802fdc23-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:25:46 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-493a97fad2fso6933105e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:25:46 -0700 (PDT)
 Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4d9daasm87438345e9.9.2026.07.01.08.24.13
+ 5b1f17b1804b1-493be4540aesm85628905e9.0.2026.07.01.08.25.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 08:24:14 -0700 (PDT)
+ Wed, 01 Jul 2026 08:25:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,190 +60,256 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782919455; x=1783524255; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EzAlXR1UrnSnynnOL2U7ASX4RUa5MGuJNSO2hUFkhrY=;
-        b=N/ptbj7jwA5HCcah8ZmrrQ7PCrieYRzw44ujr50Z4Iho0JTzhjh2PmVsf/Mv+jecK8
-         TrCTVvwZePLcU1P5aOzZW09CcqHCeUXhWsTQQBGbBjOo8qZnhOaAfE+QnUSmEeWqPav6
-         6FsW76o6qBJtYsnFfE7G7+vPiF66VqScyYlkNjQJYMTTCsKapy4/y/aUXsEgcEdTG8cO
-         BlOejJxTezq7uZWZ1IUJCtxp8qElH/PibBJih4JJedqmUFZE/UTrBQlkh7xZ9egdnsbR
-         jY5izydwN64AHb4oYE6K/YCEZbRMyqDg6/HgK4hkbaP6KlsVeogQjXv313IIwqXDTQ38
-         /dTw==
+        d=gmail.com; s=20251104; t=1782919546; x=1783524346; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5Uiv/so1XThRNUVtMm9zvCb2kbxp7wSDqrL4nXO2GtM=;
+        b=rmxzl/zzMx6Ok5x6ag6T3OqE7Mia388mtheh2CwYclO0SeBVljTM+66H9xvy0EpfYH
+         XTQyWTNoVHPv1VspIM0aTMFcbIWDZjObQphz8hC8LCEVj/SB+adf0M8Z0Yd1WjLkKPht
+         dsOwERX1DaScBlb0RseKSisr2bWt/heyquudTeGG3MMTS2swqXSDpAKt1thyECnJrnt+
+         emlmUkE3Qciu/xRMjNpIuWGfo9OEsAkpe5cyd7GUTF3BXTpLQCxogsPfgqmLDr10703Z
+         EaOmuiEfvsp+bdYpJ0Fj0p2W7dADrW/U9iXSA0+9eWhJnPMAxxE4umefcHJU2PZLBc7w
+         vRiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782919455; x=1783524255;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EzAlXR1UrnSnynnOL2U7ASX4RUa5MGuJNSO2hUFkhrY=;
-        b=pEVKJQzqAscHAKZwvr0q1wQTorLw6nYxyZFKMauf+4BAKfpwQt8CraCW/SV7yE41Ea
-         ta7LF7TCen0w6J0jiZ+AtoejUh7NSZA1WVJiRJClLESLlgA+yJqQA1oTinMYGcS/P5kp
-         rhZmFtAAHtwZQE6RLBHnXZ4SWddgX644LJJnCYsDKyBIkwJiyHp8R6/QdZ7yHrd7Qov3
-         IJEvwmfq304NGRNak8uDXXWp4oqYqhvRPbmdtdx1eSeDqcf5ceSsjbG/XhZf2+jqrdaR
-         1yxq0ztcYMfBReLij3KHcCE4VsBK+GZpXqJ2nFosMtKT32GYHXzSoQAHhsq5HMEUkxwq
-         mszg==
-X-Forwarded-Encrypted: i=1; AFNElJ/mT/5OpAsp4N04p3s97mkiXEfM0nGYTi6Ne79yJKjgu+QEwVYqNcoFLcoo7qmXoUzlxsvTj5rSgLg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1ENGHcMmw+bAgF4GsIVkoeZmLA0fapSo5BHw6s6grQscYlF43
-	BueLT4cFY8+UtC+Z3hZbP5e3uh2wYDV9Q9m6pDCMKQqaKtZjIdo7ua7t
-X-Gm-Gg: AfdE7cmJrqZjBHA4bIqAedJbxkGIsb+6lTro3sqkrAhCZubTxjAHTiFkGYnh2Xyz3bW
-	JXkdQDxgyxdNpgO/DV1GkDHwq8R94qqAXxJx1ITH8+0O+n9FXvds19kDTPcOGOF5YOYJ6h/OZA+
-	Oyze3XLfP82msQfXj0s3Gs/29+ZGlNYNzZOaKT1WLVomvJbi5oN8esfucL0fDCKurM71Fn2ZhRB
-	0vWrZ4i4/7dNxEK4db13unTQw8yZO+WUD0ej2GMhTA2pljhOcao7r7J/GEhtcH/LbtJqRsUfen1
-	6nT7zpKApPTjrCCpyGH2sjjIEWJsia9BJopeyQIwoKA8mwGltrhJ5F/BElbsaZYvNzyJ2SWObFt
-	s4aUX0p/L8G1UfEig4BgpNYibduaVMyBsg3ybV4p90WYJDhv464hIU9A4kgn38Ub2LlRbW0jm+L
-	HuNTiVnJMU5lQIhHwLhlPxcp/yXGC/L0d7d8+0YT60CaBpv2TDLSmpSYcsjddWi27wVWA=
-X-Received: by 2002:a05:600c:35d2:b0:493:c3f9:65a2 with SMTP id 5b1f17b1804b1-493c3f9664bmr16518835e9.5.1782919454882;
-        Wed, 01 Jul 2026 08:24:14 -0700 (PDT)
-Message-ID: <c7aff2d8-14a7-4921-93d4-67228d871074@gmail.com>
-Date: Wed, 1 Jul 2026 17:24:13 +0200
+        d=1e100.net; s=20251104; t=1782919546; x=1783524346;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Uiv/so1XThRNUVtMm9zvCb2kbxp7wSDqrL4nXO2GtM=;
+        b=UbzPmd+Jq3rVBH/ouVgEh0j8LahxXdm/9JcsU5B+kYjyhfngx5U2GYK/5nLz5QowQI
+         ttCkZBkd3Xo2nrSOVJGnlN012QIMCmEtSUVtdJpuDFqJ6lqWNi9ycOzM2kgOmjgbcnbm
+         HBvtp0yfZKyYMHJhnUqczSncSyQCRJLFdNhoEoWqrAsUNtdWyWw4F0GsOb4HNC2Unoyi
+         XnTJ5sAh3siduFpEEJVNBoMrQI+YX7C5w/xFIsie/qvp1sIAyf3t4fmmwXh9fsW4wCBr
+         TjJTOIPe3l2adQcZvQ700xvDeGU8d/Udcb9wmTs0EWPa9ljV+AbdXb8bcA21a7VKdN8b
+         weLg==
+X-Forwarded-Encrypted: i=1; AFNElJ/QT5sEVjIbLz6VM7Qf8aVbc8oQoF/otW66ssg4S+PbLmKB8tsO3QtyQ2PFy39Ru5zl3Dppcy475yE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyCbKuFMCv0+sdRFq8l97DCGGTYdH8JsxTElJi3n6lBgqMXMX7w
+	wvyg8WtYGWkyXFnbgK74puul3BcKs3pfP6W2abmtFPsXEuGirB9ZH528
+X-Gm-Gg: AfdE7cmWpkrs1lGrlCcza7JMfU2VPA6R27TSr9Xv3p3H+n/8ZduG31CX8iAltqioIpp
+	zWcDCucx4R9JaeeEIb6MvOhr8rU8MWFIV1SIOfHqGTonRG21gq0ABvrrScQCnpTvVXj4n/1AjeD
+	XF8rzq8PGbnZmeNQgKCjmJfNXtxtjpxfR/5l2OVxlpiyltkNKzHOtwZaBuGXMpjMZAtzOljMMJ5
+	Thb7ZV1VgodelBbIE7TLsrpnF9B1L8qqsCvufWpznUDkcfu0ONedNbGYWOoK8yz9KlQIa3hna1i
+	io2o8GE20iXbn1bElKt9jOVo9X+qweEMzOqcL0FtGfMqnMx8qiV3M/AEf2WeiGnamhT8HBzZpFm
+	7cp//grGF3BjEjPnDhBju3GpfafiRpRAIbsrUyaXCIt5BreCZbB1cB7U8DJk4iuTEbS99/j+7OT
+	qqhD1UwPsA+ghOIxRlvsOd6NGLD9E5UVsHx4obFUnG2dX007Go7Kyj10cgf5UvlDx8e60=
+X-Received: by 2002:a05:600d:844f:20b0:492:5bb6:6d4b with SMTP id 5b1f17b1804b1-493c3df77eamr14662535e9.34.1782919546278;
+        Wed, 01 Jul 2026 08:25:46 -0700 (PDT)
+Message-ID: <2093dd4c-c80d-4b65-998f-c90796dc4a88@gmail.com>
+Date: Wed, 1 Jul 2026 17:25:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 25/25] xen/riscv: add initial dom0less infrastructure
- support
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v4] xen: introduce CONFIG_HAS_SHARED_INFO for archs
+ without a shared page
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Baptiste Le Duc <baptiste.le-duc@vates.tech>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
- <a6950e8dc2706c351fe6b0622602d34ecef133b7.1782487661.git.oleksii.kurochko@gmail.com>
- <131fc20c-1353-49fc-8f77-1ca13628ff17@suse.com>
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>, xen-devel@lists.xenproject.org
+References: <775c88457e5ec7fc7889002c6f9829669f9bce97.1782388193.git.oleksii.kurochko@gmail.com>
+ <5d344cec-bb97-4d3b-87ff-e7175772fd45@suse.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <131fc20c-1353-49fc-8f77-1ca13628ff17@suse.com>
+In-Reply-To: <5d344cec-bb97-4d3b-87ff-e7175772fd45@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1782919455-A11293FC-C6D416F6/10/73395122804
+X-purgate-ID: tlsNG-4011c0/1782919546-3C07ADDE-910CBC35/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3629
+X-purgate-size: 6251
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
-	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B5C2A6EF370
+X-Rspamd-Queue-Id: 1A1346EF39B
 
 
 
-On 6/30/26 9:28 AM, Jan Beulich wrote:
-> On 26.06.2026 17:46, Oleksii Kurochko wrote:
->> Enable dom0less support for RISC-V by selecting HAS_DOM0LESS and
->> providing the minimal architecture hooks required by the common
->> dom0less infrastructure.
+On 6/29/26 4:26 PM, Jan Beulich wrote:
+> On 25.06.2026 18:02, Oleksii Kurochko wrote:
+>> On architectures that run guests in dom0less mode without the PV ABI
+>> (currently RISC-V), no shared_info page is allocated and d->shared_info
+>> remains NULL throughout the domain lifetime.  Several places in common
+>> code access d->shared_info through the shared_info() macro or directly,
+>> causing UBSAN null-pointer errors on such architectures.
 >>
->> Add stub implementations for architecture-specific helpers used when
->> building domains from the device tree. These allow the generic
->> dom0less code to build and let a basic DomU be constructed on RISC-V.
->> construct_hwdom() and make_hypervisor_node() are still stubs returning
->> an error: Dom0/hwdom construction isn't supported yet, and the
->> hypervisor node generation (needed by domains with
->> DOM0LESS_ENHANCED_NO_XS set) is not implemented. Both are marked with
->> a TODO and are not reached by the currently supported configurations.
+>> Rather than adding runtime NULL guards that are logically unreachable
+>> on x86 and Arm (where shared_info is always allocated), introduce a new
+>> Kconfig symbol CONFIG_HAS_SHARED_INFO selected by x86 and Arm.
 >>
->> Provide missing helpers and definitions required by the domain
->> construction code, including domain bitness helpers and the
->> p2m_set_allocation() prototype.
->>
->> Additionally define the guest magic memory region (GUEST_MAGIC_BASE /
->> GUEST_MAGIC_SIZE) in asm/guest-layout.h. The base is arbitrary; the
->> only constraint is that the region must not overlap guest RAM or the
->> emulated device regions. It is placed in the unused gap below
->> GUEST_RAM0_BASE (0x80000000); the constraints are documented next to
->> the #define-s.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> On !HAS_SHARED_INFO the shared_info() macro expands to a dereference
+>> of a pointer returned by shared_info_absent(), which is declared but
+>> intentionally never defined.
 > 
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> This looks to need updating.
+
+I will update it to:
+
+On !HAS_SHARED_INFO the shared_info() macro expands to a dereference of 
+shared_info_absent, an extern pointer that is declared but intentionally 
+never defined.
+
+> 
+>>   Any use of shared_info() that is not
+>> dead-code-eliminated will therefore cause a link-time failure, making
+>> missed guards impossible to overlook.
+>>
+>> The 2L event-channel ops call shared_info() and must not be compiled on
+>> architectures without a shared_info page, so event_2l.o is gated on
+>> CONFIG_HAS_SHARED_INFO.  On such architectures evtchn_init() installs
+>> the FIFO ops as a placeholder instead; evtchn_fifo_word_from_port() is
+>> guarded against uninitialised d->evtchn_fifo so the FIFO ops are safe
+>> before evtchn_fifo_init_control() is called by the guest.
+>>
+>> With CONFIG_HAS_SHARED_INFO=n all vCPUs fall back to the global
+>> dummy_vcpu_info, so writes through vcpu_info() could leak data between
+>> vCPUs. Reviewing the write paths in common code: the write in
+>> map_guest_area() stores the constant ~0 so nothing serious would happen
+>> if it were leaked; the event_2l.c paths are unreachable because the
+>> preceding shared_info() call would trap first;
+> 
+> Why "trap"? You can't build an image that way, can you?
+
+"trap" was shorthand for the link-time failure.
+
+I will changed that part to:
+... leaked; the event_2l.c paths are not compiled on !HAS_SHARED_INFO, 
+as event_2l.o is gated on CONFIG_HAS_SHARED_INFO; ...
+
+> 
+>> @@ -1624,7 +1626,11 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
+>>   
+>>   int evtchn_init(struct domain *d, unsigned int max_port)
+>>   {
+>> -    evtchn_2l_init(d);
+>> +    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
+>> +        evtchn_2l_init(d);
+> 
+> For this to build when !HAS_SHARED_INFO, all you need is a declaration of
+> the function. The compiler will DCE the call. Hence ...
+> 
+>> --- a/xen/common/event_channel.h
+>> +++ b/xen/common/event_channel.h
+>> @@ -44,7 +44,11 @@ static inline void evtchn_port_print_state(struct domain *d,
+>>   
+>>   /* 2-level */
+>>   
+>> +#ifdef CONFIG_HAS_SHARED_INFO
+>>   void evtchn_2l_init(struct domain *d);
+>> +#else
+>> +static inline void evtchn_2l_init(struct domain *d) {}
+>> +#endif
+>>   
+>>   /* FIFO */
+>>   
+> 
+> ... this hunk should be unnecessary?
+
+Looks like you are right, I will double-check that.
+
+> 
+>> @@ -55,6 +59,7 @@ struct evtchn_expand_array;
+>>   int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
+>>   int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
+>>   void evtchn_fifo_destroy(struct domain *d);
+>> +void evtchn_fifo_init_ops(struct domain *d);
+>>   #else
+>>   static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
+>>   {
+>> @@ -68,6 +73,7 @@ static inline void evtchn_fifo_destroy(struct domain *d)
+>>   {
+>>       return;
+>>   }
+>> +static inline void evtchn_fifo_init_ops(struct domain *d) {}
+>>   #endif /* CONFIG_EVTCHN_FIFO */
+> 
+> Unlike these two. Which raise a different question though: What will be the
+> behavior when EVTCHN_FIFO=n and HAS_SHARED_INFO=n? Taking
+> evtchn_alloc_unbound() as example, afaict evtchn_port_init() will stumble
+> over a NULL pointer. Looks like for that (and only that) case we still need
+> your earlier dummy fallback.
+
+I will introduce dummy fallback (I will shrunk some stubs in final version):
+
++#ifndef CONFIG_HAS_SHARED_INFO
++static void cf_check evtchn_none_set_pending(
++    struct vcpu *v, struct evtchn *evtchn) {}
++static void cf_check evtchn_none_clear_pending(
++    struct domain *d, struct evtchn *evtchn) {}
++static void cf_check evtchn_none_unmask(
++    struct domain *d, struct evtchn *evtchn) {}
++static bool cf_check evtchn_none_is_pending(
++    const struct domain *d, const struct evtchn *evtchn) { return false; }
++static bool cf_check evtchn_none_is_masked(
++    const struct domain *d, const struct evtchn *evtchn) { return true; }
++static void cf_check evtchn_none_print_state(
++    struct domain *d, const struct evtchn *evtchn) {}
++
++static const struct evtchn_port_ops evtchn_port_ops_none = {
++    .set_pending   = evtchn_none_set_pending,
++    .clear_pending = evtchn_none_clear_pending,
++    .unmask        = evtchn_none_unmask,
++    .is_pending    = evtchn_none_is_pending,
++    .is_masked     = evtchn_none_is_masked,
++    .print_state   = evtchn_none_print_state,
++};
++
++static void evtchn_none_init(struct domain *d)
++{
++    d->evtchn_port_ops = &evtchn_port_ops_none;
++}
++#endif
+
+> 
+>> @@ -420,6 +423,11 @@ static const struct evtchn_port_ops evtchn_port_ops_fifo =
+>>       .print_state   = evtchn_fifo_print_state,
+>>   };
+>>   
+>> +void evtchn_fifo_init_ops(struct domain *d)
+>> +{
+>> +    d->evtchn_port_ops = &evtchn_port_ops_fifo;
+>> +}
+> 
+> Isn't this unreachable code when HAS_SHARED_INFO=y, violating Misra rule 2.1?
+I think if we are going to return back to dummy fallback I think that we 
+could drop evtchn_fifo_init_ops() as  d->evtchn_port_ops will be 
+initialized later for FIFO. And then in evtchn_init:
+
+int evtchn_init(struct domain *d, unsigned int max_port)
+{
+     if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
+         evtchn_2l_init(d);
+     else
+         evtchn_none_init(d);
 
 Thanks.
-
-> 
-> Nevertheless, ...
-> 
->> --- a/xen/arch/riscv/include/asm/guest-layout.h
->> +++ b/xen/arch/riscv/include/asm/guest-layout.h
->> @@ -32,4 +32,16 @@
->>   #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->>   #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
->>   
->> +/*
->> + * The guest magic region holds Xen-reserved pages mapped into the guest's
->> + * physical address space (shared info, grant table, etc.). The only real
->> + * constraint is that the GUEST_MAGIC_SIZE-byte region must not overlap
->> + * guest RAM (the GUEST_RAMx banks) or the emulated device regions defined
->> + * above; the exact base is otherwise arbitrary. Here it is placed in the
->> + * unused gap below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM
->> + * bank would work equally well.
->> + */
->> +#define GUEST_MAGIC_BASE  _UL(0x79000000)
->> +#define GUEST_MAGIC_SIZE  _UL(0x01000000)
-> 
-> ... while 16Mb may seem a lot, it feels pretty little for 64-bit guests.
-> Even in just Sv39 mode they have ample VA space to map a bigger region.
-> (As iirc indicated before, a static upper bound looks questionable to me
-> anyway.)
-
-I think the comment should be updated as for grants will be separate region.
-
-For all others, it looks like 16MB is more then enough. For example, Arm 
-has only 4 used pages (CONSOLE=0, XENSTORE=1, MEMACCESS=2, VUART=3).
-
-So will you be okay with reworking of the comment to:
-/*
-  * The guest magic region holds the Xen-reserved pages mapped into the
-  * guest's physical address space. The only real constraint on
-  * GUEST_MAGIC_BASE/SIZE is that the region must not overlap guest RAM
-  * (the GUEST_RAMx banks) or the emulated device regions defined above;
-  * the exact base is otherwise arbitrary. Here it is placed in the 
-unused gap
-  * below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM bank 
-would work
-  * equally well.
-  */
-
-And add to the commit message that:
-```
-A separate region for grant tables will be introduced at the same time 
-as the introduction of the grant table for RISC-V.
-```
 
 ~ Oleksii
 
