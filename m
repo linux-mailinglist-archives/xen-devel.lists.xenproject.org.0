@@ -2,55 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hVdzMQfRRGpa1QoAu9opvQ
+	id B6dgEXjZRGpM2AoAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 10:34:15 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 11:10:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6D576EB265
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 10:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6D996EB7A2
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 11:10:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=IvHQIHGv;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=O5w3a4NY;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1349602.1607305 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=valinux.co.jp;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1349625.1607314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weqNy-0003VJ-29; Wed, 01 Jul 2026 08:33:34 +0000
+	id 1weqwY-0001D1-NE; Wed, 01 Jul 2026 09:09:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1349602.1607305; Wed, 01 Jul 2026 08:33:34 +0000
+Received: by outflank-mailman (output) from mailman id 1349625.1607314; Wed, 01 Jul 2026 09:09:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1weqNx-0003Sr-UK; Wed, 01 Jul 2026 08:33:33 +0000
-Received: by outflank-mailman (input) for mailman id 1349602;
- Wed, 01 Jul 2026 08:33:32 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1weqwY-0001AH-Jw; Wed, 01 Jul 2026 09:09:18 +0000
+Received: by outflank-mailman (input) for mailman id 1349625;
+ Wed, 01 Jul 2026 09:09:17 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1weqNw-0003Sj-4s
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 08:33:32 +0000
+ (envelope-from <takakura@valinux.co.jp>) id 1weqwW-0001A9-CP
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 09:09:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1weqNu-001xNF-PG
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 10:33:30 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1weqwV-003ivO-2a
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 11:09:15 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 6a44d0d7-bab6-0a2a0a5309dd-0a2a45068b5c-10
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 10:33:30 +0200
-Received: from [209.85.208.53] (helo=mail-ed1-f53.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jgross@suse.com>)
- id 6a44d0da-08de-0a2a45060019-d155d035e009-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 10:33:30 +0200
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-6974a6e54dbso708106a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 01:33:30 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6987c21f123sm2359277a12.0.2026.07.01.01.33.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 01:33:29 -0700 (PDT)
+ (envelope-from <takakura@valinux.co.jp>)
+ id 6a44d931-bab6-0a2a0a5309dd-0a2a4508d926-38
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 11:09:14 +0200
+Received: from [52.101.229.79]
+ (helo=TY3P286CU002.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <takakura@valinux.co.jp>)
+ id 6a44d938-edec-0a2a45080019-3465e54fd3b1-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 11:09:14 +0200
+Received: from TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:30e::6)
+ by OS7P286MB5474.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:398::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Wed, 1 Jul 2026
+ 09:09:09 +0000
+Received: from TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::a377:45d3:a376:f515]) by TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::a377:45d3:a376:f515%3]) with mapi id 15.21.0181.008; Wed, 1 Jul 2026
+ 09:09:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,386 +63,593 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782894810; x=1783499610; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=vjpi9gDuzwwRM7WLjI09X9TThOB1p5PHgz+55yL6rYs=;
-        b=IvHQIHGvkP07FZB3kpQJGPZHrajiwchh5OL+k2cThWD8tgcU1ONetGUnmoa29kGzZf
-         GrGbQTZPUdees6DuL/B2u/fpyw9nUMeXDZEk9Kzdkd3mG7wDFOvzqonBjE9hAnHeUYhf
-         FjdbURtW7nXNJghZwcGqITUzAfERE1yc47+FF7wjI6KZGD9CcGpmTs4y5xuwY22aCPEq
-         Hp8Z0aOjnFPy+itxLLHPRVo5KMpqtujZFfBSRhBwSXpO47SFp1E/FJsN3+0paWlFgaUL
-         TCSADeL/cJIzJOegqAV+kpgbLBo+wAVcLsz8ABtZAq5Eu/EVa5yg8ug5/8PA3mHrAYVa
-         S/rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782894810; x=1783499610;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vjpi9gDuzwwRM7WLjI09X9TThOB1p5PHgz+55yL6rYs=;
-        b=lvz0QZfwHedPlnQARcjx5O96a9aeGOrwV0jiI07SGyxUWNwxr1MWmTBShgdgjXzWe3
-         VMZxTWNokZGW+CAwGIQnbcduBxzwFO4iJCdbPdondsD40iAPhXoahwoTa2FT6ZmdLLdq
-         flFYrOGLuVqRzbjO1hrcJdX8b1h1sqiWyQnSH/5egTdJiozk7eq79SOHOcD50nmIc6h6
-         yodAKTg0atllSmKrNlCQASNxShmeJ4TXnEiPhwOHMyeOWr73cLs+/JfDmG9ACkbDfIIh
-         zBrPC94OPWshdKPQyp3GjRKKRGdNLIMADROn9Ifj2yw/UCxyDtBvi6UmSmubQylQhWVE
-         VPpA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq2YyNE/QU3C+OrXg55AAst2nVNnfXFUH6rt6a2wn4rEvTgwAJe7Y2sBjmb7CXgmOyOVPThF3mm0fw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHD/4Jz4pIFI+wVyG5gHaJ5j/lrI0R1X+r6LJubcOUpe4UZ6yU
-	q3xcXSRgjfAOhAU2/2XdVjuJMsTeQ8jWiB5W/2SzaLdqkhGJCoG5rtvaRPOEwsTSpfs=
-X-Gm-Gg: AfdE7clWUCAxahRQq0cpzEl8GzO8UCsgNT2a3moVaIEZ2iG2aBWcC/Mb9ixktFCh3Ei
-	QHyaJh5fvUYueG6ckxGuA7UmQOOc+w0WG3ej8BPuUNunsXptDtiOvUkCKG6M/GWfvR6Eh8ZJfSA
-	qPy3aTq3cazhXDJPUlWq4NJUFDYXgCzmp3Og6LpenaAXYXItTkJkq7PlAjpoZ56EGeXsXAWUqgT
-	+QhaOXkUDKCqmhr0ROVHEVCTh4vVhBPPtnDhauikoPLqfeb4Sv2lq/QXcGvhEGObDu1+mGidwxn
-	TM2NZ/y2d548TmafFXTqGXjrLDF5CYDIn2Dbh87NBdGodEolQqK7fBYT8RvHtShL9w1CaI6AjNg
-	f3wPCeW/LbsCqySdsrh4b3kVP6MEVG7OFIg0xdkgcpA8I0ecUlFbHw8Vx02E+RT3pmpQUgwPgek
-	7kLa3bS8E2lTzLU5fekNu3+0AM7dAUGtRnD7anY5GlindX14ISSLajzGNlkHjUl3El37pblxHQT
-	nFPqC8ogHdoNEl0IHseYl/PD5764Y47LaTE97ucsM7lYCFzQMwsrw==
-X-Received: by 2002:a05:6402:4146:b0:698:99be:29d6 with SMTP id 4fb4d7f45d1cf-6989f38e868mr343446a12.29.1782894809526;
-        Wed, 01 Jul 2026 01:33:29 -0700 (PDT)
-Message-ID: <0c5e4515-b51e-4b19-8389-a76cabc88042@suse.com>
-Date: Wed, 1 Jul 2026 10:33:27 +0200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AChEHSED0qwvNe9Hj5P+9lF8hpcZu/yUI3CSKFi2dtXLxd8Zt8Z6eWL1CU618cpmmi1ujra5+Fvt1waJMxJ4u60KChhmyGwEwudHT+If5Y9vWAC291nvYXVWcxZL7BPosTF8VB+vyN1/eKukyhK0reRKOuv3FNhJ5NoWLhKpVXkpJCvmx1Uxwehi8Y615M6/BAArXZJGNtKLYBdEhSmPEDJRxgNa0K3prmfaVKjIks1WA9qsKD5Dhj+/T18Mc3y2Fb5kdLYkSKon5ylLUvjdWyAP+zZWHE1Ib2XjS3+ucNH2YGbcRJOCOEn7hPA5cRzh/9C0RIxSJXgXEKESO6IS9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X7eThDqmoZ82RG4QueS3fK1meunY7Ib+jRa572ZdCK0=;
+ b=r0xsZ58OaK/5AhjOzEQhMnjiqJ28tNMxXIqHNTQuAdhBLJI4s9zwRz+QXouU/ttvGcAo/9Xs7sHWHNUqlVX2XlceeNn4R7O8W8YwpSTax5j+imzzTbrs7tjwcq9s7BBIdeFAx5IcgL5hd4V3hZf5ljPG/aMFW+T+OWvXoBzWGwUhl8hh2mdqVsolCSudZRtNScl6p2Da6JECv7ng+NEKfOfrC4vcszEvHGvvVEr0WDUEVTkVrLndiPDc6Bw1NXElAiW94k0Cb71jfeNcjcYV9LJ1A5f31f7d7tw8aJtr4LDPMP5qlaSa9FCvCLzIl6DqeeE9xSqp93DLs6/FSEyQBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X7eThDqmoZ82RG4QueS3fK1meunY7Ib+jRa572ZdCK0=;
+ b=O5w3a4NYfn+tyvpyMoZMh7x2GvDi5ckpEHKFBHEzPk8QEAHyvbYYOUUMC5hojvJspokMEUUvBcYJn5rRlrGhRVSNBXzXUO4gQTYnXU2jLLbKTqfGBswAo77+4TvfW0xNmLyFZ34i5wffFCWzKd9OjiVhZPixJ5gzZNNyLNvuxWw=
+From: Ryo Takakura <takakura@valinux.co.jp>
+To: andrew.cooper3@citrix.com,
+	roger.pau@citrix.com
+Cc: xen-devel@lists.xenproject.org,
+	ross.lagerwall@citrix.com,
+	sstabellini@kernel.org,
+	julien@xen.org,
+	bertrand.marquis@arm.com,
+	michal.orzel@amd.com,
+	Volodymyr_Babchuk@epam.com,
+	anthony.perard@vates.tech,
+	jbeulich@suse.com,
+	taka@valinux.co.jp,
+	den@valinux.co.jp
+Subject: Re: [RFC] xen/arm64: livepatch: enable attaching callbacks
+Date: Wed,  1 Jul 2026 18:09:08 +0900
+Message-Id: <20260701090908.15204-1-takakura@valinux.co.jp>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <akOCgoqbGhZbjcQx@macbook.local>
+References: <akOCgoqbGhZbjcQx@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TY4P301CA0054.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::14) To TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:30e::6)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-To: Sean Christopherson <seanjc@google.com>, Ingo Molnar <mingo@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-pci@vger.kernel.org, virtualization@lists.linux.dev,
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org, "Rafael J . Wysocki"
- <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, "lukasz.luba@arm.com"
- <lukasz.luba@arm.com>, Jason Baron <jbaron@akamai.com>,
- Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>,
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
- <akJUz0kYkEBdLSZ3@gmail.com> <akQR9YMtMHReJTfB@google.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <akQR9YMtMHReJTfB@google.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------yR0aQa1Dp38FRBSVbM28PBR6"
-X-purgate-ID: tlsNG-16d1c6/1782894810-C5D3D68D-E7E04925/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYP286MB2946:EE_|OS7P286MB5474:EE_
+X-MS-Office365-Filtering-Correlation-Id: c7fd92e2-50fa-4545-6768-08ded750691a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|3023799007|6133799003|56012099006|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	3Ysr9j7mrAyrlgR9WlWqu3qCx8k+/hhD1TJJdPAI5lt+CqW7NDJeL1aCcXN8kP9h0DdyC4NuLZiGmeu8C0FeMKGHlnvGnfuQa7fhzNGs5p28JXUXBAaNwkHQByoxJDtlu3QnDt/4jJ2Wf7sRoQoErrnEercVP2KxzdIVrYFz9Pn6f8wtJhkwYpb0N/bMmg2qXfUxOS6iX9/69+2tyTTB3WjX0hEpnaM8bCb13qUiSlkLfgOTPkODVqr5JVPya+w2OmlXus4gvZ7gpI8CJKWhBdN8js7xMrj+c8e5e3JbBRR6a9J0NqnvLm4DB5kuWx9kfua2q4qz7Q9URyE+mXzIEQd1KmWdmXzgPPdmWH+Jywc3JAG/FSxVL03Vhep0cF4D/TCi4HkTahNJTEVOrhyyM47uyNlBPAuPOBz7a3jvyhSbexesKrwMNxkmyIbRnyo135e49RHBqKLrIBc41Q8NDz/dBZ4Ik+I88F4aTyRxMb2FZ64W26NZB7lgZD0UR3ALKguWpi4YdWKITMjCIYFmZBuhvVvVaWyvX7Ge8QLqVsyaBabVv9yB52+B9zGVV6MgEXxmwlNnDMi7I4Pp858MGlNIzzgqEEpZNRLE9Dfc401sXpq/fz20i67JdjHd9Dhk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(3023799007)(6133799003)(56012099006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2lUaUJ4K2tFSDh4MTQ0UkR2Q2NaRVByMlp6T2dMTmdlM2FZRTZkU0xLdS9z?=
+ =?utf-8?B?TWRqTmJNVnJUUXV1MWdpQ2xTa1pYdW9ZMTRHRHpsaUQ0bUwxdkxKS09nUy9x?=
+ =?utf-8?B?QUtidzF3WmhOQzhLbDRadFJFRHpGeVZYQWoreXBxSmxzSHgrSTRXUjBYUHE0?=
+ =?utf-8?B?R3VycUZtY2VjdCtjLzlnM1lDdjREV2FLVG1BaExEalI3Zk5uRmh5emxFWHAy?=
+ =?utf-8?B?aWlVQnVOeWxRZ0g4Y09IQ09oOGYxdUMyV25oa0JTL0liY2lXaThkZnp5enhG?=
+ =?utf-8?B?U0hhTFg1V21KNGRsQkVQeDdDS0NrSUFZN2FENDF5eFRmcURYaEJ0eS9ITzg5?=
+ =?utf-8?B?WWtCN3ZoWm9TSUs4NFBzOVVPMndINWUvNjI1MGhtS0RSV01hb0ZaUDVHcVRT?=
+ =?utf-8?B?K0xEb2Fzb0tPTmM3SkpHR3pjRUNpSFQxdytsb2NXck8zQ05JRWFrbkRqQ2xx?=
+ =?utf-8?B?Y3VQS20zWU1pL0RlSVNISmltYWJxaktQMHg4Z1JLanFZTVJPZFdXUFZUOExY?=
+ =?utf-8?B?YWlwYXdPYm00K1RKTjBiTTRTM3g4TWs5eEV5ZlUwQS94anVzdFkxMXFucmwx?=
+ =?utf-8?B?aDhjU1Blc1ExcElNVk9WeE8yTjgzTjV5WC9sdFJ2SnFNRjVuTmxLaHNTcE1k?=
+ =?utf-8?B?dW52dlZicnhFTlU1WjBVdVNML0Z6NHZTM3BIVlVjaDhkQWNmVjREUXFFV08x?=
+ =?utf-8?B?RDBNNW1QSWhoU3QrUk12b0NKTkpmUEVpVWxBejNNZVhyUmxMNXVzWW8vb1Rz?=
+ =?utf-8?B?SWNESVhnT1krckp4ejgwMGQ5czlVeVNDN3pNd2czQVNtTWdDNDJyd3lCSkNP?=
+ =?utf-8?B?UElXYytkc244Y2dZU2czR2VzaytlLzRoQU9vL0pWU3Z0ZGRTTXdoR0NURGdK?=
+ =?utf-8?B?b1BmVm4vOXZIOU1HN3ltQ1hHNmNFdzd3VW1mci9aNzVjdTNsKytTQVVPSnMr?=
+ =?utf-8?B?QU55ZXhycExpbkM5TjZZWWtVbkEwSnpiUmN4ZXFHc1J2bzVKQVNrelhob1ZD?=
+ =?utf-8?B?Zmg0UmlpOCtjRnRQcG0xYlYvUGtHWHRJb2tHQzViU213czlWdE55L1dLVFZS?=
+ =?utf-8?B?b3dkb1dDZnlVK1p3dkpyTXlyUXNKZTNvZkxnNFhrYVh3V3VGcG1vNkJDbFNE?=
+ =?utf-8?B?K01JT3B1NmlDM2IzWnlNM2c1SXFsRVkxWUJ3SGtZRzVGUXM3d0JrYTUxenJ1?=
+ =?utf-8?B?VDhpL3lOUS9GcU5yTDRLN3Y1ekFxTWlRTkFlZUQ2ZEtUWVRMSzFXaVNFcE1L?=
+ =?utf-8?B?K1dHTzQvWTJOc3VWVit6a0c5Qy8vOXNuV0dlc1MrbnNaN0dySzlKT0NISjMz?=
+ =?utf-8?B?RGFoZlFNTE5ocDFkYm9KSjlvRXJRVEJWSmF2cXRqNHdLdmxqUW1Gd2tZUmpR?=
+ =?utf-8?B?UFl4Tk94bTdSaUQ3amhQQkVxOVo3NDY4WEJ0UlkyTllHMndEcXFLZzdEMjhL?=
+ =?utf-8?B?Q01oMWorU2tlMWdYNDdCMklCUHNTTURqNExPRjZyYzhaQmZlV1dkZkozbUJT?=
+ =?utf-8?B?L3pHK2hqWU5sb2hNaWxxZkxJQ3RoNWUza1JHTFFYS3RldFNaSFFzcElJdEVa?=
+ =?utf-8?B?cHc3a0dhUXE0RERGV2NyTWJVS0ZmVE5OUzNFdFQ4eUdYMUtYaCtoUGxseXdu?=
+ =?utf-8?B?NGo2MER5a1AxbWhlQ012M1BxUXNyTG16VlNpTlIySFY4V2NPRXJleTVpc09x?=
+ =?utf-8?B?NUI0WEpyZlpKNTc0ek1PUEdFNnZYSGhEQlQwcTRiaDd1UWFjWFdld1A2cGxS?=
+ =?utf-8?B?dTNwQVI1TUdDbXhKdG13K1V5Q0RWSWt2WCtoM0ZNa3BuS1dURmxVeHVObVli?=
+ =?utf-8?B?czc2TFM3VGRTMWYyTnBXZlkrMjhtOHh5dmRIM2FTakRxNVhEOCs0VTg4Mytt?=
+ =?utf-8?B?L3IvZUxFMGVwWG9CVTNOVjRja3FRTTZuWVdDOWU2dlROWTBGM0huV29BSUw3?=
+ =?utf-8?B?RXBxV3lCOTc4RytTeDJSZVVtM0k5VXo5cG1neVVBR3RBcnFEQlpUSnpKdTk2?=
+ =?utf-8?B?Q01nWExPYW5WMTdWdXpZRmN2VE9OUExtVW9yZnFUM09kV3pjVWFLaEtHUlNi?=
+ =?utf-8?B?OURlWU1STitVd2grNWNiSUxMc0F0RWttYmhSOXFWaWUvdnFLUEpXQkhqS2Fm?=
+ =?utf-8?B?UG9ZYXo0NnIydi9QOEYrbzh4ODRFWXEzYVlNQTFMWGd5TmZjK0NPblZ5NjNo?=
+ =?utf-8?B?QkRUMEx2ckxuU01ZYnZ0MFJIZDZ1dk1NL2RWV0k1Q3RwNVI0NVcvWDFZUzZH?=
+ =?utf-8?B?dlFEQVpQYkZHdmFRNmszTSt6cTBZcUxUcm9TcGx6Z3RmQlBpWWNoR1RDN3pu?=
+ =?utf-8?B?Tk1DNW4zT2J4NTl5Wmo1a2JOeVpMMDExaTBSNUhNNHZBdDNMQTg3QT09?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7fd92e2-50fa-4545-6768-08ded750691a
+X-MS-Exchange-CrossTenant-AuthSource: TYYP286MB2946.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2026 09:09:09.6301
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FsD0O3LqTjpoWzQU5k3dypzcbuaruT+RG6RgMzo0hLyN0qOiTxRRsiTl8OW6fX/rTeIDxOqb+55cl8FrDc7DbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB5474
+X-purgate-ID: tlsNG-c1860d/1782896954-A39353FC-B4FD0D71/0/0
 X-purgate-type: clean
-X-purgate-size: 11660
+X-purgate-size: 16799
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.13 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_MIXED_CHARSET(0.71)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arndb.de:email,suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:mingo@kernel.org,m:arnd@arndb.de,m:linux-kernel@vger.kernel.org,m:linux-pm@vger.kernel.org,m:linux-edac@vger.kernel.org,m:x86@kernel.org,m:linux-acpi@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-pci@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-ide@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-fbdev@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-hwmon@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:platform-driver-x86@vger.kernel.org,m:rafael@kernel.org,m:daniel.lezcano@kernel.org,m:rui.zhang@intel.com,m:lukasz.luba@arm.com,m:jbaron@akamai.com,m:bp@alien8.de,m:tony.luck@intel.com,m:yazen.ghannam@amd.com,m:lenb@kernel.org,m:pavel@kernel.org,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:pbonzini@redhat.com,m:kas@kernel.org,m:rick.p.edgecombe@inte
- l.com,m:puwen@hygon.cn,m:bhelgaas@google.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:viresh.kumar@linaro.org,m:reinette.chatre@intel.com,m:Dave.Martin@arm.com,m:james.morse@arm.com,m:babu.moger@amd.com,m:TonyWWang-oc@zhaoxin.com,m:dlemoal@kernel.org,m:cassel@kernel.org,m:airlied@redhat.com,m:deller@gmx.de,m:linux-geode@lists.infradead.org,m:olivia@selenic.com,m:herbert@gondor.apana.org.au,m:linusw@kernel.org,m:brgl@kernel.org,m:gregkh@linuxfoundation.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:linux@roeck-us.net,m:peterz@infradead.org,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,m:alexander.shishkin@linux.intel.com,m:jolsa@kernel.org,m:irogers@google.com,m:adrian.hunter@intel.com,m:james.clark@linaro.org,m:jpoimboe@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:vkuznets@redhat.com,m:luto@kernel.org,m:boris.ostrovsky@oracle.com,m:ray.
- huang@amd.com,m:mario.limonciello@amd.com,m:perry.yuan@amd.com,m:kprateek.nayak@amd.com,m:srinivas.pandruvada@linux.intel.com,m:artem.bityutskiy@linux.intel.com,m:dedekind1@gmail.com,m:miquel.raynal@bootlin.com,m:richard@nod.at,m:vigneshr@ti.com,m:ashok.raj.linux@gmail.com,m:hansg@kernel.org,m:ilpo.jarvinen@linux.intel.com,m:irenic.rajneesh@gmail.com,m:david.e.box@intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[arndb.de,vger.kernel.org,kernel.org,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,intel.com,arm.com,akamai.com,alien8.de,amd.com,redhat.com,linux.intel.com,zytor.com,hygon.cn,google.com,broadcom.com,linaro.org,zhaoxin.com,gmx.de,selenic.com,gondor.apana.org.au,linuxfoundation.org,microsoft.com,roeck-us.net,infradead.org,oracle.com,gmail.com,bootlin.com,nod.at,ti.com,lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:url];
+	FORGED_SENDER(0.00)[takakura@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:taka@valinux.co.jp,m:den@valinux.co.jp,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_GT_50(0.00)[96];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[takakura@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B6D576EB265
+X-Rspamd-Queue-Id: D6D996EB7A2
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------yR0aQa1Dp38FRBSVbM28PBR6
-Content-Type: multipart/mixed; boundary="------------vD8700IqVizDT0GQTpFiBkTP";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Sean Christopherson <seanjc@google.com>, Ingo Molnar <mingo@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org,
- "linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>, x86@kernel.org,
- linux-acpi@vger.kernel.org, kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-pci@vger.kernel.org, virtualization@lists.linux.dev,
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-crypto@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
- platform-driver-x86@vger.kernel.org, "Rafael J . Wysocki"
- <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, "lukasz.luba@arm.com"
- <lukasz.luba@arm.com>, Jason Baron <jbaron@akamai.com>,
- Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
- Yazen Ghannam <yazen.ghannam@amd.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Kirill A. Shutemov" <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, Pu Wen <puwen@hygon.cn>,
- Bjorn Helgaas <bhelgaas@google.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
- Babu Moger <babu.moger@amd.com>, Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
- Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Helge Deller <deller@gmx.de>,
- linux-geode@lists.infradead.org, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Guenter Roeck <linux@roeck-us.net>, Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Perry Yuan <perry.yuan@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
- "srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
- Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
- Artem Bityutskiy <dedekind1@gmail.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Ashok Raj <ashok.raj.linux@gmail.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
-Message-ID: <0c5e4515-b51e-4b19-8389-a76cabc88042@suse.com>
-Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
-References: <20260629060526.3638272-1-jgross@suse.com>
- <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
- <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
- <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
- <akJUz0kYkEBdLSZ3@gmail.com> <akQR9YMtMHReJTfB@google.com>
-In-Reply-To: <akQR9YMtMHReJTfB@google.com>
+Hi Roger and Andrew,
 
---------------vD8700IqVizDT0GQTpFiBkTP
-Content-Type: multipart/mixed; boundary="------------jBK7pBe03sqwPCAFbkx06T5B"
+On Tue, 30 Jun 2026 08:47:14 +0000, Roger Pau Monné wrote:
+>On Mon, Jun 29, 2026 at 11:01:28AM +0900, Ryo Takakura wrote:
+>> Linux ftrace allows registering callbacks which is useful
+>> for debugging and tracing events. On Linux, it is done by
+>> reserving function entry points at compile time which can
+>> later be patched to branch to a trampoline.
+>> 
+>> This patch implements similar callback feature, but with
+>> different approach using existing livepatch infrastructure.
+>> Instead of reserving function entry points at compile time,
+>> the traced function will be livepatched so that it branches
+>> to the trampoline.
+>
+>While this is an interesting usage of the livepatch logic in new ways,
+>may I ask why not do as Linux and add an empty function preamble that
+>can be replaced at run-time with calls to hooks?
+>
+>You could still re-use most of the livepatch logic for handling the
+>addition of the hook calls, but it would be nicer in that we won't
+>need to move the original function.
 
---------------jBK7pBe03sqwPCAFbkx06T5B
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+I agree that we can reuse a lot of livepatch logic.
 
-T24gMzAuMDYuMjYgMjA6NTksIFNlYW4gQ2hyaXN0b3BoZXJzb24gd3JvdGU6DQo+IE9uIE1v
-biwgSnVuIDI5LCAyMDI2LCBJbmdvIE1vbG5hciB3cm90ZToNCj4+ICogQXJuZCBCZXJnbWFu
-biA8YXJuZEBhcm5kYi5kZT4gd3JvdGU6DQo+Pg0KPj4+Pj4+IE5vdGUgdGhhdCBtb3N0IHBh
-dGNoZXMgb2YgdGhpcyBzZXJpZXMgYXJlIGluZGVwZW5kZW50IGZyb20gZWFjaCBvdGhlci4N
-Cj4+Pj4+PiBPbmx5IHRoZSBwYXRjaGVzIHJlbW92aW5nIGEgc3BlY2lmaWMgaW50ZXJmYWNl
-IChwYXRjaGVzIDcsIDE1LCAyNiBhbmQNCj4+Pj4+PiAzMCkgYW5kIHRoZSBsYXN0IHR3byBw
-YXRjaGVzIG9mIHRoZSBzZXJpZXMgZGVwZW5kIG9uIGFsbCBwcmV2aW91cw0KPj4+Pj4+IHBh
-dGNoZXMuDQo+Pj4+Pg0KPj4+Pj4gSXQgbG9va3MgbGlrZSB5b3UgYXJlIHRvdWNoaW5nIG1v
-c3QgZmlsZXMgdHdpY2Ugb3IgbW9yZSBoZXJlLCB0bw0KPj4+Pj4gZmlyc3QgY29udmVydCBm
-cm9tIHJkbXNyIHRvIHJkbXNycSBhbmQgdGhlbiB0byBjaGFuZ2UgdGhlDQo+Pj4+PiB0d28t
-YXJndW1lbnQgcmRtc3JxKCkgbWFjcm8gdG8gYSBzaW5nbGUtYXJndW1lbnQgaW5saW5lLiBJ
-ZiB5b3UNCj4+Pj4+IGludHJvZHVjZSB0aGUgaW5saW5lIHZlcnNpb24gb2YgcmRtc3JxKCkg
-Zmlyc3QsIHlvdSBzaG91bGQgYmUNCj4+Pj4+IGFibGUgdG8gc2tpcCB0aGUgc2Vjb25kIHN0
-ZXAgKHBhdGNoIDMxKSBhcyB0aGV5IGNvdWxkIGJlIGFibGUNCj4+Pj4+IHRvIGNvZXhpc3Qu
-DQo+Pj4+DQo+Pj4+IEkndmUgZGlzY3Vzc2VkIGhvdyB0byBzdHJ1Y3R1cmUgdGhlIHNlcmll
-cyB3aXRoIEluZ28gTW9sbmFyIGJlZm9yZSBbMV0uIFRoZQ0KPj4+PiBjdXJyZW50IGFwcHJv
-YWNoIHdhcyBoaXMgcHJlZmVyZW5jZS4NCj4+Pg0KPj4+IE9rLg0KPj4NCj4+IE5vdGUgdGhh
-dCB0aGUgaW5kaXZpZHVhbCBwYXRjaGVzIGFyZSBJTU8gc2lnbmlmaWNhbnRseSBlYXNpZXIg
-dG8gcmV2aWV3DQo+PiB0aHJvdWdoIHRoZSBhY3R1YWwgMzItYml0ID0+IDY0LWJpdCB2YXJp
-YWJsZSBhc3NpZ25tZW50IGNoYW5nZXMgZG9uZQ0KPj4gaW4gaXNvbGF0aW9uICh3aGljaCBz
-b21ldGltZXMgaW5jbHVkZSBtaW5vciBjbGVhbnVwcyksIHdoaWxlDQo+PiB0aGUgQ29jY2lu
-ZWxsZSBzZW1hbnRpYyBwYXRjaDoNCj4+DQo+PiAgICAgeyBhKGIsYykgPT4gYyA9IGEoYikg
-fQ0KPj4NCj4+IHdoaWNoIGNoYW5nZXMgYm90aCB0aGUgZnVuY3Rpb24gc2lnbmF0dXJlIGFu
-ZCB0aGUgb3JkZXIgb2YgdGVybXMgYXMNCj4+IHdlbGwsIGlzIGp1c3QgYSBzaW5nbGUgYWRk
-LW9uIHRyZWV3aWRlIHBhdGNoLg0KPiANCj4gSXMgdGhlIHBsYW4gZm9yIHN1YnN5c3RlbSBt
-YWludGFpbmVycyB0byBwaWNrIHVwIHRoZSByZWxldmFudCBwYXRjaGVzLCBhbmQgdGhlbg0K
-PiBkbyB0aGUgdHJlZXdpZGUgY2hhbmdlIG9uZSByZWxlYXNlIGN5Y2xlIGxhdGVyPw0KDQpZ
-ZXMsIHBsZWFzZS4NCg0KDQpKdWVyZ2VuDQo=
---------------jBK7pBe03sqwPCAFbkx06T5B
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+>> The role of the trampoline(illustrated below) is to preserve
+>> the context while jumping to the tracer function, and return
+>> back to the traced function with its context restored.
+>
+>Alternatively - why not use livepatch-build-tools against a build with
+>the added hooks to generate a proper livepatch?  This looks a bit
+>fragile to me (see the question from Andrew about fixing up
+>instruction pointer relative references).
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Yes, I think proper livepatching would still be preferred
+given all the concerns Andrew and Roger raised.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+>On x86 at least we would also need to adjust the bug frames and
+>exception table contents, and the contents of the symbol table to
+>account for the function being moved.
+>
+>IOW: it looks like overall this is a lot more work than possibly
+>reserving a function preamble to add hook calls?
 
---------------jBK7pBe03sqwPCAFbkx06T5B--
+Yes, I agree.
+(I wasn't aware of this additional work when I replied
+to Andrew yesterday, thanks!)
 
---------------vD8700IqVizDT0GQTpFiBkTP--
+And if I were to summarize the discussion so far, assuming we
+still want to add a tracing-feature, I think we are in agreement
+adding an empty function preamble like Linux.
+(I personally would still like to see a framework on Xen
+that is more convenient and tracing-friendly which can be used
+reliably at the same time)
 
---------------yR0aQa1Dp38FRBSVbM28PBR6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+If this sounds reasonable, I will try preparing one based on
+the feedbacks I was given so far:
+- Use of Linux-like reserved function preamble
+- Use of __attribute__((no_caller_saved_registers))
+- Split replacement and preamble-hook handling in common code
 
------BEGIN PGP SIGNATURE-----
+Let me know your thoughts!
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmpE0NcFAwAAAAAACgkQsN6d1ii/Ey+4
-VQf5ARTTFZkvO/RB1pgLA5pxpW3UUS3uxxV7SopNU0hZc/AzNq9az9lJfyH7jPZ8QBmU9IKulebG
-ITlyXQQs6UjK+gdS9lqvVR/gt7jXQo56BFaXUZQwHSt8ln7k9LhUmdEaBj2m305DZnpb9SGilWTg
-FU/0xAyiM++MkxazBUebIsHavKxiZg3dIjZQ6L7GCivFopHxm59Fg0dv+E0OzaQGPmtrz/oR7sNP
-AkYiOzz84cF2fQXnHTlKAU02RMhfJ2YDp/KAdwPaf1hFwAZsNFL3usH2Ku34Q0ARJoRpUockNhfc
-G3t+JspAVbLH9NBe6jFF+6eWh86FKPsmtwZt0e9tvQ==
-=ng7t
------END PGP SIGNATURE-----
+>> trampoline:
+>>     Save regs
+>>     Call tracer function
+>>     Restore regs
+>>     old_addr
+>>     return old_addr + 4
+>> 
+>> One can request the feature by setting @trampoline_buf to 1
+>> which will allocate a buffer for trampoline.
+>> 
+>> Signed-off-by: Ryo Takakura <takakura@xxxxxxxxxxxxx>
+>> ---
+>> 
+>> Hi!
+>> 
+>> For the future, I'm thinking of linux-like extensions
+>> which help tracing and debugging by passing:
+>> - saved registers
+>> - caller information
+>> - private data
+>> - and so on ...
+>> 
+>> I would appreciate any advice or suggestion.
+>> Thanks!
+>> 
+>> Example payload file:
+>> 
+>> #include <xen/lib.h>
+>> #include <xen/livepatch.h>
+>> 
+>> static void my_tracer(void)
+>> {
+>>     printk("livepatch: do_domctl was called\n");
+>> }
+>> 
+>> static struct livepatch_func funcs[]
+>>     __attribute__((section(".livepatch.funcs"))) =
+>> {
+>>     {
+>>         .name = "do_domctl",
+>>         .old_size = 4572,
+>>         .new_addr = my_tracer,
+>>         .new_size = 32,
+>>         .trampoline_buf = (void *)1,
+>>         .version = LIVEPATCH_PAYLOAD_VERSION,
+>>     }
+>> };
+>> 
+>> Sample output:
+>> 
+>> $ tools/misc/xen-livepatch list
+>>  ID                                     | status     | metadata
+>> ----------------------------------------+------------+---------------
+>> trace_do_domctl                         | APPLIED    |
+>> $ xl vcpu-list Domain-0
+>> Name                                ID  VCPU   CPU State   Time(s) Affinity 
+>> (Hard / Soft)
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> (XEN) livepatch: do_domctl was called
+>> Domain-0                             0     0    1   -b-      67.7  all / all
+>> Domain-0                             0     1    3   -b-     457.2  all / all
+>> Domain-0                             0     2    2   -b-      42.4  all / all
+>> Domain-0                             0     3    0   r--      32.4  all / all
+>> 
+>> Sincerely,
+>> Ryo Takakura
+>> 
+>> ---
+>>  xen/arch/arm/arm64/livepatch.c      | 104 +++++++++++++++++++++++++++-
+>>  xen/common/livepatch.c              |  40 +++++++++--
+>>  xen/include/public/sysctl.h         |   3 +-
+>>  xen/include/xen/livepatch.h         |  13 +++-
+>>  xen/include/xen/livepatch_payload.h |   2 +
+>>  5 files changed, 150 insertions(+), 12 deletions(-)
+>> 
+>> diff --git a/xen/arch/arm/arm64/livepatch.c b/xen/arch/arm/arm64/livepatch.c
+>> index e135bd5bf9..b7c9aba94e 100644
+>> --- a/xen/arch/arm/arm64/livepatch.c
+>> +++ b/xen/arch/arm/arm64/livepatch.c
+>> @@ -15,6 +15,29 @@
+>>  #include <asm/insn.h>
+>>  #include <asm/livepatch.h>
+>>  
+>> +
+>> +#define AARCH64_REG_SP 31
+>> +
+>> +static uint32_t aarch64_insn_gen_stp_pre(unsigned int rt,
+>> +                                         unsigned int rt2)
+>> +{
+>> +    return 0xa9800000 |
+>> +           (((-16 / 8) & 0x7f) << 15) |
+>> +           (rt2 << 10) |
+>> +           (AARCH64_REG_SP << 5) |
+>> +           rt;
+>> +}
+>> +
+>> +static uint32_t aarch64_insn_gen_ldp_post(unsigned int rt,
+>> +                                          unsigned int rt2)
+>> +{
+>> +    return 0xa8c00000 |
+>> +           (((16 / 8) & 0x7f) << 15) |
+>> +           (rt2 << 10) |
+>> +           (AARCH64_REG_SP << 5) |
+>> +           rt;
+>> +}
+>> +
+>>  void arch_livepatch_apply(const struct livepatch_func *func,
+>>                            struct livepatch_fstate *state)
+>>  {
+>> @@ -34,12 +57,87 @@ void arch_livepatch_apply(const struct livepatch_func 
+>> *func,
+>>      /* Save old ones. */
+>>      memcpy(state->insn_buffer, func->old_addr, len);
+>>  
+>> -    if ( func->new_addr )
+>> +    if ( !func->new_addr )
+>> +    {
+>> +        insn = aarch64_insn_gen_nop();
+>> +    }
+>> +    else if ( func->trampoline_buf )
+>> +    {
+>> +        int rc;
+>> +        uint32_t *trampoline = func->trampoline_buf;
+>> +        uint32_t *tp = trampoline;
+>> +        void *orig_cont_addr = (void *)func->old_addr + len;
+>> +        unsigned int trampoline_code_size = len + 12 * ARCH_PATCH_INSN_SIZE;
+>> +        unsigned long trampoline_start = (unsigned long)trampoline & 
+>> PAGE_MASK;
+>> +        unsigned long trampoline_end =
+>> +            PAGE_ALIGN((unsigned long)trampoline + trampoline_code_size);
+>> +
+>> +        /*
+>> +         * Make the payload text area writeable while generating
+>> +         * the trampoline instructions.
+>> +         */
+>> +        rc = modify_xen_mappings(trampoline_start, trampoline_end,
+>> +                                 PAGE_HYPERVISOR);
+>> +        if ( rc )
+>> +        {
+>> +            printk(XENLOG_ERR LIVEPATCH
+>> +                   "Failed to make trampoline writable: %d\n", rc);
+>> +            return;
+>> +        }
+>> +
+>> +        /* Save state before calling the tracer. */
+>> +        *tp++ = aarch64_insn_gen_stp_pre(0, 1);
+>> +        *tp++ = aarch64_insn_gen_stp_pre(2, 3);
+>> +        *tp++ = aarch64_insn_gen_stp_pre(4, 5);
+>> +        *tp++ = aarch64_insn_gen_stp_pre(6, 7);
+>> +        *tp++ = aarch64_insn_gen_stp_pre(29, 30);
+>> +
+>> +        /* Call user's tracing function. */
+>> +        insn = aarch64_insn_gen_branch_imm(
+>> +            (unsigned long)tp,
+>> +            (unsigned long)func->new_addr,
+>> +            AARCH64_INSN_BRANCH_LINK);
+>> +        *tp++ = insn;
+>> +
+>> +        /* Restore state before continuing original function. */
+>> +        *tp++ = aarch64_insn_gen_ldp_post(29, 30);
+>> +        *tp++ = aarch64_insn_gen_ldp_post(6, 7);
+>> +        *tp++ = aarch64_insn_gen_ldp_post(4, 5);
+>> +        *tp++ = aarch64_insn_gen_ldp_post(2, 3);
+>> +        *tp++ = aarch64_insn_gen_ldp_post(0, 1);
+>> +
+>> +        /* Original instruction. */
+>> +        memcpy(tp, state->insn_buffer, len);
+>> +        tp += len / ARCH_PATCH_INSN_SIZE;
+>> +
+>> +        /* Branch back to original function. */
+>> +        insn = aarch64_insn_gen_branch_imm(
+>> +            (unsigned long)tp,
+>> +            (unsigned long)orig_cont_addr,
+>> +            AARCH64_INSN_BRANCH_NOLINK);
+>> +        *tp++ = insn;
+>> +
+>> +        clean_and_invalidate_dcache_va_range(trampoline, 
+>> trampoline_code_size);
+>> +
+>> +        rc = modify_xen_mappings(trampoline_start, trampoline_end,
+>> +                                 PAGE_HYPERVISOR_RX);
+>> +        if ( rc )
+>> +        {
+>> +            printk(XENLOG_ERR LIVEPATCH
+>> +                   "Failed to restore trampoline RX mapping: %d\n", rc);
+>> +            return;
+>> +        }
+>> +
+>> +        /* Branch from original function to trampoline. */
+>> +        insn = aarch64_insn_gen_branch_imm(
+>> +            (unsigned long)func->old_addr,
+>> +            (unsigned long)func->trampoline_buf,
+>> +            AARCH64_INSN_BRANCH_NOLINK);
+>> +    }
+>> +    else if ( func->new_addr )
+>>          insn = aarch64_insn_gen_branch_imm((unsigned long)func->old_addr,
+>>                                             (unsigned long)func->new_addr,
+>>                                             AARCH64_INSN_BRANCH_NOLINK);
+>> -    else
+>> -        insn = aarch64_insn_gen_nop();
+>
+>If we want to go this route, and use livepatching for this purpose, we
+>need to branch the use-cases in common code, and have arches provide
+>both a replacement and a preface addition hooks IMO.
 
---------------yR0aQa1Dp38FRBSVbM28PBR6--
+I think that is a good idea.
+I'll take this into account for the next.
+
+>>  
+>>      /* Verified in livepatch_verify_distance. */
+>>      ASSERT(insn != AARCH64_BREAK_FAULT);
+>> diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+>> index 7515a040ad..8863ad5ca3 100644
+>> --- a/xen/common/livepatch.c
+>> +++ b/xen/common/livepatch.c
+>> @@ -280,10 +280,30 @@ static int move_payload(struct payload *payload, struct 
+>> livepatch_elf *elf)
+>>  {
+>>      void *text_buf, *ro_buf, *rw_buf;
+>>      unsigned int i, rw_buf_sec, rw_buf_cnt = 0;
+>> -    size_t size = 0;
+>> +    const struct livepatch_elf_sec *sec;
+>> +    const struct livepatch_func *funcs;
+>> +    unsigned int nfuncs, trampolines_needed = 0;
+>> +    size_t size = 0, trampoline_size = 0;
+>>      unsigned int *offset;
+>>      int rc = 0;
+>>  
+>> +    sec = livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_FUNC);
+>> +    if ( sec )
+>> +    {
+>> +        funcs = sec->addr;
+>> +        nfuncs = sec->sec->sh_size / sizeof(*funcs);
+>> +
+>> +        for ( i = 0; i < nfuncs; ++i )
+>> +            if ( funcs[i].trampoline_buf == (void *)1 )
+>> +                trampolines_needed++;
+>> +
+>> +        if ( trampolines_needed )
+>> +        {
+>> +            payload->n_trampolines = trampolines_needed;
+>> +            trampoline_size = trampolines_needed * LIVEPATCH_TRAMPOLINE_SIZE;
+>> +        }
+>> +    }
+>> +
+>>      offset = xmalloc_array(unsigned int, elf->hdr->e_shnum);
+>>      if ( !offset )
+>>          return -ENOMEM;
+>> @@ -323,8 +343,8 @@ static int move_payload(struct payload *payload, struct 
+>> livepatch_elf *elf)
+>>       * them on separate pages. The last one will by default fall on its
+>>       * own page.
+>>       */
+>> -    size = PAGE_ALIGN(payload->text_size) + PAGE_ALIGN(payload->rw_size) +
+>> -                      payload->ro_size;
+>> +    size = PAGE_ALIGN(payload->text_size + trampoline_size) +
+>> +           PAGE_ALIGN(payload->rw_size) + payload->ro_size;
+>>  
+>>      size = PFN_UP(size); /* Nr of pages. */
+>>      text_buf = vmalloc_xen(size * PAGE_SIZE);
+>> @@ -335,9 +355,12 @@ static int move_payload(struct payload *payload, struct 
+>> livepatch_elf *elf)
+>>          rc = -ENOMEM;
+>>          goto out;
+>>      }
+>> -    rw_buf = text_buf + PAGE_ALIGN(payload->text_size);
+>> +    rw_buf = text_buf + PAGE_ALIGN(payload->text_size + trampoline_size);
+>>      ro_buf = rw_buf + PAGE_ALIGN(payload->rw_size);
+>>  
+>> +    if ( trampoline_size )
+>> +        payload->trampoline_addr = text_buf + payload->text_size;
+>> +
+>>      payload->pages = size;
+>>      payload->text_addr = text_buf;
+>>      payload->rw_addr = rw_buf;
+>> @@ -690,7 +713,7 @@ static int prepare_payload(struct payload *payload,
+>>  {
+>>      const struct livepatch_elf_sec *sec;
+>>      const struct payload *data;
+>> -    unsigned int i;
+>> +    unsigned int i, trampoline_idx = 0;
+>>      struct livepatch_func *funcs;
+>>      struct livepatch_func *f;
+>>      struct virtual_region *region;
+>> @@ -737,6 +760,13 @@ static int prepare_payload(struct payload *payload,
+>>              if ( rc )
+>>                  return rc;
+>>  
+>> +            if ( f->trampoline_buf == (void *)1 )
+>> +            {
+>> +                f->trampoline_buf = (char *)payload->trampoline_addr +
+>
+>You don't need to cast to char *, the type of trampoline_addr is void
+>*, and we use the GNU extension to allow void pointer arithmetic by
+>treating the size of a void or of a function as 1.
+
+Oh, thanks for the advice!
+I'll keep it in mind.
+
+>> +                                    trampoline_idx * 
+>> LIVEPATCH_TRAMPOLINE_SIZE;
+>> +                trampoline_idx++;
+>> +            }
+>> +
+>>              rc = livepatch_verify_distance(f);
+>>              if ( rc )
+>>                  return rc;
+>> diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+>> index c7cd9b4eb0..e79615d7c9 100644
+>> --- a/xen/include/public/sysctl.h
+>> +++ b/xen/include/public/sysctl.h
+>> @@ -1010,10 +1010,11 @@ struct livepatch_func {
+>>      const char *name;       /* Name of function to be patched. */
+>>      void *new_addr;
+>>      void *old_addr;
+>> +    void *trampoline_buf;   /* Trampoline buffer when set to (void *)1. */
+>>      uint32_t new_size;
+>>      uint32_t old_size;
+>>      uint8_t version;        /* MUST be LIVEPATCH_PAYLOAD_VERSION. */
+>> -    uint8_t _pad[39];
+>> +    uint8_t _pad[31];
+>
+>New fields should be preferably added at the tail of the structure,
+>and the change here needs to be propagated into livepatch-build-tools
+>livepatch_patch_func structure.  See:
+>
+>https://xenbits.xen.org/gitweb/?p=livepatch-build-tools.git;a=blob;f=common.h;h=7f3a82ffdb29d2d1d117c1ccb20cc328bdb0529a;hb=HEAD#l135
+>
+>This is sadly all very fragile.
+
+Thanks. I will make sure to update livepatch-build-tools if needed.
+(But I believe the change here won't be needed as pointed by Andrew [1])
+
+>>      livepatch_expectation_t expect;
+>>  };
+>>  typedef struct livepatch_func livepatch_func_t;
+>> diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
+>> index 45c8924f34..7a81763cf2 100644
+>> --- a/xen/include/xen/livepatch.h
+>> +++ b/xen/include/xen/livepatch.h
+>> @@ -48,6 +48,8 @@ struct xen_sysctl_livepatch_op;
+>>  #define ELF_LIVEPATCH_POSTREVERT_HOOK ".livepatch.hooks.postrevert"
+>>  /* Arbitrary limit for payload size and .bss section size. */
+>>  #define LIVEPATCH_MAX_SIZE     MB(2)
+>> +/* Size of a trampoline used for function tracing */
+>> +#define LIVEPATCH_TRAMPOLINE_SIZE 128
+>>  
+>>  struct livepatch_symbol {
+>>      const char *name;
+>> @@ -109,13 +111,18 @@ unsigned int livepatch_insn_len(const struct 
+>> livepatch_func *func,
+>>  
+>>  static inline int livepatch_verify_distance(const struct livepatch_func 
+>> *func)
+>>  {
+>> +    const void *target;
+>>      long offset;
+>>      long range = ARCH_LIVEPATCH_RANGE;
+>>  
+>> -    if ( !func->new_addr ) /* Ignore NOPs. */
+>> -        return 0;
+>> +    if ( func->trampoline_buf )
+>> +     target = func->trampoline_buf;
+>> +    else if ( func->new_addr )
+>> +     target = func->new_addr;
+>> +    else
+>> +     return 0; /* Ignore NOPs. */
+>
+>FWIW, indentation is wrong here, you are adding hard tabs.
+
+My mistake. I'll fix this.
+
+Sincerely,
+Ryo Takakura
+
+[1] https://lists.xen.org/archives/html/xen-devel/2026-06/msg01583.html
+
+>Thanks, Roger.
 
