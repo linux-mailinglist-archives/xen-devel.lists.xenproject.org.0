@@ -2,44 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id IFVYHJcyRWop8goAu9opvQ
+	id GhkeJbgyRWow8goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:30:31 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:31:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 984576EF41B
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:30:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC8326EF41E
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:31:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=xenproject.org header.s=20200302mail header.b="A0yH3+i ";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=EWVz2g0y;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1350163.1607719 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=gmail.com
+Received: from list by lists.xenproject.org with outflank-mailman.1350174.1607729 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewt8-0005U0-0z; Wed, 01 Jul 2026 15:30:10 +0000
+	id 1wewtr-0005xN-97; Wed, 01 Jul 2026 15:30:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350163.1607719; Wed, 01 Jul 2026 15:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 1350174.1607729; Wed, 01 Jul 2026 15:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewt7-0005Ra-UX; Wed, 01 Jul 2026 15:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 1350163;
- Wed, 01 Jul 2026 15:30:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-0005RD-Hx
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-0028zg-2D
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
-Received: from mail-lj1-f172.google.com ([209.85.208.172])
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-002mTL-11
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-39957d210f4so8123511fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:30:08 -0700 (PDT)
+	id 1wewtr-0005ur-5q; Wed, 01 Jul 2026 15:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 1350174;
+ Wed, 01 Jul 2026 15:30:54 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wewtp-0005uj-Rn
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:53 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1wewto-003GHH-TZ
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 17:30:52 +0200
+Received: from [10.42.69.1] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4532ac-e002-0a2a0a5209dd-0a2a4501c9a6-4
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:30:52 +0200
+Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4532a1-400f-0a2a45010019-d155dd29dc8c-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:30:41 +0200
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-474560436c3so758602f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:30:41 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-477de3dd0b1sm571782f8f.35.2026.07.01.08.30.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Jul 2026 08:30:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,142 +59,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
-	From:MIME-Version; bh=T6mw+mMJOdl5hUTkEqale/uYDzDG6vIcz1q3yNEIq9k=; b=A0yH3+i
-	Fo/3RuANBIEMnvgCvZgEAPYHUWKStFQdK/9paXjJ/4us6M7Vjf++z7KU7l7i03FsByDkfRQJfABDt
-	4zP/HIkHGD2/eD5cFSdc7kbD7RGvUvMXDC6QW2tmdnHrjEKy/8m4dwzi6VxxcNGJqnhfmdh9hg+qC
-	orOk5leqDY=;
-X-Gm-Message-State: AOJu0Yxm4mJzaxthf6mgu/1TKKGWtb9a5YAIpzhd8VZMbq0CNokVauf4
-	UhNoTU7sCwEn4miAuaV3PLunwALpMwd6LJdYcmgyAR3JeyY1LjKeZsrPyBNrZiQZDbFBl/Oz9bI
-	KiM5Vk+c+4s7OlprJuD9jTOGRCaDjIoA=
-X-Received: by 2002:a2e:b891:0:b0:39a:e3c7:6649 with SMTP id
- 38308e7fff4ca-39b3406b5f9mr5869941fa.28.1782919807185; Wed, 01 Jul 2026
- 08:30:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1782919841; x=1783524641; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PzuFWwDhr1bgrcQW7srPgbk5rjVNeVot/73Z7hmNgIk=;
+        b=EWVz2g0yTOm8/wlDb485/3HpqO2VOmWmzK5rwdCQ5xKPSqe9UT4qZOcgp6FhLIHB3s
+         1IgPlBNaRi9x1UhZ8gn2YurydmgOOpBf5B2Ho+/WGMmti3eYrGFIZyO3rwbnLXaiqElp
+         9/URhg2vSyj7wO1v8Yp3ZyqRp9XxMwNSOodAq5DE8/WtIDmdtEWF45OmfEPptcW0AeKO
+         fONNSuEzp6hXrUdSz0okIpRF0nceWVEpWv1WUezP3pIGBQoMmm4x3AtwAao4ss2sOEu6
+         srK6l5QT/BwwmCazV9dokerTe5kZLEQ9UR2dGNEQ6iUqMnPStkG16mC63eTTgfgeue6u
+         mnbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1782919841; x=1783524641;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PzuFWwDhr1bgrcQW7srPgbk5rjVNeVot/73Z7hmNgIk=;
+        b=bEoe930Y5Dzfnz3YsnJr8+anc87bTUpWXzp2QTN27/USuxMV5IbOR4frtTEcaFpqGh
+         IXvr/bCt93m6PgZKcgfUjVyaf5CWxMXuYtvwZWcLmsAM2w/RHtJHDRhBItHJ/vtn6EIs
+         lV+J9zssx+BBSkFLpLUlKapRykKDL5JATZBiDwN0Ikg1/+g4m6gG45bLZxagsorBCasL
+         nPh/KtmclDyrOH2dgUkDimJ2+1rG1Z09HAuDXFl7mlhpMgdFN9npJd9epAvTV/Q10FOo
+         NOoippAthyQX14vASO3M5GepoRFjEpKEAiMjx47Ou5ik8ainYH1sFkRqoPJ0xTY8GdDn
+         Yt/w==
+X-Forwarded-Encrypted: i=1; AHgh+Rr7yBKrIGTHK0JiqB0KoafMgAmzGL69fttQ5HW2arQrZcMDDrbYL+gLFnXVVxk9flUgmaIC0uV7ZBE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVku1FSpqgGVjn46nkNgpCO1YJ7P8QNHJpBTy+xyXjYNW8G3aq
+	r5WueGQFvut+lelB1H7KcYhCDGe1j9yl3L3fRWgFm/ifV4gmU9qGVS8P
+X-Gm-Gg: AfdE7cmQPb6h6A3ZDAYBV5r9SCrNCF3aVYYRzWgpdW57uAkVBR3fsATTdceobJQXsvn
+	BP6ka6Rn2EkNXj3XWZFWRCEsw1DGVoRQgRH0lM4e4X3HLItev49I7W4bLcQPkS5Id2JvPbMRigZ
+	ph4a92vw7Tu/JNGC49fzEd9qRcKA3Sf8mjPvj/4rLU9MHSyr9utv3U4/nxgP2FvJxOC/dpQ+3X0
+	b9uxDf6NHIZb8iIRbjoP2/wHsCKZV6velgCyeZcRIz5oLq4Xe/7va1NMNIZJEjaFjqHS5RRwnJB
+	B6eG9I3IPfDRldcJ5+mIernbPLXhFFcvgASHusYEDj8BMx1yIfGRWpO1Y5N/zcjynY0jGlwhNuy
+	737oz3b/nSpDYzuchMEL5vp/PXRPNGnXpOPjacR33Oeeqdfwy3NLd+C9E5mJr1cKYyjjN+xj45R
+	FzqaCnTh+RnTJt8dA31+qpr99FzNZRggUXgrX+SS8XCLyNzuEAbJEo9VuVhhZmPt0yvkQ=
+X-Received: by 2002:a05:6000:18af:b0:475:f0d1:eb55 with SMTP id ffacd0b85a97d-477b1aa2fefmr1804109f8f.48.1782919840832;
+        Wed, 01 Jul 2026 08:30:40 -0700 (PDT)
+Message-ID: <8808a658-0172-4af6-a6dc-6c975d0e5c34@gmail.com>
+Date: Wed, 1 Jul 2026 17:30:39 +0200
 MIME-Version: 1.0
-From: Cody Zuschlag <cody.zuschlag@xenproject.org>
-Date: Wed, 1 Jul 2026 17:29:54 +0200
-X-Gmail-Original-Message-ID: <CAJbE=Kxmq-2QLScjxVjXw5rg0SPky=6RL-GeuJVBjAbXjPOipg@mail.gmail.com>
-X-Gm-Features: AVVi8Ce0T2c5gcTJQjHKfTk87pywHalYs-RoggO2ZWB09IhznD0KZAlbcYRlb2E
-Message-ID: <CAJbE=Kxmq-2QLScjxVjXw5rg0SPky=6RL-GeuJVBjAbXjPOipg@mail.gmail.com>
-Subject: [ANNOUNCE] - Call for agenda items for July 2 Xen Community Call @
- 15:00 UTC
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000c5384706558e5d83"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] xen: introduce CONFIG_HAS_SHARED_INFO for archs
+ without a shared page
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>, xen-devel@lists.xenproject.org
+References: <775c88457e5ec7fc7889002c6f9829669f9bce97.1782388193.git.oleksii.kurochko@gmail.com>
+ <5d344cec-bb97-4d3b-87ff-e7175772fd45@suse.com>
+ <0e2a8eab-366f-4384-a467-43f051d047ec@gmail.com>
+Content-Language: en-US
+In-Reply-To: <0e2a8eab-366f-4384-a467-43f051d047ec@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1782919841-80CD61E0-70DF2864/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 3614
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	URI_COUNT_ODD(1.00)[13];
-	DMARC_POLICY_ALLOW(-0.50)[xenproject.org,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[xenproject.org:s=20200302mail];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,mail.gmail.com:mid,cryptpad.fr:url,xenproject.org:dkim,xenproject.org:from_mime,jit.si:url];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[xenproject.org:+];
-	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_ONE(0.00)[1];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 984576EF41B
-
---000000000000c5384706558e5d83
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi everyone,
-
-It=E2=80=99s time for the July Xen Project Community Call, happening tomorr=
-ow,
-Thursday, 2 July at 15:00 UTC.
-
-We=E2=80=99d love to have you join. Whether you have updates to share or ju=
-st want
-to listen in, it's a great opportunity to hear what the community has been
-working on and discuss ongoing project activities.
+X-Rspamd-Queue-Id: CC8326EF41E
 
 
-*Preparation:*=F0=9F=91=89 Please take a moment to review and update the ag=
-enda ahead
-of the call:
-https://cryptpad.fr/pad/#/2/pad/edit/JItQI8jtCjrs3eM1SWSgjDgv/
 
-Feel free to:
-- Add topics or project updates
-- Suggest anything we can drop or defer
-- Include links to patches, threads, or documentation where helpful
+On 6/30/26 5:02 PM, Oleksii Kurochko wrote:
+> 
+>>
+>>> @@ -55,6 +59,7 @@ struct evtchn_expand_array;
+>>>   int evtchn_fifo_init_control(struct evtchn_init_control 
+>>> *init_control);
+>>>   int evtchn_fifo_expand_array(const struct evtchn_expand_array 
+>>> *expand_array);
+>>>   void evtchn_fifo_destroy(struct domain *d);
+>>> +void evtchn_fifo_init_ops(struct domain *d);
+>>>   #else
+>>>   static inline int evtchn_fifo_init_control(struct 
+>>> evtchn_init_control *init_control)
+>>>   {
+>>> @@ -68,6 +73,7 @@ static inline void evtchn_fifo_destroy(struct 
+>>> domain *d)
+>>>   {
+>>>       return;
+>>>   }
+>>> +static inline void evtchn_fifo_init_ops(struct domain *d) {}
+>>>   #endif /* CONFIG_EVTCHN_FIFO */
+>>
+>> Unlike these two. Which raise a different question though: What will 
+>> be the
+>> behavior when EVTCHN_FIFO=n and HAS_SHARED_INFO=n? Taking
+>> evtchn_alloc_unbound() as example, afaict evtchn_port_init() will stumble
+>> over a NULL pointer. Looks like for that (and only that) case we still 
+>> need
+>> your earlier dummy fallback.
+> 
+> I will introduce dummy fallback (I will shrunk some stubs in final 
+> version):
+> 
+> +#ifndef CONFIG_HAS_SHARED_INFO
+> +static void cf_check evtchn_none_set_pending(
+> +    struct vcpu *v, struct evtchn *evtchn) {}
+> +static void cf_check evtchn_none_clear_pending(
+> +    struct domain *d, struct evtchn *evtchn) {}
+> +static void cf_check evtchn_none_unmask(
+> +    struct domain *d, struct evtchn *evtchn) {}
+> +static bool cf_check evtchn_none_is_pending(
+> +    const struct domain *d, const struct evtchn *evtchn) { return false; }
+> +static bool cf_check evtchn_none_is_masked(
+> +    const struct domain *d, const struct evtchn *evtchn) { return true; }
+> +static void cf_check evtchn_none_print_state(
+> +    struct domain *d, const struct evtchn *evtchn) {}
+> +
+> +static const struct evtchn_port_ops evtchn_port_ops_none = {
+> +    .set_pending   = evtchn_none_set_pending,
+> +    .clear_pending = evtchn_none_clear_pending,
+> +    .unmask        = evtchn_none_unmask,
+> +    .is_pending    = evtchn_none_is_pending,
+> +    .is_masked     = evtchn_none_is_masked,
+> +    .print_state   = evtchn_none_print_state,
+> +};
+> +
+> +static void evtchn_none_init(struct domain *d)
+> +{
+> +    d->evtchn_port_ops = &evtchn_port_ops_none;
+> +}
+> +#endif
 
-The agenda also includes the meeting link and additional call details.
+I will shrink it to::
 
+#ifndef CONFIG_HAS_SHARED_INFO
+/*
+  * Placeholder ops for domains with neither a shared_info page nor (yet)
+  * a FIFO control block.  None of these are ever reachable in practice;
+  * they only exist to keep d->evtchn_port_ops non-NULL.
+  */
+static void cf_check evtchn_none_set_pending(
+     struct vcpu *v, struct evtchn *evtchn) {}
 
-*Call Details:*Date: Thursday, 2 July 2026
-Time: 15:00 UTC (agenda starts at 15:05 UTC)
-Join: https://meet.jit.si/XenProjectCommunityCall
+static void cf_check evtchn_none_noop(
+     struct domain *d, struct evtchn *evtchn) {}
 
-We'll open the room at 15:00 UTC and begin the agenda at 15:05 UTC to give
-everyone a few minutes to join.
+static bool cf_check evtchn_none_false(
+     const struct domain *d, const struct evtchn *evtchn) { return false; }
 
-Want to be CC'd on future calls?
+static void cf_check evtchn_none_print_state(
+     struct domain *d, const struct evtchn *evtchn) {}
 
-Add or remove yourself from our sign-up sheet:
-https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
+static const struct evtchn_port_ops evtchn_port_ops_none = {
+     .set_pending   = evtchn_none_set_pending,
+     .clear_pending = evtchn_none_noop,
+     .unmask        = evtchn_none_noop,
+     .is_pending    = evtchn_none_false,
+     .is_masked     = evtchn_none_false,
+     .print_state   = evtchn_none_print_state,
+};
 
-See you tomorrow!
+void evtchn_none_init(struct domain *d)
+{
+     d->evtchn_port_ops = &evtchn_port_ops_none;
+}
+#endif /* CONFIG_HAS_SHARED_INFO */
 
-Best regards,
+~ Oleksii
 
-Cody Zuschlag
-Xen Project - Community Manager
-
---000000000000c5384706558e5d83
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi everyone,<br><br>It=E2=80=99s time for the July Xe=
-n Project Community Call, happening tomorrow, Thursday, 2 July at 15:00 UTC=
-.<br><br>We=E2=80=99d love to have you join. Whether you have updates to sh=
-are or just want to listen in, it&#39;s a great opportunity to hear what th=
-e community has been working on and discuss ongoing project activities.<br>=
-<br><b>Preparation:<br></b>=F0=9F=91=89 Please take a moment to review and =
-update the agenda ahead of the call:<br><a href=3D"https://cryptpad.fr/pad/=
-#/2/pad/edit/JItQI8jtCjrs3eM1SWSgjDgv/">https://cryptpad.fr/pad/#/2/pad/edi=
-t/JItQI8jtCjrs3eM1SWSgjDgv/</a><br><br>Feel free to:<br>- Add topics or pro=
-ject updates<br>- Suggest anything we can drop or defer<br>- Include links =
-to patches, threads, or documentation where helpful<br><br>The agenda also =
-includes the meeting link and additional call details.<br><br><b>Call Detai=
-ls:<br></b>Date: Thursday, 2 July 2026<br>Time: 15:00 UTC (agenda starts at=
- 15:05 UTC)<br>Join: <a href=3D"https://meet.jit.si/XenProjectCommunityCall=
-">https://meet.jit.si/XenProjectCommunityCall</a><br><br>We&#39;ll open the=
- room at 15:00 UTC and begin the agenda at 15:05 UTC to give everyone a few=
- minutes to join.<br><br>Want to be CC&#39;d on future calls?<br><br>Add or=
- remove yourself from our sign-up sheet:<br><a href=3D"https://cryptpad.fr/=
-pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/">https://cryptpad.fr/pad/#/2/pad=
-/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br><br>See you tomorrow!<br><br>Best re=
-gards,</div><div><br><img src=3D"https://ci3.googleusercontent.com/mail-sig=
-/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqn=
-Y6IaJUrl12" style=3D"background-color: transparent;"></div><div><div dir=3D=
-"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
-=3D"ltr"><div>Cody Zuschlag</div><div>Xen Project - Community Manager</div>=
-</div></div></div></div>
-
---000000000000c5384706558e5d83--
 
