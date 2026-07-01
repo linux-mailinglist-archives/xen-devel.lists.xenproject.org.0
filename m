@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ArYKNwNsRWrv/goAu9opvQ
+	id mO2PJAZsRWrw/goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:31 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C75B6F0EE8
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 428BB6F0EEB
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:34 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=google.com header.s=20251104 header.b=rcCjALW3;
+	dkim=pass header.d=google.com header.s=20251104 header.b=rOlOoVJo;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=google.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350662.1608207 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350663.1608212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0iS-0001IT-KN; Wed, 01 Jul 2026 19:35:24 +0000
+	id 1wf0iT-0001Rw-Em; Wed, 01 Jul 2026 19:35:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350662.1608207; Wed, 01 Jul 2026 19:35:24 +0000
+Received: by outflank-mailman (output) from mailman id 1350663.1608212; Wed, 01 Jul 2026 19:35:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0iS-0001Fy-B3; Wed, 01 Jul 2026 19:35:24 +0000
-Received: by outflank-mailman (input) for mailman id 1350662;
- Wed, 01 Jul 2026 19:35:22 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wf0iT-0001LH-5R; Wed, 01 Jul 2026 19:35:25 +0000
+Received: by outflank-mailman (input) for mailman id 1350663;
+ Wed, 01 Jul 2026 19:35:23 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3f2tFagYKCcQ2okxtmqyyqvo.myw7ox-no5ovvs232.7oxz1ytom3.y1q@flex--seanjc.bounces.google.com>)
- id 1wf0iQ-0001A9-Fs
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:35:22 +0000
+ <3gGtFagYKCcU3plyunrzzrwp.nzx8py-op6pwwt343.8py02zupn4.z2r@flex--seanjc.bounces.google.com>)
+ id 1wf0iR-0001E8-J3
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:35:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf0iP-003aqt-T6
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:35:21 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wf0iR-004oMZ-00
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:35:23 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3f2tFagYKCcQ2okxtmqyyqvo.myw7ox-no5ovvs232.7oxz1ytom3.y1q@flex--seanjc.bounces.google.com>)
- id 6a456bbb-5cb7-0a2a0a5109dd-0a2a4501a4e0-42
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:35:21 +0200
-Received: from [209.85.216.74] (helo=mail-pj1-f74.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ <3gGtFagYKCcU3plyunrzzrwp.nzx8py-op6pwwt343.8py02zupn4.z2r@flex--seanjc.bounces.google.com>)
+ id 6a456bbc-2eae-0a2a0a5409dd-0a2a450aa144-48
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:35:22 +0200
+Received: from [209.85.216.73] (helo=mail-pj1-f73.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <3f2tFagYKCcQ2okxtmqyyqvo.myw7ox-no5ovvs232.7oxz1ytom3.y1q@flex--seanjc.bounces.google.com>)
- id 6a456b80-400f-0a2a45010019-d155d84aec73-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:33:21 +0200
-Received: by mail-pj1-f74.google.com with SMTP id
- 98e67ed59e1d1-380a638fb5bso818813a91.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:33:21 -0700 (PDT)
+ <3gGtFagYKCcU3plyunrzzrwp.nzx8py-op6pwwt343.8py02zupn4.z2r@flex--seanjc.bounces.google.com>)
+ id 6a456b81-e40e-0a2a450a0019-d155d849bce7-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:33:22 +0200
+Received: by mail-pj1-f73.google.com with SMTP id
+ 98e67ed59e1d1-37d4f23eb37so1673025a91.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:33:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,46 +58,45 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782934400; x=1783539200; darn=lists.xenproject.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VKCobU9qtcP/hN9BlhIiU1X9DFbnjtpoNJAd58RipCc=;
-        b=rcCjALW3koXQzp5m8P/9B2zVS6Ba8IrfVJqjqUlnREgjQ4xBbM5BeomSKrt0qc7gCk
-         atqK2YDoqUCHl7Ev4Q666lbBu03VYsFiGFLgPQhcl+hRSBitbUq56g0/xOetPaVnlDwJ
-         iWnMExN3UiFEioWJKzmHTYbxuwz/2wEzbnquDxz/FDPwZLHqL0gqJ8InrCVquqtcXrl1
-         EFYIwhbAU9yqimnaSp7dKN9yCDpS1YXQtgD+qh2VN+gpyFkcx/BswtK3OC0PS3/bKcuB
-         H5q/M5hpLJpJMLqiTIRBYkb/mn/tXF9KJK6SMadbaQHgbcN0ZHGRLWeat/5qbLjbfpYY
-         Le6g==
+        d=google.com; s=20251104; t=1782934401; x=1783539201; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
+        bh=X+4LkvbZ4eCaIbae7uS/MPBNwexrDlCNdhdaInFV7cw=;
+        b=rOlOoVJov403l+V5pxkWwqdOR9xnngUXzQkGAs4jNhh8wXSgYLpN0O8qcTZtSoCfCS
+         jivxQqNThdTlY9aWQOtr8c0j0nssDUMw+qyoh1fgW2ef9pd8HCNId9d2fVOaSLEoyWqB
+         Q2HtAHObtq+rWhsUz7CHwkZVTBsBAONk64nomuUv9/beBAU10k8kJbX8t30/AIQd3/bL
+         OpuHdbZ5bZgtJOXXk1+d8AfAOe1DbIKnjqxRVJb+y+qM70YG6IruQrS3i0BJCaz8wTRD
+         kUbPwrzS1FqouIh2ITkP+Ti1MQ+qpufbXHPMWiseaCZiq7HzrfwXLtk5O1pG3yA48Kii
+         Bc6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782934400; x=1783539200;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VKCobU9qtcP/hN9BlhIiU1X9DFbnjtpoNJAd58RipCc=;
-        b=rbxGDCUgjT9sc9dN1SkRBqMSAYoYWmxqdsFzxo4xhsweoG5QOo0SfNDPSWCO6cazz0
-         qEOmiMbQJKbaQOsnTgucyNRzN1FTuQdwtR7h0G5/F/o2XO3mVQzAPOta0XNgDliVfNXY
-         WWgJz2Wim17UwB/YGoXGU7qUexq9qunJXvU0xaI1ek+e4/r4prxm/TVTySVuTE5caXg2
-         e/HPIfPubZrtq2VFG40rKSD8zuPIlCVXg4+SGPqDW7qO6wcLRTTwQ9Bs3tAoaGq6yMWJ
-         nNBPNO9bA9QedvxOZf1O114JYekYUOPqQl/lVu5TSVcMC0Uy2qhbXlIh7JVFywXtq1zY
-         YSpQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpoqhGqxeor6cIRZ80fFlB3Uu4UXjc+/neheDDrXwy+SjOA8slSx77Hx0F22aqW1zAMroZfSmSHwD4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyDuVXDpfZ4n/OEqO+GveLRVuq3+wa0e35/HKy5Pk4bvjilYUNv
-	ljIZ7ZxXQlCo2I0I1yZhWlYuj4tsOXEgB54iGAR3uhcWF8/w+QeSEVJKWiVBeRUsd9ZdL9+Aupc
-	qdqbzDg==
-X-Received: from pjqu11.prod.google.com ([2002:a17:90a:ae8b:b0:37d:8595:7a08])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:180e:b0:37f:ff9d:ad69
- with SMTP id 98e67ed59e1d1-380ba80c706mr2175388a91.7.1782934399271; Wed, 01
- Jul 2026 12:33:19 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782934401; x=1783539201;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=X+4LkvbZ4eCaIbae7uS/MPBNwexrDlCNdhdaInFV7cw=;
+        b=Ypfk3Xhnq7NE57y/qlM5qzp9XmWI0iT62KR0jLlnE13R0djc5iQRfeITTjyhyOw2vI
+         IwNoBkSQ2iMw3A8XVY3W547j76IY/IufxlHSLOU+bZWIzy5K2iuJAoXWQ9Q5tpGNLMVl
+         lStDVl+y3mGF8unr/8UzVQREczGsiwSxpY0rYq15XXtHP/hwU+eqDcZwyJUtvnWHlcCO
+         KZkv+2XDZz93hYOTRE9fCZBBnzODlwVlsfEjSHkbH6p9S1y4nFPavikwv8E8aJWNNezv
+         yFyeHE6xemBXZ1LQFDBAWomlHeBNLWl1qcCL5KsOnqBX6bvbzE3d2ScFOWDVNv8zH/BO
+         /eLg==
+X-Forwarded-Encrypted: i=1; AHgh+RoXk1rMaDA2+Ozrc4csWxF0ivnBk1UgwUjk8nyLz5j/ijL1tDU49TvD7Hgaz7JLbdQnO/Gz82/pBcc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMi4RvKYXBA2DIagG45VtZcbon+etpI9EfZGbcAe4W1UhR6Llv
+	l9ujrZ90H+GIM6fR7nSy74cAi8izEQ80X2k+U8pefb9mbgYANjLNNCJEGm7YHS3R0775XQRYt5H
+	vvRwElw==
+X-Received: from pjbms9.prod.google.com ([2002:a17:90b:2349:b0:37f:9ce0:f1f5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2c87:b0:37f:ed7e:7e42
+ with SMTP id 98e67ed59e1d1-380aa0e0512mr2733682a91.14.1782934400395; Wed, 01
+ Jul 2026 12:33:20 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  1 Jul 2026 12:32:04 -0700
+Date: Wed,  1 Jul 2026 12:32:05 -0700
 In-Reply-To: <20260701193212.749551-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260701193212.749551-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260701193212.749551-44-seanjc@google.com>
-Subject: [PATCH v5 43/51] x86/kvmclock: Hook clocksource.suspend/resume when
- kvmclock isn't sched_clock
+Message-ID: <20260701193212.749551-45-seanjc@google.com>
+Subject: [PATCH v5 44/51] x86/kvmclock: WARN if wall clock is read while
+ kvmclock is suspended
 From: Sean Christopherson <seanjc@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -121,9 +120,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>, 
 	Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-d62444/1782934401-83CCE1E0-426599FE/0/0
+X-purgate-ID: tlsNG-4011c0/1782934402-CED3BDDE-30CC84DB/0/0
 X-purgate-type: clean
-X-purgate-size: 2034
+X-purgate-size: 2069
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -161,65 +160,67 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4C75B6F0EE8
+X-Rspamd-Queue-Id: 428BB6F0EEB
 
-Save/restore kvmclock across suspend/resume via clocksource hooks when
-kvmclock isn't being used for sched_clock.  This will allow using kvmclock
-as a clocksource (or for wallclock!) without also using it for sched_clock.
+WARN if kvmclock is still suspended when its wallclock is read, i.e. when
+the kernel reads its persistent clock.  The wallclock subtly depends on
+the BSP's kvmclock being enabled, and returns garbage if kvmclock is
+disabled.
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kernel/kvmclock.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ arch/x86/kernel/kvmclock.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-index 61d4d943fe74..41aff709b90a 100644
+index 41aff709b90a..2cc3dd2ba355 100644
 --- a/arch/x86/kernel/kvmclock.c
 +++ b/arch/x86/kernel/kvmclock.c
-@@ -152,7 +152,17 @@ static void kvm_setup_secondary_clock(void)
+@@ -53,6 +53,8 @@ static struct pvclock_vsyscall_time_info *hvclock_mem;
+ DEFINE_PER_CPU(struct pvclock_vsyscall_time_info *, hv_clock_per_cpu);
+ EXPORT_PER_CPU_SYMBOL_GPL(hv_clock_per_cpu);
+ 
++static bool kvmclock_suspended;
++
+ /*
+  * The wallclock is the time of day when we booted. Since then, some time may
+  * have elapsed since the hypervisor wrote the data. So we try to account for
+@@ -60,6 +62,7 @@ EXPORT_PER_CPU_SYMBOL_GPL(hv_clock_per_cpu);
+  */
+ static void kvm_get_wallclock(struct timespec64 *now)
+ {
++	WARN_ON_ONCE(kvmclock_suspended);
+ 	wrmsrq(msr_kvm_wall_clock, slow_virt_to_phys(&wall_clock));
+ 	preempt_disable();
+ 	pvclock_read_wallclock(&wall_clock, this_cpu_pvti(), now);
+@@ -140,6 +143,7 @@ static void kvm_save_sched_clock_state(void)
+ 	 * to the old address prior to reconfiguring kvmclock would clobber
+ 	 * random memory.
+ 	 */
++	kvmclock_suspended = true;
+ 	kvmclock_disable();
+ }
+ 
+@@ -152,16 +156,19 @@ static void kvm_setup_secondary_clock(void)
  
  static void kvm_restore_sched_clock_state(void)
  {
--	kvm_register_clock("primary cpu clock, resume");
-+	kvm_register_clock("primary cpu, sched_clock resume");
-+}
-+
-+static void kvmclock_suspend(struct clocksource *cs)
-+{
-+	kvmclock_disable();
-+}
-+
-+static void kvmclock_resume(struct clocksource *cs)
-+{
-+	kvm_register_clock("primary cpu, clocksource resume");
++	kvmclock_suspended = false;
+ 	kvm_register_clock("primary cpu, sched_clock resume");
  }
  
- void kvmclock_cpu_action(enum kvm_guest_cpu_action action)
-@@ -223,6 +233,8 @@ static struct clocksource kvm_clock = {
- 	.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
- 	.id		= CSID_X86_KVM_CLK,
- 	.enable		= kvm_cs_enable,
-+	.suspend	= kvmclock_suspend,
-+	.resume		= kvmclock_resume,
- };
+ static void kvmclock_suspend(struct clocksource *cs)
+ {
++	kvmclock_suspended = true;
+ 	kvmclock_disable();
+ }
  
- static void __init kvmclock_init_mem(void)
-@@ -318,6 +330,15 @@ static __init void kvm_sched_clock_init(bool stable)
- 				   kvm_save_sched_clock_state,
- 				   kvm_restore_sched_clock_state);
- 
-+	/*
-+	 * The BSP's clock is managed via dedicated sched_clock save/restore
-+	 * hooks when kvmclock is used as sched_clock, as sched_clock needs to
-+	 * be kept alive until the very end of suspend entry, and restored as
-+	 * quickly as possible after resume.
-+	 */
-+	kvm_clock.suspend = NULL;
-+	kvm_clock.resume = NULL;
-+
- 	pr_info("kvm-clock: using sched offset of %llu cycles",
- 		kvm_sched_clock_offset);
+ static void kvmclock_resume(struct clocksource *cs)
+ {
++	kvmclock_suspended = false;
+ 	kvm_register_clock("primary cpu, clocksource resume");
+ }
  
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
