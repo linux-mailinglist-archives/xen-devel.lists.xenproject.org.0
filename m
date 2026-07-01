@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 3kw9LYUxRWry8QoAu9opvQ
+	id IFVYHJcyRWop8goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:25:57 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:30:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A1346EF39B
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:25:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984576EF41B
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 17:30:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="rmxzl/zz";
+	dkim=pass header.d=xenproject.org header.s=20200302mail header.b="A0yH3+i ";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350153.1607711 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1350163.1607719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewou-0003Ps-Ij; Wed, 01 Jul 2026 15:25:48 +0000
+	id 1wewt8-0005U0-0z; Wed, 01 Jul 2026 15:30:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350153.1607711; Wed, 01 Jul 2026 15:25:48 +0000
+Received: by outflank-mailman (output) from mailman id 1350163.1607719; Wed, 01 Jul 2026 15:30:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewou-0003N8-FB; Wed, 01 Jul 2026 15:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 1350153;
- Wed, 01 Jul 2026 15:25:47 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wewot-0003N2-LM
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:25:47 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wewot-003rfm-2C
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 17:25:47 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a453176-2eae-0a2a0a5409dd-0a2a450ab4a4-26
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:25:46 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a45317a-e40e-0a2a450a0019-d155802fdc23-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 17:25:46 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-493a97fad2fso6933105e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:25:46 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493be4540aesm85628905e9.0.2026.07.01.08.25.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 08:25:45 -0700 (PDT)
+	id 1wewt7-0005Ra-UX; Wed, 01 Jul 2026 15:30:09 +0000
+Received: by outflank-mailman (input) for mailman id 1350163;
+ Wed, 01 Jul 2026 15:30:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-0005RD-Hx
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-0028zg-2D
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
+Received: from mail-lj1-f172.google.com ([209.85.208.172])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wewt6-002mTL-11
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 15:30:08 +0000
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-39957d210f4so8123511fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 08:30:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,257 +51,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782919546; x=1783524346; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=5Uiv/so1XThRNUVtMm9zvCb2kbxp7wSDqrL4nXO2GtM=;
-        b=rmxzl/zzMx6Ok5x6ag6T3OqE7Mia388mtheh2CwYclO0SeBVljTM+66H9xvy0EpfYH
-         XTQyWTNoVHPv1VspIM0aTMFcbIWDZjObQphz8hC8LCEVj/SB+adf0M8Z0Yd1WjLkKPht
-         dsOwERX1DaScBlb0RseKSisr2bWt/heyquudTeGG3MMTS2swqXSDpAKt1thyECnJrnt+
-         emlmUkE3Qciu/xRMjNpIuWGfo9OEsAkpe5cyd7GUTF3BXTpLQCxogsPfgqmLDr10703Z
-         EaOmuiEfvsp+bdYpJ0Fj0p2W7dADrW/U9iXSA0+9eWhJnPMAxxE4umefcHJU2PZLBc7w
-         vRiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782919546; x=1783524346;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5Uiv/so1XThRNUVtMm9zvCb2kbxp7wSDqrL4nXO2GtM=;
-        b=UbzPmd+Jq3rVBH/ouVgEh0j8LahxXdm/9JcsU5B+kYjyhfngx5U2GYK/5nLz5QowQI
-         ttCkZBkd3Xo2nrSOVJGnlN012QIMCmEtSUVtdJpuDFqJ6lqWNi9ycOzM2kgOmjgbcnbm
-         HBvtp0yfZKyYMHJhnUqczSncSyQCRJLFdNhoEoWqrAsUNtdWyWw4F0GsOb4HNC2Unoyi
-         XnTJ5sAh3siduFpEEJVNBoMrQI+YX7C5w/xFIsie/qvp1sIAyf3t4fmmwXh9fsW4wCBr
-         TjJTOIPe3l2adQcZvQ700xvDeGU8d/Udcb9wmTs0EWPa9ljV+AbdXb8bcA21a7VKdN8b
-         weLg==
-X-Forwarded-Encrypted: i=1; AFNElJ/QT5sEVjIbLz6VM7Qf8aVbc8oQoF/otW66ssg4S+PbLmKB8tsO3QtyQ2PFy39Ru5zl3Dppcy475yE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCbKuFMCv0+sdRFq8l97DCGGTYdH8JsxTElJi3n6lBgqMXMX7w
-	wvyg8WtYGWkyXFnbgK74puul3BcKs3pfP6W2abmtFPsXEuGirB9ZH528
-X-Gm-Gg: AfdE7cmWpkrs1lGrlCcza7JMfU2VPA6R27TSr9Xv3p3H+n/8ZduG31CX8iAltqioIpp
-	zWcDCucx4R9JaeeEIb6MvOhr8rU8MWFIV1SIOfHqGTonRG21gq0ABvrrScQCnpTvVXj4n/1AjeD
-	XF8rzq8PGbnZmeNQgKCjmJfNXtxtjpxfR/5l2OVxlpiyltkNKzHOtwZaBuGXMpjMZAtzOljMMJ5
-	Thb7ZV1VgodelBbIE7TLsrpnF9B1L8qqsCvufWpznUDkcfu0ONedNbGYWOoK8yz9KlQIa3hna1i
-	io2o8GE20iXbn1bElKt9jOVo9X+qweEMzOqcL0FtGfMqnMx8qiV3M/AEf2WeiGnamhT8HBzZpFm
-	7cp//grGF3BjEjPnDhBju3GpfafiRpRAIbsrUyaXCIt5BreCZbB1cB7U8DJk4iuTEbS99/j+7OT
-	qqhD1UwPsA+ghOIxRlvsOd6NGLD9E5UVsHx4obFUnG2dX007Go7Kyj10cgf5UvlDx8e60=
-X-Received: by 2002:a05:600d:844f:20b0:492:5bb6:6d4b with SMTP id 5b1f17b1804b1-493c3df77eamr14662535e9.34.1782919546278;
-        Wed, 01 Jul 2026 08:25:46 -0700 (PDT)
-Message-ID: <2093dd4c-c80d-4b65-998f-c90796dc4a88@gmail.com>
-Date: Wed, 1 Jul 2026 17:25:43 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:MIME-Version; bh=T6mw+mMJOdl5hUTkEqale/uYDzDG6vIcz1q3yNEIq9k=; b=A0yH3+i
+	Fo/3RuANBIEMnvgCvZgEAPYHUWKStFQdK/9paXjJ/4us6M7Vjf++z7KU7l7i03FsByDkfRQJfABDt
+	4zP/HIkHGD2/eD5cFSdc7kbD7RGvUvMXDC6QW2tmdnHrjEKy/8m4dwzi6VxxcNGJqnhfmdh9hg+qC
+	orOk5leqDY=;
+X-Gm-Message-State: AOJu0Yxm4mJzaxthf6mgu/1TKKGWtb9a5YAIpzhd8VZMbq0CNokVauf4
+	UhNoTU7sCwEn4miAuaV3PLunwALpMwd6LJdYcmgyAR3JeyY1LjKeZsrPyBNrZiQZDbFBl/Oz9bI
+	KiM5Vk+c+4s7OlprJuD9jTOGRCaDjIoA=
+X-Received: by 2002:a2e:b891:0:b0:39a:e3c7:6649 with SMTP id
+ 38308e7fff4ca-39b3406b5f9mr5869941fa.28.1782919807185; Wed, 01 Jul 2026
+ 08:30:07 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH v4] xen: introduce CONFIG_HAS_SHARED_INFO for archs
- without a shared page
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Baptiste Le Duc <baptiste.le-duc@vates.tech>, xen-devel@lists.xenproject.org
-References: <775c88457e5ec7fc7889002c6f9829669f9bce97.1782388193.git.oleksii.kurochko@gmail.com>
- <5d344cec-bb97-4d3b-87ff-e7175772fd45@suse.com>
-Content-Language: en-US
-In-Reply-To: <5d344cec-bb97-4d3b-87ff-e7175772fd45@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1782919546-3C07ADDE-910CBC35/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 6251
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Wed, 1 Jul 2026 17:29:54 +0200
+X-Gmail-Original-Message-ID: <CAJbE=Kxmq-2QLScjxVjXw5rg0SPky=6RL-GeuJVBjAbXjPOipg@mail.gmail.com>
+X-Gm-Features: AVVi8Ce0T2c5gcTJQjHKfTk87pywHalYs-RoggO2ZWB09IhznD0KZAlbcYRlb2E
+Message-ID: <CAJbE=Kxmq-2QLScjxVjXw5rg0SPky=6RL-GeuJVBjAbXjPOipg@mail.gmail.com>
+Subject: [ANNOUNCE] - Call for agenda items for July 2 Xen Community Call @
+ 15:00 UTC
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000c5384706558e5d83"
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	URI_COUNT_ODD(1.00)[13];
+	DMARC_POLICY_ALLOW(-0.50)[xenproject.org,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[xenproject.org:s=20200302mail];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,mail.gmail.com:mid,cryptpad.fr:url,xenproject.org:dkim,xenproject.org:from_mime,jit.si:url];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[xenproject.org:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_ONE(0.00)[1];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1A1346EF39B
+X-Rspamd-Queue-Id: 984576EF41B
+
+--000000000000c5384706558e5d83
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi everyone,
+
+It=E2=80=99s time for the July Xen Project Community Call, happening tomorr=
+ow,
+Thursday, 2 July at 15:00 UTC.
+
+We=E2=80=99d love to have you join. Whether you have updates to share or ju=
+st want
+to listen in, it's a great opportunity to hear what the community has been
+working on and discuss ongoing project activities.
 
 
+*Preparation:*=F0=9F=91=89 Please take a moment to review and update the ag=
+enda ahead
+of the call:
+https://cryptpad.fr/pad/#/2/pad/edit/JItQI8jtCjrs3eM1SWSgjDgv/
 
-On 6/29/26 4:26 PM, Jan Beulich wrote:
-> On 25.06.2026 18:02, Oleksii Kurochko wrote:
->> On architectures that run guests in dom0less mode without the PV ABI
->> (currently RISC-V), no shared_info page is allocated and d->shared_info
->> remains NULL throughout the domain lifetime.  Several places in common
->> code access d->shared_info through the shared_info() macro or directly,
->> causing UBSAN null-pointer errors on such architectures.
->>
->> Rather than adding runtime NULL guards that are logically unreachable
->> on x86 and Arm (where shared_info is always allocated), introduce a new
->> Kconfig symbol CONFIG_HAS_SHARED_INFO selected by x86 and Arm.
->>
->> On !HAS_SHARED_INFO the shared_info() macro expands to a dereference
->> of a pointer returned by shared_info_absent(), which is declared but
->> intentionally never defined.
-> 
-> This looks to need updating.
+Feel free to:
+- Add topics or project updates
+- Suggest anything we can drop or defer
+- Include links to patches, threads, or documentation where helpful
 
-I will update it to:
+The agenda also includes the meeting link and additional call details.
 
-On !HAS_SHARED_INFO the shared_info() macro expands to a dereference of 
-shared_info_absent, an extern pointer that is declared but intentionally 
-never defined.
 
-> 
->>   Any use of shared_info() that is not
->> dead-code-eliminated will therefore cause a link-time failure, making
->> missed guards impossible to overlook.
->>
->> The 2L event-channel ops call shared_info() and must not be compiled on
->> architectures without a shared_info page, so event_2l.o is gated on
->> CONFIG_HAS_SHARED_INFO.  On such architectures evtchn_init() installs
->> the FIFO ops as a placeholder instead; evtchn_fifo_word_from_port() is
->> guarded against uninitialised d->evtchn_fifo so the FIFO ops are safe
->> before evtchn_fifo_init_control() is called by the guest.
->>
->> With CONFIG_HAS_SHARED_INFO=n all vCPUs fall back to the global
->> dummy_vcpu_info, so writes through vcpu_info() could leak data between
->> vCPUs. Reviewing the write paths in common code: the write in
->> map_guest_area() stores the constant ~0 so nothing serious would happen
->> if it were leaked; the event_2l.c paths are unreachable because the
->> preceding shared_info() call would trap first;
-> 
-> Why "trap"? You can't build an image that way, can you?
+*Call Details:*Date: Thursday, 2 July 2026
+Time: 15:00 UTC (agenda starts at 15:05 UTC)
+Join: https://meet.jit.si/XenProjectCommunityCall
 
-"trap" was shorthand for the link-time failure.
+We'll open the room at 15:00 UTC and begin the agenda at 15:05 UTC to give
+everyone a few minutes to join.
 
-I will changed that part to:
-... leaked; the event_2l.c paths are not compiled on !HAS_SHARED_INFO, 
-as event_2l.o is gated on CONFIG_HAS_SHARED_INFO; ...
+Want to be CC'd on future calls?
 
-> 
->> @@ -1624,7 +1626,11 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
->>   
->>   int evtchn_init(struct domain *d, unsigned int max_port)
->>   {
->> -    evtchn_2l_init(d);
->> +    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
->> +        evtchn_2l_init(d);
-> 
-> For this to build when !HAS_SHARED_INFO, all you need is a declaration of
-> the function. The compiler will DCE the call. Hence ...
-> 
->> --- a/xen/common/event_channel.h
->> +++ b/xen/common/event_channel.h
->> @@ -44,7 +44,11 @@ static inline void evtchn_port_print_state(struct domain *d,
->>   
->>   /* 2-level */
->>   
->> +#ifdef CONFIG_HAS_SHARED_INFO
->>   void evtchn_2l_init(struct domain *d);
->> +#else
->> +static inline void evtchn_2l_init(struct domain *d) {}
->> +#endif
->>   
->>   /* FIFO */
->>   
-> 
-> ... this hunk should be unnecessary?
+Add or remove yourself from our sign-up sheet:
+https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
 
-Looks like you are right, I will double-check that.
+See you tomorrow!
 
-> 
->> @@ -55,6 +59,7 @@ struct evtchn_expand_array;
->>   int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
->>   int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
->>   void evtchn_fifo_destroy(struct domain *d);
->> +void evtchn_fifo_init_ops(struct domain *d);
->>   #else
->>   static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
->>   {
->> @@ -68,6 +73,7 @@ static inline void evtchn_fifo_destroy(struct domain *d)
->>   {
->>       return;
->>   }
->> +static inline void evtchn_fifo_init_ops(struct domain *d) {}
->>   #endif /* CONFIG_EVTCHN_FIFO */
-> 
-> Unlike these two. Which raise a different question though: What will be the
-> behavior when EVTCHN_FIFO=n and HAS_SHARED_INFO=n? Taking
-> evtchn_alloc_unbound() as example, afaict evtchn_port_init() will stumble
-> over a NULL pointer. Looks like for that (and only that) case we still need
-> your earlier dummy fallback.
+Best regards,
 
-I will introduce dummy fallback (I will shrunk some stubs in final version):
+Cody Zuschlag
+Xen Project - Community Manager
 
-+#ifndef CONFIG_HAS_SHARED_INFO
-+static void cf_check evtchn_none_set_pending(
-+    struct vcpu *v, struct evtchn *evtchn) {}
-+static void cf_check evtchn_none_clear_pending(
-+    struct domain *d, struct evtchn *evtchn) {}
-+static void cf_check evtchn_none_unmask(
-+    struct domain *d, struct evtchn *evtchn) {}
-+static bool cf_check evtchn_none_is_pending(
-+    const struct domain *d, const struct evtchn *evtchn) { return false; }
-+static bool cf_check evtchn_none_is_masked(
-+    const struct domain *d, const struct evtchn *evtchn) { return true; }
-+static void cf_check evtchn_none_print_state(
-+    struct domain *d, const struct evtchn *evtchn) {}
-+
-+static const struct evtchn_port_ops evtchn_port_ops_none = {
-+    .set_pending   = evtchn_none_set_pending,
-+    .clear_pending = evtchn_none_clear_pending,
-+    .unmask        = evtchn_none_unmask,
-+    .is_pending    = evtchn_none_is_pending,
-+    .is_masked     = evtchn_none_is_masked,
-+    .print_state   = evtchn_none_print_state,
-+};
-+
-+static void evtchn_none_init(struct domain *d)
-+{
-+    d->evtchn_port_ops = &evtchn_port_ops_none;
-+}
-+#endif
+--000000000000c5384706558e5d83
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
->> @@ -420,6 +423,11 @@ static const struct evtchn_port_ops evtchn_port_ops_fifo =
->>       .print_state   = evtchn_fifo_print_state,
->>   };
->>   
->> +void evtchn_fifo_init_ops(struct domain *d)
->> +{
->> +    d->evtchn_port_ops = &evtchn_port_ops_fifo;
->> +}
-> 
-> Isn't this unreachable code when HAS_SHARED_INFO=y, violating Misra rule 2.1?
-I think if we are going to return back to dummy fallback I think that we 
-could drop evtchn_fifo_init_ops() as  d->evtchn_port_ops will be 
-initialized later for FIFO. And then in evtchn_init:
+<div dir=3D"ltr"><div>Hi everyone,<br><br>It=E2=80=99s time for the July Xe=
+n Project Community Call, happening tomorrow, Thursday, 2 July at 15:00 UTC=
+.<br><br>We=E2=80=99d love to have you join. Whether you have updates to sh=
+are or just want to listen in, it&#39;s a great opportunity to hear what th=
+e community has been working on and discuss ongoing project activities.<br>=
+<br><b>Preparation:<br></b>=F0=9F=91=89 Please take a moment to review and =
+update the agenda ahead of the call:<br><a href=3D"https://cryptpad.fr/pad/=
+#/2/pad/edit/JItQI8jtCjrs3eM1SWSgjDgv/">https://cryptpad.fr/pad/#/2/pad/edi=
+t/JItQI8jtCjrs3eM1SWSgjDgv/</a><br><br>Feel free to:<br>- Add topics or pro=
+ject updates<br>- Suggest anything we can drop or defer<br>- Include links =
+to patches, threads, or documentation where helpful<br><br>The agenda also =
+includes the meeting link and additional call details.<br><br><b>Call Detai=
+ls:<br></b>Date: Thursday, 2 July 2026<br>Time: 15:00 UTC (agenda starts at=
+ 15:05 UTC)<br>Join: <a href=3D"https://meet.jit.si/XenProjectCommunityCall=
+">https://meet.jit.si/XenProjectCommunityCall</a><br><br>We&#39;ll open the=
+ room at 15:00 UTC and begin the agenda at 15:05 UTC to give everyone a few=
+ minutes to join.<br><br>Want to be CC&#39;d on future calls?<br><br>Add or=
+ remove yourself from our sign-up sheet:<br><a href=3D"https://cryptpad.fr/=
+pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/">https://cryptpad.fr/pad/#/2/pad=
+/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br><br>See you tomorrow!<br><br>Best re=
+gards,</div><div><br><img src=3D"https://ci3.googleusercontent.com/mail-sig=
+/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqn=
+Y6IaJUrl12" style=3D"background-color: transparent;"></div><div><div dir=3D=
+"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=
+=3D"ltr"><div>Cody Zuschlag</div><div>Xen Project - Community Manager</div>=
+</div></div></div></div>
 
-int evtchn_init(struct domain *d, unsigned int max_port)
-{
-     if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
-         evtchn_2l_init(d);
-     else
-         evtchn_none_init(d);
-
-Thanks.
-
-~ Oleksii
+--000000000000c5384706558e5d83--
 
