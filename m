@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 2+VrG1mfRWo4DAsAu9opvQ
+	id Cks+H1efRWo1DAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 01:14:33 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 01:14:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C57B6F23DA
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 01:14:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D346F23D0
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 01:14:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("headers rsa verify failed") header.d=igalia.com header.s=20170329 header.b="noPoX/Xe";
+	dkim=fail ("headers rsa verify failed") header.d=igalia.com header.s=20170329 header.b=PFNIyg8z;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=igalia.com (policy=none)
-Received: from list by lists.xenproject.org with outflank-mailman.1351036.1608377 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351037.1608384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf486-0002gI-Jd; Wed, 01 Jul 2026 23:14:06 +0000
+	id 1wf486-0002mE-T8; Wed, 01 Jul 2026 23:14:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351036.1608377; Wed, 01 Jul 2026 23:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 1351037.1608384; Wed, 01 Jul 2026 23:14:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf486-0002ew-Gk; Wed, 01 Jul 2026 23:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 1351036;
- Wed, 01 Jul 2026 23:14:04 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wf486-0002gO-OY; Wed, 01 Jul 2026 23:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 1351037;
+ Wed, 01 Jul 2026 23:14:05 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <mfo@igalia.com>) id 1wf483-0002PW-Ek
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 23:14:04 +0000
+ (envelope-from <mfo@igalia.com>) id 1wf485-0002Qt-6M
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 23:14:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf482-00ASh6-79
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 01:14:02 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wf484-005FMV-IP
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 01:14:04 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <mfo@igalia.com>)
- id 6a459ef1-e002-0a2a0a5209dd-0a2a450cd8fc-44
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 01:14:01 +0200
+ id 6a459ef7-2eae-0a2a0a5409dd-0a2a450beb0c-40
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 01:14:04 +0200
 Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <mfo@igalia.com>)
- id 6a459f38-f399-0a2a450c0019-d561b3388c7a-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 01:14:00 +0200
+ id 6a459f3b-ac48-0a2a450b0019-d561b338e314-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 01:14:04 +0200
 Received: from 186-249-148-121.shared.desktop.com.br ([186.249.148.121]
  helo=[127.0.1.1]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wf47z-007mwb-7e; Thu, 02 Jul 2026 01:13:59 +0200
+ id 1wf482-007mwb-O5; Thu, 02 Jul 2026 01:14:02 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,19 +62,19 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
 	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
 	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=3Q8RixWFQd74HMuP5HaGOdYS+13SFKaeVy8ocqIumpg=; b=noPoX/XetgpOegc7HwgSefBTmJ
-	KZDckcpZmFWNHlYHhVu5Xvnno3tKh4KgXwaHzQz+8rRdFUEXbaXEaNl79EufzCb/H8FIOPLShy6Ko
-	5ovjkLAdPHWkkNTKgy9aGBTj95EWKkXF9z5XesfcwxtKvShvjMogxAHmKNgHRPSvEi1K3dRhqXZFc
-	4ePE/HzL5Lrv9KcQP/01M4LZ/2w8TzYQVJ0Vgu7Ici7G6UE+JHrjC7vLHr/e/RdNllf2edC92wKER
-	ownvwb2tgOvy/l2i9rEKEJEsTz1emPXlZTc/dp3bnvDazi5rEliXY5h6g1vJBCWAB/qMG2paFajNy
-	AI19vuiA==;
+	bh=p4ShPqNeNQJKvlIwXNQ/fHjMA+LLf6yrUxJsYTGqlvs=; b=PFNIyg8zGPfpmeT3OlZRDqCu3Y
+	AAwjKZUy2MOLiMdV2AK7morDG9ed4p2FSwTQfDqi5BThXkqoLXG10hAzPoL8yLQwLUt/4432hZzhd
+	Qh+zIsjlOcjK+V+cHNddjntdiKyGGhowJzTp1rOGDKLsg3k9jTzAfrLZ3p5fG8LTEWmX2M100YRcp
+	sISsBgeikL7ZLhNgHi0O1PInn5cja+7QvmkBPAyHuNTU3yw4mhVM9w59vN0eGENOy6reUiQEwIyhi
+	yY/leJ/Zx+5lKKGadKxxFoyMPFlIBzyR0BxCgCqTPOq99TkdY7zjBCpV013tbhvB05dWAmxkFTmCH
+	qxa5wC+Q==;
 From: Mauricio Faria de Oliveira <mfo@igalia.com>
-Date: Wed, 01 Jul 2026 20:13:50 -0300
-Subject: [PATCH v6 1/4] x86/asm, x86/boot: expose inline memcmp
+Date: Wed, 01 Jul 2026 20:13:51 -0300
+Subject: [PATCH v6 2/4] x86/asm: group inline string functions
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260701-pvh-kasan-inline-v6-1-ba99045dfa9f@igalia.com>
+Message-Id: <20260701-pvh-kasan-inline-v6-2-ba99045dfa9f@igalia.com>
 References: <20260701-pvh-kasan-inline-v6-0-ba99045dfa9f@igalia.com>
 In-Reply-To: <20260701-pvh-kasan-inline-v6-0-ba99045dfa9f@igalia.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -85,13 +85,13 @@ To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
 Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org, 
  xen-devel@lists.xenproject.org, Mauricio Faria de Oliveira <mfo@igalia.com>
 X-Mailer: b4 0.14.2
-X-purgate-ID: tlsNG-d25034/1782947641-0D128D51-30478BAA/0/0
+X-purgate-ID: tlsNG-42698a/1782947644-39D27220-FBAEA943/0/0
 X-purgate-type: clean
-X-purgate-size: 2683
+X-purgate-size: 2391
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.61 / 15.00];
 	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
@@ -122,90 +122,86 @@ X-Spamd-Result: default: False [0.61 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5C57B6F23DA
+X-Rspamd-Queue-Id: 23D346F23D0
 
-Move the inline memcmp function currently only available in 'boot/string.c'
-into the shared string function header <asm/shared/string.h> to be reused.
+Group the __inline string functions in the same header.
 
-This is not done through <asm/string.h> to avoid pulling unnecessary code
-in 'boot/string.c' that causes build errors in 'boot/compressed/string.c'
-and 'purgatory/purgatory.ro'.
+Use <asm/shared/string.h> since __inline_memcmp() must remain there for use
+by arch/x86/boot/string.c.
 
 Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
-
 ---
+ arch/x86/include/asm/shared/string.h | 26 ++++++++++++++++++++++++++
+ arch/x86/include/asm/string.h        | 21 ---------------------
+ 2 files changed, 26 insertions(+), 21 deletions(-)
 
-Thanks to David Laight for noticing the return value difference between
-inline and regular memcmp().
----
- arch/x86/boot/string.c               |  6 ++----
- arch/x86/include/asm/shared/string.h | 20 ++++++++++++++++++++
- arch/x86/include/asm/string.h        |  2 ++
- 3 files changed, 24 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/boot/string.c b/arch/x86/boot/string.c
-index ac0f900ebc47efa81c92e1bb2010ea41677899c4..be454a6864225f3a972c3e81826b77ed4e8a57fe 100644
---- a/arch/x86/boot/string.c
-+++ b/arch/x86/boot/string.c
-@@ -15,6 +15,7 @@
- #include <linux/errno.h>
- #include <linux/limits.h>
- #include <asm/asm.h>
-+#include <asm/shared/string.h>
- #include "ctype.h"
- #include "string.h"
- 
-@@ -31,10 +32,7 @@
- 
- int memcmp(const void *s1, const void *s2, size_t len)
- {
--	bool diff;
--	asm("repe cmpsb"
--	    : "=@ccnz" (diff), "+D" (s1), "+S" (s2), "+c" (len));
--	return diff;
-+	return __inline_memcmp(s1, s2, len);
- }
- 
- /*
 diff --git a/arch/x86/include/asm/shared/string.h b/arch/x86/include/asm/shared/string.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..02b92927553f7b8e1c87e6122bbaa70439e57ea7
---- /dev/null
+index 02b92927553f7b8e1c87e6122bbaa70439e57ea7..b1b9c93f90685c8ec4174ef9e24bc7a0e6ba9b8a 100644
+--- a/arch/x86/include/asm/shared/string.h
 +++ b/arch/x86/include/asm/shared/string.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _ASM_X86_SHARED_STRING_H
-+#define _ASM_X86_SHARED_STRING_H
-+
+@@ -2,6 +2,32 @@
+ #ifndef _ASM_X86_SHARED_STRING_H
+ #define _ASM_X86_SHARED_STRING_H
+ 
 +/*
-+ * This inline memcmp() returns 0 (equal) or 1 (not equal).
-+ * The regular memcmp() returns <0 (less than), 0 (equal), or >0 (greater than)
-+ * to indicate ordering as well.
++ * The __inline string functions are grouped in this file for consistency and
++ * for use by arch/x86/boot code due to limitations on including asm/string.h.
 + */
-+static __always_inline int __inline_memcmp(const void *s1, const void *s2, size_t len)
++
++static __always_inline void *__inline_memcpy(void *to, const void *from, size_t len)
 +{
-+	bool diff;
++	void *ret = to;
 +
-+	asm("repe cmpsb"
-+	    : "=@ccnz" (diff), "+D" (s1), "+S" (s2), "+c" (len));
-+
-+	return diff;
++	asm volatile("rep movsb"
++		     : "+D" (to), "+S" (from), "+c" (len)
++		     : : "memory");
++	return ret;
 +}
 +
-+#endif /* _ASM_X86_SHARED_STRING_H */
++static __always_inline void *__inline_memset(void *s, int v, size_t n)
++{
++	void *ret = s;
++
++	asm volatile("rep stosb"
++		     : "+D" (s), "+c" (n)
++		     : "a" ((uint8_t)v)
++		     : "memory");
++	return ret;
++}
++
+ /*
+  * This inline memcmp() returns 0 (equal) or 1 (not equal).
+  * The regular memcmp() returns <0 (less than), 0 (equal), or >0 (greater than)
 diff --git a/arch/x86/include/asm/string.h b/arch/x86/include/asm/string.h
-index 9cb5aae7fba9ffcf0f5af8f939d30467750ccaa9..8d271a451721d97f78a84009613381414f91f2a6 100644
+index 8d271a451721d97f78a84009613381414f91f2a6..dbf59f0d4cca71e2ddce0d8764aeec8782236669 100644
 --- a/arch/x86/include/asm/string.h
 +++ b/arch/x86/include/asm/string.h
-@@ -8,6 +8,8 @@
- # include <asm/string_64.h>
- #endif
+@@ -10,25 +10,4 @@
  
-+#include <asm/shared/string.h>
-+
- static __always_inline void *__inline_memcpy(void *to, const void *from, size_t len)
- {
- 	void *ret = to;
+ #include <asm/shared/string.h>
+ 
+-static __always_inline void *__inline_memcpy(void *to, const void *from, size_t len)
+-{
+-	void *ret = to;
+-
+-	asm volatile("rep movsb"
+-		     : "+D" (to), "+S" (from), "+c" (len)
+-		     : : "memory");
+-	return ret;
+-}
+-
+-static __always_inline void *__inline_memset(void *s, int v, size_t n)
+-{
+-	void *ret = s;
+-
+-	asm volatile("rep stosb"
+-		     : "+D" (s), "+c" (n)
+-		     : "a" ((uint8_t)v)
+-		     : "memory");
+-	return ret;
+-}
+-
+ #endif /* _ASM_X86_STRING_H */
 
 -- 
 2.47.3
