@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id e+z1A21rRWq8/goAu9opvQ
+	id K7CwLm5rRWq+/goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:01 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC346F0E42
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 659A06F0E48
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:33:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=google.com header.s=20251104 header.b=cIHGeXnN;
+	dkim=pass header.d=google.com header.s=20251104 header.b=dqIfi1MV;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=google.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350390.1607948 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350392.1607952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0g1-0003Ry-AF; Wed, 01 Jul 2026 19:32:53 +0000
+	id 1wf0g2-0003iu-6Q; Wed, 01 Jul 2026 19:32:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350390.1607948; Wed, 01 Jul 2026 19:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 1350392.1607952; Wed, 01 Jul 2026 19:32:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0fz-0003HJ-RT; Wed, 01 Jul 2026 19:32:51 +0000
-Received: by outflank-mailman (input) for mailman id 1350390;
- Wed, 01 Jul 2026 19:32:48 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wf0g1-0003XI-RS; Wed, 01 Jul 2026 19:32:53 +0000
+Received: by outflank-mailman (input) for mailman id 1350392;
+ Wed, 01 Jul 2026 19:32:50 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3XWtFagYKCaIUGCPLEIQQING.EQOZGP-FGXGNNKUVU.ZGPRTQLGEV.QTI@flex--seanjc.bounces.google.com>)
- id 1wf0fw-0002Zq-Md
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:32:48 +0000
+ <3XmtFagYKCaMVHDQMFJRRJOH.FRPaHQ-GHYHOOLVWV.aHQSURMHFW.RUJ@flex--seanjc.bounces.google.com>)
+ id 1wf0fy-0002yo-3Q
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:32:50 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf0fw-00Bw10-25
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:32:48 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wf0fx-00B3ua-G0
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:32:49 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3XWtFagYKCaIUGCPLEIQQING.EQOZGP-FGXGNNKUVU.ZGPRTQLGEV.QTI@flex--seanjc.bounces.google.com>)
- id 6a456b5c-bab6-0a2a0a5309dd-0a2a4504ab4a-6
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:48 +0200
-Received: from [209.85.214.202] (helo=mail-pl1-f202.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ <3XmtFagYKCaMVHDQMFJRRJOH.FRPaHQ-GHYHOOLVWV.aHQSURMHFW.RUJ@flex--seanjc.bounces.google.com>)
+ id 6a456b3e-5cb7-0a2a0a5109dd-0a2a4506aae4-46
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:49 +0200
+Received: from [209.85.216.73] (helo=mail-pj1-f73.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <3XWtFagYKCaIUGCPLEIQQING.EQOZGP-FGXGNNKUVU.ZGPRTQLGEV.QTI@flex--seanjc.bounces.google.com>)
- id 6a456b5e-a01d-0a2a45040019-d155d6cab5e3-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:47 +0200
-Received: by mail-pl1-f202.google.com with SMTP id
- d9443c01a7336-2ca3b314193so12001835ad.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:47 -0700 (PDT)
+ <3XmtFagYKCaMVHDQMFJRRJOH.FRPaHQ-GHYHOOLVWV.aHQSURMHFW.RUJ@flex--seanjc.bounces.google.com>)
+ id 6a456b5f-08de-0a2a45060019-d155d849d0a8-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:49 +0200
+Received: by mail-pj1-f73.google.com with SMTP id
+ 98e67ed59e1d1-37fa907f98eso892862a91.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,44 +58,44 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782934366; x=1783539166; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1782934367; x=1783539167; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=3QmXXgqE7aLG5WH8n+yjrFm5ZX7gR61uwM9vT7lFOWU=;
-        b=cIHGeXnNB/BmmH+GNcmRmrxqSuhPUsj4rCQu9OHYo8nq+taHAPy1A0NnRBiyLbAeLQ
-         e8iNT/9c56Pow9zrTf45hz5c6BGBmoXg0r/6mw0PxdMSnkeP8y5hALC5mYxn7RoGvcCm
-         HqeAg0D6sp0LEzpPOQJmIemL03OzzT8AI1UvGT9Mor66o9GA7Sr05XDEsI8ad5ZEZrYh
-         crTA0MFmx7dQ269CIHMrJFJpgpZtUcZg7iGUIgXR7y9rGqz96JtlAJscmucRx3ma9hcA
-         mgQpuO2aLqyFOhLbWcMRHUtE8fXdsKJS6NbHkR66LSenDnYLZcPA41yzxcqsN5nklsJn
-         lmEA==
+        bh=wWnD58giubyrEvhTS3JtzvsAOScPFFHLvCt5ZIn12HI=;
+        b=dqIfi1MVbD/oEqcqlx8SVvWcnzIDmsXWRrDyG9v8mwxKwRM92ZiVNdFjukCehYsQ/a
+         s62fxqlt/VGzYgYl/4xuxwlz5H70MkpV0mJt85yc+pQw7wz2nAHar9nQf5+/wGD64J63
+         rkDb5M+Ov06UYiyEZAn66QkQ6tu2UL6m4FX1XmjhAWSDPc0CUtFXpwo58G3MYNimCzWX
+         4UxKrwDhRrpDB205bOt9Md1j/8RWQ3afhlAOfl4ftxu2swE/Ndq/0ei8ewjGZBUs5Bud
+         4G8d7QLW3OpjXFlnrOgz4l95TzTSM0nu6RN9lWHPdOD32rJ+0Hzry6a44YuqojilP1er
+         z7NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782934366; x=1783539166;
+        d=1e100.net; s=20251104; t=1782934367; x=1783539167;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=3QmXXgqE7aLG5WH8n+yjrFm5ZX7gR61uwM9vT7lFOWU=;
-        b=NMQBfi8lamVDkhs2TvQIzGfwVKIuLOvGwIUpvA5QmJjPNOjCehcN2mO1HhUKA6KEOP
-         N9ZQn7eiLRiIeJMLjrnQ9ouEtLol2UG2dmXZYlyrDTJFXd1bOEXUN6U/KP88itBx+G9A
-         MYIVIq2IujgXtrd8vS2fV0KiQXE9Z6n8FtarA+CWt2xj5SDnux3xgDB90avekxMwEYLU
-         EWgZxC/EfAizAJWRjacN5zH50EMiqACrwLAzk1ryj9OdG7UMGgbwL20MhJ7ughkGiXqe
-         FmqU6InIrqE9dZfVZ3CV2lyRGjrUXHuNnOrly9+mCB17bYNTLrHKMqoiy+IIoS5HYnKJ
-         ymHQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro1UIMDcp0ekQsnvBAx3GR/985S21Zdqagjeb0vAwLGgvhK56jxSEaPPpigzw8YiRpi5d2RMjt69Yg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQX2zbiNAQArbsfq2I2DsxiIuX44AgnmBWU5CueGw2cVDnAayN
-	QtG9QesKZPCEvbQpblRkpHq1MaaoTnovODoB9dEG3+H9sJwoLt00DSUo6y7akV4WZ3APCVuMfO/
-	Cq9bV1w==
-X-Received: from plef18.prod.google.com ([2002:a17:902:f392:b0:2c7:eb53:9c06])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:944:b0:2ca:68b1:b64c
- with SMTP id d9443c01a7336-2ca7e75d694mr30967275ad.20.1782934365572; Wed, 01
- Jul 2026 12:32:45 -0700 (PDT)
+        bh=wWnD58giubyrEvhTS3JtzvsAOScPFFHLvCt5ZIn12HI=;
+        b=XbfBoKTpQI2LMxKivbOdQFl2+oFlpfMKTIzHWjPEOUfwSNbVzTPNpV7v6S1vaPZLns
+         aD0gGnaPaPTuxhgNtI5v0PunteU5aosetbKkoHfEbonMEX7pRBxjWDtx2VlRg4iWjFVc
+         fb7e3ATCeFkYVD4O6w5FIteBuRhDGp555nMV3mTTGtlFfuvpp2Z6BzFfmGcG4DfBl2jL
+         apmH8o2zmpefB8pCglHbAxistZ1rIUyGlV4xH06JKxQazjDYujsnhydRc967va0YT15C
+         Xvu9XE0G4aKnbmfDhCf0nUAYcBQPjjGQIem3SCLgoLXAKsxB2v8QkO/ZWP4QcuvDEst6
+         mTVg==
+X-Forwarded-Encrypted: i=1; AHgh+Roq8xjtFhE4fEIxUERyrhmA4TbeLlyiIfEAzME6jwqwnt9qm8XMSkoIgRYG0yg4NnFT3p0wcPnTjAU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyNm/9ZgZxOJ+Q3JmVTBcBtnWKuJxKZeTFtlLMSQKWPSkmbnWP8
+	ReMY+YJ+QLchbptXocVAm5F/3+TjA8RuBTKnjFSCJmkG1YVsT6wy/sKcjwWfbfVU8YuR7Adc7XK
+	6NajT4A==
+X-Received: from pjbms18.prod.google.com ([2002:a17:90b:2352:b0:380:9651:afb9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e7ce:b0:37d:8426:40de
+ with SMTP id 98e67ed59e1d1-380aa0ad396mr2721883a91.1.1782934366877; Wed, 01
+ Jul 2026 12:32:46 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  1 Jul 2026 12:31:37 -0700
+Date: Wed,  1 Jul 2026 12:31:38 -0700
 In-Reply-To: <20260701193212.749551-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260701193212.749551-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260701193212.749551-17-seanjc@google.com>
-Subject: [PATCH v5 16/51] x86/tsc: Rename pit_hpet_ptimer_calibrate_cpu() => native_calibrate_cpu_late()
+Message-ID: <20260701193212.749551-18-seanjc@google.com>
+Subject: [PATCH v5 17/51] x86/tsc: Fold native_calibrate_cpu() into recalibrate_cpu_khz()
 From: Sean Christopherson <seanjc@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -119,9 +119,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>, 
 	Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-ebf023/1782934368-2C9AB1CC-B8F08058/0/0
+X-purgate-ID: tlsNG-16d1c6/1782934369-43F2C68D-85239273/0/0
 X-purgate-type: clean
-X-purgate-size: 1434
+X-purgate-size: 1497
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -159,49 +159,57 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AFC346F0E42
+X-Rspamd-Queue-Id: 659A06F0E48
 
-Rename the late CPU calibration routine so that its relationship to the
-early routine is more obvious and intuitive.
+Fold the guts of native_calibrate_cpu() into its sole remaining caller,
+recalibrate_cpu_khz() to eliminate the extra SMP=n #ifdef, and so that it's
+more obvious that directly invoking the early vs. late calibration routines
+in determine_cpu_tsc_frequencies() is intentional.
 
 No functional change intended.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kernel/tsc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ arch/x86/kernel/tsc.c | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
 diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index a877b82d0991..9764ac758081 100644
+index 9764ac758081..6ed6f8f012eb 100644
 --- a/arch/x86/kernel/tsc.c
 +++ b/arch/x86/kernel/tsc.c
-@@ -752,7 +752,7 @@ static unsigned long cpu_khz_from_cpuid(void)
-  * calibrate cpu using pit, hpet, and ptimer methods. They are available
-  * later in boot after acpi is initialized.
-  */
--static unsigned long pit_hpet_ptimer_calibrate_cpu(void)
-+static unsigned long native_calibrate_cpu_late(void)
- {
- 	u64 tsc1, tsc2, delta, ref1, ref2;
- 	unsigned long tsc_pit_min = ULONG_MAX, tsc_ref_min = ULONG_MAX;
-@@ -927,7 +927,7 @@ static unsigned long native_calibrate_cpu(void)
- 	unsigned long tsc_freq = native_calibrate_cpu_early();
- 
- 	if (!tsc_freq)
--		tsc_freq = pit_hpet_ptimer_calibrate_cpu();
-+		tsc_freq = native_calibrate_cpu_late();
- 
- 	return tsc_freq;
+@@ -918,21 +918,6 @@ static unsigned long native_calibrate_cpu_early(void)
+ 	return fast_calibrate;
  }
-@@ -1472,7 +1472,7 @@ static bool __init determine_cpu_tsc_frequencies(bool early,
- 		else
- 			tsc_khz = native_calibrate_tsc();
- 	} else {
--		cpu_khz = pit_hpet_ptimer_calibrate_cpu();
-+		cpu_khz = native_calibrate_cpu_late();
- 	}
  
- 	/*
+-#ifndef CONFIG_SMP
+-/**
+- * native_calibrate_cpu - calibrate the cpu
+- */
+-static unsigned long native_calibrate_cpu(void)
+-{
+-	unsigned long tsc_freq = native_calibrate_cpu_early();
+-
+-	if (!tsc_freq)
+-		tsc_freq = native_calibrate_cpu_late();
+-
+-	return tsc_freq;
+-}
+-#endif
+-
+ void recalibrate_cpu_khz(void)
+ {
+ #ifndef CONFIG_SMP
+@@ -944,7 +929,9 @@ void recalibrate_cpu_khz(void)
+ 	if (WARN_ON_ONCE(cpu_feature_enabled(X86_FEATURE_TSC_KNOWN_FREQ)))
+ 		return;
+ 
+-	cpu_khz = native_calibrate_cpu();
++	cpu_khz = native_calibrate_cpu_early();
++	if (!cpu_khz)
++		cpu_khz = native_calibrate_cpu_late();
+ 	tsc_khz = native_calibrate_tsc();
+ 	if (tsc_khz == 0)
+ 		tsc_khz = cpu_khz;
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
