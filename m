@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 2sxqMAtsRWry/goAu9opvQ
+	id kYwDLNFrRWrj/goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:39 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:34:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726436F0EF5
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 464B76F0EC0
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:34:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=google.com header.s=20251104 header.b=jc2ZPFfF;
+	dkim=pass header.d=google.com header.s=20251104 header.b=fai+YAy4;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=google.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350669.1608233 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350605.1608144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0iZ-0002Iz-Cb; Wed, 01 Jul 2026 19:35:31 +0000
+	id 1wf0hc-0006V0-9f; Wed, 01 Jul 2026 19:34:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350669.1608233; Wed, 01 Jul 2026 19:35:31 +0000
+Received: by outflank-mailman (output) from mailman id 1350605.1608144; Wed, 01 Jul 2026 19:34:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0iZ-0002DX-3X; Wed, 01 Jul 2026 19:35:31 +0000
-Received: by outflank-mailman (input) for mailman id 1350669;
- Wed, 01 Jul 2026 19:35:30 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wf0hc-0006SC-5v; Wed, 01 Jul 2026 19:34:32 +0000
+Received: by outflank-mailman (input) for mailman id 1350605;
+ Wed, 01 Jul 2026 19:34:31 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3hmtFagYKCcs9vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
- id 1wf0iY-000268-1S
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:35:30 +0000
+ <3iGtFagYKCc0Bxt62vz77z4x.v75Gx6-wxEx441BCB.Gx68A72xvC.7Az@flex--seanjc.bounces.google.com>)
+ id 1wf0hb-0006GX-7D
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:34:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf0iX-003oUT-EB
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:35:29 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wf0ha-00BqTu-KD
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:34:30 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3hmtFagYKCcs9vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
- id 6a456bf3-e002-0a2a0a5209dd-0a2a450484fc-28
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:35:29 +0200
-Received: from [209.85.216.74] (helo=mail-pj1-f74.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ <3iGtFagYKCc0Bxt62vz77z4x.v75Gx6-wxEx441BCB.Gx68A72xvC.7Az@flex--seanjc.bounces.google.com>)
+ id 6a456bb3-bab6-0a2a0a5309dd-0a2a45098636-22
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:34:30 +0200
+Received: from [209.85.215.202] (helo=mail-pg1-f202.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <3hmtFagYKCcs9vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
- id 6a456b87-a01d-0a2a45040019-d155d84aec65-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:33:29 +0200
-Received: by mail-pj1-f74.google.com with SMTP id
- 98e67ed59e1d1-380a638fb5bso818894a91.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:33:28 -0700 (PDT)
+ <3iGtFagYKCc0Bxt62vz77z4x.v75Gx6-wxEx441BCB.Gx68A72xvC.7Az@flex--seanjc.bounces.google.com>)
+ id 6a456b89-97e6-0a2a45090019-d155d7cab537-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:33:30 +0200
+Received: by mail-pg1-f202.google.com with SMTP id
+ 41be03b00d2f7-c9d5a5b63c5so883487a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:33:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,46 +58,45 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782934407; x=1783539207; darn=lists.xenproject.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BBdglu7Hd/NWIo80QzRStfEHhLuTnQAY4zgBWN5WaBQ=;
-        b=jc2ZPFfFL3VHNSXDjsIuCDmBbhn10cDWcvWpfI+pYjHvbJkfZE7gyuAzXDYT1MVC4B
-         UjkmL9GD9ZW/rjozdXbOnLVYi3WKc8DHlWMDxVDhyyzQxjrasnsXleuUgGtT5bM8IXfv
-         sAuWo3kEX6Izb++Ay7HMIvuf2wK4RvZPgGRbyvZutVd7cHSVSafYwUr5TKNrh/nMQmaV
-         W5RvRUF1QHvUPx+e0kmX4H/jp0YsWNgb3PBQhDhQbd9PTYLsaXAZlfVykTliqhjqUJLW
-         f7eXFMshdXDodLzDYVQ+VDhZN6rDDuUQbL8I/zj2ii6mnfq4b7g4o7+KXRrgvesXCMMn
-         /Z2Q==
+        d=google.com; s=20251104; t=1782934408; x=1783539208; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
+        bh=ukYnz5D3jEol4z1WUeRHDVtFiLPopAappLYurzMw/rI=;
+        b=fai+YAy4/7XjQOg3T8VNf8nCwAkpKElDiQdCM9h3UBYGCGvjbht5/BdJjeFGt5ysz7
+         vLMS3DAE+EGnvGfMDBlPXTQxld0qa0u6BH1I1arGeiu0r2r/NYtI/gFcG7mXE9XOnpSa
+         lqrZUMDdR4HVILaEcjZqpKgNy6h/w4OZSRehvzLK23wDu3rBVAqvKd1r2X9KndCJF6/y
+         NA5/cvl/hiXdt2DaY3D+JADpMA+FNH6xJUud8G4b2JU6MBbA/Ah56kAiNGh6HnZMqmMb
+         RZi8ymrgF97UCOYLkwg8mLYJig0tyT/5Cs6W3XWTrn2PE14inMcFDXJtChXZBRV6a4b/
+         A1iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782934407; x=1783539207;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BBdglu7Hd/NWIo80QzRStfEHhLuTnQAY4zgBWN5WaBQ=;
-        b=pQRQxRYHwLJuchGbIl34J3W+155xrW7loBMjNXC3tAgMkBHUdrezZ1kcbU12o9AR4T
-         xaFIBXljC86gRzavp+NZQRyAi6hCQWcJBlBIk5+8vD02sla4pUCQPzrCUiHEc9//ogbJ
-         3ijdwdAYEDdo/qf1ND3H+weHfaoheFBi/MT6ArTbWvg3BuuUK7EJHUjZyCN4EEzB8K+l
-         DtEzFugctEkGyznmmE5bGopo0lJGlFRONK2MmFUiw46KHDqrqVl4bhkIMUjXHl3qa7hP
-         Fsp7n2MFCf4qIk0mwCCw1sHOQ+J2Pd7tZmXFXLm6yjEK6sNrzKl1IhG0bj/fAmk3I0Rt
-         eBTQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqeHtLfCthZGbujIAkUVxn+8jCsjo1bQAKh84SWIJeHnJiQxKt1IcJH/Mk/Z/g6l4SX14vA545G4NI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqOEP+5zHE/acWYEioNc3+Un/4oYk+O3ST8kkKIdYdl41S4WWk
-	E+kxT72Y1eaI1JStWXdlLLvgTxU0gPRAroebyflg0e+aIa0EUwDrFDWqd0V+Vxl3DkIUsWl+1vd
-	SmIAhcA==
-X-Received: from pjbmt23.prod.google.com ([2002:a17:90b:2317:b0:380:79f2:a916])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3a47:b0:37e:2005:6507
- with SMTP id 98e67ed59e1d1-380ba84865cmr1899432a91.15.1782934406994; Wed, 01
- Jul 2026 12:33:26 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1782934408; x=1783539208;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ukYnz5D3jEol4z1WUeRHDVtFiLPopAappLYurzMw/rI=;
+        b=Hl0RSSTB3URgFDmsQtWequubqha1EK+6xHg+AknTLEK9g6L+iAz0FtzLoJtB2/OI83
+         jWBt7DjRHABICIQV8/YSiwwZXdoordc4okBVHikEebdgHBcesKgBojKj/1QqQFFKGuTl
+         tdSSEr950RT9pDKjVPwWgDOqQEl2ZFywSGAk7F5dSuznTUbjKgdzCE7HLG/3tMJ3Qsi7
+         FFNzn8D/f71MOJNHCQCuX5XCRr6he8KM5gxuzjflgGh1q7UxJYvqCUE3kn10o6A1BHfB
+         b2thaPVTd7aD5N03CLmdG/y0J5lsZDyBp/7sdL9Ok6Pzg5vA8kkT/9U0rZH0zadXl3fe
+         bOgg==
+X-Forwarded-Encrypted: i=1; AFNElJ8YGL7eepovLa53nGRecguAEe17BztJFT3tteTX1yDuh4g6qeOoDzlUjGbRXv9l8KE7B6kBDaJnDNo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyV/fAM+w31TVEFAhJRlbWNJQiLP0QY3JJsxSi1WtCrwptfExE+
+	AV/3muG3qRwPw55ChrwPkr+QLvmFiTMlaa6TQc3rkoOHp/Aa+mO/TDY7uMrzhBhdod9h3BrYD3H
+	sKOdP6g==
+X-Received: from pgad26.prod.google.com ([2002:a05:6a02:4f5a:b0:c99:d21a:f6b7])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:748b:b0:3bf:d1f9:b1db
+ with SMTP id adf61e73a8af0-3bfed5e1001mr3530009637.52.1782934408107; Wed, 01
+ Jul 2026 12:33:28 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  1 Jul 2026 12:32:11 -0700
+Date: Wed,  1 Jul 2026 12:32:12 -0700
 In-Reply-To: <20260701193212.749551-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260701193212.749551-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260701193212.749551-51-seanjc@google.com>
-Subject: [PATCH v5 50/51] x86/paravirt: Move using_native_sched_clock() stub
- into timer.h
+Message-ID: <20260701193212.749551-52-seanjc@google.com>
+Subject: [PATCH v5 51/51] x86/kvm: Get local APIC bus frequency from PV CPUID
+ Timing Info
 From: Sean Christopherson <seanjc@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -121,9 +120,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>, 
 	Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-ebf023/1782934409-ADB331CC-A683ADBA/13/0
+X-purgate-ID: tlsNG-bad1c0/1782934410-46327986-871ED5DB/13/0
 X-purgate-type: clean
-X-purgate-size: 1714
+X-purgate-size: 1407
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -161,59 +160,46 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 726436F0EF5
+X-Rspamd-Queue-Id: 464B76F0EC0
 
-Now that timer.h ended up with CONFIG_PARAVIRT #ifdeffery anyways, move the
-PARAVIRT=n using_native_sched_clock() stub into timer.h as a "free"
-optimization.
+When running as a KVM guest with PV timing info provided by the host,
+stuff the APIC timer period/frequency with the local APIC bus frequency
+reported in CPUID.0x40000010.EBX instead of trying to calibrate/guess the
+frequency.
 
-No functional change intended.
+See Documentation/virt/kvm/x86/cpuid.rst for details.
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/timer.h | 6 ++++--
- arch/x86/kernel/tsc.c        | 2 --
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/x86/kernel/kvm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/timer.h b/arch/x86/include/asm/timer.h
-index ca5c95d48c03..a52388af6055 100644
---- a/arch/x86/include/asm/timer.h
-+++ b/arch/x86/include/asm/timer.h
-@@ -11,9 +11,9 @@ extern void recalibrate_cpu_khz(void);
+diff --git a/arch/x86/kernel/kvm.c b/arch/x86/kernel/kvm.c
+index f9a6346077b0..beea0b6aa78e 100644
+--- a/arch/x86/kernel/kvm.c
++++ b/arch/x86/kernel/kvm.c
+@@ -990,7 +990,7 @@ static void __init kvm_init_platform(void)
+ 		.mask_lo = (u32)(~(SZ_4G - tolud - 1)) | MTRR_PHYSMASK_V,
+ 		.mask_hi = (BIT_ULL(boot_cpu_data.x86_phys_bits) - 1) >> 32,
+ 	};
+-	u32 timing_info_leaf;
++	u32 timing_info_leaf, apic_khz;
+ 	bool tsc_is_reliable;
  
- extern int no_timer_check;
- 
--extern bool using_native_sched_clock(void);
--
- #ifdef CONFIG_PARAVIRT
-+extern bool using_native_sched_clock(void);
+ 	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
+@@ -1052,6 +1052,11 @@ static void __init kvm_init_platform(void)
+ 			x86_init.hyper.get_tsc_khz = kvm_get_tsc_khz;
+ 			x86_init.hyper.get_cpu_khz = kvm_get_tsc_khz;
+ 		}
 +
- int __init __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
- 				      void (*save)(void), void (*restore)(void));
++		/* The leaf also includes the local APIC bus/timer frequency.*/
++		apic_khz = cpuid_ebx(timing_info_leaf);
++		if (apic_khz)
++			apic_set_timer_period_khz(apic_khz, "KVM hypervisor");
+ 	}
  
-@@ -23,6 +23,8 @@ static __always_inline void paravirt_set_sched_clock(u64 (*func)(void),
- {
- 	(void)__paravirt_set_sched_clock(func, true, save, restore);
- }
-+#else
-+static inline bool using_native_sched_clock(void) { return true; }
- #endif
- 
- /*
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index a146fc7b5e74..564be4faa5a0 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -302,8 +302,6 @@ int __init __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
- }
- #else
- u64 sched_clock_noinstr(void) __attribute__((alias("native_sched_clock")));
--
--bool using_native_sched_clock(void) { return true; }
- #endif
- 
- notrace u64 sched_clock(void)
+ 	/*
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
