@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id DP/ONCAoRWrW7woAu9opvQ
+	id fEStOKQoRWr+7woAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:45:52 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:48:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 383A36EEEB3
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:45:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D8906EEF25
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 16:48:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b="ACry/BGe";
+	dkim=pass header.d=suse.com header.s=google header.b="N/UxYgEL";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350054.1607639 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350065.1607648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewC7-0000pi-Rg; Wed, 01 Jul 2026 14:45:43 +0000
+	id 1wewEG-0001Xz-BT; Wed, 01 Jul 2026 14:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350054.1607639; Wed, 01 Jul 2026 14:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 1350065.1607648; Wed, 01 Jul 2026 14:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wewC7-0000nR-Oj; Wed, 01 Jul 2026 14:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 1350054;
- Wed, 01 Jul 2026 14:45:42 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wewEG-0001VF-83; Wed, 01 Jul 2026 14:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 1350065;
+ Wed, 01 Jul 2026 14:47:54 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wewC6-0000mG-FC
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 14:45:42 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wewEE-0001V9-M4
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 14:47:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wewC5-003l9Q-Dz
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 16:45:41 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wewEE-004ARY-2x
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 16:47:54 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a452803-2eae-0a2a0a5409dd-0a2a450be7a6-32
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:45:41 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a452890-bab6-0a2a0a5309dd-0a2a4507e8e2-14
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:47:54 +0200
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a452815-ac48-0a2a450b0019-d155dd2cb49a-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:45:41 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-476d8e647e9so709657f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 07:45:41 -0700 (PDT)
+ id 6a452899-9c8e-0a2a45070019-d155802ec593-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 16:47:54 +0200
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4924593f45dso6460585e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 07:47:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db8a450bsm390780f8f.10.2026.07.01.07.45.39
+ 5b1f17b1804b1-493be4d2bc5sm84365595e9.5.2026.07.01.07.47.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 07:45:40 -0700 (PDT)
+ Wed, 01 Jul 2026 07:47:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,55 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782917141; x=1783521941; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=irMRNbgKvuqITnobG7iDWOXfBogQaMWuiiyBaILdGAQ=;
-        b=ACry/BGewSTOVcBOT1L21q4RoFjtXYIqYeZUJGUNjUY/Gy9/wklliU3OZaqsfu2g4B
-         xtmcogaaIJq2TawIJAPskuZNjrESwzErnHQ1P3d92pNyfHBSnKkp4dTgJJjsqZnjcXRt
-         NerTPJ9wS9DO6j7wA9xDmr/SFbabZRdduMaVF2lW+2wMXHlptFjWSsfAODCY7ON6MH+u
-         QU5iTSs4jFUyI+lbldC/hJS8WaCllSAeTLKX/kKlKeY2G5RwsXXG4XdoR/aCkzg9e+gx
-         BTCpBFtw1rEAzCIzYDertiYZMBbt6+XmYe3+WKRQZvYYE+PQAaIj5TNMft+Na23dqNk+
-         7PUg==
+        d=suse.com; s=google; t=1782917273; x=1783522073; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5H9FOEbTGuPSoUgzC/ynnLScGlyG4PkeuQTpFvOsYGs=;
+        b=N/UxYgEL+JoCAYj/5G8LUkWxpQSzl9wbLYZQEt6mK8qzc6TvyDtAhkXGE6C94GefQD
+         SYKVfBbXMifkbAhxYMbDqrtRvHCXsNb9Ec2PJZf+shu7pAjxaRYL+zrZfk1xb/aTPGLX
+         XdJqn/+LFndJ45U3ao/QHjKznPZAPeiudrk4yjQUJ4D3JPYOkKP/u9p0awKYVShD0YFC
+         /QXRIfQl0fY5as4i7Sh8ZO/3LzO7lbPJMGEO3tCu3jI+TSj8a5s8Cs31z5Fb7J0HC/M6
+         BmvZxQ7x+65GCMO0IjVgy/HKPUYhSKHZ5iDktFfNhKKlBfODn3/BED1f4q9KButC/8kV
+         FSQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782917141; x=1783521941;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=irMRNbgKvuqITnobG7iDWOXfBogQaMWuiiyBaILdGAQ=;
-        b=gTtay7kt2dI582wH6XEZRIfMKYPzTDXiKI9QhF1kzA99B7/Tml+fEVjm+taL8jKv/o
-         JEj+9ON7TTDE4cBdArrhG54vntM1CDWiqaRt7aF/vhQytgUdInfSGkeRfClu5keau1+Q
-         YMRA+2kEgtJzbBRrPx3Bv4LVA/wuFS8KEe4UBCqq3R+oh2jzONXHYvplv6zVMyPhXkyx
-         65U7r6W2+sAEqdHTHmiD8/ZIns54HMqYxnr5MtAd7Li03qpVMbyFpUaPeldaUAOl5nkB
-         wjNjVcy4AfzZNYzOE2R/dnnQJOldZ3HrHjZkUDSCl+FlbdOeclBxV+Amfwdp1L/YCAA/
-         t1Og==
-X-Gm-Message-State: AOJu0Yw3lcNbbsewqeNLFcE4nN58asq3sGkti7U/xbPgXJMdbRqGCq+l
-	V1Xk4o3TkZNyYkHAwT1B4Xs+FbdQiY8x/PHGrLxWd56c2gTRzq1fLbbRq8rX8akgL81sE0J5cMy
-	D4NTO+w==
-X-Gm-Gg: AfdE7ckdN5nEq1iBR3pcukPUNqpiPywXwoGA9v83sTO96jYVjMegAa0A/EynzDK1JJq
-	C9IHOxy/wejNieR8fRCj2KT3mbmfLgkfGxPeJN++/YcwwJGdCS+cSDCE1s4W4vuB2Z+6PRPZZik
-	TrFlNmrXNZT0u76PS8bCoQSoM45ADvPTRwHQjKq/OktLxMzw7/xSJSQmbWeiDoay9EsMGHmi/Xb
-	VTyjjBWXfkrkUuwjfnH8eJCTqmdP521WGxXbiv/XqcDHAIoMf9EyLBQMrkyBo0k6wgc2hM/NCv4
-	oj4kehBEJL5do+mGpjysGtKfG0LTOO8m9XjdRWEIFm0FKr9CvScZOim38sjxu4Tk+HNzsb0xWzz
-	YwFFcMB34WmeUTWs2QK2Vf9SmzWnncAtheUfDV7wBEDB6TVhO9UwH0N/sXVQVO23+sLZOOtH/xv
-	TrWiMcm4oiqGp+lSGYlFqAxSFqg4CfZj9fUcA5WQvO8n261uvKlsUWNlq5x0clPg+GaIaCvn0zw
-	+aAorMyTUuph0c=
-X-Received: by 2002:a05:600c:570f:b0:493:ad1b:b38d with SMTP id 5b1f17b1804b1-493c2ba7db3mr22090225e9.37.1782917140681;
-        Wed, 01 Jul 2026 07:45:40 -0700 (PDT)
-Message-ID: <ba863889-b389-4264-824e-121a5daeba61@suse.com>
-Date: Wed, 1 Jul 2026 16:45:39 +0200
+        d=1e100.net; s=20251104; t=1782917273; x=1783522073;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5H9FOEbTGuPSoUgzC/ynnLScGlyG4PkeuQTpFvOsYGs=;
+        b=eMaTG86YEP6gANfUR75d6ETBIhvTiznsjBCZy66OuZ6YbBPpF19PXvMMHPRSjkag7Z
+         fO3cMSOmdb7Ov2pCEu+IEw1QBUEqAX5bZ1XRZtmut0YQ8hJ8KrpuTUmbqLpQGALEuHU9
+         4nucRgdCCoj2JNjPWuEi/SQlMkPr1gI52Y8F8ytkKE3kbKXmKdGvGQNV0Migr26DYRG8
+         HXIPJ8yVINda+/ujK3/7vDt7umN/tDfMfVBr4uwbMPUaoVNnhQf2nrJntfvk9oeUZkQt
+         mF4d/xtkAu2FaS2NpOL2cVCvreyjwigKPZ9yLuhzoragCCmHpl6pV1xcy+TqcfnxNKbd
+         A6EQ==
+X-Gm-Message-State: AOJu0YycWKNFN1xxGjYv2CpxadBzZTY9OxIHO4cLcUqpsS69hH89nhqF
+	to0cEJJo7Tp5SOwJ0weu/XSQIQGY3NeYVijHl8C+wyEtildFbGp4OSd66jTwhgJ8R1ipbDV6uct
+	kw/Kzqg==
+X-Gm-Gg: AfdE7cmaKJK9uAux0wiCKUBb663gAOsQVb1amVctd5fJtg3EbbB18rur05eqG1WN3K0
+	gdcQaH29cnKcQ/N5DdlDKbJPFY9LlPUdHq9EvtJBPXzwxCPMRpf4JX/rHKQSOI1K+AXdjiKutZX
+	pTzg7RJT5yQr9oOLEao72pCpfkbynR06jfQzGBpF9cL5L0SlZc5Dc1XueZi4FebHdF1Ekwr4Y7Y
+	dD7r5Vdilh8Fl6NJT5OC7x9EVNHbw7Tv9S6daSappVOlKQlC6pRyJGQGG9rQ13e9lXiRcny3ril
+	FZVWFTYennKPbVVH9Cbq/+fo0vqmDuhTzwrqyIE4vBr9gqjpUbrhAHgNGeGxACEZYk3UgLbq/V5
+	rtbqOzYPXx/cVF0YYfGha3dXMGZqwsYe0UUoq5CVI4xs+L/sjmuus9ODLl6DP5Buo5gUohT8eR2
+	9utbE/sloRHvLoAx/KGnYCdjcuuOqxucFlw0IlGZJDQ1O1UfH2CfDGQCWntFO7ocKetu6zlEAOm
+	3wv4/o5y46++0A=
+X-Received: by 2002:a05:600d:644f:10b0:493:bc4a:d5f4 with SMTP id 5b1f17b1804b1-493c2bb226bmr23916745e9.38.1782917273336;
+        Wed, 01 Jul 2026 07:47:53 -0700 (PDT)
+Message-ID: <d3b03ebb-7923-4033-8bcb-cf0cdbb4e771@suse.com>
+Date: Wed, 1 Jul 2026 16:47:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v2 1/2] libxc: drop size parameter from
+ xc_flask_context_to_sid()
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/2] hypercall string inputs
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Juergen Gross <jgross@suse.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Daniel Smith
+ <dpsmith@apertussolutions.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>
+References: <ba863889-b389-4264-824e-121a5daeba61@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -134,11 +135,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ba863889-b389-4264-824e-121a5daeba61@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1782917141-3A125220-A9F24B94/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ef75cf/1782917274-7D92225E-99338FD6/0/0
 X-purgate-type: clean
-X-purgate-size: 573
+X-purgate-size: 3695
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -147,44 +149,131 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:jgross@suse.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 383A36EEEB3
+X-Rspamd-Queue-Id: 4D8906EEF25
 
-While doing the XSA-492 work I further noticed an inefficiency with
-safe_copy_string_from_guest(). All callers pass PAGE_SIZE as the maximum
-buffer size, and with the function adding 1 to append a nul terminator
-the resulting allocations are all order-1 ones. Which we'd better avoid.
-Require respective callers of hypercalls to nul-terminate the strings
-within the buffer supplied. While an ABI change, I think it's an
-acceptable one.
+Nul-terminated strings are passed in all cases, so the strlen() can very
+well be invoked by the function itself. In preparation for a hypervisor
+change also include the nul terminator in the size calculation.
 
-1: libxc: drop size parameter from xc_flask_context_to_sid()
-2: lib: make safe_copy_string_from_guest() validate input
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+Ideally libxl_flask_context_to_sid() would follow suit, but aiui doing so
+would break its (stable) API.
 
-Jan
+Of course the casts in xc_flask_access() are suspicious.
+---
+v2: Avoid assert() use in libxl.
+
+--- a/tools/helpers/init-xenstore-domain.c
++++ b/tools/helpers/init-xenstore-domain.c
+@@ -108,7 +108,7 @@ static int build(xc_interface *xch)
+ 
+     if ( flask )
+     {
+-        rv = xc_flask_context_to_sid(xch, flask, strlen(flask), &config.ssidref);
++        rv = xc_flask_context_to_sid(xch, flask, &config.ssidref);
+         if ( rv )
+         {
+             fprintf(stderr, "xc_flask_context_to_sid failed\n");
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -2372,7 +2372,7 @@ long xc_sharing_used_frames(xc_interface
+ /*** End sharing interface ***/
+ 
+ int xc_flask_load(xc_interface *xc_handle, char *buf, uint32_t size);
+-int xc_flask_context_to_sid(xc_interface *xc_handle, char *buf, uint32_t size, uint32_t *sid);
++int xc_flask_context_to_sid(xc_interface *xc_handle, char *buf, uint32_t *sid);
+ int xc_flask_sid_to_context(xc_interface *xc_handle, int sid, char *buf, uint32_t size);
+ int xc_flask_getenforce(xc_interface *xc_handle);
+ int xc_flask_setenforce(xc_interface *xc_handle, int mode);
+--- a/tools/libs/ctrl/xc_flask.c
++++ b/tools/libs/ctrl/xc_flask.c
+@@ -83,10 +83,11 @@ int xc_flask_load(xc_interface *xch, cha
+     return err;
+ }
+ 
+-int xc_flask_context_to_sid(xc_interface *xch, char *buf, uint32_t size, uint32_t *sid)
++int xc_flask_context_to_sid(xc_interface *xch, char *buf, uint32_t *sid)
+ {
+     int err;
+     struct xen_flask_op op = {};
++    size_t size = strlen(buf) + 1;
+     DECLARE_HYPERCALL_BOUNCE(buf, size, XC_HYPERCALL_BUFFER_BOUNCE_IN);
+ 
+     if ( xc_hypercall_bounce_pre(xch, buf) )
+@@ -249,7 +250,7 @@ static int xc_flask_add(xc_interface *xc
+     int err;
+     struct xen_flask_op op = {};
+ 
+-    err = xc_flask_context_to_sid(xch, scontext, strlen(scontext), &sid);
++    err = xc_flask_context_to_sid(xch, scontext, &sid);
+     if ( err )
+         return err;
+ 
+@@ -325,10 +326,10 @@ int xc_flask_access(xc_interface *xch, c
+     struct xen_flask_op op = {};
+     int err;
+ 
+-    err = xc_flask_context_to_sid(xch, (char*)scon, strlen(scon), &op.u.access.ssid);
++    err = xc_flask_context_to_sid(xch, (char*)scon, &op.u.access.ssid);
+     if ( err )
+         return err;
+-    err = xc_flask_context_to_sid(xch, (char*)tcon, strlen(tcon), &op.u.access.tsid);
++    err = xc_flask_context_to_sid(xch, (char*)tcon, &op.u.access.tsid);
+     if ( err )
+         return err;
+ 
+--- a/tools/libs/light/libxl_flask.c
++++ b/tools/libs/light/libxl_flask.c
+@@ -21,7 +21,10 @@ int libxl_flask_context_to_sid(libxl_ctx
+ {
+     int rc;
+ 
+-    rc = xc_flask_context_to_sid(ctx->xch, buf, len, ssidref);
++    if (len != strlen(buf))
++        return ERROR_INVAL;
++
++    rc = xc_flask_context_to_sid(ctx->xch, buf, ssidref);
+ 
+     return rc;
+ }
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -1754,7 +1754,7 @@ static PyObject *pyflask_context_to_sid(
+         return PyErr_SetFromErrno(xc_error_obj);
+     }
+ 
+-    ret = xc_flask_context_to_sid(xc_handle, ctx, strlen(ctx), &sid);
++    ret = xc_flask_context_to_sid(xc_handle, ctx, &sid);
+ 
+     xc_interface_close(xc_handle);
+ 
+
 
