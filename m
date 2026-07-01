@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 0uTEFmlrRWq6/goAu9opvQ
+	id 5y4ZF2ZrRWqv/goAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:32:57 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:32:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D566F0E38
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:32:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081A26F0E13
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Jul 2026 21:32:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=google.com header.s=20251104 header.b=gbdGjLPv;
+	dkim=pass header.d=google.com header.s=20251104 header.b=uDgtrHaJ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=reject) header.from=google.com
-Received: from list by lists.xenproject.org with outflank-mailman.1350364.1607819 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1350365.1607829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0fe-0007oC-2K; Wed, 01 Jul 2026 19:32:30 +0000
+	id 1wf0fg-000839-Dj; Wed, 01 Jul 2026 19:32:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1350364.1607819; Wed, 01 Jul 2026 19:32:30 +0000
+Received: by outflank-mailman (output) from mailman id 1350365.1607829; Wed, 01 Jul 2026 19:32:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wf0fd-0007mU-Vl; Wed, 01 Jul 2026 19:32:29 +0000
-Received: by outflank-mailman (input) for mailman id 1350364;
- Wed, 01 Jul 2026 19:32:29 +0000
+	id 1wf0fg-00080D-AG; Wed, 01 Jul 2026 19:32:32 +0000
+Received: by outflank-mailman (input) for mailman id 1350365;
+ Wed, 01 Jul 2026 19:32:30 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3SWtFagYKCY4Aws51uy66y3w.u64Fw5-vwDw330ABA.Fw57961wuB.69y@flex--seanjc.bounces.google.com>)
- id 1wf0fc-0007Zv-SD
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:32:28 +0000
+ <3S2tFagYKCZACyu73w08805y.w86Hy7-xyFy552CDC.Hy79B83ywD.8B0@flex--seanjc.bounces.google.com>)
+ id 1wf0fe-0007vn-Nh
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 19:32:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wf0fc-00Bw10-95
- for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:32:28 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wf0fe-004o0g-4Z
+ for xen-devel@lists.xenproject.org; Wed, 01 Jul 2026 21:32:30 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3SWtFagYKCY4Aws51uy66y3w.u64Fw5-vwDw330ABA.Fw57961wuB.69y@flex--seanjc.bounces.google.com>)
- id 6a456b35-bab6-0a2a0a5309dd-0a2a450a9d4e-16
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:28 +0200
+ <3S2tFagYKCZACyu73w08805y.w86Hy7-xyFy552CDC.Hy79B83ywD.8B0@flex--seanjc.bounces.google.com>)
+ id 6a456b30-2eae-0a2a0a5409dd-0a2a4503b1b4-16
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:30 +0200
 Received: from [209.85.214.202] (helo=mail-pl1-f202.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <3SWtFagYKCY4Aws51uy66y3w.u64Fw5-vwDw330ABA.Fw57961wuB.69y@flex--seanjc.bounces.google.com>)
- id 6a456b4a-e40e-0a2a450a0019-d155d6cac001-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:28 +0200
+ <3S2tFagYKCZACyu73w08805y.w86Hy7-xyFy552CDC.Hy79B83ywD.8B0@flex--seanjc.bounces.google.com>)
+ id 6a456b4c-ec1a-0a2a45030019-d155d6cab929-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 21:32:29 +0200
 Received: by mail-pl1-f202.google.com with SMTP id
- d9443c01a7336-2c80f89b64bso15742295ad.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:27 -0700 (PDT)
+ d9443c01a7336-2c9960cf96cso12682655ad.3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 12:32:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,45 +58,44 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1782934346; x=1783539146; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1782934348; x=1783539148; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=esF5eJj/7ACJs9NShhG3o0+XzSBpzRsvPz4C7FhhKMM=;
-        b=gbdGjLPvfSHGpnVGpCwK7ucojnV45lSdH+Lk6BO1No0nRwZavh8NOnaS9xwxrVSUXE
-         UKdqxnMsYhWoqj/nIUbM9LSUjZ0iXgvN6d/qN0MkU6plvKrkwJ4wp3nao5phv+y9Gtsn
-         cG8Z10qjKoBfQ+9fgdAD5mE9NsvU2uDW0eLnKvprKI6k7XSaw663hdOJgSZnKS2LddGx
-         7kvQJGJN9QsIeMcKg67ceih1NTnAdBvpkmPscJlI6AAI5l+XDXtdZgUjyhBAsp8pN1cQ
-         2h7fCh6OGZbg5aYcJLv1Ddeal1uJkTMMo4wLZx1fkyv8t9wPDl8kq2pWG8Y2JFthJQat
-         /W0A==
+        bh=t7xFvhsXyUl34us7SMoRDgC7NN8K9lGkg6/G6zp7sLk=;
+        b=uDgtrHaJ6ZBuPOkMrZLDVdCcpygN6+1xPMKD3qnf9JAU3vNFS69xLZDPEfT4C9CAcO
+         roT0NWYcs0n7KfI2EZ08ijqTEcDfrg2PwATjpdwThh8Xg/wnN135gQUlrS3GDWaRTVt0
+         9D6BzSm1dfKTTRixyGbg3k803jhT2S0u+AKdMTe7K9vuiabe4OriVJeX4l3HB3QpWAYn
+         b/H9scq8Ehlir0V4F3eUMUINw9YN4K2jtOm1mW7oQccLpg8eDwD0tX3fX5UjSLOm9MeF
+         Hk9ZdaHnMJ1KOGh2taskaqQIqEv7tlSdENbIJEdySWQp9OtcK8SMtzntmc6eMivgjHz0
+         fsvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782934346; x=1783539146;
+        d=1e100.net; s=20251104; t=1782934348; x=1783539148;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=esF5eJj/7ACJs9NShhG3o0+XzSBpzRsvPz4C7FhhKMM=;
-        b=VXCxBsF8BhG427lMR8CuLR+esaGE2ZK+mJWQGnU8g5jrR23Xr80zf23ZH8Oh/4sXjv
-         Jx0f/2pNMnrCn66oxcarM5g50p2ZfoFdXgmH5z5Bm33yiEHPdStbGdnhJJ66W/t45aRE
-         bbvqdNPagI9VeufmOWxHlvJ0ImoVawJ39yRaDBajGPvvqR2GdpuE8pyoCEyQaLAfcCXq
-         Wy6nZZJvL0ZN8DmcnsvJN93uc9YNMcD2EVPcX3xwy4Au2QrS3ZCYNY1HzcsUAcOqig1S
-         VBP3/DNfun1TlPJYjoyOluR2lzjXKG4ByOfdPeY4e23DWdmCbMYzHD8qRddJ0nAxWmxS
-         ymhA==
-X-Forwarded-Encrypted: i=1; AHgh+RpgXwACTmF8tJwt8dHwWZiyay5TdhXGy38D3TjidMjVh32Bua/YRlxakYOI8rjbvV1eCp1s2K7LZeM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzVZd4amDY+iqn7uZFCZiGjL09wCReGjZI6Y6fa5bV+vaaQd7jk
-	8w0jKmHVT47MqgmQc5gwnjOcaf7tdP2AJinoLnhJsAFhKaGgiZuqrIjJMZj/tRiaQbvTntYIU21
-	Iev8rEg==
-X-Received: from plfz4.prod.google.com ([2002:a17:902:d544:b0:2c7:f3dc:ae29])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e811:b0:2c9:f73d:4b38
- with SMTP id d9443c01a7336-2ca7e6db91bmr32521425ad.19.1782934345724; Wed, 01
- Jul 2026 12:32:25 -0700 (PDT)
+        bh=t7xFvhsXyUl34us7SMoRDgC7NN8K9lGkg6/G6zp7sLk=;
+        b=YrKSEftd2pq4hZQF6oK10bBwzKyGcbIb7seO/9ZELyhb05GP6eoymYhoC/vA6epTec
+         7QFdlvJNrSbjPOJoEdWjhk6Y1Q6MGC3JA+myKzQl+Lu9AL5nt5LlcY6MZyxE1ax02xrI
+         XQgU54aN74ut01hb9+xAhEw+OKMxxOjli+FregI29yahh1zALVvqi4ETFqwQusW5IhKM
+         jk5pGe/AYEgYgOV2RR5vMvz6Xjmu74Km70YTynBBTTYBZU4RcTVDrHqtvgcB1RHjUl0F
+         TtxEPV+WeugNPhfBjXfnvc3ugoXLhjDAZzktLBXs1gJjkB/yCaVFkiq8CDH8Pi1jIfT7
+         vEkA==
+X-Forwarded-Encrypted: i=1; AHgh+RqbFCEdd8JhaoUSuo3/AZ9XGNgbxk+oJyckGBf7zxXw34Bx4SCttxfCe/sBYgDokLglKIIgROwEQek=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPTlOK5mplBXHpBWw8KApJZ+oDIjKvj21VX/g4T2Myy5eIXR92
+	3fqLNPiqisX3wd+s/hvTRKaBJwUK2Ilg3jGdhjauiWraxpUevsh7YAdprCaA8QobnUmu0TYn0Yj
+	Hi/3aBg==
+X-Received: from plbmk12.prod.google.com ([2002:a17:903:2bcc:b0:2c8:219a:17e8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:19d0:b0:2ca:53e9:1277
+ with SMTP id d9443c01a7336-2ca7e714f7fmr32655485ad.1.1782934347423; Wed, 01
+ Jul 2026 12:32:27 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  1 Jul 2026 12:31:22 -0700
+Date: Wed,  1 Jul 2026 12:31:23 -0700
 In-Reply-To: <20260701193212.749551-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260701193212.749551-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260701193212.749551-2-seanjc@google.com>
-Subject: [PATCH v5 01/51] x86/apic: Provide helpers to set local APIC timer
- period in hz and khz
+Message-ID: <20260701193212.749551-3-seanjc@google.com>
+Subject: [PATCH v5 02/51] x86/apic: Add CONFIG_X86_LOCAL_APIC=n stubs for apic_set_timer_period_{,k}hz()
 From: Sean Christopherson <seanjc@google.com>
 To: Jonathan Corbet <corbet@lwn.net>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
@@ -120,9 +119,9 @@ Cc: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>, 
 	Thomas Gleixner <tglx@linutronix.de>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-4011c0/1782934348-D7935DDE-2F08127A/0/0
+X-purgate-ID: tlsNG-33051d/1782934350-077265D1-D715471B/0/0
 X-purgate-type: clean
-X-purgate-size: 5605
+X-purgate-size: 3082
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -160,151 +159,84 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 09D566F0E38
+X-Rspamd-Queue-Id: 081A26F0E13
 
-Add and use APIs to set the local APIC timer period instead of open coding
-the subtle HZ math in a all external callers, and make lapic_timer_period
-local to apic.c.  Provide APIs to specify the frequency in both hertz and
-kilohertz so that Hyper-V and VMware code aren't forced to lose precision.
+Add stubs for the apic_set_timer_period_{,k}hz() APIs when the kernel is
+built without support for a local APIC, and drop #ifdefs in callers that
+don't need to check CONFIG_X86_LOCAL_APIC for other reasons.
 
-Opportunistically use mul_u64_u32_div() to harden against the possibility
-that the period in Khz is greater than 4294967, i.e. if the APIC timer runs
-at ~4.29 GHz.  As pointed out by Sashiko, 4294968 * 1000 == 0x1_000002c0,
-and thus a Khz period of 4294968 would silently overflow the 32-bit
-unsigned integer used by most callers.
+No functional change intended.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/apic.h    |  3 ++-
- arch/x86/kernel/apic/apic.c    | 12 +++++++++++-
- arch/x86/kernel/cpu/mshyperv.c |  5 +----
- arch/x86/kernel/cpu/vmware.c   |  4 +---
- arch/x86/kernel/jailhouse.c    |  2 +-
- arch/x86/kernel/tsc.c          |  2 +-
- arch/x86/kernel/tsc_msr.c      |  2 +-
- 7 files changed, 18 insertions(+), 12 deletions(-)
+ arch/x86/include/asm/apic.h  | 2 ++
+ arch/x86/kernel/cpu/vmware.c | 2 --
+ arch/x86/kernel/tsc.c        | 2 --
+ arch/x86/kernel/tsc_msr.c    | 2 --
+ 4 files changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/arch/x86/include/asm/apic.h b/arch/x86/include/asm/apic.h
-index 9cd493d467d4..cd84a94688a2 100644
+index cd84a94688a2..035998555e99 100644
 --- a/arch/x86/include/asm/apic.h
 +++ b/arch/x86/include/asm/apic.h
-@@ -63,7 +63,6 @@ extern int apic_verbosity;
- extern int local_apic_timer_c2_ok;
- 
- extern bool apic_is_disabled;
--extern unsigned int lapic_timer_period;
- 
- extern enum apic_intr_mode_id apic_intr_mode;
- enum apic_intr_mode_id {
-@@ -138,6 +137,8 @@ void register_lapic_address(unsigned long address);
- extern void setup_boot_APIC_clock(void);
- extern void setup_secondary_APIC_clock(void);
- extern void lapic_update_tsc_freq(void);
-+extern void apic_set_timer_period_hz(u64 period_hz, const char *source);
-+extern void apic_set_timer_period_khz(u64 period_khz, const char *source);
- 
- #ifdef CONFIG_X86_64
- static inline bool apic_force_enable(unsigned long addr)
-diff --git a/arch/x86/kernel/apic/apic.c b/arch/x86/kernel/apic/apic.c
-index aa1e19979aa8..8d3d930576fd 100644
---- a/arch/x86/kernel/apic/apic.c
-+++ b/arch/x86/kernel/apic/apic.c
-@@ -176,7 +176,7 @@ static struct resource lapic_resource = {
- };
- 
- /* Measured in ticks per HZ. */
--unsigned int lapic_timer_period = 0;
-+static unsigned int lapic_timer_period;
- 
- static void apic_pm_activate(void);
- 
-@@ -796,6 +796,16 @@ bool __init apic_needs_pit(void)
- 	return lapic_timer_period == 0;
- }
- 
-+void apic_set_timer_period_khz(u64 period_khz, const char *source)
-+{
-+	lapic_timer_period = mul_u64_u32_div(period_khz, 1000, HZ);
-+}
-+
-+void apic_set_timer_period_hz(u64 period_hz, const char *source)
-+{
-+	lapic_timer_period = div_u64(period_hz, HZ);
-+}
-+
- static int __init calibrate_APIC_clock(void)
- {
- 	struct clock_event_device *levt = this_cpu_ptr(&lapic_events);
-diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
-index 185d4f677ec0..87beecec76f0 100644
---- a/arch/x86/kernel/cpu/mshyperv.c
-+++ b/arch/x86/kernel/cpu/mshyperv.c
-@@ -646,10 +646,7 @@ static void __init ms_hyperv_init_platform(void)
- 		u64	hv_lapic_frequency;
- 
- 		rdmsrq(HV_X64_MSR_APIC_FREQUENCY, hv_lapic_frequency);
--		hv_lapic_frequency = div_u64(hv_lapic_frequency, HZ);
--		lapic_timer_period = hv_lapic_frequency;
--		pr_info("Hyper-V: LAPIC Timer Frequency: %#x\n",
--			lapic_timer_period);
-+		apic_set_timer_period_hz(hv_lapic_frequency, "Hyper-V hypervisor");
- 	}
- 
- 	register_nmi_handler(NMI_UNKNOWN, hv_nmi_unknown, NMI_FLAG_FIRST,
+@@ -189,6 +189,8 @@ static inline void disable_local_APIC(void) { }
+ # define setup_boot_APIC_clock x86_init_noop
+ # define setup_secondary_APIC_clock x86_init_noop
+ static inline void lapic_update_tsc_freq(void) { }
++static inline void apic_set_timer_period_hz(u64 period_hz, const char *source) { }
++static inline void apic_set_timer_period_khz(u64 period_khz, const char *source) { }
+ static inline void init_bsp_APIC(void) { }
+ static inline void apic_intr_mode_select(void) { }
+ static inline void apic_intr_mode_init(void) { }
 diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index 34b73573b108..36f779dd311d 100644
+index 36f779dd311d..13b97265c535 100644
 --- a/arch/x86/kernel/cpu/vmware.c
 +++ b/arch/x86/kernel/cpu/vmware.c
-@@ -424,9 +424,7 @@ static void __init vmware_platform_setup(void)
+@@ -422,10 +422,8 @@ static void __init vmware_platform_setup(void)
+ 		x86_platform.calibrate_tsc = vmware_get_tsc_khz;
+ 		x86_platform.calibrate_cpu = vmware_get_tsc_khz;
  
- #ifdef CONFIG_X86_LOCAL_APIC
+-#ifdef CONFIG_X86_LOCAL_APIC
  		/* Skip lapic calibration since we know the bus frequency. */
--		lapic_timer_period = ecx / HZ;
--		pr_info("Host bus clock speed read from hypervisor : %u Hz\n",
--			ecx);
-+		apic_set_timer_period_hz(ecx, "VMware hypervisor");
- #endif
+ 		apic_set_timer_period_hz(ecx, "VMware hypervisor");
+-#endif
  	} else {
  		pr_warn("Failed to get TSC freq from the hypervisor\n");
-diff --git a/arch/x86/kernel/jailhouse.c b/arch/x86/kernel/jailhouse.c
-index f58ce9220e0f..f2d4ef89c085 100644
---- a/arch/x86/kernel/jailhouse.c
-+++ b/arch/x86/kernel/jailhouse.c
-@@ -65,7 +65,7 @@ static void jailhouse_get_wallclock(struct timespec64 *now)
- 
- static void __init jailhouse_timer_init(void)
- {
--	lapic_timer_period = setup_data.v1.apic_khz * (1000 / HZ);
-+	apic_set_timer_period_khz(setup_data.v1.apic_khz, "Jailhouse hypervisor");
- }
- 
- static unsigned long jailhouse_get_tsc(void)
+ 	}
 diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index ce10ae4b298b..f9ecc9256863 100644
+index f9ecc9256863..4d6a446645c0 100644
 --- a/arch/x86/kernel/tsc.c
 +++ b/arch/x86/kernel/tsc.c
-@@ -717,7 +717,7 @@ unsigned long native_calibrate_tsc(void)
- 	 * lapic_timer_period here to avoid having to calibrate the APIC
+@@ -710,7 +710,6 @@ unsigned long native_calibrate_tsc(void)
+ 	if (boot_cpu_data.x86_vfm == INTEL_ATOM_GOLDMONT)
+ 		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
+ 
+-#ifdef CONFIG_X86_LOCAL_APIC
+ 	/*
+ 	 * The local APIC appears to be fed by the core crystal clock
+ 	 * (which sounds entirely sensible). We can set the global
+@@ -718,7 +717,6 @@ unsigned long native_calibrate_tsc(void)
  	 * timer later.
  	 */
--	lapic_timer_period = crystal_khz * 1000 / HZ;
-+	apic_set_timer_period_khz(crystal_khz, "CPUID 0x15/0x16");
- #endif
+ 	apic_set_timer_period_khz(crystal_khz, "CPUID 0x15/0x16");
+-#endif
  
  	return crystal_khz * ebx_numerator / eax_denominator;
+ }
 diff --git a/arch/x86/kernel/tsc_msr.c b/arch/x86/kernel/tsc_msr.c
-index 48e6cc1cb017..7e990871e041 100644
+index 7e990871e041..aece062aee7e 100644
 --- a/arch/x86/kernel/tsc_msr.c
 +++ b/arch/x86/kernel/tsc_msr.c
-@@ -211,7 +211,7 @@ unsigned long cpu_khz_from_msr(void)
+@@ -210,9 +210,7 @@ unsigned long cpu_khz_from_msr(void)
+ 	if (freq == 0)
  		pr_err("Error MSR_FSB_FREQ index %d is unknown\n", index);
  
- #ifdef CONFIG_X86_LOCAL_APIC
--	lapic_timer_period = (freq * 1000) / HZ;
-+	apic_set_timer_period_khz(freq, "MSR_FSB_FREQ");
- #endif
+-#ifdef CONFIG_X86_LOCAL_APIC
+ 	apic_set_timer_period_khz(freq, "MSR_FSB_FREQ");
+-#endif
  
  	/*
+ 	 * TSC frequency determined by MSR is always considered "known"
 -- 
 2.55.0.rc0.799.gd6f94ed593-goog
 
