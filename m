@@ -2,45 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id K/RUOr9sRmpOUQsAu9opvQ
+	id jrIyABtxRmqYVAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 15:50:55 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 16:09:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F7396F8893
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 15:50:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 489206F8B74
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 16:09:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=linux.dev header.s=key1 header.b=SBk2LGdo;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=yyLLAy9u;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=linux.dev
-Received: from list by lists.xenproject.org with outflank-mailman.1351916.1608918 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1351930.1608927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfHoD-00088e-1L; Thu, 02 Jul 2026 13:50:29 +0000
+	id 1wfI68-0002D1-D5; Thu, 02 Jul 2026 14:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351916.1608918; Thu, 02 Jul 2026 13:50:29 +0000
+Received: by outflank-mailman (output) from mailman id 1351930.1608927; Thu, 02 Jul 2026 14:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfHoC-00086R-Ua; Thu, 02 Jul 2026 13:50:28 +0000
-Received: by outflank-mailman (input) for mailman id 1351916;
- Thu, 02 Jul 2026 13:50:27 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wfI68-0002Ar-9X; Thu, 02 Jul 2026 14:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 1351930;
+ Thu, 02 Jul 2026 14:08:59 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <lance.yang@linux.dev>) id 1wfHoA-00086L-80
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 13:50:27 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wfI66-0002Al-Pw
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:08:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfHo9-006nIQ-1t
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:50:25 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wfI66-00EvtM-0T
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 16:08:58 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <lance.yang@linux.dev>)
- id 6a466c97-2eae-0a2a0a5409dd-0a2a4503a584-30
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 15:50:24 +0200
-Received: from [91.218.175.188] (helo=out-188.mta0.migadu.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <lance.yang@linux.dev>)
- id 6a466c9b-ec1a-0a2a45030019-5bdaafbcdeea-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 15:50:19 +0200
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a4670f6-e002-0a2a0a5209dd-0a2a45059590-4
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 16:08:57 +0200
+Received: from [52.101.43.32]
+ (helo=SJ2PR03CU001.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a4670f7-3cb2-0a2a45050019-34652b205362-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 16:08:57 +0200
+Received: from IA1PR03MB8288.namprd03.prod.outlook.com (2603:10b6:208:59e::6)
+ by CH3PR03MB7508.namprd03.prod.outlook.com (2603:10b6:610:19c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Thu, 2 Jul
+ 2026 14:08:49 +0000
+Received: from IA1PR03MB8288.namprd03.prod.outlook.com
+ ([fe80::b5ee:28c6:e04b:5599]) by IA1PR03MB8288.namprd03.prod.outlook.com
+ ([fe80::b5ee:28c6:e04b:5599%3]) with mapi id 15.21.0159.018; Thu, 2 Jul 2026
+ 14:08:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,319 +63,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1783000216;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n7JedrMMFsZ3SA9xp8Er9WQ7Q5NWmS7gMbpQ8O+PQSg=;
-	b=SBk2LGdo8O2Fh816oQbqXrmhKAQAYAxHqV6r2z//9k66SRzp2XfssdY3VkdvqTHoJEhhne
-	KBLV5b7WimMmbUd67b8UpLhwJTAsCl8UHKUpcr3XwD//YOwU43JswyAPjZ9yhLgdwnTOAg
-	TszqN8wOwdlDLsXMvuRT5nF6gC9LQmA=
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	l.stach@pengutronix.de,
-	inki.dae@samsung.com,
-	sw0312.kim@samsung.com,
-	kyungmin.park@samsung.com,
-	krzk@kernel.org,
-	peter.griffin@linaro.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	tursulin@ursulin.net,
-	robin.clark@oss.qualcomm.com,
-	lumag@kernel.org,
-	lyude@redhat.com,
-	dakr@kernel.org,
-	tomi.valkeinen@ideasonboard.com,
-	hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	thierry.reding@kernel.org,
-	mperttunen@nvidia.com,
-	jonathanh@nvidia.com,
-	kraxel@redhat.com,
-	dmitry.osipenko@collabora.com,
-	zack.rusin@broadcom.com,
-	matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	oleksandr_andrushchenko@epam.com,
-	deller@gmx.de,
-	bcrl@kvack.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	npache@redhat.com,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	hughd@google.com,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jannh@google.com,
-	pfalcato@suse.de,
-	kees@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	dri-devel@lists.freedesktop.org,
-	etnaviv@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-tegra@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	intel-xe@lists.freedesktop.org,
-	xen-devel@lists.xenproject.org,
-	linux-fbdev@vger.kernel.org,
-	linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 13/13] mm/mremap: convert mremap code to use vma_flags_t
-Date: Thu,  2 Jul 2026 21:49:47 +0800
-Message-Id: <20260702134947.25189-1-lance.yang@linux.dev>
-In-Reply-To: <380f761d35a3faa4370f8b3f92e3d4af3d4c7110.1782760670.git.ljs@kernel.org>
-References: <380f761d35a3faa4370f8b3f92e3d4af3d4c7110.1782760670.git.ljs@kernel.org>
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mY86+0PeAFLHOpNwnQRFu5CYuTNmSOfF3u+9/uCH+QTVZLbpODfVjfC5vffcf80RDD5xBeLZwp6cLJUmpIIuPVboOyu0MM3O51k23reyPBRP5xnMqdhimdlTvPsUljzpeepfg+P1rYEc13umvOOXs9RF59CXPSZoWE3bheA1o83wgKONUu82q33wV4K9ZpWAcesr6Uag6aziYuijpzIyikyL+DL2TNkTqwuCkmG+/wnZI6OKyfWYTLFijQYt1Y2GKYs0Vw19VkBmUsi4j+05cVzvVoVQwmXpnvFmIp41mL753/zQ70m30UsZOSFmaDqzG2uSNF6/SO+B8/VSzkMiZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ofN1ll3EDoK8dYwj/6OEn+2jPQWTZas/sO08x1VmQLY=;
+ b=hHfvaShjYm0HMSG/3OsGBTeZ4UUirYcjJ7FyzQBonL5BB20MG29bV+vAtJyJLMYCqgIKQXygwGwCiFBjl9Zs/IqjZxfOrugsusvwk5zjOto2QEKB2ANozvlJ33JYnfXiQNEcMADvZ2WkKD/NcH6N6Rui/3u6ninIBe8bF72CvL6C5mGnOFJuYNAEckJQKsdB7V32EW2LmfAqczdB59WEXeYZhGJ5upvXwhLAff+apSR5NCI86Hk86sHhtvGT0oKUSa2iS5orvWVlStHWpBwDL9NLbDlYSlaJFT9YGxtOivtVzluKjJ2txg8lXE9mgjS89VKcvcCHWjj2SNJwVBhm0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ofN1ll3EDoK8dYwj/6OEn+2jPQWTZas/sO08x1VmQLY=;
+ b=yyLLAy9uj/hgOTxpJ+VlFGV518V1A/OlhQiSdlmOool1EPpLpHVP60NSyhrKOq1EQlD28Lc5RDRTU3G2L/JwEelnsGUL3LlfgvYHYzFiAW06okNK08FJNlbCcSMMIG/6beGx0iG/l6ERDQcmj738tIlJFpgLqz1ygYKHkKWKmzY=
+Message-ID: <012d7d69-39c6-4e46-a817-83d57169f323@citrix.com>
+Date: Thu, 2 Jul 2026 15:08:46 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 1/4] x86/HVM: don't (almost) open-code POP_GPRS
+To: Jan Beulich <jbeulich@suse.com>
+References: <7ba5ecff-af64-49c0-abf9-23963ca56aa6@suse.com>
+ <a89951cb-43c0-45bd-aba1-273cd053deae@suse.com>
+ <6065311f-15b3-403e-b39c-f9652f0513ff@citrix.com>
+ <20836109-fadf-4ad4-ad9e-9fa44883716a@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20836109-fadf-4ad4-ad9e-9fa44883716a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-purgate-ID: tlsNG-33051d/1783000224-B57BF5D1-802020C5/0/0
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0119.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::6) To IA1PR03MB8288.namprd03.prod.outlook.com
+ (2603:10b6:208:59e::6)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR03MB8288:EE_|CH3PR03MB7508:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a29e7da-cd13-4e55-8eed-08ded8437041
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	6jRGnI3c1N3XNNJcqRxIQoXenReal/+d2tK6D8QyVZLkqZ8OyXZvCOyphfXE2Sx8ZPHtL9GbVj5y8Ek6dAsAlKwK3EBmpi38dv6fAuNXCTQDKtuSVXw2WWR6XVBCrH35vBnfC40vl0hwhuEBg/0BHBaIZWjpE9uOkC2s/cHOI2IzlCTRs9a42EJVn7m4+KRG7htURkYe8bzVsWZn7s984cLtUUuIm7Ng+OZHojxD8F9KTgMONyNNUNpWrfrNlrw6yNnULPmgP69rXW7cilGhNiwbiPBT0aKXko+nClzbk6d2upOzocLkppA1xOmG+Dzjw3tf0jP+YtmI+zhYx15p1cHIaC22nZlsvEfyjNDx1glCmobrNSxFS7MAA+lokonnA3eAkryG2HtgJ+oCf33qrccalyT5JbkQW0Ll9PdbRJSKEg5CWcZ01yukBCo63fKQ1dCu4CQ+vvsFn+k+/Og4KF5RpBZWR+BoTeTNtftHGMeA8ijlidc9G5FuZwKqFFofcIpPG4zuxGSPSlwCRXa61lVsprR6ylvYke08IoGdtnIkkXACTN/DaVTTiiZOxnVvqeGn8l73lCrB/A0TZDnAFt6hb1ZJtm0TeJVj/DA87LjUeVar9vyTAmsJ6a0vEKa0ElMmBiGLdnu9f7Lid60H1flOcZTcjOzMxjpFm1BIP7w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR03MB8288.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZTRrdFpWajFQNWp2R3Nuc0hnOUhVVVNCdFhZU25LOExiMDdWV1RvNGo0cTVi?=
+ =?utf-8?B?bEk2WWVqaFpqcW1PNHNLcjgrQ2w0VE1vdkNIMEQ5WVJLL2hjbS9RR1gvNGl3?=
+ =?utf-8?B?L256Mm5MYkJMcjBGTFY1RklpcTU4YVgzQVk0YjVJSkR1ajY2dEQ0TmsxclF3?=
+ =?utf-8?B?RU9YSjE2QjVZQUZqek40VytkYjF1TDdZTWZoMHY4TmFEVTRkQlhlNUZDTC9n?=
+ =?utf-8?B?VkJ1a05FaGIyRjF4NUFBR3Jqd1Azb0VCV2g1eU11VTAwM0doWklxc1ZOcTgx?=
+ =?utf-8?B?M0lNWWhveUJzZUFaa3BOejF6VnhRTVdrYndkSkt6bFNjTXR1TDIyanhhb3Qv?=
+ =?utf-8?B?OS8yUENYb0hERSsxL3M0ZkhZTEN4Wm55NDBGK2Y3S29HN01NUFUwZFFTQllB?=
+ =?utf-8?B?SUZGNWRhTGFYWTlXdzljUG1PekEzczY2VU9KcGtTVWJQK2JuZXNZT3NaN0xJ?=
+ =?utf-8?B?UjZRemFxMTkrb0lPcXR4WEJFT25yY28zK3FlL2p2Qm14M1J5ZCtQWERxSG5W?=
+ =?utf-8?B?TDJRSm5qTVNiekJIVncwakJuZVNuRVRtZ3JVOVF3Vk9rejgwL1AvNUMyc0xa?=
+ =?utf-8?B?MzZNenpqSEU1ZmVaVnpUNVhCZGFmNWY5aXIweVJ4Y05sZ0dhU2Z1VGd1V1pM?=
+ =?utf-8?B?eDV4RVMxSFc4N1N5cEFTaXFKTnVPN3o5TGFlOFlsbkFxQWVJOFNGcWJoZnhx?=
+ =?utf-8?B?VGF0dmJVS2dVc2YzVTBXakpQRzNZYzNXbnh1SStVL1VYeVkzcThrc1JaZ1J4?=
+ =?utf-8?B?Q29nR09zd1gvaG95eEcyVWsvNEFYb1JhbnF4bHFYZ2pTNzh1N3hmTzJTSXBU?=
+ =?utf-8?B?WU5YcUk3WG10YkFyMEVuV3RFVDdodjIySXFHcFAyZEJ5WEt3ZTVHRGgyZGM0?=
+ =?utf-8?B?OHBjdVNqQ1JVYzFQMGZBbTdvaWdJQUluSlNMY0JmWm02amFoZmprODY4MHpt?=
+ =?utf-8?B?R2NycGtlZ29YWXpmU29qNFJrMUs4SVNRb0l1SDRxWTZXNmlQME10YkZzUys5?=
+ =?utf-8?B?dk9RVFFVcXRhNTRCaVV0QWtnMi9mWE1vNDlML3N3VU02Wm0ybk5nbEhvVkdB?=
+ =?utf-8?B?VG5hemdSVXU0T0NVbzBCTmxaTlI5SmxGRVRrYTV3eWJPQVo5M29yTGZMR0lX?=
+ =?utf-8?B?T3ZyazRMUGF2TzB5S0Y5ZGZ2TVQzMHZrMEMrYVQzdXBnM2hPOE50RDg2anBv?=
+ =?utf-8?B?ZFdOZ3MrWlp3UHpsdzZEbEVPSDJsdHlMemtjOXA5RGFnTmZvNDhISC8rMWxo?=
+ =?utf-8?B?cjFoYmdiWEcxSHNOV0c2Uk5UM05mNDRUYWY0RTZXWVVDSDJRRlNURno0MXE1?=
+ =?utf-8?B?aDBMTUp6cWcxamJWYVZ4TFdJUW5hRVRGMnExRkxadk94c08zRE96U1F4emxI?=
+ =?utf-8?B?QmJ1eUhmY2Rsb1Qzb3UrYVI5WHAyL1ZDSkQyNi9TaUxCQVNtMlRrQ3dzbkph?=
+ =?utf-8?B?VXJYVmFidy9Za3NYcVY3cU5RckxZMXltSktKR2RVTzJzQVBGTkhXZStoNDA5?=
+ =?utf-8?B?ZlJKWVNkUG1DMGI2MkNnMm5BL2Y3SGh2Y0laVUtuRVdYYU80VU1saktVZ2Ry?=
+ =?utf-8?B?eVdXTEk1elV4TjlsM09KVThzNDBxTGZDekZaZWMrY2Q4REhhUVdPMjdtVDMr?=
+ =?utf-8?B?Wm10dDNKVTEwUWR4MnkwWDJNclkyS0VtT1QxdmV5VG5YWTBvems5NTNqOXpr?=
+ =?utf-8?B?dDBBZDNMRzFXMGdjVDB3b0M2b09GWWt4L2taVDQ1RzhGNVNyVHBXTFl2UDNz?=
+ =?utf-8?B?TzhGSm9oQlVqejhoeDNRQWxlOURCaGxFZUtLYnZoWGpZY2hJcFpSTjlFSEt2?=
+ =?utf-8?B?QnRLYmtFMGhidCt4OXlxREoyUzBkSXhlNy9QcC9ycCtxajZtdVgyOGFEUUt1?=
+ =?utf-8?B?VzVzTmJlcjRER2tDYjcrMWhLZE9pNHVDODZrb3JiMHh6ZU9iMGxNQjZZSUZ0?=
+ =?utf-8?B?RHRhSmt3VXJoOFlvc1FROEE0dzdyRm9TNGpKTGhnUWJsSFFCWXJCVnBTTEF3?=
+ =?utf-8?B?aCsrOTY0MDJHMlI5ZXlveVBQRytTV0tKbjlwS0JreVF4VjJKZUJRbCs4cFBK?=
+ =?utf-8?B?eXRnRzVydHB1RitOczh0S0xaNElTZG4vanZyLzRSVGZZYlZGcCswZnRnYUtT?=
+ =?utf-8?B?VUV4c3YxaUhkY3hmN0x1U0R6N0dxM084TzlHQ2dOUjRPZllYY3JqK1NaVFdR?=
+ =?utf-8?B?VjVsakwzK25YSXRlamZtRW9MNFdRWnBNK2tuaS9CRGJUamlLc2R5UjdybWwz?=
+ =?utf-8?B?aVpzZDRaVDgwVjNXNXUxUGtQRXNoTy9sOHRsYzVMTVZZbCtaaGlBRExMOFJo?=
+ =?utf-8?B?UHQ2ZWJTM1BxV0daZ3RDOFBYQlRrcEptaVVvZGl0di9tMjZCMW9Idz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a29e7da-cd13-4e55-8eed-08ded8437041
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR03MB8288.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 14:08:49.1651
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9vC5euabcpXtDB/XJ4XiVgO78RaKsdv+VofFfE3tvLJwdKSReJZf87gBWCTFkpl8qv6YvjMoaOHIir0l0ER6SAkaim5Zhl4lh4uPDcOGhU8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR03MB7508
+X-purgate-ID: tlsNG-c201ff/1783001337-0DD0E2B8-2014AD2A/0/0
 X-purgate-type: clean
-X-purgate-size: 6121
+X-purgate-size: 1453
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[linux.dev,none];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[linux.dev:s=key1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:dkim,linux.dev:mid,linux.dev:from_mime];
-	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:tsbogend@alpha.franken.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:zack.rusin@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:bcrl@kvack.org,m:viro@zeniv.l
- inux.org.uk,m:brauner@kernel.org,m:muchun.song@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:ziy@nvidia.com,m:baolin.wang@linux.alibaba.com,m:liam@infradead.org,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:hughd@google.com,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:jannh@google.com,m:pfalcato@suse.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:linux-mips@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fb
- dev@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-sound@vger.kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:wl@xen.org,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[lance.yang@linux.dev,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[linux.dev:+];
-	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lance.yang@linux.dev,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_GT_50(0.00)[83];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3F7396F8893
+X-Rspamd-Queue-Id: 489206F8B74
 
+On 02/07/2026 2:18 pm, Jan Beulich wrote:
+> On 02.07.2026 13:31, Andrew Cooper wrote:
+>> On 02/07/2026 11:55 am, Jan Beulich wrote:
+>>> It can be used as-is for VMX. For SVM the special treatment of %rax needs
+>>> accounting for.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> This is the minimum required as a prereq to the next patch (to avoid the
+>>> need for custom adjustments in the two places). We could go further and
+>>> switch to using PUSH_AND_CLEAR_GPRS at the same time.
+>> I've got several part-series that result in purging SAVE_ALL/RESTORE_ALL.
+>>
+>> If you want to put this patch in, then Acked-by: Andrew Cooper
+>> <andrew.cooper3@citrix.com>
+> Thanks. Yes, I think I'll put it in as one small piece in the move.
+>
+>> but I firmly want to finish my series before
+>> patch 2 adds yet-more complexity to macros which I'm wanting to remove
+>> for being too complicated already.
+> Well, if you make this a strict prereq, then I might as well make one or
+> more patches myself to replace at least the SAVE_ALL the next patch needs
+> to fiddle with. Or else I'd like to understand when you expect your work
+> to arrive, as this series imo is one of those which have already been
+> blocked for far too long.
 
-On Mon, Jun 29, 2026 at 08:25:36PM +0100, Lorenzo Stoakes wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values
->throughout the mremap logic.
->
->Additionally update comments to reflect the changes to be consistent.
->
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->---
+Get this patch committed, which will resolve the skip_rax issue holding
+up my last attempt to make progress here.
 
-The vm_flags_set() cases below spell out vma_start_write(), but the
-vm_flags_clear() cases don't?
+I'll then rebase and try to collect everything together.
 
-Thanks, Lance
-
-> mm/mremap.c | 38 ++++++++++++++++++++------------------
-> 1 file changed, 20 insertions(+), 18 deletions(-)
->
->diff --git a/mm/mremap.c b/mm/mremap.c
->index 079a0ba0c4a7..0ea43302b7ed 100644
->--- a/mm/mremap.c
->+++ b/mm/mremap.c
->@@ -68,7 +68,7 @@ struct vma_remap_struct {
-> 	bool populate_expand;		/* mlock()'d expanded, must populate. */
-> 	enum mremap_type remap_type;	/* expand, shrink, etc. */
-> 	bool mmap_locked;		/* Is mm currently write-locked? */
->-	unsigned long charged;		/* If VM_ACCOUNT, # pages to account. */
->+	unsigned long charged;		/* If VMA_ACCOUNT_BIT, # pgs to account */
-> 	bool vmi_needs_invalidate;	/* Is the VMA iterator invalidated? */
-> };
-> 
->@@ -954,7 +954,7 @@ static unsigned long vrm_set_new_addr(struct vma_remap_struct *vrm)
-> 
-> 	if (vrm->flags & MREMAP_FIXED)
-> 		map_flags |= MAP_FIXED;
->-	if (vma->vm_flags & VM_MAYSHARE)
->+	if (vma_test(vma, VMA_MAYSHARE_BIT))
-> 		map_flags |= MAP_SHARED;
-> 
-> 	res = get_unmapped_area(vma->vm_file, new_addr, vrm->new_len, pgoff,
->@@ -976,7 +976,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
-> {
-> 	unsigned long charged;
-> 
->-	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
->+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
-> 		return true;
-> 
-> 	/*
->@@ -1003,7 +1003,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
->  */
-> static void vrm_uncharge(struct vma_remap_struct *vrm)
-> {
->-	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
->+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
-> 		return;
-> 
-> 	vm_unacct_memory(vrm->charged);
->@@ -1023,7 +1023,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
-> 	struct vm_area_struct *vma = vrm->vma;
-> 
-> 	vm_stat_account(mm, vma->vm_flags, pages);
->-	if (vma->vm_flags & VM_LOCKED)
->+	if (vma_test(vma, VMA_LOCKED_BIT))
-> 		mm->locked_vm += pages;
-> }
-> 
->@@ -1167,7 +1167,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
-> 	 * arose, in which case we _do_ wish to unmap the _new_ VMA, which means
-> 	 * we actually _do_ want it be unaccounted.
-> 	 */
->-	bool accountable_move = (vma->vm_flags & VM_ACCOUNT) &&
->+	bool accountable_move = vma_test(vma, VMA_ACCOUNT_BIT) &&
-> 		!(vrm->flags & MREMAP_DONTUNMAP);
-> 
-> 	/*
->@@ -1186,7 +1186,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
-> 	 * portions of the original VMA that remain.
-> 	 */
-> 	if (accountable_move) {
->-		vm_flags_clear(vma, VM_ACCOUNT);
->+		vma_clear_flags(vma, VMA_ACCOUNT_BIT);
-> 		/* We are about to split vma, so store the start/end. */
-> 		vm_start = vma->vm_start;
-> 		vm_end = vma->vm_end;
->@@ -1211,8 +1211,8 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
-> 	 * |             |
-> 	 * |-------------|
-> 	 *
->-	 * Having cleared VM_ACCOUNT from the whole VMA, after we unmap above
->-	 * we'll end up with:
->+	 * Having cleared VMA_ACCOUNT_BIT from the whole VMA, after we unmap
->+	 * above we'll end up with:
-> 	 *
-> 	 *    addr  end
-> 	 *     |     |
->@@ -1232,13 +1232,15 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
-> 		if (vm_start < addr) {
-> 			struct vm_area_struct *prev = vma_prev(&vmi);
-> 
->-			vm_flags_set(prev, VM_ACCOUNT); /* Acquires VMA lock. */
->+			vma_start_write(prev);
->+			vma_set_flags(prev, VMA_ACCOUNT_BIT);
-> 		}
-> 
-> 		if (vm_end > end) {
-> 			struct vm_area_struct *next = vma_next(&vmi);
-> 
->-			vm_flags_set(next, VM_ACCOUNT); /* Acquires VMA lock. */
->+			vma_start_write(next);
->+			vma_set_flags(next, VMA_ACCOUNT_BIT);
-> 		}
-> 	}
-> }
->@@ -1321,8 +1323,8 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
-> 	unsigned long old_start = vrm->vma->vm_start;
-> 	unsigned long old_end = vrm->vma->vm_end;
-> 
->-	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
->-	vm_flags_clear(vrm->vma, VM_LOCKED_MASK);
->+	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
->+	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
-> 
-> 	/*
-> 	 * anon_vma links of the old vma is no longer needed after its page
->@@ -1758,14 +1760,14 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
-> 	 * based on the original.  There are no known use cases for this
-> 	 * behavior.  As a result, fail such attempts.
-> 	 */
->-	if (!old_len && !(vma->vm_flags & (VM_SHARED | VM_MAYSHARE))) {
->+	if (!old_len && !vma_test_any(vma, VMA_SHARED_BIT, VMA_MAYSHARE_BIT)) {
-> 		pr_warn_once("%s (%d): attempted to duplicate a private mapping with mremap.  This is not supported.\n",
-> 			     current->comm, current->pid);
-> 		return -EINVAL;
-> 	}
-> 
-> 	if ((vrm->flags & MREMAP_DONTUNMAP) &&
->-			(vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP)))
->+	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
-> 		return -EINVAL;
-> 
-> 	/*
->@@ -1795,7 +1797,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
-> 		return 0;
-> 
-> 	/* We are expanding and the VMA is mlock()'d so we need to populate. */
->-	if (vma->vm_flags & VM_LOCKED)
->+	if (vma_test(vma, VMA_LOCKED_BIT))
-> 		vrm->populate_expand = true;
-> 
-> 	/* Need to be careful about a growing mapping */
->@@ -1803,10 +1805,10 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
-> 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
-> 		return -EINVAL;
-> 
->-	if (vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP))
->+	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
-> 		return -EFAULT;
-> 
->-	if (!mlock_future_ok(mm, vma->vm_flags & VM_LOCKED, vrm->delta))
->+	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
-> 		return -EAGAIN;
-> 
-> 	if (!may_expand_vm(mm, &vma->flags, vrm->delta >> PAGE_SHIFT))
->-- 
->2.54.0
->
->
+~Andrew
 
