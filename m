@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id OdIpJ+teRmrhRwsAu9opvQ
+	id Sb6qKBpkRmodSgsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:51:55 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 15:14:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 377346F7EE2
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:51:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF8616F830C
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 15:14:01 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=linux.dev header.s=key1 header.b=F4ZVf9Bv;
+	dkim=pass header.d=linux.dev header.s=key1 header.b=jHDhEc6C;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=linux.dev
-Received: from list by lists.xenproject.org with outflank-mailman.1351846.1608881 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351871.1608890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGt3-0003zs-9E; Thu, 02 Jul 2026 12:51:25 +0000
+	id 1wfHE8-0007zV-Qz; Thu, 02 Jul 2026 13:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351846.1608881; Thu, 02 Jul 2026 12:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 1351871.1608890; Thu, 02 Jul 2026 13:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGt3-0003xt-6Y; Thu, 02 Jul 2026 12:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 1351846;
- Thu, 02 Jul 2026 12:51:23 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wfHE8-0007x9-OP; Thu, 02 Jul 2026 13:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 1351871;
+ Thu, 02 Jul 2026 13:13:11 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <lance.yang@linux.dev>) id 1wfGt0-0003xU-8N
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:51:23 +0000
+ (envelope-from <lance.yang@linux.dev>) id 1wfHE6-0007x3-NA
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 13:13:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfGsy-007X31-36
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:51:21 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wfHE5-006pFj-84
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:13:10 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465ec2-e002-0a2a0a5209dd-0a2a45079942-14
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:51:19 +0200
-Received: from [95.215.58.179] (helo=out-179.mta1.migadu.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4663e2-bab6-0a2a0a5309dd-0a2a45018f08-12
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 15:13:08 +0200
+Received: from [91.218.175.179] (helo=out-179.mta0.migadu.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465ec5-9c8e-0a2a45070019-5fd73ab35c1e-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:51:17 +0200
+ id 6a4663e3-400f-0a2a45010019-5bdaafb3e00f-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 15:13:07 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,15 +54,15 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782996675;
+	t=1782997985;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KCmq1hZLLl7GOyWtL6cRPjjbHfWJ5jvpchLdwXolxL8=;
-	b=F4ZVf9BvB+hLAf9gQChbe4sRNb4sLCrUWRBNFM0pPt8IAzUbVhXxDEH/DvD8axflIDk2vm
-	3zmwuSmbnQ/BvpRKYzyKP8V+Wt7x4/jYspjeo/Nuwy87WFjjbKm5Us6Gqkc64N1S5Bi0bl
-	Qu3WpSOCEMC/DqM+tZU+hrTjGqJDt6Q=
+	bh=3WkYIESER5H1pxokBfEp6m9xEZZ5ghGe4TjZZy4BO5I=;
+	b=jHDhEc6CTiPftGqyHzVdl3xS/wEnOHSN4PeeVFnRX9fUml//8WA53GAPbsxSbJvWuzc/sf
+	tH1rSEqcTxDFS7qyJ0iIaX/a6tA48FPP/mFE4c/byOkvPcPlvJwYSUFubJkz9Jxs6S5ya/
+	AItLuFoisprFM8kvEpkf04Kk84Cg/T0=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org,
@@ -147,18 +147,18 @@ Cc: akpm@linux-foundation.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 09/13] mm/vma: update create_init_stack_vma() to use vma_flags_t
-Date: Thu,  2 Jul 2026 20:50:52 +0800
-Message-Id: <20260702125052.19248-1-lance.yang@linux.dev>
-In-Reply-To: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
-References: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 10/13] mm/vma: convert miscellaneous uses of VMA flags in core mm
+Date: Thu,  2 Jul 2026 21:12:33 +0800
+Message-Id: <20260702131233.59026-1-lance.yang@linux.dev>
+In-Reply-To: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
+References: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-X-purgate-ID: tlsNG-ef75cf/1782996679-7E32725E-8D5CFD8E/0/0
+X-purgate-ID: tlsNG-d62444/1782997988-838C81E0-A776CE22/0/0
 X-purgate-type: clean
-X-purgate-size: 518
+X-purgate-size: 1577
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -194,23 +194,52 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 377346F7EE2
+X-Rspamd-Queue-Id: EF8616F830C
 
 
-On Mon, Jun 29, 2026 at 08:25:32PM +0100, Lorenzo Stoakes wrote:
->Replace use of the legacy vm_flags_t flags with vma_flags_t values in
->create_init_stack_vma().
+On Mon, Jun 29, 2026 at 08:25:33PM +0100, Lorenzo Stoakes wrote:
+>Update various uses of legacy flags in vma.c and mmap.c to the new
+>vma_flags_t type, updating comments alongside them to be consistent.
 >
->As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
->vma_flags_t defines, and slightly rework create_init_stack_vma() for
->clarity.
->
->No functional change intended.
+>Also update __install_special_mapping() to rearrange things slightly to
+>accommodate the changes.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
+[...]
+>diff --git a/mm/vma.c b/mm/vma.c
+>index b81c05e67a61..ab2ef0f04420 100644
+>--- a/mm/vma.c
+>+++ b/mm/vma.c
+>@@ -3417,23 +3417,27 @@ struct vm_area_struct *__install_special_mapping(
+> 	vm_flags_t vm_flags, void *priv,
+> 	const struct vm_operations_struct *ops)
+> {
+>-	int ret;
+>+	vma_flags_t vma_flags = legacy_to_vma_flags(vm_flags);
+> 	struct vm_area_struct *vma;
+>+	int ret;
+> 
+> 	vma = vm_area_alloc(mm);
+>-	if (unlikely(vma == NULL))
+>+	if (unlikely(!vma))
+> 		return ERR_PTR(-ENOMEM);
+> 
+>-	vma_set_range(vma, addr, addr + len, 0);
+>-	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+>+	vma_flags_set_mask(&vma_flags, mm->def_vma_flags);
+>+	vma_flags_set(&vma_flags, VMA_DONTEXPAND_BIT);
+> 	if (pgtable_supports_soft_dirty())
+>-		vm_flags |= VM_SOFTDIRTY;
+>-	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+>+		vma_flags_set(&vma_flags, VMA_SOFTDIRTY_BIT);
+>+	vma_flags_clear_mask(&vma_flags, VMA_LOCKED_MASK);
+>+	vma->flags = vma_flags;
 
-Nothing looks off to me ;) Feel free to add:
+Maybe worth a vma_flags_init() helper here to mirror vm_flags_init()?
+With this open-coded, we lose the soft-dirty WARN_ON_ONCE sanity check.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Might be nicer to keep that check in one place ;)
+
+[...]
 
