@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id fRbHMP+CRmqFXgsAu9opvQ
+	id ppK2LfaDRmrBXgsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:25:51 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:29:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9376F962F
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:25:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1056F96BC
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:29:58 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b="kbG+cL/z";
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=EZDY+QGc;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1352053.1608990 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1352064.1608998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJHl-0001IJ-VY; Thu, 02 Jul 2026 15:25:05 +0000
+	id 1wfJMM-0002Cp-Cl; Thu, 02 Jul 2026 15:29:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1352053.1608990; Thu, 02 Jul 2026 15:25:05 +0000
+Received: by outflank-mailman (output) from mailman id 1352064.1608998; Thu, 02 Jul 2026 15:29:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJHl-0001GB-Ro; Thu, 02 Jul 2026 15:25:05 +0000
-Received: by outflank-mailman (input) for mailman id 1352053;
- Thu, 02 Jul 2026 15:25:04 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wfJMM-0002Ax-9s; Thu, 02 Jul 2026 15:29:50 +0000
+Received: by outflank-mailman (input) for mailman id 1352064;
+ Thu, 02 Jul 2026 15:29:48 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wfJHj-0001G5-ST
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:25:04 +0000
+ (envelope-from <ljs@kernel.org>) id 1wfJMK-00029m-9a
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:29:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfJHj-00ESrZ-92
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:25:03 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wfJMJ-0084eC-92
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:29:47 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4682cd-5cb7-0a2a0a5109dd-0a2a4509e6a8-8
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:25:03 +0200
+ id 6a4683e8-e002-0a2a0a5209dd-0a2a45028da4-6
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:29:47 +0200
 Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4682cd-97e6-0a2a45090019-aceafc1fb67a-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:25:02 +0200
+ id 6a4683e8-5a27-0a2a45020019-aceafc1f89b6-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:29:46 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C929640801;
- Thu,  2 Jul 2026 15:25:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F0E41F000E9;
- Thu,  2 Jul 2026 15:24:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 25A4F418F4;
+ Thu,  2 Jul 2026 15:29:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7DF1F000E9;
+ Thu,  2 Jul 2026 15:29:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,16 +58,16 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783005900;
-	bh=LX3BYrLY2k63JpXB67A/Bjg+Ew5yjhUF+WJZEyA1fRw=;
+	s=k20260515; t=1783006184;
+	bh=AmvNH9wwHqyoIMesePnV6/zMDBtlSz51dFh4yHJ1BTo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kbG+cL/z/Lm6qSE4udnGibaK8FsMK4daZd2R+hoEFAnemIecEE1GgHP0X+YmGanAO
-	 lUy6V/tOsn4eLItop07tyF1+tKZLAB376Z73zBZZR/VxVccPToewSf2zWsClidLb0a
-	 1ba3VdHACF4EGJhQZxBSvTHBcWlMH/zUclnichRT0/C3hk+pIj4TS7GYchozD+ZWNu
-	 evu0CqyUEndELEE8NUvVmpXBep2Kukvvzwrnf2DWGzh4uAWg/PKpNORRO9bOZEjI+M
-	 pMTZGas90E8+KBulzvC/BZdad1hSIx2FR4a50cjXxyZVyxi/oq6E9v6gCdozTTgwHV
-	 VbLDs0NzwuGjg==
-Date: Thu, 2 Jul 2026 16:24:37 +0100
+	b=EZDY+QGcsghhDIw9rxbIhnPAJRijthrModhJ3dAoSN5cVM+YkTpcpEvD+KPlh/M/u
+	 Qwt3kZkRl2OzXpZ8lNBF20cEMvcQmjr2C3N0OBOmi3krbMnyRHMJTEBJXrtiCGLkys
+	 hVceGk9nKeLivyWhhq1nb1heVf5ntbaXnUG4S4OpDlt89/1RU+lLBy/OziQBm1WY0f
+	 mLETtt6Kv1hVTKJQz++mgHlN+PUF+ac9yH5QtMrmNRfTW7GoeSyD7Rts3hi3Don33s
+	 UtJfTmtwGOSlfBDJEzVdm8IjgP96nHmx5GxFIPDKfkfCebxxa9UBrNHRuHW+T6BGzw
+	 FkrA9PbgKP9aQ==
+Date: Thu, 2 Jul 2026 16:29:20 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Lance Yang <lance.yang@linux.dev>
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
@@ -96,27 +96,28 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de,
 	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org, 
 	linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 05/13] mm: prefer mm->def_vma_flags in mm logic
-Message-ID: <akaCFf_SjccZznnP@lucifer>
-References: <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
- <20260702121022.49113-1-lance.yang@linux.dev>
+Subject: Re: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use
+ vma_flags_t and rename
+Message-ID: <akaC-xxNr8ZyN4aH@lucifer>
+References: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
+ <20260702122116.65642-1-lance.yang@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260702121022.49113-1-lance.yang@linux.dev>
-X-purgate-ID: tlsNG-bad1c0/1783005903-46538986-48406A97/0/0
+In-Reply-To: <20260702122116.65642-1-lance.yang@linux.dev>
+X-purgate-ID: tlsNG-720697/1783006186-552E47C5-BA5FFC58/0/0
 X-purgate-type: clean
-X-purgate-size: 1764
+X-purgate-size: 1810
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lucifer:mid,linux.dev:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lucifer:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,linux.dev:email];
 	FREEMAIL_CC(0.00)[linux-foundation.org,alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -144,57 +145,59 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5D9376F962F
+X-Rspamd-Queue-Id: 5B1056F96BC
 
-On Thu, Jul 02, 2026 at 08:10:22PM +0800, Lance Yang wrote:
+On Thu, Jul 02, 2026 at 08:21:16PM +0800, Lance Yang wrote:
 >
-> On Mon, Jun 29, 2026 at 08:25:28PM +0100, Lorenzo Stoakes wrote:
-> >Currently mm->def_flags (of type vm_flags_t) is union'd with
-> >mm->def_vma_flags (of type vma_flags_t).
+> On Mon, Jun 29, 2026 at 08:25:29PM +0100, Lorenzo Stoakes wrote:
+> >Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
+> >rename to vma_pgprot_modify() accordingly.
 > >
-> >As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
-> >to no longer be arbitrarily limited to a system word size for VMA flags),
-> >prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
+> >This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
+> >order to eliminate the arbitrary limit of the number of bits in a system
+> >word on available VMA flags.
+> >
+> >Update VMA userland tests accordingly, updating vma_set_page_prot() to no
+> >longer inline vma_pgprot_modify(), rather we can simply define
+> >vma_pgprot_modify() as a static inline function and the tests will pick it
+> >up from vma.h.
 > >
 > >No functional change intended.
 > >
 > >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > >---
-> > mm/debug.c |  2 +-
-> > mm/mlock.c | 13 +++++++------
-> > mm/mmap.c  | 11 ++++++-----
-> > mm/vma.c   |  4 ++--
-> > 4 files changed, 16 insertions(+), 14 deletions(-)
+> [...]
+> >diff --git a/mm/vma.h b/mm/vma.h
+> >index bcf0c2773449..6a8abb8ae937 100644
+> >--- a/mm/vma.h
+> >+++ b/mm/vma.h
+> >@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+> > }
 > >
-> >diff --git a/mm/debug.c b/mm/debug.c
-> >index 497654b36f1a..f0a354a9496a 100644
-> >--- a/mm/debug.c
-> >+++ b/mm/debug.c
-> >@@ -226,7 +226,7 @@ void dump_mm(const struct mm_struct *mm)
-> > 		mm->numa_next_scan, mm->numa_scan_offset, mm->numa_scan_seq,
-> > #endif
-> > 		atomic_read(&mm->tlb_flush_pending),
-> >-		mm->def_flags, &mm->def_flags
-> >+		vma_flags_to_legacy(mm->def_vma_flags), &mm->def_vma_flags
-> > 	);
+> > #ifdef CONFIG_MMU
+> >-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
+> >+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+> > {
+> >-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
+> >+	const pgprot_t prot = vma_get_page_prot(vma_flags);
+> >+
+> >+	return pgprot_modify(oldprot, prot);
 >
-> While at it, one thing for later: dump_mm() still assumes one-world VMA
-> flags. That works today since vma_flags_t is one word. Maybe worth a
-> BUILD_BUG_ON() here, before that stops being true?
+> Nit: could this just stay as a single return? something like:
+>
+> return pgprot_modify(oldprot, vma_get_page_prot(vma_flags));
 
-Ah yeah that could actually be pretty straightforward, if you see
-https://www.kernel.org/doc/Documentation/printk-formats.txt there is a bitmap
-format that could be used.
-
-Can do that on a respin!
+I feel it's a bit clearer this way, separating out the two, I know it's a super
+tiny difference but anyway :P
 
 >
-> Not a big deal though. Feel free to add:
+> Otherwise, LGTM, feel free to add:
 >
 > Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+Thanks!
+
 >
-> > }
-> > EXPORT_SYMBOL(dump_mm);
 > [...]
 
 Cheers, Lorenzo
