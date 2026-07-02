@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 94ydLJNVRmonRAsAu9opvQ
+	id IClYGPtXRmrSRAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:12:03 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:22:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443176F7609
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:12:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F390B6F7803
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:22:18 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=linux.dev header.s=key1 header.b=o2h14zEv;
+	dkim=pass header.d=linux.dev header.s=key1 header.b=lN0+Boa2;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=linux.dev
-Received: from list by lists.xenproject.org with outflank-mailman.1351766.1608828 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351781.1608836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGG1-0003up-DX; Thu, 02 Jul 2026 12:11:05 +0000
+	id 1wfGQY-0005lM-9b; Thu, 02 Jul 2026 12:21:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351766.1608828; Thu, 02 Jul 2026 12:11:05 +0000
+Received: by outflank-mailman (output) from mailman id 1351781.1608836; Thu, 02 Jul 2026 12:21:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGG1-0003sP-AT; Thu, 02 Jul 2026 12:11:05 +0000
-Received: by outflank-mailman (input) for mailman id 1351766;
- Thu, 02 Jul 2026 12:11:03 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wfGQY-0005jN-6f; Thu, 02 Jul 2026 12:21:58 +0000
+Received: by outflank-mailman (input) for mailman id 1351781;
+ Thu, 02 Jul 2026 12:21:56 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <lance.yang@linux.dev>) id 1wfGFz-0003sJ-1M
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:11:03 +0000
+ (envelope-from <lance.yang@linux.dev>) id 1wfGQV-0005jH-4f
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:21:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfGFy-007PbE-0m
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:11:02 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wfGQU-006Uvu-He
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:21:54 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465551-e002-0a2a0a5209dd-0a2a4506dd26-0
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:10:57 +0200
-Received: from [91.218.175.174] (helo=out-174.mta0.migadu.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4657e2-bab6-0a2a0a5309dd-0a2a45019d8a-0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:21:54 +0200
+Received: from [91.218.175.173] (helo=out-173.mta0.migadu.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465550-08de-0a2a45060019-5bdaafaef8e9-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:10:57 +0200
+ id 6a4657e1-400f-0a2a45010019-5bdaafad6efe-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:21:53 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,15 +54,15 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782994254;
+	t=1782994911;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=szYxJDyUXLwpHCPYtdT5QZRTamk7ohIwjDiVPC1pzUs=;
-	b=o2h14zEvKcQ49vaQ50LBNnbgHGGpFBTA0OsIFCWdpiUc7gYaraiUcJHgmdFM4mBzY7pBJH
-	3Nawgn9WkBzIHxRb3Nw1H0UdEQI7UMwMGIksMhfoUjYHvm6uqPS5csZAIdTgWkWJ0NxwiR
-	+fbu3PSBP2IvpsY/0wNqYNag0+1ZZPU=
+	bh=flDoJiJgtgGf3x2zlQX9jaS5nhFTdBgmSXvfG9PiFjA=;
+	b=lN0+Boa2ASIcCLc47EPvtXVMZuYaw78VJ/wVLmRpCeGudutYAguuVxwIGwqQDa2oDibvGW
+	bIpbbgc5ew0Ij3QtFyyGuneAdXTOrpkXqfYfNRMzfKjFKxKgZCy8wM/iRDCenl6trdMYJz
+	+LOdf87J+2yAD0n3s3yNqonkzwm6x4w=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org,
@@ -147,18 +147,18 @@ Cc: akpm@linux-foundation.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 05/13] mm: prefer mm->def_vma_flags in mm logic
-Date: Thu,  2 Jul 2026 20:10:22 +0800
-Message-Id: <20260702121022.49113-1-lance.yang@linux.dev>
-In-Reply-To: <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
-References: <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use vma_flags_t and rename
+Date: Thu,  2 Jul 2026 20:21:16 +0800
+Message-Id: <20260702122116.65642-1-lance.yang@linux.dev>
+In-Reply-To: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
+References: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-X-purgate-ID: tlsNG-16d1c6/1782994257-42F2468D-5957A36A/0/0
+X-purgate-ID: tlsNG-d62444/1782994914-D04D51E0-39AE9C31/0/0
 X-purgate-type: clean
-X-purgate-size: 1399
+X-purgate-size: 1521
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -195,48 +195,50 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 443176F7609
+X-Rspamd-Queue-Id: F390B6F7803
 
 
-On Mon, Jun 29, 2026 at 08:25:28PM +0100, Lorenzo Stoakes wrote:
->Currently mm->def_flags (of type vm_flags_t) is union'd with
->mm->def_vma_flags (of type vma_flags_t).
+On Mon, Jun 29, 2026 at 08:25:29PM +0100, Lorenzo Stoakes wrote:
+>Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
+>rename to vma_pgprot_modify() accordingly.
 >
->As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
->to no longer be arbitrarily limited to a system word size for VMA flags),
->prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
+>This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
+>order to eliminate the arbitrary limit of the number of bits in a system
+>word on available VMA flags.
+>
+>Update VMA userland tests accordingly, updating vma_set_page_prot() to no
+>longer inline vma_pgprot_modify(), rather we can simply define
+>vma_pgprot_modify() as a static inline function and the tests will pick it
+>up from vma.h.
 >
 >No functional change intended.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
-> mm/debug.c |  2 +-
-> mm/mlock.c | 13 +++++++------
-> mm/mmap.c  | 11 ++++++-----
-> mm/vma.c   |  4 ++--
-> 4 files changed, 16 insertions(+), 14 deletions(-)
->
->diff --git a/mm/debug.c b/mm/debug.c
->index 497654b36f1a..f0a354a9496a 100644
->--- a/mm/debug.c
->+++ b/mm/debug.c
->@@ -226,7 +226,7 @@ void dump_mm(const struct mm_struct *mm)
-> 		mm->numa_next_scan, mm->numa_scan_offset, mm->numa_scan_seq,
-> #endif
-> 		atomic_read(&mm->tlb_flush_pending),
->-		mm->def_flags, &mm->def_flags
->+		vma_flags_to_legacy(mm->def_vma_flags), &mm->def_vma_flags
-> 	);
+[...]
+>diff --git a/mm/vma.h b/mm/vma.h
+>index bcf0c2773449..6a8abb8ae937 100644
+>--- a/mm/vma.h
+>+++ b/mm/vma.h
+>@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+> }
+> 
+> #ifdef CONFIG_MMU
+>-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
+>+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+> {
+>-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
+>+	const pgprot_t prot = vma_get_page_prot(vma_flags);
+>+
+>+	return pgprot_modify(oldprot, prot);
 
-While at it, one thing for later: dump_mm() still assumes one-world VMA
-flags. That works today since vma_flags_t is one word. Maybe worth a
-BUILD_BUG_ON() here, before that stops being true?
+Nit: could this just stay as a single return? something like:
 
-Not a big deal though. Feel free to add:
+return pgprot_modify(oldprot, vma_get_page_prot(vma_flags));
+
+Otherwise, LGTM, feel free to add: 
 
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
-> }
-> EXPORT_SYMBOL(dump_mm);
 [...]
 
