@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id p73HKCJcRmqfRgsAu9opvQ
+	id OdIpJ+teRmrhRwsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:40:02 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:51:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027C56F7BC0
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:40:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 377346F7EE2
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 14:51:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=linux.dev header.s=key1 header.b=F10EZD2M;
+	dkim=pass header.d=linux.dev header.s=key1 header.b=F4ZVf9Bv;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=linux.dev
-Received: from list by lists.xenproject.org with outflank-mailman.1351830.1608873 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351846.1608881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGhq-000185-C6; Thu, 02 Jul 2026 12:39:50 +0000
+	id 1wfGt3-0003zs-9E; Thu, 02 Jul 2026 12:51:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351830.1608873; Thu, 02 Jul 2026 12:39:50 +0000
+Received: by outflank-mailman (output) from mailman id 1351846.1608881; Thu, 02 Jul 2026 12:51:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfGhq-00016j-8L; Thu, 02 Jul 2026 12:39:50 +0000
-Received: by outflank-mailman (input) for mailman id 1351830;
- Thu, 02 Jul 2026 12:39:48 +0000
+	id 1wfGt3-0003xt-6Y; Thu, 02 Jul 2026 12:51:25 +0000
+Received: by outflank-mailman (input) for mailman id 1351846;
+ Thu, 02 Jul 2026 12:51:23 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <lance.yang@linux.dev>) id 1wfGho-00016d-G6
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:39:48 +0000
+ (envelope-from <lance.yang@linux.dev>) id 1wfGt0-0003xU-8N
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:51:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfGhn-00Ed1n-PD
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:39:47 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wfGsy-007X31-36
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 14:51:21 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465c0e-5cb7-0a2a0a5109dd-0a2a45019d10-26
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:39:47 +0200
-Received: from [95.215.58.172] (helo=out-172.mta1.migadu.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a465ec2-e002-0a2a0a5209dd-0a2a45079942-14
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:51:19 +0200
+Received: from [95.215.58.179] (helo=out-179.mta1.migadu.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <lance.yang@linux.dev>)
- id 6a465c13-400f-0a2a45010019-5fd73aacfb8b-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:39:47 +0200
+ id 6a465ec5-9c8e-0a2a45070019-5fd73ab35c1e-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 14:51:17 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,15 +54,15 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782995985;
+	t=1782996675;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MSqvG6QTDeOE5qt8LI9tLb3iySB/2eramUM4HlZdPG8=;
-	b=F10EZD2MKuMsgIZGg+Kv4CpsFBAqfutqUSZV+CnlSj4mTRO6SM+hx7IFnwTXi02n4W5ksq
-	B3eV7EruPZaVg8GiZqN77RrtZjvlyRAPzkka+Z5kYwT5shcZ0occtt6vxWz8dsjkDZRJwI
-	jZvjN/4FCRiAB3/YW0BqvRoNYnrlgRU=
+	bh=KCmq1hZLLl7GOyWtL6cRPjjbHfWJ5jvpchLdwXolxL8=;
+	b=F4ZVf9BvB+hLAf9gQChbe4sRNb4sLCrUWRBNFM0pPt8IAzUbVhXxDEH/DvD8axflIDk2vm
+	3zmwuSmbnQ/BvpRKYzyKP8V+Wt7x4/jYspjeo/Nuwy87WFjjbKm5Us6Gqkc64N1S5Bi0bl
+	Qu3WpSOCEMC/DqM+tZU+hrTjGqJDt6Q=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org,
@@ -147,18 +147,18 @@ Cc: akpm@linux-foundation.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
-Date: Thu,  2 Jul 2026 20:38:45 +0800
-Message-Id: <20260702123845.95316-1-lance.yang@linux.dev>
-In-Reply-To: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
-References: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 09/13] mm/vma: update create_init_stack_vma() to use vma_flags_t
+Date: Thu,  2 Jul 2026 20:50:52 +0800
+Message-Id: <20260702125052.19248-1-lance.yang@linux.dev>
+In-Reply-To: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
+References: <34689784ee6856f100c02ad4eabeaa4db643713a.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-X-purgate-ID: tlsNG-d62444/1782995987-82CC61E0-273DAF2E/0/0
+X-purgate-ID: tlsNG-ef75cf/1782996679-7E32725E-8D5CFD8E/0/0
 X-purgate-type: clean
-X-purgate-size: 1633
+X-purgate-size: 518
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -194,47 +194,23 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 027C56F7BC0
+X-Rspamd-Queue-Id: 377346F7EE2
 
 
-On Mon, Jun 29, 2026 at 08:25:31PM +0100, Lorenzo Stoakes wrote:
->There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Make
->life easier by introducing vma_get_page_prot() parameterised by the VMA.
+On Mon, Jun 29, 2026 at 08:25:32PM +0100, Lorenzo Stoakes wrote:
+>Replace use of the legacy vm_flags_t flags with vma_flags_t values in
+>create_init_stack_vma().
 >
->This also makes converting vm_get_page_prot() to vma_flags_t easier.
->
->Also update the userland VMA tests to reflect the change.
+>As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
+>vma_flags_t defines, and slightly rework create_init_stack_vma() for
+>clarity.
 >
 >No functional change intended.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
-> drivers/gpu/drm/drm_gem.c                   |  2 +-
-> drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
-> drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
-> drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
-> drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
-> drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
-> drivers/gpu/drm/msm/msm_gem.c               |  2 +-
-> drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
-> drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
-> drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
-> drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
-> drivers/gpu/drm/tegra/gem.c                 |  2 +-
-> drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
-> drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
-> drivers/gpu/drm/xe/xe_device.c              |  2 +-
-> drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
-> drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
-> drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
 
-One missed?
+Nothing looks off to me ;) Feel free to add:
 
-drivers/gpu/drm/panthor/panthor_gem.c still has:
-
-	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
-
-Can use vma_get_page_prot(vma) too.
-
-[...]
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
