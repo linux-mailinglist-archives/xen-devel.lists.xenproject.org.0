@@ -2,52 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id fiymJ+QzRmrTLgsAu9opvQ
+	id QfyFII44RmpEMAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:48:20 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:08:14 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 036A66F57B4
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:48:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB176F5A50
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:08:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=Vw7Kr+JV;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=AUJ2SDXv;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351539.1608701 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=kernel.org
+Received: from list by lists.xenproject.org with outflank-mailman.1351564.1608711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfE1l-0005gw-79; Thu, 02 Jul 2026 09:48:13 +0000
+	id 1wfEKd-0001uU-SF; Thu, 02 Jul 2026 10:07:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351539.1608701; Thu, 02 Jul 2026 09:48:13 +0000
+Received: by outflank-mailman (output) from mailman id 1351564.1608711; Thu, 02 Jul 2026 10:07:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfE1l-0005f5-4P; Thu, 02 Jul 2026 09:48:13 +0000
-Received: by outflank-mailman (input) for mailman id 1351539;
- Thu, 02 Jul 2026 09:48:11 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wfE1j-0005cU-KE
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:48:11 +0000
+	id 1wfEKd-0001qJ-P2; Thu, 02 Jul 2026 10:07:43 +0000
+Received: by outflank-mailman (input) for mailman id 1351564;
+ Thu, 02 Jul 2026 10:07:41 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <mingo@kernel.org>) id 1wfEKb-0001qD-Qb
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 10:07:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfE1i-006vJd-OL
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:48:10 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wfEKb-00DXQI-6m
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:07:41 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4633d1-e002-0a2a0a5209dd-0a2a450781e6-32
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:48:10 +0200
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4633da-9c8e-0a2a45070019-d1558035a9ee-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:48:10 +0200
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-493c1950518so1949025e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:48:10 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63ba971sm52031435e9.13.2026.07.02.02.48.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 02:48:09 -0700 (PDT)
+ (envelope-from <mingo@kernel.org>)
+ id 6a463862-2eae-0a2a0a5409dd-0a2a4506b782-38
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:07:41 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <mingo@kernel.org>)
+ id 6a46386b-08de-0a2a45060019-ac6904fee76c-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:07:40 +0200
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 478A46001D;
+ Thu,  2 Jul 2026 10:07:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4E71F000E9;
+ Thu,  2 Jul 2026 10:07:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,174 +57,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782985690; x=1783590490; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5cW6F1nZ+lIxLmSGu2x1m1g9gMm5tD08o7NGRsN9T1E=;
-        b=Vw7Kr+JVAKumtsZzDbXf3XG8LaVJIuWDAc17vMfhub3qMc6cK5XJVsm8sJdkei844u
-         dlsN7qKAdc6KFCxSKbmcP9uircaPwOMEyXxFp0p6ZmrcwiBKmGGy+plD3HH+yLRhW2et
-         nxUIifvpSykN9S/z76G+fQgqnrhCno3dWNC2la+fSsQsmLKmCoq+o5pWKOsg9gyiy+fv
-         uG9DZMK8I9BjpYNyByjQqkqwobLewAy+f5wY58jsr0Z3kBKy9KeTxCboPTYwZ0AmIPe8
-         P8a52yuHmwgnoxgpdcxX4gZJCFkay+3F/ctCAbQvGsrEbixgs61m8Uf/yJADrFmEhglo
-         xRDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782985690; x=1783590490;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5cW6F1nZ+lIxLmSGu2x1m1g9gMm5tD08o7NGRsN9T1E=;
-        b=f06NAK9zKXuA9oeCFOYmr1H/DKb7OGToIsy8WeIUjRxYx9vBn5Vjw2Qq+hf4BVZrbV
-         M/a5WgJijzZl6LHyi460gJgbXjjfcrpVK33cqdpZjFQF7hq6Yi1VBQf3lUn90hG/ItEf
-         9Gd+8xKu/Hja+txyrA5Sqwu63sge33E5cUtfn8QpTyG3dGb9ps2uMX67shFWojqGnsTy
-         UR0RHCMmew/q2JqnKu6FN037mkfuHykyVGaRjcvqsZSaDxsaCKS4KL44qbt30sHdCFoe
-         JrN1rAMrPpCOdbIqMvjsr6WU929o8YqyidlbH9I2EcVZiWovoihNfQTIP6a3JaWw676n
-         FEsw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6Py9Rxmpi7zrMaZ070L27PTa3IQWA8oK1TJA9c8U7XJHycYlU7OLkn6RZZtAp2dG/h5q6yoeM6BM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwRE9J5krDrLxUqo5Ru46bpvqYItIl0ttRb9xY0qeHWiVJLQjUs
-	pvMlAUCYaPY2H14eeb2a6FCX3TtsNi3uaZePtgbZmZX5L8Njsjv8YguH
-X-Gm-Gg: AfdE7clvYyLtFLVYUzab5XHbW2baGOoPwp/HsDTbrcN/d1Pd+PQizYdhEZ0hU1/qtll
-	n8QIokWY8y0OZ6JbqUiLc9wvgUVrp1nK1bvK1FQon8oqmo8iugDV8l7ZJgoW3ovvMHm1uYdmFp4
-	sU6TbnhA5RUJtOMaCPDE1CJ6IoS2rlkJ310ssDwb8Aoq2d7lGtJVspegs5jbamh6jOB+1uDcCWX
-	1+GZuVbO/hz8haM2QKc/Q4jVIhflQ3N+7mHKCfLV7+JiekLpOC8lK2vr5JOqPOas9+wgOEfjSAC
-	y401lNf5ATOSKe799kLFixDIBG5/tHlzZTNGyhNlRlZeERfu4/108q+AYK/0AyV4I1+VwwWTT2Z
-	DwF68/eidIdpsPoGO6aQUtR2DcxeBckJd8iB81nQ4gPCUAoxa8yQkUlwuE5QxA1A4glqgPwK5aw
-	FbSIzJ8yQ8u/sXR4B2WsarAlwJRRg+P17+E8VP+nqMLjCCTk4IkfEfg8QfSwTA0hLSvnbrnvxp0
-	P4/Bw==
-X-Received: by 2002:a05:600c:6211:b0:493:c064:316f with SMTP id 5b1f17b1804b1-493c594ebedmr23053715e9.3.1782985689888;
-        Thu, 02 Jul 2026 02:48:09 -0700 (PDT)
-Message-ID: <fc4625d3-c027-41f5-9aea-00f229316b30@gmail.com>
-Date: Thu, 2 Jul 2026 11:48:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1782986859;
+	bh=rYlxsT3EfvvJVMSpiElkKSMRxs3TOqthCAywxBW0128=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AUJ2SDXvs0VEdi5h/Kivbi3brTHkQLZzOc+/NAV87+f7C+JbSJugMOeorpgT3tHNL
+	 p58+v4CbXSREtEJG3hLwTa5n8p6G+p8Uf6kuVPNIUtEb3lILgd1rLCgiUeDjzt2+mZ
+	 zGpUePOrV+YiczwnsZiA+nTEa+dq7dVC2Ri5VUVSthC4z19IRHYTorV302BUc8jnc8
+	 lzbpbbTR/gUCNSPcKQ4CL0UIE7YEz9VRE1nLkcyV3m++qYsnaX7iOq8PztYSNv6FrO
+	 w1VeEKbpH/fT7kvqY9QrCvgHPHHPFXTLBTuAr9eAkNY5WqMk3S9O4fQkBovR+Lq+yS
+	 W5zmwAV0MlSzg==
+Date: Thu, 2 Jul 2026 12:07:15 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Juergen Gross <jgross@suse.com>,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	x86@kernel.org, linux-acpi@vger.kernel.org, kvm@vger.kernel.org,
+	linux-coco@lists.linux.dev, linux-pci@vger.kernel.org,
+	virtualization@lists.linux.dev, linux-ide@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+	linux-hyperv@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, linux-mtd@lists.infradead.org,
+	platform-driver-x86@vger.kernel.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	"lukasz.luba@arm.com" <lukasz.luba@arm.com>,
+	Jason Baron <jbaron@akamai.com>, Borislav Petkov <bp@alien8.de>,
+	Tony Luck <tony.luck@intel.com>,
+	Yazen Ghannam <yazen.ghannam@amd.com>, Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Kirill A. Shutemov" <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Pu Wen <puwen@hygon.cn>, Bjorn Helgaas <bhelgaas@google.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Dave Martin <Dave.Martin@arm.com>,
+	James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
+	Tony W Wang-oc <TonyWWang-oc@zhaoxin.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>, Dave Airlie <airlied@redhat.com>,
+	Helge Deller <deller@gmx.de>, linux-geode@lists.infradead.org,
+	Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>, Guenter Roeck <linux@roeck-us.net>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Huang Rui <ray.huang@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Perry Yuan <perry.yuan@amd.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	"srinivas.pandruvada@linux.intel.com" <srinivas.pandruvada@linux.intel.com>,
+	Artem Bityutskiy <artem.bityutskiy@linux.intel.com>,
+	Artem Bityutskiy <dedekind1@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Ashok Raj <ashok.raj.linux@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
+	David E Box <david.e.box@intel.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 00/32] x86/msr: Drop 32-bit MSR interfaces
+Message-ID: <akY4U0jUZm4HOGZ_@gmail.com>
+References: <20260629060526.3638272-1-jgross@suse.com>
+ <d7c1db52-529a-43cc-ac7d-38b52627e8bc@app.fastmail.com>
+ <c1608c48-13c2-4290-826b-28b5ca51eaf7@suse.com>
+ <7332feff-2649-496c-8e49-b0a19eb54a32@app.fastmail.com>
+ <akJUz0kYkEBdLSZ3@gmail.com>
+ <akQR9YMtMHReJTfB@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 25/25] xen/riscv: add initial dom0less infrastructure
- support
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Baptiste Le Duc <baptiste.le-duc@vates.tech>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
- <a6950e8dc2706c351fe6b0622602d34ecef133b7.1782487661.git.oleksii.kurochko@gmail.com>
- <131fc20c-1353-49fc-8f77-1ca13628ff17@suse.com>
- <c7aff2d8-14a7-4921-93d4-67228d871074@gmail.com>
- <2e3d404f-8716-4d0f-b739-d1e842b5a07c@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <2e3d404f-8716-4d0f-b739-d1e842b5a07c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1782985690-7CB2B25E-50C81BD2/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 2675
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <akQR9YMtMHReJTfB@google.com>
+X-purgate-ID: tlsNG-16d1c6/1782986861-C493368D-C99CE1BD/0/0
+X-purgate-type: clean
+X-purgate-size: 882
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[arndb.de,suse.com,vger.kernel.org,kernel.org,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,intel.com,arm.com,akamai.com,alien8.de,amd.com,redhat.com,linux.intel.com,zytor.com,hygon.cn,google.com,broadcom.com,linaro.org,zhaoxin.com,gmx.de,selenic.com,gondor.apana.org.au,linuxfoundation.org,microsoft.com,roeck-us.net,infradead.org,oracle.com,gmail.com,bootlin.com,nod.at,ti.com,lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:arnd@arndb.de,m:jgross@suse.com,m:linux-kernel@vger.kernel.org,m:linux-pm@vger.kernel.org,m:linux-edac@vger.kernel.org,m:x86@kernel.org,m:linux-acpi@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-pci@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-ide@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-fbdev@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-hwmon@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:platform-driver-x86@vger.kernel.org,m:rafael@kernel.org,m:daniel.lezcano@kernel.org,m:rui.zhang@intel.com,m:lukasz.luba@arm.com,m:jbaron@akamai.com,m:bp@alien8.de,m:tony.luck@intel.com,m:yazen.ghannam@amd.com,m:lenb@kernel.org,m:pavel@kernel.org,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:pbonzini@redhat.com,m:kas@kernel.org,m:rick.p.edgecombe@intel
+ .com,m:puwen@hygon.cn,m:bhelgaas@google.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:viresh.kumar@linaro.org,m:reinette.chatre@intel.com,m:Dave.Martin@arm.com,m:james.morse@arm.com,m:babu.moger@amd.com,m:TonyWWang-oc@zhaoxin.com,m:dlemoal@kernel.org,m:cassel@kernel.org,m:airlied@redhat.com,m:deller@gmx.de,m:linux-geode@lists.infradead.org,m:olivia@selenic.com,m:herbert@gondor.apana.org.au,m:linusw@kernel.org,m:brgl@kernel.org,m:gregkh@linuxfoundation.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:linux@roeck-us.net,m:peterz@infradead.org,m:acme@kernel.org,m:namhyung@kernel.org,m:mark.rutland@arm.com,m:alexander.shishkin@linux.intel.com,m:jolsa@kernel.org,m:irogers@google.com,m:adrian.hunter@intel.com,m:james.clark@linaro.org,m:jpoimboe@kernel.org,m:pawan.kumar.gupta@linux.intel.com,m:vkuznets@redhat.com,m:luto@kernel.org,m:boris.ostrovsky@oracle.com,m:ray.h
+ uang@amd.com,m:mario.limonciello@amd.com,m:perry.yuan@amd.com,m:kprateek.nayak@amd.com,m:srinivas.pandruvada@linux.intel.com,m:artem.bityutskiy@linux.intel.com,m:dedekind1@gmail.com,m:miquel.raynal@bootlin.com,m:richard@nod.at,m:vigneshr@ti.com,m:ashok.raj.linux@gmail.com,m:hansg@kernel.org,m:ilpo.jarvinen@linux.intel.com,m:irenic.rajneesh@gmail.com,m:david.e.box@intel.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[mingo@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	MISSING_XM_UA(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[mingo@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_GT_50(0.00)[96];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 036A66F57B4
+X-Rspamd-Queue-Id: CAB176F5A50
 
 
+* Sean Christopherson <seanjc@google.com> wrote:
 
-On 7/2/26 8:41 AM, Jan Beulich wrote:
-> On 01.07.2026 17:24, Oleksii Kurochko wrote:
->> On 6/30/26 9:28 AM, Jan Beulich wrote:
->>> On 26.06.2026 17:46, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/include/asm/guest-layout.h
->>>> +++ b/xen/arch/riscv/include/asm/guest-layout.h
->>>> @@ -32,4 +32,16 @@
->>>>    #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->>>>    #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
->>>>    
->>>> +/*
->>>> + * The guest magic region holds Xen-reserved pages mapped into the guest's
->>>> + * physical address space (shared info, grant table, etc.). The only real
->>>> + * constraint is that the GUEST_MAGIC_SIZE-byte region must not overlap
->>>> + * guest RAM (the GUEST_RAMx banks) or the emulated device regions defined
->>>> + * above; the exact base is otherwise arbitrary. Here it is placed in the
->>>> + * unused gap below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM
->>>> + * bank would work equally well.
->>>> + */
->>>> +#define GUEST_MAGIC_BASE  _UL(0x79000000)
->>>> +#define GUEST_MAGIC_SIZE  _UL(0x01000000)
->>>
->>> ... while 16Mb may seem a lot, it feels pretty little for 64-bit guests.
->>> Even in just Sv39 mode they have ample VA space to map a bigger region.
->>> (As iirc indicated before, a static upper bound looks questionable to me
->>> anyway.)
->>
->> I think the comment should be updated as for grants will be separate region.
->>
->> For all others, it looks like 16MB is more then enough. For example, Arm
->> has only 4 used pages (CONSOLE=0, XENSTORE=1, MEMACCESS=2, VUART=3).
+> > Note that the individual patches are IMO significantly easier to review
+> > through the actual 32-bit => 64-bit variable assignment changes done
+> > in isolation (which sometimes include minor cleanups), while
+> > the Coccinelle semantic patch:
+> > 
+> >    { a(b,c) => c = a(b) }
+> > 
+> > which changes both the function signature and the order of terms as
+> > well, is just a single add-on treewide patch.
 > 
-> Then the question goes the other way around: Why 16Mb? Won't e.g. 2Mb
-> suffice?
+> Is the plan for subsystem maintainers to pick up the relevant patches,
+> and then do the treewide change one release cycle later?
 
-I don't see any technical reason to have 16 Mb on Arm, IMO it could be 
-shrunk to what you suggested (I will do that for RISC-V).
+I'll try to keep the patches in a single tree (tip:x86/msr)
+in the hope of not prolonging the pain two cycles - but it's
+of course fine for maintainers to pick up the patches too
+(most of them are standalone), we'll sort it all out in the end.
 
-~ Oleksii
+Thanks,
 
-> 
->> So will you be okay with reworking of the comment to:
->> /*
->>    * The guest magic region holds the Xen-reserved pages mapped into the
->>    * guest's physical address space. The only real constraint on
->>    * GUEST_MAGIC_BASE/SIZE is that the region must not overlap guest RAM
->>    * (the GUEST_RAMx banks) or the emulated device regions defined above;
->>    * the exact base is otherwise arbitrary. Here it is placed in the
->> unused gap
->>    * below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM bank
->> would work
->>    * equally well.
->>    */
->>
->> And add to the commit message that:
->> ```
->> A separate region for grant tables will be introduced at the same time
->> as the introduction of the grant table for RISC-V.
->> ```
-> 
-> That's quite a bit better, yes.
-> 
-> Jan
-
+	Ingo
 
