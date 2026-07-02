@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ctxoE+SHRmrXXwsAu9opvQ
+	id 8e64NCaIRmrsXwsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:46:44 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:47:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793016F99C5
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:46:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AFCA6F9A1B
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:47:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=Mynx6GD6;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=TzKC7lqe;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1352104.1609025 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1352113.1609035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJcW-0006ol-6l; Thu, 02 Jul 2026 15:46:32 +0000
+	id 1wfJde-0007PZ-FW; Thu, 02 Jul 2026 15:47:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1352104.1609025; Thu, 02 Jul 2026 15:46:32 +0000
+Received: by outflank-mailman (output) from mailman id 1352113.1609035; Thu, 02 Jul 2026 15:47:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJcW-0006mh-3n; Thu, 02 Jul 2026 15:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 1352104;
- Thu, 02 Jul 2026 15:46:30 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wfJde-0007NT-CO; Thu, 02 Jul 2026 15:47:42 +0000
+Received: by outflank-mailman (input) for mailman id 1352113;
+ Thu, 02 Jul 2026 15:47:40 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wfJcU-0006mb-LN
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:46:30 +0000
+ (envelope-from <ljs@kernel.org>) id 1wfJdc-0007M2-Ns
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:47:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfJcU-00EUhV-2M
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:46:30 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wfJdb-0087ca-NB
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:47:39 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4687c2-bab6-0a2a0a5309dd-0a2a4506ec10-28
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:46:29 +0200
+ id 6a46880a-e002-0a2a0a5209dd-0a2a450ca58c-32
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:47:39 +0200
 Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4687d4-08de-0a2a45060019-ac6904feedd0-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:46:29 +0200
+ id 6a46881a-f399-0a2a450c0019-ac6904fea700-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:47:39 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2EBA4601EE;
- Thu,  2 Jul 2026 15:46:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EC61F000E9;
- Thu,  2 Jul 2026 15:46:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E29F6601F1;
+ Thu,  2 Jul 2026 15:47:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504D91F00A3E;
+ Thu,  2 Jul 2026 15:47:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,16 +58,16 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783007187;
-	bh=jvE9wSqWBUCbGMsJG9svgBUezevNvrm1MrcHHSCChso=;
+	s=k20260515; t=1783007257;
+	bh=Po4UWa+Txwx6nSBMW1aPQiZMcfNfQH1HH88CC93hgvE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mynx6GD6LkebsGmUnF9MjOYGoc5t/kjVRBAa3y4hDMiI7/vl1tQdkpNYaMYBglDKt
-	 PpjOhV7WkyGWbA6148JfY40EHSUewPFem4EcHLSNtrDL52P+m6uRZFhhXV+p8drDP5
-	 krlXhtnXXcRAzWJ2KFYq3Hh8rhTgMNWOvfDO5ubcScHxjko5fhA5/oYXfBSBTm3FYZ
-	 q91+d//PbttUXOxvDyYYUNz2FFsT7LJ6pIAF99pcS/rpWlpmF6qsZCGqK6q0R7Cu6u
-	 A7jMMvK5AtByO3p0pYtd9gulxJxBI42o3AQ7j7VXEvArqPbpGQYUH4EuymRAwVZamK
-	 6IrFtw9w61Ysg==
-Date: Thu, 2 Jul 2026 16:46:04 +0100
+	b=TzKC7lqe9Irn8JWqPCnRnBZrIjo+wjSEuABLaM62PvcVIf4DaJMLiJvSaLOlIhJOf
+	 znTjZNuNsA3irPkrJRqgdqBSalvaquhCKCvJXbcnp48ft4f4usQWudMjc5HdiilEg8
+	 aXu2StIvmQVSGOVmy/Z45hqYBBWUQ4dmbbAuXk0zKTG9Nk6i9FrPim4oLQSVwaxjeJ
+	 SDNmxdCjFnKqxvBlFG1TSv8opFwMO6hCg3J9TODlwY2GGXnrD8Ppex9n5gZkrvDNyw
+	 HAH74jjJFvvUXueVEU77M3F6be8/OSAHgO1cGcNXrmLyLcrgWJzjocoh6IYJOxKTNs
+	 hiEtCFwm59HOw==
+Date: Thu, 2 Jul 2026 16:47:14 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Lance Yang <lance.yang@linux.dev>
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
@@ -96,28 +96,27 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de,
 	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org, 
 	linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
 	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 10/13] mm/vma: convert miscellaneous uses of VMA flags in
- core mm
-Message-ID: <akaGxiTaJreEQn8T@lucifer>
-References: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
- <20260702131233.59026-1-lance.yang@linux.dev>
+Subject: Re: [PATCH 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Message-ID: <akaH31jAOuMtthKF@lucifer>
+References: <2db16db81538355ca65f778c246d2381c673cad4.1782760670.git.ljs@kernel.org>
+ <20260702132107.73727-1-lance.yang@linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260702131233.59026-1-lance.yang@linux.dev>
-X-purgate-ID: tlsNG-16d1c6/1783007189-C4D3568D-248080DD/0/0
+In-Reply-To: <20260702132107.73727-1-lance.yang@linux.dev>
+X-purgate-ID: tlsNG-d25034/1783007259-A88A7D51-D963730D/0/0
 X-purgate-type: clean
-X-purgate-size: 2543
+X-purgate-size: 1969
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lucifer:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,lucifer:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FREEMAIL_CC(0.00)[linux-foundation.org,alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -145,73 +144,63 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 793016F99C5
+X-Rspamd-Queue-Id: 7AFCA6F9A1B
 
-On Thu, Jul 02, 2026 at 09:12:33PM +0800, Lance Yang wrote:
+On Thu, Jul 02, 2026 at 09:21:07PM +0800, Lance Yang wrote:
 >
-> On Mon, Jun 29, 2026 at 08:25:33PM +0100, Lorenzo Stoakes wrote:
-> >Update various uses of legacy flags in vma.c and mmap.c to the new
-> >vma_flags_t type, updating comments alongside them to be consistent.
+> On Mon, Jun 29, 2026 at 08:25:34PM +0100, Lorenzo Stoakes wrote:
+> >Replace use of the legacy vm_flags_t flags with vma_flags_t values
+> >throughout the mlock logic.
 > >
-> >Also update __install_special_mapping() to rearrange things slightly to
-> >accommodate the changes.
+> >Additionally update comments to reflect the changes to be consistent.
+> >
+> >No functional change intended.
 > >
 > >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > >---
+>
+> Nothing scary jumped out at me. Just one tiny nit below ;)
+>
 > [...]
-> >diff --git a/mm/vma.c b/mm/vma.c
-> >index b81c05e67a61..ab2ef0f04420 100644
-> >--- a/mm/vma.c
-> >+++ b/mm/vma.c
-> >@@ -3417,23 +3417,27 @@ struct vm_area_struct *__install_special_mapping(
-> > 	vm_flags_t vm_flags, void *priv,
-> > 	const struct vm_operations_struct *ops)
+> >@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+> >  */
+> > static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+> > 	       struct vm_area_struct **prev, unsigned long start,
+> >-	       unsigned long end, vm_flags_t newflags)
+> >+	       unsigned long end, vma_flags_t *new_vma_flags)
 > > {
-> >-	int ret;
-> >+	vma_flags_t vma_flags = legacy_to_vma_flags(vm_flags);
-> > 	struct vm_area_struct *vma;
-> >+	int ret;
+> >-	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
+> > 	const vma_flags_t old_vma_flags = vma->flags;
+> > 	struct mm_struct *mm = vma->vm_mm;
+> > 	int nr_pages;
+> > 	int ret = 0;
 > >
-> > 	vma = vm_area_alloc(mm);
-> >-	if (unlikely(vma == NULL))
-> >+	if (unlikely(!vma))
-> > 		return ERR_PTR(-ENOMEM);
+> >-	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
+> >+	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
+> > 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
+> > 		/*
+> >-		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
+> >+		 * Don't set VMA_LOCKED_BIT or VM_LOCKONFAULT and don't count.
+>
+> s/VM_LOCKONFAULT/VMA_LOCKONFAULT_BIT/
+
+Ah yeah oops, will fix and respin! Good spot [and claude missed it ugh] :)
+
+>
+> Otherwise LGTM. Feel free to add:
+>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+>
+> > 		 * For secretmem, don't allow the memory to be unlocked.
+> > 		 */
+> > 		goto out;
+> > 	}
 > >
-> >-	vma_set_range(vma, addr, addr + len, 0);
-> >-	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
-> >+	vma_flags_set_mask(&vma_flags, mm->def_vma_flags);
-> >+	vma_flags_set(&vma_flags, VMA_DONTEXPAND_BIT);
-> > 	if (pgtable_supports_soft_dirty())
-> >-		vm_flags |= VM_SOFTDIRTY;
-> >-	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
-> >+		vma_flags_set(&vma_flags, VMA_SOFTDIRTY_BIT);
-> >+	vma_flags_clear_mask(&vma_flags, VMA_LOCKED_MASK);
-> >+	vma->flags = vma_flags;
->
-> Maybe worth a vma_flags_init() helper here to mirror vm_flags_init()?
-> With this open-coded, we lose the soft-dirty WARN_ON_ONCE sanity check.
->
-> Might be nicer to keep that check in one place ;)
-
-I really hate all the VMA flag accessors, they conflate things horribly - we
-should be explicitly taking VMA write locks when we need to (and often killable
-ones actually) not assuming that a VMA flags accessor does (they should at most
-assert).
-
-This case is even more terribly egregious - you are setting flags at an
-arbitrary time, why are we asserting something about softdirty?
-
-You may update them as part of initialisation, maybe not. It's far from a
-guarantee and feels like a lazy place to put it.
-
-BUT obviously it's an oversight not to open code that here, so I'll update the
-patch to do that!
-
-I want VMA flags to be a clean stateless thing, other than the flags
-themselves. Implicit, unrelated, asserts or lock acquisitions in general should
-be done separately IMO.
-
->
+> >-	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
+> >+	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
+> > 	if (IS_ERR(vma)) {
+> > 		ret = PTR_ERR(vma);
+> > 		goto out;
 > [...]
 
 Thanks, Lorenzo
