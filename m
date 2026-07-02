@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id K0W4OrMvRmpbLQsAu9opvQ
+	id ktPnNtAvRmpmLQsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:30:27 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:30:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F9AF6F542A
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:30:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B6106F543C
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:30:56 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=RToPEnpl;
+	dkim=pass header.d=suse.com header.s=google header.b=Q4s5MUdw;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351469.1608639 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351475.1608647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfDkP-0007d5-7t; Thu, 02 Jul 2026 09:30:17 +0000
+	id 1wfDkt-00087C-ID; Thu, 02 Jul 2026 09:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351469.1608639; Thu, 02 Jul 2026 09:30:17 +0000
+Received: by outflank-mailman (output) from mailman id 1351475.1608647; Thu, 02 Jul 2026 09:30:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfDkP-0007aN-4h; Thu, 02 Jul 2026 09:30:17 +0000
-Received: by outflank-mailman (input) for mailman id 1351469;
- Thu, 02 Jul 2026 09:30:16 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wfDkt-000855-FZ; Thu, 02 Jul 2026 09:30:47 +0000
+Received: by outflank-mailman (input) for mailman id 1351475;
+ Thu, 02 Jul 2026 09:30:46 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wfDkO-0007aE-Ed
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:30:16 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wfDks-00083f-3u
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:30:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfDkN-005BnN-R1
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:30:15 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wfDkr-007LhY-Cd
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:30:45 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a462fa0-bab6-0a2a0a5309dd-0a2a4504a8e6-34
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:30:12 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a462fc1-bab6-0a2a0a5309dd-0a2a4502b084-16
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:30:45 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a462fa4-a01d-0a2a45040019-d155802be9da-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:30:12 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-493c5220cb7so6126625e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:30:12 -0700 (PDT)
+ id 6a462fc5-5a27-0a2a45020019-d1558032adc5-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:30:45 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-490b1bbcf3aso8774945e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:30:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477ddf0fb15sm6408144f8f.29.2026.07.02.02.30.11
+ ffacd0b85a97d-477db3dba3csm7260779f8f.3.2026.07.02.02.30.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 02:30:11 -0700 (PDT)
+ Thu, 02 Jul 2026 02:30:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,55 +61,53 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782984612; x=1783589412; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782984645; x=1783589445; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jsZGfw5l+d7+WFu2XU7K4eUza6w7rx46SRYGAdrvpLc=;
-        b=RToPEnpl+ShX+B34QkEWrW7wgJk3lnxFeiB6C/7RLRpgjo+hzITy+QrVKv2anq+ut0
-         kIdX6f9zk5vzoqBXRLPOvCSo3U1WPjUarTAlah6V1EI5JiHGEFmewFzMO0ddl/a/3TtC
-         E3vXmB2k8nF695Gey3/KkdP8PvoK6NF/eIKivq7iTZFZAB8n41x3l2+Gx8lAMlh7MAvZ
-         iXpJD1RS7TpI++Weh4Unb/Yx79nIz8KjP1HpuKCX29V9MDYN6QtbmAynJcIhbp5GVIH3
-         tTW/OeH8KmOE2m4j26yzZAv6ElB840ql3lVfzqoIKCa8GJZzPAqjRjKi3+nPjN+ZRllu
-         Evhg==
+        bh=mJ8woLo45Zcyjbsvy9U/vb99ZvZrS30qykRl4pv4VUo=;
+        b=Q4s5MUdwPvZbit11Oh/C7jQJ3+6m/gTLzOdJffKS7a8n2/PW6GAIdgb9Rr/NLoGjlf
+         dXqTN2ne+UGxxkJNoAWSj4Z63AZJqhjdcaf4FusnalTgLwNhBwRxm5HfQoJQTroVkyZi
+         UMRW29BTNChWQ9JH73WLCK8q7JPIcZrdUuK6GBxkV4Q5kZonHWJHQDtS3XWjWveQ6bal
+         Xq9wMDru9EDoDALfd4zD8GfQnPbZfGbavqMkb5HwYqaqCFKBPIAfhDk2Ocryw7N3vNoO
+         U+ywn5AVaQX/2gHTNWv1XJE71TFsyGVMCH//ftqqos8cH60xDVj84vziMloLwb85sm+B
+         9sDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984612; x=1783589412;
+        d=1e100.net; s=20251104; t=1782984645; x=1783589445;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jsZGfw5l+d7+WFu2XU7K4eUza6w7rx46SRYGAdrvpLc=;
-        b=TWrocYTEor473Qd9cwemBwbKpKesE3b4rCRTXT5dbs1V8clPslAGcbezDxOnMAea0A
-         3kl5djXHb8WxiVUu0ql5AP2+B0+USRwhejJVdfiTfs7Jouu9/JpteGwGU8XJCHCWxI1y
-         mbnmdJJLfQ2NXKllAPrX4P8YFEgiJ6FeA5q+VT4fyb4Xi9Ad7nsae40LevkGVnYzh1To
-         r8ekhkI8oVDdsO4BTCIGbrfje/bTVd1X4GDjAiKQno+wDI4EgOqwMCHyYkYDud45p9UF
-         dajQD3WY2eMZu3AO0KBt88Qy7E1Ffaqlsvv/i9YMW25TH0ZaLq9NJnXA2cooWPWLoQM0
-         nGFQ==
-X-Gm-Message-State: AOJu0YzI3lfy4fuDrvXLKW86EBvFcZJlElamP0QUVRX1MtK9oC78Vqaf
-	l2FDGtK/N6+xPFaeEB/iKIuP7/abbn3ZGRQu0FnMm7oJaHf/ASs/n4E67Vy8TCrbdbn0OOnep95
-	9EqU1jQ==
-X-Gm-Gg: AfdE7cl/UNXC2UXQ/FphH52xBVCWDKZhP4F2kgvb/W34dtE/PR2BI1Kdas0PfYZDTNF
-	tnK9unBZHyIDFqSFtr5dmQPmkJQFFBqlO98gxVoxDDPx9LCgSAPG/F8+NWGsAOIih7k+jL4swG/
-	ogg1yB2BaTk12Qi0aqDyruh2m5SMP2snNd0jQRTp+UtZikhAI8dluGMqlHivfILqFys2Oxdj3Kc
-	nzDoIuEJhVL2ytCCkNwDTo5df8UkSY4EI1LQB3xDLpI7SJY9nwicuFrQL7/VzoUBqD3OhGg8Q8G
-	32ycbMb8gXJ+VbYOioF76n4+Bo4Yf4cC529AQAm8byzc05fEEUII5HRq3q1M1TSjESQW55XQqoe
-	ImhxPDZGut5zYi2jtVHBcufjcjWJXZLGbZenVMMVfdhpG+kQLI12iqScsvL/LXowHraYvQnxhG8
-	1nPGKHKpN9B9ZZPM5zte+TzPd89VOcHUWphAwJqU11XTEHwvhIR/0wSWe+q3af3lUqTS3uj0+5W
-	4iTS6VxKQr+yZI=
-X-Received: by 2002:a05:600d:15a:10b0:493:b92d:9166 with SMTP id 5b1f17b1804b1-493c3cdb264mr46373155e9.12.1782984611990;
-        Thu, 02 Jul 2026 02:30:11 -0700 (PDT)
-Message-ID: <7bed7164-9a53-4e53-9fc1-7af68108bdf8@suse.com>
-Date: Thu, 2 Jul 2026 11:30:11 +0200
+        bh=mJ8woLo45Zcyjbsvy9U/vb99ZvZrS30qykRl4pv4VUo=;
+        b=fUspJIK95nB5LEBp2zlcIyTv1fCzE21GwwhewORGEEtHzdW3iWLlCW4xYKtJFvNM0p
+         TPPyAUFEw8BqyLmRZe034tIpFxVImUGSCrw/lXH33mcWJ6uA5uHaFob+O7zFLvzE8a2q
+         O3Py5NrMV4onefAYJNGgTV8SCeOGWKpNBgjxBBcXUWLxeWy8iHmyzxTriZBL8/fKqZ2O
+         QWoAvaGQt7X/l28l4cV2oF1vXeGM0Y2EoK6H2ceThN1zsA3Uq4qFMdaoOFSQMuc6yIAm
+         A4eItt3D3eDJyqvNxKuAnGpmlVuXR6ac09ryboP96bclhRHNHegNViGwqj5dEWC7eAy0
+         3kjQ==
+X-Gm-Message-State: AOJu0YxYuC+q01aM/HcW7P4zOrxaijUT0+NGQNjVVxYW5Uecq0F51PHm
+	+Zwyy71G1PkIrADda0xHEecr4W4RVZze3Cmebd05Sw7MXJehR3iSQNTBYeV1lb20uG90Eph0Bf/
+	wVAS4Nw==
+X-Gm-Gg: AfdE7ck7825InuIJNxMkUjkMy0eU0mmsR5Yc9oH4JsU/RlGwrNSTgXnSXfAoS+g9LZ3
+	1Gb2sKWMgg/+UmRtoFOSlgvLisKrA1dC0guBrNYfF4wgUcT4lxgIVO1n7Qac3Tn6GBv0Xltk913
+	71P1hYvmeuOKAONbfr55wL8jivxViQ12bmDoJtp0TJTaDTsHWBGW866f5tQ388bmoe3wrSrjLFJ
+	7BYk5qPJzx7rSbU8MD8yvKzABjrDq8Hwk8GPo8Q3aIaS2+u9uor7rZksyHx9HUyVgUK1rvTHPhH
+	MswHyTIgTFiVnJXuhh58r8UW5J0hZBK6FGG2J/WybfmTe2ErUw3TFAE44D12zrR2sXJLFj1esOc
+	WK9Fhry5dOJGRwC9z/BCIvrWnF0nDAR0pxSQPqeEsV/OSXgEy2ufEZkTc0TDruGIjveqRVe3ZBH
+	X5cfKTiDM1N6Wa2+bbbeof6Qw7esELRBoTI+XY+EMrXwLuTaF1C+nIROm8M0AuVZQJl0iJs/pfa
+	Pz7Xs87UVGuw/g=
+X-Received: by 2002:a05:600d:8649:10b0:490:44eb:c1ea with SMTP id 5b1f17b1804b1-493c2b905d3mr60498205e9.24.1782984644789;
+        Thu, 02 Jul 2026 02:30:44 -0700 (PDT)
+Message-ID: <f8c7271e-db76-4dd0-af5f-6ed11f9be8aa@suse.com>
+Date: Thu, 2 Jul 2026 11:30:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/4] time: shorten year determination loop
+Subject: [PATCH v2 3/4] x86/vRTC: the use_timer field is a boolean one
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
 References: <79d50725-3892-4643-b854-bfec9c0c0d79@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,9 +136,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <79d50725-3892-4643-b854-bfec9c0c0d79@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1782984612-AE3371CC-6FE7A245/0/0
+X-purgate-ID: tlsNG-720697/1782984645-545187C5-63C8DB66/0/0
 X-purgate-type: clean
-X-purgate-size: 1420
+X-purgate-size: 1382
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -149,75 +147,81 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4F9AF6F542A
+X-Rspamd-Queue-Id: 3B6106F543C
 
-For dates very far into the future (the MC146818 RTC's century byte can go
-up to the 99th century), the present year-wise loop would become somewhat
-inefficient (taking perhaps several thousand iterations). Prefix that loop
-with a 400-year granular calculation (somewhat like the earlier loop does
-for dates in the past).
+... and hence wants to be of bool type.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2: New.
 
---- a/xen/common/time.c
-+++ b/xen/common/time.c
-@@ -27,6 +27,8 @@
- #define __isleap(year) \
-   ((year) % 4 == 0 && ((year) % 100 != 0 || (year) % 400 == 0))
- 
-+#define DAYS_IN_400_YEARS (365 * 303 + 366 * 97)
-+
- /* How many days are in each month.  */
- static const unsigned short int __mon_lengths[2][12] = {
-     /* Normal years.  */
-@@ -57,7 +59,7 @@ struct tm gmtime(unsigned long t)
-     while ( t & (1UL<<39) )
+--- a/xen/arch/x86/hvm/rtc.c
++++ b/xen/arch/x86/hvm/rtc.c
+@@ -186,7 +186,7 @@ static void check_update_timer(RTCState
+     if (!(s->hw.cmos_data[RTC_REG_C] & RTC_UF) &&
+             !(s->hw.cmos_data[RTC_REG_B] & RTC_SET))
      {
-         y -= 400;
--        t += ((unsigned long)(365 * 303 + 366 * 97)) * SECS_PER_DAY;
-+        t += (unsigned long)DAYS_IN_400_YEARS * SECS_PER_DAY;
+-        s->use_timer = 1;
++        s->use_timer = true;
+         guest_usec = get_localtime_us(d) % USEC_PER_SEC;
+         if (guest_usec >= (USEC_PER_SEC - 244))
+         {
+@@ -214,7 +214,7 @@ static void check_update_timer(RTCState
+         }
      }
-     t &= (1UL << 40) - 1;
- #endif
-@@ -71,6 +73,11 @@ struct tm gmtime(unsigned long t)
-     tbuf.tm_sec = rem % 60;
-     /* January 1, 1970 was a Thursday.  */
-     tbuf.tm_wday = (4 + days) % 7;
-+    if ( days >= DAYS_IN_400_YEARS )
-+    {
-+        y += (days / DAYS_IN_400_YEARS) * 400;
-+        days %= DAYS_IN_400_YEARS;
-+    }
-     while ( days >= (rem = __isleap(y) ? 366 : 365) )
-     {
-         ++y;
+     else
+-        s->use_timer = 0;
++        s->use_timer = false;
+ }
+ 
+ static void cf_check rtc_update_timer(void *opaque)
+@@ -673,7 +673,7 @@ static uint32_t rtc_ioport_read(RTCState
+         break;
+     case RTC_REG_A:
+         ret = s->hw.cmos_data[s->hw.cmos_index];
+-        if ((s->use_timer == 0) && update_in_progress(s))
++        if ( !s->use_timer && update_in_progress(s) )
+             ret |= RTC_UIP;
+         break;
+     case RTC_REG_C:
+--- a/xen/arch/x86/include/asm/hvm/vpt.h
++++ b/xen/arch/x86/include/asm/hvm/vpt.h
+@@ -106,7 +106,9 @@ typedef struct RTCState {
+     s_time_t check_ticks_since;
+     int period;
+     uint8_t pt_dead_ticks;
+-    uint32_t use_timer;
++
++    bool use_timer;
++
+     spinlock_t lock;
+ } RTCState;
+ 
 
 
