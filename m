@@ -2,45 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +Lp4MCsTRmojJQsAu9opvQ
+	id 5mrrDi0YRmrVJgsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 09:28:43 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 09:50:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C9B6F429F
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 09:28:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3D3F6F460C
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 09:50:04 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=linux.dev header.s=key1 header.b=UUw36nfQ;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=LnfK1AEh;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=linux.dev
-Received: from list by lists.xenproject.org with outflank-mailman.1351310.1608523 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1351323.1608533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfBqP-000559-0L; Thu, 02 Jul 2026 07:28:21 +0000
+	id 1wfCAv-0001OR-JX; Thu, 02 Jul 2026 07:49:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351310.1608523; Thu, 02 Jul 2026 07:28:20 +0000
+Received: by outflank-mailman (output) from mailman id 1351323.1608533; Thu, 02 Jul 2026 07:49:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfBqO-00053f-U3; Thu, 02 Jul 2026 07:28:20 +0000
-Received: by outflank-mailman (input) for mailman id 1351310;
- Thu, 02 Jul 2026 07:28:19 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <lance.yang@linux.dev>) id 1wfBqL-00053G-Vw
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 07:28:19 +0000
+	id 1wfCAv-0001M7-Gv; Thu, 02 Jul 2026 07:49:33 +0000
+Received: by outflank-mailman (input) for mailman id 1351323;
+ Thu, 02 Jul 2026 07:49:32 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f21cddaf000080a8@swg.vates.tech>)
+ id 1wfCAt-0001M1-OO
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 07:49:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfBqJ-00Cl8V-Tc
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:28:17 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <lance.yang@linux.dev>)
- id 6a461302-bab6-0a2a0a5309dd-0a2a450aad90-28
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 09:28:15 +0200
-Received: from [95.215.58.176] (helo=out-176.mta1.migadu.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <lance.yang@linux.dev>)
- id 6a46130d-e40e-0a2a450a0019-5fd73ab0ee00-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 09:28:13 +0200
+ id 1wfCAs-00D4wd-3v
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:49:30 +0200
+Received: from [10.42.69.4] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f21cddaf000080a8@swg.vates.tech>)
+ id 6a461807-2eae-0a2a0a5409dd-0a2a45048326-4
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 09:49:29 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f21cddaf000080a8@swg.vates.tech>)
+ id 6a461809-a01d-0a2a45040019-b9ff1c22a145-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 09:49:29 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19f21cddaf000080a8.003 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 02 Jul 2026 07:49:26 +0000
+Received: from l14 (lfbn-gre-1-197-6.w90-112.abo.wanadoo.fr [90.112.16.6])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 2ADE08078E;
+ Thu,  2 Jul 2026 09:49:26 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,169 +65,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1782977290;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cdXAMvaGTLXZ4tRHqX+15mFjqPO5NJv7/lbzInUeZeM=;
-	b=UUw36nfQUDO4ek5W5MoGxv/bQdNbTQycY1qQKAEoJymjql+ZXc8a2FUo9eNrafl6xDrEni
-	1302Z8Y+Ma+0qxdUDhBISoxry5nus7uGAN8fTkB0ZcU/zUf+14Ol9iIljWhjg5Yh/mt933
-	8BhSh84bNWygA1To4TaXOltx56F5hgs=
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	tsbogend@alpha.franken.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	l.stach@pengutronix.de,
-	inki.dae@samsung.com,
-	sw0312.kim@samsung.com,
-	kyungmin.park@samsung.com,
-	krzk@kernel.org,
-	peter.griffin@linaro.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	tursulin@ursulin.net,
-	robin.clark@oss.qualcomm.com,
-	lumag@kernel.org,
-	lyude@redhat.com,
-	dakr@kernel.org,
-	tomi.valkeinen@ideasonboard.com,
-	hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	thierry.reding@kernel.org,
-	mperttunen@nvidia.com,
-	jonathanh@nvidia.com,
-	kraxel@redhat.com,
-	dmitry.osipenko@collabora.com,
-	zack.rusin@broadcom.com,
-	matthew.brost@intel.com,
-	thomas.hellstrom@linux.intel.com,
-	oleksandr_andrushchenko@epam.com,
-	deller@gmx.de,
-	bcrl@kvack.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	npache@redhat.com,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	hughd@google.com,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jannh@google.com,
-	pfalcato@suse.de,
-	kees@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	dri-devel@lists.freedesktop.org,
-	etnaviv@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-tegra@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	intel-xe@lists.freedesktop.org,
-	xen-devel@lists.xenproject.org,
-	linux-fbdev@vger.kernel.org,
-	linux-aio@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
-Date: Thu,  2 Jul 2026 15:27:50 +0800
-Message-Id: <20260702072750.45641-1-lance.yang@linux.dev>
-In-Reply-To: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
-References: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=z8acwMs0RoUZwSPsP//PIk2dCVY8ioVGU3CXmoXVDiw=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=LnfK1AEhWJ8lZV22XZOKslPVHAJW+wid1/K9TSYRNy6TJZgjLlBEv9kUuP1XIPLr4EvkFHGq0
+ 5o33ymhAQZ+9b7nQlpAj3PEXMIB3w/WqPGrt2UtzkgLpIwg0IckNr1S06qgjXpL2XXCLiEaI4JK
+ xn1e7k2AJ3hKbodmbIfH0cSM1B+BVvQ/vOSsa9XlsBpPkm+EQ8rxrwP2am8icX/zydNBB0iav3b
+ 6LiOtCcvqTS7IN/SqZ9mf4jK65zjAl6DfEetfnS8ekwym7cGobCvYV25+FJzw6J7AeBnyy8x5OV
+ ckKnuq3f8ItRjq/CPt1tbrJuB1Eib5Ko76Qn57A7N+DA==
+X-Zone-Loop: 060998b047c4324b69275eab5ebbc0ed7f7e3edfa9f9
+x-campaign-type: default
+x-transaction-id: b86dc9e0-945d-4035-9d95-d72967eb17c3
+x-swg-uid: 01-ee351179-8bfa-4446-a477-5ecbe552e781
+X-Mailer: Sweego
+Message-ID:
+ <1782978566.8631fc262581453bbf619ec5b2062170.19f21cddaf000080a8@vates.tech>
+x-swg-bid: 1782978566.8631fc262581453bbf619ec5b2062170.19f21cddaf000080a8
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Thu, 2 Jul 2026 09:49:25 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Juergen Gross <jgross@suse.com>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	Marek Marczykowski <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v2 1/2] libxc: drop size parameter from
+ xc_flask_context_to_sid()
+References: <ba863889-b389-4264-824e-121a5daeba61@suse.com>
+ <d3b03ebb-7923-4033-8bcb-cf0cdbb4e771@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
-X-purgate-ID: tlsNG-4011c0/1782977295-3C67BDDE-C6E0EA24/0/0
+Content-Disposition: inline
+In-Reply-To: <d3b03ebb-7923-4033-8bcb-cf0cdbb4e771@suse.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.e.292e58765e21126.19f21cdd88f.7002498917770ad1=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1782978566294
+X-purgate-ID: tlsNG-ebf023/1782978569-2E3A41CC-2699A41C/0/0
 X-purgate-type: clean
-X-purgate-size: 680
+X-purgate-size: 807
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[linux.dev,none];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	URI_COUNT_ODD(1.00)[1];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[linux.dev:s=key1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:dkim,linux.dev:email,linux.dev:mid,linux.dev:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:tsbogend@alpha.franken.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:zack.rusin@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:bcrl@kvack.org,m:viro@zeniv.l
- inux.org.uk,m:brauner@kernel.org,m:muchun.song@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:ziy@nvidia.com,m:baolin.wang@linux.alibaba.com,m:liam@infradead.org,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:hughd@google.com,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:jannh@google.com,m:pfalcato@suse.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:linux-mips@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fb
- dev@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-sound@vger.kernel.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[lance.yang@linux.dev,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[linux.dev:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lance.yang@linux.dev,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[invisiblethingslab.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email,vates.tech:url,vates.tech:from_mime,vates.tech:dkim,vates.tech:email,vates.tech:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_GT_50(0.00)[83];
-	TAGGED_RCPT(0.00)[xen-devel];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 67C9B6F429F
+X-Rspamd-Queue-Id: A3D3F6F460C
+
+---=Part.e.292e58765e21126.19f21cdd88f.7002498917770ad1=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jul 01, 2026 at 04:47:52PM +0200, Jan Beulich wrote:
+> Nul-terminated strings are passed in all cases, so the strlen() can very
+> well be invoked by the function itself=2E In preparation for a hyperviso=
+r
+> change also include the nul terminator in the size calculation=2E
+>=20
+> Signed-off-by: Jan Beulich <jbeulich@suse=2Ecom>
+> Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+
+Reviewed-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+
+Thanks,
 
 
-On Mon, Jun 29, 2026 at 08:25:24PM +0100, Lorenzo Stoakes wrote:
->These test whether the VMA has stack sematics, i.e. is able to grow upwards
->or downwards depending on the architecture.
->
->In order to account for arches which do not support upward-growing stacks,
->introduce VMA_GROWSUP whose definition depends on the architecture
->supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
->to account for this.
->
->Update the VMA userland tests to reflect the changes
->
->No functional change intended.
->
->Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
->---
+-- 
+ | Vates 
 
-Nice cleanup! Feel free to add:
+XCP-ng & Xen Orchestra - Vates solutions
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+web: https://vate=
+s=2Etech
+---=Part.e.292e58765e21126.19f21cdd88f.7002498917770ad1=---
 
