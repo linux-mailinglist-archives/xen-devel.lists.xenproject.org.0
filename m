@@ -2,50 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ppK2LfaDRmrBXgsAu9opvQ
+	id cuD5L26GRmpvXwsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:29:58 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:40:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B1056F96BC
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:29:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1094A6F9899
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 17:40:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=EZDY+QGc;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b="G8E/OPY/";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=kernel.org
-Received: from list by lists.xenproject.org with outflank-mailman.1352064.1608998 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1352084.1609007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJMM-0002Cp-Cl; Thu, 02 Jul 2026 15:29:50 +0000
+	id 1wfJWI-0005OV-9P; Thu, 02 Jul 2026 15:40:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1352064.1608998; Thu, 02 Jul 2026 15:29:50 +0000
+Received: by outflank-mailman (output) from mailman id 1352084.1609007; Thu, 02 Jul 2026 15:40:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfJMM-0002Ax-9s; Thu, 02 Jul 2026 15:29:50 +0000
-Received: by outflank-mailman (input) for mailman id 1352064;
- Thu, 02 Jul 2026 15:29:48 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wfJWI-0005Ll-6E; Thu, 02 Jul 2026 15:40:06 +0000
+Received: by outflank-mailman (input) for mailman id 1352084;
+ Thu, 02 Jul 2026 15:40:05 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wfJMK-00029m-9a
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:29:48 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wfJWG-00059y-Vg
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 15:40:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfJMJ-0084eC-92
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:29:47 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wfJWG-00EVOQ-C2
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:40:04 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ljs@kernel.org>)
- id 6a4683e8-e002-0a2a0a5209dd-0a2a45028da4-6
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:29:47 +0200
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <ljs@kernel.org>)
- id 6a4683e8-5a27-0a2a45020019-aceafc1f89b6-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:29:46 +0200
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 25A4F418F4;
- Thu,  2 Jul 2026 15:29:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7DF1F000E9;
- Thu,  2 Jul 2026 15:29:27 +0000 (UTC)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a46864a-e002-0a2a0a5209dd-0a2a4504b9c0-24
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:40:04 +0200
+Received: from [52.101.85.64]
+ (helo=BYAPR05CU005.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a468652-a01d-0a2a45040019-346555404dab-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 17:40:04 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by CO1PR03MB5683.namprd03.prod.outlook.com (2603:10b6:303:9a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
+ 15:40:00 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0181.009; Thu, 2 Jul 2026
+ 15:40:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,148 +63,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783006184;
-	bh=AmvNH9wwHqyoIMesePnV6/zMDBtlSz51dFh4yHJ1BTo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EZDY+QGcsghhDIw9rxbIhnPAJRijthrModhJ3dAoSN5cVM+YkTpcpEvD+KPlh/M/u
-	 Qwt3kZkRl2OzXpZ8lNBF20cEMvcQmjr2C3N0OBOmi3krbMnyRHMJTEBJXrtiCGLkys
-	 hVceGk9nKeLivyWhhq1nb1heVf5ntbaXnUG4S4OpDlt89/1RU+lLBy/OziQBm1WY0f
-	 mLETtt6Kv1hVTKJQz++mgHlN+PUF+ac9yH5QtMrmNRfTW7GoeSyD7Rts3hi3Don33s
-	 UtJfTmtwGOSlfBDJEzVdm8IjgP96nHmx5GxFIPDKfkfCebxxa9UBrNHRuHW+T6BGzw
-	 FkrA9PbgKP9aQ==
-Date: Thu, 2 Jul 2026 16:29:20 +0100
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, 
-	maddy@linux.ibm.com, mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
-	l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com, 
-	kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org, 
-	jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, 
-	tursulin@ursulin.net, robin.clark@oss.qualcomm.com, lumag@kernel.org, lyude@redhat.com, 
-	dakr@kernel.org, tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, 
-	heiko@sntech.de, andy.yan@rock-chips.com, thierry.reding@kernel.org, 
-	mperttunen@nvidia.com, jonathanh@nvidia.com, kraxel@redhat.com, 
-	dmitry.osipenko@collabora.com, zack.rusin@broadcom.com, matthew.brost@intel.com, 
-	thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com, deller@gmx.de, bcrl@kvack.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, muchun.song@linux.dev, osalvador@suse.de, 
-	david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, npache@redhat.com, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, hughd@google.com, vbabka@kernel.org, rppt@kernel.org, 
-	surenb@google.com, mhocko@suse.com, jannh@google.com, pfalcato@suse.de, 
-	kees@kernel.org, perex@perex.cz, tiwai@suse.com, linux-mips@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org, 
-	etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
-	freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
-	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org, 
-	linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sound@vger.kernel.org
-Subject: Re: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use
- vma_flags_t and rename
-Message-ID: <akaC-xxNr8ZyN4aH@lucifer>
-References: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
- <20260702122116.65642-1-lance.yang@linux.dev>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xq6L0EW8cmNSozruK4Mh4Uif/JXSa7SKtWbaPHgOV7qNl+04iGK0pZK4IZMXViOvw2zMRJzuRikFWLD9tFojkEUF1ReIsDvs0J5LaK8kBDUqs3aYzztXlp5d2VLjFvNk/U8tkE/+6ePEIruXGEOTF9TLSsgho3uYk/q331/V0hZbazLb1jroOBp+R8F1BRuQo1SloXPpq5fAmFHKVYHWd9BUfcm7S1Sjp3Mg1JuXdmdkWwpiWW3oWbfG7VwiOv9gKvNqvKXBTqIXLCSMmwTLTQDbmeMjAqxDf61rodk3pp2higDFt6YQ7ma1TCb8li9G8BLlArfsu5Hafzd24YpkUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QbowieJOT1/uNI5pXTx+Eiyli8QxGa23XmMOv8oyoDk=;
+ b=P8VAt2bbmTCLvzeIFRsujQtLtM68V4L+Z2VqBbfgJUQ1RqhuIucfYrZwcO5mcil1zJamHWQGUowFh84XLxl6uXUAIuJ8oOFSGt3NvusIIBmZQ3MsG89DPdwGYsvyZjI9USVZflBnhQeiDVqJ/Winbvse74wcphrTDq45hjIrLp3EJmUPFCD+pTKrz6gL94ptm4vjyVuXX0mEINJa2wKAUbzujd3VV5mVPzbx/esK02OQOgyUGUk3o0OWIrstdbaLt+hzP8Nzbpezz5hgW/0YQUfQRpZvcGPthg6sUFWVMGZ1POYzU/077veRwzhHCUDydlfTTUVEtZXkLTtxMpE5rQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QbowieJOT1/uNI5pXTx+Eiyli8QxGa23XmMOv8oyoDk=;
+ b=G8E/OPY/nvSm+Lk7DKqW4UmeYwZEZ7Py7W+IoBaomcCRBk71eYAaKumRDl92+y1+HE8iShOKWYhKrHpNQoRT7gJgk1KOq8Dm8fUBl2fngEc0s0+uqnEw/awumTJCzvJppb3doPl1GMdhrTx74ytD7I5QefpLrMuJTcKxQqw3M/k=
+Date: Thu, 2 Jul 2026 17:39:56 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH for-4.22] tools/libfsimage: Remove the XEN_FSIMAGE_FSDIR
+ environment variable
+Message-ID: <akaGTETSE5m8rXmr@macbook.local>
+References: <20260702150301.825883-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260702122116.65642-1-lance.yang@linux.dev>
-X-purgate-ID: tlsNG-720697/1783006186-552E47C5-BA5FFC58/0/0
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260702150301.825883-1-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: MA3P292CA0019.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:47::9) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CO1PR03MB5683:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f1e905f-128a-4f97-f245-08ded8502d2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|6133799003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	cpz7LV4gsA4vsI8GwrXuWyc3HCESvIheXdm/Gx2QQ5r0yNNrdkdzVmtfKhHj5T0t9lmEHAaGl+yDaIQdafVfcQJtY2IP0zLYviS0vaXDiYYYvL8tg5k03G1yYfWgoB+kVWOf2i1KPoJT3SJF85JE8PwDI6yA6FJZgBo3V3WhyTAjPR/Ai1fBOfk6zneu0T7jXsswNutJwMajgV2AMXa1WdZhhvGWuLE9WuPh+usOOOGCwRUP/qyWKFHYgcjJJOl8meWj+PDPlxcq4HVwlfJrOV4AfVlKTc2jpztylEx0cuKRXj30/EjKw9kByCzmIdF2vnb7DpfS4yrcovY/9Bywyl4OzYeuTGF+J+kuhrEJOFuECYpb/LzLuZSYPOEoMq7dZt18atJHktAllNNnynROK/t6bHuKZZR2kNxxazKMx6myspZlaMKNnbwQb0D1+p63eL2knL4DX9hhlAMeGmTumxHzxDjdeAtj6PD6RyRg2yOQGecMrXFWL4SwJoIMLS4bpa0owSFkBcRmChbu07FxM5ATHbmavUrguldKKt/uiQbLfU9kfHdgfmfWt7Vz1jculttHMQAMT3TBOck+cs5rHrB4Aidlfrrm/Enq72pwtckh/nzsleHlOqMlER9oy8k5S0PqI6cvQrWTDECiWmfQTyaAJo5Yt5EiiF2fYMKgKJU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SXB2RVhrNDQ2OXM4em93WGx1VkMxS2svN1RZc3pCSnNsWndWbzEvUWs2akJB?=
+ =?utf-8?B?a2ljRDNZR2l0UDRIU3hoOHRtdDhDK1NicW1aNzVKMVluRE5TTFVjc3c4R1Ir?=
+ =?utf-8?B?MDJLT3c3Wjd6UTJGZDBWdVBWNy93Z0tQZ0s1Q3hYSFRBK0hreStzS0RSdTg4?=
+ =?utf-8?B?T3RhdUZFc00zVUJIWk5kS05WQ0NISFlabVc4YUwxWThQdEJlZ2xaS2pGWTlJ?=
+ =?utf-8?B?L2lJaEF6cVhWNkZTa3NRQWVNaWRiTi9zV0xSMG52RnkweGM0QXl1V3owRW55?=
+ =?utf-8?B?cDFreDhVS2ZYK2hseHFQeGFVbUFpWVVYeUxzQm53SE54ZHkyVTlqOEg1RXdH?=
+ =?utf-8?B?QXpyWHc3bE5EVEZWcG1UUkJ5UXVKeldIckFJSTJjVjlXNTdGdXBmY2tVcEFR?=
+ =?utf-8?B?ck85RE96M2Rtb1RqR0hiNktPQWFoaVFSMUNwQVN1Q3RhazA2My82LzZ0bDJi?=
+ =?utf-8?B?cnYzS2pMOWFrRWdFUk4wbTNLbVl2NFE3UDVCWnA3cDRYWEpid250a3RONHBG?=
+ =?utf-8?B?WGV2NTh4THd2cE9hWDdNRG5RRkZ2Zi9kdkFVMWQyTzh1MzRQeGY1ZUo5NXgv?=
+ =?utf-8?B?ODNDaVFOQnNNei9MK0MxUW9QYlg5SkUrRTUxSk9pZnVWYTRNamNZQ2pvblhW?=
+ =?utf-8?B?L3ZxZjZuR0tMbHlMNUVFYlFmM2MzRkpBaU5hUzZycTg5SzdUalR0dE1kRTJt?=
+ =?utf-8?B?Y0FUdForTnpSY0YyZkVRVTBhZWJsdWNxL25kOXNUZUQ2RW1rWmtkZUZycEdn?=
+ =?utf-8?B?UWpuaVRyWDRvcTVOTHZzdXFzMStueDY5ZDVaV1RpUFZVVEVFS2lXS0p5eEtu?=
+ =?utf-8?B?ZE9CelYzS2xQeEVSa0xiUDZHUGt5VzNteFVoS0wrZStCVVNoQWZwYWFtV1Ry?=
+ =?utf-8?B?dUxsMktlMzBNYWdSbGxEakJ4dGpWNnprUXZBdEFaNEtSQ1BuR0hvRHF0TGYz?=
+ =?utf-8?B?UmFna1dFeTRZTHJvdlJOanVFTWZQM215N3lYRWRUN05CMGpsT2V0YmlzRE5D?=
+ =?utf-8?B?NXM3cGpmR1RGZlZCUXZoSTFndkgrRW56TkpRUVBhLzBNK3pUbSsxMUIyVXhF?=
+ =?utf-8?B?bTdZRzVETm4xK3ppcVNuK3lCRU4xM0FzbytGcWx4TTZydUU3OEZQU2FVbVRD?=
+ =?utf-8?B?T1Z3OC9INnN0d2t5cWk4cWFIUGdHMmdJQkp0Q09uOEhWNDIrVWduSWJUS0U0?=
+ =?utf-8?B?dWN0RXRpZHphdXduYmduN3BhWWUzSXN5a0dMWjBGelk2Y0RCOEpQL3BNOTZw?=
+ =?utf-8?B?UnN3Mnl3OWZvNzU3eXZUdWtTeGpTQ0pTcHJoaFRFMWpZemNEQXNGNFFvSTFW?=
+ =?utf-8?B?SlZsVWRlckxrTERVNGRrMjJwTUpSUnRma3M2czFWOG5aSUtZZ2RHMU14WHlU?=
+ =?utf-8?B?NkpBMFVaRU1sYjJEWHVSU09iWnJlSUNnekJwRDJFTDdCdjI5M0poUmtNY0hU?=
+ =?utf-8?B?aEcvRTFjZ3BSRFNPL0tEQ084azhJQmhCRlc3NjIwdlZEY0dnVytsM291ZzQr?=
+ =?utf-8?B?WlJsOGxVdWczMCsrczRuZWo0T2dqVi9jNjhDZFdRaDliQTFLVTV3NnFubTVo?=
+ =?utf-8?B?SXBaUzUzWk1uSjB5TWNCQ1JxSnB5OHkyNUdiYmlGbndJMXJlRy80c2F0T1NK?=
+ =?utf-8?B?aHRUdVJCUERDUzJnek1wY0gzekpTRG13ZmYxS2NFMW5FVHIxQnNZV09lZ1dQ?=
+ =?utf-8?B?VHFiczV5LzlhODBQc0lpOWhlemNTbHNIV0R2SS9rMmlUK2VQejhWNUx3VVlW?=
+ =?utf-8?B?RzdoYXk3NGM0UzhDU2tMNVVnOEdMZC9La2NrZWYrbUU5TUVXNVdKZlJMdUhj?=
+ =?utf-8?B?aisyaWp4cGdRU2tuUHp1TjFnb2JNeXJLRGZhTWl0OCtEU09hb0tmaU1SVlhF?=
+ =?utf-8?B?WWpJM2cyOWd6Y0w2SjhPc0xXMzVPUjNiN1o5MXdnYWRLR3FoUUN2akF1ditB?=
+ =?utf-8?B?MGxVOGtxbTVSQlB2ZEV2VkFTU0tjZFNsRW5ta053OGdaZ085UGFhN24zQTJq?=
+ =?utf-8?B?R0F4MDYwaFM1bHlMOEJCQUhTYWJzQXVIL1BnZG0vM2RwQlBvdk05UG5LdHpI?=
+ =?utf-8?B?TnBQZGtTa1Flczk0eVFKbGl1RndpUlorWmsrVmRYVzZEdldlekV3K25JdU5Z?=
+ =?utf-8?B?QjdvNWtGbHJZZUt2Z3NKRWxNL0duTnNSc1h0ckkvajFsV2NWTUJad2graGNW?=
+ =?utf-8?B?NHMybXBPMlc3dHllalBGR2tnQmJmK0ptU1QwRnBLMTFKVWN5ZnF2aDBRMnBG?=
+ =?utf-8?B?LzN3Tk1SZDlsREhkWVUvbUZBYlByS1kwRUkvMDl3cG83Z3M3QUR2REZYaTRO?=
+ =?utf-8?B?c2tIbGFlTWdrTStmTVFrWVFFQnRxNVcwNCtCOWZIUFJ6WW8zYVVCdz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f1e905f-128a-4f97-f245-08ded8502d2f
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2026 15:40:00.3295
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qwXtM/J1fafZHNTJGn7P1eSZOCRqcEFNBIGs7l3Klvxl9QEW8rAkGzgYXFNQWWZozS+x9i6wv0l10zsSJ7j2FQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5683
+X-purgate-ID: tlsNG-ebf023/1783006804-AF32F1CC-61F768F0/0/0
 X-purgate-type: clean
-X-purgate-size: 1810
+X-purgate-size: 570
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lucifer:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,linux.dev:email];
-	FREEMAIL_CC(0.00)[linux-foundation.org,alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,vates.tech,amd.com,suse.com,xen.org,kernel.org,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:lance.yang@linux.dev,m:akpm@linux-foundation.org,m:tsbogend@alpha.franken.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:zack.rusin@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:bcrl@kvack.org,m:viro@z
- eniv.linux.org.uk,m:brauner@kernel.org,m:muchun.song@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:ziy@nvidia.com,m:baolin.wang@linux.alibaba.com,m:liam@infradead.org,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:hughd@google.com,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:jannh@google.com,m:pfalcato@suse.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:linux-mips@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fbdev@vger.kernel.o
- rg,m:linux-aio@kvack.org,m:linux-fsdevel@vger.kernel.org,m:linux-mm@kvack.org,m:linux-sound@vger.kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[ljs@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,macbook.local:mid];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	MISSING_XM_UA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[82];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	ALIAS_RESOLVED(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5B1056F96BC
+X-Rspamd-Queue-Id: 1094A6F9899
 
-On Thu, Jul 02, 2026 at 08:21:16PM +0800, Lance Yang wrote:
->
-> On Mon, Jun 29, 2026 at 08:25:29PM +0100, Lorenzo Stoakes wrote:
-> >Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
-> >rename to vma_pgprot_modify() accordingly.
-> >
-> >This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
-> >order to eliminate the arbitrary limit of the number of bits in a system
-> >word on available VMA flags.
-> >
-> >Update VMA userland tests accordingly, updating vma_set_page_prot() to no
-> >longer inline vma_pgprot_modify(), rather we can simply define
-> >vma_pgprot_modify() as a static inline function and the tests will pick it
-> >up from vma.h.
-> >
-> >No functional change intended.
-> >
-> >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> >---
-> [...]
-> >diff --git a/mm/vma.h b/mm/vma.h
-> >index bcf0c2773449..6a8abb8ae937 100644
-> >--- a/mm/vma.h
-> >+++ b/mm/vma.h
-> >@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
-> > }
-> >
-> > #ifdef CONFIG_MMU
-> >-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
-> >+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
-> > {
-> >-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
-> >+	const pgprot_t prot = vma_get_page_prot(vma_flags);
-> >+
-> >+	return pgprot_modify(oldprot, prot);
->
-> Nit: could this just stay as a single return? something like:
->
-> return pgprot_modify(oldprot, vma_get_page_prot(vma_flags));
+On Thu, Jul 02, 2026 at 04:03:01PM +0100, Andrew Cooper wrote:
+> This was reported to the security team, demonstrating that code execution
+> could be achieved, but without a demonstration of a priviliege boundary being
+> bypassed.
+> 
+> Still, it's a high risk path with no obvious evidence of having been used even
+> for debugging, so remove the environment variable and use the build time
+> $(libdir)/xenfsimage path only.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I feel it's a bit clearer this way, separating out the two, I know it's a super
-tiny difference but anyway :P
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
->
-> Otherwise, LGTM, feel free to add:
->
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-
-Thanks!
-
->
-> [...]
-
-Cheers, Lorenzo
+Thanks, Roger.
 
