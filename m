@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xB8jFUT9RWoDHgsAu9opvQ
+	id chOYAfT9RWotHgsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 07:55:16 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 07:58:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07186F3A59
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 07:55:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBC86F3A6B
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 07:58:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=VenJxO7y;
+	dkim=pass header.d=suse.com header.s=google header.b=REAIZwyZ;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351187.1608422 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351196.1608432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfANH-0000V0-Af; Thu, 02 Jul 2026 05:54:11 +0000
+	id 1wfAR0-0001Ug-OP; Thu, 02 Jul 2026 05:58:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351187.1608422; Thu, 02 Jul 2026 05:54:11 +0000
+Received: by outflank-mailman (output) from mailman id 1351196.1608432; Thu, 02 Jul 2026 05:58:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfANH-0000U1-7N; Thu, 02 Jul 2026 05:54:11 +0000
-Received: by outflank-mailman (input) for mailman id 1351187;
- Thu, 02 Jul 2026 05:54:09 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wfAR0-0001TI-Lk; Thu, 02 Jul 2026 05:58:02 +0000
+Received: by outflank-mailman (input) for mailman id 1351196;
+ Thu, 02 Jul 2026 05:58:00 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wfANF-0000Tr-Cn
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 05:54:09 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wfAQy-0001Sm-Mr
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 05:58:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfANE-004TF7-2X
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 07:54:08 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wfAQx-00CPab-HF
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 07:57:59 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a45fcde-5cb7-0a2a0a5109dd-0a2a4501b556-48
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 07:54:07 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a45fdcc-2eae-0a2a0a5409dd-0a2a45079380-46
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 07:57:59 +0200
+Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a45fcff-400f-0a2a45010019-d155dd2ae9fc-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 07:54:07 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-47721cd669cso254470f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 22:54:07 -0700 (PDT)
+ id 6a45fde7-9c8e-0a2a45070019-d155dd33d41d-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 07:57:59 +0200
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-474303f3c72so908432f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Jul 2026 22:57:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db3dba3csm5702130f8f.3.2026.07.01.22.54.06
+ ffacd0b85a97d-477dde1ac93sm5635845f8f.28.2026.07.01.22.57.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Jul 2026 22:54:06 -0700 (PDT)
+ Wed, 01 Jul 2026 22:57:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,58 +61,64 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782971647; x=1783576447; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782971879; x=1783576679; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QIM/eJO+4vUuJrCujFfM+G+/xQoMdtBlBmwgL/GpSq8=;
-        b=VenJxO7ysHJy79oeHJ5AwtjqKROQPSh43czjcgLSs4A+xypyyUanagxD6ZEA8fLwBl
-         jvSPqvdl9wuhd1d8LJqhc3uldZq/m1i4NSU0W0qblNUulP99lcrxMXudD9N8ZQgYTkak
-         DmGNsXV+YghjjbbkjGc/guPFNTXk1hLV1FPit+KtONc5smNSbMNHPkUML+QlEc2Svtpv
-         EPamPEOXsS5E9fQPSRji4oeY6g+VYrW9a/76M19+I41Y1IrIaJcDWZP6V4kQgYAxnOFZ
-         3vkV/OwboGRQbHzc8uegSAg5WfLVgwlLTCT2aeZ/BQCnunqANNwvWtTrsn+QOqLg1hH7
-         QulQ==
+        bh=/NyaO5/jf5biTznVAg/QZEVh5d7siFZRqfaOo28a5FQ=;
+        b=REAIZwyZRreMWeL9WSLiQsTCkQVXnavNILNfavc+4oEjKK4+EhNHThMfw0XJapPUBp
+         ezjdLewjSZHBwVhE/fygBEbCBgIW6PciNwkfavmrbFf3Q/BVmM6Iu0ci451A4241buav
+         BGavKQcorVA9sUAFn0Q5GbPpN/K2UAi0Zpme244Jr22W4vlUNXHTBSmiYV7jQnxS4rvG
+         Y6xM6+1T1VLmUbm/UGJ9kz4wTRQvrVRc/Wvtw7B0FmQVf3QcCl7w9d17X0ebTPHnIj9w
+         IP1Cq3oHFqxHJ8dk/SCwkyDykDrO8Vwt1nMvBt3N1o0jeuTdfcHJmL+/FUw3dj9Wj9ve
+         /vxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782971647; x=1783576447;
+        d=1e100.net; s=20251104; t=1782971879; x=1783576679;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QIM/eJO+4vUuJrCujFfM+G+/xQoMdtBlBmwgL/GpSq8=;
-        b=LtyQm4nivtSzgLXeskgf0J/uyGE0/MHiueYiBlAZN+EaZ0xEjIjpJ45StNuWWkoLBI
-         8dW2JNdsV+EwvojP0+2l+2BpOE5jtNTQmyjBuIQI65wjaq74igE9LikdxvxIb+TmPwcP
-         BfhosDv6rp6NOxcEV20FrZ5ojosgsly8XVJ44xlpWupLXfF1mfPWHl793UxkBep4FU8F
-         euT3ItcUY1MLue0BU6K+UV+XkNjdZeJ0KRLcQhb+EeYhw8Q5dOLcggDPjAVgPrxvcP2T
-         yCOGf4dNQMbrj+SNOmAZtS/fv5JzQRbXdPzQcdQBlshuV4BaPVTm8T+gmdDqmTgaI6iJ
-         uYoA==
-X-Forwarded-Encrypted: i=1; AHgh+RoZxKWbFr+8MN1Om5R8+PVBOznHfpbRgkSVLFGQeODCESu3EryjFafV3ZSPgQT/3Fu0D02Bwr6Z0gU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVoghudQp5FIWyPNXwowc0/GT+ABgzGkz37woFpDSa86NbOSpr
-	in6NSxyUeLHVvTm62N7MOixeuGv+Z2zX1I+uGktISUdDhsM18VzFAsWjdVMJMcyYBw==
-X-Gm-Gg: AfdE7cl3IKeuntPadU3H7lrfncZ5/DIiViDrESDpNdv9iFmRJkF6xMtWNLhTpf+sXO6
-	Onmik6GUCa0WPPuC8i3ybbjhkzNAQmpU6tl+f8r0UsB8Tze3UaeDicLiVNpv3iXtygzGbGHZ4l7
-	WN49N0kl2+JCAgsNh1Nr+bzRc6ZSDBzeV+u882zSvMJAGXZCEJwqnWsJ+31RvlsfsqpMKVfLm2M
-	8NRJYAcX57dgN9VKgDu8eoPkFlztBWC2sHI+2ht4FciOjQFqSlgyfO5++1ixah8omd9cc2ciHCN
-	CmPaTGfkHDt/9UYSevHOWw8wloJxd5d67F/n19YcQmEG4pVIC7Qst8RLLoHyWJws37EhGM9f5yJ
-	CFsjEpyKFLCfGYywliR2u1e6svbYo1xWfcEm25G+Y0Mifya00FJe7hk1E2iZXawMnESQh/st9xc
-	Ca8YY5kP9xqp+C79x0duC453wUUX/O7wGB+efsFHnfOCU8k5hy9ty9xx/CIP5IYOahgra9/goDP
-	2un
-X-Received: by 2002:a5d:634e:0:b0:475:f0f0:9ecc with SMTP id ffacd0b85a97d-477b5d37ae9mr3638954f8f.55.1782971646961;
-        Wed, 01 Jul 2026 22:54:06 -0700 (PDT)
-Message-ID: <0c888832-9509-4e14-977c-ff1dc37768f3@suse.com>
-Date: Thu, 2 Jul 2026 07:54:05 +0200
+        bh=/NyaO5/jf5biTznVAg/QZEVh5d7siFZRqfaOo28a5FQ=;
+        b=RerCjbNUJIRszgOYW+DtQh9P7vJOZbUX8PgEjImrQEb9nIAdfqmkVS2Q0s0HXOA8TI
+         aIMOp7/9p4RFtJaIhXJnQpf9l/EUA0W81aS4LAwA1S4j2Dg94KJmL4m8Y+jzRSLt9ov/
+         FS6kDj8AC5/pEstHa6s0UwCVlq7cY8sDUpIdl1WjcVCnn7jncNQlXxca97LY4J2nwVuw
+         C06wZzxXFS/mdSSCVDzoDao1CzHDHRf5NYSSjkngfMtzBQJYWCAgiuLkIdcMgWsgvtI4
+         lcnUMg/2ZwNylzLGfwZA+SSKxTRtaHtT2FlmKuWTk6RstAgnwL3uPvWFXpaAtzM/h0DZ
+         OZ2g==
+X-Forwarded-Encrypted: i=1; AHgh+RqCwRBnIISW9wiB84wUy3eOCnIyOgOtPl7SR7bdnhxKn4s7AnFHnBmOei/BMziAuN91sRncXXoI/YY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy8Uj3JCCyprW3DmyRqIBkFb40GNDi6RwQodFwCk3zZ4EDHpI0J
+	FwJI1SoTOrPKyrH1X2Gf4IhqP2Esi1Q+Y6Eat9T/eXiqTKMMolW6C6NYhhyoMOUpNQ==
+X-Gm-Gg: AfdE7ckOpQoMUiMZEu1U8Mf27V3kM4KAH3pIgKQXyt7HQGnwqjZaP9VjHNam2rjCpn5
+	hxG3ojwfltd6Ivn50vwS+943ZEFpsuDb5xxu7xtcNRKWgAMYOio7gMKegaiPcnIwWMPOtOHj4xI
+	lFzqwrX5ne/iA0dI2myMrfP2hV6SimXfsrQZHPSw65S7iQcyiRxH0CZz7vsMwIKVxhguLb9YfF4
+	GpvX4hcDotXgxrbngMc1OMe64sZVg2jpnPftigi93DZi9KcBL4smijcSTKeh+/cow9Q/6FFz9b4
+	dXEpC9Q+xMoysbv/E+TCoYZOHm1GJDuZiwHyAmEch/1JlZii03DZMkeqoQxCwUW4Lwr7Op0y0DP
+	ON9YKmiq83MpICrS/Nf3sd2pMmdVNdzfzkVlefPIY2kgR3YEagyhDNkhOac/PnGWVMgpWucmpYj
+	OZ3fzZxOF3ss8iI0KfwheJqGo69pLODnmYSos9T7/Xya5PLmXn1m8u5d1+TcTsgiAGgcUcP3UHR
+	Qp3
+X-Received: by 2002:a05:600c:c04f:b0:490:be14:bfda with SMTP id 5b1f17b1804b1-493c2b3a9cfmr43439565e9.6.1782971878958;
+        Wed, 01 Jul 2026 22:57:58 -0700 (PDT)
+Message-ID: <52d1d0b4-6b90-4eb8-a299-7adcc7634f33@suse.com>
+Date: Thu, 2 Jul 2026 07:57:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Change XEN_DOMCTL_setvcpuaffinity interface
-To: Juergen Gross <jgross@suse.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
+Subject: Re: [PATCH v3 1/3] xen/device-tree: Parse 'cpu-map' node for CPU
+ topology exploration
+To: Hirokazu Takahashi <taka@valinux.co.jp>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260701111606.4063972-1-jgross@suse.com>
- <4e16c1eb-e1ff-4d7a-bfa8-223d357716ee@suse.com>
- <d7da5a56-3d65-403c-9c3c-19e1566d2839@suse.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20260629215806.11610-1-taka@valinux.co.jp>
+ <20260629215806.11610-2-taka@valinux.co.jp>
+ <97dd9fd5-c0de-4125-a40a-b7f6e1aed27d@suse.com>
+ <OS9P286MB722293D7D09513349055BA4B82F62@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
+ <a69129b1-f16b-4ce4-bf88-971f37eec418@suse.com>
+ <TY7P286MB72346237AC47028E012D145382F62@TY7P286MB7234.JPNP286.PROD.OUTLOOK.COM>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,24 +144,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7da5a56-3d65-403c-9c3c-19e1566d2839@suse.com>
+In-Reply-To: <TY7P286MB72346237AC47028E012D145382F62@TY7P286MB7234.JPNP286.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1782971647-800EC1E0-D12F92E0/0/0
+X-purgate-ID: tlsNG-ef75cf/1782971879-7ED3C25E-2DE92A09/0/0
 X-purgate-type: clean
-X-purgate-size: 787
+X-purgate-size: 1427
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:anthony.perard@vates.tech,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
@@ -164,39 +170,63 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A07186F3A59
+X-Rspamd-Queue-Id: 5DBC86F3A6B
 
-On 01.07.2026 17:34, Juergen Gross wrote:
-> On 01.07.26 13:39, Jan Beulich wrote:
->> On 01.07.2026 13:16, Juergen Gross wrote:
->>> Today the XEN_DOMCTL_setvcpuaffinity hypercall will not only change the
->>> affinity settings of a vcpu, it will return the new effective settings,
->>> too.
+On 01.07.2026 22:28, Hirokazu Takahashi wrote:
+>> On 01.07.2026 13:11, Hirokazu Takahashi wrote:
+>>>>> +#else /* CONFIG_CPU_TOPOLOGY */
+>>>>> +
+>>>>> +#define cpu_topology ((struct cpu_topology *)NULL)
+>>>>
+>>>> Why exactly is this needed? It very much looks as if its presence may hide
+>> bugs.
 >>>
->>> In case an error happens during this hypercall, the expectation of the
->>> caller is that the affinity of the vcpu didn't change. This isn't true,
->>> however, if passing the new effective affinity back to the user is
->>> failing.
+>>> In the current code, the condition if ( cpu_topology ) is used to cover both
+>> cases:
+>>> when CONFIG_CPU_TOPOLOGY is disabled, and when memory allocation for
+>>> topology table fails.
+>>>
+>>> The next patch uses if ( cpu_topology ).
+>>>
+>>> static int setup_cpu_sibling_map(int cpu)
+>>> {
+>>>     if ( !zalloc_cpumask_var(&per_cpu(cpu_sibling_mask, cpu)) ||
+>>>          !zalloc_cpumask_var(&per_cpu(cpu_core_mask, cpu)) )
+>>>         return -ENOMEM;
+>>>
+>>>     if ( cpu_topology )
 >>
->> That'll be the caller's fault though. Any -EFAULT coming back are an
->> indication that the caller needs fixing.
+>>     if ( IS_ENABLED(CONFIG_GENERIC_CPU_TOPOLOGY) )
 > 
-> The possible -ENOMEM isn't the callers fault, though.
+> This line should be if ( IS_ENABLED(CONFIG_GENERIC_CPU_TOPOLOGY) && cpu_topology )
+> because 'cpu_topology' can be NULL even if CONFIG_GENERIC_CPU_TOPOLOGY is on.
+> 
+> void __init init_cpu_topology(void)
+> {
+>     unsigned int cpu;
+> 
+>     cpu_topology = xzalloc_array(struct cpu_topology, nr_cpu_ids);
+>     if ( !cpu_topology )
+>     {
+>         printk(XENLOG_ERR "Failed to allocate memory for cpu_topology table\n");
+>         return;
+>     }
 
-Yet that'll happen ahead of any changes made, won't it?
+Ah yes. The odd #define can nevertheless go away, which is the important part.
 
 Jan
 
