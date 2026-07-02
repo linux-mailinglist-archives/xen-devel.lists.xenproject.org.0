@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6zHEMr8zRmrHLgsAu9opvQ
+	id fiymJ+QzRmrTLgsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:47:43 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:48:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF1C56F5790
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:47:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036A66F57B4
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:48:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="Ff1iX/hV";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Vw7Kr+JV;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351518.1608693 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351539.1608701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfE15-0004GF-RC; Thu, 02 Jul 2026 09:47:31 +0000
+	id 1wfE1l-0005gw-79; Thu, 02 Jul 2026 09:48:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351518.1608693; Thu, 02 Jul 2026 09:47:31 +0000
+Received: by outflank-mailman (output) from mailman id 1351539.1608701; Thu, 02 Jul 2026 09:48:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfE15-0004Ee-M5; Thu, 02 Jul 2026 09:47:31 +0000
-Received: by outflank-mailman (input) for mailman id 1351518;
- Thu, 02 Jul 2026 09:47:30 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <stojkovicdusan555@gmail.com>) id 1wfE14-0004Dm-Oq
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:47:30 +0000
+	id 1wfE1l-0005f5-4P; Thu, 02 Jul 2026 09:48:13 +0000
+Received: by outflank-mailman (input) for mailman id 1351539;
+ Thu, 02 Jul 2026 09:48:11 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wfE1j-0005cU-KE
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:48:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfE14-00DI0b-4w
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:47:30 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wfE1i-006vJd-OL
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:48:10 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <stojkovicdusan555@gmail.com>)
- id 6a4633ad-bab6-0a2a0a5309dd-0a2a4502a6dc-20
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:47:30 +0200
-Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <stojkovicdusan555@gmail.com>)
- id 6a4633ae-5a27-0a2a45020019-d155dd2df0fe-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:47:26 +0200
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-4763b0c1dcdso1632335f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:47:26 -0700 (PDT)
-Received: from RTRKN1313-LIN.domain.local ([89.216.37.146])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477db8a4a15sm7539152f8f.14.2026.07.02.02.47.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 02:47:26 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4633d1-e002-0a2a0a5209dd-0a2a450781e6-32
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:48:10 +0200
+Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4633da-9c8e-0a2a45070019-d1558035a9ee-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:48:10 +0200
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-493c1950518so1949025e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:48:10 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
+ [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493c63ba971sm52031435e9.13.2026.07.02.02.48.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 02 Jul 2026 02:48:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,383 +60,173 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1782985646; x=1783590446; darn=lists.xenproject.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ylBpQ0bt/QK9zQ9BEMnv21TmNMn+xhUv/pb6/Do4RGs=;
-        b=Ff1iX/hV73wsQ6BINWM9CpYruivuosCueau4Yv4HSs0BKcCQv9Y8fqJmf8964YuLhx
-         ydu8XxV65ETj4EVw/9Zj/kFRcwGHp0r62C5jIBWaBkClP5vPtWkxXu+iLpbGwSjAMu0b
-         tVLtszB4W6A2877XPSCCJkFrU9+5iUGEodRMeS8uWd0mKlf1cOWKv1YYE2Ms1o82DO4K
-         MT/RTa+h6byM0cxmLuiPgmWtvWhFd4MGdukvppcZkEwNQTkKamTB1mMlAvctGrhC+ni5
-         Tv1cfIgqM5WD/B29p0Bt3jxFcYMiLlqslggb2X1zmb08jhHwZS9Y8yENVPr67e54nUQr
-         Qujw==
+        d=gmail.com; s=20251104; t=1782985690; x=1783590490; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5cW6F1nZ+lIxLmSGu2x1m1g9gMm5tD08o7NGRsN9T1E=;
+        b=Vw7Kr+JVAKumtsZzDbXf3XG8LaVJIuWDAc17vMfhub3qMc6cK5XJVsm8sJdkei844u
+         dlsN7qKAdc6KFCxSKbmcP9uircaPwOMEyXxFp0p6ZmrcwiBKmGGy+plD3HH+yLRhW2et
+         nxUIifvpSykN9S/z76G+fQgqnrhCno3dWNC2la+fSsQsmLKmCoq+o5pWKOsg9gyiy+fv
+         uG9DZMK8I9BjpYNyByjQqkqwobLewAy+f5wY58jsr0Z3kBKy9KeTxCboPTYwZ0AmIPe8
+         P8a52yuHmwgnoxgpdcxX4gZJCFkay+3F/ctCAbQvGsrEbixgs61m8Uf/yJADrFmEhglo
+         xRDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782985646; x=1783590446;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ylBpQ0bt/QK9zQ9BEMnv21TmNMn+xhUv/pb6/Do4RGs=;
-        b=AmvXrLJh+n0lOvp/ZcADQwcpy+hZL7n47uk6P6yhSPRXdhior11qpzSUwXHnLNA/0W
-         PAz74Pu09VAMCSL28rGrpJFxqXAUMA8aK7lFVCnJ8jdwt9RzSU8YLqP/grZoQt2Q0yW0
-         yvNtSlkq0CQDz7jcM3t7h9SNr201nrXGNyaW/3IpObKOzzFEpWZ1b6bajnJQ8457GJin
-         /WZgUfHcz6nZvo9n/kBbEq+esaVqd/41T4W/fK9fEUgAtjdATA3VSHBCt4P85aLvKN55
-         0rkz3LNoaoywpNO+CoMq8KDJ1m7d7vlfXEtoPZOSznZPVOpab9kfbKA/oBMqf8FB9pDf
-         Utvg==
-X-Forwarded-Encrypted: i=1; AFNElJ8KgeDXSOkOEiJ4rkGRhOW490EsDM9kWmp/Hz+ga3AyArVjHQpTWsPpRrQvVbjtpIpqTJPXZVMch2w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yysq0C9MyzdYV1+b97G0yfmVOQXdxeExJDmzYXBsvODFXnAoy+X
-	tQx/P74YWCYJ4DJhJFUaCx5U8hvjpI1CEVW0XJJFeLbrB1t2zJEMYM0Y
-X-Gm-Gg: AfdE7cmVbrXD2qQeZ72FFMppTpev9cn9GUfxVOZ8VkhKh243BKGNIB2A5cKLEYlmLWL
-	oGpUhRGRvt99n5lTjqrtW8n5GTGsQRJOI3lQL76ux7pKhloVPU1Ceh317zUnqpAZ/EqMHzIuMeI
-	by3vRaw+Ly9BrQF5E0cBDpmbnkfnJNiOFgePvLm9jadbSznVCoZDgCxfdMd6yye+31RngIG3NwJ
-	QE7JbmUKaYJKrT13EYQV6pV8tkes/Kmg357bzhOEITzR3KQ7ZJ/6gCNRJLj1Opc0nY67p4oS4hk
-	PtfNDE6r1j4twEgPUx1FiHsZhaGn0yzZ03WeQs7nBC5ZrzEP/41MMY5V2siJmmearL1cNriPk39
-	XRvLY97Fi9MKEUjTH1INgxTNaA2d3oRI9IJkTKqGKm8+9q3YgTM/3xgJkplZOvmAo90Vuu27nhk
-	e7e4FYbkTK+COSIyfmeGifFrtogaOW3idt+1QGPx2Nig==
-X-Received: by 2002:a05:600c:8286:b0:493:c42c:7e88 with SMTP id 5b1f17b1804b1-493c42c8307mr52961315e9.34.1782985646320;
-        Thu, 02 Jul 2026 02:47:26 -0700 (PDT)
-From: Dusan Stojkovic <stojkovicdusan555@gmail.com>
-Date: Thu, 02 Jul 2026 11:46:13 +0200
-Subject: [PATCH RFC v3 2/2] vhost-user: implement
- VHOST_USER_PROTOCOL_F_XEN_MMAP
+        d=1e100.net; s=20251104; t=1782985690; x=1783590490;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5cW6F1nZ+lIxLmSGu2x1m1g9gMm5tD08o7NGRsN9T1E=;
+        b=f06NAK9zKXuA9oeCFOYmr1H/DKb7OGToIsy8WeIUjRxYx9vBn5Vjw2Qq+hf4BVZrbV
+         M/a5WgJijzZl6LHyi460gJgbXjjfcrpVK33cqdpZjFQF7hq6Yi1VBQf3lUn90hG/ItEf
+         9Gd+8xKu/Hja+txyrA5Sqwu63sge33E5cUtfn8QpTyG3dGb9ps2uMX67shFWojqGnsTy
+         UR0RHCMmew/q2JqnKu6FN037mkfuHykyVGaRjcvqsZSaDxsaCKS4KL44qbt30sHdCFoe
+         JrN1rAMrPpCOdbIqMvjsr6WU929o8YqyidlbH9I2EcVZiWovoihNfQTIP6a3JaWw676n
+         FEsw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6Py9Rxmpi7zrMaZ070L27PTa3IQWA8oK1TJA9c8U7XJHycYlU7OLkn6RZZtAp2dG/h5q6yoeM6BM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwRE9J5krDrLxUqo5Ru46bpvqYItIl0ttRb9xY0qeHWiVJLQjUs
+	pvMlAUCYaPY2H14eeb2a6FCX3TtsNi3uaZePtgbZmZX5L8Njsjv8YguH
+X-Gm-Gg: AfdE7clvYyLtFLVYUzab5XHbW2baGOoPwp/HsDTbrcN/d1Pd+PQizYdhEZ0hU1/qtll
+	n8QIokWY8y0OZ6JbqUiLc9wvgUVrp1nK1bvK1FQon8oqmo8iugDV8l7ZJgoW3ovvMHm1uYdmFp4
+	sU6TbnhA5RUJtOMaCPDE1CJ6IoS2rlkJ310ssDwb8Aoq2d7lGtJVspegs5jbamh6jOB+1uDcCWX
+	1+GZuVbO/hz8haM2QKc/Q4jVIhflQ3N+7mHKCfLV7+JiekLpOC8lK2vr5JOqPOas9+wgOEfjSAC
+	y401lNf5ATOSKe799kLFixDIBG5/tHlzZTNGyhNlRlZeERfu4/108q+AYK/0AyV4I1+VwwWTT2Z
+	DwF68/eidIdpsPoGO6aQUtR2DcxeBckJd8iB81nQ4gPCUAoxa8yQkUlwuE5QxA1A4glqgPwK5aw
+	FbSIzJ8yQ8u/sXR4B2WsarAlwJRRg+P17+E8VP+nqMLjCCTk4IkfEfg8QfSwTA0hLSvnbrnvxp0
+	P4/Bw==
+X-Received: by 2002:a05:600c:6211:b0:493:c064:316f with SMTP id 5b1f17b1804b1-493c594ebedmr23053715e9.3.1782985689888;
+        Thu, 02 Jul 2026 02:48:09 -0700 (PDT)
+Message-ID: <fc4625d3-c027-41f5-9aea-00f229316b30@gmail.com>
+Date: Thu, 2 Jul 2026 11:48:08 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 25/25] xen/riscv: add initial dom0less infrastructure
+ support
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1782487661.git.oleksii.kurochko@gmail.com>
+ <a6950e8dc2706c351fe6b0622602d34ecef133b7.1782487661.git.oleksii.kurochko@gmail.com>
+ <131fc20c-1353-49fc-8f77-1ca13628ff17@suse.com>
+ <c7aff2d8-14a7-4921-93d4-67228d871074@gmail.com>
+ <2e3d404f-8716-4d0f-b739-d1e842b5a07c@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2e3d404f-8716-4d0f-b739-d1e842b5a07c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260702-vhost-xen-foreign-mapping-v3-2-2b8ef913382b@rt-rk.com>
-References: <20260702-vhost-xen-foreign-mapping-v3-0-2b8ef913382b@rt-rk.com>
-In-Reply-To: <20260702-vhost-xen-foreign-mapping-v3-0-2b8ef913382b@rt-rk.com>
-To: qemu-devel@nongnu.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
- Stefano Garzarella <sgarzare@redhat.com>, 
- Stefano Stabellini <sstabellini@kernel.org>, 
- Anthony PERARD <anthony@xenproject.org>, 
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, 
- xen-devel@lists.xenproject.org, Viresh Kumar <viresh.kumar@linaro.org>, 
- Dusan Stojkovic <Dusan.Stojkovic@rt-rk.com>, 
- Nikola Jelic <Nikola.Jelic@rt-rk.com>
-X-Mailer: b4 0.13.0
-X-purgate-ID: tlsNG-720697/1782985646-4FB1F7C5-5DBB5988/0/0
-X-purgate-type: clean
-X-purgate-size: 12093
+X-purgate-ID: tlsNG-ef75cf/1782985690-7CB2B25E-50C81BD2/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2675
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[stojkovicdusan555@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:mst@redhat.com,m:sgarzare@redhat.com,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:xen-devel@lists.xenproject.org,m:viresh.kumar@linaro.org,m:Dusan.Stojkovic@rt-rk.com,m:Nikola.Jelic@rt-rk.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[redhat.com,kernel.org,xenproject.org,gmail.com,lists.xenproject.org,linaro.org,rt-rk.com];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[stojkovicdusan555@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EF1C56F5790
+X-Rspamd-Queue-Id: 036A66F57B4
 
-From: Dusan Stojkovic <Dusan.Stojkovic@rt-rk.com>
 
-The vhost-user specification reserves protocol feature bit 17 and
-documents an extended memory region description for backends that map
-guest memory through Xen rather than mapping a file descriptor each
-region carries two extra fields, "xen mmap flags" and "domid" (see
-docs/interop/vhost-user.rst, "Memory region description").
-The layout is implemented by rust-vmm's vhost and vm-memory crates
-and used by Xen vhost-user device backends.
 
-Implement the front-end side for foreign mappings:
+On 7/2/26 8:41 AM, Jan Beulich wrote:
+> On 01.07.2026 17:24, Oleksii Kurochko wrote:
+>> On 6/30/26 9:28 AM, Jan Beulich wrote:
+>>> On 26.06.2026 17:46, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/include/asm/guest-layout.h
+>>>> +++ b/xen/arch/riscv/include/asm/guest-layout.h
+>>>> @@ -32,4 +32,16 @@
+>>>>    #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
+>>>>    #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
+>>>>    
+>>>> +/*
+>>>> + * The guest magic region holds Xen-reserved pages mapped into the guest's
+>>>> + * physical address space (shared info, grant table, etc.). The only real
+>>>> + * constraint is that the GUEST_MAGIC_SIZE-byte region must not overlap
+>>>> + * guest RAM (the GUEST_RAMx banks) or the emulated device regions defined
+>>>> + * above; the exact base is otherwise arbitrary. Here it is placed in the
+>>>> + * unused gap below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM
+>>>> + * bank would work equally well.
+>>>> + */
+>>>> +#define GUEST_MAGIC_BASE  _UL(0x79000000)
+>>>> +#define GUEST_MAGIC_SIZE  _UL(0x01000000)
+>>>
+>>> ... while 16Mb may seem a lot, it feels pretty little for 64-bit guests.
+>>> Even in just Sv39 mode they have ample VA space to map a bigger region.
+>>> (As iirc indicated before, a static upper bound looks questionable to me
+>>> anyway.)
+>>
+>> I think the comment should be updated as for grants will be separate region.
+>>
+>> For all others, it looks like 16MB is more then enough. For example, Arm
+>> has only 4 used pages (CONSOLE=0, XENSTORE=1, MEMACCESS=2, VUART=3).
+> 
+> Then the question goes the other way around: Why 16Mb? Won't e.g. 2Mb
+> suffice?
 
-- negotiate VHOST_USER_PROTOCOL_F_XEN_MMAP
+I don't see any technical reason to have 16 Mb on Arm, IMO it could be 
+shrunk to what you suggested (I will do that for RISC-V).
 
-- when negotiated, build SET_MEM_TABLE payloads from the extended
-  region layout, with xen_mmap_flags = FOREIGN and
-  xen_mmap_data set to the guest's domain id.
+~ Oleksii
 
-- under Xen, do not call vhost_user_get_mr_data(): guest RAM has no fd
-  and its userspace_addr does not correspond to a valid mapping in the
-  address space. Backends map regions through privcmd using the guest
-  physical address and domid; the fd accompanying each region only
-  satisfies the protocol's one-fd-per-region requirement. Pass a
-  /dev/xen/privcmd fd and close it once the message has been sent.
-  Tracepoints for opening and closing xen fds are added as well.
-
-- suppress VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS under Xen:
-  Postcopy is likewise refused.
-
-The userspace_addr field is carried unchanged; Xen backends derive
-mappings from guest_phys_addr and domid and do not interpret it.
-
-Signed-off-by: Dusan Stojkovic <Dusan.Stojkovic@rt-rk.com>
-Signed-off-by: Nikola Jelic <Nikola.Jelic@rt-rk.com>
----
- hw/virtio/trace-events         |   2 +
- hw/virtio/vhost-user.c         | 120 +++++++++++++++++++++++++++++++++++++++--
- include/hw/virtio/vhost-user.h |   2 +-
- 3 files changed, 120 insertions(+), 4 deletions(-)
-
-diff --git a/hw/virtio/trace-events b/hw/virtio/trace-events
-index 2a57edc21e..0f3c58fd78 100644
---- a/hw/virtio/trace-events
-+++ b/hw/virtio/trace-events
-@@ -30,6 +30,8 @@ vhost_user_postcopy_fault_handler_found(int i, uint64_t region_offset, uint64_t
- vhost_user_postcopy_listen(void) ""
- vhost_user_set_mem_table_postcopy(uint64_t client_addr, uint64_t qhva, int reply_i, int region_i) "client:0x%"PRIx64" for hva: 0x%"PRIx64" reply %d region %d"
- vhost_user_set_mem_table_withfd(int index, const char *name, uint64_t memory_size, uint64_t guest_phys_addr, uint64_t userspace_addr, uint64_t offset) "%d:%s: size:0x%"PRIx64" GPA:0x%"PRIx64" QVA/userspace:0x%"PRIx64" RB offset:0x%"PRIx64
-+vhost_user_open_region_fd(int index, int fd) "region:%d fd:%d"
-+vhost_user_put_region_fds(int index, int fd) "region:%d fd:%d"
- vhost_user_postcopy_waker(const char *rb, uint64_t rb_offset) "%s + 0x%"PRIx64
- vhost_user_postcopy_waker_found(uint64_t client_addr) "0x%"PRIx64
- vhost_user_postcopy_waker_nomatch(const char *rb, uint64_t rb_offset) "%s + 0x%"PRIx64
-diff --git a/hw/virtio/vhost-user.c b/hw/virtio/vhost-user.c
-index d627351f45..932ead4eeb 100644
---- a/hw/virtio/vhost-user.c
-+++ b/hw/virtio/vhost-user.c
-@@ -30,6 +30,8 @@
- #include "migration/postcopy-ram.h"
- #include "trace.h"
- #include "system/ramblock.h"
-+#include "system/xen.h"
-+#include "hw/xen/xen.h"
- 
- #include <sys/ioctl.h>
- #include <sys/socket.h>
-@@ -181,12 +183,36 @@ typedef struct VhostUserMemoryRegion {
-     uint64_t mmap_offset;
- } VhostUserMemoryRegion;
- 
-+/*
-+ * Memory region flags for VHOST_USER_PROTOCOL_F_XEN_MMAP, matching the
-+ * values used by rust-vmm's vm-memory (MmapXenFlags).
-+ */
-+#define VHOST_USER_XEN_MMAP_FLAG_FOREIGN    0x1
-+#define VHOST_USER_XEN_MMAP_FLAG_GRANT      0x2
-+
-+/*
-+ * Extended memory region description, used when
-+ * VHOST_USER_PROTOCOL_F_XEN_MMAP has been negotiated.
-+ */
-+typedef struct VhostUserMemoryRegionXen {
-+    VhostUserMemoryRegion region;
-+    uint32_t xen_mmap_flags;
-+    uint32_t xen_mmap_data; /* domain id for FOREIGN/GRANT mappings */
-+} VhostUserMemoryRegionXen;
-+
-+
- typedef struct VhostUserMemory {
-     uint32_t nregions;
-     uint32_t padding;
-     VhostUserMemoryRegion regions[VHOST_MEMORY_BASELINE_NREGIONS];
- } VhostUserMemory;
- 
-+typedef struct VhostUserMemoryXen {
-+    uint32_t nregions;
-+    uint32_t padding;
-+    VhostUserMemoryRegionXen regions[VHOST_MEMORY_BASELINE_NREGIONS];
-+} VhostUserMemoryXen;
-+
- typedef struct VhostUserMemRegMsg {
-     uint64_t padding;
-     VhostUserMemoryRegion region;
-@@ -294,6 +320,7 @@ typedef union {
-         struct vhost_vring_state state;
-         struct vhost_vring_addr addr;
-         VhostUserMemory memory;
-+        VhostUserMemoryXen memory_xen;
-         VhostUserMemRegMsg mem_reg;
-         VhostUserLog log;
-         struct vhost_iotlb_msg iotlb;
-@@ -594,6 +621,8 @@ static MemoryRegion *vhost_user_get_mr_data(uint64_t addr, ram_addr_t *offset,
- static bool vhost_user_gpa_addresses(struct vhost_dev *dev)
- {
-     return vhost_user_has_protocol_feature(
-+        dev, VHOST_USER_PROTOCOL_F_XEN_MMAP) ||
-+        vhost_user_has_protocol_feature(
-         dev, VHOST_USER_PROTOCOL_F_GPA_ADDRESSES);
- }
- 
-@@ -612,6 +641,23 @@ static void vhost_user_fill_msg_region(struct vhost_dev *dev,
-     dst->mmap_offset = mmap_offset;
- }
- 
-+/*
-+ * With VHOST_USER_PROTOCOL_F_XEN_MMAP the region fds are opened by us
-+ * rather than owned by the RAMBlocks, so they must be closed once the
-+ * message carrying them has been sent (or on error).
-+ */
-+static void vhost_user_put_region_fds(struct vhost_dev *dev, int *fds,
-+                                      size_t fd_num)
-+{
-+    if (!vhost_user_has_protocol_feature(dev, VHOST_USER_PROTOCOL_F_XEN_MMAP)) {
-+        return;
-+    }
-+    for (size_t i = 0; i < fd_num; i++) {
-+        trace_vhost_user_put_region_fds(i, fds[i]);
-+        close(fds[i]);
-+    }
-+}
-+
- static int vhost_user_fill_set_mem_table_msg(struct vhost_user *u,
-                                              struct vhost_dev *dev,
-                                              VhostUserMsg *msg,
-@@ -623,13 +669,41 @@ static int vhost_user_fill_set_mem_table_msg(struct vhost_user *u,
-     MemoryRegion *mr;
-     struct vhost_memory_region *reg;
-     VhostUserMemoryRegion region_buffer;
-+    bool xen_mmap = vhost_user_has_protocol_feature(dev,
-+            VHOST_USER_PROTOCOL_F_XEN_MMAP);
-+
-+    if (track_ramblocks && xen_mmap) {
-+        error_report("vhost-user: postcopy is not supported under Xen");
-+        return -ENOTSUP;
-+    }
- 
-     msg->hdr.request = VHOST_USER_SET_MEM_TABLE;
- 
-     for (i = 0; i < dev->mem->nregions; ++i) {
-         reg = dev->mem->regions + i;
- 
--        mr = vhost_user_get_mr_data(reg->userspace_addr, &offset, &fd);
-+        if (xen_mmap) {
-+            /*
-+             * Under Xen the guest RAM is not mapped into our address
-+             * space; the backend maps it through the Xen foreign
-+             * mapping interface using the guest physical address and
-+             * domain id carried in the region descriptor.  The file
-+             * descriptor only satisfies the one-fd-per-region
-+             * requirement of the protocol: pass /dev/xen/privcmd and
-+             * close it once the message has been sent.
-+             */
-+            mr = NULL;
-+            offset = 0;
-+            fd = open("/dev/xen/privcmd", O_RDWR | O_CLOEXEC);
-+            if (fd < 0) {
-+                error_report("vhost-user: failed to open /dev/xen/privcmd:"
-+                             " %s", strerror(errno));
-+                return -errno;
-+            }
-+            trace_vhost_user_open_region_fd(i, fd);
-+        } else {
-+            mr = vhost_user_get_mr_data(reg->userspace_addr, &offset, &fd);
-+        }
-         if (fd > 0) {
-             if (track_ramblocks) {
-                 assert(*fd_num < VHOST_MEMORY_BASELINE_NREGIONS);
-@@ -642,10 +716,21 @@ static int vhost_user_fill_set_mem_table_msg(struct vhost_user *u,
-                 u->region_rb[i] = mr->ram_block;
-             } else if (*fd_num == VHOST_MEMORY_BASELINE_NREGIONS) {
-                 error_report("Failed preparing vhost-user memory table msg");
-+                if (xen_mmap) {
-+                    close(fd);
-+                }
-                 return -ENOBUFS;
-             }
-             vhost_user_fill_msg_region(dev, &region_buffer, reg, offset);
--            msg->payload.memory.regions[*fd_num] = region_buffer;
-+            if (xen_mmap) {
-+                msg->payload.memory_xen.regions[*fd_num].region = region_buffer;
-+                msg->payload.memory_xen.regions[*fd_num].xen_mmap_flags =
-+                    VHOST_USER_XEN_MMAP_FLAG_FOREIGN;
-+                msg->payload.memory_xen.regions[*fd_num].xen_mmap_data =
-+                    xen_domid;
-+            } else {
-+                msg->payload.memory.regions[*fd_num] = region_buffer;
-+            }
-             fds[(*fd_num)++] = fd;
-         } else if (track_ramblocks) {
-             u->region_rb_offset[i] = 0;
-@@ -663,7 +748,11 @@ static int vhost_user_fill_set_mem_table_msg(struct vhost_user *u,
- 
-     msg->hdr.size = sizeof(msg->payload.memory.nregions);
-     msg->hdr.size += sizeof(msg->payload.memory.padding);
--    msg->hdr.size += *fd_num * sizeof(VhostUserMemoryRegion);
-+    if (xen_mmap) {
-+        msg->hdr.size += *fd_num * sizeof(VhostUserMemoryRegionXen);
-+    } else {
-+        msg->hdr.size += *fd_num * sizeof(VhostUserMemoryRegion);
-+    }
- 
-     return 0;
- }
-@@ -1149,10 +1238,12 @@ static int vhost_user_set_mem_table(struct vhost_dev *dev,
-         ret = vhost_user_fill_set_mem_table_msg(u, dev, &msg, fds, &fd_num,
-                                                 false);
-         if (ret < 0) {
-+            vhost_user_put_region_fds(dev, fds, fd_num);
-             return ret;
-         }
- 
-         ret = vhost_user_write(dev, &msg, fds, fd_num);
-+        vhost_user_put_region_fds(dev, fds, fd_num);
-         if (ret < 0) {
-             return ret;
-         }
-@@ -2551,6 +2642,29 @@ static int vhost_user_backend_init(struct vhost_dev *dev, void *opaque,
-                                VHOST_USER_PROTOCOL_F_GET_VRING_BASE_INFLIGHT);
-         }
- 
-+        if (!xen_enabled()) {
-+            /*
-+             * Xen memory mappings only make sense when QEMU itself runs
-+             * as a Xen device model.
-+             */
-+            protocol_features &= ~(1ULL << VHOST_USER_PROTOCOL_F_XEN_MMAP);
-+        } else {
-+            if (!virtio_has_feature(protocol_features,
-+                                    VHOST_USER_PROTOCOL_F_XEN_MMAP)) {
-+                error_setg(errp, "vhost-user backend does not support "
-+                           "VHOST_USER_PROTOCOL_F_XEN_MMAP, which is "
-+                           "required when running under Xen");
-+                return -EPROTO;
-+            }
-+            /*
-+             * The ADD/REM_MEM_REG message path has not been adapted to
-+             * the Xen region format.  Xen guests expose a single RAM
-+             * region, so fall back to SET_MEM_TABLE.
-+             */
-+            protocol_features &=
-+                ~(1ULL << VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS);
-+        }
-+
-         /* final set of protocol features */
-         u->protocol_features = protocol_features;
-         err = vhost_user_set_protocol_features(dev, u->protocol_features);
-diff --git a/include/hw/virtio/vhost-user.h b/include/hw/virtio/vhost-user.h
-index 06c360af18..46be9cd57c 100644
---- a/include/hw/virtio/vhost-user.h
-+++ b/include/hw/virtio/vhost-user.h
-@@ -30,7 +30,7 @@ enum VhostUserProtocolFeature {
-     VHOST_USER_PROTOCOL_F_INBAND_NOTIFICATIONS = 14,
-     VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS = 15,
-     VHOST_USER_PROTOCOL_F_STATUS = 16,
--    /* Feature 17 reserved for VHOST_USER_PROTOCOL_F_XEN_MMAP. */
-+    VHOST_USER_PROTOCOL_F_XEN_MMAP = 17,
-     VHOST_USER_PROTOCOL_F_SHARED_OBJECT = 18,
-     VHOST_USER_PROTOCOL_F_DEVICE_STATE = 19,
-     VHOST_USER_PROTOCOL_F_GET_VRING_BASE_INFLIGHT = 20,
-
--- 
-2.43.0
+> 
+>> So will you be okay with reworking of the comment to:
+>> /*
+>>    * The guest magic region holds the Xen-reserved pages mapped into the
+>>    * guest's physical address space. The only real constraint on
+>>    * GUEST_MAGIC_BASE/SIZE is that the region must not overlap guest RAM
+>>    * (the GUEST_RAMx banks) or the emulated device regions defined above;
+>>    * the exact base is otherwise arbitrary. Here it is placed in the
+>> unused gap
+>>    * below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM bank
+>> would work
+>>    * equally well.
+>>    */
+>>
+>> And add to the commit message that:
+>> ```
+>> A separate region for grant tables will be introduced at the same time
+>> as the introduction of the grant table for RISC-V.
+>> ```
+> 
+> That's quite a bit better, yes.
+> 
+> Jan
 
 
