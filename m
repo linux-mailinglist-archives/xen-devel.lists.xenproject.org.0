@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id R0zEFgwvRmokLQsAu9opvQ
+	id XahINnkvRmpLLQsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:27:40 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:29:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4CF26F53B0
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:27:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD426F5401
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 11:29:29 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=RwdQA7fA;
+	dkim=pass header.d=suse.com header.s=google header.b=dPTCulfl;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351453.1608621 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351462.1608629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfDhh-0005C7-Kx; Thu, 02 Jul 2026 09:27:29 +0000
+	id 1wfDjO-00069V-VF; Thu, 02 Jul 2026 09:29:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351453.1608621; Thu, 02 Jul 2026 09:27:29 +0000
+Received: by outflank-mailman (output) from mailman id 1351462.1608629; Thu, 02 Jul 2026 09:29:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfDhh-00059r-Hz; Thu, 02 Jul 2026 09:27:29 +0000
-Received: by outflank-mailman (input) for mailman id 1351453;
- Thu, 02 Jul 2026 09:27:27 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1wfDjO-00066o-SX; Thu, 02 Jul 2026 09:29:14 +0000
+Received: by outflank-mailman (input) for mailman id 1351462;
+ Thu, 02 Jul 2026 09:29:14 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wfDhf-00059h-Sl
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:27:27 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wfDjN-00066b-Uv
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 09:29:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfDhf-00DxRL-9L
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:27:27 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wfDjM-005BD9-KF
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 11:29:12 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a462ef6-bab6-0a2a0a5309dd-0a2a4508d830-26
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:27:27 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a462f63-e002-0a2a0a5209dd-0a2a4506c242-26
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:29:12 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a462efe-edec-0a2a45080019-d155dd2acda5-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:27:27 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-473ba028d46so1579709f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:27:27 -0700 (PDT)
+ id 6a462f68-08de-0a2a45060019-d155802dad8f-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 11:29:12 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-490b1bbcf3aso8765275e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 02:29:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477ddf0f27bsm7055977f8f.30.2026.07.02.02.27.25
+ 5b1f17b1804b1-493c635c41dsm63880115e9.5.2026.07.02.02.29.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 02:27:26 -0700 (PDT)
+ Thu, 02 Jul 2026 02:29:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,61 +61,55 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782984446; x=1783589246; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8ChJZT2uxOwOpgq3GZb2mrsTu1483VVYtw+84CX3LBQ=;
-        b=RwdQA7fAR0pIVNk+UMxzDMhejuwDuhy87ydwhF1V24AI9+BG6drBT/DItalCMGRlLw
-         D+pIkTiBgVXdi7bDzzoE7eiSAElqSzUcOa8eb6f9GV03ONxoA4UYp4vOt0eIPlhGfHGp
-         KeRqETDSoxm/VtVyI6mNk/sNjUJhFWQsTgQY0kGugi+i6u62Ihu6N6Qiv5xeqTa0NT4Z
-         m/R1WYNuZu/ss9DM5VxJbKryQoXOFWjXQJ4fe9pFyKtym3FCgRls10d66uV8Ygh+ntoC
-         Z0kLT+CGkwkhNMbYOpwq+/eqOpweXcCWIpTL7K6oZyywxlsoMcwkejVx6UKRLq4Xi7EI
-         upJQ==
+        d=suse.com; s=google; t=1782984552; x=1783589352; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rNeLuZWOoZ4GW+Y/apOrOAS/S2cqMXKJ1Ia6qOHbnNw=;
+        b=dPTCulflmz29SUvLuAyoL9rb09+33MWaPtqhhbTXGygS2qWs+D8SssEKau4kxE2Weh
+         82y1NM01KcSlYbeDpX6LI98rR8Vpbo79sjvP2bOcl8Subd5vDtcMB5VNjBFZMsHsx4Qt
+         meIT2xSEAzQmvKcBrtZA25+DvU/7mWYOQo65RDza3x5YR8MhHfKLxtBteZaFGbfRhfkF
+         EUxzDbllchRTUNu5cSszAcJpMidkgsdAgC5RnDu0v1Z0aJvkVtCuAKW1/gBh+7/rp9ad
+         vEUMmMdL29/LS3y2AqX72VAH2W/A5sR8BdCAOUj4Ghmb/dw0H8c6qh8ubDGKCc0jUy/a
+         bnNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782984446; x=1783589246;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1782984552; x=1783589352;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8ChJZT2uxOwOpgq3GZb2mrsTu1483VVYtw+84CX3LBQ=;
-        b=kur0lQ4BT390C7SfaklHIbu4QhFqvYshk4Cui3yYLROHEM3R99SUVnwchobpS3srwd
-         B8EIc/qqL7lKrp6XkYTwKS2aY3P5dPk9hCI8hdMiHxUKxUmFgLEdoQmNZqIB3B0usg0H
-         45bCn7vQUHAZSbBVs/J/NJAU6aC1632KdLByi3bQnQTS12bi9cdI+kAzE57Mw97uu1bt
-         OXX/PFIRQcHceK+ROYLBoXdzFGbl0vAq/a5lwouI5e8Uh2GV28MJLLHzu792Lvb3BbyS
-         cp9eujJDWfOMlYdzIZ8QavC3hDRcx9S4+m4x3mVlfCZ/vHF7gAjlKx4lxHicCu0+Rdnx
-         spFg==
-X-Forwarded-Encrypted: i=1; AHgh+RpDhdT7KAp+LrPq8Rp+upRSIxfJKmnEeVP6Fy/rGpZ8V8XiYx/cxQUDwKP0uoRhu0Kciz8HXeKajEI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwU3DslXFGuXvZRGOTY/w1rtjyxQJsXBMbNq/oiVEifmQoKmWoT
-	FE8U9cJ2ZdAlAMTmXsUaw4giCQ8mXchSHUtfvWaDsLFMphKf4xWodxB8n3MB2GEM6A==
-X-Gm-Gg: AfdE7clc0zh9EunVQ+MvMmwNw4yTA47guwFG1sSZLXUZD3nciYUAH68PmGkJBvglFXO
-	iJZuBVq1wSFTuyAyrQVnyP7DAmOT+ABbnSwzrSjPViyzqSzyuxKkSk2rDJ108trhLPUOCuOjKW0
-	vU7cTdJWmn33GFW/qm7uO2WIYdroszdrt+mm+/N/QN5oOjUuBd8KE3a7LKlRqRR5RUNOcD7XZei
-	owwKX51ycCgyND3CuuELGY5dwE1a99GQE6H1gF28fDCgidcvVmCniOC4Ahp3ohlqhS5b9P8yA9i
-	1r74tFThlppmGB8IW/+URGaZTPsEtGXBQgJodmjPYh/VM6pA+8mdal85osioKTk1HCcrL2srkQA
-	q+sPlIeqQAxt4L+PRYg7tWe67CzTZqCaIlk6wwJzkzyW4uD9jxllPmhhFo6XnLzTRd5QfnfNm3D
-	aM6L+MtCQKVKXHIonnph5sjp8qktFQ1OrLiAeyxrzhu7vcAUuF8FZGl+VmhI32Aox4d1qlVG73i
-	Jjp
-X-Received: by 2002:a05:6000:2589:b0:475:f0c2:75ab with SMTP id ffacd0b85a97d-4775b176e29mr7562020f8f.60.1782984446607;
-        Thu, 02 Jul 2026 02:27:26 -0700 (PDT)
-Message-ID: <d61b30c4-4c63-4954-8ba7-3188ccebf0d8@suse.com>
-Date: Thu, 2 Jul 2026 11:27:25 +0200
+        bh=rNeLuZWOoZ4GW+Y/apOrOAS/S2cqMXKJ1Ia6qOHbnNw=;
+        b=Hzxw6qIVm5bGnoCod8G1LQ9heHJ07qnBwr1XZPffN8VSSvve2aqvj8XqQcWq+9tTDu
+         30AN4kejaYoM2y1wwfGxM7d0E/ljMMxZOkF/yNaLxS0cSfXaV6SNTaGYdsmfnPJNiGDa
+         p5rSJeTJxerS7cnwGPQZq4+iedeCOLtPUapwCJdHOhdnb3u2/TjRQeWRRDtzhvbL8oNx
+         BV1cIqRToUOv3kFk/BfUj1su1d5r5S2NQTelJfVmCKW9M/t74rcmW6ON3+6bnCQU8X/n
+         V+6QZwk8OVmfd2ahDsMg8mcuKZ+r/GNdJQsN2vU9u1566PGnn3yRHqCa1jZfJMPl3KQE
+         PkXw==
+X-Gm-Message-State: AOJu0Yx4aqNsnHYTWXPLLvxxh3N6w0iqVXtraJG0Bf1GbxcZMdwTo9PA
+	IFPVI5255M//FK8UncNlyVQXqlwrskblrkcFy4WVN3c/NteQfHh7NO/BuIoXEvIUv/N2ogTFvjE
+	0IrIv2w==
+X-Gm-Gg: AfdE7cmzOvkoYMCifM3PsjrPV16GXdQWSmab6gywP4hFOzWy15uRcwDm/KFfGJRXQaY
+	WNFVSj55V5lO5WUExrCxL0XUuzjebZuJYezMfvH2krJW5k+aYD6Hp2+YV6XQVDiH9Y899noFB/C
+	0rjkaEx72iDIJzHyxFkzjQI9SS3+d4F+Bn6p+hbpF/jvsd8w0KMpMYGHH3XVySMkwr+ZrZamZ/+
+	lOEKHXMBJHSnBlgrgdlWIhLTyLn9+DOgiBreHK16QW03dviyCJqYNwTiL0yx52ZObEcXlntjtTd
+	jh4p2C2ZvWn+UyEzbMqIjpQU0QHqITdCDJ/ySu9A8hT4XgX0C5FYT2wr7SLlAbnysvHyr/iTAp9
+	OPE8nufsIAL598tt1ZoFWFVW0bSpq3y2l7Aa/ceSHM9KTxS+gfQ34+rBYj2+b1xFcFfS4NcpW47
+	wYMcftefALdTBUzZZZxZtZf1PqYSxUSeMzpPRICWJHTeRE/A9iancQ49+krzosTgEJ7Q/fkW7Sw
+	P/DBMpjsoPW7CY=
+X-Received: by 2002:a05:600c:1f84:b0:492:63c3:8eeb with SMTP id 5b1f17b1804b1-493c2ba53e4mr72531165e9.35.1782984551966;
+        Thu, 02 Jul 2026 02:29:11 -0700 (PDT)
+Message-ID: <5945d8f4-aece-4572-8e89-60408dd7ac32@suse.com>
+Date: Thu, 2 Jul 2026 11:29:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] lib: make safe_copy_string_from_guest() validate
- input
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Daniel Smith <dpsmith@apertussolutions.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <5d242cad-d907-4321-8ac1-363c0f9b623d@suse.com>
- <7e492b98-26d5-4d90-a703-ee25beae7e23@suse.com>
- <1562ea63-7f17-4748-9380-94712dd84d1a@gmail.com>
-Content-Language: en-US
+Subject: [PATCH v2 1/4] x86/time: CMOS RTC may run in binary mode
 From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <79d50725-3892-4643-b854-bfec9c0c0d79@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -139,67 +133,170 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1562ea63-7f17-4748-9380-94712dd84d1a@gmail.com>
+In-Reply-To: <79d50725-3892-4643-b854-bfec9c0c0d79@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1782984447-A11293FC-CAA0749F/0/0
+X-purgate-ID: tlsNG-16d1c6/1782984552-C453168D-9984B018/0/0
 X-purgate-type: clean
-X-purgate-size: 816
+X-purgate-size: 3621
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,rtc.day:url];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B4CF26F53B0
+X-Rspamd-Queue-Id: 3FD426F5401
 
-On 02.07.2026 10:30, Oleksii Kurochko wrote:
-> On 6/16/26 11:03 AM, Jan Beulich wrote:
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -11,6 +11,8 @@ The format is based on [Keep a Changelog
->>      to obtain an automatically allocated domid.  The prior sentinel values (0
->>      since the start of Xen, and DOMID_INVALID since Xen 4.21) now no longer
->>      represent a wildcard input.
->> + - XEN_DOMCTL_DEV_DT's, FLASK_[GS]ETBOOL's, and FLASK_DEVICETREE_LABEL's input
->> +   string sizes need to include the nul terminator.
-> 
-> The patch isn't tagged as "for 4.22", but the change in `CHANGELOG.md` 
-> makes it look like it's intended for the 4.22 release.
-> 
-> Do you expect this patch to be included in 4.22?
+Indicating it would always use BCD mode is just wrong (and then the
+comment there said the opposite). All halfway recent (and really all 64-
+bit capable) systems having a CMOS RTC should properly indicate the mode
+in control register B.
 
-Not anymore. See also the v2 re-posting (where I'd appreciate your ack).
+Make use of the flag, but provide a fallback mechanism in case people run
+into systems not matching the above assumption. Additionally, when binary
+mode is indicated and when "cmos-rtc-probe" is in use (but "cmos-rtc-bcd"
+isn't), probe whether the clock really runs in binary mode. (This probing,
+sadly, can take up to 10 seconds.)
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: New.
+
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -339,6 +339,14 @@ parameter to "stable:socket".
+ Specify the event count threshold for raising Corrected Machine Check
+ Interrupts.  Specifying zero disables CMCI handling.
+ 
++### cmos-rtc-bcd (x86)
++> `= <boolean>`
++
++> Default: `false`
++
++Flag to indicate the CMOS Real Time Clock uses BCD mode irrespective of
++control register B indicating binary mode.
++
+ ### cmos-rtc-probe (x86)
+ > `= <boolean>`
+ 
+--- a/xen/arch/x86/include/asm/mc146818rtc.h
++++ b/xen/arch/x86/include/asm/mc146818rtc.h
+@@ -96,7 +96,6 @@ bool is_cmos_port(unsigned int port, uns
+ 
+ #ifndef RTC_PORT
+ #define RTC_PORT(x)	(0x70 + (x))
+-#define RTC_ALWAYS_BCD	1	/* RTC operates in binary mode */
+ #endif
+ 
+ /*
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1250,6 +1250,9 @@ mktime (unsigned int year, unsigned int
+         )*60 + sec; /* finally seconds */
+ }
+ 
++static bool __ro_after_init opt_cmos_rtc_bcd;
++boolean_param("cmos-rtc-bcd", opt_cmos_rtc_bcd);
++
+ struct rtc_time {
+     unsigned int year, mon, day, hour, min, sec;
+ };
+@@ -1285,7 +1288,7 @@ static bool __get_cmos_time(struct rtc_t
+     if ( acpi_gbl_FADT.century && acpi_gbl_FADT.century < 0x80 )
+         century = CMOS_READ(acpi_gbl_FADT.century);
+ 
+-    bcd = RTC_ALWAYS_BCD || !(CMOS_READ(RTC_CONTROL) & RTC_DM_BINARY);
++    bcd = opt_cmos_rtc_bcd || !(CMOS_READ(RTC_CONTROL) & RTC_DM_BINARY);
+ 
+     spin_unlock_irqrestore(&rtc_lock, flags);
+ 
+@@ -1353,6 +1356,48 @@ static bool __init cmos_rtc_probe(void)
+     return false;
+ }
+ 
++static inline bool __init attr_const is_bcd(unsigned int x)
++{
++    return (x & 0xf) < 10 && (x >> 4) < 10;
++}
++
++static void __init cmos_rtc_probe_bcd(void)
++{
++    bool bcd;
++    unsigned long flags;
++
++    if ( opt_cmos_rtc_bcd )
++        return;
++
++    spin_lock_irqsave(&rtc_lock, flags);
++    bcd = !(CMOS_READ(RTC_CONTROL) & RTC_DM_BINARY);
++    spin_unlock_irqrestore(&rtc_lock, flags);
++
++    if ( bcd )
++        return;
++
++    for ( unsigned int seclo = 0; ; )
++    {
++        struct rtc_time rtc;
++
++        if ( !__get_cmos_time(&rtc) ||
++             !is_bcd(rtc.sec) ||
++             !is_bcd(rtc.min) ||
++             !is_bcd(rtc.hour) ||
++             !is_bcd(rtc.day) ||
++             !is_bcd(rtc.mon) )
++            return;
++
++        if ( seclo > (rtc.sec & 0xf) )
++            break;
++
++        seclo = rtc.sec & 0xf;
++    }
++
++    printk(XENLOG_WARNING "CMOS RTC indicates binary mode but uses BCD\n");
++
++    opt_cmos_rtc_bcd = true;
++}
+ 
+ static unsigned long cmos_rtc_read(void)
+ {
+@@ -1614,6 +1659,10 @@ static void __init probe_wallclock(void)
+     if ( cmos_rtc_probe() )
+     {
+         wallclock_source = WALLCLOCK_CMOS;
++
++        if ( opt_cmos_rtc_probe )
++            cmos_rtc_probe_bcd();
++
+         return;
+     }
+     if ( efi_enabled(EFI_RS) && efi_get_time() )
+
 
