@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id MJdpCGmkRmpuawsAu9opvQ
+	id CtG4J3ukRmp2awsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 19:48:25 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 19:48:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 678996FBA3F
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 19:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 044496FBA4F
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 19:48:43 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=outlook.com header.s=selector1 header.b=YsU6Xe2m;
+	dkim=pass header.d=outlook.com header.s=selector1 header.b=R7APknHl;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=outlook.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1352294.1609134 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1352308.1609142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfLWK-0007Zs-G4; Thu, 02 Jul 2026 17:48:16 +0000
+	id 1wfLWb-0008A8-Np; Thu, 02 Jul 2026 17:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1352294.1609134; Thu, 02 Jul 2026 17:48:16 +0000
+Received: by outflank-mailman (output) from mailman id 1352308.1609142; Thu, 02 Jul 2026 17:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfLWK-0007YK-C9; Thu, 02 Jul 2026 17:48:16 +0000
-Received: by outflank-mailman (input) for mailman id 1352294;
- Thu, 02 Jul 2026 17:48:14 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wfLWb-00087f-Jd; Thu, 02 Jul 2026 17:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 1352308;
+ Thu, 02 Jul 2026 17:48:32 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <mhklinux@outlook.com>) id 1wfLWI-0007Ve-HN
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:48:14 +0000
+ (envelope-from <mhklinux@outlook.com>) id 1wfLWa-00085M-K0
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 17:48:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfLWH-00Ejw1-UL
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 19:48:13 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wfLWa-008Pbt-0f
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 19:48:32 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <mhklinux@outlook.com>)
- id 6a46a44e-2eae-0a2a0a5409dd-0a2a4501ebf4-12
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 19:48:13 +0200
-Received: from [52.103.7.21]
- (helo=CY7PR03CU001.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a46a462-2eae-0a2a0a5409dd-0a2a4506bc76-34
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 19:48:32 +0200
+Received: from [52.103.12.22]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <mhklinux@outlook.com>)
- id 6a46a45c-400f-0a2a45010019-34670715cc7a-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 19:48:13 +0200
+ id 6a46a46f-08de-0a2a45060019-34670c168653-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 19:48:31 +0200
 Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
  by LV8PR02MB10144.namprd02.prod.outlook.com (2603:10b6:408:18f::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Thu, 2 Jul 2026
- 17:48:08 +0000
+ 17:48:27 +0000
 Received: from SN6PR02MB4157.namprd02.prod.outlook.com
  ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
  ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0181.008; Thu, 2 Jul 2026
- 17:48:08 +0000
+ 17:48:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,19 +64,19 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RtYz6mZVqa+x8k+wF/ExqMa3lMG2xQ89vEMzvj1jy4kYvuqUqCrU+zvDWECeujr6duw4q+MGef/aPYbW5DyxveRpEFD9IviMlNICIblVr62jARsqWc8vyzZpoNXKbfOOB0mtIjlWOU48kVOxutoWeIvdCA6vqA6Cl0oK1EBymVbIQmfxnbhSbB08O6I9nYdkB35XYwAuiahQoxe65qBvjHnTgv9ee+P9XLAS3vA/EB9eXk0okHi1vQxrHIR7XjKi3YUQdOBsVObbiAgDrR7M/JJJUPj8K6EsMQMz9JWhwqlgsriOQ8GFLeiR3bNcG5rPm3dkco5XIKnoDPeDQhIX+A==
+ b=ieEeUfKOgC00JIcY3PvHgwK7QYDQvGSCasQvpxg6c8IH7ncCF09epUR7IORg7pwa1yzjTTnRDBmQfxNAlUJEwsdHgcLJjkqYmnkt2tM3Ib2sXeUE80hbPZvhwjPzUTiyrpbnq7s1CKbp7Ux3T3unDi+ZLE/YFVdk+vFUHLDk2RadfBsfpKnnVVPsP2cxn9col1omt8zj0yHkoQH2oSs35Qh5ColbY5Y/wxCBZ3t/wla9l0nIV9Sl1S72iCdIk0Lev32HMOC5TsWSqOytSAcRePbN9PTZbS5N/TzFNmXc//HWZjSgGu6K/tHCn9ewIdHYdFcLSBhSKXMD/WUZ2a83DQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EF/dNgUAPKgXvgYHOIu4XocLCofCHLr1YWn24Zv2Z+0=;
- b=Oe2s20JC83+Z2Lwrg1m8O8+N2Jm7nqnqKQmjNsaNOtZBqp9EDcHr0cYh7qy4e+2k8DFJ47mpbcTlAhjRyXp5jMu/iXa9rxvbeHR7rT3+ycc8damCmxgsqNfoTnWRfLfpnBV/6KzpAHyMnCJIE0N0amCr2xYSW9eWznsZlg4ejwI7QyQ2zyA5AJ8iFCwmbyU4oGU9deV04rrdxuBsS1VG5QnsJsj40c4KRBGom9n4CUd3/xYWKiDTgQpQSc5zEexUaAd1xsRYjTK3Lr4v45lK96pZdxxyE/DbyItR8R+FdOnZpy3VBbZ6DOrQAn6tc4mP+JOrXfv/l8OzDzJAB/ZJ2A==
+ bh=NbBFbp/nzUuGrsjGnl+g4Yfp6IgxX5osOjXE0eNcIFY=;
+ b=VG3s8DbNm0ylTYmmX0zWdJvU4dLxDOU8uW0u2fuPPDx4OyjnhCiyj1MRa7H4f2k9bvNQ2ewKmx5+t9xs3KQRKgZQ6SJQwzlBHF18ZsvWxeCqxe7YIY0QuPb1w6RqCbrFqVd2O+a7+IqIkqT1aOk7/jRTrhg5li9IYaaDrvhPZ6E8o1d9a6PNLM+JU53PI6iWh7RN6TiM+W4qjYFWdRR+BtJaH5rvbFL7IOfAH7oFmZ69xRhCB2YjzSfVbTBMAiE+cX7nGjcehn44Wn3UsCWa32Y9LcSooamEPMxfJwUL5tIlLyBF4mqfNnth0FxKFbhs9l9ZTC1jf4wEpDJ0pOPrdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EF/dNgUAPKgXvgYHOIu4XocLCofCHLr1YWn24Zv2Z+0=;
- b=YsU6Xe2mKi4pkrWmG465otDnzxZhDpfKwy7HhSX4fsl9MMSCMVCAKuwcJzKiPpv8SE3J01UL/W38oZCKcyS2z2Bz+ltS33wArpmXBmcoZ6JoXi9CrPVopWwXx3P/EkMatS0Obsp6mGYPOo3eWR54/pXdIjR0Vc1iCRkJfgKikm6txyJa8ojCz35dDJkyU72/u9cCp+9jhkhtTzHDBwdEKmZG92OjMC7gdgxuPp9PbgcX1hp8cDtuk3EkJATb+/D7XnLSP4uI/T0SapU1W8CVyzb8YsygyrsbidqtpUPZLYEIljGqyr/jIpsRlY+bNZPRovgfTkUziUoCnKrVEoEtzA==
+ bh=NbBFbp/nzUuGrsjGnl+g4Yfp6IgxX5osOjXE0eNcIFY=;
+ b=R7APknHlBYFtJGoVLN5EBazyu5cgiI9bcsty7hyFb13oOSvuxvDls2gyoPIlZoeVg8NV9phoaMsMu+B9P1EopBpCZkj5HWwoVxsljT1mDpn4Kf5ZzqPy0tmGbM18+HiAl9nwUgsmRYk1DV1LTMY9wJPCyHw9VPlOheU2/lGwhRgHw1HWbDGHaIKXEDzuoI2dWpifmqf1D3Vif4VxbG7t9tZg61ffJawpS4SI8cqcSz9yu0SdVxX6oqDdT9y7Oa1O66XNOi9q4SJG9eTLE4zDxgubRJquL/hQL7udfZNSZF0vpCSYtOojHpBjNPZv4dcOAao4yEogaDQsXAxc0YlmHw==
 From: Michael Kelley <mhklinux@outlook.com>
 To: Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
 	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, Ingo
@@ -104,78 +104,76 @@ CC: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
 	Nikunj A Dadhania <nikunj@amd.com>, David Woodhouse <dwmw@amazon.co.uk>,
 	David Woodhouse <dwmw2@infradead.org>, Michael Kelley <mhklinux@outlook.com>,
 	Thomas Gleixner <tglx@linutronix.de>
-Subject: RE: [PATCH v5 36/51] x86/paravirt: Pass sched_clock save/restore
- helpers during registration
-Thread-Topic: [PATCH v5 36/51] x86/paravirt: Pass sched_clock save/restore
- helpers during registration
-Thread-Index: AQHdCZB1dwmhmpW5S0uF1Oay95dScrZagr+Q
-Date: Thu, 2 Jul 2026 17:48:07 +0000
+Subject: RE: [PATCH v5 47/51] x86/paravirt: Don't use a PV sched_clock in CoCo
+ guests with trusted TSC
+Thread-Topic: [PATCH v5 47/51] x86/paravirt: Don't use a PV sched_clock in
+ CoCo guests with trusted TSC
+Thread-Index: AQHdCZB9X/lWZeCwrUy8v9Xjt7LqZrZagtZQ
+Date: Thu, 2 Jul 2026 17:48:27 +0000
 Message-ID:
- <SN6PR02MB4157B9479825C6EFDCFCADA3D4F52@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <SN6PR02MB4157453D405AB80859B12DF9D4F52@SN6PR02MB4157.namprd02.prod.outlook.com>
 References: <20260701193212.749551-1-seanjc@google.com>
- <20260701193212.749551-37-seanjc@google.com>
-In-Reply-To: <20260701193212.749551-37-seanjc@google.com>
+ <20260701193212.749551-48-seanjc@google.com>
+In-Reply-To: <20260701193212.749551-48-seanjc@google.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|LV8PR02MB10144:EE_
-x-ms-office365-filtering-correlation-id: c3577bdd-ddd7-41d3-8060-08ded8621392
+x-ms-office365-filtering-correlation-id: 5bf48bad-71fc-4fda-a241-08ded8621f36
 x-ms-exchange-slblob-mailprops:
- znQPCv1HvwUXBahuwteIkQeW30lJPuxO32JBo/6Xj0q/IUmNyxK81DjJPNRS+7GLYAeX8QbO+oXhFFrbJB8myfneXiZHb4wpCkSb1knjoi5fJ2SzBjtbKkwz2HggYIp3qH4EMSOVGj/ID1EiDoSTSsNLy5W8JKhXABkiAcHsYPOvzQ7A1J5PkOYTPSUsZCDFtBiFaE9OcowlIeR2HStX9DW5RQct6iXUHNlw1Bkvy1S2OpMsbYtDEpbJ87QuqoCQwdAel5iMQvgCKo/NmC+hhDy5LNldjH935YL8I5D3qDEYPhwBaSR2Z0fjOaagYj9tEE2d94nnJfy0eDXGbNPXEy6uN0yTZXNTDFBnV1nuwmEds+SVuGIHPk2+zt22ZIVdTvPfIo74NJBwtGV0O80YNnN9MbsbsjS06p0DDqUJbgRzq1nSK2iNI1tgPOxX3ha3LFnq2UEMeuh45D19QqlE6lBbIIXAf+f6cgOZd3ofTL6esOzyJpTXIAMwE32QmrzmjUw+FLYz28x3tq9hY5KMEXyTD7IN7bzP4NhwFxGDU2GcKyOiCEwJcqoQOFuMj1dwlN2eoeGYZhNRbil21mjCVQSa+68QtdCwlgayQVuT8vGkDTLshY8soMhxazUxRs9+K5CiYrwZ7WK8dB0+cqZQrWfDHNXkw2pm/rs8CagOrmHq3acGv5i1kv0lmnnM2LDfQ2SF8EhBzaYubyM3gm9bbX8aYLmI0SS4eyFjQ0y/rI2rTDwgHGEJtXYhZWNE+PaTJ+eAPcPxRAI=
+ qdrM8TqeFBvhuFgLLe5qs4jWk9CHdv0AYy8cQ/QUVhQUEcb7T5SCn14eOaFpictd8GSq+faiQenIYJC3hGGrRCyh+R4fFG3ungSx8vvHg6Tjppm2dQnX30ASlF2J96QIDukoKi+xo7ESP1SYnfq23VqRdmy4dlG1AImTkwtYVhea+dWishLk7ttaDW5e2MCVTeygprhy6mIjolk5/1ZkSCiLgGXo/7gwBvYMwpsk/fFicMxPgE1dL52nd/rhroAqmrRKfO+NNNgpZlYYEt2eDv5KwnzFeljrtJ3b6MadCUpbo6jUr6cKoQIKhKAQzjb++BfqdoPQWSANfgUv9sVrqwoNJFtrgJ0xG5h1yPAVKiYuNLEYW9ZbyML6iQU+b2tNL0uDDuwRReAvWedIRwzl2V0XzfR/JVqg8nGAj0sMpdrgdGvZmpt87zaFiUuILg0yDo8iTQRZ3MaGZcIh2sRuGfHJAlo6AU+LJWJoOqUgCyguuK/Zblb6CFmUxoDfAznroIyLhua0X/accY6iVlFXFEJJ/jdlNdan73cTEXblbhVTQbGEQbV/43vfoQopcX5g2ROdfHk3BJJweSzOR5U29C143Rh5etZR1sVjLbPSr4/ifndXV6afz5bxvfPGRxqRRrULlrDQYWa776RnE3r4cN84Q8De9cD6C6M0tpxkns64W++g7SC/15nyqLx03lOosuKPf31tAMBbtHUB/3Ev2QLp0nsFrqt8v/79G33kP2t0BfC0NZBRp0EGQoTcV2rCju4mAXp1g+O7/fbjSJnS7lWGyb1FRNMk
 x-microsoft-antispam:
- BCL:0;ARA:14566002|16051099003|51005399006|19101099003|2604032031799003|704163111799003|37011999003|13091999003|8060799015|8062599012|31061999003|41001999006|19110799012|25010399006|15080799012|12121999013|40105399003|19061999003|11031999003|12091999003|102099032|440099028|3412199025|1710799026;
+ BCL:0;ARA:14566002|16051099003|51005399006|19101099003|2604032031799003|704163111799003|37011999003|13091999003|8060799015|8062599012|31061999003|41001999006|19110799012|25010399006|15080799012|40105399003|12091999003|102099032|440099028|3412199025|1710799026;
 x-microsoft-antispam-message-info:
- =?us-ascii?Q?583mfXen6Mcf+6N8jqSL54LaJIVBlLQShuVP/FobtVnWTBhPPScF86q7RHZ0?=
- =?us-ascii?Q?Ru7tPxaIzfCprph77DjJLFaVDiu3hYPrfWkSktGO7a69RWUrnrGWNTRi9ucN?=
- =?us-ascii?Q?v18/zs2v/Pq5JNkf/VkxJ+c3MIt7T1vo13dfDubpl9TisDActYf5G38unkK+?=
- =?us-ascii?Q?ENhpLZE61P5DB27ZiMGVjnHY1AoDrbo+7H7xFHguGYvT2NkMwcQpMV8TJvsR?=
- =?us-ascii?Q?hHzB5X6b2mxvTy3MJLBVKnzRfk7+T9wcxjHDmXGAkWcEzkL8mrap41yIMFIE?=
- =?us-ascii?Q?QNO0uJM14S8WA9NLDSuKcVINCuXu3dfANiCOreXLX0Zbe263o5D1bGLr5z/8?=
- =?us-ascii?Q?84bSDGtRzOBgDUk8b8bEoZ9yRD0yvhkaSf15I5IUQl4fuZQzUW/O5sK6CF4C?=
- =?us-ascii?Q?lbTMWz/YuDfSjn1dRhf3t6jNf5alNCs4TRB/XvKyzuDJ8lsCJOtPF5AQJphu?=
- =?us-ascii?Q?l6HCuFQeNNEUyFXEc7gK5E1nUUrIH9TvTTzRFedQz0Sinp2LPOwldQQFoVXO?=
- =?us-ascii?Q?Nreod1Vd7eGwOtH9ZYN0p+SZhcW4lHZQzozfyaKhOYnCG4OzshLakSzq3OMT?=
- =?us-ascii?Q?scLf+C12e9qXDDbsw6xr/hzck2mddyc45N9ic3hABTSO3v9i5AsfxbkgHlBN?=
- =?us-ascii?Q?M3jkgXzl9Ox3ng/rWoQQXzfawtg6gzY7WwkhT9VvUY3XQsEYr+yJ2Jkx6CAR?=
- =?us-ascii?Q?4fsV3Xe1gLxmTwt/UlDbfMwRb4bpkFFkeXJNGmOehHqRtUrr0fvmRnct9DmJ?=
- =?us-ascii?Q?Ziamcnp3SXdo0sg8T19FEqICzywxyKWw4ryVc2ZPnmlRSQ9gN3iVYmAj1lLE?=
- =?us-ascii?Q?ra9OpKmlModRZBR8jmRn8ty1kooLar4AbDQJHK6YXczcINKZPergSq8zfdv3?=
- =?us-ascii?Q?vKGhyUgxgOjIxhsor5N+gyWdV23ebh0sXNxgKFhXrBx1o4wwKO0AMXOpQaCw?=
- =?us-ascii?Q?kkxz2ZHCHb/0u/6t/3GH0r93VAUNRKLJ4Um2Mbefm8Q1GCKYAgCMQDSIYEaX?=
- =?us-ascii?Q?2nPkeoRmu4MQ6XxHfyIslv3mCYzwbmbe6hW37uLEIpGOSTQCMZuEIJIszBF2?=
- =?us-ascii?Q?TY1dHesSnZvcXasP/yDorZ06ypiJN0gYco2/sceilJ5TYWhvBBoTNd0uByXH?=
- =?us-ascii?Q?lohrZoV0BbwetyFbFKeyl4zj7VQyAo1cLczRUFdqUsWsnXv/+N5n/MwQ9XkA?=
- =?us-ascii?Q?5LaZBeI2tc+lkO+h2rAqkpaRL7UZ7LAx8zsvA2jk6U+gJOYK2j8i58uB1t1V?=
- =?us-ascii?Q?72yiTPFWK0GN7ESg+5qJZzfwb4QH6zw1kiPr65VKbkm1+MI3Nxl6GbMtROCD?=
- =?us-ascii?Q?HSw=3D?=
+ =?us-ascii?Q?5q25IsYCsTrASI9NXfU4P8ec+nkHfyWyOIdXMISJZkyJv0QJ7STvp5XcT1W7?=
+ =?us-ascii?Q?/QKhsM5M3Miw6nR+GJ6iwocnKGOnuL/6RkuMyjUY3MpNToGlVOkxjLb+8nT3?=
+ =?us-ascii?Q?+fFDQWdp/6r9O1Jc+EGvh2PUBXWRRqp28RUTSaXZNxmg4kFfaAvKzjbSFuTo?=
+ =?us-ascii?Q?TqDqyzBlR6mdHcE5kz41tPHZiScYWwAhhR+IH8jMMREKrxVO0pdIuRfF2U3l?=
+ =?us-ascii?Q?opBVxRkyjKFv7VXnnoOTPiBSlf6Oh0JMz5p5F3GWpYwCZcRNoyTGhk3Tuvzh?=
+ =?us-ascii?Q?f+zyK+U2GLO2hhXDEjjmNdqg6ZJE/17O7gxDFW/j4bED5LKa1aPzDt2LifD1?=
+ =?us-ascii?Q?PavW6l8RW/bmbbUPXpoMFkM1UjRXHf4R6q+A8uyeaUVUYTfEujzUvulKEWhY?=
+ =?us-ascii?Q?lmhylgj8nZGoxzB4Mg6Db82p8IAvfqWRJHopDwP+2qKeX9sAEsEBoIXsgtX7?=
+ =?us-ascii?Q?kj5UdvFVAI9F479/BOhDgRS9g01bef0+khEuvG95gNCWP8jh8vULlZThaSqo?=
+ =?us-ascii?Q?9cjUoxk1uOWXSVQhdh1GSCCZwEiivnIv3WB+gf7lC1g7eKw8jDG3pKgSKgDy?=
+ =?us-ascii?Q?XQRIqrWsh/+s/FhRUVEzJRiymsoRNQqnfR/YwuM57Dd33lP02HkKFsMfrc5Q?=
+ =?us-ascii?Q?DZaavCwuekpRC9PUpiLvK/7QmyYuCBRh5D/PCK/SwvXRf58DNKFM72HZB9C8?=
+ =?us-ascii?Q?d60fJGMNhaolO2amArN70YOnG9mdjpj2kGAD7Xu8m/p0qtBLXvW4/DPWrAuN?=
+ =?us-ascii?Q?lmdf4lv8h36ypDREoeUYLgJcJlLy/JsmRGKaGUj4GhRRl1u8MYs6I05wjcHI?=
+ =?us-ascii?Q?WvfocHk38DfI1bMfRXe3rXkPDXenVW6WgaV0badRV7kxbWsEUoHt1Rhh7Sbf?=
+ =?us-ascii?Q?keTVebboyDJqEh+q1dh1RjWbX2LHTW3shgPTEenOVvu16/SADvIMwRV1SthY?=
+ =?us-ascii?Q?yPYEBgnTjbsVTl9dmWaSw16Giy4xdtrHNYOXe8/FOzN7ZLjlfRvxwExp/WBA?=
+ =?us-ascii?Q?HCOE4TrHVGz0CcQ4T5dPSHolsfLYmeKIDvaqbExVwEq6Scck1/x8rhQWXsoX?=
+ =?us-ascii?Q?N3HXqjHt5BoNS4vFRJNJO1gmxRtBcsfeeQkZsvKPSWirB/oKkKQxPdiiTYVx?=
+ =?us-ascii?Q?3Ep2Ifg1ZvbXynIkGkm5HIZK7kEmQIodZLFwYFmCKrAXnDBqz6AxVgMwO80x?=
+ =?us-ascii?Q?kYOb8ZVrEng6XqO7NM7f3GWeHViBVsmUDrJ7gw=3D=3D?=
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Ooju6lp8Kv0IJer1HnQ3REULmZb5dOz25hSVv5ifBIxccmJfxbOBwAIB0ubY?=
- =?us-ascii?Q?4r0trWqslkalqnuJcBFBNpSYdINUBIyh/OBw/BtG21imZ7PAdk1IW+Lywt+r?=
- =?us-ascii?Q?Bfl/teca13r6hAANUGB9pTZNK7YevcV81SV5I54J9o5ht4hJPrrx+AOQ/fGM?=
- =?us-ascii?Q?jUDuabevRuiYA1zDkUJcSPP5sCoAAKceSfK6rwt3easEbonDache1r7GqdyO?=
- =?us-ascii?Q?+/RaD/Le9rC9lGRjMu/w63CryrPX3MwvUTtVNaOi3ec9e9wbKcNqGj9JX6CA?=
- =?us-ascii?Q?xolc1jnHpjbTuqJxXjVBYPf1g9mtmhYzKMTgYpIUmlMkIE0p0p4TBDZFfriZ?=
- =?us-ascii?Q?KSP4uQXJ2v3KYWw5hQIuMlvBvmqWzz/U8eot7GXoDAWHbslJq2khOGJSt9gj?=
- =?us-ascii?Q?+vTbLuT9b2rbyrXKKn6gzhUiZIVXyOWlfCi01i45GlLI52DxQEPZURSu+SUx?=
- =?us-ascii?Q?r06TjAN7AMvPoUklUBM1Upkn49w1R4y2nBXB+orLKt3QTqgc+qvLvHXXDi41?=
- =?us-ascii?Q?Fbu4PNcUs/JBTc5S/GOncMR1REsW+ckxeE2S8yPA3+7mE4VUa9updlrCpcfV?=
- =?us-ascii?Q?dPO1aN+PU/qLukk6FPj00zdgFzIuKhM80AGUUfPNZ3n9Eekyi9MYSHXWuV4n?=
- =?us-ascii?Q?zwXJr3nMGWp2a8ZhOC8nEZa15XRP/z7cNI14z3xbmfWZjixrG4Avdy0ZLMcO?=
- =?us-ascii?Q?tPM8Bw32dOSAdL7tMYSWjnTs8T/2XgePWc02dwYt/sxFlZkKfOwVcyP1hBAu?=
- =?us-ascii?Q?73iE7ri0MNsXA4nhiMJ0EKe7gg5I/1DqetHptC8nfLKLZByM/t3PGOLDqP5w?=
- =?us-ascii?Q?ZnVDVw177bgBd4R/+RxcdgUvOwGhgjcRZcsKuZxUGf7iNRIlpXLbsm4U1wJX?=
- =?us-ascii?Q?bD57Zwt4fHtZEiAPR6PB9iM+s9PZZe9oeOdLdFFsE0xpwS04S11n7wW+Tl0f?=
- =?us-ascii?Q?ua4L1GSkZUIe6GJSraQ53OKxVSQ6PqoVx155ECoQttE1g7LrsJwBLaBKgoEb?=
- =?us-ascii?Q?7gO+ym72UhXK7ZxX6JJERriyOuLXM4DBSUM02oUV7eO2vSCNob7LY9L6LxDG?=
- =?us-ascii?Q?gomdvZrna3E60aL4Q3nGlwxqjY1ofayQ3ExPN133bfg4ot1lh5ObaMi1KYB6?=
- =?us-ascii?Q?CcMnMbbEFr0SRJxI+KzrJEG/xPGJw1MpxWDZxPKRSDJQS5n/sNWtrq48Ky5P?=
- =?us-ascii?Q?zGW3ajxvruWow4SliJ0eYE9KKdDTb/Et/RpH8+blxlH6lLpEUt/92E6NtIbF?=
- =?us-ascii?Q?912JXJ8ZY/xCk9L39VWnEutHAMwkxSqdcDaqSaGSFkq8WMCM10Vy3vKY4D4U?=
- =?us-ascii?Q?DLT4elQRFike6WuVODeauQxJusObRNqow0JuTsi1F9Ni4RRJ7Tu3V8dy/TUe?=
- =?us-ascii?Q?OR8U0lo=3D?=
+ =?us-ascii?Q?7ZODV6s9+KgwoUB9aH93lAXzLBMUrLUPS6UpHgZTToRjFFPgYrhYHnGagxox?=
+ =?us-ascii?Q?z5xnafvLdobfSsJY9UmQbFDepqNijntrvvz9mJ/2aor1u0ClTVJFtHVzuPMa?=
+ =?us-ascii?Q?eVR0QU1Ex9kgHxXryv9nlRbKaVVsv0I9Ao12/ePQRyzD4TmOG65wwEGqvLge?=
+ =?us-ascii?Q?Nbd2MrQI9qX4j5MS0kzCCXLdvj0AIWY1yK3fcLBPoMIcYgnikE9M9SRSvXCp?=
+ =?us-ascii?Q?KIvQqwobbHXjb+hClkOz4blrKqZE+0eijqFqYVji15kEAZ+D3hU4WLi0Y40L?=
+ =?us-ascii?Q?9pwn1kfnIBAHmxoThDW/Y4vso5XmizuweJbViqyycyq3Md+d8oRCvBr4WaBk?=
+ =?us-ascii?Q?tJIcrjjJnNnB1iSmx17WQ6Xf7snGDPLfbCFRIQH5bCpAca0rHsySxFwLL6C4?=
+ =?us-ascii?Q?Kz1b6DAGMHvGzRa+4vf+KLp4jCGH00ieS9scORtZutlhZWmFh3K07vqywkMp?=
+ =?us-ascii?Q?8XIO1YKikGOXuJTWa9c0+XRBZlHZJtfASPJ7FHfVDectRzVWdUYOS2x9kfuj?=
+ =?us-ascii?Q?qBPwsXEylWkjWW8hKm3W5z5jVVfKdICUbqeum9S2nFDkltjMAUoDZcKPg+hZ?=
+ =?us-ascii?Q?GRvgfD5shKwi0tVO4BR657VS5yHHmaDjxHi03txTRzckmEWLpps3ep8kM3Hl?=
+ =?us-ascii?Q?BvbNuptg4i0r3setc4pHerG9YbaOhtc5jGL6pA85bLOw3kgONsAzlIDLd/0p?=
+ =?us-ascii?Q?FbOEMHbixneKp451NYZ+D7ODJyI08ydYOGv2lwUTmWCkVCffLeDIbfB8/IZi?=
+ =?us-ascii?Q?D/NzRZu4OZm+49Fmnml69sq8z79Q1jROgKiKSdYfDpjh+7BhScgrq9JiXcvQ?=
+ =?us-ascii?Q?9pKcto81Te9x9HCYf4gelvZ8oL3SPam2fV2N621arFvM1gphFNUxivUucnWM?=
+ =?us-ascii?Q?NeLzFim7/IQFP2WM0n2EMfk+qwGY09T3Aw5Rt+2o+QWyeYwjeSQ8r/6+8RwQ?=
+ =?us-ascii?Q?jyTyfgi8YHhdSoe+weDeCFNj27v9HMzk5WOulPd3BnlkGd2jLsuVQYDSFe1G?=
+ =?us-ascii?Q?VIOv0JuLrxnBENW3AOQzgq3kt7bZS9EbVr5Kz3esENIJaX1bk2ff5fKi2mWZ?=
+ =?us-ascii?Q?L9UeJcI81yWWpQY2uumolT/EJwNxRXViH5VlUgr9q2r3BCw/l8AT+aGyH2UU?=
+ =?us-ascii?Q?MRZgCf4h+ssxwRiddWTLXvwv3Jzj0MM8wZidGxhEeWHfAh8OlhOK1oOtj/yS?=
+ =?us-ascii?Q?QBWyD6Qjn2dV4IGzcJb47teDLTv4873vJhGIzD2CfUKnpYT+U8aQxrI452q8?=
+ =?us-ascii?Q?miyTh8sSu+2SESot8bC3VX6aHBvM/zuCAOC0xmBKyYR3FrwTjAmzeymOF9HG?=
+ =?us-ascii?Q?ftisthux+koPRFIisQZ5TyogjMEGb0FEQmPFh/s/e+JT/h5xCsOeZDuBJywh?=
+ =?us-ascii?Q?wZSjFIw=3D?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
@@ -183,16 +181,16 @@ X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3577bdd-ddd7-41d3-8060-08ded8621392
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2026 17:48:07.9363
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bf48bad-71fc-4fda-a241-08ded8621f36
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2026 17:48:27.4623
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR02MB10144
-X-purgate-ID: tlsNG-d62444/1783014493-D16DE1E0-B09061BB/0/0
+X-purgate-ID: tlsNG-16d1c6/1783014511-C712768D-021FBCAD/0/0
 X-purgate-type: clean
-X-purgate-size: 6262
+X-purgate-size: 1712
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -207,7 +205,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:corbet@lwn.net,m:pbonzini@redhat.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:kas@kernel.org,m:rick.p.edgecombe@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:jstultz@google.com,m:skhan@linuxfoundation.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:linux-doc@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:dwmw@amazon.co.uk,m:dwmw2@infradead.org,m:mhklinux@outlook.com
  ,m:tglx@linutronix.de,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,SN6PR02MB4157.namprd02.prod.outlook.com:mid,outlook.com:dkim,outlook.com:email,outlook.com:from_mime];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,SN6PR02MB4157.namprd02.prod.outlook.com:mid,outlook.com:dkim,outlook.com:from_mime];
 	FORGED_SENDER(0.00)[mhklinux@outlook.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_FROM(0.00)[outlook.com];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
@@ -230,164 +228,52 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 678996FBA3F
+X-Rspamd-Queue-Id: 044496FBA4F
 
 From: Sean Christopherson <seanjc@google.com> Sent: Wednesday, July 1, 2026=
  12:32 PM
 >=20
-> Pass in a PV clock's save/restore helpers when configuring sched_clock
-> instead of relying on each PV clock to manually set the save/restore hook=
-s.
-> In addition to bringing sanity to the code, this will allow gracefully
-> "rejecting" a PV sched_clock, e.g. when running as a CoCo guest that has
-> access to a "secure" TSC.
->=20
-> No functional change intended.
+> Silently ignore attempts to switch to a paravirt sched_clock when running
+> as a CoCo guest with trusted TSC.  In hand-wavy theory, a misbehaving
+> hypervisor could attack the guest by manipulating the PV clock to affect
+> guest scheduling in some weird and/or predictable way.  More importantly,
+> reading TSC on such platforms is faster than any PV clock, and sched_cloc=
+k
+> is all about speed.
 >=20
 > Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-For the Hyper-V changes,
-
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-
 > ---
->  arch/x86/include/asm/timer.h       | 9 ++++++---
->  arch/x86/kernel/cpu/vmware.c       | 8 +++-----
->  arch/x86/kernel/kvmclock.c         | 6 +++---
->  arch/x86/kernel/tsc.c              | 5 ++++-
->  arch/x86/xen/time.c                | 5 ++---
->  drivers/clocksource/hyperv_timer.c | 6 ++----
->  6 files changed, 20 insertions(+), 19 deletions(-)
+>  arch/x86/kernel/tsc.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 >=20
-> diff --git a/arch/x86/include/asm/timer.h b/arch/x86/include/asm/timer.h
-> index fe41d40a9ae6..e97cd1ae03d1 100644
-> --- a/arch/x86/include/asm/timer.h
-> +++ b/arch/x86/include/asm/timer.h
-> @@ -14,11 +14,14 @@ extern int no_timer_check;
->  extern bool using_native_sched_clock(void);
->=20
->  #ifdef CONFIG_PARAVIRT
-> -void __paravirt_set_sched_clock(u64 (*func)(void), bool stable);
-> +void __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
-> +				void (*save)(void), void (*restore)(void));
->=20
-> -static inline void paravirt_set_sched_clock(u64 (*func)(void))
-> +static inline void paravirt_set_sched_clock(u64 (*func)(void),
-> +					    void (*save)(void),
-> +					    void (*restore)(void))
->  {
-> -	__paravirt_set_sched_clock(func, true);
-> +	__paravirt_set_sched_clock(func, true, save, restore);
->  }
->  #endif
->=20
-> diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-> index 5c1ccaf4a25e..232255279a6e 100644
-> --- a/arch/x86/kernel/cpu/vmware.c
-> +++ b/arch/x86/kernel/cpu/vmware.c
-> @@ -347,11 +347,9 @@ static void __init vmware_paravirt_ops_setup(void)
->=20
->  	vmware_cyc2ns_setup();
->=20
-> -	if (vmw_sched_clock) {
-> -		paravirt_set_sched_clock(vmware_sched_clock);
-> -		x86_platform.save_sched_clock_state =3D x86_init_noop;
-> -		x86_platform.restore_sched_clock_state =3D x86_init_noop;
-> -	}
-> +	if (vmw_sched_clock)
-> +		paravirt_set_sched_clock(vmware_sched_clock,
-> +					 x86_init_noop, x86_init_noop);
->=20
->  	if (vmware_is_stealclock_available()) {
->  		has_steal_clock =3D true;
-> diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
-> index 07e875738c39..5b9955343199 100644
-> --- a/arch/x86/kernel/kvmclock.c
-> +++ b/arch/x86/kernel/kvmclock.c
-> @@ -158,7 +158,9 @@ static void kvm_restore_sched_clock_state(void)
->  static inline void kvm_sched_clock_init(bool stable)
->  {
->  	kvm_sched_clock_offset =3D kvm_clock_read();
-> -	__paravirt_set_sched_clock(kvm_sched_clock_read, stable);
-> +	__paravirt_set_sched_clock(kvm_sched_clock_read, stable,
-> +				   kvm_save_sched_clock_state,
-> +				   kvm_restore_sched_clock_state);
->=20
->  	pr_info("kvm-clock: using sched offset of %llu cycles",
->  		kvm_sched_clock_offset);
-> @@ -367,8 +369,6 @@ void __init kvmclock_init(bool prefer_tsc)
->  #ifdef CONFIG_SMP
->  	x86_cpuinit.early_percpu_clock_init =3D kvm_setup_secondary_clock;
->  #endif
-> -	x86_platform.save_sched_clock_state =3D kvm_save_sched_clock_state;
-> -	x86_platform.restore_sched_clock_state =3D kvm_restore_sched_clock_stat=
-e;
->  	kvm_get_preset_lpj();
->=20
->  	/*
 > diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-> index 7473dcab4775..83353d643150 100644
+> index 012321fed5e5..a146fc7b5e74 100644
 > --- a/arch/x86/kernel/tsc.c
 > +++ b/arch/x86/kernel/tsc.c
-> @@ -280,12 +280,15 @@ bool using_native_sched_clock(void)
->  	return static_call_query(pv_sched_clock) =3D=3D native_sched_clock;
->  }
->=20
-> -void __paravirt_set_sched_clock(u64 (*func)(void), bool stable)
-> +void __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
-> +				void (*save)(void), void (*restore)(void))
+> @@ -283,6 +283,15 @@ bool using_native_sched_clock(void)
+>  int __init __paravirt_set_sched_clock(u64 (*func)(void), bool stable,
+>  				      void (*save)(void), void (*restore)(void))
 >  {
+> +	/*
+> +	 * Don't replace TSC with a PV clock when running as a CoCo guest and
+> +	 * the TSC is secure/trusted; PV clocks are emulated by the hypervisor,
+> +	 * which isn't in the guest's TCB.
+> +	 */
+> +	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC) ||
+> +	    boot_cpu_has(X86_FEATURE_TDX_GUEST))
+> +		return -EPERM;
+
+Do a pr_warn() in the error case? Your commit message says to
+do the ignore silently, but I wonder if that's a good idea. At least
+for Hyper-V, the error case shouldn't happen.
+
+Michael
+
+> +
 >  	if (!stable)
 >  		clear_sched_clock_stable();
 >=20
->  	static_call_update(pv_sched_clock, func);
-> +	x86_platform.save_sched_clock_state =3D save;
-> +	x86_platform.restore_sched_clock_state =3D restore;
->  }
->  #else
->  u64 sched_clock_noinstr(void) __attribute__((alias("native_sched_clock")=
-));
-> diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-> index 477441752f40..8cd8bfaf1320 100644
-> --- a/arch/x86/xen/time.c
-> +++ b/arch/x86/xen/time.c
-> @@ -566,13 +566,12 @@ static void __init xen_init_time_common(void)
->  {
->  	xen_sched_clock_offset =3D xen_clocksource_read();
->  	static_call_update(pv_steal_clock, xen_steal_clock);
-> -	paravirt_set_sched_clock(xen_sched_clock);
-> +
->  	/*
->  	 * Xen has paravirtualized suspend/resume and so doesn't use the common
->  	 * x86 sched_clock save/restore hooks.
->  	 */
-> -	x86_platform.save_sched_clock_state =3D x86_init_noop;
-> -	x86_platform.restore_sched_clock_state =3D x86_init_noop;
-> +	paravirt_set_sched_clock(xen_sched_clock, x86_init_noop, x86_init_noop)=
-;
->=20
->  	x86_init.hyper.get_tsc_khz =3D xen_tsc_khz;
->  	x86_platform.get_wallclock =3D xen_get_wallclock;
-> diff --git a/drivers/clocksource/hyperv_timer.c b/drivers/clocksource/hyp=
-erv_timer.c
-> index 220668207d19..8ee7a9de0f4f 100644
-> --- a/drivers/clocksource/hyperv_timer.c
-> +++ b/drivers/clocksource/hyperv_timer.c
-> @@ -570,10 +570,8 @@ static void hv_restore_sched_clock_state(void)
->  static __always_inline void hv_setup_sched_clock(void *sched_clock)
->  {
->  	/* We're on x86/x64 *and* using PV ops */
-> -	paravirt_set_sched_clock(sched_clock);
-> -
-> -	x86_platform.save_sched_clock_state =3D hv_save_sched_clock_state;
-> -	x86_platform.restore_sched_clock_state =3D hv_restore_sched_clock_state=
-;
-> +	paravirt_set_sched_clock(sched_clock, hv_save_sched_clock_state,
-> +				 hv_restore_sched_clock_state);
->  }
->  #else /* !CONFIG_GENERIC_SCHED_CLOCK && !CONFIG_PARAVIRT */
->  static __always_inline void hv_setup_sched_clock(void *sched_clock) {}
 > --
 > 2.55.0.rc0.799.gd6f94ed593-goog
 >=20
