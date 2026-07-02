@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yhohOJdDRmqQNAsAu9opvQ
+	id fCHlH6ZDRmqUNAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:19 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4647A6F643C
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C736F644D
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=MzfErFCR;
+	dkim=pass header.d=suse.com header.s=google header.b=PmLNavic;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351640.1608747 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351643.1608756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfF4V-0004RB-1T; Thu, 02 Jul 2026 10:55:07 +0000
+	id 1wfF4o-0004ob-9j; Thu, 02 Jul 2026 10:55:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351640.1608747; Thu, 02 Jul 2026 10:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 1351643.1608756; Thu, 02 Jul 2026 10:55:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfF4U-0004OU-Uh; Thu, 02 Jul 2026 10:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 1351640;
- Thu, 02 Jul 2026 10:55:05 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wfF4o-0004li-5a; Thu, 02 Jul 2026 10:55:26 +0000
+Received: by outflank-mailman (input) for mailman id 1351643;
+ Thu, 02 Jul 2026 10:55:24 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wfF4T-0004OJ-8T
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 10:55:05 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wfF4l-0004id-Vd
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 10:55:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfF4S-00DX1f-LM
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:55:04 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wfF4l-005SNi-Bz
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:55:23 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a46437d-5cb7-0a2a0a5109dd-0a2a45019694-16
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:04 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a464398-bab6-0a2a0a5309dd-0a2a4507b412-24
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:23 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a464388-400f-0a2a45010019-d155802eb435-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:04 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-493c733f15aso3068285e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 03:55:04 -0700 (PDT)
+ id 6a46439b-9c8e-0a2a45070019-d155dd2dace7-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:23 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-47122683cf3so1234215f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 03:55:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63648d7sm38769855e9.7.2026.07.02.03.55.03
+ ffacd0b85a97d-477ddf0f310sm7709053f8f.31.2026.07.02.03.55.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 03:55:03 -0700 (PDT)
+ Thu, 02 Jul 2026 03:55:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,48 +61,48 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782989704; x=1783594504; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1782989722; x=1783594522; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ilPQpTG0pa/hptnKJjw2or04R0MiCz+VtMpqPju/z7U=;
-        b=MzfErFCR1KZYRbAUzlKUhQAM0yXaLQObwtOc+bf2+v83c3Ha6Ae8XM1bcJIVHBxk21
-         1Q7NGb7M0rCNTncidw4TfIadmZvtbWR+utHk5uMYf8S03IxCJE/bOuiYRi938KkZ/XcV
-         X7Yn7/qKwZyM/pQt86FOwuvOg26DC+NmuIBxp+6HWV9SlQb/Lf00sXOy+Ecs9NWiCccJ
-         bC2Z4OS7xB04k+dYCif7gpsp41TgS2gEzDendTKFdapgz0HwkZSUK8Ei+rUmW5YR5qpN
-         h2UOF1ycRg74fUbKR/BkVQ1BmgGePwv/oR+MXHX3SWQgYb9VobNRs2k2rXPRbtih/dN0
-         i/rw==
+        bh=LVZ9L1TPFh7mEp2xecv7V5O5RSUvEp2Ng8R7qCS66ME=;
+        b=PmLNavicnZHp8i3D+d8nIzbEowiVuG2MUXaJiMrxQtk7cuWHYWWXkpvHH4BUgN9dW7
+         Kx23DbEk+wq91PGnjxwYLos+biErTJa91Kb4psDd7GM4NHk0GB9wF4dtxCe7FjR3bd0I
+         OH6uFLfWB26eb+lEUbTxH7ocpeYu1GG2QFpV3w4s6cy6mVmYAcLGXLx0GjUNGKaoHLEm
+         ZeJNrB3mcc3pYmdKryyWany7OfX26vS8wAnBjXe1zS+f9/rrCYKwd9QHVjNHJKhI+Zjj
+         BmI7kPRbSq+M/U8PLfetVLVRiGBiVgkedGpaHek+lw28RehDL6HO85stcRP78AcNbCD8
+         ksdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782989704; x=1783594504;
+        d=1e100.net; s=20251104; t=1782989722; x=1783594522;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ilPQpTG0pa/hptnKJjw2or04R0MiCz+VtMpqPju/z7U=;
-        b=R/gZai3fNVLow6ATnXWg8ysR40SFRp7CKZl2B0QW66xJr/w2NPtwo7WDFJlodUgFSF
-         HEat85efDSgOoAZAmfx641trTLfKrft8n4bfeRh86FO+KzLrdp1yUFvjfnS12430jmr2
-         WLBidvu3cT50vkrnc0xybvTumlVsfW8a0UFBHP16gse0beQ5+MIx9HGvKBOpsx59Nm9q
-         Fj5FFVAu/CvdiG2X9ZBBgGhoih1py9bNYtPptx3F7P4lPHNXcrF8Wun10FY+8e2bHaKN
-         5WADvzIOJ3QtXGV70TNalNe+H/6IJauQPle1qha1PdCrcS9kiDhlZvSz47WrNajSmIR0
-         8eUQ==
-X-Gm-Message-State: AOJu0Yy31TK1OfjEv4S9vYZ5rTiJom068rDXGHT27TRHPt3JbvfUKJBQ
-	V/067eFpXmBeIhaDXOFR72/5ZCKeIhJtnm6I6r2kHWcaDLICkvUKER5PheKs5yyjNgSyHpBbK39
-	QcOBHuA==
-X-Gm-Gg: AfdE7cl49xZs/R4OBYanJILRwLBj9Mt7teveHn4OYMQrbk7sD4iGzouY1R+Fwb160R7
-	OFI/q8DKLYYwbN78mCKg+YELUVynVZWvPX2aG5SHYV59ST45eTfxFLbe+6CBe7NRnHi3INKOdJJ
-	RSD2MrhbB3EDzSeVlxjaUW95S4kicR7rT6uK1l3DnQyjr8Rw/TY5S7YLf0zREwGcEq1Q4iVQ5Y2
-	7YWonuUVD62ZVo47TG0s79jHz64m4D6Iv7kWJynMcEClU2fFlp93ECTEsJdIe91ZSUmeL6BdC2p
-	N2A/Xqh1Dbq+BmK5Y78wSjXTq1QSCUhWABSdeje02Msk0yffmpG24i75ZA5izaoOwLVadTsm+oO
-	00twBSD+n0K+VL6qET0OBJH8CK/DGg8u91xrO1yowkytF05HnWHthXYrHcgvvefPlDazZyjTU70
-	tP0GVpJoXEFUzCT6bBS4QnbkTlhrW0hqHLIdJkIbzl8M/D31QgBng9e8JZaovXD+aF5S3juc4st
-	bVK
-X-Received: by 2002:a05:600c:19cd:b0:493:bcba:3d5f with SMTP id 5b1f17b1804b1-493c63ab8e9mr26066305e9.13.1782989703898;
-        Thu, 02 Jul 2026 03:55:03 -0700 (PDT)
-Message-ID: <a89951cb-43c0-45bd-aba1-273cd053deae@suse.com>
-Date: Thu, 2 Jul 2026 12:55:03 +0200
+        bh=LVZ9L1TPFh7mEp2xecv7V5O5RSUvEp2Ng8R7qCS66ME=;
+        b=cyahNBXJv6Abm+x+64YIL8+7fnDX5S1pOrFe+WTOAe7L+ZbUH4ya9zIunSWtRLIt9D
+         XPNQ0PL7jMYQ4ie6Cwxj57SJXneY3U0VaIs4GYrUkUlEczpe2PxNgHx6NhYoEQJ6Vcdk
+         qa3p3slzmJT0Is67GVmjdfWTJP8awr6zEX9h5i1QWA2YEjApv5o5JeJTSay/ri3rVlm5
+         siEg7FtydwWTYAL1Sv2LN6UFH1EE+9x0xLSJMQ7CCSAn+O2zJUmLgsZMDqtB+k5yTwvZ
+         nge/c1FE7tf2Ot8IJoEI/dEMR/BH/U5Rpbz+ems+E6PA9mp0eA3WRGMj9j8pdtCyEVRU
+         CrnQ==
+X-Gm-Message-State: AOJu0YxyNCq/1Ncoc7VRW3v0DdenPDGDAgOKIgNf0y8qXF1H+iM7GPOv
+	gpsEuzIqu1GnaGPwbAaD2xcltOEX7pWBgkLXk3bbD01T1erzqYsCajzYJp+etT0m0a/Q9SM8jEe
+	diJX/vA==
+X-Gm-Gg: AfdE7cmXcJBstqcssbxGTDzKIdoNN3nCdJdaOkOIFlF4/KqaEPucmPzsWoKeLNMtSNO
+	w6FTXaw4LMFKKCWgu17PiLHwFmlzGN/kLRyLZOCzCFuxyK8coOZXJN0tscZ9P4fsW2SH2zDyiNL
+	mfb+1nL/gkGy9xewWB8HlA8zjyUboONTD/C8v7iZzVvI1d4qyYuFoxNdWv6zBOR1PxSzaLvwtjy
+	YOuU7L4YKieXlef/OX9lPxSqDCP1OJJqjJb2VGehK+6Jhh72F7U9fMeekS9ObAfpS8Qxuuxl+8B
+	94YzEVuQpw+VcIRUvTpJOrG5aQtmeSG52WeaO3ROPK2njyWnoSCqtmMzir0G+zmOwfo4jAFnM/c
+	ow0keIrbgXe1Nz/kw3TplNfgzZ3I1f+PuBT/KiP9ZEl3Ni/an8gAJKA5q0jR+nwXEtKBVQeRqje
+	6pjJigJk+0PiJ80zUmnH9O0FC+XrkdeVWCDVEFD6KCCU5uZfu5bx/C/jF/155/RhIoVAARXZloV
+	x1v
+X-Received: by 2002:a05:6000:240c:b0:46e:6210:ad4a with SMTP id ffacd0b85a97d-47757e57e77mr8219284f8f.5.1782989722576;
+        Thu, 02 Jul 2026 03:55:22 -0700 (PDT)
+Message-ID: <eb380ba2-cea7-4433-a692-9c233f6503ca@suse.com>
+Date: Thu, 2 Jul 2026 12:55:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 1/4] x86/HVM: don't (almost) open-code POP_GPRS
+Subject: [PATCH v3 2/4] x86: record SSP at non-guest entry points
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
@@ -135,9 +135,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <7ba5ecff-af64-49c0-abf9-23963ca56aa6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1782989704-D06D61E0-A81DC4AA/0/0
+X-purgate-ID: tlsNG-ef75cf/1782989723-FDB2325E-7A3E1B2E/0/0
 X-purgate-type: clean
-X-purgate-size: 2268
+X-purgate-size: 6838
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -149,7 +149,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:dkim,suse.com:email,suse.com:mid,suse.com:from_mime];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:wl@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -172,92 +172,232 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4647A6F643C
+X-Rspamd-Queue-Id: F0C736F644D
 
-It can be used as-is for VMX. For SVM the special treatment of %rax needs
-accounting for.
+We will want to use that value for call trace generation, and likely
+also to eliminate the somewhat fragile shadow stack searching done in
+fixup_exception_return(). For those purposes, guest-only entry points do
+not need to record that value.
+
+To keep the saving code simple, record our own SSP that corresponds to
+an exception frame, pointing to the top of the shadow stack counterpart
+of what the CPU has saved on the regular stack. Consuming code can then
+work its way from there.
+
+In SAVE_ALL / RESTORE_ALL simply drop the use of UREGS_r15. We want the
+full size in all cases, so what exactly the top-of-stack field is going
+to be (whose UREGS_* is 0 anyway) doesn't matter this much there. This
+way we don't need to distinguish between XEN_SHSTK=y and XEN_SHSTK=n.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-This is the minimum required as a prereq to the next patch (to avoid the
-need for custom adjustments in the two places). We could go further and
-switch to using PUSH_AND_CLEAR_GPRS at the same time.
----
-v3: New.
+v3: Put new field at the front of struct cpu_user_regs.
+v2: Add comment ahead of SAVE_ALL. Add comma between its parameters.
+    Re-base.
 
 --- a/xen/arch/x86/hvm/svm/entry.S
 +++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -82,22 +82,8 @@ __UNLIKELY_END(nsvm_hap)
-          */
-         sti
+@@ -89,7 +89,7 @@ __UNLIKELY_END(nsvm_hap)
  
--        pop  %r15
--        pop  %r14
--        pop  %r13
--        pop  %r12
--        pop  %rbp
-         mov  VCPU_svm_vmcb_pa(%rbx),%rax
--        pop  %rbx
--        pop  %r11
--        pop  %r10
--        pop  %r9
--        pop  %r8
--        pop  %rcx /* Skip %rax: restored by VMRUN. */
--        pop  %rcx
--        pop  %rdx
--        pop  %rsi
--        pop  %rdi
-+        POP_GPRS skip_rax=1 /* %rax restored by VMRUN. */
+         vmrun
  
-         SPEC_CTRL_COND_VERW     /* Req: %rsp=eframe                    Clob: efl */
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_CURRENT(bx)
  
 --- a/xen/arch/x86/hvm/vmx/entry.S
 +++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -139,21 +139,7 @@ UNLIKELY_END(realmode)
-         and  $SCF_verw, %eax
-         or   %eax, %ecx
+@@ -22,7 +22,7 @@
+ #include <asm/page.h>
  
--        pop  %r15
--        pop  %r14
--        pop  %r13
--        pop  %r12
--        pop  %rbp
--        pop  %rbx
--        pop  %r11
--        pop  %r10
--        pop  %r9
--        pop  %r8
--        pop  %rax
--        pop  %rcx
--        pop  %rdx
--        pop  %rsi
--        pop  %rdi
-+        POP_GPRS /* Preserves flags. */
+ FUNC(vmx_asm_vmexit_handler)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
  
-         jpe  .L_skip_verw
-         /* VERW clobbers ZF, but preserves all others, including SF. */
+         mov  %cr2,%rax
+         GET_CURRENT(bx)
+@@ -157,7 +157,7 @@ UNLIKELY_END(realmode)
+ 
+ .Lvmx_vmentry_fail:
+         sti
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         /*
+          * SPEC_CTRL_ENTRY notes
 --- a/xen/arch/x86/include/asm/asm_defns.h
 +++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -357,7 +357,7 @@ static always_inline void stac(void)
+@@ -219,8 +219,12 @@ static always_inline void stac(void)
+ #endif
+ 
+ #ifdef __ASSEMBLER__
+-.macro SAVE_ALL compat=0
+-        addq  $-(UREGS_error_code-UREGS_r15), %rsp
++/*
++ * Use sites may override ssp to 0. It should never be overridden to 1.
++ * NB: compat=1 implies ssp=0.
++ */
++.macro SAVE_ALL compat=0, ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
++        addq  $-UREGS_error_code, %rsp
+         cld
+         movq  %rdi,UREGS_rdi(%rsp)
+         xor   %edi, %edi
+@@ -233,6 +237,9 @@ static always_inline void stac(void)
+         movq  %rax,UREGS_rax(%rsp)
+         xor   %eax, %eax
+ .if !\compat
++.if \ssp
++        rdsspq %rcx
++.endif
+         movq  %r8,UREGS_r8(%rsp)
+         movq  %r9,UREGS_r9(%rsp)
+         movq  %r10,UREGS_r10(%rsp)
+@@ -262,6 +269,9 @@ static always_inline void stac(void)
+         xor   %r13d, %r13d
+         xor   %r14d, %r14d
+         xor   %r15d, %r15d
++#ifdef CONFIG_XEN_SHSTK
++        mov   %rcx, UREGS_entry_ssp(%rsp)
++#endif
+ .endm
+ 
+ #define LOAD_ONE_REG(reg, compat) \
+@@ -309,13 +319,15 @@ static always_inline void stac(void)
+         LOAD_ONE_REG(dx, \compat)
+         LOAD_ONE_REG(si, \compat)
+         LOAD_ONE_REG(di, \compat)
+-        subq  $-(UREGS_error_code-UREGS_r15+\adj), %rsp
++        subq  $-(UREGS_error_code + \adj), %rsp
+ .endm
+ 
+ /*
+- * Push and clear GPRs
++ * Push and clear GPRs.
++ *
++ * Use sites may override ssp to 0. It should never be overridden to 1.
+  */
+-.macro PUSH_AND_CLEAR_GPRS
++.macro PUSH_AND_CLEAR_GPRS ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
+         push  %rdi
+         xor   %edi, %edi
+         push  %rsi
+@@ -326,6 +338,9 @@ static always_inline void stac(void)
+         xor   %ecx, %ecx
+         push  %rax
+         xor   %eax, %eax
++ .if \ssp
++        rdsspq %rcx
++ .endif
+         push  %r8
+         xor   %r8d, %r8d
+         push  %r9
+@@ -352,12 +367,18 @@ static always_inline void stac(void)
+         xor   %r14d, %r14d
+         push  %r15
+         xor   %r15d, %r15d
++#ifdef CONFIG_XEN_SHSTK
++        push  %rcx
++#endif
+ .endm
+ 
  /*
   * POP GPRs from a UREGS_* frame on the stack.  Does not modify flags.
   */
--.macro POP_GPRS
-+.macro POP_GPRS skip_rax=0
+ .macro POP_GPRS skip_rax=0
++#ifdef CONFIG_XEN_SHSTK
++        pop   %rcx
++#endif
          pop   %r15
          pop   %r14
          pop   %r13
-@@ -368,7 +368,11 @@ static always_inline void stac(void)
-         pop   %r10
-         pop   %r9
-         pop   %r8
-+ .if \skip_rax
-+        pop   %rcx
-+ .else
-         pop   %rax
-+ .endif
-         pop   %rcx
-         pop   %rdx
-         pop   %rsi
+--- a/xen/arch/x86/include/asm/cpu-user-regs.h
++++ b/xen/arch/x86/include/asm/cpu-user-regs.h
+@@ -11,6 +11,15 @@
+  */
+ struct cpu_user_regs
+ {
++#ifdef CONFIG_XEN_SHSTK
++    /*
++     * This points _at_ the corresponding shadow stack frame; it is _not_ the
++     * outer context's SSP.  That, if the outer context has CET-SS enabled,
++     * is stored in the top slot of the pointed to shadow stack.
++     */
++    uint64_t entry_ssp;
++#endif
++
+     union { uint64_t r15;    uint32_t r15d;   uint16_t r15w;  uint8_t r15b; };
+     union { uint64_t r14;    uint32_t r14d;   uint16_t r14w;  uint8_t r14b; };
+     union { uint64_t r13;    uint32_t r13d;   uint16_t r13w;  uint8_t r13b; };
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -53,6 +53,9 @@ void __dummy__(void)
+     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
+     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
+     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
++#ifdef CONFIG_XEN_SHSTK
++    OFFSET(UREGS_entry_ssp, struct cpu_user_regs, entry_ssp);
++#endif
+     DEFINE(UREGS_kernel_sizeof, sizeof(struct cpu_user_regs));
+     BLANK();
+ 
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -304,7 +304,7 @@ FUNC(lstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -344,7 +344,7 @@ FUNC(cstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -388,7 +388,7 @@ LABEL(sysenter_eflags_saved, 0)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -444,7 +444,7 @@ FUNC(entry_int80)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movb  $0x80, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+--- a/xen/arch/x86/x86_64/entry-fred.S
++++ b/xen/arch/x86/x86_64/entry-fred.S
+@@ -11,7 +11,7 @@
+         /* The Ring3 entry point is required to be 4k aligned. */
+ 
+ FUNC(entry_FRED_R3, 4096)
+-        PUSH_AND_CLEAR_GPRS
++        PUSH_AND_CLEAR_GPRS ssp=0
+ 
+         mov     %rsp, %rdi
+         call    entry_from_pv
+@@ -54,7 +54,7 @@ LABEL(eretu, 0)
+ END(eretu_exit_to_guest)
+ 
+ FUNC(eretu_error_dom_crash)
+-        PUSH_AND_CLEAR_GPRS
++        PUSH_AND_CLEAR_GPRS ssp=0
+         sti
+         call    asm_domain_crash_synchronous  /* Does not return */
+ END(eretu_error_dom_crash)
 
 
