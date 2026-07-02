@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id fCHlH6ZDRmqUNAsAu9opvQ
+	id kaNoKrlDRmqeNAsAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:34 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0C736F644D
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD546F6464
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Jul 2026 12:55:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=PmLNavic;
+	dkim=pass header.d=suse.com header.s=google header.b=QSciwZm4;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1351643.1608756 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1351652.1608765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfF4o-0004ob-9j; Thu, 02 Jul 2026 10:55:26 +0000
+	id 1wfF55-0005Iv-HM; Thu, 02 Jul 2026 10:55:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1351643.1608756; Thu, 02 Jul 2026 10:55:26 +0000
+Received: by outflank-mailman (output) from mailman id 1351652.1608765; Thu, 02 Jul 2026 10:55:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfF4o-0004li-5a; Thu, 02 Jul 2026 10:55:26 +0000
-Received: by outflank-mailman (input) for mailman id 1351643;
- Thu, 02 Jul 2026 10:55:24 +0000
+	id 1wfF55-0005G4-E4; Thu, 02 Jul 2026 10:55:43 +0000
+Received: by outflank-mailman (input) for mailman id 1351652;
+ Thu, 02 Jul 2026 10:55:42 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wfF4l-0004id-Vd
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 10:55:24 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wfF53-0005Cy-U6
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 10:55:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfF4l-005SNi-Bz
- for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:55:23 +0200
+ id 1wfF53-005SQm-Ai
+ for xen-devel@lists.xenproject.org; Thu, 02 Jul 2026 12:55:41 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a464398-bab6-0a2a0a5309dd-0a2a4507b412-24
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:23 +0200
-Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ id 6a4643a0-bab6-0a2a0a5309dd-0a2a45078f00-16
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:41 +0200
+Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a46439b-9c8e-0a2a45070019-d155dd2dace7-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:23 +0200
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-47122683cf3so1234215f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 03:55:23 -0700 (PDT)
+ id 6a4643ad-9c8e-0a2a45070019-d155dd2eec47-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 12:55:41 +0200
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-476a130c138so1548930f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Jul 2026 03:55:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-477ddf0f310sm7709053f8f.31.2026.07.02.03.55.22
+ ffacd0b85a97d-477de3dcf59sm8095181f8f.34.2026.07.02.03.55.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 03:55:22 -0700 (PDT)
+ Thu, 02 Jul 2026 03:55:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,48 +61,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1782989722; x=1783594522; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LVZ9L1TPFh7mEp2xecv7V5O5RSUvEp2Ng8R7qCS66ME=;
-        b=PmLNavicnZHp8i3D+d8nIzbEowiVuG2MUXaJiMrxQtk7cuWHYWWXkpvHH4BUgN9dW7
-         Kx23DbEk+wq91PGnjxwYLos+biErTJa91Kb4psDd7GM4NHk0GB9wF4dtxCe7FjR3bd0I
-         OH6uFLfWB26eb+lEUbTxH7ocpeYu1GG2QFpV3w4s6cy6mVmYAcLGXLx0GjUNGKaoHLEm
-         ZeJNrB3mcc3pYmdKryyWany7OfX26vS8wAnBjXe1zS+f9/rrCYKwd9QHVjNHJKhI+Zjj
-         BmI7kPRbSq+M/U8PLfetVLVRiGBiVgkedGpaHek+lw28RehDL6HO85stcRP78AcNbCD8
-         ksdQ==
+        d=suse.com; s=google; t=1782989741; x=1783594541; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=v/oOuLNsb9sp/2KN0lUVF17VXE209vMr5egGnhDKc+8=;
+        b=QSciwZm4Sqjo8HcN3GFTnHote/Ra7qMd14YkrQLee5zAAvkTv82OUXgeuLQ7rJRHdL
+         wUzmOc4bZu7wXpak+iKvRv7vFFt/f5gcX5I10PdQx3spqrw4nD/JVIk8XRHiwF3iSzQS
+         BBu4ocYe4Su66/CnKhVx7C196L+lW03Odk9QkIaUpCpfRnd3oBUWBeFEPELmrbDtT1CW
+         GHnALswW+tO5gYU8pOiYr6OtMU1A+a7/qw/YZ6Bi4565lVRn18Qo0vqTKYA4qT0bk1s1
+         ZRSLPzjrXwQGCNTaXmiso6n0LTwtkn3vQQ6p2h3pI1s6F65X0YOsV1Hos1sPwVph5XAs
+         BkbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1782989722; x=1783594522;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LVZ9L1TPFh7mEp2xecv7V5O5RSUvEp2Ng8R7qCS66ME=;
-        b=cyahNBXJv6Abm+x+64YIL8+7fnDX5S1pOrFe+WTOAe7L+ZbUH4ya9zIunSWtRLIt9D
-         XPNQ0PL7jMYQ4ie6Cwxj57SJXneY3U0VaIs4GYrUkUlEczpe2PxNgHx6NhYoEQJ6Vcdk
-         qa3p3slzmJT0Is67GVmjdfWTJP8awr6zEX9h5i1QWA2YEjApv5o5JeJTSay/ri3rVlm5
-         siEg7FtydwWTYAL1Sv2LN6UFH1EE+9x0xLSJMQ7CCSAn+O2zJUmLgsZMDqtB+k5yTwvZ
-         nge/c1FE7tf2Ot8IJoEI/dEMR/BH/U5Rpbz+ems+E6PA9mp0eA3WRGMj9j8pdtCyEVRU
-         CrnQ==
-X-Gm-Message-State: AOJu0YxyNCq/1Ncoc7VRW3v0DdenPDGDAgOKIgNf0y8qXF1H+iM7GPOv
-	gpsEuzIqu1GnaGPwbAaD2xcltOEX7pWBgkLXk3bbD01T1erzqYsCajzYJp+etT0m0a/Q9SM8jEe
-	diJX/vA==
-X-Gm-Gg: AfdE7cmXcJBstqcssbxGTDzKIdoNN3nCdJdaOkOIFlF4/KqaEPucmPzsWoKeLNMtSNO
-	w6FTXaw4LMFKKCWgu17PiLHwFmlzGN/kLRyLZOCzCFuxyK8coOZXJN0tscZ9P4fsW2SH2zDyiNL
-	mfb+1nL/gkGy9xewWB8HlA8zjyUboONTD/C8v7iZzVvI1d4qyYuFoxNdWv6zBOR1PxSzaLvwtjy
-	YOuU7L4YKieXlef/OX9lPxSqDCP1OJJqjJb2VGehK+6Jhh72F7U9fMeekS9ObAfpS8Qxuuxl+8B
-	94YzEVuQpw+VcIRUvTpJOrG5aQtmeSG52WeaO3ROPK2njyWnoSCqtmMzir0G+zmOwfo4jAFnM/c
-	ow0keIrbgXe1Nz/kw3TplNfgzZ3I1f+PuBT/KiP9ZEl3Ni/an8gAJKA5q0jR+nwXEtKBVQeRqje
-	6pjJigJk+0PiJ80zUmnH9O0FC+XrkdeVWCDVEFD6KCCU5uZfu5bx/C/jF/155/RhIoVAARXZloV
-	x1v
-X-Received: by 2002:a05:6000:240c:b0:46e:6210:ad4a with SMTP id ffacd0b85a97d-47757e57e77mr8219284f8f.5.1782989722576;
-        Thu, 02 Jul 2026 03:55:22 -0700 (PDT)
-Message-ID: <eb380ba2-cea7-4433-a692-9c233f6503ca@suse.com>
-Date: Thu, 2 Jul 2026 12:55:21 +0200
+        d=1e100.net; s=20251104; t=1782989741; x=1783594541;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:references:cc:to:from:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v/oOuLNsb9sp/2KN0lUVF17VXE209vMr5egGnhDKc+8=;
+        b=gvr4Hf0JcZl53EqtnnMm8PZdWITNe6ntjQkHYK6U6AZpJNxJg0qOWY677X7Uj7HrOM
+         PXK0bF0zWyIYNWmEewFZN7tS1qiG9/Q5Jz27mJEou6oZXdLzrK5YeExndehv1Og7pclu
+         ggVWkLyGA0GSiooPK7KF1s/gZj2C0S5Ecfj0X4LJcT4VvvEbjHZW2KgW4dXg/8Con5xC
+         7ll0upuzLT9uf4JBpimxtupEUvIrl83GhrswjbMhS5xaJJAVJ4kz4Zkp+lD7FvTaZJhy
+         56iJ72hjimYsAcuGaLP4N6Tohi2tbMbuQlMsGZSul2lvmBGemIIidM7wNliO9PJKOPTe
+         1fEw==
+X-Gm-Message-State: AOJu0YwjR8Xyi2+PlTIaRlRAMf72VHAwlqca1pR1y5CG8V7QVvySYdkU
+	Jm0ZYHLahvisDz0TiMOZK46JoD2+L9s5KOgm/h90nik8DWXeBXcfC2uEZw3imJV8DKX/iHqa4Jm
+	lIczSqA==
+X-Gm-Gg: AfdE7ckIJ0u3oeQGE8y8wA/Ot2DGrvWEHuwWdf36xjjSqZFYBBpAN7jjaaGM+qSmMyM
+	QAn+8yveSYSsALb7UZ5fyr6E9TrCh1UVLjFFWdfx4vro304ru3vOJFcGpoRwyFF8GCBMATEnq2N
+	QqaWaSDxHKZ0AqkUJfSN0buj9v/xk4Yh86Uzk9inc6DuLftCKz3HygVCl+o1Eq/MFiFp6LqF11A
+	5J8MrZXVSplfuRUFn0E15Gzk1oAIlH+9zeVMq0Y6NY+Sr5+1AnAwoFyQQZBKON6ut/UirrPGInD
+	vQ8piYhM/FjkniS71UzdVLJlZHia6fSqSoIjrPE1RA0Z6+VpEE7TjhYUBuhQ+72w7XE3mZv6dkI
+	DPXTXtxjy361IybuyiLFmhfCLGiCmqPiK/L9SYbYXSKufS8RsVluCZeRM7BdNUvKyEOj65cQRLj
+	+wc5twcX1TYLzXbdas6jawumAyIwoXXmcB9jJYhuRlur96pTqwaIwbDKlG9wnqiqThtCKmXD7yO
+	j5c
+X-Received: by 2002:a5d:5f56:0:b0:470:390c:1e73 with SMTP id ffacd0b85a97d-477b39839cbmr7299589f8f.18.1782989740669;
+        Thu, 02 Jul 2026 03:55:40 -0700 (PDT)
+Message-ID: <8af61c08-71f9-4d18-ba9c-952b7894c44d@suse.com>
+Date: Thu, 2 Jul 2026 12:55:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 2/4] x86: record SSP at non-guest entry points
+Subject: [PATCH v3 3/4] x86/traps: use entry_ssp in fixup_exception_return()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
@@ -135,9 +136,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <7ba5ecff-af64-49c0-abf9-23963ca56aa6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1782989723-FDB2325E-7A3E1B2E/0/0
+X-purgate-ID: tlsNG-ef75cf/1782989741-7DB2325E-58462B72/0/0
 X-purgate-type: clean
-X-purgate-size: 6838
+X-purgate-size: 5876
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -172,232 +173,159 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: F0C736F644D
+X-Rspamd-Queue-Id: 3FD546F6464
 
-We will want to use that value for call trace generation, and likely
-also to eliminate the somewhat fragile shadow stack searching done in
-fixup_exception_return(). For those purposes, guest-only entry points do
-not need to record that value.
-
-To keep the saving code simple, record our own SSP that corresponds to
-an exception frame, pointing to the top of the shadow stack counterpart
-of what the CPU has saved on the regular stack. Consuming code can then
-work its way from there.
-
-In SAVE_ALL / RESTORE_ALL simply drop the use of UREGS_r15. We want the
-full size in all cases, so what exactly the top-of-stack field is going
-to be (whose UREGS_* is 0 anyway) doesn't matter this much there. This
-way we don't need to distinguish between XEN_SHSTK=y and XEN_SHSTK=n.
+With the value recorded on entry there's no need anymore to go hunt for
+the respective exception frame on the shadow stack. By deriving "ptr"
+from that field (without any offset), it then ends up pointing one slot
+lower than before. Therefore all array indexes need incrementing, nicely
+doing away with all the negative ones.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v3: Put new field at the front of struct cpu_user_regs.
-v2: Add comment ahead of SAVE_ALL. Add comma between its parameters.
-    Re-base.
+Indentation of the prior inner (but not innermost) if()'s body is
+deliberately left untouched, to aid review. It'll be adjusted in a
+separate follow-on patch.
+---
+v3: Relax the first BUG_ON().
+v2: IS_ENABLED() -> #ifdef. Re-base.
 
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -89,7 +89,7 @@ __UNLIKELY_END(nsvm_hap)
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -690,19 +690,6 @@ unsigned long get_stack_trace_bottom(uns
+     }
+ }
  
-         vmrun
- 
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         GET_CURRENT(bx)
- 
---- a/xen/arch/x86/hvm/vmx/entry.S
-+++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -22,7 +22,7 @@
- #include <asm/page.h>
- 
- FUNC(vmx_asm_vmexit_handler)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         mov  %cr2,%rax
-         GET_CURRENT(bx)
-@@ -157,7 +157,7 @@ UNLIKELY_END(realmode)
- 
- .Lvmx_vmentry_fail:
-         sti
--        SAVE_ALL
-+        SAVE_ALL ssp=0
- 
-         /*
-          * SPEC_CTRL_ENTRY notes
---- a/xen/arch/x86/include/asm/asm_defns.h
-+++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -219,8 +219,12 @@ static always_inline void stac(void)
- #endif
- 
- #ifdef __ASSEMBLER__
--.macro SAVE_ALL compat=0
--        addq  $-(UREGS_error_code-UREGS_r15), %rsp
-+/*
-+ * Use sites may override ssp to 0. It should never be overridden to 1.
-+ * NB: compat=1 implies ssp=0.
-+ */
-+.macro SAVE_ALL compat=0, ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
-+        addq  $-UREGS_error_code, %rsp
-         cld
-         movq  %rdi,UREGS_rdi(%rsp)
-         xor   %edi, %edi
-@@ -233,6 +237,9 @@ static always_inline void stac(void)
-         movq  %rax,UREGS_rax(%rsp)
-         xor   %eax, %eax
- .if !\compat
-+.if \ssp
-+        rdsspq %rcx
-+.endif
-         movq  %r8,UREGS_r8(%rsp)
-         movq  %r9,UREGS_r9(%rsp)
-         movq  %r10,UREGS_r10(%rsp)
-@@ -262,6 +269,9 @@ static always_inline void stac(void)
-         xor   %r13d, %r13d
-         xor   %r14d, %r14d
-         xor   %r15d, %r15d
-+#ifdef CONFIG_XEN_SHSTK
-+        mov   %rcx, UREGS_entry_ssp(%rsp)
-+#endif
- .endm
- 
- #define LOAD_ONE_REG(reg, compat) \
-@@ -309,13 +319,15 @@ static always_inline void stac(void)
-         LOAD_ONE_REG(dx, \compat)
-         LOAD_ONE_REG(si, \compat)
-         LOAD_ONE_REG(di, \compat)
--        subq  $-(UREGS_error_code-UREGS_r15+\adj), %rsp
-+        subq  $-(UREGS_error_code + \adj), %rsp
- .endm
- 
- /*
-- * Push and clear GPRs
-+ * Push and clear GPRs.
-+ *
-+ * Use sites may override ssp to 0. It should never be overridden to 1.
-  */
--.macro PUSH_AND_CLEAR_GPRS
-+.macro PUSH_AND_CLEAR_GPRS ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
-         push  %rdi
-         xor   %edi, %edi
-         push  %rsi
-@@ -326,6 +338,9 @@ static always_inline void stac(void)
-         xor   %ecx, %ecx
-         push  %rax
-         xor   %eax, %eax
-+ .if \ssp
-+        rdsspq %rcx
-+ .endif
-         push  %r8
-         xor   %r8d, %r8d
-         push  %r9
-@@ -352,12 +367,18 @@ static always_inline void stac(void)
-         xor   %r14d, %r14d
-         push  %r15
-         xor   %r15d, %r15d
-+#ifdef CONFIG_XEN_SHSTK
-+        push  %rcx
-+#endif
- .endm
- 
- /*
-  * POP GPRs from a UREGS_* frame on the stack.  Does not modify flags.
-  */
- .macro POP_GPRS skip_rax=0
-+#ifdef CONFIG_XEN_SHSTK
-+        pop   %rcx
-+#endif
-         pop   %r15
-         pop   %r14
-         pop   %r13
---- a/xen/arch/x86/include/asm/cpu-user-regs.h
-+++ b/xen/arch/x86/include/asm/cpu-user-regs.h
-@@ -11,6 +11,15 @@
-  */
- struct cpu_user_regs
+-static unsigned long get_shstk_bottom(unsigned long sp)
+-{
+-    /* SAF-11-safe */
+-    switch ( get_stack_page(sp) )
+-    {
+-#ifdef CONFIG_XEN_SHSTK
+-    case 0:  return ROUNDUP(sp, IST_SHSTK_SIZE) - sizeof(unsigned long);
+-    case 5:  return ROUNDUP(sp, PAGE_SIZE)      - sizeof(unsigned long);
+-#endif
+-    default: return sp - sizeof(unsigned long);
+-    }
+-}
+-
+ unsigned long get_stack_dump_bottom(unsigned long sp)
  {
+     switch ( get_stack_page(sp) )
+@@ -1187,26 +1174,29 @@ void asmlinkage noreturn do_unhandled_tr
+ static void fixup_exception_return(struct cpu_user_regs *regs,
+                                    unsigned long fixup, unsigned long stub_ra)
+ {
+-    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
 +#ifdef CONFIG_XEN_SHSTK
-+    /*
-+     * This points _at_ the corresponding shadow stack frame; it is _not_ the
-+     * outer context's SSP.  That, if the outer context has CET-SS enabled,
-+     * is stored in the top slot of the pointed to shadow stack.
-+     */
-+    uint64_t entry_ssp;
-+#endif
-+
-     union { uint64_t r15;    uint32_t r15d;   uint16_t r15w;  uint8_t r15b; };
-     union { uint64_t r14;    uint32_t r14d;   uint16_t r14w;  uint8_t r14b; };
-     union { uint64_t r13;    uint32_t r13d;   uint16_t r13w;  uint8_t r13b; };
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -53,6 +53,9 @@ void __dummy__(void)
-     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
-     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
-     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
-+#ifdef CONFIG_XEN_SHSTK
-+    OFFSET(UREGS_entry_ssp, struct cpu_user_regs, entry_ssp);
-+#endif
-     DEFINE(UREGS_kernel_sizeof, sizeof(struct cpu_user_regs));
-     BLANK();
+     {
+-        unsigned long ssp, *ptr, *base;
++        unsigned long ssp = rdssp();
  
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -304,7 +304,7 @@ FUNC(lstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+-        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
+-            goto shstk_done;
++        if ( ssp != SSP_NO_SHSTK )
++        {
++            unsigned long *ptr = _p(regs->entry_ssp);
++            unsigned long primary_shstk =
++                (ssp & ~(STACK_SIZE - 1)) +
++                (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
  
-         GET_STACK_END(14)
+-        ptr = _p(ssp);
+-        base = _p(get_shstk_bottom(ssp));
++            BUG_ON((regs->entry_ssp ^ primary_shstk) >>
++                   (PAGE_SHIFT + STACK_ORDER));
  
-@@ -344,7 +344,7 @@ FUNC(cstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+-        for ( ; ptr < base; ++ptr )
+-        {
+             /*
+-             * Search for %rip.  The shstk currently looks like this:
++             * The shstk currently looks like this:
+              *
+              *   tok  [Supervisor token, == &tok | BUSY, only with FRED inactive]
+              *   ...  [Pointed to by SSP for most exceptions, empty in IST cases]
+              *   %cs  [== regs->cs]
+              *   %rip [== regs->rip]
+-             *   SSP  [Likely points to 3 slots higher, above %cs]
++             *   SSP  [Pointed to by entry_ssp; Likely points to 3 slots
++             *         higher, above %cs]
+              *   ...  [call tree to this function, likely 2/3 slots]
+              *
+              * and we want to overwrite %rip with fixup.  There are two
+@@ -1219,13 +1209,10 @@ static void fixup_exception_return(struc
+              *
+              * Check for both regs->rip and regs->cs matching.
+              */
+-            if ( ptr[0] == regs->rip && ptr[1] == regs->cs )
+-            {
+-                unsigned long primary_shstk =
+-                    (ssp & ~(STACK_SIZE - 1)) +
+-                    (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
++            BUG_ON(ptr[1] != regs->rip || ptr[2] != regs->cs);
  
-         GET_STACK_END(14)
+-                wrss(fixup, ptr);
++            {
++                wrss(fixup, &ptr[1]);
  
-@@ -388,7 +388,7 @@ LABEL(sysenter_eflags_saved, 0)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+                 if ( !stub_ra )
+                     goto shstk_done;
+@@ -1242,7 +1229,7 @@ static void fixup_exception_return(struc
+                  * - if we're on an IST stack, we need to increment the
+                  *   original SSP.
+                  */
+-                BUG_ON((ptr[-1] ^ primary_shstk) >> PAGE_SHIFT);
++                BUG_ON((ptr[0] ^ primary_shstk) >> PAGE_SHIFT);
  
-         GET_STACK_END(14)
+                 if ( (ssp ^ primary_shstk) >> PAGE_SHIFT )
+                 {
+@@ -1251,39 +1238,30 @@ static void fixup_exception_return(struc
+                      * addresses actually match.  Then increment the interrupted
+                      * context's SSP.
+                      */
+-                    BUG_ON(stub_ra != *(unsigned long*)ptr[-1]);
+-                    wrss(ptr[-1] + 8, &ptr[-1]);
++                    BUG_ON(stub_ra != *(unsigned long*)ptr[0]);
++                    wrss(ptr[0] + 8, &ptr[0]);
+                     goto shstk_done;
+                 }
  
-@@ -444,7 +444,7 @@ FUNC(entry_int80)
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-         movb  $0x80, EFRAME_entry_vector(%rsp)
--        SAVE_ALL
-+        SAVE_ALL ssp=0
+                 /* Make sure the two return addresses actually match. */
+-                BUG_ON(stub_ra != ptr[2]);
++                BUG_ON(stub_ra != ptr[3]);
  
-         GET_STACK_END(14)
+                 /* Move exception frame, updating SSP there. */
+-                wrss(ptr[1], &ptr[2]); /* %cs */
+-                wrss(ptr[0], &ptr[1]); /* %rip */
+-                wrss(ptr[-1] + 8, &ptr[0]); /* SSP */
++                wrss(ptr[2], &ptr[3]); /* %cs */
++                wrss(ptr[1], &ptr[2]); /* %rip */
++                wrss(ptr[0] + 8, &ptr[1]); /* SSP */
  
---- a/xen/arch/x86/x86_64/entry-fred.S
-+++ b/xen/arch/x86/x86_64/entry-fred.S
-@@ -11,7 +11,7 @@
-         /* The Ring3 entry point is required to be 4k aligned. */
+                 /* Move all newer entries. */
+-                while ( --ptr != _p(ssp) )
+-                    wrss(ptr[-1], &ptr[0]);
++                while ( ptr-- != _p(ssp) )
++                    wrss(ptr[0], &ptr[1]);
  
- FUNC(entry_FRED_R3, 4096)
--        PUSH_AND_CLEAR_GPRS
-+        PUSH_AND_CLEAR_GPRS ssp=0
+                 /* Finally account for our own stack having shifted up. */
+                 asm volatile ( "incsspd %0" :: "r" (2) );
+-
+-                goto shstk_done;
+             }
+         }
+-
+-        /*
+-         * We failed to locate and fix up the shadow IRET frame.  This could
+-         * be due to shadow stack corruption, or bad logic above.  We cannot
+-         * continue executing the interrupted context.
+-         */
+-        BUG();
+-
+     }
+  shstk_done:
++#endif /* CONFIG_XEN_SHSTK */
  
-         mov     %rsp, %rdi
-         call    entry_from_pv
-@@ -54,7 +54,7 @@ LABEL(eretu, 0)
- END(eretu_exit_to_guest)
- 
- FUNC(eretu_error_dom_crash)
--        PUSH_AND_CLEAR_GPRS
-+        PUSH_AND_CLEAR_GPRS ssp=0
-         sti
-         call    asm_domain_crash_synchronous  /* Does not return */
- END(eretu_error_dom_crash)
+     /* Fixup the regular stack. */
+     regs->rip = fixup;
 
 
