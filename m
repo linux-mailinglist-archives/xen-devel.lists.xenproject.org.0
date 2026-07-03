@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id E40cIHMoSGpQnAAAu9opvQ
+	id Pu4fJHMoSGpRnAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 23:24:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71DF8705C81
+	by mail.lfdr.de (Postfix) with ESMTPS id 828B6705C82
 	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 23:24:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=infradead.org header.s=desiato.20200630 header.b=L06h6XB7;
+	dkim=pass header.d=infradead.org header.s=desiato.20200630 header.b=D3raY3Mt;
 	dmarc=pass (policy=none) header.from=infradead.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1353903.1609681 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1353896.1609662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wflMa-0007gw-FJ; Fri, 03 Jul 2026 21:23:56 +0000
+	id 1wflMY-0007Ej-Gj; Fri, 03 Jul 2026 21:23:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1353903.1609681; Fri, 03 Jul 2026 21:23:56 +0000
+Received: by outflank-mailman (output) from mailman id 1353896.1609662; Fri, 03 Jul 2026 21:23:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wflMZ-0007SR-VU; Fri, 03 Jul 2026 21:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 1353903;
- Fri, 03 Jul 2026 21:23:53 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wflMY-00079A-8D; Fri, 03 Jul 2026 21:23:54 +0000
+Received: by outflank-mailman (input) for mailman id 1353896;
+ Fri, 03 Jul 2026 21:23:52 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+ac8634115322beed580f+8349+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wflMW-0006zB-Vi
+ id 1wflMW-0006v5-KE
  for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 21:23:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wflMW-001XO6-CA; Fri, 03 Jul 2026 23:23:52 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wflMW-000kw0-1F; Fri, 03 Jul 2026 23:23:52 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+ac8634115322beed580f+8349+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 6a48282a-5cb7-0a2a0a5109dd-0a2a450aa8e8-34
+ id 6a482832-2eae-0a2a0a5409dd-0a2a450b92fe-38
  for <multiple-recipients>; Fri, 03 Jul 2026 23:23:52 +0200
 Received: from [90.155.92.199] (helo=desiato.infradead.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
  <BATV+ac8634115322beed580f+8349+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 6a482867-e40e-0a2a450a0019-5a9b5cc7ba58-3
- for <multiple-recipients>; Fri, 03 Jul 2026 23:23:52 +0200
+ id 6a482867-ac48-0a2a450b0019-5a9b5cc7a076-3
+ for <multiple-recipients>; Fri, 03 Jul 2026 23:23:51 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
- id 1wflKd-000000059Nx-0xnf; Fri, 03 Jul 2026 21:23:38 +0000
+ id 1wflKc-000000059Ny-3C3B; Fri, 03 Jul 2026 21:23:38 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.2 #2 (Red
- Hat Linux)) id 1wflKW-00000001ROD-0TOT;
+ Hat Linux)) id 1wflKW-00000001ROH-0fUc;
  Fri, 03 Jul 2026 22:21:48 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -62,12 +62,12 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
 	Cc:Content-Type:Content-ID:Content-Description;
-	bh=XAeJCQ+9v+mDSYHMRAWw2uzIOBs6a2aQ/+qu99zPeWk=; b=L06h6XB7ChTw5JFuRa1oGPYKJD
-	pa/C7Tzgjlg4/j8Xcz0xLWravurCFkrPEx8W3oxblz5pXyRuuOucw0AfVSQ49G8Z2gokwtlVqRpUZ
-	76hF5gEabMj2GhEiYzS+cxTluSHaQJf3VqmfsdAaBGUby6HcIzGDTJx1nTtkYwrlAiBOzKKn/OJLk
-	NsB+IqXwT26+U20Jo6IPUmvncGBzgomgyfc+lfqu+HJCe1B3oMqqyDWXnWGzjpdTw3Yw4pvvAdIDe
-	NWCOKCuauAg+5mLGmvv2MuV/AJ4pY0kVq9SZWRoaSGeGhhLb4lcny8uw6kw5j20BInWSG2/SHbvPx
-	3UEsgyoQ==;
+	bh=v5twNDtsGAUIy7fgp54AfjET8D0248IAEiPECDLBGtY=; b=D3raY3MtOWfOex9Yyi+xdwR0oR
+	uH968+lTAMciyl5YT2WpYYHWkV4kZsN8/ZHM2GRGrwrBj9ui5GYmD9fG5F2abnWtV4WzOKBvaPhA2
+	Q0QkFD8RDTCmadp3BR9IBi8DDKktdVZV77/JpgdmtpX0sSXUozU4PcguLEOrURgnnk/FD1DDwvg11
+	GhxzUTCQtWepYdtdsACcCD7qQa4cSuaOUyBMo3ystxYHRyA1I0arDUTqQRtVZrp2cyUSbbXeGS0Ie
+	iCh4Z9aESsuLp+Ly/0B9HNI3BAqiQTUd6lP1/mWLYFZqczT8/eBEz4K0SdSrfmyS9ogn3nh0vMR4J
+	oqQGhlcA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -96,9 +96,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v6 07/36] KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
-Date: Fri,  3 Jul 2026 22:17:46 +0100
-Message-ID: <20260703212145.343527-8-dwmw2@infradead.org>
+Subject: [PATCH v6 08/36] KVM: x86: Activate master clock immediately on vCPU creation
+Date: Fri,  3 Jul 2026 22:17:47 +0100
+Message-ID: <20260703212145.343527-9-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260703212145.343527-1-dwmw2@infradead.org>
 References: <20260703212145.343527-1-dwmw2@infradead.org>
@@ -106,9 +106,9 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-4011c0/1783113832-D4B2CDDE-DEF88D8C/0/0
+X-purgate-ID: tlsNG-42698a/1783113832-A7B30220-98314000/0/0
 X-purgate-type: clean
-X-purgate-size: 2365
+X-purgate-size: 1254
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -131,7 +131,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email,infradead.org:from_mime,infradead.org:dkim,infradead.org:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:from_mime,infradead.org:dkim,infradead.org:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -142,65 +142,40 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 71DF8705C81
+X-Rspamd-Queue-Id: 828B6705C82
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-KVM does make an attempt to cope with non-constant TSC, and has
-notifiers to handle host TSC frequency changes. However, it *only*
-adjusts the KVM clock, and doesn't adjust TSC frequency scaling when
-the host changes.
+Previously, the master clock was only activated when the first vCPU
+processed KVM_REQ_MASTERCLOCK_UPDATE during KVM_RUN. This meant that
+KVM_GET_CLOCK could not return the host_tsc field until after the
+first KVM_RUN, making it impossible for userspace to follow the
+documented TSC migration procedure without a dummy vCPU run.
 
-This is presumably because non-constant TSCs were fixed in hardware
-long before TSC scaling was implemented, so there should never be real
-CPUs which have TSC scaling but *not* CONSTANT_TSC.
-
-Such a combination could potentially happen in some odd L1 nesting
-environment, but it isn't worth trying to support it. Just make the
-dependency explicit.
+Fix this by calling kvm_update_masterclock() directly from
+kvm_arch_vcpu_postcreate(), after kvm_synchronize_tsc() has already
+set all_vcpus_matched_freq. This ensures the master clock is active
+immediately, and KVM_GET_CLOCK returns a valid {host_tsc, realtime}
+pair as soon as a vCPU exists.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- arch/x86/kvm/svm/svm.c |  3 ++-
- arch/x86/kvm/vmx/vmx.c | 10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ arch/x86/kvm/x86.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index e02a38da5296..c46a34aeb3df 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -5557,7 +5557,8 @@ static __init int svm_hardware_setup(void)
- 				     XFEATURE_MASK_BNDCSR);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index ff45577ed90c..2039bd8518fb 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -13110,6 +13110,8 @@ void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
+ 		return;
+ 	vcpu_load(vcpu);
+ 	kvm_synchronize_tsc(vcpu, NULL);
++	if (!vcpu->kvm->arch.use_master_clock)
++		kvm_update_masterclock(vcpu->kvm);
+ 	vcpu_put(vcpu);
  
- 	if (tsc_scaling) {
--		if (!boot_cpu_has(X86_FEATURE_TSCRATEMSR)) {
-+		if (!boot_cpu_has(X86_FEATURE_TSCRATEMSR) ||
-+		    !boot_cpu_has(X86_FEATURE_CONSTANT_TSC)) {
- 			tsc_scaling = false;
- 		} else {
- 			pr_info("TSC scaling supported\n");
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index b9103de01428..54e92d94155e 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -2792,6 +2792,16 @@ static int setup_vmcs_config(struct vmcs_config *vmcs_conf,
- 	if (!cpu_has_sgx())
- 		_cpu_based_2nd_exec_control &= ~SECONDARY_EXEC_ENCLS_EXITING;
- 
-+	/*
-+	 * KVM doesn't re-derive the TSC scaling ratio when the host TSC
-+	 * frequency changes, so TSC scaling is only usable with a constant
-+	 * TSC.  Clear the control here rather than in vmx_hardware_setup() so
-+	 * that the per-CPU configs recomputed by vmx_check_processor_compat()
-+	 * stay consistent with the golden vmcs_config.
-+	 */
-+	if (!boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
-+		_cpu_based_2nd_exec_control &= ~SECONDARY_EXEC_TSC_SCALING;
-+
- 	if (_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS)
- 		_cpu_based_3rd_exec_control =
- 			adjust_vmx_controls64(KVM_OPTIONAL_VMX_TERTIARY_VM_EXEC_CONTROL,
+ 	/* poll control enabled by default */
 -- 
 2.54.0
 
