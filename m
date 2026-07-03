@@ -2,58 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id KMLrLdPjR2qChAAAu9opvQ
+	id 0knIFCMoSGoknAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 18:31:15 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 23:22:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB0AA704404
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 18:31:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD46705BE3
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 23:22:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=KBFtbqOX;
-	dmarc=pass (policy=none) header.from=vates.tech;
+	dkim=pass header.d=infradead.org header.s=casper.20170209 header.b=W9XzMKZF;
+	dmarc=pass (policy=none) header.from=infradead.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1353525.1609372 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1353755.1609499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfgmL-000624-Au; Fri, 03 Jul 2026 16:30:13 +0000
+	id 1wflKq-0006HC-F2; Fri, 03 Jul 2026 21:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1353525.1609372; Fri, 03 Jul 2026 16:30:13 +0000
+Received: by outflank-mailman (output) from mailman id 1353755.1609499; Fri, 03 Jul 2026 21:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfgmL-000608-7r; Fri, 03 Jul 2026 16:30:13 +0000
-Received: by outflank-mailman (input) for mailman id 1353525;
- Fri, 03 Jul 2026 16:30:12 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wflKq-0006Cb-4W; Fri, 03 Jul 2026 21:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 1353755;
+ Fri, 03 Jul 2026 21:22:06 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f28d0d9fc00080a8@swg.vates.tech>)
- id 1wfgmJ-000602-M3
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 16:30:11 +0000
+ <BATV+ba378bf2ab63d22ff04d+8349+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 1wflKn-0005QS-Tu
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 21:22:06 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfgmI-00Ahc5-LF
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 18:30:10 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wflKn-00CeeP-A4; Fri, 03 Jul 2026 23:22:05 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f28d0d9fc00080a8@swg.vates.tech>)
- id 6a47e388-2eae-0a2a0a5409dd-0a2a4501817a-22
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 18:30:10 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ <BATV+ba378bf2ab63d22ff04d+8349+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a4827de-bab6-0a2a0a5309dd-0a2a450adcec-18
+ for <multiple-recipients>; Fri, 03 Jul 2026 23:22:05 +0200
+Received: from [90.155.50.34] (helo=casper.infradead.org)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f28d0d9fc00080a8@swg.vates.tech>)
- id 6a47e392-400f-0a2a45010019-b9ff1c22976d-3
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 18:30:10 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f28d0d9fc00080a8.006 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 03 Jul 2026 16:30:03 +0000
-Received: from localhost.localdomain (88-188-240-210.subs.proxad.net
- [88.188.240.210]) (Authenticated sender: teddy.astie@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id D6F3680A50;
- Fri,  3 Jul 2026 18:30:02 +0200 (CEST)
+ <BATV+ba378bf2ab63d22ff04d+8349+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a4827f7-e40e-0a2a450a0019-5a9b3222e672-3
+ for <multiple-recipients>; Fri, 03 Jul 2026 23:22:00 +0200
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+ by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wflKV-0000000AsXw-3fP8; Fri, 03 Jul 2026 21:21:48 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.2 #2 (Red
+ Hat Linux)) id 1wflKV-00000001RNm-31u8;
+ Fri, 03 Jul 2026 22:21:47 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,314 +58,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=RQjEcU4YXGqI5p2avl7VVKfWwfVX8xlmY4b9mgjYYxQ=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=KBFtbqOX3yP+ftlSrP90Ur7znTycsqg4wcYWQDUyx3D1j8iUaI2So3d5hq6Wpd2UBiRBwtYuS
- 8sKvVDpKQRNQkd4PuNlBVX77aN+F2MdKJn5+Upmau3Z2AQ4EKWW+yhndyzTsWWwVn7bhelLAOay
- 0TmV6sOT/HUET3rBK/FbXD3XN7r68PVK0FphoAepag/yrOt8hpxDIY2wddnnioXBEyfNluY2B4R
- d6o114Zh6bGm62yctZZ+gK1B3jt28um2+j7qdznUQDcpHD4EDVxNM95iI0Yd6C4x3JG+PAeZym7
- GiR1/nQ5C0KwAZ/5o+pXWRQE+T+nyS9fzY0npVkG+6Mw==
-X-Zone-Loop: df28dea631562b212faec0e426749e529d3a5150216c
-x-campaign-type: default
-x-transaction-id: 7633c826-ec20-4c9e-a44b-1d67d7966408
-x-swg-uid: 01-5c2e9b72-ea6d-43d9-8898-0e6cde5ab358
-X-Mailer: Sweego
-Message-ID:
- <1783096203.8631fc262581453bbf619ec5b2062170.19f28d0d9fc00080a8@vates.tech>
-x-swg-bid: 1783096203.8631fc262581453bbf619ec5b2062170.19f28d0d9fc00080a8
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-From: Teddy Astie <teddy.astie@vates.tech>
-To: xen-devel@lists.xenproject.org
-Cc: Teddy Astie <teddy.astie@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v3.1 02/18] pci: Use pci_sbdf_t in pci_add_device()
-Date: Fri,  3 Jul 2026 18:29:06 +0200
-In-Reply-To: <1782753810.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@vates.tech>
-References: <1782753810.8631fc262581453bbf619ec5b2062170.19f1468572a000701b@vates.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:To:From:Reply-To:Cc:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=wvuVYxcpMKTUzB1PVAb2vp+z8q/daFQH97Zt0FzYdTI=; b=W9XzMKZF+Q5CoOq/aV2FImKmn4
+	+MBNEUMz1UUX//35ieMEnUbaiZsHQsTOrfpMqJyem7xM2MCXsESLogrweax1K4VEn7VGsaAxuFtol
+	n+KQ3EN4fgjtWaRqFyqxHg1HXf/yi2skXyW+jTaS0Qk1V7TSrvx56j13mRj5oekE/3fEQ694N2cEW
+	mgq2fLxp2c99mW3FSQvDkCeudg1OHZOrce5n9XulglxvOXfr3wtY6IequF8Fr3xVB2motyCwj4WPC
+	gykHtGQP7j0TgEtGz5X17+6/VdjMQG4YNf7bRWnBi75ZgSnmbQsHS/Sr74SliiI5bkrRKoTzdHNeY
+	jhjnQZOA==;
+From: David Woodhouse <dwmw2@infradead.org>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Paul Durrant <paul@xen.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Jack Allister <jalliste@amazon.com>,
+	Dongli Zhang <dongli.zhang@oracle.com>,
+	joe.jin@oracle.com,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v6 00/36] Cleaning up the KVM clock mess
+Date: Fri,  3 Jul 2026 22:17:39 +0100
+Message-ID: <20260703212145.343527-1-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.ef.f30dce182e3a6b24.19f28d0d76b.198041397edd7b15=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1783096203116
-X-purgate-ID: tlsNG-d62444/1783096210-80CD61E0-BAD80866/0/0
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-4011c0/1783113725-CFF32DDE-2FE648EC/0/0
 X-purgate-type: clean
-X-purgate-size: 8407
+X-purgate-size: 8553
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.82 / 15.00];
-	URI_COUNT_ODD(1.00)[1];
-	MIME_MA_MISSING_HTML(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=casper.20170209];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[27];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:from_mime,vates.tech:url,vates.tech:email];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:dwmw2@infradead.org,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:dongli.zhang@oracle.com,m:joe.jin@oracle.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[infradead.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,infradead.org:from_mime,infradead.org:dkim,infradead.org:mid];
+	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AB0AA704404
+X-Rspamd-Queue-Id: DAD46705BE3
 
----=Part.ef.f30dce182e3a6b24.19f28d0d76b.198041397edd7b15=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+This is v6 of the series to clean up the KVM clock, rebased onto the
+tip timers/ptp material (the timers-ptp-2026-06-13 merge, which includes
+Thomas's ktime snapshot series and the read_snapshot patches).
 
-Signed-off-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
----
-v3: Don't adjust adjacent code=2E
-v3=2E1: Remove slot variable and move func down to its user=2E
----
- xen/arch/x86/physdev=2Ec        |  6 +++---
- xen/drivers/passthrough/pci=2Ec | 37 +++++++++++++++++------------------
- xen/drivers/pci/physdev=2Ec     |  3 ++-
- xen/include/xen/pci=2Eh         |  4 ++--
- 4 files changed, 25 insertions(+), 25 deletions(-)
+The KVM clock has historically suffered from three problems:
 
-diff --git a/xen/arch/x86/physdev=2Ec b/xen/arch/x86/physdev=2Ec
-index 5bbcf3b530=2E=2E60c02076d6 100644
---- a/xen/arch/x86/physdev=2Ec
-+++ b/xen/arch/x86/physdev=2Ec
-@@ -472,7 +472,7 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(vo=
-id) arg)
-         if ( copy_from_guest(&manage_pci, arg, 1) !=3D 0 )
-             break;
-=20
--        ret =3D pci_add_device(0, manage_pci=2Ebus, manage_pci=2Edevfn,
-+        ret =3D pci_add_device(PCI_SBDF(0, manage_pci=2Ebus, manage_pci=
-=2Edevfn),
-                              NULL, NUMA_NO_NODE);
-         break;
-     }
-@@ -503,8 +503,8 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(vo=
-id) arg)
-         pdev_info=2Eis_virtfn =3D manage_pci_ext=2Eis_virtfn;
-         pdev_info=2Ephysfn=2Ebus =3D manage_pci_ext=2Ephysfn=2Ebus;
-         pdev_info=2Ephysfn=2Edevfn =3D manage_pci_ext=2Ephysfn=2Edevfn;
--        ret =3D pci_add_device(0, manage_pci_ext=2Ebus,
--                             manage_pci_ext=2Edevfn,
-+        ret =3D pci_add_device(PCI_SBDF(0, manage_pci_ext=2Ebus,
-+                                      manage_pci_ext=2Edevfn),
-                              &pdev_info, NUMA_NO_NODE);
-         break;
-     }
-diff --git a/xen/drivers/passthrough/pci=2Ec b/xen/drivers/passthrough/pci=
-=2Ec
-index 0adf573150=2E=2Ed7e60e6fbb 100644
---- a/xen/drivers/passthrough/pci=2Ec
-+++ b/xen/drivers/passthrough/pci=2Ec
-@@ -662,12 +662,10 @@ unsigned int pci_size_mem_bar(pci_sbdf_t sbdf, unsig=
-ned int pos,
-     return is64bits ? 2 : 1;
- }
-=20
--int pci_add_device(u16 seg, u8 bus, u8 devfn,
--                   const struct pci_dev_info *info, nodeid_t node)
-+int pci_add_device(pci_sbdf_t sbdf, const struct pci_dev_info *info, node=
-id_t node)
- {
-     struct pci_seg *pseg;
-     struct pci_dev *pdev;
--    unsigned int slot =3D PCI_SLOT(devfn), func =3D PCI_FUNC(devfn);
-     const char *type;
-     int ret;
-=20
-@@ -680,17 +678,17 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-     else
-         type =3D "device";
-=20
--    ret =3D xsm_resource_plug_pci(XSM_PRIV, (seg << 16) | (bus << 8) | de=
-vfn);
-+    ret =3D xsm_resource_plug_pci(XSM_PRIV, sbdf=2Esbdf);
-     if ( ret )
-         return ret;
-=20
-     ret =3D -ENOMEM;
-=20
-     pcidevs_lock();
--    pseg =3D alloc_pseg(seg);
-+    pseg =3D alloc_pseg(sbdf=2Eseg);
-     if ( !pseg )
-         goto out;
--    pdev =3D alloc_pdev(pseg, bus, devfn);
-+    pdev =3D alloc_pdev(pseg, sbdf=2Ebus, sbdf=2Edevfn);
-     if ( !pdev )
-         goto out;
-=20
-@@ -701,16 +699,15 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-         pdev->info =3D *info;
-         if ( pdev->info=2Eis_virtfn )
-         {
--            struct pci_dev *pf_pdev =3D
--                pci_get_pdev(NULL, PCI_SBDF(seg, info->physfn=2Ebus,
--                                            info->physfn=2Edevfn));
-+            pci_sbdf_t pf_sbdf =3D PCI_SBDF(sbdf=2Eseg, info->physfn=2Ebu=
-s,
-+                                          info->physfn=2Edevfn);
-+            struct pci_dev *pf_pdev =3D pci_get_pdev(NULL, pf_sbdf);
-=20
-             if ( !pf_pdev )
-             {
-                 printk(XENLOG_WARNING
-                        "Attempted to add SR-IOV VF %pp without PF %pp\n",
--                       &pdev->sbdf,
--                       &PCI_SBDF(seg, info->physfn=2Ebus, info->physfn=2E=
-devfn));
-+                       &sbdf, &pf_sbdf);
-                 free_pdev(pseg, pdev);
-                 ret =3D -ENODEV;
-                 goto out;
-@@ -729,14 +726,14 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-             if ( !pdev->ext_cfg )
-                 printk(XENLOG_WARNING
-                        "%pp: VF without extended config space?\n",
--                       &pdev->sbdf);
-+                       &sbdf);
-         }
-     }
-=20
-     if ( !pdev->info=2Eis_virtfn && !pdev->physfn=2Evf_rlen[0] )
-     {
-         unsigned int pos =3D pci_find_ext_capability(pdev, PCI_EXT_CAP_ID=
-_SRIOV);
--        uint16_t ctrl =3D pci_conf_read16(pdev->sbdf, pos + PCI_SRIOV_CTR=
-L);
-+        uint16_t ctrl =3D pci_conf_read16(sbdf, pos + PCI_SRIOV_CTRL);
-=20
-         if ( !pos )
-             /* Nothing */;
-@@ -750,18 +747,18 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-             for ( i =3D 0; i < PCI_SRIOV_NUM_BARS; )
-             {
-                 unsigned int idx =3D pos + PCI_SRIOV_BAR + i * 4;
--                uint32_t bar =3D pci_conf_read32(pdev->sbdf, idx);
-+                uint32_t bar =3D pci_conf_read32(sbdf, idx);
-=20
-                 if ( (bar & PCI_BASE_ADDRESS_SPACE) =3D=3D
-                      PCI_BASE_ADDRESS_SPACE_IO )
-                 {
-                     printk(XENLOG_WARNING
-                            "SR-IOV device %pp with vf BAR%u in IO space\n=
-",
--                           &pdev->sbdf, i);
-+                           &sbdf, i);
-                     ++i;
-                     continue;
-                 }
--                ret =3D pci_size_mem_bar(pdev->sbdf, idx, NULL,
-+                ret =3D pci_size_mem_bar(sbdf, idx, NULL,
-                                        &pdev->physfn=2Evf_rlen[i],
-                                        PCI_BAR_VF |
-                                        ((i =3D=3D PCI_SRIOV_NUM_BARS - 1)=
- ?
-@@ -772,7 +769,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-         }
-         else
-             printk(XENLOG_WARNING "SR-IOV device %pp has its virtual"
--                   " functions already enabled (%04x)\n", &pdev->sbdf, ct=
-rl);
-+                   " functions already enabled (%04x)\n", &sbdf, ctrl);
-     }
-=20
-     check_pdev(pdev);
-@@ -818,14 +815,16 @@ out:
-     pcidevs_unlock();
-     if ( !ret )
-     {
--        printk(XENLOG_DEBUG "PCI add %s %pp\n", type, &pdev->sbdf);
-+        unsigned int func =3D sbdf=2Efn;
-+
-+        printk(XENLOG_DEBUG "PCI add %s %pp\n", type, &sbdf);
-         while ( pdev->phantom_stride )
-         {
-             func +=3D pdev->phantom_stride;
-             if ( PCI_SLOT(func) )
-                 break;
-             printk(XENLOG_DEBUG "PCI phantom %pp\n",
--                   &PCI_SBDF(seg, bus, slot, func));
-+                   &PCI_SBDF(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edev, func));
-         }
-     }
-     return ret;
-diff --git a/xen/drivers/pci/physdev=2Ec b/xen/drivers/pci/physdev=2Ec
-index d46501b884=2E=2E46735a5fc9 100644
---- a/xen/drivers/pci/physdev=2Ec
-+++ b/xen/drivers/pci/physdev=2Ec
-@@ -50,7 +50,8 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(voi=
-d) arg)
-         }
- #endif
-=20
--        ret =3D pci_add_device(add=2Eseg, add=2Ebus, add=2Edevfn, &pdev_i=
-nfo, node);
-+        ret =3D pci_add_device(PCI_SBDF(add=2Eseg, add=2Ebus, add=2Edevfn=
-),
-+                             &pdev_info, node);
-         break;
-     }
-=20
-diff --git a/xen/include/xen/pci=2Eh b/xen/include/xen/pci=2Eh
-index ade882caee=2E=2E26c0c6e449 100644
---- a/xen/include/xen/pci=2Eh
-+++ b/xen/include/xen/pci=2Eh
-@@ -229,8 +229,8 @@ void setup_hwdom_pci_devices(struct domain *d,
- int pci_release_devices(struct domain *d);
- int pci_add_segment(u16 seg);
- const unsigned long *pci_get_ro_map(u16 seg);
--int pci_add_device(u16 seg, u8 bus, u8 devfn,
--                   const struct pci_dev_info *info, nodeid_t node);
-+int pci_add_device(pci_sbdf_t sbdf, const struct pci_dev_info *info,
-+                   nodeid_t node);
- int pci_remove_device(u16 seg, u8 bus, u8 devfn);
- int pci_ro_device(int seg, int bus, int devfn);
- int pci_hide_device(unsigned int seg, unsigned int bus, unsigned int devf=
-n);
---=20
-2=2E54=2E0
+ 1. Imprecision: get_kvmclock_ns() computed the clock from the *host*
+    TSC without applying guest TSC scaling, causing systemic drift from
+    the values the guest computes from its own TSC.
 
+ 2. Unnecessary discontinuities: gratuitous KVM_REQ_MASTERCLOCK_UPDATE
+    requests caused the master clock reference point to be re-snapshotted,
+    yanking the guest's clock due to arithmetic precision differences.
 
+ 3. No precise migration API: the existing KVM_[GS]ET_CLOCK only allows
+    setting the clock at a given UTC reference time, which is necessarily
+    imprecise. There was no way to preserve the exact arithmetic
+    relationship between guest TSC and KVM clock across live migration.
 
--- 
-Teddy Astie | Vates XCP-ng Developer
+This series addresses all three, and adds new APIs for precise clock
+migration and TSC frequency reporting. As an added bonus, it now rips
+out the whole pvclock_gtod_data hack which was shadowing the kernel's
+timekeeping, and uses ktime snapshots as $DEITY (well, Thomas) intended.
 
-XCP-ng & Xen Orchestra - Vates s=
-olutions
+v5: https://lore.kernel.org/all/20260608145455.89187-1-dwmw2@infradead.org/
 
-web: https://vates=2Etech
----=Part.ef.f30dce182e3a6b24.19f28d0d76b.198041397edd7b15=---
+Changes since v5:
+ - Rebased onto the tip timers-ptp-2026-06-13 merge.
+
+ - Series shape: two new patches ("KVM: selftests: Use UAPI pvclock-abi.h
+   in xen_shinfo_test" and "KVM: x86: Activate master clock from
+   kvm_arch_init_vm()"); "Replace pvclock_gtod_data vclock_mode with
+   boolean" is replaced by "Cache host vclock_mode for masterclock
+   eligibility checks".
+
+ - Sean Christopherson's review:
+   * KVM_VCPU_TSC_SCALE: return -ENXIO (not -EINVAL) from the get/set
+     device-attribute handlers when !has_tsc_control, and do so in the
+     patch that introduces the attribute.
+   * Clear SECONDARY_EXEC_TSC_SCALING in setup_vmcs_config() rather than
+     vmx_hardware_setup(), so the per-CPU configs recomputed by
+     vmx_check_processor_compat() stay consistent with the golden
+     vmcs_config.
+
+ - kernel test robot (0-day), i386 W=1 warnings:
+   * get_kvmclock(): move hv_clock into the use_master_clock block, drop
+     the now-unnecessary get_cpu()/put_cpu() pinning (use_master_clock
+     implies a stable synchronised TSC clocksource), and replace the
+     goto/'fallback:' label with a 'continue'.
+   * pvclock_gtod_notify(): move 'tk' inside CONFIG_X86_64.
+
+ - Correctness fixes from review:
+   * KVM_SET_CLOCK_GUEST: bound the shift in hvclock_to_hz(), tighten
+     tsc_shift validation to [-31, 31], and reject guest_tsc below
+     pvclock.tsc_timestamp.
+   * kvm_guest_time_update(): read kvmclock_offset inside the pvclock
+     seqcount loop to avoid a torn read.
+   * kvm_snapshot_has_tsc(): honour snap->valid and zero-init the
+     snapshot, avoiding use of uninitialised stack.
+   * kvm_synchronize_tsc(): advance the matched reference point to "now"
+     to preserve the 1-second TSC matching window.
+   * kvm_track_tsc_matching(): request a masterclock update when
+     all_vcpus_matched_tsc changes, so PVCLOCK_TSC_STABLE_BIT is
+     broadcast to the other vCPUs.
+   * kvm_arch_enable_virtualization_cpu(): adjust cur_tsc_offset together
+     with cur_tsc_write under tsc_write_lock on the backwards-TSC / host
+     S4 resume path.
+   * kvm_set_tsc_khz(): sample the guest TSC before changing the ratio,
+     preserving continuity across the frequency change.
+   * Keep the real vclock_mode (int) rather than collapsing it to a
+     bool, so kvm_check_tsc_unstable() still special-cases HVCLOCK.
+   * Activate the master clock, and establish the initial TSC generation
+     and kvmclock epoch, from kvm_arch_init_vm() instead of a synchronous
+     kvm_update_masterclock() at each vCPU creation (avoids O(N^2)).
+
+ - selftests: use kvm_vm_free() instead of kvm_vm_release(); add the
+   missing Makefile entry for xen_migration_test; guard on
+   KVM_GET_CLOCK_GUEST / KVM_VCPU_TSC_OFFSET availability; use the
+   KVM_VCPU_TSC_SCALE enum instead of a literal; overflow-safe
+   arithmetic and looser tolerances.
+
+ - Documentation: fix the KVM_VCPU_TSC_OFFSET / KVM_VCPU_TSC_SCALE ReST
+   heading underlines (Randy Dunlap).
+
+ - UAPI: asm/kvm.h now includes <asm/pvclock-abi.h> so the
+   KVM_[GS]ET_CLOCK_GUEST ioctls are self-contained.
+
+ - Collected Dongli Zhang's Tested-by (kexec/LUO testing of the KVM clock
+   accuracy, pvclock-abi UAPI move, KVM_[GS]ET_CLOCK_GUEST and
+   redundant-masterclock-update patches).
+
+David Woodhouse (33):
+      KVM: x86/xen: Do not corrupt KVM clock in kvm_xen_shared_info_init()
+      KVM: x86: Improve accuracy of KVM clock when TSC scaling is in force
+      KVM: selftests: Use UAPI pvclock-abi.h in xen_shinfo_test
+      KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
+      KVM: x86: Activate master clock immediately on vCPU creation
+      KVM: x86: Add KVM_VCPU_TSC_SCALE and fix the documentation on TSC migration
+      KVM: x86: Avoid NTP frequency skew for KVM clock on 32-bit host
+      KVM: x86: Fold __get_kvmclock() into get_kvmclock()
+      KVM: x86: Restructure get_kvmclock()
+      KVM: x86: Fix KVM clock precision in get_kvmclock() with TSC scaling
+      KVM: x86: Use get_kvmclock() in kvm_get_wall_clock_epoch()
+      KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
+      KVM: x86: Restructure kvm_guest_time_update() for TSC upscaling
+      KVM: x86: Simplify and comment kvm_get_time_scale()
+      KVM: x86: Remove implicit rdtsc() from kvm_compute_l1_tsc_offset()
+      KVM: x86: Improve synchronization in kvm_synchronize_tsc()
+      KVM: x86: Kill last_tsc_{nsec,write,offset} fields
+      KVM: x86: Replace nr_vcpus_matched_tsc count with all_vcpus_matched_tsc bool
+      KVM: x86: Allow KVM master clock mode when TSCs are offset from each other
+      KVM: selftests: Add master clock offset test
+      KVM: x86: Factor out kvm_use_master_clock()
+      KVM: x86: Avoid gratuitous global clock updates
+      KVM: x86/xen: Prevent runstate times from becoming negative
+      KVM: x86: Avoid redundant masterclock updates from multiple vCPUs
+      KVM: x86: Remove runtime Xen TSC frequency CPUID update
+      KVM: selftests: Add Xen/generic CPUID timing leaf test
+      KVM: x86: Re-synchronize TSC after KVM_SET_TSC_KHZ
+      KVM: selftests: Add Xen runstate migration test
+      KVM: x86: Use ktime_get_snapshot_id() for master clock
+      KVM: x86: Compute kvmclock base without pvclock_gtod_data
+      KVM: x86: Cache host vclock_mode for masterclock eligibility checks
+      KVM: x86: Remove pvclock_gtod_data and private timekeeping code
+      KVM: x86: Activate master clock from kvm_arch_init_vm()
+
+Jack Allister (3):
+      UAPI: x86: Move pvclock-abi to UAPI for x86 platforms
+      KVM: x86: Add KVM_[GS]ET_CLOCK_GUEST for accurate KVM clock migration
+      KVM: selftests: Add KVM/PV clock selftest to prove timer correction
+
+ Documentation/virt/kvm/api.rst                     |   37 +
+ Documentation/virt/kvm/devices/vcpu.rst            |  120 ++-
+ MAINTAINERS                                        |    4 +-
+ arch/x86/include/asm/kvm_host.h                    |   16 +-
+ arch/x86/include/uapi/asm/kvm.h                    |    7 +
+ arch/x86/include/{ => uapi}/asm/pvclock-abi.h      |   27 +-
+ arch/x86/kvm/cpuid.c                               |   16 -
+ arch/x86/kvm/svm/svm.c                             |    3 +-
+ arch/x86/kvm/vmx/vmx.c                             |   10 +
+ arch/x86/kvm/x86.c                                 | 1104 ++++++++++++--------
+ arch/x86/kvm/xen.c                                 |   30 +-
+ arch/x86/kvm/xen.h                                 |   13 -
+ include/uapi/linux/kvm.h                           |    3 +
+ scripts/xen-hypercalls.sh                          |    2 +-
+ tools/testing/selftests/kvm/Makefile.kvm           |    5 +
+ .../selftests/kvm/x86/masterclock_offset_test.c    |  180 ++++
+ .../selftests/kvm/x86/pvclock_migration_test.c     |  383 +++++++
+ tools/testing/selftests/kvm/x86/pvclock_test.c     |  443 ++++++++
+ .../selftests/kvm/x86/xen_cpuid_timing_test.c      |  230 ++++
+ .../testing/selftests/kvm/x86/xen_migration_test.c |  194 ++++
+ tools/testing/selftests/kvm/x86/xen_shinfo_test.c  |   17 +-
+ 21 files changed, 2318 insertions(+), 526 deletions(-)
+
+base-commit: 2d6d57f889f3
+
 
