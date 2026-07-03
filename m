@@ -2,52 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PxNeIsqgR2o2cgAAu9opvQ
+	id DNcQK9azR2oFdwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 13:45:14 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 15:06:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6B4701FA6
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 13:45:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2B6702A91
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 15:06:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=juyr9FQ0;
-	dmarc=pass (policy=none) header.from=gmail.com;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=Jb1AIBzq;
+	dmarc=pass (policy=none) header.from=vates.tech;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1353248.1609276 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1353320.1609292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfcJh-0006lb-Cs; Fri, 03 Jul 2026 11:44:21 +0000
+	id 1wfda7-0002KI-5a; Fri, 03 Jul 2026 13:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1353248.1609276; Fri, 03 Jul 2026 11:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 1353320.1609292; Fri, 03 Jul 2026 13:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfcJh-0006ir-9h; Fri, 03 Jul 2026 11:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 1353248;
- Fri, 03 Jul 2026 11:44:20 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wfcJg-0006il-CA
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 11:44:20 +0000
+	id 1wfda7-0002Hn-2n; Fri, 03 Jul 2026 13:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 1353320;
+ Fri, 03 Jul 2026 13:05:21 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f281556cf00080a8@swg.vates.tech>)
+ id 1wfda4-0002Hf-OC
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 13:05:21 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfcJe-00BDe4-MN
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 13:44:18 +0200
-Received: from [10.42.69.4] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a47a08f-bab6-0a2a0a5309dd-0a2a4504eda6-6
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 13:44:18 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a47a092-a01d-0a2a45040019-d155802fb5ee-3
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 13:44:18 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-490cf3000f0so4045375e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 04:44:18 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63b6f1bsm115209625e9.10.2026.07.03.04.44.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Jul 2026 04:44:17 -0700 (PDT)
+ id 1wfda3-000KTy-SG
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 15:05:19 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f281556cf00080a8@swg.vates.tech>)
+ id 6a47b38e-2eae-0a2a0a5409dd-0a2a4503ce4e-4
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 15:05:19 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f281556cf00080a8@swg.vates.tech>)
+ id 6a47b38e-ec1a-0a2a45030019-b9ff1c22816d-3
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 15:05:19 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19f281556cf00080a8.005 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 03 Jul 2026 13:05:14 +0000
+Received: from l14 (lfbn-gre-1-197-6.w90-112.abo.wanadoo.fr [90.112.16.6])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 28BA781C0A;
+ Fri,  3 Jul 2026 15:05:14 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,133 +65,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783079058; x=1783683858; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hbH1aNFyyNe3stX/uhltfqjToNpdgn2HT2T4a4oOTIY=;
-        b=juyr9FQ0pJEAMSP8eusdoGTMQ2760ch9u2GDVwnGVwLbprlcYntob/haEaFTzBtfoJ
-         a2wT4BZHWWpXj7JjHhYn/diuC43c6aQ1t9MvjioEmZDg0ki/2N1ttMZMWobchPN5Pk/A
-         +sU7ytjg+aZQdb/UyrHoMMBw5qtRL4RTAw+ulK2q7JdUac26mCYaUP+c4yjd6VZ7th+9
-         cfPMNwlg4FM37daThBck+8qvR7J+oaI7SRNv1XVy2JwfA2Pusx+1VP8qt7ll0a+DiIaQ
-         I86sZz4+gyPk2PK0HiKyuwKB2q9mic/4z8NsNTcSPV1+VJ1VWKgk7aFBoFegmHCKo2xf
-         bCtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783079058; x=1783683858;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hbH1aNFyyNe3stX/uhltfqjToNpdgn2HT2T4a4oOTIY=;
-        b=iCnOCZ5a7gTetAewiqE6LA/9fkMgAZLNUmmHBAaro5UOb7bzDD+4BtVS+xgJrSGJ8w
-         m6HLfgVPBZKa6r7aagBZRzvM1jDJmXMqDBHoi9BkJm29ENcNeZDOykVzwnhKVA4G51Yz
-         y3fbITbeEXySgmSNYF+iggkwCcSLexf9Wd+ftU1LnmdkSOHbq7vOwfCoObQQfPJQT8JS
-         FtkuIoGnzZN1PeD8QomI1X24I0PgZgV5hdD8mlWzSHZiqWwnfaeQbokV+G2YH2y2z7Cj
-         Al04Dm6T1/G+qbQgpwOaSQZpeQT/S1WVBrSpDzaOr8oQfAhDi/mjn/NLP1bNC8n9qSHw
-         MZvA==
-X-Forwarded-Encrypted: i=1; AFNElJ860CSiy65YP8K9WU7vk3Ts1jEWDnZTqsHe3eAF/6KFISXcnGnEoDayr5oQfI/6onWPmcW17KBD8fo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywwc3+S8osuYr1kl7t7kUOKu9B21uYy292iuLo3rI8pB18sZ0Xw
-	2hR3xQpAHeUbR/9pfWcBryfeou8t300hDrlVPTrGR94UyT/jEhPsX4Ov
-X-Gm-Gg: AfdE7cn8ouj0wxBbin+Tut43eucJWidiq/Pdsh0I/aA7Z1o9RBk4rn5JssZ0hXgJu30
-	8L+mjb4UXqWqq75Lw+X8vTn7R5g8iGn1hOpSfusCQ5FV4SkMnn6dLZtnI+fgfNYOeYiVv0/D15r
-	Gdl8kw5w1XO4bf1NN7Un2eiF6IE/NdCu/n6N6W2n1ylPbwDTQhAwZKq2ACXJMFNe2lIHW6q3pkA
-	y3ekSzS/DYi7l/0lH1mDt57yixPBI61qVw5O3x0JA6j3M9qHQZagnq0rQXHxNYlXTwdhJJjK5jT
-	YeYQAbxT7U50VqW3O+WqQbBGkf9y7Md8mR1v7lwuTqOM04z1PoP5g8uUMlRUWCHI/Jb8WXIZwwG
-	GrpJDdWoIRvChuEX5xIV3eEpxXkQ/mVQTZSgIgTDmyw1vJdZVnJxfCRohUqmkF8/SybwhgsO3aR
-	ngbKFLhF+FjQC5jwhYinNI5yFFLtHCj1j249RuLiqb5kRjvgUGzzbRe4uih7r+HMLYzmI=
-X-Received: by 2002:a05:600d:3:b0:492:523f:a3df with SMTP id 5b1f17b1804b1-493c2b161b3mr121210095e9.5.1783079058002;
-        Fri, 03 Jul 2026 04:44:18 -0700 (PDT)
-Message-ID: <30e859e2-ee54-4d02-ac2c-08f8f80547bf@gmail.com>
-Date: Fri, 3 Jul 2026 13:44:16 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=XKcNaM/91Jjk6ZkU0ufuyTcVGSv3GFLvBuIsiSJ873k=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=Jb1AIBzqGw9LTas0JQj685LG4YzpIivXZ1uVy1vxOoEcU0QmXZvzdYzZ9qyPaeiCk5MSBF6wj
+ /wQCljNUwKR6S6STt5nUuJVrpY4htUlYr3Bg/P1GjcN/AXd0Pd7PZHWkTUJiwgU2ur63RsouxsS
+ OLPoLJCO1BUxQuYtsnX/oCXo8ISdy8InYZyXr+rLUfVw36q6IQj95jqutWYTq3teilOFeZuaBKr
+ oqmWtciLus6VeO5RUTjFNWLQ1+wjTgEdJFzotlYqUm+peZk70Y699EK+Ysl6CLoVHVwNT0WcIOU
+ w8VucvBQITZdoKM+ukaNeVS8K7JX0AIMLWP0qI4gBkkQ==
+X-Zone-Loop: e43875fd35f7250afce1517219b42109ddd4216cf2e9
+x-campaign-type: default
+x-transaction-id: ee1b7a28-95f5-4953-84d4-8c86cbb2812e
+x-swg-uid: 01-fa80b72d-2938-47d8-9a39-a70a45392133
+X-Mailer: Sweego
+Message-ID:
+ <1783083915.8631fc262581453bbf619ec5b2062170.19f281556cf00080a8@vates.tech>
+x-swg-bid: 1783083915.8631fc262581453bbf619ec5b2062170.19f281556cf00080a8
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 3 Jul 2026 15:05:13 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] tools: Use posix_memalign instead of valloc for NetBSD
+References: <20260430095521.8399-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] xen/sched: Link CPU topology to scheduler
-To: Hirokazu Takahashi <taka@valinux.co.jp>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
-References: <20260703091544.183548-1-taka@valinux.co.jp>
- <20260703091544.183548-3-taka@valinux.co.jp>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <20260703091544.183548-3-taka@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ebf023/1783079058-AC93A1CC-E881F4A2/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 776
+Content-Disposition: inline
+In-Reply-To: <20260430095521.8399-1-frediano.ziglio@cloud.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.c6.2ee9de91ac841128.19f28155423.ab549c87a61d0f6d=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1783083914279
+X-purgate-ID: tlsNG-33051d/1783083919-B47875D1-F28A5EF1/0/0
+X-purgate-type: clean
+X-purgate-size: 675
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com,raptorengineering.com,wdc.com,gmail.com,xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:dkim,vates.tech:mid,vates.tech:from_mime,vates.tech:url,vates.tech:email];
+	RCPT_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1E6B4701FA6
+X-Rspamd-Queue-Id: 3E2B6702A91
+
+---=Part.c6.2ee9de91ac841128.19f28155423.ab549c87a61d0f6d=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Apr 30, 2026 at 10:55:21AM +0100, Frediano Ziglio wrote:
+> More similar to other implementation=2E
+> posix_memalign was adde in NetBSD 8=2E0, released on July 17, 2018
+> and went out of support on May 4, 2024=2E
+>=20
+> Signed-off-by: Frediano Ziglio <frediano=2Eziglio@cloud=2Ecom>
+
+Acked-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+
+Thanks,
 
 
+-- 
+ | Vates 
 
-On 7/3/26 11:15 AM, Hirokazu Takahashi wrote:
+XCP-ng & Xen Orchestra - Vates solutions
 
->   
->   /*
-> diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-> index 95946634d1..ada430f262 100644
-> --- a/xen/common/sched/credit2.c
-> +++ b/xen/common/sched/credit2.c
-> @@ -9,6 +9,7 @@
->    * Based on an earlier verson by Emmanuel Ackaouy.
->    */
->   
-> +#include <xen/cpu-topology.h>
->   #include <xen/errno.h>
->   #include <xen/init.h>
->   #include <xen/lib.h>
-> @@ -37,6 +38,8 @@ static unsigned int cpu_nr_siblings(unsigned int cpu)
->   {
->   #ifdef CONFIG_X86
->       return cpu_data[cpu].x86_num_siblings;
-> +#elif defined(CONFIG_CPU_TOPOLOGY)
-> +    return cpu_topology ? cpu_topology[cpu].num_siblings : 1;
-
-Shouldn't here be CONFIG_GENERIC_CPU_TOPOLOGY?
-
-~ Oleksii
+web: https://vate=
+s=2Etech
+---=Part.c6.2ee9de91ac841128.19f28155423.ab549c87a61d0f6d=---
 
