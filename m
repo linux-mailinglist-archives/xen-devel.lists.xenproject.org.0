@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id p43cBfJ9R2rOZQAAu9opvQ
+	id 1cRHDPJ9R2rPZQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 11:16:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ECE8700854
-	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 11:16:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5E43700857
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Jul 2026 11:16:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=S73jlVwO;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=Rtv2s3MO;
 	dmarc=pass (policy=none) header.from=valinux.co.jp;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1353029.1609231 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1353030.1609239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfa07-0004eB-Eo; Fri, 03 Jul 2026 09:15:59 +0000
+	id 1wfa08-0004qP-Kz; Fri, 03 Jul 2026 09:16:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1353029.1609231; Fri, 03 Jul 2026 09:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 1353030.1609239; Fri, 03 Jul 2026 09:16:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wfa07-0004cA-Ah; Fri, 03 Jul 2026 09:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 1353029;
- Fri, 03 Jul 2026 09:15:57 +0000
+	id 1wfa08-0004pD-H7; Fri, 03 Jul 2026 09:16:00 +0000
+Received: by outflank-mailman (input) for mailman id 1353030;
+ Fri, 03 Jul 2026 09:15:58 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wfa05-0004CO-EJ
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 09:15:57 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wfa06-0004QW-Gu
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 09:15:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wfa04-00GN2P-RH
- for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 11:15:56 +0200
+ id 1wfa05-00GN2P-T4
+ for xen-devel@lists.xenproject.org; Fri, 03 Jul 2026 11:15:57 +0200
 Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a477dc6-2eae-0a2a0a5409dd-0a2a450ace40-18
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 11:15:56 +0200
+ id 6a477dc6-2eae-0a2a0a5409dd-0a2a450ace40-22
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 11:15:57 +0200
 Received: from [52.101.125.115]
  (helo=TYVP286CU001.outbound.protection.outlook.com)
  by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a477dc6-e40e-0a2a450a0019-34657d733221-5
- for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 11:15:56 +0200
+ id 6a477dc6-e40e-0a2a450a0019-34657d733221-6
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Jul 2026 11:15:57 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TY3P286MB3731.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:3d3::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 3 Jul
- 2026 09:15:51 +0000
+ 2026 09:15:52 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0181.009; Fri, 3 Jul 2026
- 09:15:51 +0000
+ 09:15:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,112 +64,106 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aLQf9NjWFAp0sgYXR18wZlVg/+WBL1XhhzCuFFSa2YTAVJVYMICZeO4I6K35UUMjbt4mrsy2qDe77Rp7m3Bf51boIW8Fqd32UyQKDZT9VVTwGakSK/03W0/S1CtkgGubAoEkvF4iguTzp86j8flI23e2jRRSTlbqufDERIW0RjQrHjTdSgyt9Jj6I9OdnKectMb1ryXKLwPd91LaELnLiwLsBQNwHc1wnLf4APmc6pLCllN5dZmLLEHvJ4ffHWTXaJQdiuRjrud9uBbUOZChgXf/aOYsIW9ZdEtaIosZab0Z+cjXzpKhBoP7y0ZHoKi5yJRGZZ+SZ1M/dnMvvACc6w==
+ b=uULWK3Wp7UmAqolW0O87DbjhR/76XnHEmq8iiCnKPIqg+IQuQErTi+WLR4KqESCF+bzfbISpFDzpGQKxQcECrkbJaK2GDOgbXcxN4WHGyLgja/GaRNgmgOE/1uOrxEtgsQzC7Vy9GiuUGI7xJdKi+WLGyDm/2tsTRdiIDJaIdqIQVKK73M+ELsUfGhal06CjnOQSkOpja/RLMTLSmpgPWeZPlhY0aHENH2nrSoMgE75lu85B6PHjUpdESbpjxIJ4HsQg475Wu88x3c+A0gkOvahrX22et4ti1Baa2T8tiYs6CHa5Wevr0rbfKku4P5Z/VZ7YvoUexajQ+2QWn9y+kg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+YHhlMJ0BRCDYFFnZBlOKPtPhGxi/edvzDAP34FGr24=;
- b=NsYvwOpSjf9vS+JCTcngE8sLnQkwc7UojEJkKIjDO34iNzeF0T/M9FoTWJao+S4Ryt2hp9JOn6nC+fqeKu1Xc0P/TVBZ6YNm1eJPAN19MzJnPBypqydbUXRf4yHAmDQomnJJvTZBbFAoG2xwH0QVKKijGLKao8y4RIhiVMkNA0uu4LoncwPzIJo5/B2lggyvv2RIZ0SCA3gTNMOK0TtF9hyMgtHYmco4HeNpvVJd/widtHrwrcQZMmt4LgEhIw+eI3laLeHjFOMYxWmGKoyCbuh4trG6BJNmpp3q6DXrr/DsHgMZmvarpx0ySJG8CVWeYw4RrZ4KOltp0Y2YStyy2Q==
+ bh=cnhJk1GWwfTBQlXCmlfrD1hdxu7L/SP10nBbA09ZTac=;
+ b=HyPVswMvWB7UuGHOlDzV7IzZLg4yHRpSjAGIOax7l8ipQDz+xgEg/5F4XM3U7BT04H8C05X5pkFa+i2T9/nhJnOUroKR0H+ZAkVhOTcK1MtnBEpnZP56mn7AOyOKlVvwU8nnuOelLDxiIX8GLmcb+fOPmzL8am59rucxG4jkgc1pL3mCRQO2NMOPwDt0d52AbifNr1GYJ0LmjoECwBr7O87TUxUa5iSVRCCy8v7Z4c0pILuBoa52ppF9S4jQ7lmL+sJbgoDY5b+tVO9CJQCXWEQO7rPolqRtJWCqD5ORKeFu7dsYZiFHdIOGk7SmYPP7qKJQ6WansCCOeaxjsN++ZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+YHhlMJ0BRCDYFFnZBlOKPtPhGxi/edvzDAP34FGr24=;
- b=S73jlVwO/nBJ5kW3IUiFk+6QGyNfHhcIZ/W++QIYEJSl5S93Db6GcKl8kfTPW9b7/gcFaLXgGf2tuehwKxjAfFscOrHBeoI5dpMRQk+yjFQ/j9YBTkwknpfcur8Czt2V6aBzGWHv2u+CGxLaqlrW7A6SP0E9wnPfEGbBfxJG+bY=
+ bh=cnhJk1GWwfTBQlXCmlfrD1hdxu7L/SP10nBbA09ZTac=;
+ b=Rtv2s3MO7xV10pJDpPuN6KUucd9DvuK2szy6i0Nhvf5B6dG1/eqi4APBIrbbRuJ6LQ0So01msRnZU9R0ov+XI6n7YQQ1kOCw+BA2qhkZV2ZkPyn22ml1HlXdhWoYWzCIBm5Dpu6WSIYNvAF7aDuPIbw7C97Sc3tKWfICK0BZi/Q=
 From: Hirokazu Takahashi <taka@valinux.co.jp>
 To: xen-devel@lists.xenproject.org
 Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Timothy Pearson <tpearson@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Dario Faggioli <dfaggioli@suse.com>,
 	Juergen Gross <jgross@suse.com>,
 	George Dunlap <gwd@xenproject.org>
-Subject: [PATCH v4 2/3] xen/sched: Link CPU topology to scheduler
-Date: Fri,  3 Jul 2026 18:15:43 +0900
-Message-ID: <20260703091544.183548-3-taka@valinux.co.jp>
+Subject: [PATCH v4 3/3] xen/sched: Make cpu_nr_siblings() architecture-specific
+Date: Fri,  3 Jul 2026 18:15:44 +0900
+Message-ID: <20260703091544.183548-4-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260703091544.183548-1-taka@valinux.co.jp>
 References: <20260703091544.183548-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0066.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36a::19) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P301CA0070.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36a::8) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TY3P286MB3731:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3bb621b4-27f9-4158-1e13-08ded8e3ad3b
+X-MS-Office365-Filtering-Correlation-Id: 48dcbeaa-84cd-4c33-485b-08ded8e3ae2c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10070799003|6133799003|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|10070799003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	nA6/Gz9DLhADgr6Uqb4vb8g/ivN7hfVWeBPFRkSrrFRqZXVc5mqcceZusHmkG4cOolrqdGuiFfa7GNDp9hiz8pNhdcJYw+Wnh9+21xBghhYswIM9/uIx0heSIM2QGSsryD/CJOz68YPojqRt5QQ7AeNF3KBQs2pob/tMLT4rBJ0ZFv4+FISDstVYbJHHU/8yGkDQzl1zK88EAhcETXYxS/bUHOJ4zUKp91wu6bWm5rS42JTETGQZ423dof71D9dBNMeIwz0B8j0pNNSya0lThgK0xgl88C2Q1WrbjCoQ8D5VjgaWaNVj9ACBf/RVqYeXatumWHFQaXywYir+dW3YY3yepjROTm5qyhhkh0QE26nHP1ApjN/OFtnE+SAgvMlVTc5IUNZu8QB2ObghrFu7SG14MELa6lNB1uDy5tMIMXMbRvSqZPhUL0/W+D/JcuzcHMEyyx4ot58qbSRF9Z87BTs/Ne1LO3z7Uwe/BvIAyV+ox3iSzHv/ILkN0oB73y05/k5hGm7bPWjCCT1eTBHjoziiTzqfUFCecNMlHE4VVhMnFV1RAItoavZ89Fxz5+Ex7Uxg79GW7qqfO6VrPEtElHLKYLf/2YW7sPsOtx46C2tpN0b2W+AHKMpd9ZHFpWWSjJvcDob0gLAqixKjWYeA7FQ18tEB0g/Lce4nMfKHevk=
+	oo16E+eLbXDUCFPcNBT4Dz+rz9LjNOoPYtNKSgAMBOMwG6HGOVTNXWMNYgm4QYXWWpKimioYbo9CBtYbNVXw4K4aRW6pdx/BNYTfuyfnD5x9I8WhxwmmRoV3h0F9uxmZI/v4A7YKCZC/cs4UGECp/cugJbwM2r5/oMH4V6AYsFum3fLjSkWsh5z3360Qyq8cXJCeVtO71zMFzSSZZd0Rs5nVUuySmWmWFNE6w1XNsSS01Bjq1/b3bxGpyIWCWlIsoBEVvdj1+SVUhom0G6ESipmXGH3xeW1N4xwl7pdnXc5fxM65/UKJxols15pyTipDAfhSuWVJXH+4OKTpvAJzUcm0kmePpe8M+53vyHOnUNdQVClCNDIlnStaJafpRDlBzyzhIloBUj4ySPrbUS3AAn7qFBSFdjAUBQUOQWBJ3oM11AdTjgRg8Q8Zy3pdH4l0CHoV6w/5mmsyK1QmM8Rb3RPnLnCKU8Twc1Xxtq+Dj6ioZIln+nLsZh1h8mTGoBlmK+q8EVEKJ2pLu2OnUBS5JClyJ/WJYhJu/zZ5X9daDW49fUe+gdDXPmkksE2wGMgho+SQG8Y75U3Jo5yxhkDfphfHfsSlD71g1SfxB4v4yWSCg/z/WafnMGiq4Zwptz1+qfDI2oFJlgjQyWs1j/p8jKCFLkr9oPFaBEZ2B4aPh3w=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10070799003)(6133799003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(10070799003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0D1BFx68aW6aVfbvesUXY8qnLYpTgYMqvDI/zjEIZblavbahj17IdISxMZR7?=
- =?us-ascii?Q?zJrAs2gOk4PmK9DR4nUSqu+IMi4DlqpVuMuHBpM0HXOkT9d2lcU2vHEGZRUQ?=
- =?us-ascii?Q?d4SN0SnmA3kM5rusKqnWzyLsAvX02v7NqRHTgMbXX0R68LYmokg/uOCQbR4R?=
- =?us-ascii?Q?fQs9HpuPaiwixb2V5otqNTlU6U12G3cMisPtHQwQJm1PUb4zog1lvLXmj5JD?=
- =?us-ascii?Q?X7j5rsLRhEdYwY8Vno+s5T0/IWpohADqqSQnYS3WsD7oF/EZt7tUvJplYn3W?=
- =?us-ascii?Q?JMpBX4NlX4BAwlSjZT4hparUwKzV4SFxTdHuUp/j0t/+0knpQsaTavaN8JS3?=
- =?us-ascii?Q?gF//RuRiZtoUdLBXr25aH1xpECThf/9TcG07i6T7tiWznhkCHVPSSU4yHCq+?=
- =?us-ascii?Q?1kdZsc+Dicz41dOKlLaTDcVsMwuLTM7aYlkk/E2PEa2RVBIVh7m4NhdG5HQb?=
- =?us-ascii?Q?iaFuNx3Gf2MDKo4M3p2zWUQ471gvEwYMSvkfUGjI7TBXoj2VIMOAvRxm0oBD?=
- =?us-ascii?Q?1HbPPjsdi+g1t/ak7GAHBc9HMPZHTzhoWt0PDIf5+gjcFc766qXWTMhBT+1l?=
- =?us-ascii?Q?js8GCwarqWmkVBHGGqbwd2eQ7+iHjhfiuQC+Xfk6h7u5a72Kv71fz93BG4T9?=
- =?us-ascii?Q?sqSZfz0fOCIYJhrULkjc5AbAODl2gqYCJo1Pyj1Enk9/YOVGA4ief1m8Gl8U?=
- =?us-ascii?Q?dablmPisjYCRWEaVtScoq+NeNwf0TErHANS9ZtuRNodGz0Mjcc8jmkTyHS7V?=
- =?us-ascii?Q?by1y56iAddykWGmKDYC3hoc+Wl4n7ehYuazWWCQQMphr4cx974wJXemHUbIY?=
- =?us-ascii?Q?bfzCuNTJEs9TIOGO5jqXdSz3v3pG5RENCouhI6muQ4E5hfOTcxNqmSFIvD9M?=
- =?us-ascii?Q?BzuAncAHkwBe4u8LL+cKpuvPEeBh2mL3slGXC1CoorfXJyP6A50qmFuMGKA7?=
- =?us-ascii?Q?7PFM6ZnueCjq6jdwqu8dpPFi2eW5crNUFneE/jXKMWTOEsBsnygSgidopipa?=
- =?us-ascii?Q?XWvFTsHueAzPHL0gp6ohfxl9HZGpcudtXNVfMU3HbPyHrDqUjhk11oK3ubAX?=
- =?us-ascii?Q?yq9Brn4yWZZFyEwoPtIgGde4OGDrOhls5dA4ryQlZV4xW7FbeFhYeAz80xki?=
- =?us-ascii?Q?8rIGA4uTrW39NQa4t4DmFq4Jmna2d/GYHieUmgsSqZx8UXSdoLAikCSY4Ztc?=
- =?us-ascii?Q?YwdM+HCCkU1TB7I8xT1FqYPrx/DcVSpAAzLkLiqpIHuP+BNBpJglG3hDnCrf?=
- =?us-ascii?Q?hAMJx1MEDHUmvo9AV/lmuYFgDIbWdDh6vL3wW/y376nkpAzUkTVdlrn8tEqz?=
- =?us-ascii?Q?6KDZkxMVi6u6wav7AuQKaueJHqBIZoNPaqUsjr7nezX6tjR8BB3E93nzB6hJ?=
- =?us-ascii?Q?SE7gGOmRM7rgn9mep++85z6tPBO0M43LZ+NsFgGPNyyAJxxDY6cK13CAhWbL?=
- =?us-ascii?Q?ndVgsZ+zMtirgXUCfAP3+GiO5wtwVtXug7sb1XN6jV8s8M78ySCLmO8XwcZq?=
- =?us-ascii?Q?A+vbBrSI+pRF1ed2arYnOua9VN+Dba7a68fixxed74upp3hYRYpiFXZ93vvo?=
- =?us-ascii?Q?QGa+8q/5vMFSuMZ1mRQk+RkFTyaWz2pX/hPt9SgNnlkZc3JnWDVcwJkxauZK?=
- =?us-ascii?Q?K4dfY3ixGKtGHG7VOKRHHaWNUowLPZ/5BedddCDiZ/wXhYcSQD1fbifDMPVz?=
- =?us-ascii?Q?nVQESFmozWbjobUJTG+fVy4SGYk72M71L1sH+FElPQNKITf5rfu2scGE75Gh?=
- =?us-ascii?Q?0JH6RDH2UUAhfHvIxIh8T046+0QVTQWjcOHaZH6+VlM/O2zzcZIOVLNuegeE?=
-X-MS-Exchange-AntiSpam-MessageData-1: x9kPTIBldMY/0w==
+	=?us-ascii?Q?kmcPo6fmRptx6CRdZrK7XnS12tnW+Ob00UId9DjIEV1N2xs62uS9SlfgGNT5?=
+ =?us-ascii?Q?I7oFiec8X1WEBIHDcwFYrVPnzakYEBn1+hqNY3y/Np+k9UfTM6dlQcDGcwOc?=
+ =?us-ascii?Q?KSsmtZiOSib5f9RBgWKYWhPU8avcKxt+v1V0PaKsyZ4luexRibTU6BMu3kkb?=
+ =?us-ascii?Q?sh2hmngLYWqZBbVxBur6zzMHpg5ojxM4uT6eGFE7n7JttVNroLdsVpOCZNpi?=
+ =?us-ascii?Q?wR1WIUYNOo3c1RDggHXVCTOsu3nBYeiEto7Tq6/i5+wmuFuE7JVmrdV4Wxd8?=
+ =?us-ascii?Q?D33+MqXMJiSOA9sr2/DUKv0FJE5QI2UeijtaBNo6R/AwOaDgY/Pxn+es65rT?=
+ =?us-ascii?Q?WxXlGOrO3uWxwcnh0Qp24TN44rCCYwU8yXNvlxXgE8OTMr1wayaiErG+Hq24?=
+ =?us-ascii?Q?X5A4o+HuDFsiZSWASCUJT1IOkvGHssvzMArZIai7xNGsC9R/JWgqAK1veGFU?=
+ =?us-ascii?Q?9cSwVrTZYTbMWMeKkg797YMqIoIwCwu2qlIDreNOyeHdiQgTkM8nBI7u7IJK?=
+ =?us-ascii?Q?p7bsHI3Vjk9W9SgOUnAT+SfZg282Ti/88WWlam5mDP2e7WK3i+dSrB6F6Gw0?=
+ =?us-ascii?Q?GfNjDlU1odXMXA3w23x8s9cBukOy37CU/kwoqAn8qziCE+hRxJvUFdqLwbUT?=
+ =?us-ascii?Q?QcrmuqsF96tOwCvffNbelqIjSTvLFv/yyzmyVAZ9Llmxejjss1VuGz0sf1xq?=
+ =?us-ascii?Q?VDRMWPW2cLCMyI6driJKXIuoLOk5fjn8GYAMsS3bT1ks66E2JaMZoqldYTVR?=
+ =?us-ascii?Q?CRE0gRfUPweDfoRhX1sMQC/jPuoBVPWKIYnx+B8BDqMqHFIa7Q2NWIh++ATu?=
+ =?us-ascii?Q?uEz5pVG/IaOzXSJLAy40x2aCWUf+6QdOq5WL/BkEiM8csQLPh+xiP7SdRJSJ?=
+ =?us-ascii?Q?hkKTkqW369bilv5688Ehh2xHbVcaQne0D5xn6p2D9QPW+2iemmr/GaMN/aof?=
+ =?us-ascii?Q?cSF5JsTFgkJCJhOl79zifRH9V8DvcG+WcUXGw2yDP5D/nXzTBqFm55p37L/A?=
+ =?us-ascii?Q?H77dj3hwjEeCQXqRCRVtVQACc5raRj5QtJAshCyrA+hPZmh2ac148MMq33SN?=
+ =?us-ascii?Q?LB77Ff90lf//5ldWHAnNXYFBIyfTcmCMViLhpAZtxV5luwUj0mlxEX52wWaI?=
+ =?us-ascii?Q?F8h+gKxM8bM8Oxxc/jjbNqYOx0COMY88Ie0EvfK+pwNJG+hIYX1KiL59OJpU?=
+ =?us-ascii?Q?EmahtrpOvqD3DKIoWm5gl7Sa9GrEDm0I46eqOR/APbrcL/li3cE21YQb0L8C?=
+ =?us-ascii?Q?OanVuhtrKG1Vid4ezwGZONnV+WFyw5nw0YOvDxjsPgcIbKkdYJswSmVJragm?=
+ =?us-ascii?Q?z1AAzr1ffezE74IYSc9Ipfe4bPXGsGtDl+QZcB+Vs7nrtdwur+dE6D46aGGC?=
+ =?us-ascii?Q?Klvdfth8FLujQbgWQhGQnlZSmVqVzZyxvqYq/VKmNFxhrJxCnOBl2j0qMG2O?=
+ =?us-ascii?Q?fq0fBs+4uBAZzWjf2nmhohiIlwerFlHmRxV1/CBerMpZHpxyyVwfwcPAoRa6?=
+ =?us-ascii?Q?T9QAtyq9eV58HW2G1MGzM87kXRNpj44qQaVn/bPcOo3B06XkPK77km917hwS?=
+ =?us-ascii?Q?+oXUVZccU9P4Q8DFGpy0qJlqHe5cd/1uGrHjMy1p+yt2TM5CZnizKr7Jq2KU?=
+ =?us-ascii?Q?L3OJ+CJ8i3LmH2RNCAJU1hPWISDDwKvtk8pufEB8ZMUlOLe9C2VlLzkQd9u4?=
+ =?us-ascii?Q?boHrg+DkH+xzNUfXL3BO4C5gjdWtTAMPCIdUriZ3CjCNDqxbArZipulOCvly?=
+ =?us-ascii?Q?428BzznIgc6P4uOl2XRqpLv6u4wFqcXZGNHimO3dDrod1A1b2fqNmm91TybR?=
+X-MS-Exchange-AntiSpam-MessageData-1: HF2eafndh9FfyQ==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3bb621b4-27f9-4158-1e13-08ded8e3ad3b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48dcbeaa-84cd-4c33-485b-08ded8e3ae2c
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 09:15:51.0417
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jul 2026 09:15:52.6061
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y4EaEG/NesYEwkb1Vgnv91kV8OexUC+y+UesgDFni0vdAPuYU6GhQjS/Gbe2ZmYjfX5m/3WzO/In61hqPvEQ2g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /KYaUN8VH2Le7wWtViC/OOGIMQYPFVDfpI6KJdndlSqIv3cnEqd3dQwKcaomwQlYAI0oKYiYxgDdbDiZYPcPiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3P286MB3731
-X-purgate-ID: tlsNG-4011c0/1783070156-D5D23DDE-8CB46B54/0/0
+X-purgate-ID: tlsNG-4011c0/1783070157-3C67BDDE-406116AF/0/0
 X-purgate-type: clean
-X-purgate-size: 9565
+X-purgate-size: 3386
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
@@ -180,307 +174,111 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[valinux.co.jp,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com,raptorengineering.com,wdc.com,gmail.com,xenproject.org];
-	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,s:lists@lfdr.de];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
 	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[valinux.co.jp:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9ECE8700854
+X-Rspamd-Queue-Id: B5E43700857
 
-Make CPU topology information available to the Xen scheduler.
-Additionally, ensure that this topology information is displayed
-when executing the 'xl info -n' command.
+Make cpu_nr_siblings() an architecture-specific function.
+This patch provides the implementation for x86 and a common
+version for Device Tree-based architectures.
 
 Signed-off-by: Hirokazu Takahashi <taka@valinux.co.jp>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in v4
- - Explicitly #include <asm/processor.h> in cpu-topology.h to guarantee
-   that arch-specific definitions of cpu_to_core() and cpu_to_socket()
-   take precedence over the generic fallbacks.
- - Introduce inline initialization functions for cpu_sibling_mask and
-   cpu_core_mask in cpu-topology.h, providing separate variants for both
-   when CONFIG_GENERIC_CPU_TOPOLOGY is enabled and disabled.
+ xen/arch/x86/include/asm/processor.h |  1 +
+ xen/common/sched/credit2.c           | 22 +++-------------------
+ xen/include/xen/cpu-topology.h       |  5 +++++
+ 3 files changed, 9 insertions(+), 19 deletions(-)
 
-Changes in v3
- - Remove the temporary definitions of cpu_to_core() and cpu_to_socket()
-   from RISC-V and PPC processor.h.
- - Minimize the use of #ifdef blocks, leveraging compiler Dead Code
-   Elimination (DCE) where possible.
-
- xen/arch/arm/include/asm/processor.h   |  4 --
- xen/arch/arm/smpboot.c                 |  8 +---
- xen/arch/ppc/include/asm/processor.h   |  4 --
- xen/arch/riscv/include/asm/processor.h |  4 --
- xen/common/device-tree/cpu-topology.c  | 51 ++++++++++++++++++++++++++
- xen/common/sched/credit2.c             |  3 ++
- xen/common/sysctl.c                    |  1 +
- xen/drivers/acpi/topology.c            |  3 ++
- xen/include/xen/cpu-topology.h         | 45 ++++++++++++++++++++++-
- 9 files changed, 103 insertions(+), 20 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-index a3753c317f..41fa73cfc4 100644
---- a/xen/arch/arm/include/asm/processor.h
-+++ b/xen/arch/arm/include/asm/processor.h
-@@ -613,10 +613,6 @@ void show_stack(const struct cpu_user_regs *regs);
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 8ca6799a81..9758060129 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -106,6 +106,7 @@ extern void intel_init_arat(void);
  
- #define cpu_relax() barrier() /* Could yield? */
+ #define cpu_to_core(_cpu)   (cpu_data[_cpu].cpu_core_id)
+ #define cpu_to_socket(_cpu) (cpu_data[_cpu].phys_proc_id)
++#define cpu_nr_siblings(_cpu) (cpu_data[_cpu].x86_num_siblings)
  
--/* All a bit UP for the moment */
--#define cpu_to_core(_cpu)   (0)
--#define cpu_to_socket(_cpu) (0)
--
- struct vcpu;
- void vcpu_regs_hyp_to_user(const struct vcpu *vcpu,
-                            struct vcpu_guest_core_regs *regs);
-diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-index 5ce2bcf6ec..3c9f2a5c53 100644
---- a/xen/arch/arm/smpboot.c
-+++ b/xen/arch/arm/smpboot.c
-@@ -92,13 +92,7 @@ static int setup_cpu_sibling_map(int cpu)
-          !zalloc_cpumask_var(&per_cpu(cpu_core_mask, cpu)) )
-         return -ENOMEM;
+ unsigned int apicid_to_socket(unsigned int apicid);
  
--    /*
--     * Currently we assume there is no multithread and NUMA, so
--     * a CPU is a sibling with itself, and the all possible CPUs
--     * are supposed to belong to the same socket (NUMA node).
--     */
--    cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
--    cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-+    init_cpu_sibling_map(cpu);
- 
-     return 0;
- }
-diff --git a/xen/arch/ppc/include/asm/processor.h b/xen/arch/ppc/include/asm/processor.h
-index 242346cab9..1bf6f6c66c 100644
---- a/xen/arch/ppc/include/asm/processor.h
-+++ b/xen/arch/ppc/include/asm/processor.h
-@@ -141,10 +141,6 @@
- /* Macro to adjust thread priority for hardware multithreading */
- #define HMT_very_low()  asm volatile ( "or %r31, %r31, %r31" )
- 
--/* TODO: This isn't correct */
--#define cpu_to_core(cpu)   (0)
--#define cpu_to_socket(cpu) (0)
--
- /*
-  * User-accessible registers: most of these need to be saved/restored
-  * for every nested Xen invocation.
-diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-index 6b89df4a2d..d478ffb76b 100644
---- a/xen/arch/riscv/include/asm/processor.h
-+++ b/xen/arch/riscv/include/asm/processor.h
-@@ -54,10 +54,6 @@ struct cpu_user_regs
-     unsigned long pregs;
- };
- 
--/* TODO: need to implement */
--#define cpu_to_core(cpu)   0
--#define cpu_to_socket(cpu) 0
--
- static inline void cpu_relax(void)
- {
- #ifdef __riscv_zihintpause
-diff --git a/xen/common/device-tree/cpu-topology.c b/xen/common/device-tree/cpu-topology.c
-index b653227ef4..43322a153f 100644
---- a/xen/common/device-tree/cpu-topology.c
-+++ b/xen/common/device-tree/cpu-topology.c
-@@ -330,6 +330,55 @@ int __init parse_dt_topology(void)
-     return parse_socket(map);
- }
- 
-+static void __init setup_cpu_topology_ids(void)
-+{
-+    unsigned int cpu;
-+    unsigned int next_core_id = 0;
-+    unsigned int next_cluster_id = 0;
-+    unsigned int next_socket_id = 0;
-+
-+    for_each_possible_cpu(cpu)
-+    {
-+        unsigned int first_cpu;
-+        struct cpu_topology *topo = &cpu_topology[cpu];
-+
-+        first_cpu = cpumask_first(topo->thread_sibling);
-+        if ( first_cpu == cpu )
-+        {
-+            topo->phys_core_id = next_core_id;
-+            next_core_id++;
-+        }
-+        else
-+            topo->phys_core_id = cpu_topology[first_cpu].phys_core_id;
-+
-+        /* Reuse the calculated core id if clustering is not supported */
-+        if ( cpumask_empty(topo->cluster_sibling) )
-+            topo->phys_cluster_id = topo->phys_core_id;
-+        else
-+        {
-+            first_cpu = cpumask_first(topo->cluster_sibling);
-+            if ( first_cpu == cpu )
-+            {
-+                topo->phys_cluster_id = next_cluster_id;
-+                next_cluster_id++;
-+            }
-+            else
-+                topo->phys_cluster_id = cpu_topology[first_cpu].phys_cluster_id;
-+        }
-+
-+        first_cpu = cpumask_first(topo->core_sibling);
-+        if ( first_cpu == cpu )
-+        {
-+            topo->phys_socket_id = next_socket_id;
-+            next_socket_id++;
-+        }
-+        else
-+            topo->phys_socket_id = cpu_topology[first_cpu].phys_socket_id;
-+
-+        topo->num_siblings = cpumask_weight(topo->thread_sibling);
-+    }
-+}
-+
- void __init dt_init_cpu_topology(void)
- {
-     unsigned int cpu;
-@@ -342,6 +391,8 @@ void __init dt_init_cpu_topology(void)
- 
-     for_each_possible_cpu(cpu)
-         setup_siblings_masks(cpu);
-+
-+    setup_cpu_topology_ids();
- }
- 
- /*
 diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
-index 95946634d1..ada430f262 100644
+index ada430f262..6c645f0e21 100644
 --- a/xen/common/sched/credit2.c
 +++ b/xen/common/sched/credit2.c
-@@ -9,6 +9,7 @@
-  * Based on an earlier verson by Emmanuel Ackaouy.
+@@ -29,22 +29,6 @@
+ /* #define d2printk printk */
+ #define d2printk(x...)
+ 
+-/*
+- * TODO: Abstract this properly, and figure out what Credit2 wants to do with
+- *       the fact that x86_num_siblings doesn't even have the same meaning
+- *       between x86 vendors.
+- */
+-static unsigned int cpu_nr_siblings(unsigned int cpu)
+-{
+-#ifdef CONFIG_X86
+-    return cpu_data[cpu].x86_num_siblings;
+-#elif defined(CONFIG_CPU_TOPOLOGY)
+-    return cpu_topology ? cpu_topology[cpu].num_siblings : 1;
+-#else
+-    return 1;
+-#endif
+-}
+-
+ /*
+  * Credit2 tracing events ("only" 512 available!). Check
+  * include/public/trace.h for more details.
+@@ -882,9 +866,9 @@ cpu_runqueue_match(const struct csched2_runqueue_data *rqd, unsigned int cpu)
+ 
+ /*
+  * Additional checks, to avoid separating siblings in different runqueues.
+- * This deals with both Intel's HTs and AMD's CUs. An arch that does not have
+- * any similar concept will just have cpu_nr_siblings() always return 1, and
+- * setup the cpu_sibling_mask-s acordingly (as currently does ARM), and things
++ * This deals with Intel's HTs, AMD's CUs and ARM's SMT. An arch that
++ * does not have similar concept will just have cpu_nr_siblings() always
++ * return 1, and setup the cpu_sibling_mask-s accordingly, and things
+  * will just work as well.
   */
- 
-+#include <xen/cpu-topology.h>
- #include <xen/errno.h>
- #include <xen/init.h>
- #include <xen/lib.h>
-@@ -37,6 +38,8 @@ static unsigned int cpu_nr_siblings(unsigned int cpu)
- {
- #ifdef CONFIG_X86
-     return cpu_data[cpu].x86_num_siblings;
-+#elif defined(CONFIG_CPU_TOPOLOGY)
-+    return cpu_topology ? cpu_topology[cpu].num_siblings : 1;
- #else
-     return 1;
- #endif
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index 5207664252..81a68fe24c 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -28,6 +28,7 @@
- #include <xen/pmstat.h>
- #include <xen/livepatch.h>
- #include <xen/coverage.h>
-+#include <xen/cpu-topology.h>
- 
- long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
- {
-diff --git a/xen/drivers/acpi/topology.c b/xen/drivers/acpi/topology.c
-index 6bd2d96ebb..9155edc0be 100644
---- a/xen/drivers/acpi/topology.c
-+++ b/xen/drivers/acpi/topology.c
-@@ -22,6 +22,9 @@ void __init acpi_init_cpu_topology(void)
-     {
-         struct cpu_topology *topo = &cpu_topology[cpu];
- 
-+        topo->phys_core_id = cpu;
-+        topo->num_siblings = 1;
-+
-         cpumask_set_cpu(cpu, topo->thread_sibling);
-         cpumask_copy(topo->core_sibling, &cpu_possible_map);
-     }
+ static bool
 diff --git a/xen/include/xen/cpu-topology.h b/xen/include/xen/cpu-topology.h
-index f64820febf..ee34425680 100644
+index ee34425680..646cd0ff04 100644
 --- a/xen/include/xen/cpu-topology.h
 +++ b/xen/include/xen/cpu-topology.h
-@@ -4,6 +4,9 @@
- #define XEN_CPU_TOPOLOGY_H
+@@ -41,6 +41,7 @@ static inline void init_cpu_sibling_map(unsigned int cpu)
  
- #include <xen/cpumask.h>
-+#include <xen/percpu.h>
-+#include <asm/processor.h>
-+#include <asm/smp.h>
+ #define cpu_to_core(cpu) (cpu_topology ? cpu_topology[cpu].phys_core_id : 0)
+ #define cpu_to_socket(cpu) (cpu_topology ? cpu_topology[cpu].phys_socket_id : 0)
++#define cpu_nr_siblings(cpu) (cpu_topology ? cpu_topology[cpu].num_siblings : 1)
  
- #ifdef CONFIG_GENERIC_CPU_TOPOLOGY
- 
-@@ -11,16 +14,56 @@ struct cpu_topology {
-     cpumask_var_t thread_sibling;
-     cpumask_var_t core_sibling;
-     cpumask_var_t cluster_sibling;
-+    unsigned int phys_core_id;
-+    unsigned int phys_cluster_id;
-+    unsigned int phys_socket_id;
-+    unsigned int num_siblings;
- };
- 
- extern struct cpu_topology *cpu_topology;
- void init_cpu_topology(void);
- 
-+static inline void init_cpu_sibling_map(unsigned int cpu)
-+{
-+    if ( cpu_topology )
-+    {
-+        cpumask_copy(per_cpu(cpu_sibling_mask, cpu),
-+                     cpu_topology[cpu].thread_sibling);
-+        cpumask_copy(per_cpu(cpu_core_mask, cpu),
-+                     cpu_topology[cpu].core_sibling);
-+    }
-+    else
-+    {
-+        cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
-+        cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-+    }
-+}
-+
-+#define cpu_to_core(cpu) (cpu_topology ? cpu_topology[cpu].phys_core_id : 0)
-+#define cpu_to_socket(cpu) (cpu_topology ? cpu_topology[cpu].phys_socket_id : 0)
-+
  #else /* CONFIG_GENERIC_CPU_TOPOLOGY */
  
--#define cpu_topology ((struct cpu_topology *)NULL)
- static inline void init_cpu_topology(void) {}
+@@ -64,6 +65,10 @@ static inline void init_cpu_sibling_map(unsigned int cpu)
+ #define cpu_to_socket(cpu) (0)
+ #endif
  
-+static inline void init_cpu_sibling_map(unsigned int cpu)
-+{
-+    /*
-+     * If CONFIG_GENERIC_CPU_TOPOLOGY is disabled, it is assumed that
-+     * all CPUs reside in the same socket and that SMT is not used.
-+     */
-+    cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
-+    cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-+}
-+
-+#ifndef cpu_to_core
-+#define cpu_to_core(cpu)   (0)
-+#endif
-+
-+#ifndef cpu_to_socket
-+#define cpu_to_socket(cpu) (0)
++#ifndef cpu_nr_siblings
++#define cpu_nr_siblings(cpu) (1)
 +#endif
 +
  #endif /* CONFIG_GENERIC_CPU_TOPOLOGY */
