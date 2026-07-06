@@ -2,63 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Eh/cJetgS2q+QQEAu9opvQ
+	id SkXQLeBjS2p/QgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 10:01:47 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 10:14:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D490170DDDE
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 10:01:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEAFE70DFBD
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 10:14:23 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZpOXbjS5;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bTQM92CH;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZpOXbjS5;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=bTQM92CH;
-	dmarc=pass (policy=none) header.from=suse.de;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=ZyV2bUnp;
+	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355107.1609889 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355117.1609898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgeGT-0008Od-4R; Mon, 06 Jul 2026 08:01:17 +0000
+	id 1wgeSU-0001ix-8q; Mon, 06 Jul 2026 08:13:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355107.1609889; Mon, 06 Jul 2026 08:01:17 +0000
+Received: by outflank-mailman (output) from mailman id 1355117.1609898; Mon, 06 Jul 2026 08:13:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgeGT-0008Mq-1r; Mon, 06 Jul 2026 08:01:17 +0000
-Received: by outflank-mailman (input) for mailman id 1355107;
- Mon, 06 Jul 2026 08:01:16 +0000
+	id 1wgeSU-0001gY-5h; Mon, 06 Jul 2026 08:13:42 +0000
+Received: by outflank-mailman (input) for mailman id 1355117;
+ Mon, 06 Jul 2026 08:13:40 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <tzimmermann@suse.de>) id 1wgeGR-0008Mk-I2
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 08:01:16 +0000
+ (envelope-from <frn1furkan10@gmail.com>) id 1wgeSS-0001gS-Gd
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 08:13:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wgeGQ-0015AT-6J
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 10:01:14 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wgeSR-008MIX-9U
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 10:13:39 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <tzimmermann@suse.de>)
- id 6a4b60c7-bab6-0a2a0a5309dd-0a2a4507d2ce-4
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 10:01:14 +0200
-Received: from [195.135.223.131] (helo=smtp-out2.suse.de)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <tzimmermann@suse.de>)
- id 6a4b60c9-9c8e-0a2a45070019-c387df838290-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 10:01:14 +0200
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5D53275BB4;
- Mon,  6 Jul 2026 08:01:13 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C709F779AA;
- Mon,  6 Jul 2026 08:01:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id dMQ3L8hgS2ryEgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 06 Jul 2026 08:01:12 +0000
+ (envelope-from <frn1furkan10@gmail.com>)
+ id 6a4b63a0-2eae-0a2a0a5409dd-0a2a450c8fd0-26
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 10:13:39 +0200
+Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <frn1furkan10@gmail.com>)
+ id 6a4b63b3-f399-0a2a450c0019-d155dd31b965-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 10:13:39 +0200
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-46ed4f66256so2467063f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 01:13:39 -0700 (PDT)
+Received: from notebook.. ([85.107.101.138]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9de1d91bsm26696110f8f.4.2026.07.06.01.13.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jul 2026 01:13:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,494 +59,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783324873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Eol3pFSp5FANi6gqhU/0FQxR1lqwhB/1DOs8F+qHl3A=;
-	b=ZpOXbjS5VM5yesg7YgX3ioRId3bJRp7RciAGBqT9vFAkCfJT9dHq0PH8bCungq1kzqBw/9
-	ZYFtPD2ZeY4xVbZ9efu/SRCPICtf0fH8Q6Xl9ieiEO9Hz67UOmQgW/d6ZSBWaUccrpelGL
-	spOdxfSqoQvWlKlGuzW5oPNtb/oIn0U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783324873;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Eol3pFSp5FANi6gqhU/0FQxR1lqwhB/1DOs8F+qHl3A=;
-	b=bTQM92CHlooYbex+c9cktnZIj7dWM7FPh/QvmtYuG5H+mm8owXLhELv3+peLP2aut61G/W
-	EC3gyeQpX9cQbxAA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1783324873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Eol3pFSp5FANi6gqhU/0FQxR1lqwhB/1DOs8F+qHl3A=;
-	b=ZpOXbjS5VM5yesg7YgX3ioRId3bJRp7RciAGBqT9vFAkCfJT9dHq0PH8bCungq1kzqBw/9
-	ZYFtPD2ZeY4xVbZ9efu/SRCPICtf0fH8Q6Xl9ieiEO9Hz67UOmQgW/d6ZSBWaUccrpelGL
-	spOdxfSqoQvWlKlGuzW5oPNtb/oIn0U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1783324873;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Eol3pFSp5FANi6gqhU/0FQxR1lqwhB/1DOs8F+qHl3A=;
-	b=bTQM92CHlooYbex+c9cktnZIj7dWM7FPh/QvmtYuG5H+mm8owXLhELv3+peLP2aut61G/W
-	EC3gyeQpX9cQbxAA==
-Message-ID: <2f2f0744-02a0-44ae-a8af-df6163869be4@suse.de>
-Date: Mon, 6 Jul 2026 10:01:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783325619; x=1783930419; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aU61oKG+/isTLdZ1XQnCgcZgwvZBm2Ysmmw68wcyM2U=;
+        b=ZyV2bUnpBelcSuH9tTgqhcf3I/6TSxJUwsvD/sQfKo2lvLpl6By/90H/XQwa2ZEIQV
+         MZTDsKzkPnK8iiAV+R+O9g7h58a/qOk71eyhwSHgmEUvbh7QVM+eJ+OsFXBksz0o1jO1
+         h2Ua8/SAAalSv4TdZBbGon3sUl8Z0F7U6QI7+0jx7mVK2pY/kcZirKYjuT6Fsd8Rx3JX
+         BEqFaQAafMGRNcRrOk806X/gkT/VNTR+y+esezhMbmdSD4x67mJ3n58yKy6lYKFfvHZ+
+         JVoBN4fNrijy4EtZjCcXP6m4YJgDSRLN6t/aN7wOiZUjzgWOXLHQ3ZMBoh8uP41h5pb8
+         CBIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783325619; x=1783930419;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aU61oKG+/isTLdZ1XQnCgcZgwvZBm2Ysmmw68wcyM2U=;
+        b=ZeLDI42elizTJBb0QewRohfgAQmJHXN9601dctDS6nTLSE0H0J2AE/S4Vqj1z3mV0a
+         60pXgYgPByde+yhKSd9wtIdktgaIE4RYrpy4/iFf9Ywbv/rMTVU/7dAkY7JNiB4EkIor
+         x9ZUavK0FsfQ1Q7x+UegOCXN/G414LoasGsAkUbcd+aLyudwTo+Shc/A3vmr1LlC5/1w
+         2h+p52xVPSEUMy04M2NQs+vtlFtjzc93ajuhkdTcMqombPEqutcQQrTVTW3sIlSqtmMm
+         xcXRQZEeoW5APiUwajzS/2bsYcleWYM7doma+jGNH/CC96aE9UFBo4DG12q1rMKPFwjJ
+         2NbQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqFqvIMWd58wnOQlSg2+qt3iDent57DIUyjxK31lto6PvcJ/BoAqGhZKxTPw6mMDw9F+zqk4PEBNMU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwC4/CynJUggouyAsgKP/IxVQQwngYRN2hd6XuE2Tbt5kwBy0sL
+	4srKmrA72aRjh/mZNgIp2fM1iapI094aWa16nCey8JXBx4+u365ydZjUATtRSA==
+X-Gm-Gg: AfdE7cnyC1XhooeGeyehZME2puYaE1dFPk8RopOme0Wk9EnmZoQ05LTdqqmZfJYaCqF
+	ABEV0AdJVbOQExd8IpRRIcOD+9ornQVGgjxcTZYrVD/VGsUcwVY2HPCw5aLXTHOnjqE4Z7J8/FU
+	z1Qx2sL3cpxjD7lvhX1Z0tYXZV8niNIqE1srsh6Npb7W4YFexr6mxricK+5guHjDUyM3YPP1+dx
+	TznSY3LDK1FR9E9fBl7uICcS7rVVhckCHUDCmwdHmK90MFJvi5GpQE+hsnsE306BxF0GoBRM4tK
+	Ec/cZP0ojmgmFyUaNVMg6Z3HS4Orn9T3YDWLZmGJVt30CD9bMvznPfiBgRmxzb/7AoInMxusCze
+	GTNfj6uVszGihcZzgFbPKtlfSusmlgKq11FGoOUedDoZxM7QrFaZg79UH//ZGEy5iJBmWTwcVFw
+	i0c1MTWt14y4rWfg==
+X-Received: by 2002:a05:6000:d4f:b0:45e:f8d0:d22c with SMTP id ffacd0b85a97d-47aac6d990amr7938128f8f.25.1783325618344;
+        Mon, 06 Jul 2026 01:13:38 -0700 (PDT)
+From: Furkan Caliskan <frn1furkan10@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: kvm@vger.kernel.org,
+	x86@kernel.org,
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	dwmw2@infradead.org,
+	paul@xen.org,
+	xen-devel@lists.xenproject.org,
+	Furkan Caliskan <frn1furkan10@gmail.com>
+Subject: [PATCH] KVM: x86/xen: Convert evtchn_ports from IDR to XArray
+Date: Mon,  6 Jul 2026 11:13:11 +0300
+Message-Id: <20260706081311.13633-1-frn1furkan10@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] drm/arcpgu: replace struct drm_simple_display_pipe
- with regular atomic helpers
-To: Ze Huang <ze.huang@oss.qualcomm.com>,
- Alexey Brodkin <abrodkin@synopsys.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- imx@lists.linux.dev, xen-devel@lists.xenproject.org
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
- <20260705-drm-simple-kms-removal-v1-1-b4e1ca053623@oss.qualcomm.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260705-drm-simple-kms-removal-v1-1-b4e1ca053623@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-purgate-ID: tlsNG-ef75cf/1783324874-FDD2425E-EE4E3FBC/0/0
+X-purgate-ID: tlsNG-d25034/1783325619-0D128D51-6A64DFD5/0/0
 X-purgate-type: clean
-X-purgate-size: 12713
+X-purgate-size: 5312
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.de,none];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,suse.de:from_mime,suse.de:dkim,suse.de:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:url,bootlin.com:url];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,google.com,redhat.com,alien8.de,linux.intel.com,zytor.com,infradead.org,xen.org,lists.xenproject.org,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ze.huang@oss.qualcomm.com,m:abrodkin@synopsys.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:joel@jms.id.au,m:andrew@codeconstruct.com.au,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:linusw@kernel.org,m:hansg@kernel.org,m:lanzano.alex@gmail.com,m:oleksandr_andrushchenko@epam.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-aspeed@lists.ozlabs.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:lanzanoalex@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FORGED_SENDER(0.00)[tzimmermann@suse.de,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:kvm@vger.kernel.org,m:x86@kernel.org,m:seanjc@google.com,m:pbonzini@redhat.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:dwmw2@infradead.org,m:paul@xen.org,m:xen-devel@lists.xenproject.org,m:frn1furkan10@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.de:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[frn1furkan10@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tzimmermann@suse.de,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[frn1furkan10@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D490170DDDE
+X-Rspamd-Queue-Id: EEAFE70DFBD
 
-Hi
+IDR is deprecated in favor of XArray: see
+Documentation/core-api/idr.rst. Convert evtchn_ports accordingly.
 
-Am 04.07.26 um 20:31 schrieb Ze Huang:
-> Instantiate plane, CRTC and encoder directly and wire them up with
-> standard atomic helpers.
->
-> This removes arcpgu's dependency on deprecated simple-KMS display pipe
-> interface.
->
-> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
-> ---
->   drivers/gpu/drm/tiny/arcpgu.c | 165 +++++++++++++++++++++++++++++++++---------
->   1 file changed, 131 insertions(+), 34 deletions(-)
->
-> diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-> index c93d61ac0bb7..375cdb79e4e8 100644
-> --- a/drivers/gpu/drm/tiny/arcpgu.c
-> +++ b/drivers/gpu/drm/tiny/arcpgu.c
-> @@ -17,12 +17,12 @@
->   #include <drm/drm_fbdev_dma.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
-> +#include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_gem_dma_helper.h>
->   #include <drm/drm_gem_framebuffer_helper.h>
->   #include <drm/drm_module.h>
->   #include <drm/drm_of.h>
->   #include <drm/drm_probe_helper.h>
-> -#include <drm/drm_simple_kms_helper.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/module.h>
->   #include <linux/of_reserved_mem.h>
-> @@ -52,14 +52,14 @@ struct arcpgu_drm_private {
->   	struct drm_device	drm;
->   	void __iomem		*regs;
->   	struct clk		*clk;
-> -	struct drm_simple_display_pipe pipe;
-> +	struct drm_plane	plane;
-> +	struct drm_crtc		crtc;
-> +	struct drm_encoder	encoder;
->   	struct drm_connector	sim_conn;
->   };
->   
->   #define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
->   
-> -#define pipe_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, pipe)
-> -
->   static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
->   				 unsigned int reg, u32 value)
->   {
-> @@ -117,7 +117,7 @@ static const u32 arc_pgu_supported_formats[] = {
->   
->   static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
->   {
-> -	const struct drm_framebuffer *fb = arcpgu->pipe.plane.state->fb;
-> +	const struct drm_framebuffer *fb = arcpgu->plane.state->fb;
->   	uint32_t pixel_format = fb->format->format;
->   	u32 format = DRM_FORMAT_INVALID;
->   	int i;
-> @@ -139,10 +139,10 @@ static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
->   	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL, reg_ctrl);
->   }
->   
-> -static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *pipe,
-> -					       const struct drm_display_mode *mode)
-> +static enum drm_mode_status arcpgu_crtc_helper_mode_valid(struct drm_crtc *crtc,
-> +							  const struct drm_display_mode *mode)
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(crtc->dev);
->   	long rate, clk_rate = mode->clock * 1000;
->   	long diff = clk_rate / 200; /* +-0.5% allowed by HDMI spec */
->   
-> @@ -155,7 +155,7 @@ static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *p
->   
->   static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
->   {
-> -	struct drm_display_mode *m = &arcpgu->pipe.crtc.state->adjusted_mode;
-> +	struct drm_display_mode *m = &arcpgu->crtc.state->adjusted_mode;
->   	u32 val;
->   
->   	arc_pgu_write(arcpgu, ARCPGU_REG_FMT,
-> @@ -194,11 +194,10 @@ static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
->   	clk_set_rate(arcpgu->clk, m->crtc_clock * 1000);
->   }
->   
-> -static void arc_pgu_enable(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_crtc_state *crtc_state,
-> -			   struct drm_plane_state *plane_state)
-> +static void arcpgu_crtc_helper_atomic_enable(struct drm_crtc *crtc,
-> +					     struct drm_atomic_commit *state)
+kvm_xen_eventfd_assign()'s single-slot idr_alloc() becomes
+xa_insert(), since it was really an insert-at-index, not an
+allocation: -EBUSY replaces -ENOSPC, still mapped to -EEXIST.
 
-Since you're adding these functions anew, please use 'commit' for the 
-name of the drm_atomic_commit.  Here and everywhere else in the series.  
-You don't have to update existing functions, of course.
+kvm_xen_hcall_evtchn_send() drops its explicit rcu_read_lock(),
+since xa_load() takes its own RCU read-side section internally.
+evtchnfd's lifetime is still guaranteed by kvm->srcu.
 
-The name 'state' is a bit off here and comes from when drm_atomic_commit 
-was still called drm_atomic_state.
+xen_lock is left in place: it protects state beyond the map itself.
 
-CRTCs, plane, etc have state, but the update of these states is called 
-commit.
+Signed-off-by: Furkan Caliskan <frn1furkan10@gmail.com>
+---
+ arch/x86/include/asm/kvm_host.h |  3 ++-
+ arch/x86/kvm/xen.c              | 34 ++++++++++++++++-----------------
+ 2 files changed, 18 insertions(+), 19 deletions(-)
 
-
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(crtc->dev);
->   
->   	arc_pgu_mode_set(arcpgu);
->   
-> @@ -208,9 +207,10 @@ static void arc_pgu_enable(struct drm_simple_display_pipe *pipe,
->   		      ARCPGU_CTRL_ENABLE_MASK);
->   }
->   
-> -static void arc_pgu_disable(struct drm_simple_display_pipe *pipe)
-> +static void arcpgu_crtc_helper_atomic_disable(struct drm_crtc *crtc,
-> +					      struct drm_atomic_commit *state)
->   {
-> -	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
-> +	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(crtc->dev);
->   
->   	clk_disable_unprepare(arcpgu->clk);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL,
-> @@ -218,35 +218,106 @@ static void arc_pgu_disable(struct drm_simple_display_pipe *pipe)
->   			      ~ARCPGU_CTRL_ENABLE_MASK);
->   }
->   
-> -static void arc_pgu_update(struct drm_simple_display_pipe *pipe,
-> -			   struct drm_plane_state *state)
-> +static void arcpgu_plane_helper_atomic_update(struct drm_plane *plane,
-> +					      struct drm_atomic_commit *state)
->   {
->   	struct arcpgu_drm_private *arcpgu;
->   	struct drm_gem_dma_object *gem;
->   
-> -	if (!pipe->plane.state->fb)
-> +	if (!plane->state->fb)
->   		return;
->   
-> -	arcpgu = pipe_to_arcpgu_priv(pipe);
-> -	gem = drm_fb_dma_get_gem_obj(pipe->plane.state->fb, 0);
-> +	arcpgu = dev_to_arcpgu(plane->dev);
-> +	gem = drm_fb_dma_get_gem_obj(plane->state->fb, 0);
->   	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, gem->dma_addr);
->   }
->   
-> -static const struct drm_simple_display_pipe_funcs arc_pgu_pipe_funcs = {
-> -	.update = arc_pgu_update,
-> -	.mode_valid = arc_pgu_mode_valid,
-> -	.enable	= arc_pgu_enable,
-> -	.disable = arc_pgu_disable,
-> -};
-> -
->   static const struct drm_mode_config_funcs arcpgu_drm_modecfg_funcs = {
-> -	.fb_create  = drm_gem_fb_create,
-> +	.fb_create = drm_gem_fb_create,
->   	.atomic_check = drm_atomic_helper_check,
->   	.atomic_commit = drm_atomic_helper_commit,
->   };
->   
->   DEFINE_DRM_GEM_DMA_FOPS(arcpgu_drm_ops);
->   
-> +static int arcpgu_plane_helper_atomic_check(struct drm_plane *plane,
-> +					    struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
-> +	struct drm_crtc *crtc = plane_state->crtc;
-> +	struct drm_crtc_state *crtc_state = NULL;
-> +	int ret;
-> +
-> +	if (crtc)
-> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +
-> +	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  DRM_PLANE_NO_SCALING,
-> +						  false, false);
-> +	return ret;
-
-
-Return directly here.
-
-
-> +}
-> +
-> +static const struct drm_plane_helper_funcs arcpgu_plane_helper_funcs = {
-> +	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
-> +	.atomic_check	= arcpgu_plane_helper_atomic_check,
-> +	.atomic_update	= arcpgu_plane_helper_atomic_update,
-> +};
-> +
-> +static bool arcpgu_plane_format_mod_supported(struct drm_plane *plane,
-> +					      u32 format,
-> +					      u64 modifier)
-> +{
-> +	return modifier == DRM_FORMAT_MOD_LINEAR;
-> +}
-
-Please remove this function. It doesn't really do anything besides DRM's 
-standard behavior.
-
-> +
-> +static const struct drm_plane_funcs arcpgu_plane_funcs = {
-> +	.update_plane		= drm_atomic_helper_update_plane,
-> +	.disable_plane		= drm_atomic_helper_disable_plane,
-> +	.destroy		= drm_plane_cleanup,
-> +	.reset			= drm_atomic_helper_plane_reset,
-> +	.atomic_duplicate_state	= drm_atomic_helper_plane_duplicate_state,
-> +	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
-> +	.format_mod_supported	= arcpgu_plane_format_mod_supported,
-> +};
-> +
-> +static int arcpgu_crtc_helper_atomic_check(struct drm_crtc *crtc,
-> +					   struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
-> +	int ret;
-> +
-> +	if (!crtc_state->enable)
-> +		goto out;
-> +
-> +	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
-> +	if (ret)
-> +		return ret;
-> +
-> +out:
-> +	return drm_atomic_add_affected_planes(state, crtc);
-
-Instead of using out, I'd rather use
-
-   if (crtc->enable) {
-       //do checks
-   }
-
-   return add_affected planes.
-
-Seems more natural to me.
-
-> +}
-> +
-> +static const struct drm_crtc_helper_funcs arcpgu_crtc_helper_funcs = {
-> +	.mode_valid	= arcpgu_crtc_helper_mode_valid,
-> +	.atomic_check	= arcpgu_crtc_helper_atomic_check,
-> +	.atomic_enable	= arcpgu_crtc_helper_atomic_enable,
-> +	.atomic_disable	= arcpgu_crtc_helper_atomic_disable,
-> +};
-> +
-> +static const struct drm_crtc_funcs arcpgu_crtc_funcs = {
-> +	.reset			= drm_atomic_helper_crtc_reset,
-> +	.destroy		= drm_crtc_cleanup,
-> +	.set_config		= drm_atomic_helper_set_config,
-> +	.page_flip		= drm_atomic_helper_page_flip,
-> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
-> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
-> +};
-> +
-> +static const struct drm_encoder_funcs arcpgu_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup,
-> +};
-> +
->   static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   {
->   	struct platform_device *pdev = to_platform_device(arcpgu->drm.dev);
-> @@ -254,6 +325,9 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   	struct device_node *endpoint_node = NULL;
->   	struct drm_connector *connector = NULL;
->   	struct drm_device *drm = &arcpgu->drm;
-> +	struct drm_plane *plane;
-> +	struct drm_encoder *encoder;
-> +	struct drm_crtc *crtc;
->   	int ret;
->   
->   	arcpgu->clk = devm_clk_get(drm->dev, "pxlclk");
-> @@ -301,12 +375,35 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   			return ret;
->   	}
->   
-> -	ret = drm_simple_display_pipe_init(drm, &arcpgu->pipe, &arc_pgu_pipe_funcs,
-> -					   arc_pgu_supported_formats,
-> -					   ARRAY_SIZE(arc_pgu_supported_formats),
-> -					   NULL, connector);
-> +	plane = &arcpgu->plane;
-> +	ret = drm_universal_plane_init(drm, plane, 0,
-> +				       &arcpgu_plane_funcs,
-> +				       arc_pgu_supported_formats,
-> +				       ARRAY_SIZE(arc_pgu_supported_formats),
-> +				       NULL,
-> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
->   	if (ret)
->   		return ret;
-> +	drm_plane_helper_add(plane, &arcpgu_plane_helper_funcs);
-> +
-> +	crtc = &arcpgu->crtc;
-> +	ret = drm_crtc_init_with_planes(drm, crtc, plane, NULL,
-> +					&arcpgu_crtc_funcs, NULL);
-> +	if (ret)
-> +		return ret;
-> +	drm_crtc_helper_add(crtc, &arcpgu_crtc_helper_funcs);
-> +
-> +	encoder = &arcpgu->encoder;
-> +	ret = drm_encoder_init(drm, encoder, &arcpgu_encoder_funcs, DRM_MODE_ENCODER_NONE, NULL);
-> +	if (ret)
-> +		return ret;
-> +	encoder->possible_crtcs = drm_crtc_mask(crtc);
-
-
-I think plane, CRTC, and encoder should go before testing the 
-encoder_node at [1].
-
-Then comes the encoder_node test.  If true, do a single encoder-node 
-branch,  or else to a single connector-based branch.   That would 
-simplify the overall logic in this helper.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.1.2/source/drivers/gpu/drm/tiny/arcpgu.c#L287
-
-
-> +
-> +	if (connector) {
-> +		ret = drm_connector_attach_encoder(connector, encoder);
-> +		if (ret)
-> +			return ret;
-> +	}
->   
->   	if (encoder_node) {
->   		/* Locate drm bridge from the hdmi encoder DT node */
-> @@ -315,7 +412,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
->   		if (!bridge)
->   			return -EPROBE_DEFER;
->   
-> -		ret = drm_simple_display_pipe_attach_bridge(&arcpgu->pipe, bridge);
-> +		ret = drm_bridge_attach(encoder, bridge, NULL, 0);
->   		if (ret)
->   			return ret;
->   	}
-> @@ -342,7 +439,7 @@ static int arcpgu_show_pxlclock(struct seq_file *m, void *arg)
->   	struct drm_device *drm = node->minor->dev;
->   	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
->   	unsigned long clkrate = clk_get_rate(arcpgu->clk);
-> -	unsigned long mode_clock = arcpgu->pipe.crtc.mode.crtc_clock * 1000;
-> +	unsigned long mode_clock = arcpgu->crtc.mode.crtc_clock * 1000;
-
-Here, mode is an obsolete field. The correct field is crtc->state->mode.
-
-Best regards
-Thomas
-
->   
->   	seq_printf(m, "hw  : %lu\n", clkrate);
->   	seq_printf(m, "mode: %lu\n", mode_clock);
->
-
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index d8700eb848b4..6c8542b32313 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -16,6 +16,7 @@
+ #include <linux/irq_work.h>
+ #include <linux/irq.h>
+ #include <linux/workqueue.h>
++#include <linux/xarray.h>
+ 
+ #include <linux/kvm.h>
+ #include <linux/kvm_para.h>
+@@ -1290,7 +1291,7 @@ struct kvm_xen {
+ 	bool runstate_update_flag;
+ 	u8 upcall_vector;
+ 	struct gfn_to_pfn_cache shinfo_cache;
+-	struct idr evtchn_ports;
++	struct xarray evtchn_ports;
+ 	unsigned long poll_mask[BITS_TO_LONGS(KVM_MAX_VCPUS)];
+ 
+ 	struct kvm_xen_hvm_config hvm_config;
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index 694b31c1fcc9..754191e3bef7 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -2072,7 +2072,7 @@ static int kvm_xen_eventfd_update(struct kvm *kvm,
+ 
+ 	/* Protect writes to evtchnfd as well as the idr lookup.  */
+ 	mutex_lock(&kvm->arch.xen.xen_lock);
+-	evtchnfd = idr_find(&kvm->arch.xen.evtchn_ports, port);
++	evtchnfd = xa_load(&kvm->arch.xen.evtchn_ports, port);
+ 
+ 	ret = -ENOENT;
+ 	if (!evtchnfd)
+@@ -2166,13 +2166,13 @@ static int kvm_xen_eventfd_assign(struct kvm *kvm,
+ 	}
+ 
+ 	mutex_lock(&kvm->arch.xen.xen_lock);
+-	ret = idr_alloc(&kvm->arch.xen.evtchn_ports, evtchnfd, port, port + 1,
++	ret = xa_insert(&kvm->arch.xen.evtchn_ports, port, evtchnfd,
+ 			GFP_KERNEL);
+ 	mutex_unlock(&kvm->arch.xen.xen_lock);
+-	if (ret >= 0)
++	if (!ret)
+ 		return 0;
+ 
+-	if (ret == -ENOSPC)
++	if (ret == -EBUSY)
+ 		ret = -EEXIST;
+ out:
+ 	if (eventfd)
+@@ -2187,7 +2187,7 @@ static int kvm_xen_eventfd_deassign(struct kvm *kvm, u32 port)
+ 	struct evtchnfd *evtchnfd;
+ 
+ 	mutex_lock(&kvm->arch.xen.xen_lock);
+-	evtchnfd = idr_remove(&kvm->arch.xen.evtchn_ports, port);
++	evtchnfd = xa_erase(&kvm->arch.xen.evtchn_ports, port);
+ 	mutex_unlock(&kvm->arch.xen.xen_lock);
+ 
+ 	if (!evtchnfd)
+@@ -2203,7 +2203,7 @@ static int kvm_xen_eventfd_deassign(struct kvm *kvm, u32 port)
+ static int kvm_xen_eventfd_reset(struct kvm *kvm)
+ {
+ 	struct evtchnfd *evtchnfd, **all_evtchnfds;
+-	int i;
++	unsigned long i;
+ 	int n = 0;
+ 
+ 	mutex_lock(&kvm->arch.xen.xen_lock);
+@@ -2213,7 +2213,7 @@ static int kvm_xen_eventfd_reset(struct kvm *kvm)
+ 	 * critical section, first collect all the evtchnfd objects
+ 	 * in an array as they are removed from evtchn_ports.
+ 	 */
+-	idr_for_each_entry(&kvm->arch.xen.evtchn_ports, evtchnfd, i)
++	xa_for_each(&kvm->arch.xen.evtchn_ports, i, evtchnfd)
+ 		n++;
+ 
+ 	all_evtchnfds = kmalloc_objs(struct evtchnfd *, n);
+@@ -2223,9 +2223,9 @@ static int kvm_xen_eventfd_reset(struct kvm *kvm)
+ 	}
+ 
+ 	n = 0;
+-	idr_for_each_entry(&kvm->arch.xen.evtchn_ports, evtchnfd, i) {
++	xa_for_each(&kvm->arch.xen.evtchn_ports, i, evtchnfd) {
+ 		all_evtchnfds[n++] = evtchnfd;
+-		idr_remove(&kvm->arch.xen.evtchn_ports, evtchnfd->send_port);
++		xa_erase(&kvm->arch.xen.evtchn_ports, evtchnfd->send_port);
+ 	}
+ 	mutex_unlock(&kvm->arch.xen.xen_lock);
+ 
+@@ -2276,12 +2276,10 @@ static bool kvm_xen_hcall_evtchn_send(struct kvm_vcpu *vcpu, u64 param, u64 *r)
+ 	}
+ 
+ 	/*
+-	 * evtchnfd is protected by kvm->srcu; the idr lookup instead
+-	 * is protected by RCU.
++	 * evtchnfd is protected by kvm->srcu; the xa_load is RCU-safe
++	 * internally, no explicit rcu_read_lock() needed.
+ 	 */
+-	rcu_read_lock();
+-	evtchnfd = idr_find(&vcpu->kvm->arch.xen.evtchn_ports, send.port);
+-	rcu_read_unlock();
++	evtchnfd = xa_load(&vcpu->kvm->arch.xen.evtchn_ports, send.port);
+ 	if (!evtchnfd)
+ 		return false;
+ 
+@@ -2328,23 +2326,23 @@ void kvm_xen_destroy_vcpu(struct kvm_vcpu *vcpu)
+ void kvm_xen_init_vm(struct kvm *kvm)
+ {
+ 	mutex_init(&kvm->arch.xen.xen_lock);
+-	idr_init(&kvm->arch.xen.evtchn_ports);
++	xa_init(&kvm->arch.xen.evtchn_ports);
+ 	kvm_gpc_init(&kvm->arch.xen.shinfo_cache, kvm);
+ }
+ 
+ void kvm_xen_destroy_vm(struct kvm *kvm)
+ {
+ 	struct evtchnfd *evtchnfd;
+-	int i;
++	unsigned long i;
+ 
+ 	kvm_gpc_deactivate(&kvm->arch.xen.shinfo_cache);
+ 
+-	idr_for_each_entry(&kvm->arch.xen.evtchn_ports, evtchnfd, i) {
++	xa_for_each(&kvm->arch.xen.evtchn_ports, i, evtchnfd) {
+ 		if (!evtchnfd->deliver.port.port)
+ 			eventfd_ctx_put(evtchnfd->deliver.eventfd.ctx);
+ 		kfree(evtchnfd);
+ 	}
+-	idr_destroy(&kvm->arch.xen.evtchn_ports);
++	xa_destroy(&kvm->arch.xen.evtchn_ports);
+ 
+ 	if (kvm->arch.xen.hvm_config.msr)
+ 		static_branch_slow_dec_deferred(&kvm_xen_enabled);
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
 
