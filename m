@@ -2,62 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id s+sHFXiuS2rIYQEAu9opvQ
+	id 1thmClavS2r+YQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 15:32:40 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 15:36:22 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901887114F7
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 15:32:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4398571158F
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 15:36:21 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=qualcomm.com header.s=qcppdkim1 header.b=fG+3SByw;
-	dkim=pass header.d=oss.qualcomm.com header.s=google header.b=f8Qmg3YK;
-	dmarc=pass (policy=reject) header.from=qualcomm.com;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355376.1610142 (Exim 4.92)
+	dkim=pass header.d=amd.com header.s=selector1 header.b=fhTYC4BO;
+	dmarc=pass (policy=quarantine) header.from=amd.com;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1355387.1610151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgjQy-0000EX-Md; Mon, 06 Jul 2026 13:32:28 +0000
+	id 1wgjUU-0000oH-6y; Mon, 06 Jul 2026 13:36:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355376.1610142; Mon, 06 Jul 2026 13:32:28 +0000
+Received: by outflank-mailman (output) from mailman id 1355387.1610151; Mon, 06 Jul 2026 13:36:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgjQy-0000Be-In; Mon, 06 Jul 2026 13:32:28 +0000
-Received: by outflank-mailman (input) for mailman id 1355376;
- Mon, 06 Jul 2026 13:32:26 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wgjUU-0000mF-3b; Mon, 06 Jul 2026 13:36:06 +0000
+Received: by outflank-mailman (input) for mailman id 1355387;
+ Mon, 06 Jul 2026 13:36:05 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ze.huang@oss.qualcomm.com>) id 1wgjQw-0000BC-5X
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 13:32:26 +0000
+ (envelope-from <ayan.kumar.halder@amd.com>) id 1wgjUS-0000m9-Rq
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 13:36:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wgjQu-00AArv-Vf
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:32:24 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wgjUS-00A8Vt-8W
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:36:04 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ze.huang@oss.qualcomm.com>)
- id 6a4bae58-bab6-0a2a0a5309dd-0a2a450cd734-48
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 15:32:24 +0200
-Received: from [205.220.168.131] (helo=mx0a-0031df01.pphosted.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <ze.huang@oss.qualcomm.com>)
- id 6a4bae66-f399-0a2a450c0019-cddca8835ef4-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 15:32:24 +0200
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 666AxD4H366706
- for <xen-devel@lists.xenproject.org>; Mon, 6 Jul 2026 13:32:22 GMT
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f891us4ef-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 13:32:22 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-84696ed3b24so4843196b3a.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 06:32:21 -0700 (PDT)
-Received: from localhost ([151.243.38.149]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6d82382sm3762898b3a.49.2026.07.06.06.32.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 06:32:20 -0700 (PDT)
+ (envelope-from <ayan.kumar.halder@amd.com>)
+ id 6a4baf3f-bab6-0a2a0a5309dd-0a2a4509819e-14
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 15:36:03 +0200
+Received: from [40.93.194.61]
+ (helo=SN4PR0501CU005.outbound.protection.outlook.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <ayan.kumar.halder@amd.com>)
+ id 6a4baf42-97e6-0a2a45090019-285dc23d248a-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 15:36:03 +0200
+Received: from SJ0PR05CA0066.namprd05.prod.outlook.com (2603:10b6:a03:332::11)
+ by MW4PR12MB7167.namprd12.prod.outlook.com (2603:10b6:303:225::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
+ 2026 13:35:57 +0000
+Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
+ (2603:10b6:a03:332:cafe::a2) by SJ0PR05CA0066.outlook.office365.com
+ (2603:10b6:a03:332::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.7 via Frontend Transport; Mon, 6
+ Jul 2026 13:35:57 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Mon, 6 Jul 2026 13:35:57 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
+ 2026 08:35:57 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 6 Jul
+ 2026 06:35:56 -0700
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via
+ Frontend Transport; Mon, 6 Jul 2026 08:35:55 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,456 +79,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b0A44HOo06DPQTnDCUPqJ4UMJjyqFyasJ88lIL5lLZ8=; b=fG+3SBywJZ4CROyC
-	EBkvPSthGbsziZkeQ7K40QVe4l60fKx8Uz2ijBpMSp1CBVrM+HI0Qd48bpu+Nzhi
-	b04ix3wRfk0Y6Vz8Brg9AsqOEADGYxOTg6YXVxaP6tiB5K+NL9xWmAIQdcSDsoja
-	45b2aDZ3euian4+uXjzxtwYvwI7wgwpW24xN4DoAEA0dPPY4VKGbbtifFuvCkpGD
-	W08lRaoc5vSPjy7BTnjfbHHH1tS2o+s/64gN7WIJ9Qc5EPV85CK276mNfFiZO5Kz
-	6EK8MGQwRIYJLD/vCqeLfFfNvZBogj1cBhA/mt27j0jVSHDY5xiaxoDqHwFtLlDE
-	9x26Mg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1783344741; x=1783949541; darn=lists.xenproject.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=b0A44HOo06DPQTnDCUPqJ4UMJjyqFyasJ88lIL5lLZ8=;
-        b=f8Qmg3YKFDGFOlQ1azgIAN9b5B7N09CgemefHw8hdBcNOk/PBT3er2uVAKGFKsFfTl
-         mmprXF4kkTixnSCujVlRCs/4NGSwpVK7hdJJXmJY0plZrm4SfkyEs5QX4UU63f5IeD6N
-         VQf/4LWCCmNlIJY7l6j9v1svjHYwtv31DbvW5ZvLfJaSmTJdzBLS50nGxxwtr5jjYSf3
-         /0na50d/WEjo7orb7HoC+70gekFsRAXxib8qx3g9Q13Gxasx7xuVWPQJKZY5QPSw/xzG
-         BeBuXZJvntOSvGP+cXAmPhf3cQcHkfLoEmI3XONUavIThrPbZbnfdtYvsLEgjYDa1+aE
-         hzfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783344741; x=1783949541;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=b0A44HOo06DPQTnDCUPqJ4UMJjyqFyasJ88lIL5lLZ8=;
-        b=UocxvNpfJiweTpoOVTEl2ZrdyslqaVMhI8G62f87yxLhKFhuHGk1r1JYnQHvypPHKI
-         Ip+DzPYTJKiaAhAUgWcaunScZLidSQeE4PgyIGFS2AgV/riNuu8OWP95VRXt0ZwVRojm
-         voiFP8mxMg/qsqR9mr8Zu3lQjB/5xjr1WcwfooRwuh3AxgAaF/DRwR9jnEFAou5Mm3wS
-         Vv5kUYvwT/yVa7dpqCuoMd+VJo/Xi11hUDtlT978CHrdH8Mk0vpCdwpq3UYk7g4ftkkq
-         +Co9tC0M3L4t1SenkPcJVnA+VsgmHJzDghEPChUFGQkW0MB5jV3LgEemNx+4TjH4sJXC
-         Jp+w==
-X-Forwarded-Encrypted: i=1; AHgh+RoFWWbX0GY0lJNKo+zVVo4QZNTnkTfDGYik7iGNy9VcxoeUYzTiwlPT6X8NdOvR5gh7FKkDqYklXDE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywv/2GIB42UCWZbNgUXrGT/m0cWgEwVcjhh4BN2UflJvRFqtn4t
-	nlzjwp2KFi149jgPm3NbmqPrv3IvA0ERFwtBBcmSndJiNst8e7q0efkB3L9B7cVuZ+rnEgf6Gmm
-	B3HwE2kyj1Xe1xJ0t0+egblaPQMLLBCf5gUg4L8xIMJntu9bK4EmRCD0Ug+JeiHG8Kv8j4g==
-X-Gm-Gg: AfdE7ck/N5V6yEV3jNK9Lig+RHetiXAEnoVf1YlwjVTAHSPAF/5DiYFf6wiiCvD9MFK
-	qPh1j6HNbknRfRZmT1qt0cMVf+NseO5YDlrHfIhvKtXiljiJ5y0RLjUyIwC5CWHpZz2N3Qz/6xi
-	txOJoC3ECTxRy+qwIn144d6j2BMlZE+9Ol4G4YvXLLRf2QPDwbq2Sj4WECvEiAg7j2fC/aPGCS6
-	Pq+GhnW8KTbLBKoHIKZb6hJV88XCkVOAPtkKa3yu822ZWr+PLDlKiE2mvIB7d0nZzJvZYr3wdV4
-	goUb9Ej8cK83bLSWnKyYT8+lso1xtyCjN2E/Hb0l4Mf9HuV4Z9T8IVOPPqrApQKaibL+g+vA+aQ
-	lYP8v06RBT3D7pzY=
-X-Received: by 2002:a05:6a00:c8d:b0:847:8f8a:a055 with SMTP id d2e1a72fcca58-84826bea1afmr615699b3a.17.1783344741263;
-        Mon, 06 Jul 2026 06:32:21 -0700 (PDT)
-X-Received: by 2002:a05:6a00:c8d:b0:847:8f8a:a055 with SMTP id d2e1a72fcca58-84826bea1afmr615631b3a.17.1783344740650;
-        Mon, 06 Jul 2026 06:32:20 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 06 Jul 2026 21:32:03 +0800
-Message-Id: <DJRIY04KAKRH.2XJRADHKJ4G55@oss.qualcomm.com>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-        <linux-aspeed@lists.ozlabs.org>,
-        <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
-        <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/9] drm/aspeed: replace struct drm_simple_display_pipe
- with regular atomic helpers
-From: "Ze Huang" <ze.huang@oss.qualcomm.com>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>,
-        "Ze Huang"
- <ze.huang@oss.qualcomm.com>,
-        "Alexey Brodkin" <abrodkin@synopsys.com>,
-        "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-        "Maxime Ripard"
- <mripard@kernel.org>,
-        "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>,
-        "Joel Stanley" <joel@jms.id.au>,
-        "Andrew Jeffery"
- <andrew@codeconstruct.com.au>,
-        "Frank Li" <Frank.Li@nxp.com>,
-        "Sascha
- Hauer" <s.hauer@pengutronix.de>,
-        "Pengutronix Kernel Team"
- <kernel@pengutronix.de>,
-        "Fabio Estevam" <festevam@gmail.com>,
-        "Linus
- Walleij" <linusw@kernel.org>,
-        "Hans de Goede" <hansg@kernel.org>,
-        "Alex
- Lanzano" <lanzano.alex@gmail.com>,
-        "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com> <20260705-drm-simple-kms-removal-v1-2-b4e1ca053623@oss.qualcomm.com> <4e35e133-364a-4743-9ca0-f0799bdf28f8@suse.de>
-In-Reply-To: <4e35e133-364a-4743-9ca0-f0799bdf28f8@suse.de>
-X-Proofpoint-GUID: jLQiyAkUiU10C8ObXqKI8EJd-iehcnEl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEzNyBTYWx0ZWRfX/dSZblGZShjo
- QdZPJxPc74a+EviqbOJknGUtau4JetIuWzvTVYSL61VX4B2RXAihruiF7U/SFK0bUf4NoCmEf4S
- /b1ZoLshFlgPvY5gCvp3bv2U6NLRJdc=
-X-Authority-Analysis: v=2.4 cv=Mo1iLWae c=1 sm=1 tr=0 ts=6a4bae66 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=cNux22OjBTKCC6TmznXXXA==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=OF-i8N8vVdU2NhfsQ9oA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEzNyBTYWx0ZWRfX5GnpPUye+G+Q
- jf32T4n0fR+PT0H235NLU57124bW2Qinm6uSfs+taBHZXYx2DMB69Jt1UEBZnNmxjWNTZNM0uNo
- S2NPokjALJRjZL0QP+O96s7eH8EdLdJNUc1N5odpQBRnqa1N/wacIPAtk8CnBRoIkrjIkyvfD8A
- ydaXCZ5mMer9BIhZ7CLaZ17Z3YVRc18TVgwBt7ivygDkR70DQSdfq3tf/zpw9nmymUJqdNqCzkx
- Iq24ufyYeSyYZjtm0PTDE6++HP0s90+vXPz/0NDzO2eCV3hz6wyejZCIotWwUBZIs1EjpeMvI8i
- Yy12d0GDHHlw7eKtuJD3xvU1jLXkfGn0cQ6qpanXH5002FxBDLnqGsAUfsZYBSbdiqaAIlWeCb4
- B6lIO/fGhScHS0f5tjgwh5MRh6dzRhfLumltIM3svaXJatSAwy667t6+OG6WgdtBXT5RRvYf3i2
- BsSIqXA7ZCUufiKgITg==
-X-Proofpoint-ORIG-GUID: jLQiyAkUiU10C8ObXqKI8EJd-iehcnEl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060137
-X-purgate-ID: tlsNG-d25034/1783344744-90110D51-9D742938/0/0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E60gsmfncg1nmvRd6GHJVIwfikx9pnFgd3yjBY8LGE+zJekQw/OkRDgHcUUIYzAF4kV5a2zdh8q6FMhx7NA9WJEC9rCaRJwOGDRIgLtXbMRnsO0oJaVumtF3ULQQuTaEqouon9528kBy8LnJCLSgIcrAI69Tsh+qkLupinmUIWP7N9zfpFS56bSnrvpTUc/QDzKeSIg0/5PHOLsGmh0eLZECZU3TKtbqnsLpgTH8oa/hBJqXAw4yfWD5hKYFzgiiVbRL8E7IWkyYslC9HogQuxb9Ww9Ol53wVhCzyBL6mPehzR7s+dVPruPqPJha6cxjMN6IG0pUh1CGTCOFjvWwrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PIbUc3buFTq12sQv+tOHtXeOpEClYMe5fX1OvocDT60=;
+ b=QYNPabMMkEZ/3VFR1APrWH70Z0yFFzPDb0RBViD/p1KWjN6mq0gSF6A/BDhac5qJmZGXo0qGDOMj20MhTE+PHbIm5cBxRUU0KYcNCvcjL20l/XbTMtXy2QT+9YFF/zugIM0yxIMnx7H6e0xVSOtwzTlDnd2JwVpbV6kJv6D2CklmBpbnAtvTqqEFkzeVwGdK+nAAiLjvbqztudUIPdZtZ1//vhZQ3nbwp4wEi/y3pm5kavwvNFlibgWCq61gIqUWGmG8uUu5F12uG9b6UGKYWV0381k8le/1PBqfj2iT0KGs98HfURwixzEmaX9w7yhjaCyspvFPn7TDOq0yE2kqzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PIbUc3buFTq12sQv+tOHtXeOpEClYMe5fX1OvocDT60=;
+ b=fhTYC4BOFgVtC5eOwYhdrXdeIh+D2c/MoDwtYseXonwD9hUweaISs2ABYDM5i53Zl3UlMf/I2+31qhDSmnmYL59/kco1SX6pHIY0h/BSykUCrx387JpLqUglvQiQ1JbVlKP8C6ImRRDmKLB+pDBY5RWMNbslNeeoTKT2HSoka7s=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Ayan
+ Kumar Halder" <ayan.kumar.halder@amd.com>
+Subject: [PATCH v3] xen/arm: gic-v3: Introduce CONFIG_GICV3_NR_LRS
+Date: Mon, 6 Jul 2026 14:35:53 +0100
+Message-ID: <20260706133553.3026786-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|MW4PR12MB7167:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5b34ba9-d8d6-4bfa-0d9f-08dedb6382b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	KKk1Y8wq2MgPgxsLYWbf96gCQjHnUyoT5UC1kFPaf86oRwKyMr2nIiDUQau1YeZxgm7y/jFa5jrniJfQ3SvKs3rmh7Pa31r3MDYWJDJT52URCi6RROFgDce/RJb20amYCXvQ6tfCd3WPqYq2ypeuaknG6Mb6QbarbHYZBqZVPUhMKNitxZvwWAcoc7jtT5wTqyTPkDy05jUHyVj9PPPeN0irgUgJHV+TsQLyXiAizj3mP+enDZRNzVLK6ExmSlNEi0/+vTI5Woxym+J+klUqZ2gLJGT7Ue6VozK7u6tEutWJvmTm/VU3v/r09lTa9JzEWW0epkURPB17EZYbLL60dFP76dp7IrrqHhLPwwu1Xhb0HKZk1C86bvuGzI0y09HPODY7IR+KmfC0CUHnYNBbpFpDLbb0q8ukhafwCMvPSmwsNtRPDJ+zVNa7mH108/aIuXvvtl2vnErBTUXD7kjENC+RiF/4RAcCBv5ukIslJHuA5xL0dSGyXUakYrhQnDO8oBQFPQrFLvor6JIMrikWMBA6qowrjX+BuWnBzHaXz83U8Cx4OoYNM5vssfLfzjEruQ9bo1dBwexgO0Z1PI3yGbOv8XyNI71xg5KuCEwVNPyHqCepM5Ykn06lG1HRBuukUmLqBi+rFV3fU1V4m7mJ3TDaMkpQ/m3sNkyFnPQEAvdjVFwQYu+bUpZYTO0brSIYK0vO7Etm69BxCmV+KrParg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HivPYJje2JzseAdoOs/mCNIe98SinbnN587fHcOnHr0q6V5Qw+MipMkIue+2fkUUo/nlrHHWHE+fvbBd0Y+SGMMMV/LXYdBSX97yXgtsY+uq6Ct4PV6JFHHzS0SVKJp+Jxm6VXc9Js0HKyhexr6NW8Vr6iNQ8K5VH8Us6uyN/zklQIvxWP8F1lG6NkHMfGjURGe7G3z6DS327lKx65YSLG2VrGdQwew4J3cwOtg7NqvAXxMYIsY3+pLvri128fRCDToDoQ4dq/0Tq6Xx5RcYv3WhvSMiH7xrBC4DFFr16/Om91YVfQAdNKxVqt2NTA8h0bN8I1vD5sQ9d3pwnPXad551SI4DiHzrmHeb0/4bWFBgK8cJEHOEwExXizAEdfMPzcTPnBkDLenWoKd1zZrtYB3JFUdtLCqSeVkj3wSAkNulJltP31aaGFVFUlNZVEom
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 13:35:57.3638
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5b34ba9-d8d6-4bfa-0d9f-08dedb6382b6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE1D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7167
+X-purgate-ID: tlsNG-bad1c0/1783344963-44F2D986-1EC06643/0/0
 X-purgate-type: clean
-X-purgate-size: 9441
+X-purgate-size: 5079
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	MV_CASE(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-aspeed@lists.ozlabs.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:tzimmermann@suse.de,m:ze.huang@oss.qualcomm.com,m:abrodkin@synopsys.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:joel@jms.id.au,m:andrew@codeconstruct.com.au,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:linusw@kernel.org,m:hansg@kernel.org,m:lanzano.alex@gmail.com,m:oleksandr_andrushchenko@epam.com,m:lanzanoalex@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:ayan.kumar.halder@amd.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[ayan.kumar.halder@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	FREEMAIL_TO(0.00)[suse.de,oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[ze.huang@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FROM_NEQ_ENVFROM(0.00)[ze.huang@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FROM_NEQ_ENVFROM(0.00)[ayan.kumar.halder@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	DKIM_TRACE(0.00)[amd.com:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:from_mime,oss.qualcomm.com:dkim,oss.qualcomm.com:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:from_mime,amd.com:email,amd.com:mid,amd.com:dkim]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 901887114F7
+X-Rspamd-Queue-Id: 4398571158F
 
-On Mon Jul 6, 2026 at 4:31 PM CST, Thomas Zimmermann wrote:
-> Hi,
->
-> common points from my arcgpu review applied here as well. See below for=
-=20
-> a new other things.
->
-> Am 04.07.26 um 20:31 schrieb Ze Huang:
->> Replace simple display pipe with explicit plane, CRTC and encoder
->> objects. Move callbacks to plane and CRTC helpers, with vblank handling
->> through drm_crtc_funcs.
->>
->> This removes intermediate simple-pipe layer and uses standard atomic
->> helper wiring.
->>
->> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
->> ---
->>   drivers/gpu/drm/aspeed/aspeed_gfx.h      |   5 +-
->>   drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c | 156 +++++++++++++++++++++++=
---------
->>   drivers/gpu/drm/aspeed/aspeed_gfx_drv.c  |   3 +-
->>   3 files changed, 123 insertions(+), 41 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx.h b/drivers/gpu/drm/aspee=
-d/aspeed_gfx.h
->> index 4e6a442c3886..a34811564c0d 100644
->> --- a/drivers/gpu/drm/aspeed/aspeed_gfx.h
->> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx.h
->> @@ -2,7 +2,6 @@
->>   /* Copyright 2018 IBM Corporation */
->>  =20
->>   #include <drm/drm_device.h>
->> -#include <drm/drm_simple_kms_helper.h>
->>  =20
->>   struct aspeed_gfx {
->>   	struct drm_device		drm;
->> @@ -17,7 +16,9 @@ struct aspeed_gfx {
->>   	u32				throd_val;
->>   	u32				scan_line_max;
->>  =20
->> -	struct drm_simple_display_pipe	pipe;
->> +	struct drm_plane		plane;
->> +	struct drm_crtc			crtc;
->> +	struct drm_encoder		encoder;
->>   	struct drm_connector		connector;
->>   };
->>   #define to_aspeed_gfx(x) container_of(x, struct aspeed_gfx, drm)
->> diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c b/drivers/gpu/drm/=
-aspeed/aspeed_gfx_crtc.c
->> index 7877a57b8e26..3294795c31c4 100644
->> --- a/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
->> +++ b/drivers/gpu/drm/aspeed/aspeed_gfx_crtc.c
->> @@ -5,6 +5,8 @@
->>   #include <linux/reset.h>
->>   #include <linux/regmap.h>
->>  =20
->> +#include <drm/drm_atomic.h>
->> +#include <drm/drm_atomic_helper.h>
->>   #include <drm/drm_device.h>
->>   #include <drm/drm_fb_dma_helper.h>
->>   #include <drm/drm_fourcc.h>
->> @@ -12,20 +14,13 @@
->>   #include <drm/drm_gem_atomic_helper.h>
->>   #include <drm/drm_gem_dma_helper.h>
->>   #include <drm/drm_panel.h>
->> -#include <drm/drm_simple_kms_helper.h>
->>   #include <drm/drm_vblank.h>
->>  =20
->>   #include "aspeed_gfx.h"
->>  =20
->> -static struct aspeed_gfx *
->> -drm_pipe_to_aspeed_gfx(struct drm_simple_display_pipe *pipe)
->> -{
->> -	return container_of(pipe, struct aspeed_gfx, pipe);
->> -}
->> -
->
-> Please create a new helper
->
->  =C2=A0 struct drm_aspeed_gfx *to_aspeed_gfx(drm_device *drm)
->
-> that does the upcast.
->
+Add a Kconfig option that lets an integrator hard-code the number of
+GICv3 Link Registers Xen uses. The default (0) keeps reading the count
+from ICH_VTR_EL2.ListRegs at boot. A non-zero value is validated
+against the hardware count in gicv3_hyp_init() and replaces
+gicv3_info.nr_lrs.
 
-Will do
+gicv3_hyp_init() now panics if CONFIG_GICV3_NR_LRS exceeds the
+hardware count, and zeroes all hardware LRs (once per CPU) as defensive
+hardening, so any interrupt left in an LR that Xen will not manage
+cannot be picked up by the GIC.
 
->>   static int aspeed_gfx_set_pixel_fmt(struct aspeed_gfx *priv, u32 *bpp)
->>   {
->> -	struct drm_crtc *crtc =3D &priv->pipe.crtc;
->> +	struct drm_crtc *crtc =3D &priv->crtc;
->>   	struct drm_device *drm =3D crtc->dev;
->>   	const u32 format =3D crtc->primary->state->fb->format->format;
->>   	u32 ctrl1;
->> @@ -79,7 +74,7 @@ static void aspeed_gfx_disable_controller(struct aspee=
-d_gfx *priv)
->>  =20
->>   static void aspeed_gfx_crtc_mode_set_nofb(struct aspeed_gfx *priv)
->>   {
->> -	struct drm_display_mode *m =3D &priv->pipe.crtc.state->adjusted_mode;
->> +	struct drm_display_mode *m =3D &priv->crtc.state->adjusted_mode;
->>   	u32 ctrl1, d_offset, t_count, bpp;
->>   	int err;
->>  =20
->> @@ -139,33 +134,31 @@ static void aspeed_gfx_crtc_mode_set_nofb(struct a=
-speed_gfx *priv)
->>   	writel(priv->throd_val, priv->base + CRT_THROD);
->>   }
->>  =20
->> -static void aspeed_gfx_pipe_enable(struct drm_simple_display_pipe *pipe=
-,
->> -			      struct drm_crtc_state *crtc_state,
->> -			      struct drm_plane_state *plane_state)
->> +static void aspeed_gfx_crtc_helper_atomic_enable(struct drm_crtc *crtc,
->> +						 struct drm_atomic_commit *state)
->
-> Please see my comment on arcgpu for the new naming of 'state'.
->
+gicv3_ich_read_lr()/gicv3_ich_write_lr() now reject out-of-range
+indices with an error message, ASSERT_UNREACHABLE() and WARN() instead
+of silently returning RAZ/WI; reaching this path indicates a bug.
 
-OK
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in 
+v3:
+- Validate CONFIG_GICV3_NR_LRS against the hardware count in
+  gicv3_hyp_init() and panic if it exceeds it (Julien, Luca).
+- Allow an integrator to select fewer LRs than the hardware supports;
+  gicv3_info.nr_lrs is replaced with the clamped value (Julien).
+- Zero all hardware LRs in gicv3_hyp_init() as defensive hardening.
+- Replace the silent RAZ/WI out-of-range path in gicv3_ich_read_lr()/
+  gicv3_ich_write_lr() with gprintk() + ASSERT_UNREACHABLE() + WARN()
+  (Julien).
+- Renamed the Kconfig from LRS to NR_LRS (Julien).
+- The link-time dead-code-elimination guard is split out into a
+  separate follow-up patch.
 
->>   {
->> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
->> -	struct drm_crtc *crtc =3D &pipe->crtc;
->> +	struct aspeed_gfx *priv =3D container_of(crtc, struct aspeed_gfx, crtc=
-);
->
-> Please use=C2=A0 your helper=C2=A0 to_aspeed_gfx(crtc->dev)=C2=A0 to do t=
-he upcast.=C2=A0=20
-> Here any in other places.
->
+v2:
+- s/lrs/LRS.
+- Implement RAZ/WI instead of panic.
 
-OK
+ xen/arch/arm/Kconfig  |  9 ++++++++
+ xen/arch/arm/gic-v3.c | 50 ++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 58 insertions(+), 1 deletion(-)
 
->>  =20
->>   	aspeed_gfx_crtc_mode_set_nofb(priv);
->>   	aspeed_gfx_enable_controller(priv);
->>   	drm_crtc_vblank_on(crtc);
->>   }
->>  =20
->> -static void aspeed_gfx_pipe_disable(struct drm_simple_display_pipe *pip=
-e)
->> +static void aspeed_gfx_crtc_helper_atomic_disable(struct drm_crtc *crtc=
-,
->> +						  struct drm_atomic_commit *state)
->>   {
->> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
->> -	struct drm_crtc *crtc =3D &pipe->crtc;
->> +	struct aspeed_gfx *priv =3D container_of(crtc, struct aspeed_gfx, crtc=
-);
->
-> Another upcast issue
->
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 5fa89fcb24..798bc8e9b2 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -143,6 +143,15 @@ config GICV3_ESPI
+ 	  range, from 4096 to 5119. This feature is introduced in GICv3.1
+ 	  architecture.
+ 
++config GICV3_NR_LRS
++	int "Number of GICv3 Link Registers used" if EXPERT
++	depends on GICV3
++	range 0 16
++	default 0
++	help
++	  Controls the number of Link registers to be used.
++	  Keep it set to 0 to use a value obtained from a hardware register.
++
+ config HAS_ITS
+         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
+         depends on GICV3 && !NEW_VGIC && !ARM_32
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index acdac22953..46ab0b6329 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -178,6 +178,15 @@ static inline void gicv3_restore_lrs(const struct vcpu *v)
+ 
+ static uint64_t gicv3_ich_read_lr(int lr)
+ {
++    if ( lr < 0 || lr >= gicv3_info.nr_lrs )
++    {
++        gprintk(XENLOG_ERR, "GICv3: LR read index %d out of range (nr_lrs %u)\n",
++                lr, gicv3_info.nr_lrs);
++        ASSERT_UNREACHABLE();
++        WARN();
++        return 0;
++    }
++
+     switch ( lr )
+     {
+     case 0: return READ_SYSREG_LR(0);
+@@ -203,6 +212,15 @@ static uint64_t gicv3_ich_read_lr(int lr)
+ 
+ static void gicv3_ich_write_lr(int lr, uint64_t val)
+ {
++    if ( lr < 0 || lr >= gicv3_info.nr_lrs )
++    {
++        gprintk(XENLOG_ERR, "GICv3: LR write index %d out of range (nr_lrs %u)\n",
++                lr, gicv3_info.nr_lrs);
++        ASSERT_UNREACHABLE();
++        WARN();
++        return;
++    }
++
+     switch ( lr )
+     {
+     case 0:
+@@ -1041,9 +1059,39 @@ static void gicv3_cpu_disable(void)
+ static void gicv3_hyp_init(void)
+ {
+     register_t vtr;
++    uint8_t hw_nr_lrs;
+ 
+     vtr = READ_SYSREG(ICH_VTR_EL2);
+-    gicv3_info.nr_lrs  = (vtr & ICH_VTR_NRLRGS) + 1;
++    hw_nr_lrs = (vtr & ICH_VTR_NRLRGS) + 1;
++
++    if ( CONFIG_GICV3_NR_LRS && CONFIG_GICV3_NR_LRS > hw_nr_lrs )
++        panic("GICv3: CONFIG_GICV3_NR_LRS (%u) exceeds hardware nr_lrs (%u)\n",
++              CONFIG_GICV3_NR_LRS, hw_nr_lrs);
++
++    gicv3_info.nr_lrs = CONFIG_GICV3_NR_LRS ?: hw_nr_lrs;
++
++    /* Zero all hardware LRs. */
++    switch ( hw_nr_lrs )
++    {
++    case 16: WRITE_SYSREG_LR(0, 15); fallthrough;
++    case 15: WRITE_SYSREG_LR(0, 14); fallthrough;
++    case 14: WRITE_SYSREG_LR(0, 13); fallthrough;
++    case 13: WRITE_SYSREG_LR(0, 12); fallthrough;
++    case 12: WRITE_SYSREG_LR(0, 11); fallthrough;
++    case 11: WRITE_SYSREG_LR(0, 10); fallthrough;
++    case 10: WRITE_SYSREG_LR(0, 9); fallthrough;
++    case 9:  WRITE_SYSREG_LR(0, 8); fallthrough;
++    case 8:  WRITE_SYSREG_LR(0, 7); fallthrough;
++    case 7:  WRITE_SYSREG_LR(0, 6); fallthrough;
++    case 6:  WRITE_SYSREG_LR(0, 5); fallthrough;
++    case 5:  WRITE_SYSREG_LR(0, 4); fallthrough;
++    case 4:  WRITE_SYSREG_LR(0, 3); fallthrough;
++    case 3:  WRITE_SYSREG_LR(0, 2); fallthrough;
++    case 2:  WRITE_SYSREG_LR(0, 1); fallthrough;
++    case 1:  WRITE_SYSREG_LR(0, 0); break;
++    default: BUG();
++    }
++
+     gicv3.nr_priorities = ((vtr >> ICH_VTR_PRIBITS_SHIFT) &
+                           ICH_VTR_PRIBITS_MASK) + 1;
+ 
+-- 
+2.25.1
 
-Acknowledged
-
->>  =20
->>   	drm_crtc_vblank_off(crtc);
->>   	aspeed_gfx_disable_controller(priv);
->>   }
->>  =20
->> -static void aspeed_gfx_pipe_update(struct drm_simple_display_pipe *pipe=
-,
->> -				   struct drm_plane_state *plane_state)
->> +static void aspeed_gfx_plane_helper_atomic_update(struct drm_plane *pla=
-ne,
->> +						  struct drm_atomic_commit *state)
->>   {
->> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
->> -	struct drm_crtc *crtc =3D &pipe->crtc;
->> -	struct drm_framebuffer *fb =3D pipe->plane.state->fb;
->> +	struct aspeed_gfx *priv =3D container_of(plane, struct aspeed_gfx, pla=
-ne);
->
-> to_aspeed_gfx(plane->dev)
->
-
-Acknowledged
-
->> +	struct drm_crtc *crtc =3D &priv->crtc;
->> +	struct drm_framebuffer *fb =3D plane->state->fb;
->>   	struct drm_pending_vblank_event *event;
->>   	struct drm_gem_dma_object *gem;
->>  =20
->> @@ -190,9 +183,9 @@ static void aspeed_gfx_pipe_update(struct drm_simple=
-_display_pipe *pipe,
->>   	writel(gem->dma_addr, priv->base + CRT_ADDR);
->>   }
->>  =20
->> -static int aspeed_gfx_enable_vblank(struct drm_simple_display_pipe *pip=
-e)
->> +static int aspeed_gfx_crtc_enable_vblank(struct drm_crtc *crtc)
->>   {
->> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
->> +	struct aspeed_gfx *priv =3D container_of(crtc, struct aspeed_gfx, crtc=
-);
->>   	u32 reg =3D readl(priv->base + CRT_CTRL1);
->>  =20
->>   	/* Clear pending VBLANK IRQ */
->> @@ -204,9 +197,9 @@ static int aspeed_gfx_enable_vblank(struct drm_simpl=
-e_display_pipe *pipe)
->>   	return 0;
->>   }
->>  =20
->> -static void aspeed_gfx_disable_vblank(struct drm_simple_display_pipe *p=
-ipe)
->> +static void aspeed_gfx_crtc_disable_vblank(struct drm_crtc *crtc)
->>   {
->> -	struct aspeed_gfx *priv =3D drm_pipe_to_aspeed_gfx(pipe);
->> +	struct aspeed_gfx *priv =3D container_of(crtc, struct aspeed_gfx, crtc=
-);
->>   	u32 reg =3D readl(priv->base + CRT_CTRL1);
->>  =20
->>   	reg &=3D ~CRT_CTRL_VERTICAL_INTR_EN;
->> @@ -216,12 +209,75 @@ static void aspeed_gfx_disable_vblank(struct drm_s=
-imple_display_pipe *pipe)
->>   	writel(reg | CRT_CTRL_VERTICAL_INTR_STS, priv->base + CRT_CTRL1);
->>   }
->>  =20
->> -static const struct drm_simple_display_pipe_funcs aspeed_gfx_funcs =3D =
-{
->> -	.enable		=3D aspeed_gfx_pipe_enable,
->> -	.disable	=3D aspeed_gfx_pipe_disable,
->> -	.update		=3D aspeed_gfx_pipe_update,
->> -	.enable_vblank	=3D aspeed_gfx_enable_vblank,
->> -	.disable_vblank	=3D aspeed_gfx_disable_vblank,
->> +static int aspeed_gfx_plane_helper_atomic_check(struct drm_plane *plane=
-,
->> +						struct drm_atomic_commit *state)
->> +{
->> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state=
-(state, plane);
->> +	struct drm_crtc *crtc =3D plane_state->crtc;
->> +	struct drm_crtc_state *crtc_state =3D NULL;
->> +	int ret;
->> +
->> +	if (crtc)
->> +		crtc_state =3D drm_atomic_get_new_crtc_state(state, crtc);
->> +
->> +	ret =3D drm_atomic_helper_check_plane_state(plane_state, crtc_state,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  DRM_PLANE_NO_SCALING,
->> +						  false, false);
->> +	return ret;
->> +}
->
-> Return directly.
->
-
-OK
-
->> +
->> +static const struct drm_plane_helper_funcs aspeed_gfx_plane_helper_func=
-s =3D {
->> +	.prepare_fb	=3D drm_gem_plane_helper_prepare_fb,
->> +	.atomic_check	=3D aspeed_gfx_plane_helper_atomic_check,
->> +	.atomic_update	=3D aspeed_gfx_plane_helper_atomic_update,
->> +};
->> +
->> +static const struct drm_plane_funcs aspeed_gfx_plane_funcs =3D {
->> +	.update_plane		=3D drm_atomic_helper_update_plane,
->> +	.disable_plane		=3D drm_atomic_helper_disable_plane,
->> +	.destroy		=3D drm_plane_cleanup,
->> +	.reset			=3D drm_atomic_helper_plane_reset,
->> +	.atomic_duplicate_state	=3D drm_atomic_helper_plane_duplicate_state,
->> +	.atomic_destroy_state	=3D drm_atomic_helper_plane_destroy_state,
->> +};
->> +
->> +static int aspeed_gfx_crtc_helper_atomic_check(struct drm_crtc *crtc,
->> +					       struct drm_atomic_commit *state)
->> +{
->> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(st=
-ate, crtc);
->> +	int ret;
->> +
->> +	if (!crtc_state->enable)
->> +		goto out;
->> +
->> +	ret =3D drm_atomic_helper_check_crtc_primary_plane(crtc_state);
->> +	if (ret)
->> +		return ret;
->> +
->> +out:
->> +	return drm_atomic_add_affected_planes(state, crtc);
->> +}
->
-> See arcpgu on a possible style improvement.
->
-
-Will do, thanks
-
-
-> Best regards
-> Thomas
->
-
-[ ... ]
 
