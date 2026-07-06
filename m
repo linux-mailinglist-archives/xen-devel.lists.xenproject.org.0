@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id SCqtLa/QS2ojawEAu9opvQ
+	id gA9lLq/QS2okawEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65FEE712EC0
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B87D712EC1
 	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="Ik/sDORW";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Kxif4d4Z;
 	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355493.1610331 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355495.1610340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgliI-0008Az-Lc; Mon, 06 Jul 2026 15:58:30 +0000
+	id 1wgliK-0008Tp-39; Mon, 06 Jul 2026 15:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355493.1610331; Mon, 06 Jul 2026 15:58:30 +0000
+Received: by outflank-mailman (output) from mailman id 1355495.1610340; Mon, 06 Jul 2026 15:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgliI-00088S-Gk; Mon, 06 Jul 2026 15:58:30 +0000
-Received: by outflank-mailman (input) for mailman id 1355493;
- Mon, 06 Jul 2026 15:58:29 +0000
+	id 1wgliJ-0008P9-UY; Mon, 06 Jul 2026 15:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 1355495;
+ Mon, 06 Jul 2026 15:58:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wgliH-0007ta-9J
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:29 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wgliI-0008Cm-Sz
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wgliG-003COz-MK
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:28 +0200
+ id 1wgliI-003COz-9x
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:30 +0200
 Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd092-2eae-0a2a0a5409dd-0a2a4502b80a-30
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:28 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ id 6a4bd092-2eae-0a2a0a5409dd-0a2a4502b80a-36
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:30 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
  by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd0a4-5a27-0a2a45020019-d1558031d16c-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:28 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-493c59f740cso22407835e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:28 -0700 (PDT)
+ id 6a4bd0a5-5a27-0a2a45020019-d155802da869-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:30 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-493b27c7451so38128505e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:30 -0700 (PDT)
 Received: from fedora (user-109-243-144-234.play-internet.pl.
  [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.26
+ 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:58:27 -0700 (PDT)
+ Mon, 06 Jul 2026 08:58:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,40 +60,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783353508; x=1783958308; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1783353509; x=1783958309; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hLy3qyx924BwMCcddx6KluNT1kSq6alsUk5vcF9j5ys=;
-        b=Ik/sDORWAvy5pbB9ArKmqNnPtyhxbWROlpS5mG2HXJyjVbtKUkhL+0cJwp8sLOoLic
-         d8MldxFUAaB9D+1EGcLgY+ltTcnnA1kdcrkjhHqzuy0Xnpqcqz5dvAGclFUP/TNxCC2l
-         zNydx4khxzHpOIVddCBWXZaOwIK6S7B5C8C2TJz8yacIyuwxORPep2fbm8wLtacuAwi8
-         oUYEbARg1BJNrA6zNHV074n+S8dGzUaDafjjUBvnQ/jPRzVVHx4KBnt2rl/4vC6u/l+D
-         FVJtYNGXFhxyu9gTcYBh4H7aepnAZ6CyaqBlT9VLxm5C44/Q3aKoDd53VbxJFzrW1yj0
-         KTYQ==
+        bh=2wM02Rzxvcnp+4y/YzfnnOgBpcuqxKShTB/HzBg0suo=;
+        b=Kxif4d4ZbgeE+LO3yz9Jf6TvFIlb8nYwn6Ca67uTQi5JT+MBH6sMr8RwLVHOyX91Al
+         o+V+90YG3bP3cX/Tzk6A/bgqeChP6QC+VLCPI4Ivg9KQy640XFUMVzSY6lCJeU7i3MqG
+         GV5Edlw2NChMfjp3hWbZroB7gfr63MaZhojrT9dk0GUdVfLkE6GkLP128Fi+4lhVQ8vV
+         gh5cR56LpwkGzLfaE6Zxw44YEjjM65V75eiwXIH8hu8ML5r7HO41FzXTh12CMAguJfQh
+         2O/w6MmgvC66ma3lmKYnGt7LCHBBqRXJy3mEKeUOnq9sea915bITNMwE5dpMgcCjE1ZC
+         TrEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783353508; x=1783958308;
+        d=1e100.net; s=20251104; t=1783353509; x=1783958309;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=hLy3qyx924BwMCcddx6KluNT1kSq6alsUk5vcF9j5ys=;
-        b=IMMUC6Llfz9nOdb2ecqFeWIZellKZA97XLJofIvtjFN93JswAwCjtlO+rs2EX6We00
-         NuiL18W9re1ftblltBD2fLPsrrxYAPtLEDKpziaova8hBlI/nftoCVIJMLap0ALTEOQM
-         ZvrgPiXK3JI9e+qx8tumyjYroxPRb6StC25hQsl6TURdHP2jVoU9u31Lovmnmrh+z2BG
-         SymOSd56R6Iq4H+2ONSfU7UpDRUN1wVtQiwTc5RC4U+/cAtSHe98Ht7FcJM7HT2r3Ue4
-         QeVFmmesOkvBvXkwVVpWAqY925gd4e9rbsA1XYODl83Q4stTqwYhUczVUPZahx6qAAdo
-         08AA==
-X-Gm-Message-State: AOJu0YydBSPyF4hxh6MuWzBJRfFvzcIsDKTXN/4LgUbBK9l6QdB0IChN
-	EZV1LZVhQKdhbS8HhClQhP66auzmHJ7+n5SiN8Qv7P9iYLFkN7c2Miea8DGqHw==
-X-Gm-Gg: AfdE7cnvjloGxuwySAa4ZMFfH25ayOm41yeu6wujypVsTPiVzsW2UnHsI1M+dDPIGWQ
-	Jc5PGjdVxeka8LX8MDXVXrzXCFl2UFHxZH8L+yGGt3QX7XFx6xDabnaN1rh80i5pXeuRu2TKQaf
-	9Xve2I+IuqcdeXmz0Rc8zSFRWBpvbq2EEjpsuSW8ume0ci8ad7hixiRepz+aJ1S0dR5ia0C0FA4
-	7dVjrhx7b7ZiWaYzusO9YkwWn7946M73xyntOBJOEbZxDiak+oOZN6rkp4iC3nghfhpbMYEVefR
-	fWFcb9OC7oGPPdxhmgmZJBWCT/v+F1UdaXgpBB4WQAXAH89HO/uFd546UdaXFyxOoH963mOriAh
-	P+iUzUucsBE0RWlf4bP3eDbmj1b3sDk96HFOdIsW7Tt449Up4AORxae1TyuQ83jXf+lgXt4Mdf3
-	W2cB2SxCCIusVJSKzd5Nvwk3IV+J4Cq/nzA0BlPMUII9mQd/FNXOUtQPlf9A==
-X-Received: by 2002:a05:600c:3143:b0:493:d800:204f with SMTP id 5b1f17b1804b1-493df0a7521mr14274605e9.21.1783353507784;
-        Mon, 06 Jul 2026 08:58:27 -0700 (PDT)
+        bh=2wM02Rzxvcnp+4y/YzfnnOgBpcuqxKShTB/HzBg0suo=;
+        b=eqnFq+qv/xbk7jslJpc/6ARwktns1aHbJC4q+S3fyuLlAuKBIqbTdWGNFX3G9N3D6j
+         vZaC625TI9/kam1k3xcmmAFNkSmSvsVaNm7Ec5RqObBQamQo8+ADMp/9jomybBaaz4tH
+         ucYAU/v2cbCb8tQ5gUNkzSD1uo6GEDDx6RDAecmAyJJoXJ/cjUJW6Rj1WHJ0nKLUzHWn
+         rvZsLqbkXrtRGGBRDp0eBCH3uoLrrpjH0hczAwYNY88spv9sqUgDRSAafjfDPi9PEwWM
+         KjO/HXnvgBYZObZVxXl7bmCF/WKeNW/gSE+5QZv9LD+D4+47jzOMZyXUxYWz8d1gwLKG
+         s+PQ==
+X-Gm-Message-State: AOJu0YzWunerHAOVh/jxMIopaDJ5W5cKe0zBTaDz+j3A9phr5KEvqN4t
+	nDug6tWag0ebFiUhnDekO4l8MPbGXpKtxMOa5dcsJ0faV9z4ztjR5Z43pdWC7Q==
+X-Gm-Gg: AfdE7cmvrGIPKjcU+Db6CHBb8JUYSBbE6ChAV6GSOfl6LazJv9I7X+XqVkHdN6QHe81
+	/KsJP2rLQvBnboSLpGuIrpitf1g7fdMCuopfEBpvfl7Zscv2GbO1M9hUw5cYWRmXVnBLkEvUPbc
+	i9WNrcHFpriHjTyJL9nRvlhTvRdUgLsE+46DLT1GCuqYpGgQXQOPbizKcWRLHRuGiPGC/JzaFhr
+	3Oo45WyUK9hnbU8pF1BQCklGVnXtfyMPXI1RYx7evdR8Y6AmBMW4JNj0RhHXuRn444BRArdx9x0
+	Y8cde9T0NMH3nVqE/yILnevR0KJFc/FJxbjVb0BZ7U0sM5NWgKdY1+n7F54mLNKN8776cuA/lmC
+	5L0UKy7yr0ger0ZdmKipQ8j2UuWebJCeqNzeWMhC9mt7YEZn6fiKwJ1KXkwT1OsA4B6bol8qbVh
+	9Gl9PfrbT39Wdqr6d99cLSl8LiY7Ty/+aJ0X+Kpc7j9DRBGJa2XJJ/BsoYaw==
+X-Received: by 2002:a05:600c:811b:b0:490:af63:2cb1 with SMTP id 5b1f17b1804b1-493decbf15dmr15755415e9.7.1783353509335;
+        Mon, 06 Jul 2026 08:58:29 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -108,17 +108,17 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 07/26] xen/riscv: Implement construct_domain()
-Date: Mon,  6 Jul 2026 17:57:48 +0200
-Message-ID: <77cfcb52b46c96d68e1fe4032b238bf40f77e3f1.1783331040.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 08/26] xen/riscv: implement prerequisites for domain_create()
+Date: Mon,  6 Jul 2026 17:57:49 +0200
+Message-ID: <2e6d9e0283bf401ca698e72ddeb7c7f4feaa118e.1783331040.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1783353508-547197C5-2B2108C2/10/73395122804
+X-purgate-ID: tlsNG-720697/1783353510-7791E7C5-04EB336F/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3114
+X-purgate-size: 3039
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -156,110 +156,115 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 65FEE712EC0
+X-Rspamd-Queue-Id: 6B87D712EC1
 
-Implement construct_domain() function for RISC-V, which performs initial setup
-for the domain's first vCPU, loads the kernel, initrd, and device tree,
-and sets up guest CPU registers for boot.
+arch_domain_create() and arch_sanitise_domain_config() are prerequisites for
+domain_create().
 
-It also creates additional vCPUs up to max_vcpus and assigns the device tree
-address and boot cpuid in registers.
+arch_sanitise_domain_config() currently returns 0, as there is no specific
+work required at this stage.
+
+arch_domain_create() performs basic initialization, such as setting up the P2M
+and initializing of next unused phandle.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v5:
- - Only rebase. Nothing changed.
+ - Only review. Nothing changed.
 ---
 Changes in v4:
- - Drop the blank before v%u in the printk() failure message so the output
-   matches that of %pv.
- - Restore Acked-by that was lost in v3.
+ - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
 Changes in v3:
- - s/%d/%u for printing vCPU index in the failure message.
- - Drop dprintk() for successful vCPU creation.
+ - Move arch_domain_destroy() from stubs.c to domain.c next to arch_domain_create().
+ - Drop d->is_dying = DOMDYING_dead from arch_domain_create()'s fail label as domain_create() already does it.
+ - Replace BUG_ON("unimplemented") with printk() in arch_domain_destroy().
 ---
 Changes in v2:
- - Rework construct_domain() to print that vCPU1...n are created using %pv.
- - Use true instead of 1 for initialization of v->is_initialised.
- - Drop unnessary BUG_ON() in construct_domain().
- - Add TODO comment above *_load() functions.
+ - update the commit message.
+ - Drop vcpu_switch_to_aarch64_mode() from riscv/stubs. It shouldn't be under
+   riscv/ at all.
+ - Drop next_phandle as it is now in common code.
 ---
 ---
- xen/arch/riscv/Makefile       |  1 +
- xen/arch/riscv/domain-build.c | 50 +++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+)
- create mode 100644 xen/arch/riscv/domain-build.c
+ xen/arch/riscv/domain.c | 29 +++++++++++++++++++++++++++++
+ xen/arch/riscv/stubs.c  | 17 -----------------
+ 2 files changed, 29 insertions(+), 17 deletions(-)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 8f7fd625dddd..fd5e499eb4b9 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -1,6 +1,7 @@
- obj-y += aplic.o
- obj-y += cpufeature.o
- obj-y += domain.o
-+obj-y += domain-build.init.o
- obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
-diff --git a/xen/arch/riscv/domain-build.c b/xen/arch/riscv/domain-build.c
-new file mode 100644
-index 000000000000..5f6f4b6248a5
---- /dev/null
-+++ b/xen/arch/riscv/domain-build.c
-@@ -0,0 +1,50 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+#include <xen/fdt-domain-build.h>
-+#include <xen/fdt-kernel.h>
-+#include <xen/init.h>
-+#include <xen/sched.h>
-+
-+#include <asm/current.h>
-+#include <asm/guest_access.h>
-+
-+int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
+index c77be3b827eb..2819ff4e7c92 100644
+--- a/xen/arch/riscv/domain.c
++++ b/xen/arch/riscv/domain.c
+@@ -289,6 +289,35 @@ void sync_vcpu_execstate(struct vcpu *v)
+     /* Nothing to do -- no lazy switching */
+ }
+ 
++int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
 +{
-+    struct vcpu *v = d->vcpu[0];
-+    struct cpu_user_regs *regs = vcpu_guest_cpu_user_regs(v);
-+
-+    BUG_ON(v->is_initialised);
-+
-+    /*
-+     * At the moment *_load() don't return value and will just panic()
-+     * inside.
-+     * TODO: it will be good to change that.
-+     */
-+    kernel_load(kinfo);
-+    initrd_load(kinfo, copy_to_guest_phys);
-+    dtb_load(kinfo, copy_to_guest_phys);
-+
-+    regs->sepc = kinfo->entry;
-+
-+    /* Guest boot cpuid = 0 */
-+    regs->a0 = 0;
-+    regs->a1 = kinfo->dtb_paddr;
-+
-+    for ( unsigned int i = 1; i < d->max_vcpus; i++ )
-+    {
-+        const struct vcpu *tmp_v = vcpu_create(d, i);
-+
-+        if ( !tmp_v )
-+        {
-+            printk("Failed to allocate %pdv%u\n", d, i);
-+            break;
-+        }
-+    }
-+
-+    domain_update_node_affinity(d);
-+
-+    v->is_initialised = true;
-+    clear_bit(_VPF_down, &v->pause_flags);
-+
 +    return 0;
 +}
++
++void arch_domain_destroy(struct domain *d)
++{
++    printk(XENLOG_WARNING "%s: unimplemented\n", __func__);
++}
++
++int arch_domain_create(struct domain *d,
++                       struct xen_domctl_createdomain *config,
++                       unsigned int flags)
++{
++    int rc = 0;
++
++    if ( is_idle_domain(d) )
++        return 0;
++
++    if ( (rc = p2m_init(d, config)) != 0)
++        goto fail;
++
++    return rc;
++
++ fail:
++    arch_domain_destroy(d);
++    return rc;
++}
++
+ static void __init __maybe_unused build_assertions(void)
+ {
+     /*
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index acbb5b9123ea..3a7953593d93 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -101,28 +101,11 @@ void dump_pageframe_info(struct domain *d)
+     BUG_ON("unimplemented");
+ }
+ 
+-int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+-int arch_domain_create(struct domain *d,
+-                       struct xen_domctl_createdomain *config,
+-                       unsigned int flags)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ int arch_domain_teardown(struct domain *d)
+ {
+     BUG_ON("unimplemented");
+ }
+ 
+-void arch_domain_destroy(struct domain *d)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void arch_domain_shutdown(struct domain *d)
+ {
+     BUG_ON("unimplemented");
 -- 
 2.54.0
 
