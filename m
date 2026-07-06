@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id oWM6LRfLS2pzaQEAu9opvQ
+	id PfqbDxzLS2p6aQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:47 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25899712A73
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9005712A83
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:51 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=jJ9zhtcJ;
+	dkim=pass header.d=citrix.com header.s=google header.b=C+kXMHjB;
 	dmarc=pass (policy=reject) header.from=citrix.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355440.1610229 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355441.1610237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglKy-0001P7-Ig; Mon, 06 Jul 2026 15:34:24 +0000
+	id 1wglKz-0001c1-Tj; Mon, 06 Jul 2026 15:34:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355440.1610229; Mon, 06 Jul 2026 15:34:24 +0000
+Received: by outflank-mailman (output) from mailman id 1355441.1610237; Mon, 06 Jul 2026 15:34:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglKy-0001MJ-FW; Mon, 06 Jul 2026 15:34:24 +0000
-Received: by outflank-mailman (input) for mailman id 1355440;
- Mon, 06 Jul 2026 15:34:22 +0000
+	id 1wglKz-0001Zp-Q8; Mon, 06 Jul 2026 15:34:25 +0000
+Received: by outflank-mailman (input) for mailman id 1355441;
+ Mon, 06 Jul 2026 15:34:24 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1wglKw-0000wn-Ot
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:34:22 +0000
+ (envelope-from <andrew.cooper3@citrix.com>) id 1wglKy-0001H7-0t
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:34:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wglKw-000YCn-5X
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:34:22 +0200
+ id 1wglKx-000YCn-Ds
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:34:23 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a4bcafc-5cb7-0a2a0a5109dd-0a2a4507a422-6
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:22 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ id 6a4bcafc-5cb7-0a2a0a5109dd-0a2a4507a422-10
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:23 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 6a4bcafd-9c8e-0a2a45070019-d1558030ec53-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:22 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-493d28b1930so24172985e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:34:22 -0700 (PDT)
+ id 6a4bcaff-9c8e-0a2a45070019-d155802cac51-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:23 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493b6f1b14bso12808335e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:34:23 -0700 (PDT)
 Received: from localhost.localdomain (host-78-146-248-75.as13285.net.
  [78.146.248.75]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63bfba1sm433726505e9.15.2026.07.06.08.34.20
+ 5b1f17b1804b1-493c63bfba1sm433726505e9.15.2026.07.06.08.34.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:34:20 -0700 (PDT)
+ Mon, 06 Jul 2026 08:34:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,57 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1783352061; x=1783956861; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=US++6oXh7QmRtGgM9Ky45/VXvpj8kcMFRZ59/2f4CgI=;
-        b=jJ9zhtcJ/q7XROAGTiLGjebJtD2vWUz1jWLHxyUwxk5VFkWZtLMRTMl4khCx47Au8W
-         9Awf822YbVLks7VOenwhwPnzC8zhA9WlCFoCx5fWGlckq2kJvkcVrzwBc0xdGFDQbt8S
-         57xdnj7ty29f4OZVf/VPC5uBRmrKVAuRAPmj0=
+        d=citrix.com; s=google; t=1783352063; x=1783956863; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tGuAPt56hrdactPgDfC0/MnL6+HEGuvGVBAIpjdl8Bg=;
+        b=C+kXMHjBzNqWr5Di+/OAr7z7Yx2gFIGYbnUUxXk75/bLXNMZjlsUczRAtL2EzTfMT1
+         DHcpmoJkMdQ/NafDLRwgi9ZIRZRx25x6kQbo7TQR7bKuw1gdEaUV1yvQFDGUkGUv3CrI
+         fBs9aRAjGj8WwIeVsEF+5jNzqztcT2sYDg9lk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783352061; x=1783956861;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=US++6oXh7QmRtGgM9Ky45/VXvpj8kcMFRZ59/2f4CgI=;
-        b=aAtB1ALyYUfcu5Yf65PzHKPrVO7xmGj5ZxUNWsmhVYGSp5QZmpzgK+RICKwoM26qQI
-         0xpR4qyHnEuq6O2J4NRBkiCanefnY+15ruQLsgLYgADz5E5aWESrjQszCErkeb168/Pv
-         nyY9aknmBifF3DbhUDomna0FCn18yDi3LcINUl5V44gjCUeS3IULaxskG8wORhY5DrwK
-         eHI5mU3Ts9CApnFNkQIOVIL48WFZjDXT9rhFR0vP2uaPcIB83qHi6rIOLBBi2pbUX1Uj
-         r35JxpxHgbEKVvrxJiFvy/OhY3+UFNlD1cdSiyGzGyb7Sc0g6UNTtQKnFwa19oVQ1y/I
-         YyYw==
-X-Gm-Message-State: AOJu0Ywq77zyn0bq5NDYCwQUhoDmkBRAYyQ/1VDDQkOYOsR2d+pYNGUz
-	yBOJ7ZiQvhyRT7/g0hp6Lj3yGJnTRXCb8UiXg8eD/NHpipaSGTsU0UBbx1qpXj56rrLAe2zS0za
-	IWdNpR8U=
-X-Gm-Gg: AfdE7ck4hT8XG1Rljukg4SVdScDODlMrlQEoplBw5V2z3ZkqBSM5VThRhPWsd65yr6F
-	QF53pImdJp2dlfbrCJAosQtJ8Pd6/Gg1zJL/6m6oAkproeiIHm3Pge8KQs8DbdEWE9hE5/WR/7M
-	rZ6UZsLNatkKskHNJbLqz0aKcesIwvbnmbFsHnfwT4ly1OKaR68OpjJ8xQCrz3UY4Tt78JIyWrA
-	3yQq4yMBBu+ygkzuUsRey7XhItSdtolYPDQ3CxJE/iRBjS12RPiR4e3n7AsCRMJ1j7q7uki3yBX
-	kymtdaDDfCnNwVP8JbKGnZ/JTjW2FyV5285HIcnGytxG4FRHki3cK7CSCQc6ulatuURIJ3nbI7s
-	6mfWCS+PPCeqIXH94WqdQSn7yySwr8P3iW2Yd9t29eAX34bds15j25T0l+i13LevsZN3sGmgMb3
-	v74pldzimmB7/HL4eo/fS1W1e8gU1/kIoFxs7z52HcQx2KPOxscXq808RsQFY4A78=
-X-Received: by 2002:a05:600c:154e:b0:493:d216:ed96 with SMTP id 5b1f17b1804b1-493df0b6a8emr11671105e9.9.1783352061219;
-        Mon, 06 Jul 2026 08:34:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783352063; x=1783956863;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=tGuAPt56hrdactPgDfC0/MnL6+HEGuvGVBAIpjdl8Bg=;
+        b=Cf1lEPxWq0+aYP09H1GVa97l8I8OhhQQE0N1zY+gWG3JHNgdAMOrnrQMn19hk0xe7I
+         DsSaglQG5w9015qzgXZ5gr3V5s9QjVKwR1R4ELJlC0brMEYmGGzECW/+cf41ibDZ6DmO
+         u2xQYcEmDzntHSCK8IhaiYdxO5rsEHeTtk+pu30yfhKzWDvsqUYBC5t5aEXUfy011t4q
+         CxtT7i4XC6MSuhWaWtVt/X5glJ+SbP3UlLA1Ph63jhlY+JIkTuHb3Efd8bMGaf6qVq/H
+         fYxbMYfW+b1t5+ii0XpqCnDv7bA4SBs1EOTAv+YzWR3O1FVLnh19GrCGr2ja1V6/FsmK
+         t+hg==
+X-Gm-Message-State: AOJu0YwYWEtxeRkLyl5Fbi9KbrMLlVvvSKVYvlpD1UYZVj7moFASnVs2
+	ng4uppaPhF98Xkn6nINFurvVAb6Mp4RRZaVSvraZvTQZVwjUFNcunBMV/lS2Uy5yfWoxYpX7EAF
+	h3c/k
+X-Gm-Gg: AfdE7clR7rjEkECHTx4Kab+oZwDvYki10UzOKI+nRSdIyJMOC+Tq57VLatwk+KFX8m4
+	GaY8c6vIfKOYcEpd/ho4yR8/rvobAKmDqr4HwyQiZrNCcj4glZOVoz7SCeZK0YellLTHrPUlh9/
+	9x0FnkXLzP41BpL5ktT5ugj2GNPBkLV+jqe2piKXVBdFR04zJezJnGYFPHryxz9aB9r/ZxFodil
+	HupLLAu+sVr4+dhPddeaWuqQoaDVr8mFKJCARVXv9OBxdln3xay1SXyzq78TTG5tD8IBYL6nSYl
+	D7iFaFYBQYMFe4oXafAa1Ewm7MmLIB+DtYbibQrppTLoOjACP2zJedjGKTuU6pVCM639jhyYEv4
+	5WV//9YdWPZIv/xReLuxcvTrBrmGZlO0nmN/baggfN5kOKdrjcLR/vJQmpinHp+jtSsK6OoJ4/l
+	c9arqMsf3jjvp178gPfEgiwO2/kNZpAUXryHcJoE+KQcaKX5gkRFFfaC9QyzUhNio=
+X-Received: by 2002:a05:600c:6c07:b0:493:bc4a:9547 with SMTP id 5b1f17b1804b1-493df0a08dcmr8960075e9.39.1783352062251;
+        Mon, 06 Jul 2026 08:34:22 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH 2/3] x86/entry: Use POP_GPRS and remove RESTORE_ALL
-Date: Mon,  6 Jul 2026 16:34:14 +0100
-Message-Id: <20260706153415.1264750-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/3] x86/entry: Use PUSH_AND_CLEAR_GPRS and drop SAVE_ALL
+Date: Mon,  6 Jul 2026 16:34:15 +0100
+Message-Id: <20260706153415.1264750-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260706153415.1264750-1-andrew.cooper3@citrix.com>
 References: <20260706153415.1264750-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1783352062-7D72125E-81E483E4/0/0
+X-purgate-ID: tlsNG-ef75cf/1783352063-FCF2D25E-888F2648/0/0
 X-purgate-type: clean
-X-purgate-size: 5688
+X-purgate-size: 6974
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -130,7 +129,7 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:from_mime,citrix.com:email,citrix.com:mid,citrix.com:dkim,vates.tech:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:from_mime,citrix.com:email,citrix.com:mid,citrix.com:dkim,suse.com:email,vates.tech:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -145,12 +144,13 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 25899712A73
+X-Rspamd-Queue-Id: D9005712A83
 
-POP_GPRS is shorter than RESTORE_ALL in terms of emitted code.
+PUSH_AND_CLEAR_GPRS is shorter than SAVE_ALL in terms of emitted code.
 
-By separating the popping of entry_vector/error_code off the stack,
-SPEC_CTRL_COND_VERW doesn't need custom displacements.
+lstar_enter() and cstar_enter() do not need CLD.  The SYSCALL instruction
+sanitises flags based on MSR_SYSCALL_MASK.  For all other cases, place the CLD
+instruction next to STAC/CLAC so the flag handling is together.
 
 Get rid of the compat=1 special case for PV32.  It's not obviously a win, and
 PV32 is getting increasingly rare these days.
@@ -164,143 +164,205 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Teddy Astie <teddy.astie@vates.tech>
 
 Bloat-o-meter reports:
-  add/remove: 0/0 grow/shrink: 0/3 up/down: 0/-128 (-128)
+  add/remove: 0/0 grow/shrink: 0/12 up/down: 0/-518 (-518)
   Function                                     old     new   delta
-  compat_restore_all_guest                     187     158     -29
-  restore_all_guest                            372     324     -48
-  restore_all_xen                              165     114     -51
+  symbols_names                             135277  135276      -1
+  symbols_offsets                            53664   53660      -4
+  entry_int82                                  229     213     -16
+  sysenter_entry                               383     328     -55
+  handle_ist_exception                         450     395     -55
+  handle_exception                             683     628     -55
+  entry_int80                                  432     377     -55
+  entry_DF                                     294     239     -55
+  early_page_fault                             139      84     -55
+  common_interrupt                             327     272     -55
+  lstar_enter                                  322     266     -56
+  cstar_enter                                  323     267     -56
 ---
- xen/arch/x86/include/asm/asm_defns.h | 50 +---------------------------
- xen/arch/x86/x86_64/compat/entry.S   |  9 +++--
- xen/arch/x86/x86_64/entry.S          | 12 +++----
- 3 files changed, 10 insertions(+), 61 deletions(-)
+ xen/arch/x86/include/asm/asm_defns.h | 45 ----------------------------
+ xen/arch/x86/x86_64/compat/entry.S   |  3 +-
+ xen/arch/x86/x86_64/entry.S          | 25 ++++++++++------
+ 3 files changed, 18 insertions(+), 55 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
-index 87bd6b1193e7..d1b80186c14c 100644
+index d1b80186c14c..6c65acd08366 100644
 --- a/xen/arch/x86/include/asm/asm_defns.h
 +++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -264,54 +264,6 @@ static always_inline void stac(void)
-         xor   %r15d, %r15d
- .endm
+@@ -219,51 +219,6 @@ static always_inline void stac(void)
+ #endif
  
--#define LOAD_ONE_REG(reg, compat) \
--.if !(compat); \
--        movq  UREGS_r##reg(%rsp),%r##reg; \
--.else; \
--        movl  UREGS_r##reg(%rsp),%e##reg; \
--.endif
--
--/*
-- * Restore all previously saved registers.
-- *
-- * @adj: extra stack pointer adjustment to be folded into the adjustment done
-- *       anyway at the end of the macro
-- * @compat: R8-R15 don't need reloading, but they are clobbered for added
-- *          safety against information leaks.
-- */
--.macro RESTORE_ALL adj=0, compat=0
+ #ifdef __ASSEMBLER__
+-.macro SAVE_ALL compat=0
+-        addq  $-(UREGS_error_code-UREGS_r15), %rsp
+-        cld
+-        movq  %rdi,UREGS_rdi(%rsp)
+-        xor   %edi, %edi
+-        movq  %rsi,UREGS_rsi(%rsp)
+-        xor   %esi, %esi
+-        movq  %rdx,UREGS_rdx(%rsp)
+-        xor   %edx, %edx
+-        movq  %rcx,UREGS_rcx(%rsp)
+-        xor   %ecx, %ecx
+-        movq  %rax,UREGS_rax(%rsp)
+-        xor   %eax, %eax
 -.if !\compat
--        movq  UREGS_r15(%rsp), %r15
--        movq  UREGS_r14(%rsp), %r14
--        movq  UREGS_r13(%rsp), %r13
--        movq  UREGS_r12(%rsp), %r12
--.else
--        xor %r15d, %r15d
--        xor %r14d, %r14d
--        xor %r13d, %r13d
--        xor %r12d, %r12d
+-        movq  %r8,UREGS_r8(%rsp)
+-        movq  %r9,UREGS_r9(%rsp)
+-        movq  %r10,UREGS_r10(%rsp)
+-        movq  %r11,UREGS_r11(%rsp)
 -.endif
--        LOAD_ONE_REG(bp, \compat)
--        LOAD_ONE_REG(bx, \compat)
+-        xor   %r8d, %r8d
+-        xor   %r9d, %r9d
+-        xor   %r10d, %r10d
+-        xor   %r11d, %r11d
+-        movq  %rbx,UREGS_rbx(%rsp)
+-        xor   %ebx, %ebx
+-        movq  %rbp,UREGS_rbp(%rsp)
+-#ifdef CONFIG_FRAME_POINTER
+-/* Indicate special exception stack frame by inverting the frame pointer. */
+-        leaq  UREGS_rbp(%rsp), %rbp
+-        notq  %rbp
+-#else
+-        xor   %ebp, %ebp
+-#endif
 -.if !\compat
--        movq  UREGS_r11(%rsp),%r11
--        movq  UREGS_r10(%rsp),%r10
--        movq  UREGS_r9(%rsp),%r9
--        movq  UREGS_r8(%rsp),%r8
--.else
--        xor %r11d, %r11d
--        xor %r10d, %r10d
--        xor %r9d, %r9d
--        xor %r8d, %r8d
+-        movq  %r12,UREGS_r12(%rsp)
+-        movq  %r13,UREGS_r13(%rsp)
+-        movq  %r14,UREGS_r14(%rsp)
+-        movq  %r15,UREGS_r15(%rsp)
 -.endif
--        LOAD_ONE_REG(ax, \compat)
--        LOAD_ONE_REG(cx, \compat)
--        LOAD_ONE_REG(dx, \compat)
--        LOAD_ONE_REG(si, \compat)
--        LOAD_ONE_REG(di, \compat)
--        subq  $-(UREGS_error_code-UREGS_r15+\adj), %rsp
+-        xor   %r12d, %r12d
+-        xor   %r13d, %r13d
+-        xor   %r14d, %r14d
+-        xor   %r15d, %r15d
 -.endm
 -
  /*
   * Push and clear GPRs
   */
-@@ -369,7 +321,7 @@ static always_inline void stac(void)
-         pop   %r9
-         pop   %r8
-  .if \skip_rax
--        pop   %rcx
-+        pop   %rcx /* Any register yet to restore. */
-  .else
-         pop   %rax
-  .endif
 diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
-index 39925d80a677..4bf4ee7c944c 100644
+index 4bf4ee7c944c..2503a973ffc2 100644
 --- a/xen/arch/x86/x86_64/compat/entry.S
 +++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -160,12 +160,11 @@ FUNC(compat_restore_all_guest)
-         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
-         SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
+@@ -13,10 +13,11 @@
  
--        RESTORE_ALL adj=8, compat=1
-+        POP_GPRS
+ FUNC(entry_int82)
+         ENDBR64
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movb  $HYPERCALL_VECTOR, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL compat=1 /* DPL1 gate, restricted to 32bit PV guests only. */
++        PUSH_AND_CLEAR_GPRS
  
--        /* Account for ev/ec having already been popped off the stack. */
--        SPEC_CTRL_COND_VERW \
--            scf=STK_REL(CPUINFO_scf,      CPUINFO_rip), \
--            sel=STK_REL(CPUINFO_verw_sel, CPUINFO_rip)
-+        SPEC_CTRL_COND_VERW     /* Req: %rsp=eframe                    Clob: efl */
-+
-+        add     $8, %rsp        /* Pop ev/ec off the stack */
+         GET_STACK_END(14)
  
-         jmp     iret_to_guest
- END(compat_restore_all_guest)
 diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index de5d854f5533..cd3532d7d174 100644
+index cd3532d7d174..22729b1f43b8 100644
 --- a/xen/arch/x86/x86_64/entry.S
 +++ b/xen/arch/x86/x86_64/entry.S
-@@ -226,7 +226,8 @@ FUNC_LOCAL(restore_all_guest)
-         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
-         SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
- 
--        RESTORE_ALL
-+        POP_GPRS
-+
+@@ -305,7 +305,7 @@ FUNC(lstar_enter)
+         pushq $0
          BUILD_BUG_ON(TRAP_syscall & 0xff)
-         testb $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
-         jz    iret_exit_to_guest
-@@ -753,20 +754,17 @@ UNLIKELY_END(exit_cr3)
-         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
-         SPEC_CTRL_EXIT_TO_XEN /* Req: %r12=ist_exit %r14=end %rsp=regs, Clob: abcd */
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
  
--        RESTORE_ALL adj=8
-+        POP_GPRS
+         GET_STACK_END(14)
  
-         /*
-          * When the CPU pushed this exception frame, it zero-extended eflags.
-          * For an IST exit, SPEC_CTRL_EXIT_TO_XEN stashed shadow copies of
-          * scf and ver_sel above eflags, as we can't use any GPRs,
-          * and we're at a random place on the stack, not in a CPUFINFO block.
--         *
--         * Account for ev/ec having already been popped off the stack.
-          */
--        SPEC_CTRL_COND_VERW \
--            scf=STK_REL(EFRAME_shadow_scf, EFRAME_rip), \
--            sel=STK_REL(EFRAME_shadow_sel, EFRAME_rip)
-+        SPEC_CTRL_COND_VERW     /* Req: %rsp=eframe                    Clob: efl */
+@@ -345,7 +345,7 @@ FUNC(cstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
  
-+        add     $8, %rsp        /* Pop ev/ec off the stack */
-         iretq
+         GET_STACK_END(14)
+ 
+@@ -383,13 +383,14 @@ FUNC(sysenter_entry)
+         pushq $0
+         pushfq
+ LABEL(sysenter_eflags_saved, 0)
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $3 /* ring 3 null cs */
+         pushq $0 /* null rip */
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
+ 
+@@ -442,10 +443,11 @@ END(sysenter_entry)
+ 
+ FUNC(entry_int80)
+         ENDBR64
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movb  $0x80, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
+ 
+@@ -722,8 +724,9 @@ END(ret_from_intr)
+         .section .init.text, "ax", @progbits
+ FUNC(early_page_fault)
+         ENDBR64
++        cld
+         movb  $X86_EXC_PF, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+         movq  %rsp, %rdi
+         call  do_early_page_fault
+         jmp   restore_all_xen
+@@ -769,8 +772,9 @@ UNLIKELY_END(exit_cr3)
  END(restore_all_xen)
+ 
+ FUNC(common_interrupt)
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
+ 
+@@ -805,8 +809,9 @@ FUNC(entry_PF)
+ END(entry_PF)
+ /* No special register assumptions. */
+ FUNC(handle_exception, 0)
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
+ 
+@@ -1103,9 +1108,10 @@ END(entry_CP)
+ FUNC(entry_DF)
+         ENDBR64
+         movb  $X86_EXC_DF, EFRAME_entry_vector(%rsp)
++        cld
+         /* Set AC to reduce chance of further SMAP faults */
+         ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
+ 
+@@ -1132,8 +1138,9 @@ FUNC(entry_NMI)
+ END(entry_NMI)
+ 
+ FUNC(handle_ist_exception)
++        cld
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+-        SAVE_ALL
++        PUSH_AND_CLEAR_GPRS
+ 
+         GET_STACK_END(14)
  
 -- 
 2.39.5
