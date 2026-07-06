@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id EXLaNM3QS2o3awEAu9opvQ
+	id riZsKdHQS2o4awEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:59:09 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:59:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8294C712F0F
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:59:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DA7B712F16
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:59:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=Ttifz6pC;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=E8cmFWT9;
 	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355565.1610473 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355572.1610481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglio-0006Ds-QY; Mon, 06 Jul 2026 15:59:02 +0000
+	id 1wgliq-0006VV-7f; Mon, 06 Jul 2026 15:59:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355565.1610473; Mon, 06 Jul 2026 15:59:02 +0000
+Received: by outflank-mailman (output) from mailman id 1355572.1610481; Mon, 06 Jul 2026 15:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglin-0005uk-Ju; Mon, 06 Jul 2026 15:59:01 +0000
-Received: by outflank-mailman (input) for mailman id 1355565;
- Mon, 06 Jul 2026 15:58:53 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wglie-000460-EU
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:52 +0000
+	id 1wglio-0006Ee-UF; Mon, 06 Jul 2026 15:59:02 +0000
+Received: by outflank-mailman (input) for mailman id 1355572;
+ Mon, 06 Jul 2026 15:58:54 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wglif-0004OB-Ov
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:53 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wglid-00AcZM-Qf
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:51 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wglif-009yrN-5A
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:53 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd0ae-5cb7-0a2a0a5109dd-0a2a4506c18e-30
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:51 +0200
-Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4bd074-e002-0a2a0a5209dd-0a2a450cca90-44
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:53 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd0bb-08de-0a2a45060019-d1558033e1a9-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:51 +0200
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-493c83474ddso29313405e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:51 -0700 (PDT)
+ id 6a4bd0bc-f399-0a2a450c0019-d155802cada0-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:53 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-493ce08a75bso13625345e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:53 -0700 (PDT)
 Received: from fedora (user-109-243-144-234.play-internet.pl.
  [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.49
+ 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:58:50 -0700 (PDT)
+ Mon, 06 Jul 2026 08:58:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,40 +60,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783353531; x=1783958331; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1783353532; x=1783958332; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=geHCSDaLoyJK0T4JaX0vw42LUcqQXsZkwutnK3Lm7Fo=;
-        b=Ttifz6pCIj12NeSMJLMk1jeMGtlVC2aP1o7atKbJ0LILzLLPwO6EF1jf2GCXUip+d0
-         PXmoeOWfitSb9sIWAaVg0pSK4TaaHPghe2yc4Q8cmgoAsAHSvsM5BXrBJd22jwgPHyiJ
-         qzf36OKJEijaUit0wGZh7G+OlrJtz+tQ5dWURssDv4m5WY0Wk/TMZFwYl4CQx+xkRVMd
-         TnWB3vMVvwJ81uc4CxRLeejvgGuLvbOaCFpqdeeEBqinN5G7FaMUZBi+6On4NdfwHvRY
-         D/9Oi8R7RhmRcZwvLOI0M2xgAeE+wrc+nz98UPk1+xKnZP17FyMitBe/AmIR7D3CIyJm
-         6UKg==
+         :message-id:reply-to;
+        bh=IxRXEnbnwcKwLoBQXvU2u8JCcaQ998O7uU3S4PznH3Q=;
+        b=E8cmFWT97x4lrt1ZPiQ+amgj+VkUa+G++KeSAiYqHDuaWMkdWiCFzqNE8UgjWG+f4O
+         iJC/qLVdxJk5KvP4gE4HoyO0L3gUn+UOv/l7decVRabxp65FHZvLe/uVVvwt4X/EBAy8
+         B4SiHpGg2J+564XRMtZVflCXKq/FYlN1Yvsbi86udHNd7ZQ6lTYxzEX9B41MG5HL12fL
+         Bs0kum6nu2OEYHvjZ3wC8OrFcC0DCfGlfbOB/IbHWzsjkHyArXaT3hQGDIClKfL9JJfy
+         U2ExOzlBltSNeUfcy7IPJzmn6hi7JLsDuN0LdPsNBtxrgkw0ruiFrPx4mKoVdPSRe8XD
+         CIrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783353531; x=1783958331;
+        d=1e100.net; s=20251104; t=1783353532; x=1783958332;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=geHCSDaLoyJK0T4JaX0vw42LUcqQXsZkwutnK3Lm7Fo=;
-        b=JAVvaMUBXeCGBHtNIpsW0iKj6jslj2Nv357hWU5xQdB2YEA3BbiReQjoif/FlojqjG
-         U6BMQ6XVO6xpxi7S9p6yFaP49lWC5Fm89XvJQdRJIGEND36xPs1KIxsajOx/yA+vV3b/
-         0aKVKCM58UxfAb1psPzlzpl0l2F53hHB9XJoaekDdFAcg7YGLEZBJmozSgRBkqFQ4TZ8
-         tEYzSllOXNfO7lKojcqNN/fbxAvHPgA+74gUrHtgVY9pu4s+AQfdzzBwaTwehgKqfJO8
-         j8sXCQJzc1wfy9MgX0isU8dFct7pI2h+SQUn6jE2p5MOjzxxRwyYbuL8gAEwNqhl7Ej5
-         VCpA==
-X-Gm-Message-State: AOJu0Yy9vj7vcxQo/h/XjbQzFyposBHWHdHOIon6LOX+zcF3HMSrIQF7
-	uS3+Pw+7v3+0+F4a+7zu9xtv45XBYDFFYEKf79xkupltb0Wnavhq0aXwIAOfCA==
-X-Gm-Gg: AfdE7cmYVrVhzkos77GbQ8Vpdzgzccb2VvMorZTKa6hNvKnhzfzeuQPdkYdPkhNJmrW
-	hAgX/oDradi+imx9RSLqrZfABPCzOVshmGJau+eJNTrC/NN+5Q2ImdjaQOdweidTpyqsQ6/enlV
-	aiY2bK3BTXPNaxkE/JnWclJJJ2LopRiQ2wqqJEhQQWXzbHV/SwZdpxd7GKSi++twrKyvqIilgxF
-	cJ+NsmVE7XrXHOEy26CHb4eydt9zhz1j4+LK0ixBEbcgg51sKLipZ8RQ+CBg3JPFtcGLg5MRuLH
-	4KUeTZV7Ut5vweDrr90Tbnj+6pyVSgt0NUZl/Dw6trKWVgu5s5tDmVgJDD7ZXo3aQSeALfG2sRW
-	93lxLaclroGuju7fZnK7PmrCtHki5oG/q/m6eKK3/D7ajiMlhXyKzQU8EWn7p8JbrCViM/nNte5
-	OofrL8MZKjL/YPcaK8OT37esTZGzHS1zUAuRTGfWmlKwfhveKz2qmrDLSJeQ==
-X-Received: by 2002:a7b:c38e:0:b0:492:6f6f:fa42 with SMTP id 5b1f17b1804b1-493df0a1b84mr9512065e9.37.1783353531170;
-        Mon, 06 Jul 2026 08:58:51 -0700 (PDT)
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IxRXEnbnwcKwLoBQXvU2u8JCcaQ998O7uU3S4PznH3Q=;
+        b=LR4ph/7195WOJfg/c5bGDWrg1FD0U/VkittpKrhARa0M6QC1KEdDOT4ioBew+dg6MG
+         h4lKztJu8hPzYrCamvYxiC3tIJNs0fBgm909spl4pz/aX/XdTOORmyXusHiLQqVurF+A
+         WqrWcI/3IUd2EJgHRztM/yB7ifmC9VT07gXDgadplCGpMJfRDPIUasqAt2ATzFtcE5zy
+         Per+V1/xkvnYeWRQp/5xHBmmme9Ip7oajCzbBgt+LNbpUo4+/xXvchyNDoCy4liLo0RM
+         dqW8qcJ17K6HQpOkctAl0SxDrGULbkvK3pNsrWELuDeHlwZLt0x+yhaW1ViSuCTwvVL3
+         /Lsw==
+X-Gm-Message-State: AOJu0Yyj+b3xxGqAZNUmk/3p6u/kIjpG6YsIbthYrDxPL7fxhoXKWEBq
+	bdBoF/FE9s/Grm2rn36ZH2veHlmGad601K4pD3O+YOlnW6qc1DxYqRR3AnBM2A==
+X-Gm-Gg: AfdE7ckZAK8R1BCDds72LcuB5GIwW7XZX7ZxX1MTJVHRm5SKrIFUwY75TYresYfRRA4
+	ezZf08dGi7N+/WnVN0cO3LcjvBg8f3SUU74DA2JnHhwrCR3IO9NtQl51lhcw8PjKpwwd+Wsfpxq
+	rJuGrzx+CFkEvZV6X9mxqdk8s3A24BL4Hp8Ub6/id0IHsvVTHV3NPn9d/YrpoAyLVAhwZLnc4kV
+	ULAgpDm3yzlUZSYaGjj4/4cJQ+fvTfn7bo7HbDEVasc8w8j5oUL3BAWYg4oxn3ZW6Iu2iprKei6
+	E3uAwuRxZdtb2zkBPI73iAW25LORrYd5kjp1X8Owe1HlaTVKzsROkfoPmWThutHH+0w2VqrZhIa
+	Ds6X9k/VcVtMaxDfJT8pGh0VJiALSyUYcOCzbjzyHg88HypPSc39jcPGsEsf8y6a7eIMePSBZWG
+	Y6oWQaY2Yb9qebmI2EiIRFytbqTQpDkSG4GRfxB0bpOmOlr3nj55+dzzm/4w==
+X-Received: by 2002:a7b:cc81:0:b0:493:cc01:807b with SMTP id 5b1f17b1804b1-493df0a0861mr10510525e9.38.1783353532508;
+        Mon, 06 Jul 2026 08:58:52 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -108,17 +108,17 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 25/26] xen/riscv: add initial dom0less infrastructure support
-Date: Mon,  6 Jul 2026 17:58:06 +0200
-Message-ID: <8fdb9cb4579e20dec10a9919fa966bc00394c6e7.1783331040.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 26/26] xen/riscv: do a 4th linking pass if necessary
+Date: Mon,  6 Jul 2026 17:58:07 +0200
+Message-ID: <ba3b7e3197ae90c9f0e5190ba34de174b86090ac.1783331040.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1783353531-C593B68D-D4475562/10/73395122804
+X-purgate-ID: tlsNG-d25034/1783353533-93934D51-2DB467E5/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 7215
+X-purgate-size: 5835
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -142,7 +142,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,gitlab.com:url];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -156,173 +156,120 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8294C712F0F
+X-Rspamd-Queue-Id: 2DA7B712F16
 
-Enable dom0less support for RISC-V by selecting HAS_DOM0LESS and
-providing the minimal architecture hooks required by the common
-dom0less infrastructure.
+Embedding the symbol table can shift sections and flip relaxation
+decisions, changing code size and thus the set of emitted symbols
+(e.g. gap end markers).  Re-link with a regenerated table when its
+size differs from the previous pass.
 
-Add stub implementations for architecture-specific helpers used when
-building domains from the device tree. These allow the generic
-dom0less code to build and let a basic DomU be constructed on RISC-V.
-construct_hwdom() and make_hypervisor_node() are still stubs returning
-an error: Dom0/hwdom construction isn't supported yet, and the
-hypervisor node generation (needed by domains with
-DOM0LESS_ENHANCED_NO_XS set) is not implemented. Both are marked with
-a TODO and are not reached by the currently supported configurations.
-
-Provide missing helpers and definitions required by the domain
-construction code, including domain bitness helpers and the
-p2m_set_allocation() prototype.
-
-Additionally define the guest magic memory region (GUEST_MAGIC_BASE /
-GUEST_MAGIC_SIZE) in asm/guest-layout.h. The base is arbitrary; the
-only constraint is that the region must not overlap guest RAM or the
-emulated device regions. It is placed in the unused gap below
-GUEST_RAM0_BASE (0x80000000); the constraints are documented next to
-the #define-s.
-
-A separate region for grant tables will be introduced at the same time as
-the introduction of the grant table for RISC-V.
+This mirrors commit 35de7285d508 ("Arm: do a 4th linking pass if
+necessary"), which riscv didn't receive when the underlying
+pass-2-vs-pass-3 check was extended to it in commit aa786d6e3467
+("non-x86/symbols: check table sizes don't change between linking
+passes 2 and 3").
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in v5:
- - Reword the comment above defintion of GUEST_MAGIC_BASE.
- - Shrunk the size of GUEST_MAGIC_SIZE to 2Mb as looking on the Arm
-   only 4 pages are used and there is no technical reason to have 16Mb for
-   that region. (Maybe in case of Arm it is connected that Arm has these
-   definitions in public header so more space is reserved to not "break"
-   public API in future)
- - Update the commit message with a remark about grant table region
-   in guest-layout.h.
----
-Changes in v4:
-  - Reword the description: the stubs do not let dom0less fully "run"
-    since construct_hwdom() and make_hypervisor_node() return an error;
-    spell out these limitations instead.
-  - Add a TODO comment to construct_hwdom() explaining that Dom0/hwdom
-    construction isn't supported yet.
-  - Add a TODO comment to make_hypervisor_node() explaining that
-    returning an error breaks building of domains with
-    DOM0LESS_ENHANCED_NO_XS set, and why that is harmless for now.
-  - Document the constraints on GUEST_MAGIC_BASE/GUEST_MAGIC_SIZE next
-    to the #define-s and drop the QEMU-based justification (QEMU is not
-    involved); the base is simply an arbitrary non-overlapping address.
-Changes in v3:
-  - Add /* Nothing specific to do for now */ comment to
-    arch_handle_passthrough_prop().
-  - Use _ULL() instead of xen_mk_ullong() for GUEST_MAGIC_BASE and
-    GUEST_MAGIC_SIZE (xen_mk_ullong() is intended for public headers only).
-  - Fix GUEST_MAGIC_BASE from 0x39000000 to 0x79000000 to avoid the
-    QEMU RISC-V virt machine PCIE_ECAM range.
-  - Drop CONFIG_STATIC_MEMORY=n from the CI randconfig; now redundant
-    since STATIC_MEMORY depends on HAS_STATIC_MEMORY which RISC-V does
-    not select.
-Changes in v2:
-  - Move declaration of p2m_set_allocation() to p2m-common.h.
-  - Add __initdata for max_init_domid and drop initalizer for it.
-  - Add CONFIG_STATIC_MEMORY=n to CI's randconfig to avoid
-    compilation error because of guest_physmap_add_pages()
-    isn't provided.
----
- xen/arch/riscv/Kconfig                    |  2 ++
- xen/arch/riscv/dom0less-build.c           |  7 ++++++
- xen/arch/riscv/domain-build.c             | 28 +++++++++++++++++++++++
- xen/arch/riscv/include/asm/guest-layout.h | 12 ++++++++++
- 4 files changed, 49 insertions(+)
+I faced this issue again in downstream:
+  https://gitlab.com/xen-project/people/olkur/xen/-/jobs/15171254706
 
-diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-index 48520588fe40..d8a348c0cf07 100644
---- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -6,6 +6,8 @@ config RISCV
- 	select GENERIC_BUG_FRAME
- 	select GENERIC_UART_INIT
- 	select HAS_DEVICE_TREE_DISCOVERY
-+	select HAS_DOM0LESS
-+	select HAS_DOMAIN_TYPE
- 	select HAS_EX_TABLE
- 	select HAS_PMAP
- 	select HAS_UBSAN
-diff --git a/xen/arch/riscv/dom0less-build.c b/xen/arch/riscv/dom0less-build.c
-index d1a51b92936a..0801d7e25059 100644
---- a/xen/arch/riscv/dom0less-build.c
-+++ b/xen/arch/riscv/dom0less-build.c
-@@ -102,3 +102,10 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
- 
-     return 0;
- }
-+
-+int __init arch_handle_passthrough_prop(struct kernel_info *kinfo,
-+                                        struct dt_device_node *node)
-+{
-+    /* Nothing specific to do for now */
-+    return 0;
-+}
-diff --git a/xen/arch/riscv/domain-build.c b/xen/arch/riscv/domain-build.c
-index 089e5ce0e0a4..7f24bd1023bb 100644
---- a/xen/arch/riscv/domain-build.c
-+++ b/xen/arch/riscv/domain-build.c
-@@ -175,9 +175,37 @@ int __init make_cpus_node(const struct domain *d, struct kernel_info *kinfo)
-     return res;
- }
- 
-+int __init construct_hwdom(struct kernel_info *kinfo,
-+                           const struct dt_device_node *node)
-+{
-+    /*
-+     * TODO: Dom0/hwdom construction isn't supported on RISC-V yet, so this
-+     * is a stub returning an error. It must be implemented before a hardware
-+     * domain can be built from the device tree.
-+     */
-+
-+    return -EOPNOTSUPP;
-+}
-+
- int __init make_timer_node(const struct kernel_info *kinfo)
- {
-     /* There is no need for timer node for RISC-V. */
- 
-     return 0;
- }
-+
-+int __init make_hypervisor_node(struct domain *d,
-+                                const struct kernel_info *kinfo,
-+                                int addrcells, int sizecells)
-+{
-+    /*
-+     * TODO: Generating the hypervisor node isn't implemented yet. Returning
-+     * an error here breaks building of any domain (DomU included) whose
-+     * dom0less_feature has DOM0LESS_ENHANCED_NO_XS set. This is harmless for
-+     * now because Dom0/hwdom construction isn't supported on RISC-V yet
-+     * either, and no RISC-V DomU sets that flag, so this path is never taken.
-+     * It must be implemented before DOM0LESS_ENHANCED_NO_XS is used.
-+     */
-+
-+    return -EOPNOTSUPP;
-+}
-diff --git a/xen/arch/riscv/include/asm/guest-layout.h b/xen/arch/riscv/include/asm/guest-layout.h
-index 90603f06bb91..ceed9125e7e2 100644
---- a/xen/arch/riscv/include/asm/guest-layout.h
-+++ b/xen/arch/riscv/include/asm/guest-layout.h
-@@ -32,4 +32,16 @@
- #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
- #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
- 
-+/*
-+ * The guest magic region holds the Xen-reserved pages mapped into the
-+ * guest's physical address space. The only real constraint on
-+ * GUEST_MAGIC_BASE/SIZE is that the region must not overlap guest RAM
-+ * (the GUEST_RAMx banks) or the emulated device regions defined above;
-+ * the exact base is otherwise arbitrary. Here it is placed in the unused gap
-+ * below GUEST_RAM0_BASE (0x80000000), but a hole after a RAM bank would work
-+ * equally well.
-+ */
-+#define GUEST_MAGIC_BASE  _UL(0x79000000)
-+#define GUEST_MAGIC_SIZE  _UL(0x00200000)
-+
- #endif /* ASM_RISCV_GUEST_LAYOUT_H */
+It was found that the difference between .xen-syms.0 and .xen-syms.1 is in
+alignment(?) gap between turn_on_mmu() and the end of simple_strtoull.
+Specifically 0xffffffffc00c05b0 is present in pass 1 but not present in
+pass 2 (where end of simple_strtoull() is just equal to ffffffffc00c05c0)
+because code was shifted:
+
+```
+.xen-syms.0:     file format elf64-littleriscv
+
+...
+
+ffffffffc00c0534:       f2e794e3                bne     a5,a4,ffffffffc00c045c <simple_strtoull+0x18>
+ffffffffc00c0538:       00280813                addi    a6,a6,2
+ffffffffc00c053c:       f21ff06f                j       ffffffffc00c045c <simple_strtoull+0x18>
+ffffffffc00c0540:       00068813                mv      a6,a3
+ffffffffc00c0544:       00800613                li      a2,8
+ffffffffc00c0548:       f15ff06f                j       ffffffffc00c045c <simple_strtoull+0x18>
+ffffffffc00c054c:       00277713                andi    a4,a4,2
+ffffffffc00c0550:       04070463                beqz    a4,ffffffffc00c0598 <simple_strtoull+0x154>
+ffffffffc00c0554:       fe06869b                addiw   a3,a3,-32
+ffffffffc00c0558:       0ff6f693                zext.b  a3,a3
+ffffffffc00c055c:       fc96879b                addiw   a5,a3,-55
+ffffffffc00c0560:       04c7f263                bgeu    a5,a2,ffffffffc00c05a4 <simple_strtoull+0x160>
+ffffffffc00c0564:       02a60533                mul     a0,a2,a0
+ffffffffc00c0568:       00f50533                add     a0,a0,a5
+ffffffffc00c056c:       00180813                addi    a6,a6,1
+ffffffffc00c0570:       00084683                lbu     a3,0(a6)
+ffffffffc00c0574:       0006879b                sext.w  a5,a3
+ffffffffc00c0578:       00d30733                add     a4,t1,a3
+ffffffffc00c057c:       00074703                lbu     a4,0(a4)
+ffffffffc00c0580:       04477893                andi    a7,a4,68
+ffffffffc00c0584:       02088063                beqz    a7,ffffffffc00c05a4 <simple_strtoull+0x160>
+ffffffffc00c0588:       00477893                andi    a7,a4,4
+ffffffffc00c058c:       fc0880e3                beqz    a7,ffffffffc00c054c <simple_strtoull+0x108>
+ffffffffc00c0590:       fd07879b                addiw   a5,a5,-48
+ffffffffc00c0594:       fcdff06f                j       ffffffffc00c0560 <simple_strtoull+0x11c>
+ffffffffc00c0598:       fc97879b                addiw   a5,a5,-55
+ffffffffc00c059c:       fc5ff06f                j       ffffffffc00c0560 <simple_strtoull+0x11c>
+ffffffffc00c05a0:       00000513                li      a0,0
+ffffffffc00c05a4:       00058463                beqz    a1,ffffffffc00c05ac <simple_strtoull+0x168>
+ffffffffc00c05a8:       0105b023                sd      a6,0(a1)
+ffffffffc00c05ac:       00008067                ret
+        ...
+
+ffffffffc00c05c0 <turn_on_mmu>:
+ffffffffc00c05c0:       12000073                sfence.vma
+ffffffffc00c05c4:       00800293                li      t0,8
+ffffffffc00c05c8:       03c29293                slli    t0,t0,0x3c
+ffffffffc00c05cc:       000fc317                auipc   t1,0xfc
+ffffffffc00c05d0:       a3430313                addi    t1,t1,-1484 # ffffffffc01bc000 <stage1_pgtbl_root>
+ffffffffc00c05d4:       00c35313                srli    t1,t1,0xc
+ffffffffc00c05d8:       00536333                or      t1,t1,t0
+ffffffffc00c05dc:       18031073                csrw    satp,t1
+ffffffffc00c05e0:       00050067                jr      a0
+
+ffffffffc00c05e4 <_ident_end>:
+ffffffffc00c05e4:       0000                    .insn   2, 0x0000
+        ...
+```
+
+So the tool (symbols.c) emits an entry at start+size only when a gap
+follows; the gap closed in pass 2.  (look at the code of want_symbol_end()
+in symbols.c) what leads to difference in one entry in symbols table between
+passes.
+---
+ xen/arch/riscv/Makefile | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index fc6b34661111..046f73f4d87c 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -50,9 +50,21 @@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+ 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+ 		> $(dot-target).2.S
+ 	$(MAKE) $(build)=$(@D) $(dot-target).2.o
+-	$(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o)
++	if ! { $(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o) >/dev/null; }; \
++	then \
++		set -e; \
++		$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
++		    $(dot-target).2.o -o $(dot-target).2; \
++		$(NM) -pa --format=sysv $(dot-target).2 \
++			| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
++			> $(dot-target).3.S; \
++		$(MAKE) $(build)=$(@D) $(dot-target).3.o; \
++		$(call compare-symbol-tables, $(dot-target).2.o, $(dot-target).3.o); \
++	else \
++		ln -sf $(dot-target).2.o $(dot-target).3.o; \
++	fi
+ 	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
+-	    $(dot-target).2.o -o $@
++	    $(dot-target).3.o -o $@
+ 	$(NM) -pa --format=sysv $@ \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
 -- 
 2.54.0
 
