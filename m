@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id y+MCBbnQS2opawEAu9opvQ
+	id oiqrE7vQS2orawEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:49 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9522712ED8
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDCCC712EE2
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=O7xUXLmd;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=G5BuSYH2;
 	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355511.1610386 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355515.1610393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgliT-0001sP-Qq; Mon, 06 Jul 2026 15:58:41 +0000
+	id 1wgliU-000236-Rn; Mon, 06 Jul 2026 15:58:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355511.1610386; Mon, 06 Jul 2026 15:58:41 +0000
+Received: by outflank-mailman (output) from mailman id 1355515.1610393; Mon, 06 Jul 2026 15:58:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgliT-0001kD-BV; Mon, 06 Jul 2026 15:58:41 +0000
-Received: by outflank-mailman (input) for mailman id 1355511;
- Mon, 06 Jul 2026 15:58:39 +0000
+	id 1wgliU-0001uu-D0; Mon, 06 Jul 2026 15:58:42 +0000
+Received: by outflank-mailman (input) for mailman id 1355515;
+ Mon, 06 Jul 2026 15:58:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wgliR-0001Kf-50
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:39 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wgliS-0001WN-6d
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wgliQ-003COz-IH
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:38 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wgliR-003COz-JC
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:39 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd0ae-2eae-0a2a0a5409dd-0a2a4501d5ae-0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:38 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4bd09f-2eae-0a2a0a5409dd-0a2a450ce8e8-28
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:39 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4bd0ae-400f-0a2a45010019-d1558031ace5-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:38 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-493b6f1b14bso12910525e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:38 -0700 (PDT)
+ id 6a4bd0af-f399-0a2a450c0019-d1558030bcbc-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:39 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so22318155e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:39 -0700 (PDT)
 Received: from fedora (user-109-243-144-234.play-internet.pl.
  [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.36
+ 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:58:37 -0700 (PDT)
+ Mon, 06 Jul 2026 08:58:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,40 +60,40 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783353518; x=1783958318; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1783353519; x=1783958319; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=A/ZtxrvuTd4UkEQ4i2TfmlJT/OYOaHL0n4xPwr38eXk=;
-        b=O7xUXLmdEFb2iG0NZzUNX/7tcnd9rBHg3OfF3uS2ah1HiMMUZJk5adcWywRlYQRxpl
-         /YNcEhj/+U3cd6LpLt4GOfA7NpHq1HHVrtRTJYZI7GEDcnExh3G8eQ6hOfy99x1FiBGT
-         Gq+0XVG4u2DBYiOxCcmb0Qk3RrZVjXJJugMfrlhD4lRGYmyitSullRh9enY38pX3xPXf
-         IMs8+qLA5cYauqpjub4q6ieVaUy7qCApwC0R9faHEaG1M5tktCZ1sAHLq/0BqgtfA+MB
-         CJueG2a2XSDiPC/j3/WxJqIr+BkBBqCLIttSOVb0y26mkNyjvaKNCGNLeZVpgxEGSBbf
-         Z8jw==
+        bh=bw1hrTkQ2ATB1SLL0iu4tNbNK40JrBmaLHXXypeFp0c=;
+        b=G5BuSYH2B8KrqFyPfTYjy63tfVs3pGADWoimSOdjh3AevIvD8e6lhtuBZYuCloIqrf
+         uDHIQDacN9OXPSxwZvC1N3v5UrjE+wAPY7uIQBcCS3jm4+KKAZ9sB9Qhn9X4GaqTI97t
+         TaDAOnkC5aPU6k7+5lzOCfypPFjui0fSx8Ch4HpRAFFNY9rRUBduxmETzFN9/6fBIzhI
+         P/ojgGXwdZIYvDBbOHSZbQuGHgAKbwRUzq24/WxRpP1EAHTNdHnnJ/CCfMNlKcYAEQGN
+         C7lxK9hPQ6nghICaQwebfmFcExA4/5vLxLKnpt+lVC64w3E5XPlUwh2uAhn9AkUUA/aU
+         CPdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783353518; x=1783958318;
+        d=1e100.net; s=20251104; t=1783353519; x=1783958319;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=A/ZtxrvuTd4UkEQ4i2TfmlJT/OYOaHL0n4xPwr38eXk=;
-        b=kUpkabMgxHYp3UPZJeggzWire7uZoXJmTS5BW7mE4/1l3WF+k2FbsLY23r1jvp+Z3Q
-         SV8bbpavhmIDWZCPHJUvtmQgkq9hl1XBQADhySb5CNyf9bN26kXNCGUIF+ydv7rBzHpn
-         QnLh+a932BoHA/n9kDrG6T5YPSZ2eHgc8gQBzT+bZxms0CA5yeH7o60yuqt6fx5btaDJ
-         ujItJeM1Ws/zD8RWqhDpkq6fJQwjFUz+AnosdJtv3SQalJJXjalQmDj7e7ztbpOMzBmA
-         2MFdtAoVtIyVAXngCGMj08P5ultmlbP/169EgI+ypfjl+Njw9taZ80MwUnuYykGdrh/1
-         ewAg==
-X-Gm-Message-State: AOJu0Yx+KTtavx4mQQU4SEWlkyKFeW57U9aodgo/5zRQdj4EQcdSZ57l
-	zxbP+YA2Zgw8HdwvoyG62Hn1G/MOk7NoWsr2N37X9mvPPT/52/bBWA0x62wE+w==
-X-Gm-Gg: AfdE7cl3tEeCrde5gK9jVGmAtZVF2U5Ip0K3plgZCOuEwtJOMN0FXKilLUeX56W0xUJ
-	vg31B7Ea5AxUAS9xrFrGLTM83HaPDB1Oo/VZMn516i8Q+Pxfd0F+BLUrFx/QISeQUFgJLu1/caR
-	QRSCTp110nhxFAqAjEs3pADJCwMumw0VXPffUKH2+rUNgziQ0jHZnKQozalMEMY89eNm5dOOd12
-	9z9cQXlns7W6EZqN+NbStd+3812Ngt/ZwdpA/nJoabCpCk5psj5/SUgfkHA+lF+yF2MA1sxJNEf
-	vFUJ4IelERluUBz7RqVTGYc/21nucreQFKTlzhTps9r8uXKVzehFwoi3fcypbJ33MDiKCUY7L/1
-	2qhnrcCupgj5xN68h8RBkk0U7sibuRKNtu9NvmM0UjUoZXu0OnxT8twvG5E7idqHOcPuZr7tSuN
-	ubnO9ARfVS578L1ju/gnnscswJUY59dtFoD+3AFgWZvK/wUZ1sUfbPAplgYzryjhzh90lO
-X-Received: by 2002:a05:600c:820f:b0:493:aa28:38ad with SMTP id 5b1f17b1804b1-493df06a2d2mr13017205e9.10.1783353517711;
-        Mon, 06 Jul 2026 08:58:37 -0700 (PDT)
+        bh=bw1hrTkQ2ATB1SLL0iu4tNbNK40JrBmaLHXXypeFp0c=;
+        b=cdfI12epNHLYRusUlle/NU+vzMU4NG+3btMwkqsFIrTA3Tm+sToPFikcHbRlYNhmJb
+         CHH3jBshvcRhhEMNXErJvIs2AnUYUdpMKuaQRymB5OKOIErqaGpXYdDWCtZ406bVS5JE
+         uv1wXkQ7ciFwAeZjnyCdASo4GJdMBZog3xP31mtfda1cVW/B6OS9ecp8nzDCF2surNsv
+         QB6MKoRKnPAbfJSrYpUuRvc3bL/KMS+kpmAV92rpZ1krCQ/dJ/y4VEk/7OO7++qQD/tH
+         RDNtiV6bDApyDioAu+Hp+VjRuedTXG340yfFOsrETQUZNOs+27OnaQrr7guFzhFIRooH
+         FCLQ==
+X-Gm-Message-State: AOJu0Yx9Tzs1jJ8ptDXuILADxBTeNpaXTiBQbjFS/NpHNHM/C1UF9wJf
+	0kjJyDwflFPUvvTwIzGrLgP3dXxABhWsfWWt0Yzw0agI0IXiy0vn2bp05il79A==
+X-Gm-Gg: AfdE7cmp2x6UgYnfG7R7ECb5+a1cOIsiEPkqE3HgsS2Xmnp2F/5/dq5m8793YB/mm84
+	WMFEEm2AnBFDzu2/nvvdX0qdVP0jqZ6MLJsnLDdxvCpFhuyNwgikXHB7CQOS+eWYKnft9CuG96P
+	LqWpnoRcowIO5/O/FSZfsXTHMLrHtTrBboJD1yhW2ds9kGAgGXQHyb1PWOjFRnVx3TETqxDjNGo
+	o/IBSUSxSjDd334wtktbqyi4jPMsRteDJWioTR0Xg/443EEIfypwjLw4ZC9cXxguC/giOFjZUv5
+	vnH59P7fJiNZm9KndxeO5couzAvokf7UngbSs3q7ekTW1AJsMhpp0mZcwyxArczAw650NEdcLs3
+	T9NZRzPR7bF+TgjTBE/ripR4M+JMua1xTUPHILV74QlPOG2O0an1gKiLE8U6XLf4lrzKpLufRbR
+	YlBZu7HyoP4ncItwom6F1UuoVL3KpXGzheuFWsS2buvU66b9w/TTlwOSyiG2ZNP9egfvTF
+X-Received: by 2002:a05:600c:6385:b0:493:bfea:2780 with SMTP id 5b1f17b1804b1-493df4af8d1mr4920195e9.9.1783353518979;
+        Mon, 06 Jul 2026 08:58:38 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -108,17 +108,17 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 14/26] xen/riscv: implement make_intc_domU_node()
-Date: Mon,  6 Jul 2026 17:57:55 +0200
-Message-ID: <b9ceb87a7160b75538e1887f1457d6852fea619a.1783331040.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 15/26] xen/riscv: introduce aia_init() and aia_usable()
+Date: Mon,  6 Jul 2026 17:57:56 +0200
+Message-ID: <c19523e3ea4dda45205202c7a90ae272103526af.1783331040.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1783353518-822DD1E0-05FB12CC/10/73395122804
+X-purgate-ID: tlsNG-d25034/1783353519-0D727D51-0199B8CA/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 3451
+X-purgate-size: 3183
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -156,112 +156,118 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A9522712ED8
+X-Rspamd-Queue-Id: EDCCC712EE2
 
-Introduce a RISC-V specific function to create an interrupt controller
-Device Tree node for DomU domains during dom0less build.
+aia_init() is going to contain all the logic related to AIA initialization.
 
-Add make_intc_domU_node() to the dom0less build path and wire it to
-a new generic helper, intc_make_domu_dt_node(), which delegates DT
-node creation to the active interrupt controller implementation via
-vintc_init_ops.
+At the moment, it only checks whether the SSAIA extension is available,
+and if so, sets is_aia_usable (which  indicates more than just the
+availability of the extension) to true; it also signifies that the necessary
+components (to be introduced in follow-up patches) have been initialized.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v5:
- - Nothing changed. Onlye rebase.
+ - Update the guards in asm/aia.h according to CODING_STYLE:
+   s/ASM__RISCV__AIA_H/RISCV_AIA_H.
 ---
-Change in v4:
- - Made local variable vintc pointer-to-const.
+Changes in v4:
  - Add Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v3:
- - Use const struct vintc_init_ops *init_ops in struct vintc.
- - Drop redundant intc_hw_ops check in make_intc_domU_node().
- - Drop NULL pointer checks in make_intc_domU_node() as we can't start domU
-   without properly created interrupt contoller node.
+ - s/is_aia_usable/_aia_usable to drop the is_ prefix while avoiding
+   conflict with the aia_usable() function name.
 ---
 Changes in v2:
- - s/intc_make_domu_dt_node/make_intc_domU_node.
- - introduce separate intc_hw_init_ops structure for init operations.
- - Return -EOPNOTSUPP instead of -ENOSYS.
- - Drop const for kinfo argument as it could be changed by interrupt
-   controller node creation code.
- - Refactor make_domu_dt_node().
- - Make make_domu_dt_node part of vintc structure as it looks more logical to be
-   there.
+ - s/is_aia_available/is_aia_usable.
+ - Drop return value for aia_init().
+ - s/aia_available()/aia_usable().
 ---
 ---
- xen/arch/riscv/include/asm/domain.h |  2 ++
- xen/arch/riscv/include/asm/intc.h   | 10 ++++++++++
- xen/arch/riscv/intc.c               |  8 ++++++++
- 3 files changed, 20 insertions(+)
+ xen/arch/riscv/Makefile          |  1 +
+ xen/arch/riscv/aia.c             | 23 +++++++++++++++++++++++
+ xen/arch/riscv/include/asm/aia.h | 10 ++++++++++
+ xen/arch/riscv/intc.c            |  3 +++
+ 4 files changed, 37 insertions(+)
+ create mode 100644 xen/arch/riscv/aia.c
+ create mode 100644 xen/arch/riscv/include/asm/aia.h
 
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index 235b20f8a6ba..bdc6086a1752 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -97,6 +97,8 @@ struct arch_domain {
-     struct paging_domain paging;
- 
-     DECLARE_BITMAP(isa, RISCV_ISA_EXT_MAX);
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index fd5e499eb4b9..9df8b72b5494 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -1,3 +1,4 @@
++obj-y += aia.o
+ obj-y += aplic.o
+ obj-y += cpufeature.o
+ obj-y += domain.o
+diff --git a/xen/arch/riscv/aia.c b/xen/arch/riscv/aia.c
+new file mode 100644
+index 000000000000..e31c9c2d24b6
+--- /dev/null
++++ b/xen/arch/riscv/aia.c
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+    struct vintc *vintc;
- };
- 
- #include <xen/sched.h>
-diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index d7b34fc15ad1..a4e678fad90b 100644
---- a/xen/arch/riscv/include/asm/intc.h
-+++ b/xen/arch/riscv/include/asm/intc.h
-@@ -16,6 +16,7 @@ enum intc_variant {
- 
- struct cpu_user_regs;
- struct irq_desc;
-+struct kernel_info;
- 
- struct intc_info {
-     enum intc_variant hw_variant;
-@@ -47,6 +48,15 @@ struct intc_hw_init_ops {
-     int (*init)(void);
- };
- 
-+struct vintc_init_ops {
-+    /* Create interrupt controller node for domain */
-+    int (*make_domu_dt_node)(struct kernel_info *kinfo);
-+};
++#include <xen/errno.h>
++#include <xen/init.h>
++#include <xen/sections.h>
++#include <xen/types.h>
 +
-+struct vintc {
-+    const struct vintc_init_ops *init_ops;
-+};
++#include <asm/cpufeature.h>
 +
- void intc_preinit(void);
- 
- void register_intc_ops(const struct intc_hw_init_ops *init_ops);
++static bool __ro_after_init _aia_usable;
++
++bool aia_usable(void)
++{
++    return _aia_usable;
++}
++
++void __init aia_init(void)
++{
++    if ( !riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
++        return;
++
++    _aia_usable = true;
++}
+diff --git a/xen/arch/riscv/include/asm/aia.h b/xen/arch/riscv/include/asm/aia.h
+new file mode 100644
+index 000000000000..aaa4bf91fc75
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/aia.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef RISCV_AIA_H
++#define RISCV_AIA_H
++
++bool aia_usable(void);
++
++void aia_init(void);
++
++#endif /* RISCV_AIA_H */
 diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
-index 3600d23bdb5b..e63da5e22efc 100644
+index e63da5e22efc..2864a896b677 100644
 --- a/xen/arch/riscv/intc.c
 +++ b/xen/arch/riscv/intc.c
-@@ -3,6 +3,7 @@
- #include <xen/acpi.h>
- #include <xen/bug.h>
- #include <xen/device_tree.h>
-+#include <xen/fdt-kernel.h>
- #include <xen/init.h>
- #include <xen/irq.h>
+@@ -9,6 +9,7 @@
  #include <xen/lib.h>
-@@ -72,3 +73,10 @@ void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
-     intc_set_irq_type(desc, desc->arch.type);
-     intc_set_irq_priority(desc, priority);
+ #include <xen/spinlock.h>
+ 
++#include <asm/aia.h>
+ #include <asm/intc.h>
+ 
+ static const struct intc_hw_operations *__ro_after_init intc_hw_ops;
+@@ -33,6 +34,8 @@ void __init intc_init(void)
+ {
+     ASSERT(intc_hw_init_ops && intc_hw_init_ops->init);
+ 
++    aia_init();
++
+     if ( intc_hw_init_ops->init() )
+         panic("Failed to initialize the interrupt controller drivers\n");
  }
-+
-+int __init make_intc_domU_node(struct kernel_info *kinfo)
-+{
-+    const struct vintc *vintc = kinfo->bd.d->arch.vintc;
-+
-+    return vintc->init_ops->make_domu_dt_node(kinfo);
-+}
 -- 
 2.54.0
 
