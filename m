@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PfqbDxzLS2p6aQEAu9opvQ
+	id 3rezNqbQS2oYawEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:52 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9005712A83
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:34:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E530712E93
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Jul 2026 17:58:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=C+kXMHjB;
-	dmarc=pass (policy=reject) header.from=citrix.com;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="rxhLi/9Q";
+	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355441.1610237 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355480.1610268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglKz-0001c1-Tj; Mon, 06 Jul 2026 15:34:25 +0000
+	id 1wgli9-0006QJ-6r; Mon, 06 Jul 2026 15:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355441.1610237; Mon, 06 Jul 2026 15:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 1355480.1610268; Mon, 06 Jul 2026 15:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wglKz-0001Zp-Q8; Mon, 06 Jul 2026 15:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 1355441;
- Mon, 06 Jul 2026 15:34:24 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1wglKy-0001H7-0t
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:34:24 +0000
+	id 1wgli9-0006Mo-3P; Mon, 06 Jul 2026 15:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 1355480;
+ Mon, 06 Jul 2026 15:58:19 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wgli7-0006K8-I8
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 15:58:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wglKx-000YCn-Ds
- for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:34:23 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wgli6-00AcTL-VD
+ for xen-devel@lists.xenproject.org; Mon, 06 Jul 2026 17:58:18 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a4bcafc-5cb7-0a2a0a5109dd-0a2a4507a422-10
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:23 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a4bcaff-9c8e-0a2a45070019-d155802cac51-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:34:23 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-493b6f1b14bso12808335e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:34:23 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-248-75.as13285.net.
- [78.146.248.75]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493c63bfba1sm433726505e9.15.2026.07.06.08.34.21
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4bd070-5cb7-0a2a0a5109dd-0a2a4508e958-38
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:18 +0200
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4bd09a-edec-0a2a45080019-d1558036a431-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 17:58:18 +0200
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-493bab44440so17346925e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Jul 2026 08:58:18 -0700 (PDT)
+Received: from fedora (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493cce03fa1sm284910325e9.11.2026.07.06.08.58.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 08:34:21 -0700 (PDT)
+ Mon, 06 Jul 2026 08:58:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,310 +60,231 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1783352063; x=1783956863; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tGuAPt56hrdactPgDfC0/MnL6+HEGuvGVBAIpjdl8Bg=;
-        b=C+kXMHjBzNqWr5Di+/OAr7z7Yx2gFIGYbnUUxXk75/bLXNMZjlsUczRAtL2EzTfMT1
-         DHcpmoJkMdQ/NafDLRwgi9ZIRZRx25x6kQbo7TQR7bKuw1gdEaUV1yvQFDGUkGUv3CrI
-         fBs9aRAjGj8WwIeVsEF+5jNzqztcT2sYDg9lk=
+        d=gmail.com; s=20251104; t=1783353498; x=1783958298; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=6/PDQZ3VxDQuT8ca8krMapwVAoPTeiAchpcu67sNlkA=;
+        b=rxhLi/9Qx94ifGMJKlu4SYkl0TkeEM2F631W8y0P/Rco/pOVEqMNqx35f0c30wB6zV
+         Sa/mAuWtGXA1YmQjYcwm6fKIPbngwQuYONWViB6iWFbdL9wk1mub7DPVdgtFDxbyk89l
+         taNmUaVhU+6K9lA/Mw5wKkDiYEIEiADoTVxuwAQeaNFMV7GNWg6/R8rU+H6xyAOviuMI
+         MMCOp600XhJA3chaMLF22MZWfWLGkNHn35v/AGaFlxCr4Kc0I87P6+t/rDh0ZLHTo5p4
+         JoXH3ovk59jIZMN4UjTvOGFPA9cIQznzMEcbKZKftiLff3tn+SDGj7wYvH0xbdkKQBZw
+         PVkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783352063; x=1783956863;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=tGuAPt56hrdactPgDfC0/MnL6+HEGuvGVBAIpjdl8Bg=;
-        b=Cf1lEPxWq0+aYP09H1GVa97l8I8OhhQQE0N1zY+gWG3JHNgdAMOrnrQMn19hk0xe7I
-         DsSaglQG5w9015qzgXZ5gr3V5s9QjVKwR1R4ELJlC0brMEYmGGzECW/+cf41ibDZ6DmO
-         u2xQYcEmDzntHSCK8IhaiYdxO5rsEHeTtk+pu30yfhKzWDvsqUYBC5t5aEXUfy011t4q
-         CxtT7i4XC6MSuhWaWtVt/X5glJ+SbP3UlLA1Ph63jhlY+JIkTuHb3Efd8bMGaf6qVq/H
-         fYxbMYfW+b1t5+ii0XpqCnDv7bA4SBs1EOTAv+YzWR3O1FVLnh19GrCGr2ja1V6/FsmK
-         t+hg==
-X-Gm-Message-State: AOJu0YwYWEtxeRkLyl5Fbi9KbrMLlVvvSKVYvlpD1UYZVj7moFASnVs2
-	ng4uppaPhF98Xkn6nINFurvVAb6Mp4RRZaVSvraZvTQZVwjUFNcunBMV/lS2Uy5yfWoxYpX7EAF
-	h3c/k
-X-Gm-Gg: AfdE7clR7rjEkECHTx4Kab+oZwDvYki10UzOKI+nRSdIyJMOC+Tq57VLatwk+KFX8m4
-	GaY8c6vIfKOYcEpd/ho4yR8/rvobAKmDqr4HwyQiZrNCcj4glZOVoz7SCeZK0YellLTHrPUlh9/
-	9x0FnkXLzP41BpL5ktT5ugj2GNPBkLV+jqe2piKXVBdFR04zJezJnGYFPHryxz9aB9r/ZxFodil
-	HupLLAu+sVr4+dhPddeaWuqQoaDVr8mFKJCARVXv9OBxdln3xay1SXyzq78TTG5tD8IBYL6nSYl
-	D7iFaFYBQYMFe4oXafAa1Ewm7MmLIB+DtYbibQrppTLoOjACP2zJedjGKTuU6pVCM639jhyYEv4
-	5WV//9YdWPZIv/xReLuxcvTrBrmGZlO0nmN/baggfN5kOKdrjcLR/vJQmpinHp+jtSsK6OoJ4/l
-	c9arqMsf3jjvp178gPfEgiwO2/kNZpAUXryHcJoE+KQcaKX5gkRFFfaC9QyzUhNio=
-X-Received: by 2002:a05:600c:6c07:b0:493:bc4a:9547 with SMTP id 5b1f17b1804b1-493df0a08dcmr8960075e9.39.1783352062251;
-        Mon, 06 Jul 2026 08:34:22 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+        d=1e100.net; s=20251104; t=1783353498; x=1783958298;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6/PDQZ3VxDQuT8ca8krMapwVAoPTeiAchpcu67sNlkA=;
+        b=jOFQ84VuwcOeN+NZJsp7TvuCTwSrFEacsJPdO3TBFvjM5ChbJyavXcI7+jsKXpeWbw
+         WecedUq+hhricUiEo086mf1x/TkD80pnxnytX1UyzU36dSEIzMRAFBVQ2XJGlMKepaKb
+         263HIVViHiHQR7NS/ey+3IGk9JACyaZ3D8RmOIGRs+rVfBsr9m3y8H1w1lUwEXS06e7E
+         v6rmw78/doWdbIljGpXeYs5mdE3edt4sHokTYj9DD4SQeezFjxX5qr1JVvfV+ZHAcndE
+         LKhFF998qwsvFvH48DrN1OKgm/vRer+5xa5Gn9UcRL+6t3iOTg/0do/8lgeNE+wa7dLJ
+         ySsw==
+X-Gm-Message-State: AOJu0YwndaqSWhG562nQM9JwE+0jNLZPjPjaalUdE7u5LYjEOYItwu+/
+	zatjeWHuOqS549WCwjxAsoK/dzRJglBYrlH0IaWtT52cAXJLbOYKZFPDTdJMkQ==
+X-Gm-Gg: AfdE7cmFso5aejaKLI3rO3MJP2HWSVEyaDbORCn1Q5613YwRClNzS33IfkEr7tsEcdo
+	ALBdICM7HxUz38CbMeFkee15OeNEaYA602jbR8KBkDDjK/X3MShrsC++4KZuqAyX+jvNRL3v7h/
+	GtWxWWsCwfkA+fE/87sqokB4tAx5/QBGQQ7A7RZO5pkDlokelNiAEzSZ2KYz9t2QsADEeEx2q5O
+	d5XsmeyJkbQkIhEEeWF9NEvguuso5+oiHt1TZH/jlDSTskYIab7QkCvKill1i6cstGFXhq+rXUf
+	CShAyGVVvZJaUdEbedn17nltw65gk4LflR0ptVm+ML+prVfBb4hMMe+pBqKDJydPAvrFaf4tlql
+	Lx7bs2PoTfc5j7MqAd5kq2Fl51Nly2ehp/reCC9aXChqOdvFwDUKg9IukDI6I1tRgoDRmsnNhlk
+	wQ4qV8cVLr/pSvGZszfnKQq30nIR39WR/4u52zFDOt0Z3DBTnMG6d3IEpRaA==
+X-Received: by 2002:a05:600c:4e56:b0:492:7025:13fd with SMTP id 5b1f17b1804b1-493deb5de6amr16144795e9.0.1783353498198;
+        Mon, 06 Jul 2026 08:58:18 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+	Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH 3/3] x86/entry: Use PUSH_AND_CLEAR_GPRS and drop SAVE_ALL
-Date: Mon,  6 Jul 2026 16:34:15 +0100
-Message-Id: <20260706153415.1264750-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260706153415.1264750-1-andrew.cooper3@citrix.com>
-References: <20260706153415.1264750-1-andrew.cooper3@citrix.com>
+	Timothy Pearson <tpearson@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v5 00/26] Introduce enablemenant of dom0less
+Date: Mon,  6 Jul 2026 17:57:41 +0200
+Message-ID: <cover.1783331040.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1783352063-FCF2D25E-888F2648/0/0
-X-purgate-type: clean
-X-purgate-size: 6974
+X-purgate-ID: tlsNG-c1860d/1783353498-48E6E3FC-31129E3E/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 5803
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:teddy.astie@vates.tech,m:dpsmith@apertussolutions.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,suse.com,raptorengineering.com,wdc.com,apertussolutions.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:from_mime,citrix.com:email,citrix.com:mid,citrix.com:dkim,suse.com:email,vates.tech:email];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D9005712A83
+X-Rspamd-Queue-Id: 2E530712E93
 
-PUSH_AND_CLEAR_GPRS is shorter than SAVE_ALL in terms of emitted code.
+This patch series reprensent a bunch of patches necessary to enable common part
+of Dom0less.
+The stuff necessary to start/launch domains will be introduced separately.
 
-lstar_enter() and cstar_enter() do not need CLD.  The SYSCALL instruction
-sanitises flags based on MSR_SYSCALL_MASK.  For all other cases, place the CLD
-instruction next to STAC/CLAC so the flag handling is together.
+CI tests: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2654761158
 
-Get rid of the compat=1 special case for PV32.  It's not obviously a win, and
-PV32 is getting increasingly rare these days.
-
-No functional change.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Teddy Astie <teddy.astie@vates.tech>
-
-Bloat-o-meter reports:
-  add/remove: 0/0 grow/shrink: 0/12 up/down: 0/-518 (-518)
-  Function                                     old     new   delta
-  symbols_names                             135277  135276      -1
-  symbols_offsets                            53664   53660      -4
-  entry_int82                                  229     213     -16
-  sysenter_entry                               383     328     -55
-  handle_ist_exception                         450     395     -55
-  handle_exception                             683     628     -55
-  entry_int80                                  432     377     -55
-  entry_DF                                     294     239     -55
-  early_page_fault                             139      84     -55
-  common_interrupt                             327     272     -55
-  lstar_enter                                  322     266     -56
-  cstar_enter                                  323     267     -56
+Changes in v5:
+ - Add new patch (xen/riscv: do a 4th linking pass if necessary) which fixes
+   randconfig job issue.
+ - Address comments from ML.
 ---
- xen/arch/x86/include/asm/asm_defns.h | 45 ----------------------------
- xen/arch/x86/x86_64/compat/entry.S   |  3 +-
- xen/arch/x86/x86_64/entry.S          | 25 ++++++++++------
- 3 files changed, 18 insertions(+), 55 deletions(-)
+Changes in v4:
+ - Address comments from ML.
+---
+Changes in v3:
+ - Drop dependency from other patch series
+   ([1] https://lore.kernel.org/xen-devel/cover.1778140240.git.oleksii.kurochko@gmail.com/T/#t)
+   as it was merged.
+ - Reorder patches:
+   - move common patches to the start.
+   - Move some patches to separate patch series (will be introduced later)
+ - Address comments from ML.
+---
+Changes in v2:
+ - Move patch "[PATCH v1 04/27] xen/riscv: rework G-stage mode handling" to
+   patch series [1]
+ - Address the comments from ML.
+ - The following patches were folded into one:
+   # xen/riscv: implement init_intc_phandle()
+   # xen/riscv: call do_initcalls() in start_xen()
+   # xen/riscv: setup system domains
+ - The following patch were folded into one:
+   # xen/riscv: add vaplic access check
+   # xen/riscv: emulate guest writes to virtual APLIC MMIO
+   # xen/riscv: emulate guest reads from virtual APLIC MMIO
+ - Add new bug fix, not really necessary to this patch series:
+   xen/riscv: manage IRQ_DISABLED flag in APLIC irq enable/disable callbacks
+---
 
-diff --git a/xen/arch/x86/include/asm/asm_defns.h b/xen/arch/x86/include/asm/asm_defns.h
-index d1b80186c14c..6c65acd08366 100644
---- a/xen/arch/x86/include/asm/asm_defns.h
-+++ b/xen/arch/x86/include/asm/asm_defns.h
-@@ -219,51 +219,6 @@ static always_inline void stac(void)
- #endif
- 
- #ifdef __ASSEMBLER__
--.macro SAVE_ALL compat=0
--        addq  $-(UREGS_error_code-UREGS_r15), %rsp
--        cld
--        movq  %rdi,UREGS_rdi(%rsp)
--        xor   %edi, %edi
--        movq  %rsi,UREGS_rsi(%rsp)
--        xor   %esi, %esi
--        movq  %rdx,UREGS_rdx(%rsp)
--        xor   %edx, %edx
--        movq  %rcx,UREGS_rcx(%rsp)
--        xor   %ecx, %ecx
--        movq  %rax,UREGS_rax(%rsp)
--        xor   %eax, %eax
--.if !\compat
--        movq  %r8,UREGS_r8(%rsp)
--        movq  %r9,UREGS_r9(%rsp)
--        movq  %r10,UREGS_r10(%rsp)
--        movq  %r11,UREGS_r11(%rsp)
--.endif
--        xor   %r8d, %r8d
--        xor   %r9d, %r9d
--        xor   %r10d, %r10d
--        xor   %r11d, %r11d
--        movq  %rbx,UREGS_rbx(%rsp)
--        xor   %ebx, %ebx
--        movq  %rbp,UREGS_rbp(%rsp)
--#ifdef CONFIG_FRAME_POINTER
--/* Indicate special exception stack frame by inverting the frame pointer. */
--        leaq  UREGS_rbp(%rsp), %rbp
--        notq  %rbp
--#else
--        xor   %ebp, %ebp
--#endif
--.if !\compat
--        movq  %r12,UREGS_r12(%rsp)
--        movq  %r13,UREGS_r13(%rsp)
--        movq  %r14,UREGS_r14(%rsp)
--        movq  %r15,UREGS_r15(%rsp)
--.endif
--        xor   %r12d, %r12d
--        xor   %r13d, %r13d
--        xor   %r14d, %r14d
--        xor   %r15d, %r15d
--.endm
--
- /*
-  * Push and clear GPRs
-  */
-diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
-index 4bf4ee7c944c..2503a973ffc2 100644
---- a/xen/arch/x86/x86_64/compat/entry.S
-+++ b/xen/arch/x86/x86_64/compat/entry.S
-@@ -13,10 +13,11 @@
- 
- FUNC(entry_int82)
-         ENDBR64
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-         movb  $HYPERCALL_VECTOR, EFRAME_entry_vector(%rsp)
--        SAVE_ALL compat=1 /* DPL1 gate, restricted to 32bit PV guests only. */
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index cd3532d7d174..22729b1f43b8 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -305,7 +305,7 @@ FUNC(lstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -345,7 +345,7 @@ FUNC(cstar_enter)
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -383,13 +383,14 @@ FUNC(sysenter_entry)
-         pushq $0
-         pushfq
- LABEL(sysenter_eflags_saved, 0)
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $3 /* ring 3 null cs */
-         pushq $0 /* null rip */
-         pushq $0
-         BUILD_BUG_ON(TRAP_syscall & 0xff)
-         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -442,10 +443,11 @@ END(sysenter_entry)
- 
- FUNC(entry_int80)
-         ENDBR64
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
-         pushq $0
-         movb  $0x80, EFRAME_entry_vector(%rsp)
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -722,8 +724,9 @@ END(ret_from_intr)
-         .section .init.text, "ax", @progbits
- FUNC(early_page_fault)
-         ENDBR64
-+        cld
-         movb  $X86_EXC_PF, EFRAME_entry_vector(%rsp)
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
-         movq  %rsp, %rdi
-         call  do_early_page_fault
-         jmp   restore_all_xen
-@@ -769,8 +772,9 @@ UNLIKELY_END(exit_cr3)
- END(restore_all_xen)
- 
- FUNC(common_interrupt)
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -805,8 +809,9 @@ FUNC(entry_PF)
- END(entry_PF)
- /* No special register assumptions. */
- FUNC(handle_exception, 0)
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -1103,9 +1108,10 @@ END(entry_CP)
- FUNC(entry_DF)
-         ENDBR64
-         movb  $X86_EXC_DF, EFRAME_entry_vector(%rsp)
-+        cld
-         /* Set AC to reduce chance of further SMAP faults */
-         ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
-@@ -1132,8 +1138,9 @@ FUNC(entry_NMI)
- END(entry_NMI)
- 
- FUNC(handle_ist_exception)
-+        cld
-         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
--        SAVE_ALL
-+        PUSH_AND_CLEAR_GPRS
- 
-         GET_STACK_END(14)
- 
+Oleksii Kurochko (26):
+  xen/dom0less: turn max_init_domid into a common variable
+  xen: arm: move declaration of map_device_irqs_to_domain() to common
+    header
+  xen: arm: update p2m_set_allocation() prototype
+  xen/Kconfig: introduce HAS_STATIC_MEMORY
+  xen/riscv: rename enum intc_version to intc_variant
+  xen/riscv: Implement ARCH_PAGING_MEMPOOL
+  xen/riscv: Implement construct_domain()
+  xen/riscv: implement prerequisites for domain_create()
+  xen/riscv: introduce guest riscv,isa string
+  xen/riscv: implement make_cpus_node()
+  xen/riscv: implement make_timer_node()
+  xen/riscv: implement make_arch_nodes()
+  xen/riscv: introduce init interrupt controller operations
+  xen/riscv: implement make_intc_domU_node()
+  xen/riscv: introduce aia_init() and aia_usable()
+  xen/riscv: introduce per-vCPU IMSIC state
+  xen/riscv: introduce minimal virtual APLIC (vAPLIC) infrastructure
+  xen/riscv: introduce (de)initialization helpers for vINTC
+  xen/riscv: generate IMSIC DT node for guest domains
+  xen/riscv: create APLIC DT node for guest domains
+  xen/riscv: implement IRQ routing for device passthrough
+  xen/riscv: implement init_intc_phandle()
+  xen/riscv: initialize RCU, scheduler, and system domains in
+    start_xen()
+  xen/riscv: provide init_vuart()
+  xen/riscv: add initial dom0less infrastructure support
+  xen/riscv: do a 4th linking pass if necessary
+
+ build/tools/fixdep                        | Bin 0 -> 13632 bytes
+ xen/arch/arm/Kconfig                      |   1 +
+ xen/arch/arm/device.c                     |   9 +-
+ xen/arch/arm/include/asm/p2m.h            |   1 -
+ xen/arch/arm/include/asm/setup.h          |   5 -
+ xen/arch/arm/mmu/p2m.c                    |  24 +--
+ xen/arch/arm/setup.c                      |   2 -
+ xen/arch/ppc/include/asm/setup.h          |   2 -
+ xen/arch/riscv/Kconfig                    |   3 +
+ xen/arch/riscv/Makefile                   |  20 +-
+ xen/arch/riscv/aia.c                      |  23 +++
+ xen/arch/riscv/aplic-priv.h               |  14 ++
+ xen/arch/riscv/aplic.c                    |  16 +-
+ xen/arch/riscv/cpufeature.c               | 132 +++++++++---
+ xen/arch/riscv/device.c                   |  94 +++++++++
+ xen/arch/riscv/dom0less-build.c           |  40 ++++
+ xen/arch/riscv/domain-build.c             | 211 +++++++++++++++++++
+ xen/arch/riscv/domain.c                   |  45 +++-
+ xen/arch/riscv/imsic.c                    | 179 +++++++++++++++-
+ xen/arch/riscv/include/asm/aia.h          |  10 +
+ xen/arch/riscv/include/asm/aplic.h        |  10 +
+ xen/arch/riscv/include/asm/cpufeature.h   |   6 +
+ xen/arch/riscv/include/asm/domain.h       |   7 +
+ xen/arch/riscv/include/asm/guest-layout.h |  24 +++
+ xen/arch/riscv/include/asm/imsic.h        |  25 +++
+ xen/arch/riscv/include/asm/intc.h         |  48 ++++-
+ xen/arch/riscv/include/asm/irq.h          |   5 +
+ xen/arch/riscv/include/asm/paging.h       |   2 +-
+ xen/arch/riscv/include/asm/setup.h        |   2 -
+ xen/arch/riscv/include/asm/vaplic.h       |  34 ++++
+ xen/arch/riscv/intc.c                     | 102 +++++++++-
+ xen/arch/riscv/irq.c                      | 238 ++++++++++++++++++++++
+ xen/arch/riscv/p2m.c                      |  33 ++-
+ xen/arch/riscv/paging.c                   |   7 +-
+ xen/arch/riscv/setup.c                    |  12 ++
+ xen/arch/riscv/stubs.c                    |  17 --
+ xen/arch/riscv/vaplic.c                   | 142 +++++++++++++
+ xen/arch/x86/include/asm/setup.h          |   2 -
+ xen/common/Kconfig                        |   4 +
+ xen/common/device-tree/dom0less-build.c   |   2 +-
+ xen/common/domid.c                        |   5 +
+ xen/drivers/char/console.c                |   1 +
+ xen/include/xen/dom0less-build.h          |   7 +
+ xen/include/xen/fdt-domain-build.h        |  13 ++
+ xen/include/xen/p2m-common.h              |   8 +
+ 45 files changed, 1470 insertions(+), 117 deletions(-)
+ create mode 100755 build/tools/fixdep
+ create mode 100644 xen/arch/riscv/aia.c
+ create mode 100644 xen/arch/riscv/device.c
+ create mode 100644 xen/arch/riscv/domain-build.c
+ create mode 100644 xen/arch/riscv/include/asm/aia.h
+ create mode 100644 xen/arch/riscv/include/asm/vaplic.h
+ create mode 100644 xen/arch/riscv/vaplic.c
+
 -- 
-2.39.5
+2.54.0
 
 
