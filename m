@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 0+4qENrRTGr0qAEAu9opvQ
+	id vhrQFkPSTGoiqQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 12:15:54 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 12:17:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B2D71A2E0
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 12:15:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B82FD71A35B
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 12:17:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=HluYhwOW;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=cGH+4V3q;
 	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1356164.1610824 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1356170.1610832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh2pw-0003cr-GM; Tue, 07 Jul 2026 10:15:32 +0000
+	id 1wh2rm-00045e-Pm; Tue, 07 Jul 2026 10:17:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1356164.1610824; Tue, 07 Jul 2026 10:15:32 +0000
+Received: by outflank-mailman (output) from mailman id 1356170.1610832; Tue, 07 Jul 2026 10:17:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh2pw-0003a9-DK; Tue, 07 Jul 2026 10:15:32 +0000
-Received: by outflank-mailman (input) for mailman id 1356164;
- Tue, 07 Jul 2026 10:15:30 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wh2rm-00043x-N9; Tue, 07 Jul 2026 10:17:26 +0000
+Received: by outflank-mailman (input) for mailman id 1356170;
+ Tue, 07 Jul 2026 10:17:24 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wh2pu-0003a3-Kd
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 10:15:30 +0000
+ (envelope-from <ljs@kernel.org>) id 1wh2rk-00043r-Qt
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 10:17:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wh2pu-00CtVo-1N
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 12:15:30 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wh2rj-006ttr-T9
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 12:17:23 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4cd1bf-bab6-0a2a0a5309dd-0a2a4507c924-2
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 12:15:29 +0200
+ id 6a4cd225-e002-0a2a0a5209dd-0a2a450ae358-20
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 12:17:23 +0200
 Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <ljs@kernel.org>)
- id 6a4cd1c0-9c8e-0a2a45070019-aceafc1fbc1c-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 12:15:29 +0200
+ id 6a4cd232-e40e-0a2a450a0019-aceafc1f8f0c-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 12:17:23 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 64240424AD;
- Tue,  7 Jul 2026 10:15:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDAC81F00A3D;
- Tue,  7 Jul 2026 10:15:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 86145419A0;
+ Tue,  7 Jul 2026 10:17:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 122461F000E9;
+ Tue,  7 Jul 2026 10:17:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,16 +58,16 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783419327;
-	bh=mNSla9Czr4vFeuTIzrP/cHDzh+yx/IrTUvaJ5OnP34U=;
+	s=k20260515; t=1783419441;
+	bh=mnyEnVNjUbkl63yjftBd6ZAUslZHuhLMLE5i1q1dbiA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HluYhwOWRqwjbw9mnNEjPVnyh7tR+UBSnSv/otgjpUQBigWOwZUJOYkpU0LnGQPOd
-	 9JWuafQR68ncbIWqn0jW8jTfwPafpmeDnt2Wvr8VLfjDqTgkyFdLwQrzBX5aGYlPBy
-	 bdDr9uov5pNq61DLoYMBBHIrYLPaluS9cGGvVLuwrNNgpnc0PxTOy1Y4Jv6WgqJLPU
-	 g8L2HsabDqHedwwaZisYTmwsI8Liu2LIO7hoQNV8VhXPReqA934JiUn5O3mwQK8rxr
-	 zZFBy1M3lH7Q7XggDkvTulkUo1eG7DFZ7mTqdd75PKoMBF8VkjG7TCZVSFf+WpnFzU
-	 vO+QqUik5Cd9A==
-Date: Tue, 7 Jul 2026 11:15:02 +0100
+	b=cGH+4V3qnWn/h2ntR4JOMP1MeFASTJyb/ukIFIKga6vmMPs4hWnZeyozgnP8o9zcj
+	 4aOepXlE5yG0XgvATIbejO38So9984JOSQXxfemV7MrbXTQdbQqJryZ7by0rmLtk6g
+	 KbyecrBlOO6RxZhZHoEJHQvN3lfQ+IRVIfllVkFrcFe5jzAzy0lAaGw02N38CG8Xem
+	 bIuNc24pIIBeQZLitf75XKOixE/v2BoAd9XaTV+y7NflJFaBKiVOSfh8s3qL1kjbV3
+	 QtnOkHzUZcffKxdXoostqrwbOmOdDgDEYFoMQefdIk5SYi6OuZQQ8BSF6bkbad2igD
+	 ZZ2I4X8hc6i0g==
+Date: Tue, 7 Jul 2026 11:16:56 +0100
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Zi Yan <ziy@nvidia.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -106,23 +106,24 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
 	linux-fbdev@vger.kernel.org, linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
 	linux-mm@kvack.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 02/13] mm/vma: update do_mmap() to use vma_flags_t
-Message-ID: <akzRdIS8ZotxIOFR@lucifer>
+Subject: Re: [PATCH 03/13] mm: convert __get_unmapped_area() to use
+ vma_flags_t
+Message-ID: <akzR7JQuaKEQpH5Y@lucifer>
 References: <cover.1782760670.git.ljs@kernel.org>
- <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
- <DJRZ2QCEIVA6.1AZF5S891NKS4@nvidia.com>
+ <b1ad7c4443f5cba622e4c48c5a9ef15427001a93.1782760670.git.ljs@kernel.org>
+ <DJRZGEZU5ESV.3IP5LEAUQJCBK@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DJRZ2QCEIVA6.1AZF5S891NKS4@nvidia.com>
-X-purgate-ID: tlsNG-ef75cf/1783419329-7D32F25E-2B07BD59/0/0
+In-Reply-To: <DJRZGEZU5ESV.3IP5LEAUQJCBK@nvidia.com>
+X-purgate-ID: tlsNG-4011c0/1783419443-D693DDDE-3880C479/0/0
 X-purgate-type: clean
-X-purgate-size: 4300
+X-purgate-size: 2630
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -155,127 +156,83 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 94B2D71A2E0
+X-Rspamd-Queue-Id: B82FD71A35B
 
-On Mon, Jul 06, 2026 at 10:10:32PM -0400, Zi Yan wrote:
+On Mon, Jul 06, 2026 at 10:28:24PM -0400, Zi Yan wrote:
 > On Mon Jun 29, 2026 at 3:25 PM EDT, Lorenzo Stoakes wrote:
-> > The core do_mmap() function accepts a vm_flags_t parameter which it then
-> > manipulates before passing to mmap_region() to do the heavy lifting of the
-> > memory mapping.
+> > Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
+> > vm_flags_t as part of the effort to move VMA flags from a system word to a
+> > bitmap.
 > >
-> > Update do_mmap() to instead accept a vma_flags_t parameter, and adjust all
-> > the logic within do_mmap() to manipulate this instead.
-> >
-> > This is as part of the ongoing effort to convert VMA flags from a system
-> > word size to a bitmap type which allows us to unrestrict the number of VMA
-> > flags, as well as gain control over how VMA flag manipulation occurs.
-> >
-> > We do not cascade these changes to all functions which accept vm_flags_t,
-> > but rather use vma_flags_to_legacy() where necessary, specifically
-> > deferring converting calc_vm_prot_bits(), calc_vm_flag_bits() and
-> > __get_unmapped_area() to vma_flags_t.
-> >
-> > Also utilise the new vma_flags_can_grow() predicate which correctly handles
-> > the case of architectures without upward growing stacks.
-> >
-> > As part of this change, introduce VMA_SHADOW_STACK so we can correctly
-> > handle the case of the shadow stack not being defined.
+> > We cascade the changes up to arch_get_unmapped_area_topdown() and
+> > arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
+> > order to propagate the VMA flags.
 > >
 > > No functional change intended.
 > >
 > > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 > > ---
-> >  arch/mips/kernel/vdso.c |  4 +--
-> >  fs/aio.c                |  2 +-
-> >  include/linux/memfd.h   |  6 ++--
-> >  include/linux/mm.h      |  6 ++--
-> >  ipc/shm.c               |  3 +-
-> >  mm/memfd.c              | 15 ++++-----
-> >  mm/mmap.c               | 67 ++++++++++++++++++++++++-----------------
-> >  mm/nommu.c              |  3 +-
-> >  mm/util.c               | 10 +++---
-> >  mm/vma.c                |  7 ++---
-> >  mm/vma.h                |  2 +-
-> >  11 files changed, 69 insertions(+), 56 deletions(-)
+> >  fs/hugetlbfs/inode.c     |  3 ++-
+> >  include/linux/huge_mm.h  | 10 +++++-----
+> >  include/linux/mm.h       |  6 ++++--
+> >  include/linux/sched/mm.h | 12 ++++++------
+> >  mm/huge_memory.c         | 21 ++++++++++++---------
+> >  mm/mmap.c                | 27 ++++++++++++++-------------
+> >  6 files changed, 43 insertions(+), 36 deletions(-)
 > >
+> <snip>
+>
+> > diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+> > index 95d0040df584..b301ec90740a 100644
+> > --- a/include/linux/sched/mm.h
+> > +++ b/include/linux/sched/mm.h
+> > @@ -193,12 +193,12 @@ unsigned long mm_get_unmapped_area(struct file *filp, unsigned long addr,
+> >  				   unsigned long len, unsigned long pgoff,
+> >  				   unsigned long flags);
+> >
+> > -unsigned long mm_get_unmapped_area_vmflags(struct file *filp,
+> > -					   unsigned long addr,
+> > -					   unsigned long len,
+> > -					   unsigned long pgoff,
+> > -					   unsigned long flags,
+> > -					   vm_flags_t vm_flags);
+> > +unsigned long mm_get_unmapped_area_vmaflags(struct file *filp,
+> > +					    unsigned long addr,
+> > +					    unsigned long len,
+> > +					    unsigned long pgoff,
+> > +					    unsigned long flags,
+> > +					    vma_flags_t vma_flags);
+>
+> Want to use two-tab indentation while at it?
+
+Yeah sure will fix on respin!
+
 >
 > <snip>
 >
-> >
-> > -static int check_write_seal(vm_flags_t *vm_flags_ptr)
-> > +static int check_write_seal(vma_flags_t *vma_flags_ptr)
-> >  {
-> > -	vm_flags_t vm_flags = *vm_flags_ptr;
-> > -	vm_flags_t mask = vm_flags & (VM_SHARED | VM_WRITE);
-> > -
-> >  	/* If a private mapping then writability is irrelevant. */
-> > -	if (!(mask & VM_SHARED))
-> > +	if (!vma_flags_test(vma_flags_ptr, VMA_SHARED_BIT))
-> >  		return 0;
-> >
-> >  	/*
-> >  	 * New PROT_WRITE and MAP_SHARED mmaps are not allowed when
-> >  	 * write seals are active.
-> >  	 */
-> > -	if (mask & VM_WRITE)
-> > +	if (vma_flags_test(vma_flags_ptr, VMA_WRITE_BIT))
-> >  		return -EPERM;
-> >
-> >  	/*
-> >  	 * This is a read-only mapping, disallow mprotect() from making a
-> >  	 * write-sealed mapping writable in future.
-> >  	 */
-> > -	*vm_flags_ptr &= ~VM_MAYWRITE;
-> > +	vma_flags_clear(vma_flags_ptr, VMA_MAYWRITE_BIT);
-> >
-> >  	return 0;
+> > @@ -812,19 +811,20 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
 > >  }
->
-> This function alone changed its original behavior, since vm_flags is a
-> snapshot of *vm_flags_ptr, but after the change this snapshot is gone.
-> But its only caller memfd_check_seals_mmap() gets vm_flags_ptr from the
-> input parameter of do_mmap(), so the overall behavior does not change.
-
-Right yeah, the snapshot was always just a convenience thing :)
-
->
-> <snip>
->
-> > +		case MAP_DROPPABLE: {
-> > +			vma_flags_t droppable = VMA_DROPPABLE;
-> > +
-> > +			if (vma_flags_empty(&droppable))
-> >  				return -EOPNOTSUPP;
-> > +			vma_flags_set_mask(&vma_flags, droppable);
-> > +
-> >  			/*
-> >  			 * A locked or stack area makes no sense to be droppable.
-> >  			 *
-> > @@ -515,23 +527,24 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
-> >  			 */
-> >  			if (flags & (MAP_LOCKED | MAP_HUGETLB))
-> >  			        return -EINVAL;
-> > -			if (vm_flags & (VM_GROWSDOWN | VM_GROWSUP))
-> > +			if (vma_flags_can_grow(&vma_flags))
-> >  			        return -EINVAL;
+> >  #endif
 > >
-> > -			vm_flags |= VM_DROPPABLE;
-> > -
+> > -unsigned long mm_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
+> > -					   unsigned long len, unsigned long pgoff,
+> > -					   unsigned long flags, vm_flags_t vm_flags)
+> > +unsigned long mm_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
+> > +					    unsigned long len, unsigned long pgoff,
+> > +					    unsigned long flags, vma_flags_t vma_flags)
 >
-> Lance pointed out the reordering of setting VMA_DROPPABLE and checking
-> of can_grow, but these flags are not overlapped and there is no parallel
-> writer to vma_flags. So it is still no functional change, just not
-> mechanical changes. :)
+> Ditto.
 
-Right yes exactly :)
+Ack will fix!
 
 >
-> Otherwise, LGTM.
+> LGTM.
 >
 > Reviewed-by: Zi Yan <ziy@nvidia.com>
 
 Thanks!
 
+>
 >
 > --
 > Best Regards,
