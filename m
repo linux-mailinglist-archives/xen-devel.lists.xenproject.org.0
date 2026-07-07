@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id CzxNK0yvTGploAEAu9opvQ
+	id vhSMJvS2TGpZogEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:48:28 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:21:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA08718A48
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:48:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DADCA71903A
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:21:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=HtQpoDCC;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1355993.1610663 (Exim 4.92)
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=CmJm9yWC;
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1356021.1610672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh0XM-00018h-Jl; Tue, 07 Jul 2026 07:48:12 +0000
+	id 1wh12B-0006Rb-KU; Tue, 07 Jul 2026 08:20:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355993.1610663; Tue, 07 Jul 2026 07:48:12 +0000
+Received: by outflank-mailman (output) from mailman id 1356021.1610672; Tue, 07 Jul 2026 08:20:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh0XM-00017I-Gv; Tue, 07 Jul 2026 07:48:12 +0000
-Received: by outflank-mailman (input) for mailman id 1355993;
- Tue, 07 Jul 2026 07:48:11 +0000
+	id 1wh12B-0006Om-He; Tue, 07 Jul 2026 08:20:03 +0000
+Received: by outflank-mailman (input) for mailman id 1356021;
+ Tue, 07 Jul 2026 08:20:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wh0XL-00017C-6r
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 07:48:11 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wh12A-0006FO-Vo
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 08:20:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wh0XJ-003f92-FY
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 09:48:09 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wh12A-00CwVv-5g
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 10:20:02 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a4caf36-5cb7-0a2a0a5109dd-0a2a450982b8-12
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:48:09 +0200
-Received: from [52.101.201.10]
- (helo=PH7PR06CU001.outbound.protection.outlook.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a4caf37-97e6-0a2a45090019-3465c90a66a8-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:48:09 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SA2PR03MB5771.namprd03.prod.outlook.com (2603:10b6:806:11e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Tue, 7 Jul
- 2026 07:48:05 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0181.009; Tue, 7 Jul 2026
- 07:48:05 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4cb6ae-2eae-0a2a0a5409dd-0a2a450a83f0-22
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:20:01 +0200
+Received: from [209.85.167.42] (helo=mail-lf1-f42.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4cb6b1-e40e-0a2a450a0019-d155a72abddc-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:20:01 +0200
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5aeb5e85378so4386579e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 01:20:01 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5aed13c8c3asm3498227e87.82.2026.07.07.01.20.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Jul 2026 01:20:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,219 +59,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F/27Gq3wTdpePlpHPohVGSLvzKI3HTY1f2H3yeMOFZnkLJ5GeAWCQ6MA1iv42dK1ioG1oQt5WXyP+I8awaNhjzmjTrso/uUrHz3bCRBuLOt6504l/36xRazNPi1ZI5FkJBbpe/ECcUqc7dXDLohHP+RshHhnAIHgIp6JXxJzIKgAaSOpIGOePVEO27e8CSvyYSO7WZh6T0cVUWEp4ZECI43A6iZDv9GJ7ESuPZ38XrmnW+tYYQPh+vWt1xYf6EJZ228wrnl3eca8jPPFljhyjF/CWOZxB04CR4ve0zduOpAz1U5NYqFunKN1gLvfXCLRepnBTGCzWrDES/OjwOqEkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f9klClZThwOFWr8Eq1f2cJVfOPhQAKdEE9+HWrji7yI=;
- b=Iqn0Z4OAMLysIlh0Ck4U//DUEqgTRD1QL3T4DdYDfZY6PIwwjKbc8Tczy2xI4b5f0cvU3Bl7EHTiR051+Qnz/eStmD1W534SJwLCtMu+SYq/EgkG7LLhZ29tIKjKcCB8ZBoCUh3M9kOlhOqtQykvGHCdWlR9wHGUxMXkBJvBqH++xth3u7Bx/1lH1xlwOyhPpGlfp+Nb610IsRqoIZL01HqtPiFUGL/4uL1xXU4mfbNcAZoz4181bjY23IlaOulgoBrewMOU0NW6k4r1y3vB5GmFqO1h78CDeKU20ovY15fvbdvMc2mPPAgbjtdT81SdjUKN6QzGyUrLakQOAp5pRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f9klClZThwOFWr8Eq1f2cJVfOPhQAKdEE9+HWrji7yI=;
- b=HtQpoDCCf5CPpLmdisfVbuCoH0xdKmNNYj9WIAmx++SyjigucAB9DphQlROHgWIZWsAcSy6uUxL/2ShXT75i7CsUPzHO1VFmasv3tAUaSj+PyLV9rpWGy8nmLVRb7F7vRkXi7R2gvtvsVGzmAoGFppJCBcpRSFu6lXrY8SVN6Eo=
-Date: Tue, 7 Jul 2026 09:48:02 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Doruk Tan Ozturk <doruk@0sec.ai>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] xen-blkfront: fix double completion of split requests on
- resume
-Message-ID: <akyvMpT0fBT5EDME@macbook.local>
-References: <20260705115639.72805-1-doruk@0sec.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260705115639.72805-1-doruk@0sec.ai>
-X-ClientProxiedBy: BN1PR10CA0026.namprd10.prod.outlook.com
- (2603:10b6:408:e0::31) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783412401; x=1784017201; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lDHW20h20Zg6KDUMq92qcS2XQLqNXHumydYe4vRGDsU=;
+        b=CmJm9yWCRrtZ5RLBQCO7s40YcZ2U+VciRQmWjV4UliBpJmUXWPuQ/5NqW4a9FWDxlP
+         uYcxE4yJfiFbNBdPG3gg4IuOFSyRp5Gxr1tcQkA3dRNPdcs5WB4Z8+dCPLkzx4HICo2V
+         p3r8Epw1ICyZrOWmxaHPGEbOQmW4v6lDuE2FDJ6iOHn6kak+35j9T815yTFlru1C5xuE
+         SYTMZe18FJgGMageyInb4koKU7yQSrb7+u27tCF6meye8UFG43z65EoFa5ye1Eqj5jYA
+         3zQ3JqGPhD9w3UYKFDlbDb0qtIQRAAFK3i/UgbpsYB1IPUvcwBFtEyrJBrPMlylrW+qm
+         sZJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783412401; x=1784017201;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lDHW20h20Zg6KDUMq92qcS2XQLqNXHumydYe4vRGDsU=;
+        b=rDTXiSAtOZZGqkcOmo46r6crbDAkvNHiaf9tDeCc9oaleUbk+/k6klyCdUSnUn7anJ
+         bHOaPgh+pz70z0Y1LUo7z+jvjAM+vhubC+gcYQ8i5x8kk+dhbTVAt1UCoo0RVLPXsZv+
+         e+qNBpRItuX7y+pmCJR62x1UxbUj6NucJFWL1GPQiTPz2q7O6yJ4jxg0yXIwF+9tSKLR
+         vIIDuRi/G85nU1mWgVqyYP7qD/UdA+pKmxBOMCyqKP+CxDVP+KIkGqpjzljXPAQCYJKN
+         f+2sM3Ic5X9lSSs4fX84LEJxw5SyzRt7H4ohSNBqCPzfl3uHeDXDK319K705SNBXGFfR
+         TpBg==
+X-Forwarded-Encrypted: i=1; AHgh+RpXMFk6dgLp2ZtbGUiy/lBoIu9eQK5ce42mqXsFsIF+KcjSXxM/JszKuClpzX2URSZD9nJ/T6MUi7I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxYynCVkEVF+Jb/ZQrJ0HNr8D2alpe+myel66nhcxgyXagUzSnN
+	2i0BGgo8NtVx7uoJo6C/bxYnRQmTgxuJOvc120kqMerlglrGwjvaoPvs
+X-Gm-Gg: AfdE7cks13OcCURWiBoq2VvnNf8dvu80bPSkgc7xO1hn72e2+haRdue/S2Me02WOlWe
+	z6A1vF4sTxyhjwMx2zEjCy+I5iL0j9ZzcBR9Qdly222LUwE4zzEIArkbuj3HQCK/oxS73XLsyqN
+	1EbDOBEf5V8/IRk/FNnj/pMUeXfexuMApXKUyRJ0DWoAmnNSYoimWrnVYp9o/1kpYmQAyY8quhJ
+	YrAAFVG9fUR0w7Ya/pPiqdHo1SjgwPOH92pGGVnH+7nuTPi+1etRzGQueOvaUcLlKjj+NloEVaj
+	z8VFxArdTvmvO08ob8GuhPRhyIKwuF2lZ6cpKShYWBT2p/TeCWrWsXt4c3kQBpyh8/tSfCQ5cCu
+	di04jHaXRXYE0vjOfTaXR/Ce8uN1coeJ7808kg8MftZAh62OeI6xC5kKWuJZuvqV/Ew9S7XebR6
+	Bc3s7Q+t/yWjQEGJWEFg7BOWy4rmNRfY1t74k7OsRMSQoHUMoFTUYxZFGPIidut7z/IY0=
+X-Received: by 2002:a05:6512:61a:b0:5ae:c21b:1cb6 with SMTP id 2adb3069b0e04-5b007c09eefmr774963e87.28.1783412401085;
+        Tue, 07 Jul 2026 01:20:01 -0700 (PDT)
+Message-ID: <66b5f31f-8ef6-4555-9c04-f5314512b598@gmail.com>
+Date: Tue, 7 Jul 2026 10:19:59 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA2PR03MB5771:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e9b05b3-6502-47a9-dcea-08dedbfc142b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|18002099003|22082099003|11063799006|3023799007|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	H7d3jbU+9wzVWfvTDFwVBphO8Hd0j/vam5Q6Ggzvw3A5pNuVyoyYGT3pqY1xyjktgQRs006l074VxqzyfoQSUB4qNccoTOOFAh9p/bNeKd00FfVxbezTy9UcuGsB1kMZFhVlG6YsJ0yDo67VxlFBFOAVgEkb8z3UH8qUic0q6g5oNMZiVKyZtGh5jR+A14tDzPD4O5QriLJJ82p5md+AO0p+9uiWEPlcUySzjN5F/9KalTBFT0ZhN7CPvJ88FjBwirTnP4AtAGec9uTXG5eJpQo4Q4nNhW5f6IpQCoITRV47nOtCaWyxQlWUhjepSZfpQGlrJqiDuTn0A8pKjpnYrtbSJdqV4TN8pkMkk+po4OTkLpNQNrwz3653VPjHe0QGhewxTdZ9xn0nA//E7wT4326iH2rudKbIkuzL7QkJeY4MD6qLZsAJEg0e/hv+HW/lEoGQzwF9kCVaslDMwOYJtKUrMqmYDedMiaMo8+6lEJ0ZzufFYvKFVH+k7wt6/xmwFay5X0d/eY/W2uaWjHB4jnscS2/IbzW5bjZpZg6WyPri1I39cAfWH79pfrN4x+zVeukMht32reA6LDZAw0VvwUzVFXZ1FuiaLGwklaVCqAs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3YwYitQdGJOM1Rob0NXODJQazErNGhkKzU1c00xOUFwM2piYlRwZXF1N3Zw?=
- =?utf-8?B?YUp6bUM3SE5CekNQUzZxMGZORE0vV2FWODViamJpeUFOWTN4WXlYaFVEVUoy?=
- =?utf-8?B?cFVNbEtRTGFiOVRKbGtlUHdUTFc5KzdVaUpobzJwdld5Q0ZxTG93Zkc1RlJP?=
- =?utf-8?B?Z3luSis0TThSUGxyOFkvc3NjNzNiVFg3cGF1MUV1cFlGc0p2VVI3WWg4ZWYr?=
- =?utf-8?B?MS9GRWFJZ3FZRkNPQTNHQ3ZZQXhUU1REMExrL1JLTmJjYVF3ZHRUbWl4N042?=
- =?utf-8?B?aC9UK3hpNWF2ZUxpbEZaTkdsQzVGWlBwYlVXdElUa2tJMmdjaTVNVjJUeVpJ?=
- =?utf-8?B?eXNjeGJjSlA4aHZYQ0tiNmpnSU1LYSs3MTVST0NVUWxzRVBNeWNJR1NRQk9B?=
- =?utf-8?B?RGhyQkxGZk0xa3lIbnJtemczdDlrTzZkamhnZTlGOHdsMDlhdFV2ZHB1QXFF?=
- =?utf-8?B?YUhkUVBiN0FmWFFPUEY3WTJsOHYzRVVneU0xRlorV21pbHBiZXR4aWw2ZlNs?=
- =?utf-8?B?dXNpM1BabnVQSUE0WmllVXp4WWVVWTJ3WG1mQ0FzV3dMUVhjTmdiazlhQmky?=
- =?utf-8?B?R0NXZXZSZ3BzTm94YW9GMUdlY0sxNHlvRjQ0MWkwZ0N0ZC9SL1NUN1FLQ013?=
- =?utf-8?B?Zi94RjBwbTFjc3kxU3hUY1Vzd2dKdUkwVEFwOExRcG5yN0Y2NjMwNGpiZEVq?=
- =?utf-8?B?VHYyUkhqZDFLZjNaY0U1TjlWalRvY0VLR1ErbzlORmxrWUhUeGZJWHpXaDkv?=
- =?utf-8?B?MDU2bEswZHZVYjZBUVc5d0hVS3E5d1NMK1dleFJvUWdGa1lSUTlQYjVyVVNP?=
- =?utf-8?B?dzJ1ZXFQVS9LR0pnS0hrNVVrZHBFVURRMXpBbDV6aUVlbUVVMEk3SWFkL0lm?=
- =?utf-8?B?aHMwNEtTc3NNM05uZjd3SnNrOElyK0hob3dXd0ZqcDkxVW92aWFGRmNHWHlT?=
- =?utf-8?B?NkN6RmpkQ0pCdnNLZUdvcWU5clJneUxMZEFFcTJ6NkRxMk1OVUdTVHQ3bDI5?=
- =?utf-8?B?MVBXTUcyS2dLN0ZEUUlnamFLL2xJR2xKWlF5dk1tOUFNeXJoVnN2ME9DZVJl?=
- =?utf-8?B?TEtjbm1sUjJRVUpNOUJ1Q3o4K25MK3Zxd0RCTUFNRVRMb1kzVkVzVWw3Nk5Y?=
- =?utf-8?B?MCs3VWtIL3ZKNFhkTmd1RTRYTm13eU9CaWpSelRKZklSVWFjRmV2UDBiTU1y?=
- =?utf-8?B?aDl6bkZTQTJQbk9LNlV6eTRQZ1lVMi9mUGczL1dKTjV2V1FpcERQbk5NVHgx?=
- =?utf-8?B?Lzh3Qy8raUZrbVUzNWlNbHhXb2FCOVpZUWZKUUpMKzBvZXJpZ0dNMVZzTlJu?=
- =?utf-8?B?cGg5U2htU21zLzJqTVZsUGtJa0tCaUN2YXp3bHNjcWN1TXRLdWpZaE01ZDNO?=
- =?utf-8?B?ZktGOFMvNm5zZ0V2N0YveDVnSnJLYllEcHQxNDdVM2VQY1JVQ2xPQVNTYzN0?=
- =?utf-8?B?dE5kYmJ6ZlpDTFR4L0RkOGh6emxZZkNtazZyUlRtcFZ2eGdwc1Nrb0Ruc3NS?=
- =?utf-8?B?Z21wc0pibGh2UG93aE4zZDhRV2Y1enQ4RFF0YkZ5NDZSYzBRSmhieFVtK1JC?=
- =?utf-8?B?VEowVmVSK2JIYmhJeHkxeDFMQnExTExIOHM2UUhOSFR2cUxEWUpoNGtCWjAz?=
- =?utf-8?B?c0VDanVPRnp2MjZmR2xoYU04K2pQbmRRVUtMVWdqbjJTZUF2RHRGeXNZR3hv?=
- =?utf-8?B?QmZaam9nWDAwWkJsUDlrWFN6K0YzRTNScXhzOWlBUHJ2bEVRQnV3MS9TRFBn?=
- =?utf-8?B?a1h5VzNFR2VFbWhkVHZMVWhROGFBSTlYeVFGU3hBSm5JWFdYS1YvOVM2R1NH?=
- =?utf-8?B?R3lsc0tZbFJVM1JHNjgyNUNkNG5za2pYZllUb2o3K1ZaVytOdUxsYjRRdzBu?=
- =?utf-8?B?Rk9rVk5mU1NXY0RGcXI2UmxtRHpSdlFnazFSV0JZcGp5bldQTk1MbDM4RUVa?=
- =?utf-8?B?NXN3OFZya0FqUjlrbVVaemRGSVNXMlhjWGxiOVFhSXZFVDQxVUJvODc1TzBL?=
- =?utf-8?B?UkRZTWFlbENPYy8zTkRBMEFyTERnMmZSK0xXYkhueDBhY1dIM3NzYjE4dmxP?=
- =?utf-8?B?SlZkd2FUMm9hNGliOGl3dTZNTHNhZzJqK1ZTQk5PdzJpVEpFeXp1K0JOdnBF?=
- =?utf-8?B?Q2ZYa2VqLzNPeTJKZUlQUEpNSzhGNEoyVDFvMHBKN3ZZQStON2FzYjNKS1JJ?=
- =?utf-8?B?Sm9ROEdpUmVuTTZNM0VqNmcza3hvc2JsbThpRlVyMDRrYnM2cVNNV0RzYVpN?=
- =?utf-8?B?KzY4YWE1cVpRSklPY05rN2RwblpJak1Ib3cyZ3lWM2F3QTRpdWxsOExKYzdj?=
- =?utf-8?B?by96cFl6cDQ0UUxPa09UUEN1Zm9ONjN1VnZyR2dwRVVTTGdIUVdSdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e9b05b3-6502-47a9-dcea-08dedbfc142b
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2026 07:48:05.2102
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sXGZ1e1/nwuWdOdkT8PPwJfGfEBqVut+nheTaI/rvWNxrGyjv1XawuUpAHLqvOZwzV1uKRfWKgkkjmGqPlcS4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5771
-X-purgate-ID: tlsNG-bad1c0/1783410489-56393986-89EDF0B6/0/0
-X-purgate-type: clean
-X-purgate-size: 3632
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 26/26] xen/riscv: do a 4th linking pass if necessary
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
+ <ba3b7e3197ae90c9f0e5190ba34de174b86090ac.1783331040.git.oleksii.kurochko@gmail.com>
+ <3835ed9c-4c9a-49e4-90fd-37644262a942@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <3835ed9c-4c9a-49e4-90fd-37644262a942@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-4011c0/1783412401-CED3BDDE-53ABCCD7/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 7504
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,0sec.ai:url,0sec.ai:email];
-	FORGED_RECIPIENTS(0.00)[m:doruk@0sec.ai,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:axboe@kernel.dk,m:xen-devel@lists.xenproject.org,m:linux-block@vger.kernel.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0EA08718A48
+X-Rspamd-Queue-Id: DADCA71903A
 
-On Sun, Jul 05, 2026 at 01:56:39PM +0200, Doruk Tan Ozturk wrote:
-> When a block request is too large for a single ring entry and the
-> backend does not support indirect descriptors, blkfront splits it
-> across two ring requests.  blkif_ring_get_request() is called twice
-> and both shadow slots (shadow[id] and shadow[extra_id]) are made to
-> point at the *same* struct request, linked together through
-> associated_id.
 
-This is not exactly accurate.  Under normal operation the blk queue
-parameters are already set to ensure the requests match the maximum
-size the ring can accommodate.  However on ARM there's a corner case
-when the guest is using 64K pages, as in that case even a single page
-request cannot possibly fit into a single ring slot, and thus needs to
-be split.
 
-This needs mentioning explicitly in the commit message, that such
-splitting only happens when the frontend is running on a 64K page
-kernel.
+On 7/6/26 6:13 PM, Jan Beulich wrote:
+> On 06.07.2026 17:58, Oleksii Kurochko wrote:
+>> Embedding the symbol table can shift sections and flip relaxation
+>> decisions, changing code size and thus the set of emitted symbols
+>> (e.g. gap end markers).
+> 
+> What difference in symbols is there? (And: Do you mean the ELF symbol
+> table or what tools/symbols emits?) On ...
+
+The ELF symbol tables of .xen-syms.0 and .xen-syms.1 are identical
+(same names, types, and count; only addresses past a certain point
+differ). The difference is in what tools/symbols emits: the
+address-only "end of symbol" entry produced when want_symbol_end()
+is true, i.e. when a sized text symbol's end doesn't reach the next
+symbol's address:
+
+     static bool want_symbol_end(unsigned int idx)
+     {
+         return table[idx].size &&
+                (idx + 1 == table_cnt ||
+                 table[idx].addr + table[idx].size < table[idx + 1].addr);
+     }
+
+In pass 1 (generated from .xen-syms.0): simple_strtoull is at
+0xffffffffc00c0444 with size 0x16c, ending at 0xffffffffc00c05b0,
+while turn_on_mmu (alignment-pinned) starts at 0xffffffffc00c05c0.
+16-byte gap -> the end marker at ...c05b0 is emitted.
+
+In pass 2 (generated from .xen-syms.1): simple_strtoull moved to
+0xffffffffc00c0454 (same size), ending at exactly 0xffffffffc00c05c0
+== turn_on_mmu. No gap -> no end marker. Hence symbols_addresses
+shrinks by 8 and symbols_names by 1 (the marker's empty name).
 
 > 
-> On the normal completion path blkif_completion() collapses the pair:
-> it recycles the second slot via add_id_to_freelist() and only completes
-> the request once.  The suspend/resume path in blkfront_resume() does
-> not.  It walks every physical shadow slot and, for each slot whose
-> ->request is set, calls blk_mq_end_request() or re-queues
-> ->request.  For an in-flight split request this visits the shared
-> struct request twice, so on resume/migration the same request is
-> ended (or re-queued) two times.  The second visit is a double
-> blk_mq_end_request() (refcount underflow / double free) and a
-> use-after-free read of req->bio, which was cleared on the first visit.
+>>   Re-link with a regenerated table when its
+>> size differs from the previous pass.
+>>
+>> This mirrors commit 35de7285d508 ("Arm: do a 4th linking pass if
+>> necessary"), which riscv didn't receive when the underlying
+>> pass-2-vs-pass-3 check was extended to it in commit aa786d6e3467
+>> ("non-x86/symbols: check table sizes don't change between linking
+>> passes 2 and 3").
 > 
-> Skip the secondary slot of a split request in the resume walk, so each
-> logical request is completed or re-queued exactly once, matching how
-> blkif_completion() already treats the pair.  The secondary slot is the
-> one that is linked (associated_id != NO_ASSOCIATED_ID) and carries no
-> scatter-gather list (num_sg == 0); the first slot always keeps the
-> scatter-gather list.
+> ... Arm the problem was with a symbol (dis)appearing from/in the ELF
+> symbol table. The situation looks to be different here. Sadly ...
 
-I find the above slightly too verbose, I don't think you need to go
-into details about why freeing a requests twice is bad, this is
-already well-known.
+I will rephrase then this paragraph to:
 
-> This was found by 0sec automated security-research tooling
-> (https://0sec.ai).
+This takes the same remedy as commit 35de7285d508 ("Arm: do a 4th
+linking pass if necessary"), though the underlying cause differs:
+here no symbol (dis)appears from the ELF symbol table; instead the
+set of end markers emitted by tools/symbols legitimately changes,
+because want_symbol_end() depends on code layout, and layout differs
+between passes due to linker relaxation.
 
-Isn't this information already conveyed by the `Assisted-by` tag?
+Or it could be just dropped.
 
-> The bug is only reachable on suspend/resume or live
-> migration of a guest whose backend lacks indirect-descriptor support, so
-> it has no local reproducer; the fix is by source inspection against the
-> existing blkif_completion() collapse logic.
 > 
-> Fixes: 6cc568339047 ("xen/blkfront: Handle non-indirect grant with 64KB pages")
-> Assisted-by: 0sec:claude-opus-4-8
-> Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-> ---
->  drivers/block/xen-blkfront.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>> I faced this issue again in downstream:
+>>    https://gitlab.com/xen-project/people/olkur/xen/-/jobs/15171254706
+>>
+>> It was found that the difference between .xen-syms.0 and .xen-syms.1 is in
+>> alignment(?) gap between turn_on_mmu() and the end of simple_strtoull.
+>> Specifically 0xffffffffc00c05b0 is present in pass 1 but not present in
+>> pass 2 (where end of simple_strtoull() is just equal to ffffffffc00c05c0)
+>> because code was shifted:
+>>
+>> ```
+>> .xen-syms.0:     file format elf64-littleriscv
+>>
+>> ...
+>>
+>> ffffffffc00c0534:       f2e794e3                bne     a5,a4,ffffffffc00c045c <simple_strtoull+0x18>
+>> ffffffffc00c0538:       00280813                addi    a6,a6,2
+>> ffffffffc00c053c:       f21ff06f                j       ffffffffc00c045c <simple_strtoull+0x18>
+>> ffffffffc00c0540:       00068813                mv      a6,a3
+>> ffffffffc00c0544:       00800613                li      a2,8
+>> ffffffffc00c0548:       f15ff06f                j       ffffffffc00c045c <simple_strtoull+0x18>
+>> ffffffffc00c054c:       00277713                andi    a4,a4,2
+>> ffffffffc00c0550:       04070463                beqz    a4,ffffffffc00c0598 <simple_strtoull+0x154>
+>> ffffffffc00c0554:       fe06869b                addiw   a3,a3,-32
+>> ffffffffc00c0558:       0ff6f693                zext.b  a3,a3
+>> ffffffffc00c055c:       fc96879b                addiw   a5,a3,-55
+>> ffffffffc00c0560:       04c7f263                bgeu    a5,a2,ffffffffc00c05a4 <simple_strtoull+0x160>
+>> ffffffffc00c0564:       02a60533                mul     a0,a2,a0
+>> ffffffffc00c0568:       00f50533                add     a0,a0,a5
+>> ffffffffc00c056c:       00180813                addi    a6,a6,1
+>> ffffffffc00c0570:       00084683                lbu     a3,0(a6)
+>> ffffffffc00c0574:       0006879b                sext.w  a5,a3
+>> ffffffffc00c0578:       00d30733                add     a4,t1,a3
+>> ffffffffc00c057c:       00074703                lbu     a4,0(a4)
+>> ffffffffc00c0580:       04477893                andi    a7,a4,68
+>> ffffffffc00c0584:       02088063                beqz    a7,ffffffffc00c05a4 <simple_strtoull+0x160>
+>> ffffffffc00c0588:       00477893                andi    a7,a4,4
+>> ffffffffc00c058c:       fc0880e3                beqz    a7,ffffffffc00c054c <simple_strtoull+0x108>
+>> ffffffffc00c0590:       fd07879b                addiw   a5,a5,-48
+>> ffffffffc00c0594:       fcdff06f                j       ffffffffc00c0560 <simple_strtoull+0x11c>
+>> ffffffffc00c0598:       fc97879b                addiw   a5,a5,-55
+>> ffffffffc00c059c:       fc5ff06f                j       ffffffffc00c0560 <simple_strtoull+0x11c>
+>> ffffffffc00c05a0:       00000513                li      a0,0
+>> ffffffffc00c05a4:       00058463                beqz    a1,ffffffffc00c05ac <simple_strtoull+0x168>
+>> ffffffffc00c05a8:       0105b023                sd      a6,0(a1)
+>> ffffffffc00c05ac:       00008067                ret
+>>          ...
+>>
+>> ffffffffc00c05c0 <turn_on_mmu>:
+>> ffffffffc00c05c0:       12000073                sfence.vma
+>> ffffffffc00c05c4:       00800293                li      t0,8
+>> ffffffffc00c05c8:       03c29293                slli    t0,t0,0x3c
+>> ffffffffc00c05cc:       000fc317                auipc   t1,0xfc
+>> ffffffffc00c05d0:       a3430313                addi    t1,t1,-1484 # ffffffffc01bc000 <stage1_pgtbl_root>
+>> ffffffffc00c05d4:       00c35313                srli    t1,t1,0xc
+>> ffffffffc00c05d8:       00536333                or      t1,t1,t0
+>> ffffffffc00c05dc:       18031073                csrw    satp,t1
+>> ffffffffc00c05e0:       00050067                jr      a0
+>>
+>> ffffffffc00c05e4 <_ident_end>:
+>> ffffffffc00c05e4:       0000                    .insn   2, 0x0000
+>>          ...
+>> ```
 > 
-> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> index f765970578f9..b2e83fd0c77b 100644
-> --- a/drivers/block/xen-blkfront.c
-> +++ b/drivers/block/xen-blkfront.c
-> @@ -2079,6 +2079,15 @@ static int blkfront_resume(struct xenbus_device *dev)
->  			if (!shadow[j].request)
->  				continue;
->  
-> +			/*
-> +			 * Split requests alias one request across two shadow
-> +			 * slots; skip the sg-less secondary so it completes
-> +			 * once, like blkif_completion() does.
+> ... with all of this disassembly provided it still doesn't become clear what
+> changed from .xen-syms.0 to .xen-syms.1.
 
-I would possibly avoid mentioning blkif_completion(), as those
-references tend to get stale as code changes.  What about using:
+The disassembly was meant to show the 16-byte padding gap between the
+end of simple_strtoull() and (aligned) turn_on_mmu() in .xen-syms.0.
+In .xen-syms.1 that gap is gone, which is what removes the end marker
+and shrinks symbols_addresses by 8 and symbols_names by 1, as
+explained above.
 
-"For requests split across multiple slots only process the underlying
-requests once."
+The actual code change is earlier in .text. Inserting the symbol
+table (~24k of .rodata) pushes .init.text from 0xffffffffc0148000
+to 0xffffffffc014e000. Several calls from .text into .init.text
+(e.g. to alloc_boot_pages()/init_boot_pages()) thereby cross JAL's
+±1MB reach, so the linker can no longer relax them:
 
-Or something similar?
+.xen-syms.0:
+     <caller>: jal   ffffffffc0152000 <alloc_boot_pages>
 
-Thanks, Roger.
+.xen-syms.1:
+     <caller>: auipc ra,0xfc
+               jalr  1044(ra) # ffffffffc015800c <alloc_boot_pages>
+
+Four such call sites grow .text by 16 bytes in total, which is what
+shifts simple_strtoull by +0x10 and closes the padding gap before
+the (aligned) turn_on_mmu.
+
+~ Oleksii
+
+
 
