@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id UBBaEuukTGowngEAu9opvQ
+	id LtfMF/SnTGrdngEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:04:11 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:17:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2B177183FB
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:04:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACFF77185D3
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 09:17:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=A5YJojyK;
+	dkim=pass header.d=suse.com header.s=google header.b=NfYHHr8F;
 	dmarc=pass (policy=quarantine) header.from=suse.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1355970.1610637 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1355978.1610646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgzqV-0002iZ-4q; Tue, 07 Jul 2026 07:03:55 +0000
+	id 1wh02W-0004ZZ-6N; Tue, 07 Jul 2026 07:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1355970.1610637; Tue, 07 Jul 2026 07:03:55 +0000
+Received: by outflank-mailman (output) from mailman id 1355978.1610646; Tue, 07 Jul 2026 07:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wgzqV-0002gb-1o; Tue, 07 Jul 2026 07:03:55 +0000
-Received: by outflank-mailman (input) for mailman id 1355970;
- Tue, 07 Jul 2026 07:03:52 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wh02W-0004XY-3J; Tue, 07 Jul 2026 07:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 1355978;
+ Tue, 07 Jul 2026 07:16:19 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wgzqS-0002gV-PF
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 07:03:52 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wh02V-0004XS-HE
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 07:16:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wgzqR-00AxM5-Iv
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 09:03:51 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wh02T-003VtO-UC
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 09:16:17 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4ca4c9-bab6-0a2a0a5309dd-0a2a4501c0fa-44
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:03:51 +0200
-Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4ca7bb-2eae-0a2a0a5409dd-0a2a4502a75a-48
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:16:17 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4ca4d7-400f-0a2a45010019-d155dd2bd907-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:03:51 +0200
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-45fd464d51fso1945421f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 00:03:51 -0700 (PDT)
+ id 6a4ca7c1-5a27-0a2a45020019-d1558031e125-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 09:16:17 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-493c83474ddso33841375e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 00:16:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e0f43912sm39170425e9.7.2026.07.07.00.03.49
+ ffacd0b85a97d-47a9e4d7801sm31946739f8f.16.2026.07.07.00.16.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Jul 2026 00:03:50 -0700 (PDT)
+ Tue, 07 Jul 2026 00:16:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,55 +61,55 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783407831; x=1784012631; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1783408577; x=1784013377; darn=lists.xenproject.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6fy7Qln24UXWaLRE76c209nR2gsTmukRmjmzTSulMGc=;
-        b=A5YJojyKAwQbK/RZ2sEwJijFF9IJNgoCGwzXfA2e8YhB2oiE6Bi1Y3+dOIazmsWXSG
-         tMawf4qh8Lr7jHeJ8+Cr5YfWuAk3WxkPU9L28UOOKr8ZtCiTRBCvIAj10JIn7iMSUhMJ
-         uzA6MrkXW23QAL1VrhQGRTYCRTGioQ1HAncsTB66sqS3fKDYAQe34AGkgBBg0ixvUpgy
-         p7Nd+0hreNbVayFP3p+tYAU9/ILPZDFuqb1cGq9YHKqzftcb1LkNioSYf8ADdXea2b9m
-         lmtjmUbgJDHFlZe4F+pdrz/sGLftQR8JP5oL+ec3J51X1BE99AXgssHx6yZDG/S2/dUg
-         VLng==
+        bh=Mjb/c/myA+tuD/YBBTtZR4yJa0PaQQACdHd1x/OrSzk=;
+        b=NfYHHr8FVu7S4ENGdNqjlhcphEuyu3xsuk2W0eNcce2g9FV95NMoTHxvbvHFZHUCMy
+         bln4B7JnSKnhOPasGs95ckg1jy6/lsZCHRdGHuPvKtiIyfcYR8QQZuQUG22Kf8L1YlyQ
+         Ru38VxWcJDzehP6c7FMw7eT+HrCpbG0KYLC1YVbUPUJJk7aqBlA/PNTClJR4kGJkf8o1
+         p3KeaCD1ZtXYusCp951qcvbjEBWvROxneSQouXRshYZEYjnbphdHldBPKyb/7SGzjaHC
+         kCZzep7KRrNxfuOaMMAk1XVr6SV2cRQXEqoJLI6FDcH+XG24pTYVHuVSsPzPK/4Wzk57
+         gVOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783407831; x=1784012631;
+        d=1e100.net; s=20251104; t=1783408577; x=1784013377;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6fy7Qln24UXWaLRE76c209nR2gsTmukRmjmzTSulMGc=;
-        b=HiW5uiNSMcnoEnPNlGyiBOn6MgNxTP2zQVkD/qiWynYNI7m8gCtdcCpQ/ZcwWsQHLg
-         ZIc27mahqn4tKPdGDoPn+Phq81QvRv+g7tNWfWYQNpSGiAbpxi3mn0hd9Erij14kjH3N
-         p42GdmBuP3KIDUZx/hxH5iVmu5t9euDb8sjG+TEc04CV8uFInvYtDIAPUFYdWY9vKmEe
-         f1Im0vu5WPlktLwuJSxAu1sOhtYPC4vrJNvi5PzPdfNFYq/6X0veEfI5wyXNdHJvyr0m
-         W0KuFKLeuEbVFtst2ZOj2+J58BY+7ZREGyVHDxDpMKHxm4EJd0ByljQchvStfLvdy4RD
-         dELA==
-X-Forwarded-Encrypted: i=1; AHgh+RrbGcBfSmv6/tTvT2qR7I2DPpSHoLIVG479Z3rmgRtFhy/c4FA7s2imekewemymjNVmOmGydiiPiLg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxFMGO5eyfnAH3l2qJ/iC7EH3dzRSOH+JciX8xZBwZ8c+efJyl7
-	aXKVXc3kl22dpPBn4jQDdrRv2LWy2GBIoZ1oAix+c7SVax7N4pKM+ZDJMyMAo3QCuA==
-X-Gm-Gg: AfdE7cmBSyMPFc0ZRhwhYzelLv78V1Bzcq4LukBfg12/sgSbDoU1LbxVrgQF/4p/PYz
-	qRH6xLL5PXqsCtUFkzKZatnDWDI1eq3aeEMRvcVMKXMknFnvELOKdSoaCjWUZ5tmJ8eveQb2rIL
-	Vh0FEluIS2Tvm4UxwYqDZTdUxINlgiQGcIjIE/EQ4/BLVEPCtm4IbH7hQ9ZICdpzsgL1hsRaanJ
-	R50a5BaLOOf8UPzvbHh0Tt3qgv9kYk+Zg2PNA/QHnde5TADhJh2K/dDPzqkpD5lR4gI/NXHVOMa
-	QEer4gAX0PqNr0syZ1UoIa3c9PxF7YEBoaZCn2+rY4QauKb+H53HdsKByBZ14pVCzqYeUinNCrk
-	s8uoA1PxokQFzVUBCuKLvXrjm8wexQGdXW8lVMcNwsyOpNkCiamrdOxX8VQumpw5VR25DOkvVIu
-	5BKes2yhBrV+nKGBXRaTvNNUUnesBBUlL/Kw21qfM+29yIOgYeytAdOyDtN6hJwX9ETrn9qttTn
-	98j
-X-Received: by 2002:a05:600c:8b6e:b0:493:a5d4:3798 with SMTP id 5b1f17b1804b1-493df0663fdmr38673565e9.1.1783407830756;
-        Tue, 07 Jul 2026 00:03:50 -0700 (PDT)
-Message-ID: <25cdcaa0-64cf-4014-ae52-3114f39abea7@suse.com>
-Date: Tue, 7 Jul 2026 09:03:49 +0200
+        bh=Mjb/c/myA+tuD/YBBTtZR4yJa0PaQQACdHd1x/OrSzk=;
+        b=ifDDL4CFnQY9MeiSFtbTS9UTOdJz+4030duWZ3++DnbXdGd2KDKE6HW4/R5LWv6pd4
+         Ge74mBue+fn157fTR+FaX+cm2nyOWGnr85/77s5rrJv00hduW1DzrKiQNtbeJ52tg3To
+         n+Y2lZjU65rjKdYkah186qCGVAEzUqxeu6VIY/qa+nc9fnKWRpQSdygNsuZFKlWqdXG9
+         EgZspxcuujltoeTz8agGcO3I+QC6qfkb32tqgfWgNwLTvMSE513U918cEa09URtTeqDg
+         UBYPo1zD8BZcrAU2Z1GS+g3EGBM7XN7dZTVDcBU/30XB6HVhWybAjOBOuV76BjUQudgL
+         OtzA==
+X-Forwarded-Encrypted: i=1; AHgh+RoPduFrnPnA286rdkKv0sPHAGYTGgtY2ZkvpoHenDIg+D8AiUEyy47PVBMy01sL3VZPgsP3eJTJuRM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy39a+IDaxa75PmoRZFtjM2GbIyVKuheGZHqbZWR1Ot9vcTvqfT
+	ha9/GGjyhOuOVs43Wnsk5+xSSE92TtRx04M8sspYurOxawASwSer4d115N5YE9xD+g==
+X-Gm-Gg: AfdE7cliMq1RjJfgxzSDn97ZEovM8jyLAB66vlAMmmTvFnL/DZz4d2N8uzqcb1DYXxf
+	UiL0TrZV/6L1xNqHaLYy2k6dh/6KHYSssYSavXUm1pi0SLlV78fFy94sP5kw5cee5jTBQvBow5+
+	XfZW8mf93jTRc+8j9zJZOQrfHu99oHbzrXxJ4L5E+cmufBoT2Q73d1xIJO8L/QK6rLJJYZwXkwd
+	WPgP1wJ62NBBppyAaq1yf1lyTzi+AuiedfGYjbdOgsx/UWI6/kfxzreKfwz6k5k0T3oHV8nRaMQ
+	G2o56EcjFJTrV0hvMw/pBCnxtXujbFNxzUzh8UCbpaoXkHYUa3p6XtVkcmkN9E/+EW5bTE8kZSn
+	NXLkGbD8IYAzYDp3F9Or2T4etlLj87+Lz4Z27S4k3FMxmsY7XuQW5BDRcSbw2kPusfMOWrnl/S8
+	BikqEE7ez7njpA3kWNupQw7QeiKcFjByuI/TvyTr6eJgh8BIVfJVXw5YdLTNOYJGUF6PViM03Fh
+	aXq
+X-Received: by 2002:a05:600c:8b6f:b0:493:a7bc:5bcf with SMTP id 5b1f17b1804b1-493df08cf98mr39971585e9.24.1783408577217;
+        Tue, 07 Jul 2026 00:16:17 -0700 (PDT)
+Message-ID: <6c4bb5bc-be27-4eef-a08f-1dd96df81304@suse.com>
+Date: Tue, 7 Jul 2026 09:16:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/entry: Use POP_GPRS and remove RESTORE_ALL
+Subject: Re: [PATCH 3/3] x86/entry: Use PUSH_AND_CLEAR_GPRS and drop SAVE_ALL
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Teddy Astie <teddy.astie@vates.tech>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20260706153415.1264750-1-andrew.cooper3@citrix.com>
- <20260706153415.1264750-3-andrew.cooper3@citrix.com>
+ <20260706153415.1264750-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,12 +135,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260706153415.1264750-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20260706153415.1264750-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1783407831-838C81E0-6711E8DC/0/0
+X-purgate-ID: tlsNG-720697/1783408577-545187C5-AF3D03D8/0/0
 X-purgate-type: clean
-X-purgate-size: 3090
+X-purgate-size: 1560
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -174,14 +174,20 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A2B177183FB
+X-Rspamd-Queue-Id: ACFF77185D3
 
 On 06.07.2026 17:34, Andrew Cooper wrote:
-> POP_GPRS is shorter than RESTORE_ALL in terms of emitted code.
-> 
-> By separating the popping of entry_vector/error_code off the stack,
-> SPEC_CTRL_COND_VERW doesn't need custom displacements.
-> 
+> PUSH_AND_CLEAR_GPRS is shorter than SAVE_ALL in terms of emitted code.
+
+Could patch 1 perhaps also gain this sentence?
+
+> lstar_enter() and cstar_enter() do not need CLD.  The SYSCALL instruction
+> sanitises flags based on MSR_SYSCALL_MASK.  For all other cases, place the CLD
+> instruction next to STAC/CLAC so the flag handling is together.
+
+And really the earlier the better. Relevant perhaps for early_page_fault(),
+which has no CLAC.
+
 > Get rid of the compat=1 special case for PV32.  It's not obviously a win, and
 > PV32 is getting increasingly rare these days.
 > 
@@ -190,65 +196,21 @@ On 06.07.2026 17:34, Andrew Cooper wrote:
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
-as-is, however ...
 
-> --- a/xen/arch/x86/x86_64/compat/entry.S
-> +++ b/xen/arch/x86/x86_64/compat/entry.S
-> @@ -160,12 +160,11 @@ FUNC(compat_restore_all_guest)
->          /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
->          SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
->  
-> -        RESTORE_ALL adj=8, compat=1
-> +        POP_GPRS
->  
-> -        /* Account for ev/ec having already been popped off the stack. */
-> -        SPEC_CTRL_COND_VERW \
-> -            scf=STK_REL(CPUINFO_scf,      CPUINFO_rip), \
-> -            sel=STK_REL(CPUINFO_verw_sel, CPUINFO_rip)
-> +        SPEC_CTRL_COND_VERW     /* Req: %rsp=eframe                    Clob: efl */
-> +
-> +        add     $8, %rsp        /* Pop ev/ec off the stack */
->  
->          jmp     iret_to_guest
->  END(compat_restore_all_guest)
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -226,7 +226,8 @@ FUNC_LOCAL(restore_all_guest)
->          /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
->          SPEC_CTRL_EXIT_TO_PV    /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
->  
-> -        RESTORE_ALL
-> +        POP_GPRS
-> +
->          BUILD_BUG_ON(TRAP_syscall & 0xff)
->          testb $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
->          jz    iret_exit_to_guest
-> @@ -753,20 +754,17 @@ UNLIKELY_END(exit_cr3)
->          /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
->          SPEC_CTRL_EXIT_TO_XEN /* Req: %r12=ist_exit %r14=end %rsp=regs, Clob: abcd */
->  
-> -        RESTORE_ALL adj=8
-> +        POP_GPRS
->  
->          /*
->           * When the CPU pushed this exception frame, it zero-extended eflags.
->           * For an IST exit, SPEC_CTRL_EXIT_TO_XEN stashed shadow copies of
->           * scf and ver_sel above eflags, as we can't use any GPRs,
->           * and we're at a random place on the stack, not in a CPUFINFO block.
-> -         *
-> -         * Account for ev/ec having already been popped off the stack.
->           */
-> -        SPEC_CTRL_COND_VERW \
-> -            scf=STK_REL(EFRAME_shadow_scf, EFRAME_rip), \
-> -            sel=STK_REL(EFRAME_shadow_sel, EFRAME_rip)
-> +        SPEC_CTRL_COND_VERW     /* Req: %rsp=eframe                    Clob: efl */
->  
-> +        add     $8, %rsp        /* Pop ev/ec off the stack */
->          iretq
->  END(restore_all_xen)
+> Bloat-o-meter reports:
+>   add/remove: 0/0 grow/shrink: 0/12 up/down: 0/-518 (-518)
+>   Function                                     old     new   delta
+>   symbols_names                             135277  135276      -1
+>   symbols_offsets                            53664   53660      -4
 
-... both uses of SPEC_CTRL_COND_VERW's with arguments go away. Shouldn't
-the macro thus also be pruned of its parameters?
+Interesting. Likely an artifact of padding going away between two functions.
+Which likely would change again if the SLS patches would finally land
+("x86: guard against straight-line speculation past JMP or RET in assembly
+files" here in particular).
+
+Btw, as it occurs to me while mentioning SLS: Judging from the patches I
+have, IRET looks to be immune, albeit I can't find any statement in the doc.
+What about ERET{S,U}, uses of which we've gained only relatively recently?
 
 Jan
 
