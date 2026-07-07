@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id CgNbN1C6TGomowEAu9opvQ
+	id 2PmTDVi6TGopowEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:35:28 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:35:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C58147192A0
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:35:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8BB97192AA
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Jul 2026 10:35:35 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b="Sd/wpGV1";
-	dkim=pass header.d=suse.com header.s=susede1 header.b="Sd/wpGV1";
+	dkim=pass header.d=suse.com header.s=susede1 header.b=A1qwsMhy;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=A1qwsMhy;
 	dmarc=pass (policy=quarantine) header.from=suse.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1356033.1610708 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1356038.1610718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh1Gz-00013Z-SW; Tue, 07 Jul 2026 08:35:21 +0000
+	id 1wh1H5-0001RO-6d; Tue, 07 Jul 2026 08:35:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1356033.1610708; Tue, 07 Jul 2026 08:35:21 +0000
+Received: by outflank-mailman (output) from mailman id 1356038.1610718; Tue, 07 Jul 2026 08:35:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wh1Gz-00011Z-Pc; Tue, 07 Jul 2026 08:35:21 +0000
-Received: by outflank-mailman (input) for mailman id 1356033;
- Tue, 07 Jul 2026 08:35:20 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wh1H5-0001Oe-1h; Tue, 07 Jul 2026 08:35:27 +0000
+Received: by outflank-mailman (input) for mailman id 1356038;
+ Tue, 07 Jul 2026 08:35:26 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wh1Gy-00010I-KF
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 08:35:20 +0000
+ (envelope-from <jgross@suse.com>) id 1wh1H4-0001Nb-7Q
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 08:35:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wh1Gy-003q4B-0U
- for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 10:35:20 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wh1H3-003BoA-KF
+ for xen-devel@lists.xenproject.org; Tue, 07 Jul 2026 10:35:25 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jgross@suse.com>)
- id 6a4cba44-e002-0a2a0a5209dd-0a2a4503dd90-16
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:35:19 +0200
-Received: from [195.135.223.131] (helo=smtp-out2.suse.de)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4cba42-5cb7-0a2a0a5109dd-0a2a45089baa-38
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:35:25 +0200
+Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jgross@suse.com>)
- id 6a4cba47-ec1a-0a2a45030019-c387df83cd70-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:35:19 +0200
+ id 6a4cba4d-edec-0a2a45080019-c387df82e422-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Jul 2026 10:35:25 +0200
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9732E7586F;
- Tue,  7 Jul 2026 08:35:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3951E7393D;
+ Tue,  7 Jul 2026 08:35:25 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72BB9779AE;
- Tue,  7 Jul 2026 08:35:19 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC335779AE;
+ Tue,  7 Jul 2026 08:35:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id SauMGke6TGreDAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 07 Jul 2026 08:35:19 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id mbJnOEy6TGrvDAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 07 Jul 2026 08:35:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,42 +70,47 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1783413319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1783413325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+rR6a7u62PrIE8LmzzOCco11yRON8r8BBfjyeOxn53M=;
-	b=Sd/wpGV1rTZQA0hF2qVWLuH15AphoRdkudGmfveb7qfIrEceSNn98z4R7/5n0bCp3FZjHs
-	XaiYV7enKkiX6jUsNyC6rsAx589aEgM3uobU6E8WLiZ6KZE7LAfK/BeEXvvD1Ny9fcYqbt
-	KMyhfnP99ysy7tHvQo9UrPrPXWlTrJ4=
+	bh=i7QVV4zU+HBTHHGxFIUYe6BxCNLKsfYFRbHiHIdGaFw=;
+	b=A1qwsMhyXPPk7tBBqTA0eBQFS43sgaXhv+FHVOQq6v+tTuNzvB+8idgUnihIXDP0b+bOt9
+	IuB1OKyucGahsMu7Br1JRuG6WVtPejZg7OZu7hiosko8XCV/aKTpjmThq4E9Q5X6YJio+2
+	bJwU2VOmKFbZyuOw2XSN+LNzAfddQ40=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1783413319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1783413325; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+rR6a7u62PrIE8LmzzOCco11yRON8r8BBfjyeOxn53M=;
-	b=Sd/wpGV1rTZQA0hF2qVWLuH15AphoRdkudGmfveb7qfIrEceSNn98z4R7/5n0bCp3FZjHs
-	XaiYV7enKkiX6jUsNyC6rsAx589aEgM3uobU6E8WLiZ6KZE7LAfK/BeEXvvD1Ny9fcYqbt
-	KMyhfnP99ysy7tHvQo9UrPrPXWlTrJ4=
+	bh=i7QVV4zU+HBTHHGxFIUYe6BxCNLKsfYFRbHiHIdGaFw=;
+	b=A1qwsMhyXPPk7tBBqTA0eBQFS43sgaXhv+FHVOQq6v+tTuNzvB+8idgUnihIXDP0b+bOt9
+	IuB1OKyucGahsMu7Br1JRuG6WVtPejZg7OZu7hiosko8XCV/aKTpjmThq4E9Q5X6YJio+2
+	bJwU2VOmKFbZyuOw2XSN+LNzAfddQ40=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH 3/5] stubdom: remove building of libxenguest and libxenctrl
-Date: Tue,  7 Jul 2026 10:34:54 +0200
-Message-ID: <20260707083459.226297-4-jgross@suse.com>
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 4/5] docs: remove stale stubdom entries from stubdom.txt
+Date: Tue,  7 Jul 2026 10:34:55 +0200
+Message-ID: <20260707083459.226297-5-jgross@suse.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260707083459.226297-1-jgross@suse.com>
 References: <20260707083459.226297-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Spam-Flag: NO
-X-Spam-Level: 
 X-Spam-Score: -3.01
-X-purgate-ID: tlsNG-33051d/1783413319-06D2B5D1-FD6C0340/0/0
+X-Spam-Level: 
+X-purgate-ID: tlsNG-c1860d/1783413325-A15273FC-BD564E03/0/0
 X-purgate-type: clean
-X-purgate-size: 784
+X-purgate-size: 2552
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -117,56 +122,116 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:anthony.perard@vates.tech,m:samuel.thibault@ens-lyon.org,s:lists@lfdr.de];
-	RCPT_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:email,suse.com:mid,suse.com:dkim];
 	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ALIAS_RESOLVED(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C58147192A0
+X-Rspamd-Queue-Id: B8BB97192AA
 
-grub-pv was the last user of the stubdom variants of libxenguest and
-libxenctrl.
-
-Remove both libraries from the stubdom build system.
+There are several stubdoms mentioned in docs/misc/stubdom.txt which
+no longer exist. Remove them.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- stubdom/Makefile | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ docs/misc/stubdom.txt | 69 -------------------------------------------
+ 1 file changed, 69 deletions(-)
 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 2698bddc9d..40b6ececf1 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -256,9 +256,7 @@ $(CROSS_ROOT): cross-newlib cross-zlib cross-libpci
- # libraries under tools/libs
- #######
+diff --git a/docs/misc/stubdom.txt b/docs/misc/stubdom.txt
+index cfcba4ba96..3ee96d5063 100644
+--- a/docs/misc/stubdom.txt
++++ b/docs/misc/stubdom.txt
+@@ -85,72 +85,3 @@ To change the CD-ROM medium, libxl will:
  
--STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel ctrl guest manage
+ The stubdom must internally add /dev/xvdc to an fdset in QEMU with opaque set
+ to "stub-devid:$devid".  libxl will lookup the fdset with that string.
 -
--LIBDEP_guest := cross-zlib
-+STUB_LIBS := toolcore toollog evtchn gnttab call foreignmemory devicemodel manage
- 
- #######
- # common handling
+-                                   PV-GRUB
+-                                   =======
+-
+-  This replaces pygrub to boot domU images safely: it runs the regular grub
+-inside the created domain itself and uses regular domU facilities to read the
+-disk / fetch files from network etc. ; it eventually loads the PV kernel and
+-chain-boots it.
+-  
+-Configuration
+-=============
+-
+-In your PV config,
+-
+-- use pv-grub.gz as kernel:
+-
+-kernel = "pv-grub.gz"
+-
+-- set the path to menu.lst, as seen from the domU, in extra:
+-
+-extra = "(hd0,0)/boot/grub/menu.lst"
+-
+-or you can provide the content of a menu.lst stored in dom0 by passing it as a
+-ramdisk:
+-
+-ramdisk = "/boot/domU-1-menu.lst"
+-
+-or you can also use a tftp path (dhcp will be automatically performed):
+-
+-extra = "(nd)/somepath/menu.lst"
+-
+-or you can set it in option 150 of your dhcp server and leave extra and ramdisk
+-empty (dhcp will be automatically performed)
+-
+-Limitations
+-===========
+-
+-- You can not boot a 64bit kernel with a 32bit-compiled PV-GRUB and vice-versa.
+-To cross-compile a 32bit PV-GRUB,
+-
+-export XEN_TARGET_ARCH=x86_32
+-
+-- bootsplash is supported, but the ioemu backend does not yet support restart
+-for use by the booted kernel.
+-
+-- PV-GRUB doesn't support virtualized partitions. For instance:
+-
+-disk = [ 'phy:hda7,hda7,w' ]
+-
+-will be seen by PV-GRUB as (hd0), not (hd0,6), since GRUB will not see any
+-partition table.
+-
+-
+-                                Your own stubdom
+-                                ================
+-
+-  By running
+-
+-cd stubdom/
+-make c-stubdom
+-
+-  or
+-
+-cd stubdom/
+-make caml-stubdom
+-
+-  you can compile examples of C or caml stub domain kernels.  You can use these
+-and the relevant Makefile rules as basis to build your own stub domain kernel.
+-Available libraries are libc, libxc, libxs, zlib and libpci.
 -- 
 2.54.0
 
