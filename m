@@ -2,53 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id QfQRDJlgTmpTLgIAu9opvQ
+	id 5dcmAg1jTmrxLgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:37:13 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:47:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1E29727769
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F8057278F2
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:47:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=FCt1u0K8;
-	dmarc=pass (policy=quarantine) header.from=suse.com;
+	dkim=pass header.d=qualcomm.com header.s=qcppdkim1 header.b=l9PTuMVs;
+	dkim=pass header.d=oss.qualcomm.com header.s=google header.b=XhLD+vKL;
+	dmarc=pass (policy=reject) header.from=qualcomm.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1357105.1611599 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357116.1611609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTOA-00049J-QN; Wed, 08 Jul 2026 14:36:38 +0000
+	id 1whTY9-0005p4-NF; Wed, 08 Jul 2026 14:46:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357105.1611599; Wed, 08 Jul 2026 14:36:38 +0000
+Received: by outflank-mailman (output) from mailman id 1357116.1611609; Wed, 08 Jul 2026 14:46:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTOA-00046x-NX; Wed, 08 Jul 2026 14:36:38 +0000
-Received: by outflank-mailman (input) for mailman id 1357105;
- Wed, 08 Jul 2026 14:36:36 +0000
+	id 1whTY9-0005mQ-Jr; Wed, 08 Jul 2026 14:46:57 +0000
+Received: by outflank-mailman (input) for mailman id 1357116;
+ Wed, 08 Jul 2026 14:46:56 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1whTO8-00046r-QA
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:36:36 +0000
+ (envelope-from <ze.huang@oss.qualcomm.com>) id 1whTY8-0005mK-2k
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:46:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whTO7-00AKtV-LF
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:36:35 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1whTY6-0005ZD-DX
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:46:54 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a4e606d-e002-0a2a0a5209dd-0a2a4501a648-16
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:36:35 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a4e6073-400f-0a2a45010019-d155dd36ec28-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:36:35 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-476a130c138so851791f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:36:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa0f213e8sm41132647f8f.34.2026.07.08.07.36.34
+ (envelope-from <ze.huang@oss.qualcomm.com>)
+ id 6a4e62d1-bab6-0a2a0a5309dd-0a2a4503cf54-18
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:46:54 +0200
+Received: from [205.220.168.131] (helo=mx0a-0031df01.pphosted.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <ze.huang@oss.qualcomm.com>)
+ id 6a4e62dc-ec1a-0a2a45030019-cddca8832f92-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:46:53 +0200
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 668C3AVo2736275
+ for <xen-devel@lists.xenproject.org>; Wed, 8 Jul 2026 14:46:51 GMT
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
+ [209.85.160.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9hnv1vg8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 14:46:51 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id
+ 586e51a60fabf-448d51840c4so402863fac.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:46:51 -0700 (PDT)
+Received: from localhost ([151.243.38.149]) by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-44cfb13d619sm18125627fac.2.2026.07.08.07.46.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jul 2026 07:36:34 -0700 (PDT)
+ Wed, 08 Jul 2026 07:46:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,480 +69,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=; b=l9PTuMVsLQ/lb5E7
+	FUy+YKYjhfuxGpV2yPYrT8cW990iscK3mTQzOIF8tGq/IN0UGqjuAyycToz5zcmp
+	b5J5Ef65ekAr1pBRTSoIVmVaCAilH9sfGD3P2WGPIs887lWUsiNiEKklxBPgWTzc
+	dEcSjBxCFMfjZgSkE9LOnrD5tnmd4F1z/y65PGB1QpI4IiFBzBbHqeO8mC3y1SyT
+	VijYEMNHVsbO8/EMtiW5eEhFMLHRcUpvXEZ5J4PAOgvLKXcYGSY8gNO9U3ScfM0r
+	JhbjreFoT0InUzIWIFkZZMGSEQ76sA922nbzv2otnraPB1TKtoPir2rkT9lzt6gG
+	mmmXMA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783521395; x=1784126195; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k906Yp2M2TfD5eHHUV4P3P329FIZzcpTxszvonqF5Dk=;
-        b=FCt1u0K832yGBky8QZYLvWHYqOd97LiLblPK11IN5uvtt1Y7i7J17p+xLKMX9LLiuo
-         J1HDDa2Gj6T6Yb6bY2CsCbrP7RQOaQtTvovvDz5t36hHDFPbh3yWZjpJ7Um7exYCdgXF
-         oA0ZcfnVORyYo8So/vucOB2MZzor+tZPbGHr6Xyd5NJvH6cJVofHSxLgeeoNh/Vvi2Xv
-         Nt2TJhx5AAn6nvgJwx1+NwqYcBtytowmaWj92nweuUr70BrJG3XbiBaGrv5hCN8LeVJ8
-         /cXqYwGunck6QcwTi6yrrLn/5PdCa5zkLNal+JAKdJIN76PlaFGeiy22jtYkGTKfXnLd
-         YiuQ==
+        d=oss.qualcomm.com; s=google; t=1783522011; x=1784126811; darn=lists.xenproject.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=;
+        b=XhLD+vKL2EBDYcUKZJm0sBHuKIALcCke3sY+igFt07xylFTOMs4VOU7c88hHaGXx14
+         4GnlkbURXEORx79CqgNpwN9PSTGM8yEX1ykl1mD62LMqcQ3zfX45KmIRwIQBDazC7gIt
+         SS5/RGdKs/lRaSy2JkEKxz9CTUemNSefv6UZFe2F/5H4O7Gd0eXxg6CHl5hnYc5cwQ5y
+         EldxA5GQkv8vrwUdGNWu7VjTtEvAMNE25bgQ0eSF0f7d446zS3+kv7rF7g2B5j59UTty
+         PiJX0jZm3i9MQ+kkMdlQxijeHcTWQPbg6rled2vmT0IfF7LNP4123hMGfOYjz7dKw/oM
+         VCmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783521395; x=1784126195;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k906Yp2M2TfD5eHHUV4P3P329FIZzcpTxszvonqF5Dk=;
-        b=BmhBemZlL4mE82cuIllFR/3zH7W25qXT8qzfCZtPXmh9hZyHfb7xGkuvbSOMyDDeWC
-         NNMjtD7F/EfMbbY25ecVEQYYl21VhGu/57JAKWVjo2jFDjB8oL+2tjv6aI2z6MtxrTQW
-         4LuIvndUU8Rn3CEuLDneTIBnuVJiby7OXAqWZBvXcpKSmD9T9iamQuViw/zkrAQ20W/T
-         1nv59AbgMFTGSivRQSQzlo6zAVcl05ptWoMt90D7MHAV0XlH9Wu7dOvvgc1PhtimV4i6
-         Gl2GfelympAix98UaWYx57jSGaIn9dta0oBMtb9dBdqNCx6/jXE55I/1F56ss3Zt4iov
-         ZEbg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro/EZzp8XFChCcMbqnujErq56FNJ280EUqun7H65QHL53Tuq7RFNmQvNbiiRQSlRPbnI8EUG4q45cA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMDPaCsg2o5N70lsA3g8AzGV/0Y3skEOe0UEvVyKWeNebYxjHF
-	MoGYiHuSAhUP+snMpcWSIAjhOVXSkcq+A8xZdikp7odPhBk86CDYI4vL6EI+1ru90Q==
-X-Gm-Gg: AfdE7cnAh7ZPqM583UQHY82vw4HTPwHuZXG6wE+h8UwnusADI4i9WZZlgeHoT6dalh3
-	+JreAtQz8RIKfTPuCq3M2DGxHhagyc72bTHemCmiy/zIhyajtCaVjfXklsDf6m6fO4yGGyGNqfy
-	1fhvPbKHUUFyziV6dahOj5nx9l2iKs/kypDi93CM1Yp1zbmsD97uwVMQScupXfvXWjoheREnyHe
-	zWAZ2fuiMgs7i2ktkX7gUTeX0AgXxoXki9KkrV4gKJIUWCLpkMA3G00Up5GiOMATGAYe8Q/Kl0l
-	fiNm5+TbzF23Teww/kW1Rs/IdWvYyFNnIYBcm2CfwzDl6ZSUoHy4jNoJBeHOt2Gb0YsMGxRF4Q8
-	DHF5qi+rNKJa+3O3SXq9cZIPa/ya/uAiwWpP+lcTKoQjkSp4jifgmtABxeMuZKp1ZdqMz0KYc3m
-	FldS++eqKWBoYjwOeE0mll/06EhldPo3H7iNIswZreDQSu/H+/hcM6ILgxv1NiYehMVHGiAX5Wl
-	w19
-X-Received: by 2002:a05:6000:4387:b0:477:80fa:f465 with SMTP id ffacd0b85a97d-47df076754bmr3236746f8f.45.1783521394818;
-        Wed, 08 Jul 2026 07:36:34 -0700 (PDT)
-Message-ID: <94476c2c-8539-486c-b210-467940e410fe@suse.com>
-Date: Wed, 8 Jul 2026 16:36:33 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] xen/device-tree: Parse 'cpu-map' node for CPU
- topology exploration
-To: Hirokazu Takahashi <taka@valinux.co.jp>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20260703091544.183548-1-taka@valinux.co.jp>
- <20260703091544.183548-2-taka@valinux.co.jp>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260703091544.183548-2-taka@valinux.co.jp>
+        d=1e100.net; s=20251104; t=1783522011; x=1784126811;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vL4MQZJyYnOZgb+t9Slt97jlU8ZMhiBcIG4lPhLxhqk=;
+        b=Tsn/OeugfjfWdsdwfy6OLs5K9wz7TW9UdXnuB1PvNd27c11XQcQKrB79Z77C3tTz+O
+         wcHbxmN0qU5P6XZzsaHWZewUgu54Gj9Uqul5AamzmS2bs/p9iDZsGGfCRgyDy18QgXsG
+         wP7Y5XfwEg/0Jz3568ff61Vh+WvbKebpt2Y/mJ+SjPerWxCjQgWkEUA3dBvLLOYnp1+l
+         rv8jyVBMzWXJ9yprch4wUJ9oku04m0R4fXjf362J2vrE9BLRzGDD9IaWZf/sBiH9GMfL
+         cidL0D3XNCKQMIBFHp/a+Z0zVBSd9v+Fz0OtbTkek4Jk/ZbixfGsMhGZYB8hxCFCWVGN
+         bmMA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrc5ih9DYX6gYzEF/AH1O4p3JhuxfxNmOHS3DSYBD+w47YBuHQku3ThM7acwLQlud5foGpHOi5wv+I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxT3Lj2TqzHrZER8Z6o9YUP0PC8So6MOtcaNoedbBeJWyZuaz7w
+	yUdw16JwLIfFueM05aB9Pu7/U0aTR1P5HlzgZ8qN2zkbA8DOt9emRj+n6edlu7du/MnpU7jVMnR
+	yGVcRREjLKKDqSKvAsfgGsx4OtTtjryzw7yGKJRnTg+3GkTG3op5aD2Cy1UVx6S/SUC9m9g==
+X-Gm-Gg: AfdE7cmjoQSlNV9PIxesRtpCbIe/UGO/o3QOFaIhwHp8eegzxepUoTSy9gG/NbbzscP
+	uQrGQdjZR9tMYVIGGmwnawxpovxfYEkYrYjvNFE38VtTa/9LGWX5cC9buYq3iLCrUFaIFSAJXoj
+	o25V5jk/YluFCBqUl0R3wwZM446PJfRS1yPJtFLJcuiyQtzDXrvJ5tnAjZyOnVm2HFNAn2XlOFt
+	JWDHprZwGgDiqyElN+prDtINtf/Ofo65LB3ccukO8oACvyOEUobl2oaEsBSzFmPqD8FflDN/wua
+	Uicb7/J93SkI+BbpZe3Opk8MRjDAABC+wdY+94vGSfkqp3+W39Jg5H4iURdDtC5NxqfH1XTVCuA
+	TZe/sSK/6WiMmTNM=
+X-Received: by 2002:a05:6871:2ecf:b0:447:a321:35d with SMTP id 586e51a60fabf-4516387345cmr1779018fac.10.1783522010299;
+        Wed, 08 Jul 2026 07:46:50 -0700 (PDT)
+X-Received: by 2002:a05:6871:2ecf:b0:447:a321:35d with SMTP id 586e51a60fabf-4516387345cmr1778984fac.10.1783522009770;
+        Wed, 08 Jul 2026 07:46:49 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1783521395-D08DB1E0-FF731F17/0/0
+Date: Wed, 08 Jul 2026 22:46:30 +0800
+Message-Id: <DJT9S3CQRB0P.982J925T9O4B@oss.qualcomm.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+        <linux-aspeed@lists.ozlabs.org>,
+        <linux-arm-kernel@lists.infradead.org>, <imx@lists.linux.dev>,
+        <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 5/9] drm/pl111: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+From: "Ze Huang" <ze.huang@oss.qualcomm.com>
+To: "Thomas Zimmermann" <tzimmermann@suse.de>,
+        "Ze Huang"
+ <ze.huang@oss.qualcomm.com>,
+        "Alexey Brodkin" <abrodkin@synopsys.com>,
+        "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+        "Maxime Ripard"
+ <mripard@kernel.org>,
+        "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>,
+        "Joel Stanley" <joel@jms.id.au>,
+        "Andrew Jeffery"
+ <andrew@codeconstruct.com.au>,
+        "Frank Li" <Frank.Li@nxp.com>,
+        "Sascha
+ Hauer" <s.hauer@pengutronix.de>,
+        "Pengutronix Kernel Team"
+ <kernel@pengutronix.de>,
+        "Fabio Estevam" <festevam@gmail.com>,
+        "Linus
+ Walleij" <linusw@kernel.org>,
+        "Hans de Goede" <hansg@kernel.org>,
+        "Alex
+ Lanzano" <lanzano.alex@gmail.com>,
+        "Oleksandr Andrushchenko"
+ <oleksandr_andrushchenko@epam.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com> <20260705-drm-simple-kms-removal-v1-5-b4e1ca053623@oss.qualcomm.com> <747ae980-9358-4e15-84e3-6e2f3e143423@suse.de>
+In-Reply-To: <747ae980-9358-4e15-84e3-6e2f3e143423@suse.de>
+X-Authority-Analysis: v=2.4 cv=KNNqylFo c=1 sm=1 tr=0 ts=6a4e62db cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=cNux22OjBTKCC6TmznXXXA==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=bxtzNzRwT3Q_vXoiTiMA:9 a=QEXdDO2ut3YA:10
+ a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA4MDE0NSBTYWx0ZWRfXwl8GVHZ2FNRt
+ tzndXpL7/FNa0tKUuwELDFub1yvoosW6lXlPSufDI+87uzymT2SbTD/He83wnQUzM9V0uDDlz1v
+ FYb6hz638lPJFvbfwI8Qs5dub1nO2Mc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA4MDE0NSBTYWx0ZWRfXyn/ZnwGFk7em
+ 51GfzNfBsDTy6Am6zv0LSqAavWFyXFDX5lmtkn+DPbUaxBklWUHg8/3a6uA5GHtD8HJHH09ZJTD
+ ybvCzIXTqW2+81omRkG/pNnDqI4ZhCpAm12Z2ahHDPUojkoGEEKkhbBwdUOV4u42I4rBZJLjH5p
+ AQ9QVlyZmjgxuQR9+rW9zrtPFJSJ7XCIpDiNDeGKPtxohIJ8GgIFFyG6FRnvU7UHDvXIk+VqQrn
+ z5ZwcUDnMtz0w03I21hdF3swt4lqmtxvHFLXRTFNvPXVhpLKfiFtdp1Cs8+uKKE0FKd8oisbVXA
+ q5eDPdJMM8n1MYRHE5WFAWabpnnNMFRg3l4S7fT/w6ju92WjeQDrqDCrqTSQhjMpT6TC9fD6B1O
+ z5C6ANGcs49UTL+twkWtP9X37tES2yydpY5Wtk8hgdnTwZQDfaD1ZiVX+mXX2ri4h1aCVALbNbI
+ 4m/4PQ11mZik/8v8l/Q==
+X-Proofpoint-ORIG-GUID: luHrAbd6jgMO3Tr5reqpSlgaJJhrmXrH
+X-Proofpoint-GUID: luHrAbd6jgMO3Tr5reqpSlgaJJhrmXrH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-08_02,2026-07-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ malwarescore=0 phishscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607080145
+X-purgate-ID: tlsNG-33051d/1783522014-B49825D1-169519EE/0/0
 X-purgate-type: clean
-X-purgate-size: 10764
+X-purgate-size: 2145
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	MV_CASE(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-aspeed@lists.ozlabs.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:tzimmermann@suse.de,m:ze.huang@oss.qualcomm.com,m:abrodkin@synopsys.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:joel@jms.id.au,m:andrew@codeconstruct.com.au,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:linusw@kernel.org,m:hansg@kernel.org,m:lanzano.alex@gmail.com,m:oleksandr_andrushchenko@epam.com,m:lanzanoalex@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER(0.00)[ze.huang@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	FREEMAIL_TO(0.00)[suse.de,oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	FROM_NEQ_ENVFROM(0.00)[ze.huang@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:from_mime,oss.qualcomm.com:dkim,oss.qualcomm.com:mid,qualcomm.com:email,qualcomm.com:dkim]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D1E29727769
+X-Rspamd-Queue-Id: 5F8057278F2
 
-On 03.07.2026 11:15, Hirokazu Takahashi wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -188,6 +188,24 @@ config VM_EVENT
->  config NEEDS_LIBELF
->  	bool
->  
-> +config HAS_GENERIC_CPU_TOPOLOGY
-> +	bool
+On Wed Jul 8, 2026 at 9:03 PM CST, Thomas Zimmermann wrote:
+>
+>
+> Am 04.07.26 um 20:31 schrieb Ze Huang:
+>> Replace PL111 simple display pipe with explicit plane, CRTC and encoder
+>> objects.
+>>
+>> Keep existing hardware programming and vblank behavior, and install GEM
+>> framebuffer prepare helper explicitly.
+>>
+>> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
+>> ---
+>>   drivers/gpu/drm/pl111/pl111_display.c | 174 ++++++++++++++++++++++++++=
+--------
+>>   drivers/gpu/drm/pl111/pl111_drm.h     |   5 +-
+>>   drivers/gpu/drm/pl111/pl111_drv.c     |   3 +-
+>>   3 files changed, 136 insertions(+), 46 deletions(-)
+>>
 
-A few lines up from here you'll find a long, sorted list of HAS_*. Please
-insert this one at the appropriate spot there.
+[ ... ]
 
-> +config DT_CPU_TOPOLOGY
-> +	bool
-> +
-> +config GENERIC_CPU_TOPOLOGY
-> +	bool "CPU topology support (UNSUPPORTED)" if UNSUPPORTED
-> +	depends on HAS_GENERIC_CPU_TOPOLOGY
-> +	select DT_CPU_TOPOLOGY if DEVICE_TREE_PARSE
-> +	select ACPI_CPU_TOPOLOGY if ACPI
+>> -static int pl111_display_check(struct drm_simple_display_pipe *pipe,
+>> -			       struct drm_plane_state *pstate,
+>> -			       struct drm_crtc_state *cstate)
+>> +static int pl111_plane_helper_atomic_check(struct drm_plane *plane,
+>> +					   struct drm_atomic_commit *state)
+>>   {
+>> -	const struct drm_display_mode *mode =3D &cstate->mode;
+>> -	struct drm_framebuffer *old_fb =3D pipe->plane.state->fb;
+>> +	struct drm_plane_state *pstate =3D drm_atomic_get_new_plane_state(stat=
+e, plane);
+>> +	struct drm_crtc *crtc =3D pstate->crtc;
+>> +	struct drm_crtc_state *cstate;
+>> +	const struct drm_display_mode *mode;
+>> +	struct drm_framebuffer *old_fb =3D plane->state->fb;
+>>   	struct drm_framebuffer *fb =3D pstate->fb;
+>> +	int ret;
+>> +
+>> +	if (!crtc)
+>> +		return 0;
+>> +
+>> +	cstate =3D drm_atomic_get_new_crtc_state(state, crtc);
+>> +	if (!cstate)
+>> +		return 0;
+>> +
+>> +	ret =3D drm_atomic_helper_check_plane_state(pstate, cstate,
+>> +						  DRM_PLANE_NO_SCALING,
+>> +						  DRM_PLANE_NO_SCALING,
+>> +						  false, false);
+>
+> This is another case of _check_plane_state() running conditionally.
+>
 
-I wonder what others think here; to me this looks backwards. "Generic" ought
-to be selected by the more specific variants.
+Acknowledged
 
-> +	help
-> +	  Retrieve CPU topology information from the device tree to optimize
-> +	  virtual CPU scheduling.
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (!pstate->visible)
+>> +		return 0;
+>> +
+>> +	mode =3D &cstate->mode;
+>>  =20
+>>   	if (mode->hdisplay % 16)
+>>   		return -EINVAL;
+>> @@ -117,16 +140,14 @@ static int pl111_display_check(struct drm_simple_d=
+isplay_pipe *pipe,
+>>   	return 0;
+>>   }
 
-This is DT help text, not generic one. Altogether something like the below?
-
-config GENERIC_CPU_TOPOLOGY
-	bool
-
-config DT_CPU_TOPOLOGY
-	bool "CPU topology support (UNSUPPORTED)" if UNSUPPORTED
-	depends on HAS_GENERIC_CPU_TOPOLOGY && DEVICE_TREE_PARSE
-	select GENERIC_CPU_TOPOLOGY
-	help
-	  Retrieve CPU topology information from the device tree to optimize
-	  virtual CPU scheduling.
-
-(And then similarly for ACPI.)
-
-> --- /dev/null
-> +++ b/xen/common/cpu-topology.c
-> @@ -0,0 +1,62 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/acpi.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/cpumask.h>
-> +#include <xen/dt-cpu-topology.h>
-> +#include <xen/init.h>
-> +
-> +struct cpu_topology *__ro_after_init cpu_topology;
-
-With both functions below being __init, this is the sole reason why the
-file cannot (also) be built into cpu-topology.init.o. Perhaps this would
-better move into e.g. cpu.c (inside an #ifdef there, of course)?
-
-> --- /dev/null
-> +++ b/xen/common/device-tree/cpu-topology.c
-> @@ -0,0 +1,355 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Derived from Linux kernel 7.0's $drivers/base/arch_topology.c
-> + * Parse cpu topology information.
-> + */
-> +
-> +#include <xen/acpi.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/cpumask.h>
-> +#include <xen/device_tree.h>
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +#include <xen/numa.h>
-> +
-> +struct cpu_map {
-> +    unsigned int thread_id;
-> +    unsigned int core_id;
-> +    unsigned int cluster_id;
-> +    unsigned int package_id;
-> +};
-> +
-> +static const unsigned int __initdata invalid_topo_id = ~0U;
-
-To better fit with the rest of the codebase, I think this will want to be
-
-#define INVALID_TOPO_ID (~0U)
-
-> +static struct cpu_map __initdata cpu_map[NR_CPUS] = {
-> +    [0 ... NR_CPUS - 1] = {invalid_topo_id, invalid_topo_id, invalid_topo_id, 0}
-> +};
-
-Why would 0 need spelling out? And why is it 0 for package_id, but
-invalid_topo_id for everything else? (IOW: There may want to be a comment
-here.)
-
-> +static struct dt_device_node *__initdata dt_cpu_table[NR_CPUS];
-> +
-> +static void __init setup_siblings_masks(unsigned int target_cpu)
-> +{
-> +    const struct cpu_topology *target_topo = &cpu_topology[target_cpu];
-> +    const struct cpu_map *target_map = &cpu_map[target_cpu];
-> +    unsigned int cpu;
-> +
-> +    /* Update core and thread sibling masks */
-> +    for_each_possible_cpu(cpu)
-> +    {
-> +        const struct cpu_topology *cpu_topo = &cpu_topology[cpu];
-> +        const struct cpu_map *map = &cpu_map[cpu];
-> +
-> +        if ( target_map->package_id != map->package_id )
-> +            continue;
-> +
-> +        cpumask_set_cpu(target_cpu, cpu_topo->core_sibling);
-> +        cpumask_set_cpu(cpu, target_topo->core_sibling);
-> +
-> +        if ( target_map->cluster_id != map->cluster_id )
-> +            continue;
-> +
-> +        if ( target_map->cluster_id != invalid_topo_id )
-> +        {
-> +            cpumask_set_cpu(target_cpu, cpu_topo->cluster_sibling);
-> +            cpumask_set_cpu(cpu, target_topo->cluster_sibling);
-> +        }
-> +
-> +        if ( target_map->core_id != map->core_id )
-> +            continue;
-> +
-> +        cpumask_set_cpu(target_cpu, cpu_topo->thread_sibling);
-> +        cpumask_set_cpu(cpu, target_topo->thread_sibling);
-> +    }
-> +}
-> +
-> +static struct dt_device_node *__init
-> +       dt_find_child_node_by_name(const struct dt_device_node *dt,
-
-Bogus indentation (the function name wants to start at line start when
-wrapped like this).
-
-> +                                  const char *name)
-> +{
-> +    struct dt_device_node *np;
-> +
-> +    dt_for_each_child_node(dt, np)
-> +        if ( np->name && (dt_node_cmp(np->name, name) == 0) )
-> +            break;
-> +
-> +    return np;
-> +}
-
-I'm not a DT person, so I don't know how likely it is that the
-implementation of dt_for_each_child_node(), to e.g. be similar to
-list_for_each*(). Here you're assuming np to be NULL upon loop exit,
-which however is an implementation detail of the macro.
-
-> +void __init map_cpu_to_dt_node(unsigned int cpu,
-> +                               struct dt_device_node *cpu_node)
-> +{
-> +    if ( cpu < ARRAY_SIZE(dt_cpu_table) )
-> +        dt_cpu_table[cpu] = cpu_node;
-> +    else
-> +        printk(XENLOG_WARNING
-> +               "cpu id %u exceeds the max cores %lu\n",
-> +               cpu, ARRAY_SIZE(dt_cpu_table));
-
-There's still "id" here, and "cores" also neither fits dt_cpu_table[],
-nor is it an arch-independent synonym for "CPU" (and you use the term
-for another purpose further down). %lu also isn't exactly the format to
-use with size_t arguments.
-
-> +static unsigned int __init cpu_node_to_id(const struct dt_device_node *cpu_node)
-> +{
-> +    unsigned int cpu;
-> +
-> +    for_each_possible_cpu(cpu)
-> +        if ( cpu_node == dt_cpu_table[cpu] )
-> +            return cpu;
-> +
-> +    return invalid_topo_id;
-> +}
-> +
-> +/*
-> + * This function returns the logical cpu number of the DT node.
-> + */
-
-"logical" meaning what exactly here? To be unambiguous, maybe better "Xen
-CPU number"?
-
-> +static unsigned int __init
-> +       get_cpu_for_node(const struct dt_device_node *dt_node)
-
-Bad indentation again.
-
-> +static int __init parse_core(const struct dt_device_node *core,
-> +                             unsigned int package_id,
-> +                             unsigned int cluster_id,
-> +                             unsigned int core_id)
-> +{
-> +    bool leaf = true;
-> +    unsigned int i = 0;
-> +    unsigned int cpu;
-> +
-> +    do {
-> +        const struct dt_device_node *t;
-> +        char name[20];
-> +
-> +        snprintf(name, sizeof(name), "thread%u", i);
-> +        t = dt_find_child_node_by_name(core, name);
-> +
-> +        if ( !t )
-> +            break;
-> +
-> +        leaf = false;
-> +        cpu = get_cpu_for_node(t);
-> +        if ( cpu != invalid_topo_id )
-> +        {
-> +            cpu_map[cpu].package_id = package_id;
-> +            cpu_map[cpu].cluster_id = cluster_id;
-> +            cpu_map[cpu].core_id = core_id;
-> +            cpu_map[cpu].thread_id = i;
-> +        }
-> +        else
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "ERROR: %s: Can't get CPU for thread\n", dt_node_name(t));
-> +            return -EINVAL;
-> +        }
-
-Less indentation is needed with
-
-        if ( cpu == invalid_topo_id )
-        {
-            printk(XENLOG_ERR
-                   "ERROR: %s: Can't get CPU for thread\n", dt_node_name(t));
-            return -EINVAL;
-        }
-
-        cpu_map[cpu].package_id = package_id;
-        cpu_map[cpu].cluster_id = cluster_id;
-        cpu_map[cpu].core_id = core_id;
-        cpu_map[cpu].thread_id = i;
-
-Also should you maybe assert up front that the slot is still vacant?
-
-> +        i++;
-> +    } while ( true );
-
-Why not the more conventional
-
-    for ( i = 0; ; ++i )
-
-? Then it will also be possible to use "continue" inside the loop (if ever
-needed). Same elsewhere.
-
-> +/*
-> + * Generate cpu topology information when cpu-map node doesn't exist.
-> + * It assumes that the cpu doesn't have SMT and all CPUs on a NUMA
-> + * node belong to the same socket.
-> + */
-> +static void __init fixup_topology(void)
-> +{
-> +    unsigned int cpu;
-> +    unsigned int clid = 0;
-> +    unsigned int pkgid = 0;
-> +
-> +    for_each_possible_cpu(cpu)
-> +    {
-> +        struct cpu_map *map = &cpu_map[cpu];
-> +
-> +        map->package_id = cpu_to_node(cpu);
-> +        if ( map->package_id != pkgid )
-> +        {
-> +            pkgid = map->package_id;
-> +            clid = 0;
-> +        }
-> +        map->cluster_id = clid++;
-> +        map->core_id = 0;
-> +        map->thread_id = 0;
-> +    }
-> +}
-
-The comment ahead of the function talks of NUMA nodes, but the function
-shows no NUMA-awareness.
-
-> +int __init parse_dt_topology(void)
-
-static?
-
-> --- /dev/null
-> +++ b/xen/drivers/acpi/topology.c
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/acpi.h>
-> +#include <xen/cpu-topology.h>
-> +#include <xen/cpumask.h>
-> +#include <xen/init.h>
-> +
-> +/*
-> + * TODO: Populate the topology information by scanning the ACPI
-> + *       PPTT (Processor Properties Topology Table).
-> + */
-> +void __init acpi_init_cpu_topology(void)
-> +{
-> +    unsigned int cpu;
-> +
-> +    /*
-> +     * Generate temporary cpu topology information for now.
-> +     * It assumes that the cpu doesn't have SMT and all CPUs
-> +     * belong to the same socket.
-> +     */
-> +    for_each_possible_cpu(cpu)
-> +    {
-> +        struct cpu_topology *topo = &cpu_topology[cpu];
-> +
-> +        cpumask_set_cpu(cpu, topo->thread_sibling);
-> +        cpumask_copy(topo->core_sibling, &cpu_possible_map);
-> +    }
-
-What about ->cluster_sibling? That can't remain all empty, can it?
-
-> --- /dev/null
-> +++ b/xen/include/xen/cpu-topology.h
-> @@ -0,0 +1,35 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef XEN_CPU_TOPOLOGY_H
-> +#define XEN_CPU_TOPOLOGY_H
-> +
-> +#include <xen/cpumask.h>
-> +
-> +#ifdef CONFIG_GENERIC_CPU_TOPOLOGY
-> +
-> +struct cpu_topology {
-> +    cpumask_var_t thread_sibling;
-> +    cpumask_var_t core_sibling;
-> +    cpumask_var_t cluster_sibling;
-> +};
-> +
-> +extern struct cpu_topology *cpu_topology;
-> +void init_cpu_topology(void);
-> +
-> +#else /* CONFIG_GENERIC_CPU_TOPOLOGY */
-> +
-> +#define cpu_topology ((struct cpu_topology *)NULL)
-
-As before: I consider it dangerous to expose an identifier which is
-only ever NULL. The extern should be moved out of the #ifdef, and
-DCE should be leveraged to eliminate all references when
-GENERIC_CPU_TOPOLOGY=n.
-
-Jan
+[ ... ]
 
