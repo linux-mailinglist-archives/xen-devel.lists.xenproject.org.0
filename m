@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id suD6Ag9jTmryLgIAu9opvQ
+	id nzCrCgJlTmp6LwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:47:43 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 563807278F5
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:47:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 801E6727A69
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:01 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=MZSo9tHg;
+	dkim=pass header.d=suse.com header.s=google header.b=VBfzoQYO;
 	dmarc=pass (policy=quarantine) header.from=suse.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1357122.1611618 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357135.1611626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTYk-0006Hz-3i; Wed, 08 Jul 2026 14:47:34 +0000
+	id 1whTgg-00082T-R8; Wed, 08 Jul 2026 14:55:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357122.1611618; Wed, 08 Jul 2026 14:47:34 +0000
+Received: by outflank-mailman (output) from mailman id 1357135.1611626; Wed, 08 Jul 2026 14:55:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTYk-0006G1-0W; Wed, 08 Jul 2026 14:47:34 +0000
-Received: by outflank-mailman (input) for mailman id 1357122;
- Wed, 08 Jul 2026 14:47:33 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1whTYj-0006D6-5R
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:47:33 +0000
+	id 1whTgg-00080D-OU; Wed, 08 Jul 2026 14:55:46 +0000
+Received: by outflank-mailman (input) for mailman id 1357135;
+ Wed, 08 Jul 2026 14:55:45 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1whTgf-000807-85
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:55:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whTYi-008hbk-2n
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:47:32 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1whTge-0007NS-LI
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:55:44 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4e62fb-e002-0a2a0a5209dd-0a2a450aa7aa-16
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:47:31 +0200
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4e64dd-bab6-0a2a0a5309dd-0a2a4505dc9a-48
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:55:44 +0200
+Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a4e6303-e40e-0a2a450a0019-d1558036ed42-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:47:31 +0200
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-493b61b52b6so7566505e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:47:31 -0700 (PDT)
+ id 6a4e64f0-3cb2-0a2a45050019-d155dd31a486-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:55:44 +0200
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-4758bd3731bso605109f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:55:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e0f40d50sm166797965e9.5.2026.07.08.07.47.30
+ ffacd0b85a97d-47aa039b126sm43066599f8f.24.2026.07.08.07.55.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jul 2026 07:47:30 -0700 (PDT)
+ Wed, 08 Jul 2026 07:55:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,67 +60,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783522051; x=1784126851; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IDhw7yyyh/pcOx2iTl0xYCUDtl4x3a5TTMn0Oh5uE6s=;
-        b=MZSo9tHgvmzr8wqKPE32aJuw1tWvACLddEbbREW8iCPCogyTcS5WlhakYNw0pEisaU
-         rYwS6I6eEhIbjPkk878DPo90lO7KIgVaDo/vEBUm8VG1ZOLckGw/Y2PhgWpUZeVXXnl6
-         yL0jbO8ybAln39qHFhUMJHBaGRo+rf1p4C73gtmug717PtYn4a4bmxeptX/xd0abapl4
-         AUPpp1E+8lh+2lVj26AAHQQ0927N+8Z92jBx+xKu/UDj7zRV1IaoFEulukyOkf2R1zA3
-         BBm6HBADPzDshf5X6/1Li+9HgwlZaVSS9AozApBzSyS+DV2E8x+xh84/eAj8u24jrYJt
-         e0DA==
+        d=suse.com; s=google; t=1783522544; x=1784127344; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:autocrypt:content-language
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=bFF/1aIEUZe7ClGY7L9LcVeNotxS1viNd9h5I3egz24=;
+        b=VBfzoQYOaaJgmDu4zOXkIfeMNXWUwWtG5FZ8QHHvGBYp6HEvdW58mBR/KZW+38p5Is
+         DT50gC8BJZh+DKkuBt/S4uxNLEDWjIEVcAhzue1dKlzJyWYBBf4LCheKfye8bkrc7OOW
+         UKf4I6K/gLbJqXmJCeiDD5cWUp+LqFJns8mdVTkjxvSA/+QxHGra2eGVW2kHuu1Y1r5a
+         G6/rHH+EUuiQKiw5S58XxwL6OI+eArWJbsgNAJs5NPsOMPzU1Ro29P16KKgORJRZxRPn
+         JT6vqGaAZswvT8T/Qtz7clCxA7GJCt1FvH039wrYcYUIR1k+ytxb4oxoMzy/3n9f21Fv
+         wsUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522051; x=1784126851;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IDhw7yyyh/pcOx2iTl0xYCUDtl4x3a5TTMn0Oh5uE6s=;
-        b=AQP93XSYOYKvnvNSJW/c1uPU7u8x/5uBgJyjqKe/vWpoRxFdeTzmuaCl2zBv+hnH96
-         We2y30z9+KANt549DsWTroP+a8SOKRPmVIoTshD3oD8Vq6y240IctzmA1j0iHcbCDhSF
-         Kkt+MSGR2WVV98U3uEJ2p9jO+W+kkBl2XtRvsNxqXu0Z/NwHves4TXC0sBr73QPg3mee
-         D8CyDcphrSMwETh/AKltSmGUIFxx4hEjhVaMnbD1HEBbwgL4Fd5ujW5xjUFZ35+zDGsP
-         MR//wfuIM9xS5F2vIcLlNsA5sRubHvtGxt0CWCWXxFzGDRfnNEdjSt8DqgikIom69rYw
-         qq3w==
-X-Forwarded-Encrypted: i=1; AHgh+RrFaLbjiya/dWHkSwu53Atn0yqmUOJR2mWO1fOFJVRiYHCOeIJDsNcV8jbzxJnSeSt2xbH6jG5eHZw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrQom98FnZnzLBJu50QuXcJ+bqSec9a7qpugIGPErIYnJx0t2h
-	oYg15Y1f6mMvOQpzReHqhlTj6OgJtAE6cWmU9qvadzi3wAJarOpa844qk668OhWpyQ==
-X-Gm-Gg: AfdE7cli/w73GhRspSqbUwMMCSMGGVoFaiIMYIojLrWkcpX23CSduhycwlHPWCJj3oR
-	T/B5e3RapK632l9YXIA+F2zmtF9R5yNYRL3xAfvK4PWjOFGUokHgWYrTeZB08QN9O89Svvv8Mf9
-	4Dmx2d+5YQPfgjpL7z549X1qb6qbZEusWlPz2QizvMBiY3JfIzqiIcmndRSsUnHawFa8LHiOk3c
-	dPmkI4EcBtdxNokhBl5WXB2/Pnp3WrdfCWjQBQuQSa3GamBhvEsmno66zD/RRRBRafwdG1qCeDi
-	falFSWa/DtKttfyxChJVU7Sg6tH4bUuoRh6a8RXmdex4PHgv1BiIiw9qeIi1kaen2Tc55iHJABt
-	UllORPvHTUkkvuzkEYLxCTHRvnhWbiVACMKNZk33tMnVPuQ7AXWlIBcHjaojHBpBSEBn5pVFHmI
-	8FeSRTjJJyNwPlpQVuKrAtqXnFvz7L8Ce+vPuP2jXC8rcIgzK6ImErDiAeuYLBxJHCAt3ieOeT3
-	dMB
-X-Received: by 2002:a05:600c:34c3:b0:493:bb29:af40 with SMTP id 5b1f17b1804b1-493e689b37amr37619815e9.14.1783522051340;
-        Wed, 08 Jul 2026 07:47:31 -0700 (PDT)
-Message-ID: <41ae8496-03e6-4e39-bce9-e98e9db85c5d@suse.com>
-Date: Wed, 8 Jul 2026 16:47:30 +0200
+        d=1e100.net; s=20251104; t=1783522544; x=1784127344;
+        h=content-transfer-encoding:content-type:autocrypt:content-language
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bFF/1aIEUZe7ClGY7L9LcVeNotxS1viNd9h5I3egz24=;
+        b=FftNpRb0OJQCkdrXimYzc5OvuBYkqNod782ciJrCgoxv5zLioQeDP53xvJXNuLXQuj
+         VXXFqWlCUcZha5dBnvPBRXZUUuT7MjXVscLUYR4Ems6jCoTiT6J8JRz0Ja3gwV5JgLPL
+         fjjm4UTmVOnRTLzd3e5axaJ0RZMTYdd0qLLEiuitPsEO5SX4O8ZxenvCA7U/xjgfuFz/
+         7CZU4+dtbD0227sS80Z9aRg1BGn2JRkfHqYJqcurgQLnaEcrLLDJIFioxwQPZ144al/i
+         2BfCkOCpDWlG75VG7N6TAeLDcQA7oTsWH7H1l2dLbwL65Ura0shU2Ux7oGKR7IIli/Gt
+         dQHA==
+X-Gm-Message-State: AOJu0YyoNdQq/KGHJOqPhao5w8pzxqZN7pCVrlWdWiq5df3zTXVowvlt
+	RY4oehHwqQGKf+uvFRfybQro6H+i2QtBWNmky/AJXiI+iP4EAiSBG0iiFalmvL4wkfJwkjTgRcu
+	EO4mCLQ==
+X-Gm-Gg: AfdE7ckWn9Oex862e7kNJtN23MoOh2/BaENMWU4kjaVlX9ZZ9qsstqV+MS7rdbpYSFc
+	QrI/t4aHGom6AQcCa3IExFoTd6RYD5hn52TEIont0VP89suebvVagD8/Eog9X/qocrVJQ1F+Dxk
+	4fa2lwyv4K9VR3ygmHYPkWOWI/Y3pidP3qKEvhO+Q/GpohuVLlhN+Lw3UGXgAzwr7H6KQpBT2Dj
+	wcpOsxz7hlZ5r2VFsP++x3WrG7YKHx8QlZFI44U0246Q1fpo+XK8cM7eS9WYf0wdGIPlYahQYw8
+	qeDwxAr0EKpDtSCyMg2k4KOqk22gjqfU8CJXxzuJkSXhXBMidr7RL/VyfTvON7VKB5pzJwW1AMq
+	EHC4COFIQb2s2fpr39zWICTzyooMedcRVUQwwLg6BcA20u45W/FoT+BAfJ28qtdNThsBOuy7Iv4
+	ojIIiCZ5jrsXFxzkomU5YeUpm2rIw2/T7m7UsGdz9Px4NLk6WvefqMCCTtNufflhRdyjctwjqa8
+	Gbu
+X-Received: by 2002:a05:6000:387:b0:460:6b12:1783 with SMTP id ffacd0b85a97d-47df02459b8mr3564130f8f.4.1783522543946;
+        Wed, 08 Jul 2026 07:55:43 -0700 (PDT)
+Message-ID: <da502f31-17fa-4b2d-90e3-1f6988717454@suse.com>
+Date: Wed, 8 Jul 2026 16:55:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] xen/sched: Link CPU topology to scheduler
-To: Hirokazu Takahashi <taka@valinux.co.jp>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>
-References: <20260703091544.183548-1-taka@valinux.co.jp>
- <20260703091544.183548-3-taka@valinux.co.jp>
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 for-4.22] x86/cpu-policy: set up host policy earlier
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -145,274 +133,156 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260703091544.183548-3-taka@valinux.co.jp>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1783522051-CFD33DDE-C6A14872/0/0
-X-purgate-type: clean
-X-purgate-size: 8423
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-c201ff/1783522544-17B192B8-0BD7AB3F/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 3498
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:dkim,suse.com:mid,valinux.co.jp:email];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,raptorengineering.com,wdc.com,gmail.com,lists.xenproject.org,suse.com,xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,invisiblethingslab.com,vates.tech,gmail.com];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:email,suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 563807278F5
+X-Rspamd-Queue-Id: 801E6727A69
 
-On 03.07.2026 11:15, Hirokazu Takahashi wrote:
-> Make CPU topology information available to the Xen scheduler.
-> Additionally, ensure that this topology information is displayed
-> when executing the 'xl info -n' command.
-> 
-> Signed-off-by: Hirokazu Takahashi <taka@valinux.co.jp>
-> ---
-> Changes in v4
->  - Explicitly #include <asm/processor.h> in cpu-topology.h to guarantee
->    that arch-specific definitions of cpu_to_core() and cpu_to_socket()
->    take precedence over the generic fallbacks.
->  - Introduce inline initialization functions for cpu_sibling_mask and
->    cpu_core_mask in cpu-topology.h, providing separate variants for both
->    when CONFIG_GENERIC_CPU_TOPOLOGY is enabled and disabled.
-> 
-> Changes in v3
->  - Remove the temporary definitions of cpu_to_core() and cpu_to_socket()
->    from RISC-V and PPC processor.h.
->  - Minimize the use of #ifdef blocks, leveraging compiler Dead Code
->    Elimination (DCE) where possible.
-> 
->  xen/arch/arm/include/asm/processor.h   |  4 --
->  xen/arch/arm/smpboot.c                 |  8 +---
->  xen/arch/ppc/include/asm/processor.h   |  4 --
->  xen/arch/riscv/include/asm/processor.h |  4 --
->  xen/common/device-tree/cpu-topology.c  | 51 ++++++++++++++++++++++++++
->  xen/common/sched/credit2.c             |  3 ++
->  xen/common/sysctl.c                    |  1 +
->  xen/drivers/acpi/topology.c            |  3 ++
->  xen/include/xen/cpu-topology.h         | 45 ++++++++++++++++++++++-
->  9 files changed, 103 insertions(+), 20 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
-> index a3753c317f..41fa73cfc4 100644
-> --- a/xen/arch/arm/include/asm/processor.h
-> +++ b/xen/arch/arm/include/asm/processor.h
-> @@ -613,10 +613,6 @@ void show_stack(const struct cpu_user_regs *regs);
->  
->  #define cpu_relax() barrier() /* Could yield? */
->  
-> -/* All a bit UP for the moment */
-> -#define cpu_to_core(_cpu)   (0)
-> -#define cpu_to_socket(_cpu) (0)
-> -
->  struct vcpu;
->  void vcpu_regs_hyp_to_user(const struct vcpu *vcpu,
->                             struct vcpu_guest_core_regs *regs);
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index 5ce2bcf6ec..3c9f2a5c53 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -92,13 +92,7 @@ static int setup_cpu_sibling_map(int cpu)
->           !zalloc_cpumask_var(&per_cpu(cpu_core_mask, cpu)) )
->          return -ENOMEM;
->  
-> -    /*
-> -     * Currently we assume there is no multithread and NUMA, so
-> -     * a CPU is a sibling with itself, and the all possible CPUs
-> -     * are supposed to belong to the same socket (NUMA node).
-> -     */
-> -    cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
-> -    cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-> +    init_cpu_sibling_map(cpu);
->  
->      return 0;
->  }
-> diff --git a/xen/arch/ppc/include/asm/processor.h b/xen/arch/ppc/include/asm/processor.h
-> index 242346cab9..1bf6f6c66c 100644
-> --- a/xen/arch/ppc/include/asm/processor.h
-> +++ b/xen/arch/ppc/include/asm/processor.h
-> @@ -141,10 +141,6 @@
->  /* Macro to adjust thread priority for hardware multithreading */
->  #define HMT_very_low()  asm volatile ( "or %r31, %r31, %r31" )
->  
-> -/* TODO: This isn't correct */
-> -#define cpu_to_core(cpu)   (0)
-> -#define cpu_to_socket(cpu) (0)
-> -
->  /*
->   * User-accessible registers: most of these need to be saved/restored
->   * for every nested Xen invocation.
-> diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
-> index 6b89df4a2d..d478ffb76b 100644
-> --- a/xen/arch/riscv/include/asm/processor.h
-> +++ b/xen/arch/riscv/include/asm/processor.h
-> @@ -54,10 +54,6 @@ struct cpu_user_regs
->      unsigned long pregs;
->  };
->  
-> -/* TODO: need to implement */
-> -#define cpu_to_core(cpu)   0
-> -#define cpu_to_socket(cpu) 0
-> -
->  static inline void cpu_relax(void)
->  {
->  #ifdef __riscv_zihintpause
-> diff --git a/xen/common/device-tree/cpu-topology.c b/xen/common/device-tree/cpu-topology.c
-> index b653227ef4..43322a153f 100644
-> --- a/xen/common/device-tree/cpu-topology.c
-> +++ b/xen/common/device-tree/cpu-topology.c
-> @@ -330,6 +330,55 @@ int __init parse_dt_topology(void)
->      return parse_socket(map);
->  }
->  
-> +static void __init setup_cpu_topology_ids(void)
-> +{
-> +    unsigned int cpu;
-> +    unsigned int next_core_id = 0;
-> +    unsigned int next_cluster_id = 0;
-> +    unsigned int next_socket_id = 0;
-> +
-> +    for_each_possible_cpu(cpu)
-> +    {
-> +        unsigned int first_cpu;
-> +        struct cpu_topology *topo = &cpu_topology[cpu];
-> +
-> +        first_cpu = cpumask_first(topo->thread_sibling);
-> +        if ( first_cpu == cpu )
-> +        {
-> +            topo->phys_core_id = next_core_id;
-> +            next_core_id++;
-> +        }
-> +        else
-> +            topo->phys_core_id = cpu_topology[first_cpu].phys_core_id;
+In order to use cpu_has_* expanding to host_cpu_policy.*, the host policy
+needs setting up alongside boot_cpu_data.x86_capability[]. Arrange for
+that towards the end of identify_cpu(). Then make sure .x86_capability[]
+and host policy remain in sync when setup_{force,clear}_cpu_cap() are
+used.
 
-Not even an assertion to make sure first_cpu is within bounds, i.e.
-topo->thread_sibling isn't (by mistake) empty? (Same again further down.)
+Rename the function now it's no longer static.
 
-> +        /* Reuse the calculated core id if clustering is not supported */
-> +        if ( cpumask_empty(topo->cluster_sibling) )
-> +            topo->phys_cluster_id = topo->phys_core_id;
+Fixes: 894bd7617924 ("x86/Intel: use host CPU policy for ARAT checking")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+This really was part of one of the XSTATE cleanup patches at the head of
+the AMX series. This explains the specific placement ahead of the call to
+xstate_init()). Likely anything from there downwards shouldn't really
+live in identify_cpu() anyway.
+---
+v3: Make call from setup_force_cpu_cap() conditional.
+v2: Call calculate_host_cpu_policy() from setup_{force,clear}_cpu_cap()
+    instead of from init_guest_cpu_policies().
 
-Wouldn't the cluster better be uniformly the same value (perhaps 0) for
-all CPUs when there's no clustering?
-
-> +        else
-> +        {
-> +            first_cpu = cpumask_first(topo->cluster_sibling);
-
-No need to use cpumask_empty() and cpumask_first(). The return value of the
-latter allows to identify the "empty" case.
-
-> --- a/xen/common/sched/credit2.c
-> +++ b/xen/common/sched/credit2.c
-> @@ -9,6 +9,7 @@
->   * Based on an earlier verson by Emmanuel Ackaouy.
->   */
->  
-> +#include <xen/cpu-topology.h>
->  #include <xen/errno.h>
->  #include <xen/init.h>
->  #include <xen/lib.h>
-> @@ -37,6 +38,8 @@ static unsigned int cpu_nr_siblings(unsigned int cpu)
->  {
->  #ifdef CONFIG_X86
->      return cpu_data[cpu].x86_num_siblings;
-> +#elif defined(CONFIG_CPU_TOPOLOGY)
-> +    return cpu_topology ? cpu_topology[cpu].num_siblings : 1;
-
-Apart from the naming issue I continue to think that the generic case should
-come first, and x86'es special case second. Yet then I'm not a maintainer of
-this code ...
-
-> --- a/xen/include/xen/cpu-topology.h
-> +++ b/xen/include/xen/cpu-topology.h
-> @@ -4,6 +4,9 @@
->  #define XEN_CPU_TOPOLOGY_H
->  
->  #include <xen/cpumask.h>
-> +#include <xen/percpu.h>
-> +#include <asm/processor.h>
-> +#include <asm/smp.h>
-
-Blank line please between the xen/ group and the asm/ one.
-
-> @@ -11,16 +14,56 @@ struct cpu_topology {
->      cpumask_var_t thread_sibling;
->      cpumask_var_t core_sibling;
->      cpumask_var_t cluster_sibling;
-> +    unsigned int phys_core_id;
-> +    unsigned int phys_cluster_id;
-> +    unsigned int phys_socket_id;
-> +    unsigned int num_siblings;
->  };
->  
->  extern struct cpu_topology *cpu_topology;
->  void init_cpu_topology(void);
->  
-> +static inline void init_cpu_sibling_map(unsigned int cpu)
-> +{
-> +    if ( cpu_topology )
-> +    {
-> +        cpumask_copy(per_cpu(cpu_sibling_mask, cpu),
-> +                     cpu_topology[cpu].thread_sibling);
-> +        cpumask_copy(per_cpu(cpu_core_mask, cpu),
-> +                     cpu_topology[cpu].core_sibling);
-> +    }
-> +    else
-> +    {
-> +        cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
-> +        cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-
-Isn't this the same as ...
-
-> +    }
-> +}
-> +
-> +#define cpu_to_core(cpu) (cpu_topology ? cpu_topology[cpu].phys_core_id : 0)
-> +#define cpu_to_socket(cpu) (cpu_topology ? cpu_topology[cpu].phys_socket_id : 0)
-> +
->  #else /* CONFIG_GENERIC_CPU_TOPOLOGY */
->  
-> -#define cpu_topology ((struct cpu_topology *)NULL)
->  static inline void init_cpu_topology(void) {}
->  
-> +static inline void init_cpu_sibling_map(unsigned int cpu)
-> +{
-> +    /*
-> +     * If CONFIG_GENERIC_CPU_TOPOLOGY is disabled, it is assumed that
-> +     * all CPUs reside in the same socket and that SMT is not used.
-> +     */
-> +    cpumask_set_cpu(cpu, per_cpu(cpu_sibling_mask, cpu));
-> +    cpumask_copy(per_cpu(cpu_core_mask, cpu), &cpu_possible_map);
-
-... this? Would be nice to avoid the duplication.
-
-Jan
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -66,8 +66,10 @@ void __init setup_clear_cpu_cap(unsigned
+ 	__clear_bit(cap, boot_cpu_data.x86_capability);
+ 	dfs = x86_cpu_policy_lookup_deep_deps(cap);
+ 
+-	if (!dfs)
++	if (!dfs) {
++		calculate_host_cpu_policy();
+ 		return;
++	}
+ 
+ 	for (i = 0; i < FSCAPINTS; ++i) {
+ 		cleared_caps[i] |= dfs[i];
+@@ -78,6 +80,8 @@ void __init setup_clear_cpu_cap(unsigned
+ 		       __builtin_return_address(0),
+ 		       i, forced_caps[i] & dfs[i]);
+ 	}
++
++	calculate_host_cpu_policy();
+ }
+ 
+ void __init setup_force_cpu_cap(unsigned int cap)
+@@ -92,6 +96,10 @@ void __init setup_force_cpu_cap(unsigned
+ 	}
+ 
+ 	__set_bit(cap, boot_cpu_data.x86_capability);
++
++	/* Don't recalculate when the bit isn't represented in the policy. */
++	if (cap < FSCAPINTS * 32)
++		calculate_host_cpu_policy();
+ }
+ 
+ bool __init is_forced_cpu_cap(unsigned int cap)
+@@ -586,6 +594,8 @@ void identify_cpu(struct cpuinfo_x86 *c)
+ 	}
+ 
+ 	/* Now the feature flags better reflect actual CPU features! */
++	if (c == &boot_cpu_data)
++		calculate_host_cpu_policy();
+ 
+ 	xstate_init(c);
+ 
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -359,11 +359,18 @@ void calculate_raw_cpu_policy(void)
+     /* Was already added by probe_cpuid_faulting() */
+ }
+ 
+-static void __init calculate_host_policy(void)
++void __init calculate_host_cpu_policy(void)
+ {
+     struct cpu_policy *p = &host_cpu_policy;
+     unsigned int max_extd_leaf;
+ 
++    /*
++     * Bail if the raw policy wasn't set up yet. At least recalculate_xstate()
++     * can't be used yet in that case.
++     */
++    if ( !raw_cpu_policy.basic.max_leaf )
++        return;
++
+     *p = raw_cpu_policy;
+ 
+     p->basic.max_leaf =
+@@ -904,8 +911,6 @@ static void __init calculate_hvm_def_pol
+ 
+ void __init init_guest_cpu_policies(void)
+ {
+-    calculate_host_policy();
+-
+     if ( IS_ENABLED(CONFIG_PV) )
+     {
+         calculate_pv_max_policy();
+--- a/xen/arch/x86/include/asm/cpu-policy.h
++++ b/xen/arch/x86/include/asm/cpu-policy.h
+@@ -30,4 +30,10 @@ void recalculate_cpuid_policy(struct dom
+  */
+ void calculate_raw_cpu_policy(void);
+ 
++/*
++ * Collect the host CPU policy.  Called after collecting enough CPUID output,
++ * and again after all feature overrides have been put in place.
++ */
++void calculate_host_cpu_policy(void);
++
+ #endif /* X86_CPU_POLICY_H */
 
