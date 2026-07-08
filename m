@@ -2,58 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6drnKcsmTmq6EAIAu9opvQ
+	id vkf8ESIsTmoyEgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 12:30:35 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 12:53:22 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D8AC724581
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 12:30:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930337248B2
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 12:53:21 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=KDjLI2ch;
-	dmarc=pass (policy=none) header.from=vates.tech;
+	dkim=pass header.d=suse.com header.s=google header.b=DsAIu8ji;
+	dmarc=pass (policy=quarantine) header.from=suse.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1356834.1611375 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1356852.1611384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whPXq-00027q-SE; Wed, 08 Jul 2026 10:30:22 +0000
+	id 1whPti-0005R7-MC; Wed, 08 Jul 2026 10:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1356834.1611375; Wed, 08 Jul 2026 10:30:22 +0000
+Received: by outflank-mailman (output) from mailman id 1356852.1611384; Wed, 08 Jul 2026 10:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whPXq-00026D-Ok; Wed, 08 Jul 2026 10:30:22 +0000
-Received: by outflank-mailman (input) for mailman id 1356834;
- Wed, 08 Jul 2026 10:30:21 +0000
+	id 1whPti-0005OP-JM; Wed, 08 Jul 2026 10:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 1356852;
+ Wed, 08 Jul 2026 10:52:57 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4147441400080a8@swg.vates.tech>)
- id 1whPXp-000267-5x
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 10:30:21 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1whPth-0005OJ-4n
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 10:52:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whPXo-00H7tW-5r
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 12:30:20 +0200
-Received: from [10.42.69.6] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4147441400080a8@swg.vates.tech>)
- id 6a4e26b8-2eae-0a2a0a5409dd-0a2a4506e2ba-12
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 12:30:20 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4147441400080a8@swg.vates.tech>)
- id 6a4e26bb-08de-0a2a45060019-b9ff1c22a247-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 12:30:20 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f4147441400080a8.003 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Wed, 08 Jul 2026 10:30:17 +0000
-Received: from [192.168.1.18] (88-188-240-210.subs.proxad.net [88.188.240.210])
- (Authenticated sender: teddy.astie)
- by mail2.vates.fr (Postfix) with ESMTPSA id 9343C81EE4;
- Wed,  8 Jul 2026 12:30:16 +0200 (CEST)
+ id 1whPtg-00Ax3k-Cv
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 12:52:56 +0200
+Received: from [10.42.69.5] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a4e2be7-e002-0a2a0a5209dd-0a2a4505e36c-46
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 12:52:56 +0200
+Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a4e2c08-3cb2-0a2a45050019-d155dd34c50e-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 12:52:56 +0200
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-47640541585so312060f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 03:52:56 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47a9de1e6ccsm42166741f8f.5.2026.07.08.03.52.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Jul 2026 03:52:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,273 +60,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=sYV7oRyHzOxksYisaxys1ogzy1ohJHDjvyM76Dd8ZZU=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=KDjLI2chIxQWavhe2DlA4/bJJMWXivdkoQ8RqLjMNS4PitvcIyYyE4K5EcNLqHuEfrFgzZWNq
- 1jWz4z8NjilEVB1UhkY6ajrXkD5bkYyAeJmfe5scM9Ox9HZ2wtC4Qxwao6Snk+vsUnDHayQJDa/
- Kjx58X29J3TsMYWdnJU5urohhn5mx+zyu+swIaSi4bmq7GGEuIMeGLEUFof7+15a9Mf/N2sUFMM
- inI2oQM0WNPdrgFXkKGZre2LLtcDCRi8Zd/tSPs5T83NuNrhbldtvxXaoyzwn0LY0EDWXZnZdQM
- J+9RKdFflxDDajlrzYNJ6lxCmaJdSDp47o2MPXpeDIHw==
-X-Zone-Loop: e1d00ca2e706beac235836eb91a9dc47ed045ba10773
-x-campaign-type: default
-x-transaction-id: ab301ef2-933a-4efe-bd7b-8fa81c8ad215
-x-swg-uid: 01-a96d3585-cc1c-479b-82fc-17a192fd5118
-X-Mailer: Sweego
-Message-ID:
- <1783506617.8631fc262581453bbf619ec5b2062170.19f4147441400080a8@vates.tech>
-x-swg-bid: 1783506617.8631fc262581453bbf619ec5b2062170.19f4147441400080a8
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Wed, 8 Jul 2026 12:30:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1783507976; x=1784112776; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zU6xXyd+I2Z7NZXB9gI8gPCFhJkd44KzgVFlD6YS8gw=;
+        b=DsAIu8ji8X1Y8zQBFpOR71Zm7p6zoTSXnz5FzNkIHZZAhoXSB4XtCBfrb7CisXoVvI
+         Ce1jLuz1QR4uAQFpJrUonnIafZinxUQkJpNhLd9WwedvLEdNoKM1uq6nfo9gDWBPYY3C
+         1HBdXglwj+STWqPFc/n6KPLlym1ID8Hs9oQ5uAP5mIdva8XtZfD0Ads2FTgArzqZuP+n
+         ZNKd3GBhRIq19ZwYRNQbwSgREqBhzFgzLq7wH4EUMj63czRfnaRx/krD+Pu4TsQXfdjQ
+         HhERTNStdbGYep8M7RWocGnZAhrDNyBkaKnAsW4Zf8QiPHQzHJX9ipoFT9ik7GLc/9vq
+         BSGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783507976; x=1784112776;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zU6xXyd+I2Z7NZXB9gI8gPCFhJkd44KzgVFlD6YS8gw=;
+        b=Y0LC4HQ3PLWvPSqmomAY6rHvf5Z4VK4ZFFeypK6BxLLrCk88ZGnea/AlKhKsNmN08R
+         Bu6SIoYYZsC70obk1bZpSeAh5K78mOzWosJpMVxOqA1jIuzSV1629RHm2eJons3A3Sp3
+         LpXgG46HClgcZVPOHzGulLl1P3vms/q98EcvyF/foDCExJFQZOyD89KRFr5WVTY75Vkp
+         DjB6cQOW624JnAtb4d9MaZSoqzXhgQRg9mBSCzGbssFSBYuBmZFm7OFNNQd5EtldNvic
+         MBrNNEaS7tyILgPYJMw8Ww8JNZjU3oby/RZmP08q4rwl4gHcaryK1J556ruuGPCo+2SX
+         y4CQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoOtYerPzSNNTZOPWi0w4mzBS6yVBtPtVb/LOpVQ138PSIVklC9u1XjaWX5SHqzUh4j+Ji/hzndJCY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1kKpHSjXpGfBwFORXeZ/ETKbetN/iRkyd1vRf9LvEdEZSZwKU
+	Omz4xJdtSnQpB57POK/yZLwY8cgCLbciWM13qzPSE/LJLsGgMEmaYDwh1XaCld95xw==
+X-Gm-Gg: AfdE7cmWCNiIoq/Raqf2nSlLZaeYLtELerZJzxNx7J5CdPrmj6y1nMsm9gdgeMSY8WQ
+	lgB344mWT9Vmqh4KhwjCGtUvooR3y6YU1yWHObkdYuWNtuGCg9tx/xG8a3lZP6Md5RyLBqy7cFk
+	S7sskJI7PbM1U09H3rtPVLHA4NFzRO5xU+VBCtlnatXp6UmqxCMfxnnTd+bs/43gW6g61qU3IGL
+	mJuRNoLtzEpj3MHBhEroUsN1YelkMum7Y55HX4LPGn/ZqTkeOGgbmF/nvDBIy6SwsiPIXpTSX96
+	r8Xni5jmeFMaqHGSeTM/TBCSVPa0n+a29+iZOA0fh+F5qmnRZa2coSLBq0wELwYFEsQyQFA1aOh
+	bEDqF08vMex/zzjtGL5F4xyy+elCfwjUAb10sKyupZ3S3dpBOHsdZ23I8NkuYq0pL9b6U1BjUfz
+	aS2U7Sln28zfa9oWh3yfvyo4wxA+QYn8GtyrsGZB1/3rlFP+BFhSTytHOYRHLDlbyCTFE7GvQ4s
+	7fr
+X-Received: by 2002:a05:6000:3110:b0:472:67de:27c2 with SMTP id ffacd0b85a97d-47df077a95dmr2065638f8f.40.1783507975726;
+        Wed, 08 Jul 2026 03:52:55 -0700 (PDT)
+Message-ID: <2853c8c1-ea7f-46ba-ac65-a7473e9d3689@suse.com>
+Date: Wed, 8 Jul 2026 12:52:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] x86/emul: Adjust handling of CR8_LEGACY
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20260707194921.1425926-1-andrew.cooper3@citrix.com>
- <1783502974.8631fc262581453bbf619ec5b2062170.19f410fad6d00080a8@vates.tech>
- <f4c52bd9-4851-488f-98dc-7188470fd850@citrix.com>
+Subject: Re: [PATCH v5] xen: introduce CONFIG_HAS_SHARED_INFO for archs
+ without a shared page
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <6948fb2823ffa41cf2eabbd87952b236e4f379bf.1783085655.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
-From: Teddy Astie <teddy.astie@vates.tech>
-Autocrypt: addr=teddy.astie@vates.tech; keydata=
- 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
- x9fhaZEsniw8/bYgC3igkk5YJiOa
-In-Reply-To: <f4c52bd9-4851-488f-98dc-7188470fd850@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------7Sf9yXz00Diw7g5N0asWdX59"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1783506616733
-X-purgate-ID: tlsNG-16d1c6/1783506620-42F2468D-E8652F65/0/0
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6948fb2823ffa41cf2eabbd87952b236e4f379bf.1783085655.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c201ff/1783507976-553E72B8-12B715D5/0/0
 X-purgate-type: clean
-X-purgate-size: 9071
+X-purgate-size: 4050
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_MUA_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:dkim,suse.com:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:from_mime,vates.tech:email,vates.tech:mid,vates.tech:dkim];
-	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0D8AC724581
+X-Rspamd-Queue-Id: 930337248B2
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7Sf9yXz00Diw7g5N0asWdX59
-Content-Type: multipart/mixed; boundary="------------zVd89plokHoq5E5M1Pjybozf";
- protected-headers="v1"
-From: Teddy Astie <teddy.astie@vates.tech>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Message-ID: <06aca489-afd0-48d8-9f53-ff2d2a36549f@vates.tech>
-Subject: Re: [PATCH v3] x86/emul: Adjust handling of CR8_LEGACY
-References: <20260707194921.1425926-1-andrew.cooper3@citrix.com>
- <1783502974.8631fc262581453bbf619ec5b2062170.19f410fad6d00080a8@vates.tech>
- <f4c52bd9-4851-488f-98dc-7188470fd850@citrix.com>
-In-Reply-To: <f4c52bd9-4851-488f-98dc-7188470fd850@citrix.com>
+On 06.07.2026 17:57, Oleksii Kurochko wrote:
+> --- a/xen/common/event_channel.c
+> +++ b/xen/common/event_channel.c
+> @@ -40,6 +40,9 @@
+>  
+>  #define consumer_is_xen(e) (!!(e)->xen_consumer)
+>  
+> +/* Defined below when !CONFIG_HAS_SHARED_INFO; call is DCE'd otherwise. */
+> +void evtchn_none_init(struct domain *d);
 
---------------zVd89plokHoq5E5M1Pjybozf
-Content-Type: multipart/mixed; boundary="------------I060FJH4JrVSTQAfO0Ix8OKF"
+The definition wants to be static, so this declaration needs to become
+conditional. Assuming the evtchn_port_ops_none block can move up in the file,
+it could be put in an #else there.
 
---------------I060FJH4JrVSTQAfO0Ix8OKF
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> @@ -1323,9 +1326,13 @@ int evtchn_reset(struct domain *d, bool resuming)
+>          rc = -EAGAIN;
+>      else if ( d->evtchn_fifo )
+>      {
+> -        /* Switching back to 2-level ABI. */
+>          evtchn_fifo_destroy(d);
+> -        evtchn_2l_init(d);
+> +
+> +        if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
+> +            /* Switching back to 2-level ABI. */
+> +            evtchn_2l_init(d);
+> +        else
+> +            evtchn_none_init(d);
+>      }
 
-TGUgMDgvMDcvMjAyNiDDoCAxMTo1NywgQW5kcmV3IENvb3BlciBhIMOpY3JpdMKgOg0KPiBP
-biAwOC8wNy8yMDI2IDEwOjI5IGFtLCBUZWRkeSBBc3RpZSB3cm90ZToNCj4+IExlIDA3LzA3
-LzIwMjYgw6AgMjE6NDksIEFuZHJldyBDb29wZXIgYSDDqWNyaXTCoDoNCj4+PiBUaGUgQVBN
-IGRlc2NyaXB0aW9uIG9mIHRoZSBBbHRNb3ZDUjggZmVhdHVyZSBiaXQgaXM6DQo+Pj4NCj4+
-PiAgwqDCoCAiTE9DSyBNT1YgQ1IwIG1lYW5zIE1PViBDUjgiDQo+Pj4NCj4+PiBBZGp1c3Qg
-dGhlIGRlY29kZSBsb2dpYyB0byBiZWhhdmUgbGlrZSB0aGlzLg0KPj4+DQo+Pj4gU2lnbmVk
-LW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4NCj4+
-PiAtLS0NCj4+PiBDQzogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPj4+IEND
-OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4+PiBDQzogVGVk
-ZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVzLnRlY2g+DQo+Pj4NCj4+PiB2MzoNCj4+PiAg
-wqAgKiBDaGFuZ2UgeWV0IGFnYWluLsKgIEEgY29udGFjdCB3aXRoIGluZm9ybWF0aW9uIG9u
-IHRoZSBtYXR0ZXINCj4+PiBjb25maXJtZWQgdGhhdA0KPj4+ICDCoMKgwqAgaXQgaXMgYSBz
-cGVjaWFsIGNhc2UgZm9yIFJlZyA9IDAsIGFuZCBub3QgYSBnZW5lcmFsIG1vZGlmaWVyIHRv
-DQo+Pj4gYWxsIFJlZw0KPj4+ICDCoMKgwqAgdmFsdWVzLg0KPj4+IC0tLQ0KPj4+ICDCoCB4
-ZW4vYXJjaC94ODYveDg2X2VtdWxhdGUvZGVjb2RlLmMgfCA2ICsrKy0tLQ0KPj4+ICDCoCAx
-IGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPj4+DQo+
-Pj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni94ODZfZW11bGF0ZS9kZWNvZGUuYw0KPj4+
-IGIveGVuL2FyY2gveDg2L3g4Nl9lbXVsYXRlL2RlY29kZS5jDQo+Pj4gaW5kZXggMmMxMzM1
-NmM0ZDE3Li41N2Y2YmFmZmIwNjYgMTAwNjQ0DQo+Pj4gLS0tIGEveGVuL2FyY2gveDg2L3g4
-Nl9lbXVsYXRlL2RlY29kZS5jDQo+Pj4gKysrIGIveGVuL2FyY2gveDg2L3g4Nl9lbXVsYXRl
-L2RlY29kZS5jDQo+Pj4gQEAgLTc4MCwxMiArNzgwLDEyIEBAIGRlY29kZV90d29ieXRlKHN0
-cnVjdCB4ODZfZW11bGF0ZV9zdGF0ZSAqcywNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGJy
-ZWFrOw0KPj4+ICDCoCDCoMKgwqDCoMKgIGNhc2UgMHgyMDogY2FzZSAweDIyOiAvKiBtb3Yg
-dG8vZnJvbSBjciAqLw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIHMtPmxvY2tfcHJlZml4
-ICYmIHZjcHVfaGFzX2NyOF9sZWdhY3koKSApDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICgg
-cy0+bG9ja19wcmVmaXggJiYgdmNwdV9oYXNfY3I4X2xlZ2FjeSgpICYmIHMtPm1vZHJtX3Jl
-Zw0KPj4+ID09IDAgKQ0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgew0KPj4+IC3CoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHMtPm1vZHJtX3JlZyArPSA4Ow0KPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHMtPm1vZHJtX3JlZyA9IDg7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHMtPmxvY2tfcHJlZml4ID0gZmFsc2U7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
-oCB9DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIC8qIGZhbGwgdGhyb3VnaCAqLw0KPj4+ICvCoMKg
-wqDCoMKgwqDCoCBmYWxsdGhyb3VnaDsNCj4+PiAgwqDCoMKgwqDCoCBjYXNlIDB4MjE6IGNh
-c2UgMHgyMzogLyogbW92IHRvL2Zyb20gZHIgKi8NCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKg
-IEFTU0VSVChzLT5lYS50eXBlID09IE9QX1JFRyk7IC8qIEVhcmx5IG9wZXJhbmQgYWRqdXN0
-bWVudA0KPj4+IGVuc3VyZXMgdGhpcy4gKi8NCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGdl
-bmVyYXRlX2V4Y2VwdGlvbl9pZihzLT5sb2NrX3ByZWZpeCwgWDg2X0VYQ19VRCk7DQo+Pg0K
-Pj4gSSdtIGZpbmUgd2l0aCBpdDsgdGhvdWdoIHdlIHByb2JhYmx5IHdhbnQgdG8gbWFrZSBz
-dXJlIHdlIGFsd2F5cw0KPj4gYWR2ZXJ0aXNlIHRoZSBBbHRNb3ZDcjggZmVhdHVyZSBiaXQg
-YXMgQVBNIHN1Z2dlc3QgdXNlcnMgdG8gYWx3YXlzDQo+PiBjaGVjayBmb3IgdGhpcyBiZWZv
-cmUgcmVseWluZyBvbiB0aGlzIGJlaGF2aW9yLg0KPj4NCj4+IEludGVyZXN0aW5nbHksIEkg
-c2VlIHRoaXMgZmVhdHVyZSBiaXQgc2V0IG9uIEludGVsIGhhcmR3YXJlLg0KPiANCj4gQXJl
-IHlvdSBtaXhpbmcgdXAgdGhlIGJhc2ljIGFuZCBleHRlbmRlZCBmZWF0dXJlIGxlYXZlcz/C
-oCBJbnRlbCBkb2VzIG5vdA0KPiBoYXZlIHRoaXMgYmVoYXZpb3VyIGFuZCBkb2Vzbid0ICh0
-byBteSBrbm93bGVkZ2UpIGFkdmVydGlzZSB0aGUgQ1BVSUQgYml0Lg0KPiANCg0KSSB3YXMg
-cmVhZGluZyBhcyAiZGVjaW1hbCIgaW5zdGVhZCBvZiAiaGV4YWRlY2ltYWwiLCBoZW5jZSB0
-aGluZ3MgZ290IA0Kc2hpZnRlZCBhIGJpdC4gTG9va3MgbGlrZSBJIHdhc24ndCBmdWxseSB3
-b2tlbiB1cCB0aGlzIG1vcm5pbmcuDQoNCj4+IFRob3VnaCwgaXQncyBhIHJlc2VydmVkIGJp
-dCBpbiBTRE0sIGFuZCBsb2NrIG1vdiBjcjAgaXMgZGVmaW5lZCBhcw0KPj4gYmVpbmcgI1VE
-Lg0KPj4NCj4+IFdoaWNoIENQVSBtb2RlbCBpbnRyb2R1Y2VkIHRoaXMgZmVhdHVyZSBiaXQg
-PyBBbmQgZG9lcyBJbnRlbCBiZWhhdmlvcg0KPj4gbWF0Y2hlcyBBTUQncyBzcGVjID8NCj4g
-DQo+IFRoYXQgd2FzIGluIHRoZSB2MiBjb21taXQgbWVzc2FnZSwgYnV0IEkgdG9vayBpdCBv
-dXQgaGVyZS4NCj4gDQo+IEFNRCBLOCBSZXYgRi7CoCBQcmlvciBLOCByZXZpc2lvbnMgZGlk
-bid0IGhhdmUgaXQuDQo+IA0KDQpPayB0aGFua3MuDQoNCj4gfkFuZHJldw0KDQoNClRoYXQg
-bG9va3MgZ29vZCB0byBtZS4gQXMgYSBmb2xsb3ctdXAgcGF0Y2gsIGl0IG1pZ2h0IGJlIHdv
-cnRoIHJlbmFtaW5nIA0KY3I4X2xlZ2FjeSBpbnRvIGFsdF9tb3ZfY3I4IHRvIGJldHRlciBt
-YXRjaCBBUE0gdGVybWlub2xvZ3kuDQoNClJldmlld2VkLWJ5OiBUZWRkeSBBc3RpZSA8dGVk
-ZHkuYXN0aWVAdmF0ZXMudGVjaD4NCg0K
---------------I060FJH4JrVSTQAfO0Ix8OKF
-Content-Type: application/pgp-keys; name="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Do we really need to call evtchn_none_init() here when FIFO is available?
+This is connected to ...
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> @@ -1622,9 +1629,45 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
+>      }
+>  }
+>  
+> +#ifndef CONFIG_HAS_SHARED_INFO
+> +/*
+> + * Placeholder ops for domains with neither a shared_info page nor (yet)
+> + * a FIFO control block.  None of these are ever reachable in practice;
+> + * they only exist to keep d->evtchn_port_ops non-NULL.
+> + */
+> +static void cf_check evtchn_none_set_pending(
+> +    struct vcpu *v, struct evtchn *evtchn) {}
+> +static void cf_check evtchn_none_noop(
+> +    struct domain *d, struct evtchn *evtchn) {}
+> +static bool cf_check evtchn_none_false(
+> +    const struct domain *d, const struct evtchn *evtchn) { return false; }
+> +static void cf_check evtchn_none_print_state(
+> +    struct domain *d, const struct evtchn *evtchn) {}
+> +
+> +static const struct evtchn_port_ops evtchn_port_ops_none = {
+> +    .set_pending   = evtchn_none_set_pending,
+> +    .clear_pending = evtchn_none_noop,
+> +    .unmask        = evtchn_none_noop,
+> +    .is_pending    = evtchn_none_false,
+> +    .is_masked     = evtchn_none_false,
+> +    .print_state   = evtchn_none_print_state,
+> +};
+> +
+> +void evtchn_none_init(struct domain *d)
+> +{
+> +    d->evtchn_port_ops = &evtchn_port_ops_none;
+> +}
+> +#endif /* !CONFIG_HAS_SHARED_INFO */
 
-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
-x9fhaZEsniw8/bYgC3igkk5YJiOa
-=3DlUIA
------END PGP PUBLIC KEY BLOCK-----
+... we wondering whether any of this is needed when FIFO is available. In
+v4 all that was noticed was that SHARED_INFO=n together with EVTCHN_FIFO=n
+is a problem. And having fewer cf_check functions in the build is always a
+win (I think).
 
---------------I060FJH4JrVSTQAfO0Ix8OKF--
+As to the comment saying "None of these are ever reachable in practice":
+What do you base this on? In the SHARED_INFO=n + EVTCHN_FIFO=n case they
+look reachable to me.
 
---------------zVd89plokHoq5E5M1Pjybozf--
+>  int evtchn_init(struct domain *d, unsigned int max_port)
+>  {
+> -    evtchn_2l_init(d);
+> +    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
+> +        evtchn_2l_init(d);
+> +    else if ( IS_ENABLED(CONFIG_EVTCHN_FIFO) )
+> +        evtchn_fifo_init_ops(d);
+> +    else
+> +        evtchn_none_init(d);
 
---------------7Sf9yXz00Diw7g5N0asWdX59
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Note how here you actually call evtchn_none_init() only in the one special
+case. Imo this model should be followed also in evtchn_reset().
 
------BEGIN PGP SIGNATURE-----
+> --- a/xen/common/event_channel.h
+> +++ b/xen/common/event_channel.h
+> @@ -55,6 +55,7 @@ struct evtchn_expand_array;
+>  int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
+>  int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
+>  void evtchn_fifo_destroy(struct domain *d);
+> +void evtchn_fifo_init_ops(struct domain *d);
+>  #else
+>  static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
+>  {
+> @@ -68,6 +69,7 @@ static inline void evtchn_fifo_destroy(struct domain *d)
+>  {
+>      return;
+>  }
+> +static inline void evtchn_fifo_init_ops(struct domain *d) {}
 
-wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmpOJrgFAwAAAAAACgkQZg+p0QLLz9B6
-qAv/enxmT+RMCzEuw6iRZrXH0QeLLGV4nYeEC3BF3+u3cQ/NqYrvS4gyfzlc/muJ4MnJPt8tMXxS
-xfAhnqAwI++IMESwywhLFtvhF7NglWE8nDKnnaQq79F6zCHHbd8Z3BPCxMoENizsDPUuS0+mxMxh
-G7h6N5V+EQqInnI9vB8NvoFg5FFGv7Gr8L02XRjBvmJo8lYgQ6vDFnEUmtPv+q7JvPwULDEi+GRB
-vY/bHOdUiFXdcxmIpXXBA41JsfzIdFH2XNrU/tRhSsoBzkFJ7h6Edq/+RHg29CGlT+uMN1KpOET0
-OnMEVdd+T1Y+jHhJbgCS+WmQrLJ65BESYED9dsX5RQSEeG+Vwd0VBel8NIjhvvJl6fRGgmEW0tgt
-N3AcAJCAYJ/fdvmVYmPRp5AqTEPwk/fbIky2p/+P8Sj0jfNkdEgsp6yitysO8M7Iu+PissnMaPxB
-aZ+lbYAaKBP78qVAJUvxYNd38p65LaZY9cwHPfCVjDG3EdzfvdY4uG5l3+2j
-=upmi
------END PGP SIGNATURE-----
+Why would this be needed? You (again) only need a declaration, just that it
+needs to live outside of the #ifdef.
 
---------------7Sf9yXz00Diw7g5N0asWdX59--
+Jan
 
