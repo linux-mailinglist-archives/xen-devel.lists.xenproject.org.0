@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id nzCrCgJlTmp6LwIAu9opvQ
+	id t1ggAyVlTmp/LwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:02 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:37 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 801E6727A69
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EF5727A7B
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 16:56:36 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=VBfzoQYO;
-	dmarc=pass (policy=quarantine) header.from=suse.com;
+	dkim=pass header.d=citrix.com header.s=google header.b=YowQNT3i;
+	dmarc=pass (policy=reject) header.from=citrix.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1357135.1611626 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357141.1611635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTgg-00082T-R8; Wed, 08 Jul 2026 14:55:46 +0000
+	id 1whThN-0008T5-3V; Wed, 08 Jul 2026 14:56:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357135.1611626; Wed, 08 Jul 2026 14:55:46 +0000
+Received: by outflank-mailman (output) from mailman id 1357141.1611635; Wed, 08 Jul 2026 14:56:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whTgg-00080D-OU; Wed, 08 Jul 2026 14:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 1357135;
- Wed, 08 Jul 2026 14:55:45 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1whTgf-000807-85
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:55:45 +0000
+	id 1whThN-0008RZ-0C; Wed, 08 Jul 2026 14:56:29 +0000
+Received: by outflank-mailman (input) for mailman id 1357141;
+ Wed, 08 Jul 2026 14:56:27 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper3@citrix.com>) id 1whThL-0008RP-Kd
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 14:56:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whTge-0007NS-LI
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:55:44 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1whThL-000TdA-1C
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 16:56:27 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a4e64dd-bab6-0a2a0a5309dd-0a2a4505dc9a-48
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:55:44 +0200
-Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a4e64f0-3cb2-0a2a45050019-d155dd31a486-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:55:44 +0200
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-4758bd3731bso605109f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:55:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47aa039b126sm43066599f8f.24.2026.07.08.07.55.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Jul 2026 07:55:43 -0700 (PDT)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a4e650d-e002-0a2a0a5209dd-0a2a4502cf7c-30
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:56:26 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 6a4e651a-5a27-0a2a45020019-d1558030a8fc-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 16:56:26 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-493b27c7451so22114645e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 07:56:26 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-248-75.as13285.net.
+ [78.146.248.75]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493e544837dsm56580655e9.0.2026.07.08.07.56.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 07:56:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,229 +61,117 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1783522544; x=1784127344; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:autocrypt:content-language
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=bFF/1aIEUZe7ClGY7L9LcVeNotxS1viNd9h5I3egz24=;
-        b=VBfzoQYOaaJgmDu4zOXkIfeMNXWUwWtG5FZ8QHHvGBYp6HEvdW58mBR/KZW+38p5Is
-         DT50gC8BJZh+DKkuBt/S4uxNLEDWjIEVcAhzue1dKlzJyWYBBf4LCheKfye8bkrc7OOW
-         UKf4I6K/gLbJqXmJCeiDD5cWUp+LqFJns8mdVTkjxvSA/+QxHGra2eGVW2kHuu1Y1r5a
-         G6/rHH+EUuiQKiw5S58XxwL6OI+eArWJbsgNAJs5NPsOMPzU1Ro29P16KKgORJRZxRPn
-         JT6vqGaAZswvT8T/Qtz7clCxA7GJCt1FvH039wrYcYUIR1k+ytxb4oxoMzy/3n9f21Fv
-         wsUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783522544; x=1784127344;
-        h=content-transfer-encoding:content-type:autocrypt:content-language
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=citrix.com; s=google; t=1783522586; x=1784127386; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bFF/1aIEUZe7ClGY7L9LcVeNotxS1viNd9h5I3egz24=;
-        b=FftNpRb0OJQCkdrXimYzc5OvuBYkqNod782ciJrCgoxv5zLioQeDP53xvJXNuLXQuj
-         VXXFqWlCUcZha5dBnvPBRXZUUuT7MjXVscLUYR4Ems6jCoTiT6J8JRz0Ja3gwV5JgLPL
-         fjjm4UTmVOnRTLzd3e5axaJ0RZMTYdd0qLLEiuitPsEO5SX4O8ZxenvCA7U/xjgfuFz/
-         7CZU4+dtbD0227sS80Z9aRg1BGn2JRkfHqYJqcurgQLnaEcrLLDJIFioxwQPZ144al/i
-         2BfCkOCpDWlG75VG7N6TAeLDcQA7oTsWH7H1l2dLbwL65Ura0shU2Ux7oGKR7IIli/Gt
-         dQHA==
-X-Gm-Message-State: AOJu0YyoNdQq/KGHJOqPhao5w8pzxqZN7pCVrlWdWiq5df3zTXVowvlt
-	RY4oehHwqQGKf+uvFRfybQro6H+i2QtBWNmky/AJXiI+iP4EAiSBG0iiFalmvL4wkfJwkjTgRcu
-	EO4mCLQ==
-X-Gm-Gg: AfdE7ckWn9Oex862e7kNJtN23MoOh2/BaENMWU4kjaVlX9ZZ9qsstqV+MS7rdbpYSFc
-	QrI/t4aHGom6AQcCa3IExFoTd6RYD5hn52TEIont0VP89suebvVagD8/Eog9X/qocrVJQ1F+Dxk
-	4fa2lwyv4K9VR3ygmHYPkWOWI/Y3pidP3qKEvhO+Q/GpohuVLlhN+Lw3UGXgAzwr7H6KQpBT2Dj
-	wcpOsxz7hlZ5r2VFsP++x3WrG7YKHx8QlZFI44U0246Q1fpo+XK8cM7eS9WYf0wdGIPlYahQYw8
-	qeDwxAr0EKpDtSCyMg2k4KOqk22gjqfU8CJXxzuJkSXhXBMidr7RL/VyfTvON7VKB5pzJwW1AMq
-	EHC4COFIQb2s2fpr39zWICTzyooMedcRVUQwwLg6BcA20u45W/FoT+BAfJ28qtdNThsBOuy7Iv4
-	ojIIiCZ5jrsXFxzkomU5YeUpm2rIw2/T7m7UsGdz9Px4NLk6WvefqMCCTtNufflhRdyjctwjqa8
-	Gbu
-X-Received: by 2002:a05:6000:387:b0:460:6b12:1783 with SMTP id ffacd0b85a97d-47df02459b8mr3564130f8f.4.1783522543946;
-        Wed, 08 Jul 2026 07:55:43 -0700 (PDT)
-Message-ID: <da502f31-17fa-4b2d-90e3-1f6988717454@suse.com>
-Date: Wed, 8 Jul 2026 16:55:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 for-4.22] x86/cpu-policy: set up host policy earlier
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+        bh=mv/jtJ1SDZHfc0ENW2uPRf1DZwsBf/wZOyN1L9JO1gs=;
+        b=YowQNT3i3A4qdoAZK0aQbfKe61givnScjJ/xTqQqbz/lRCGeshNk9QCWH4p8xv2qWR
+         UKxkpl74jzX6woBXvBhXHdgAeQ0uUuyX465h9BmHsMwwWkTQ/bL6s5uFb9+ZQMHBYlX3
+         Ew7mdsLLC3NNMv3JEAR7ELNWzXj6fgyCAB5cc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783522586; x=1784127386;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mv/jtJ1SDZHfc0ENW2uPRf1DZwsBf/wZOyN1L9JO1gs=;
+        b=JEdmTwNaoIHvgMzqYfOKgBoP3MbyNNGvxv8CzfZ7kPucdvMSoMWGMAsEaLI+EdVg6t
+         lbAZ9LvLe1exzwCH35vUaMH1cBExO4dliJqhACtmm6wU6/MSaUjDihSVL1TtILnWg+kO
+         sl1AbA7XVTO4SIZYb3n9CwGrHOaLrwLhwtdqnO6GhOs5WV6+ReEYssOgWyOjF6zGWjMx
+         K8bB3XQznV2Iaj7yUjnHmdCx+ZNsnsYQJm/2k5G5PwzZp9LJAr7ULakm9jHVdVucAfj7
+         bl7rLRKcQRdtp+h2fAq69899jRd9HFGU1mGpF8T6uLxVkns6AwLJT2rYb6WSHGBcMCYR
+         p/9g==
+X-Gm-Message-State: AOJu0Yyw/oR38i6elt9zxXjyLKfFPtMvCYiC4xPB+Ldz36oBY7bBNIR1
+	vLJlET3X1NvltHiImxQz5i871yNwSCSZb932oxx2ZsSUDNu/DyT544TwpC0SoRUBMDWnT3dgoNC
+	AAtSh
+X-Gm-Gg: AfdE7cn8M889AuuPtAQmuO4pj8gQKKv0/J2wPWFV1K+OtkahiL/zFs3uiqUOZVTUmRX
+	ve2pN3H7jp76Zjugvsm0wmF8LYiTUEytH94A68LHjXPkfgOa+iOFl5jDqZL+2JMtpjMXXJ3ea4H
+	sNLgH6H5uEhZmzkPydPH1AfvqYs38ZxDs0eTWq5B41N2m+mo7A76uyK8NeM27zJhOhrzQ6uBP7e
+	OGRhBA+vf8ueH4j1T7t4sB1qk0zHbwquUEQq+8DhFtVqYGQgQ4JPcy96/5BvJDr9/+dJCPEjk9o
+	MUSME2s41b/61/AGF09QGx5i6BF6Q4H5U/PpdeA9jlxFJhexPEnwq6nWelcol+W442hHHUAykfQ
+	QGBFwr/JsEa8JiycI8nkAH5kPNYVKDImnRSYCifnX1tvySNI72xYNRQJixfna852hgXWs1P8TIK
+	wOG1Oyrt8jpgbt3nih/GlMlPF4vs9FsOnIeHYogAQYOyJ539pE2uIb+SBn26E0YLg=
+X-Received: by 2002:a05:600c:3f0f:b0:493:b698:9247 with SMTP id 5b1f17b1804b1-493e639ac57mr30954645e9.14.1783522585396;
+        Wed, 08 Jul 2026 07:56:25 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH TEST-ARTEFACTS] Add PantherLake microcode
+Date: Wed,  8 Jul 2026 15:56:23 +0100
+Message-Id: <20260708145623.1441067-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1783522544-17B192B8-0BD7AB3F/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 3498
+X-purgate-ID: tlsNG-720697/1783522586-4C13A7C5-F01DA4AC/0/0
+X-purgate-type: clean
+X-purgate-size: 834
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,invisiblethingslab.com:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:email];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,invisiblethingslab.com,vates.tech,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:email,suse.com:mid,suse.com:dkim];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 801E6727A69
+X-Rspamd-Queue-Id: A4EF5727A7B
 
-In order to use cpu_has_* expanding to host_cpu_policy.*, the host policy
-needs setting up alongside boot_cpu_data.x86_capability[]. Arrange for
-that towards the end of identify_cpu(). Then make sure .x86_capability[]
-and host policy remain in sync when setup_{force,clear}_cpu_cap() are
-used.
-
-Rename the function now it's no longer static.
-
-Fixes: 894bd7617924 ("x86/Intel: use host CPU policy for ARAT checking")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-This really was part of one of the XSTATE cleanup patches at the head of
-the AMX series. This explains the specific placement ahead of the call to
-xstate_init()). Likely anything from there downwards shouldn't really
-live in identify_cpu() anyway.
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
-v3: Make call from setup_force_cpu_cap() conditional.
-v2: Call calculate_host_cpu_policy() from setup_{force,clear}_cpu_cap()
-    instead of from init_guest_cpu_policies().
+ scripts/x86-microcode.sh | 1 +
+ 1 file changed, 1 insertion(+)
 
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -66,8 +66,10 @@ void __init setup_clear_cpu_cap(unsigned
- 	__clear_bit(cap, boot_cpu_data.x86_capability);
- 	dfs = x86_cpu_policy_lookup_deep_deps(cap);
+diff --git a/scripts/x86-microcode.sh b/scripts/x86-microcode.sh
+index cb55a3bd2d52..7442e0ae9671 100755
+--- a/scripts/x86-microcode.sh
++++ b/scripts/x86-microcode.sh
+@@ -21,6 +21,7 @@ tar xf intel-latest.tar --strip-components=1
+     cd intel-ucode
+     cat 06-97-02 # adl-*
+     cat 06-8e-09 # kbl-*
++    cat 06-cc-03 # ptl-*
+ ) > "${UCODEDIR}/GenuineIntel.bin"
  
--	if (!dfs)
-+	if (!dfs) {
-+		calculate_host_cpu_policy();
- 		return;
-+	}
- 
- 	for (i = 0; i < FSCAPINTS; ++i) {
- 		cleared_caps[i] |= dfs[i];
-@@ -78,6 +80,8 @@ void __init setup_clear_cpu_cap(unsigned
- 		       __builtin_return_address(0),
- 		       i, forced_caps[i] & dfs[i]);
- 	}
-+
-+	calculate_host_cpu_policy();
- }
- 
- void __init setup_force_cpu_cap(unsigned int cap)
-@@ -92,6 +96,10 @@ void __init setup_force_cpu_cap(unsigned
- 	}
- 
- 	__set_bit(cap, boot_cpu_data.x86_capability);
-+
-+	/* Don't recalculate when the bit isn't represented in the policy. */
-+	if (cap < FSCAPINTS * 32)
-+		calculate_host_cpu_policy();
- }
- 
- bool __init is_forced_cpu_cap(unsigned int cap)
-@@ -586,6 +594,8 @@ void identify_cpu(struct cpuinfo_x86 *c)
- 	}
- 
- 	/* Now the feature flags better reflect actual CPU features! */
-+	if (c == &boot_cpu_data)
-+		calculate_host_cpu_policy();
- 
- 	xstate_init(c);
- 
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -359,11 +359,18 @@ void calculate_raw_cpu_policy(void)
-     /* Was already added by probe_cpuid_faulting() */
- }
- 
--static void __init calculate_host_policy(void)
-+void __init calculate_host_cpu_policy(void)
- {
-     struct cpu_policy *p = &host_cpu_policy;
-     unsigned int max_extd_leaf;
- 
-+    /*
-+     * Bail if the raw policy wasn't set up yet. At least recalculate_xstate()
-+     * can't be used yet in that case.
-+     */
-+    if ( !raw_cpu_policy.basic.max_leaf )
-+        return;
-+
-     *p = raw_cpu_policy;
- 
-     p->basic.max_leaf =
-@@ -904,8 +911,6 @@ static void __init calculate_hvm_def_pol
- 
- void __init init_guest_cpu_policies(void)
- {
--    calculate_host_policy();
--
-     if ( IS_ENABLED(CONFIG_PV) )
-     {
-         calculate_pv_max_policy();
---- a/xen/arch/x86/include/asm/cpu-policy.h
-+++ b/xen/arch/x86/include/asm/cpu-policy.h
-@@ -30,4 +30,10 @@ void recalculate_cpuid_policy(struct dom
-  */
- void calculate_raw_cpu_policy(void);
- 
-+/*
-+ * Collect the host CPU policy.  Called after collecting enough CPUID output,
-+ * and again after all feature overrides have been put in place.
-+ */
-+void calculate_host_cpu_policy(void);
-+
- #endif /* X86_CPU_POLICY_H */
+ #
+
+base-commit: fe26bfd25cf09cd5ad11ecdf69699d3dde2c865d
+-- 
+2.39.5
+
 
