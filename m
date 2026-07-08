@@ -2,56 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6Q57HOK3TWrb9QEAu9opvQ
+	id v+XXMN/XTWr9+wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 04:37:22 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 06:53:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C735A721355
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 04:37:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC41B721A51
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Jul 2026 06:53:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=Nvidia.com header.s=selector2 header.b=MFprGJWi;
-	dmarc=pass (policy=reject) header.from=nvidia.com;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=f7tCGI8h;
+	dmarc=pass (policy=quarantine) header.from=amd.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1356563.1611142 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1356578.1611150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whI9u-0001Q7-5R; Wed, 08 Jul 2026 02:37:10 +0000
+	id 1whKHA-0006GV-E9; Wed, 08 Jul 2026 04:52:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1356563.1611142; Wed, 08 Jul 2026 02:37:10 +0000
+Received: by outflank-mailman (output) from mailman id 1356578.1611150; Wed, 08 Jul 2026 04:52:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whI9u-0001O5-2c; Wed, 08 Jul 2026 02:37:10 +0000
-Received: by outflank-mailman (input) for mailman id 1356563;
- Wed, 08 Jul 2026 02:37:08 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1whKHA-0006Dq-8s; Wed, 08 Jul 2026 04:52:48 +0000
+Received: by outflank-mailman (input) for mailman id 1356578;
+ Wed, 08 Jul 2026 04:52:47 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ziy@nvidia.com>) id 1whI9s-0001Nz-Cm
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 02:37:08 +0000
+ (envelope-from <nikunj.dadhania@amd.com>) id 1whKH8-0006Dk-SM
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 04:52:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whI9r-00FiBZ-MF
- for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 04:37:07 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1whKH7-00Erne-5s
+ for xen-devel@lists.xenproject.org; Wed, 08 Jul 2026 06:52:45 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ziy@nvidia.com>)
- id 6a4db769-bab6-0a2a0a5309dd-0a2a4508a354-48
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 04:37:07 +0200
-Received: from [52.101.62.27]
- (helo=DM5PR21CU001.outbound.protection.outlook.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <ziy@nvidia.com>)
- id 6a4db7d1-edec-0a2a45080019-34653e1be5f8-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 04:37:07 +0200
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH7PR12MB8778.namprd12.prod.outlook.com (2603:10b6:510:26b::16)
- with Microsoft SMTP Server (version=TLS1_2,
+ (envelope-from <nikunj.dadhania@amd.com>)
+ id 6a4dd762-e002-0a2a0a5209dd-0a2a450996ea-32
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 06:52:44 +0200
+Received: from [52.101.46.54]
+ (helo=CO1PR03CU002.outbound.protection.outlook.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <nikunj.dadhania@amd.com>)
+ id 6a4dd79a-97e6-0a2a45090019-34652e367eca-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Jul 2026 06:52:44 +0200
+Received: from CH0PR04CA0071.namprd04.prod.outlook.com (2603:10b6:610:74::16)
+ by DS0PR12MB8528.namprd12.prod.outlook.com (2603:10b6:8:160::6) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Wed, 8 Jul
- 2026 02:36:59 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0181.009; Wed, 8 Jul 2026
- 02:36:58 +0000
+ 2026 04:52:36 +0000
+Received: from CH2PEPF00000148.namprd02.prod.outlook.com
+ (2603:10b6:610:74:cafe::94) by CH0PR04CA0071.outlook.office365.com
+ (2603:10b6:610:74::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.202.9 via Frontend Transport; Wed, 8
+ Jul 2026 04:52:36 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000148.mail.protection.outlook.com (10.167.244.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Wed, 8 Jul 2026 04:52:36 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
+ 2026 23:52:35 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 7 Jul
+ 2026 23:52:35 -0500
+Received: from [10.252.210.85] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 7 Jul 2026 23:52:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,232 +80,309 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZZQ8cZA52MWgegKfOITVQAgcN0oUlLjyR474Ros5iq2rFKdnOuXb6pKZjs/pNJkxrBfi6ocQQapdwKi+8/reZbLST6nD8Jm/g6yDjDQA90L4Gu488H+gbkFtZctzwyW9ACwFMNctCUQz3rb6BJT5AIr91tV+/E+WocFTaXbFjDUKJVJS2kAj8+TrLEYoN//KBVVrYWBttNKHguWgWro/ws1CdBSiTZLeVJOr8G0buTR8DeSa++48RHv2468LoqnC7rU73jQ2BDV1CfXANhRCb4u4M9eXF+/BGOG0eLPaJ49T2NQuzNV2M4O10feAMyr/BGpcPgkafLvYBvQwZ7tbw==
+ b=iH11X8l0wQaiz4mtUMOCFsKSiDn3VTh+ubRI0d+Zk4N8o2JQjR+9+NeSR7rcBqInR7kNnjA53W/Oxd24A8cKY+r6ytS7JHmQSEpR4cZuAgNlQGEwU/bRBYrq3a8TnymMxZYz3s7kmYFenptmNsWirpFUlTmXOR4yZW0lDFWmcLiBfj+onD38KuMzVThCGhIR9kA5ySEJaUYqpyUgEp8SLF9Wz24GrvF5BB8mc+U3/VSuNl+jAkgx4P8o94i1XWIkzH/Z/SA+pv42nkRYpXKv9aGSKJr8r0YCbdPXZW1HeulRkS94vIJ3gAJZbdxxt3bSIIjdeCJ/xKTFox2fb4LqgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jf+DSRZPaPiqa23Z+NsIeIObG2sHTY0/CEuDSTYjg9s=;
- b=nQ0P4/sdSXmiO0ZHr6pihPNjCu4cIgzODYN8EZ9QDLERGTyPhtE2VCqPaqyb1VpvWEL3Ux/zAU6jewidQKTqA+lAj6npH0mvZ+0f3VtbSE/4OmVa6qfMVJcXkXe3T9nf1giwt7gyg2yd6HRm88814Tm2nEDgPO7xNZAyaVd3pBObvJecy/3AvUeWiA1tFyoh6GYy/pjI+GDRw1/a1yOMVOuv3DDRyhcUvexi0mF9HGCEYG4xDk9X8zb74EAK70QxBDptG6fuoTw0+fw3iUHE5q3jkDJVkS8kKfegJZIjT9MoOa+dlImbJT/SfY4ZQmyMYxV+XQuAxJG0cVAu8zAX6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=Ei0d+QTfykHeiOAHu1tWpX6WZ1Hr1ps4k7WhbCYRX0E=;
+ b=Zm9Lv/JOG8wS7G60L2wgnbsLzf2abbea0DvyhBbQHk8CN/ftX4BlKaqY15bZnAdCv/xa0SEe82dX2vQ05qDvprCw2Yffk1FXWW4Yw3FpR4PkSYZ6JTnuO/5fLpzkZ2qO+teVqJNodRq3einpfy0Cuzle/oqpvXrYIqkYwYVx2JlJsCBowvCH8whCGCjJgTpeAiMgzGN0sz6gezp1gJpBECCxv0moQv1Is54xBCwq0e0vAMIxEtWWviyyzPItpAFMDLbZ3IQx0hO0CDYP+fznkdUfnc9YGmXi51kqMpw/k9qcv3b55abwNdZloAvGKmc+2PoZdBJsMLtwNe+afMOjSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jf+DSRZPaPiqa23Z+NsIeIObG2sHTY0/CEuDSTYjg9s=;
- b=MFprGJWimBSpaXlX3i+O2/ZtL/fCHs1830SG75uwTc7F2hRMC3ncWb0JVlaaHVw/5hZW6q09BGuO3WhI8/sOZeQ7AO+D9CajqiB+24XtXHRarG62ZqCgB9uAFlnXlWyBTCLqWMfQlWpvz8a090qazpfvO9gxfqfSpFL99yPS5lBI5rvU/SFJdKATvfn429MzTUUbTzsxhPfQBEJcF+NzRZ4+7GGvLEVBadjnPBCkTDSl6lHNA2V6pikinctkgMQPNu3IleNkM9/978FewuMGSj90RnXTOMmMdo/rpYiR991nr9PKuGj5R6vMtBTYaohBDdVb0G3MmQ2Ou9MvIJZ0fg==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 07 Jul 2026 22:36:51 -0400
-Message-Id: <DJSU9FF2QXT5.14Y23MIT6POO3@nvidia.com>
-Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
-Cc: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, "Madhavan Srinivasan"
- <maddy@linux.ibm.com>, "Michael Ellerman" <mpe@ellerman.id.au>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Lucas
- Stach" <l.stach@pengutronix.de>, "Inki Dae" <inki.dae@samsung.com>,
- "Seung-Woo Kim" <sw0312.kim@samsung.com>, "Kyungmin Park"
- <kyungmin.park@samsung.com>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Peter Griffin" <peter.griffin@linaro.org>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Rob Clark"
- <robin.clark@oss.qualcomm.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>, "Sandy Huang"
- <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- "Andy Yan" <andy.yan@rock-chips.com>, "Thierry Reding"
- <thierry.reding@kernel.org>, "Mikko Perttunen" <mperttunen@nvidia.com>,
- "Jonathan Hunter" <jonathanh@nvidia.com>, "Gerd Hoffmann"
- <kraxel@redhat.com>, "Dmitry Osipenko" <dmitry.osipenko@collabora.com>,
- "Zack Rusin" <zack.rusin@broadcom.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Thomas Hellstrom"
- <thomas.hellstrom@linux.intel.com>, "Oleksandr Andrushchenko"
- <oleksandr_andrushchenko@epam.com>, "Helge Deller" <deller@gmx.de>,
- "Benjamin LaHaise" <bcrl@kvack.org>, "Alexander Viro"
- <viro@zeniv.linux.org.uk>, "Christian Brauner" <brauner@kernel.org>,
- "Muchun Song" <muchun.song@linux.dev>, "Oscar Salvador"
- <osalvador@suse.de>, "David Hildenbrand" <david@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>,
- "Nico Pache" <npache@redhat.com>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Hugh Dickins" <hughd@google.com>, "Vlastimil
- Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
- Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Jann
- Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Kees Cook"
- <kees@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>, "Takashi Iwai"
- <tiwai@suse.com>, <linux-mips@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linuxppc-dev@lists.ozlabs.org>,
- <dri-devel@lists.freedesktop.org>, <etnaviv@lists.freedesktop.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <intel-gfx@lists.freedesktop.org>,
- <linux-arm-msm@vger.kernel.org>, <freedreno@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-tegra@vger.kernel.org>, <virtualization@lists.linux.dev>,
- <intel-xe@lists.freedesktop.org>, <xen-devel@lists.xenproject.org>,
- <linux-fbdev@vger.kernel.org>, <linux-aio@kvack.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>,
- <linux-sound@vger.kernel.org>
-To: "Lorenzo Stoakes" <ljs@kernel.org>, "Andrew Morton"
- <akpm@linux-foundation.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.21.0
-References: <cover.1782760670.git.ljs@kernel.org>
- <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
-In-Reply-To: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
-X-ClientProxiedBy: DS7PR03CA0225.namprd03.prod.outlook.com
- (2603:10b6:5:3ba::20) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ bh=Ei0d+QTfykHeiOAHu1tWpX6WZ1Hr1ps4k7WhbCYRX0E=;
+ b=f7tCGI8ht0nTD1k6xFTevhEwNAU/gaASJuv6Wh17c5WZGimf9SKadjXju/StHRhF0zpiyczzRsHMUQRIr1f7rZKwKxEeKpqzfbUGHtslNs/B4VTC9WmMBNF1ORoGDC5u3nAZRYZsCLOSHvE21QTZfO3A6nFjsuLqBf4LM/IBCYw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <40e20edb-48f4-4f50-b5e4-d6e771235b4a@amd.com>
+Date: Wed, 8 Jul 2026 10:22:17 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/51] x86/sev: Shove SNP's secure/trusted TSC
+ frequency directly into "calibration"
+To: Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+	Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, Kiryl Shutsemau
+	<kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, "Wei
+ Liu" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
+	<longli@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov
+	<alexey.makhalov@broadcom.com>, Jan Kiszka <jan.kiszka@siemens.com>, "Andy
+ Lutomirski" <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Juergen
+ Gross <jgross@suse.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, John
+ Stultz <jstultz@google.com>
+CC: Shuah Khan <skhan@linuxfoundation.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>, Broadcom internal kernel review list
+	<bcm-kernel-feedback-list@broadcom.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>,
+	<linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-coco@lists.linux.dev>,
+	<linux-hyperv@vger.kernel.org>, <virtualization@lists.linux.dev>,
+	<xen-devel@lists.xenproject.org>, Tom Lendacky <thomas.lendacky@amd.com>,
+	David Woodhouse <dwmw@amazon.co.uk>, David Woodhouse <dwmw2@infradead.org>,
+	Michael Kelley <mhklinux@outlook.com>, Thomas Gleixner <tglx@linutronix.de>
+References: <20260701193212.749551-1-seanjc@google.com>
+ <20260701193212.749551-9-seanjc@google.com>
+Content-Language: en-US
+From: "Nikunj A. Dadhania" <nikunj@amd.com>
+In-Reply-To: <20260701193212.749551-9-seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB8778:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d82f526-25a1-487f-f722-08dedc99c8a7
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000148:EE_|DS0PR12MB8528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 354d1e25-cfa8-4149-4105-08dedcacbae7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10070799003|11063799006|4143699003|56012099006|6133799003|22082099003|18002099003;
+	BCL:0;ARA:13230040|82310400026|7416014|376014|1800799024|32650700020|23010399003|36860700016|921020|3023799007|18002099003|22082099003|11063799006|4143699003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	IJg6EdRPZd9WVhujhgKnpJbCHuanEdRyEYJF1H/xR2IHNf4l16FKVIz74HfuoPctZTTfQSnfqG6NPQ++2PeSpebhCKhQRv+JRvBHJk5mdG0k9mYrctd0PPrQksvnJL75lKRzA7lc5xX5fuvCHXP0BN42CFzdSzbq1sgz8k7zet65CVVALweguWZP1V1pHN7JOEaY95FaGbkUD42nFTISX3PKBMyu9R+EdMImtjqn/nF50ILLPajW+5NxPVUdHxVdVtQoz0twBmrQXO0y30cmwh1RR0ls3/ojVSnrh1dgaoa8X+TtrWmwFQ5jYR5L702/JkC5lvexOIHam8V1zjUVZdRpL+dUNuJbEEjz88KTAF6bVIU5RNqCYfIW46t4BvWyPopNp0MtIYE4WYGymFz69uG/bwuSNcABIyUrOSEx+H9QM03TN86PpEVh5N0sseX9Hx9Tlu+ZI8RySDwyqLCPHP6TVCjx7wF/m2acj+8sMKDafToLdnE7bq17YmQKwf83DJlYp5N9SqQ8QsR6Tpb0TUNhLsjPESr1mLSqyrPNCzyrYBTMpv+nD1XO4HWnoUrznAlFcflPdhKTWK3hWVSA6ykBoS/HMAAC//awczhM706YzLgU27Ep9YUxhatBS60GijbURnHgECNTDXPsKIIrRRldoQdyz0vWOeSy63vByYk=
+	zSazxnvGOuts/WNto6Qd6Wf4r/P9sqd09K5D2puyLqZ4pEyEZNoTRkTgLaZfL5QG8xxWcXJPW65egFexsW5+vb1r7g3lV6Wyv8vz2MQ++08z4dKKdErOg5fJc792NWTB8Gm5TLC0odjoP1+/rsi0+9hdAieR+SIToCobAtypB06p5oHfqwiHsNrBU1z6NyhdN7rbjtxikwsEKN4vHTEgHBkQufXwiSXxO7cWDC3UZWnv6aMc6yD7O/5MauoBpufAb9g/JxMF1tyzlqKOPQYUYxK+AZCLc8LGlL5z+ELrAqjghaBZ3xc9ldhtAMDqfgAKJIRJ6XrrZwaoXlAfeuCP6CEYmZi9KlDGk9bSa7x7shLawjE4XDmfYnYxIFlObPc+44bMEcrKDqy7GxBsrsP6xnr3P5tMGXBFkEMtfjaYDCQFAlhjE4OlD4b1yQZdQapDAwuyBCYsUs5L/2wwFb46BxF+CDXJHHeaiBtx38MOkZfdlMn96JPuZ424S4bQSgs415oDq/ou0hbKw13UlcSfLngNDcK3kzTNkHwvqLu2UkxggeC4wLf5mllYfRT/Anoh9uBiB6CDCZt+M07Be3OYJRQ9/Yxqk+66zXRQusfIwnWn5Xnu/qZIPtIVgbNxMephxjGZIzzwKBVSy0i5l7n4QsD1SQKLChEVEybcevrsUpmluDPP+p6WCoKcxpkTlAh0RZE4+DwJ71qFRopJm+HeGqsE4QxQAVkhjymn8NcxUR+/pAdFqixwvUvQDe6VYoFB
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10070799003)(11063799006)(4143699003)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(32650700020)(23010399003)(36860700016)(921020)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ek5CR0JZK0h1R2ZwMjFselVxakFaTUxTVUFmb09RbTYyeVFqdnpBRFQzam84?=
- =?utf-8?B?TEk3N3krL0R1dUlqUWFZSlcwbC9aWDVwb21EVW1vdmJlNDRiREVjN1J3WHlQ?=
- =?utf-8?B?QnFHcFE5aVBxZkU3QkRmaGs4YnhSVDN1VkpiYlA4WTVFM05Zc2FuRW9WcTJh?=
- =?utf-8?B?QzFVRUlqVEhWUDByeTNtd2FNQzFReGtTcW5FdGg3bGY1ZnhUMmhqQ2hMMmJp?=
- =?utf-8?B?c1prZFRJR0FORlNhV3pJNWhQaVF5K044dWFCdFYveWdaWW5tYUFNYXR4WTNu?=
- =?utf-8?B?UlFMdHYvc28zajh5ZTc0Um1qR29MNlZrTXpteW1JWHVkMWFoMUxuay9keG4z?=
- =?utf-8?B?dEZSS1Z4ZFh2bVFFM0M0Zk5WbGZsc1JJamZ6c2ZILzF1bndLOVd0bkQ2WXNu?=
- =?utf-8?B?eFdEbXJ6N0hiTnNXbVdBRlJVeUYwK0lSL0VuSU1GamU3Z3NoQWZZNkFyNUFr?=
- =?utf-8?B?Tm5XQzA3WlVIeWkvRmdtUlduTG16QWpFRTkxOXl1Q3RsWWdpTVp5bGlrRXZD?=
- =?utf-8?B?VDlRVkowNUxkdytMUzc1aVlLeFphUVN4ZkwzNTJQNUJrQkJqbktiZDIwYVRS?=
- =?utf-8?B?dWx2NnIwNzhTcG94OXdsRjRFZXRiK3BFVVlQTnRSYjVzUndtN09Ca1VJY1lU?=
- =?utf-8?B?dXpyWlBpUkVxWVZ2c2hwQUxBTTFMMmtqZFlhRWdWZ1RsYytTVWFNdUxDbWtX?=
- =?utf-8?B?emhLRFgrZEF4enovSTVMVzgxZVk4Vm5YRjI2TmtQM003M1c2aUk2YThhVEYz?=
- =?utf-8?B?N0hrbDJEeFQ0dDVKWkJRTTlCTTlsa1RwSmxHTTFieHRnVkpGTFhGMDVFYXRi?=
- =?utf-8?B?ZUs4RDZZaysyRUlnaEt1NUxGVGtEdWdLZjl6ZVRZU2NDQWV6RFZXRUhoaWV3?=
- =?utf-8?B?T2JGRjY1ZGsweDhvVjF3cmIrYzl6SXhHdWFhZllJTmNScE1tRldVNi9lMkV3?=
- =?utf-8?B?Y3JDMkhMTVU3azNSdEo3N2hjNHB6K1NIRS9iR2U4Yy9RcXlXaTMwQTRQN3oy?=
- =?utf-8?B?OE5ESW8vQ29HUnZINWNBUnVZMytqUWx3VzJ3Uk5LeUNhYXNJZWV6SGlBNVov?=
- =?utf-8?B?Y1VVNXhBNlVRTFBzUWU0OG5DTlBSNS94MTdVMmRSUVdhWG9OQjIrYVgzQ1ZY?=
- =?utf-8?B?eDZhTzNNTmhBc251NVlXTDdCMjZQbEJUNUJCQlJmb0NJMnRSNi9ndVk0aHoy?=
- =?utf-8?B?YTYweEdlL2lYZkpWYmxESk1sd3pzeUZDOXNyMDlUT3ByUTBpY1hYM2VZb3Rk?=
- =?utf-8?B?aUVyNnlSeHFKWHhMYm5nQThwU3VnMUE5emNoN01uUG1kM2gyS0M4WTltN3Bk?=
- =?utf-8?B?dWhUVE56RWpzenM4ZXh0c2kyVGNiQ3JJZStOWTVPOGhjTW9MYXpBTnEydjZK?=
- =?utf-8?B?WTlWcGphS3NLOG5oNFo4Z3lDalNxNk43R2R4d2VVWlJVd1pOTVpLRWk4TUpM?=
- =?utf-8?B?dGpWR29CUjBrYzNNK01VdGNiSkZaKzhoVi9tb3JPWmptY1k2bU9tNUZ6U0s2?=
- =?utf-8?B?dGM1SVRzb28vTzFoanhzTndLRnVFQWhLWVh5SWhhY1djS1Z0THRSaHh4VU1C?=
- =?utf-8?B?MC9xeWVzRktiZklCd0dHSERod21hZmZzNmtsMUo0WklZTVM3blhVN09MUnZG?=
- =?utf-8?B?ZFJJaS84RVdYeS9BV200dTdGWGlrS2JyZWh2WUYzR090QTBLc0FzczFJN3lO?=
- =?utf-8?B?THpseE5BczFIYkZrRWdiQUZYb0pmQkZwTHRXVUlodXlicEE5T1ZZRVpHUXZv?=
- =?utf-8?B?RVJXTW9tTFBmYlZZdEVqN3dxcHppY1Z2YzNOaWVmYWk4RmQvVjBFY2tObE9L?=
- =?utf-8?B?SzZNeE1hWitXWEFyQzF1QktWVmJ3RW5oYWdEWlNuUzRrNmlJVFF4MXE4cmNW?=
- =?utf-8?B?UU5icGxkeEd5QlhteGFwNHNibGdjakxxN3VWZHdTaDdZc1pOa3JMYWRCTmdo?=
- =?utf-8?B?aGhLRTd5VW5McWZNYlk0SmFPMDgxVTEvZmpvNTBnQUY2UkJYMXJndWMzdjl3?=
- =?utf-8?B?RzZRTE0yNmxwWEU4d2FQSmtKdzhPU2JnUlBOS0FlVWxJMnlCaVFXbHhRN0J0?=
- =?utf-8?B?TzBlNWlyeHdZN2NLeTRWQ2Z5VmxuSGdqOWl5b3pKam82WFNEZFM3aXRUeVNV?=
- =?utf-8?B?OUxPc0phYW45OFRNeDM5RFU0bVIzVFBLOE1EektZWFNqdTNIL1haVnVOQU16?=
- =?utf-8?B?QkFyRnFnTms0USs5aHVlUXE5SnhzNWVrNndNcFV2RGhFN2pFdzk0WXR6NzFk?=
- =?utf-8?B?M2g5QXIvTVdrbTgwTWR3OHp4MTBSMTI2QU5tMzRmNGQ0bVI2RUFIbmsyR2sz?=
- =?utf-8?B?Sm4xaUFwbE1ES3VyaXpiYlNCWnRYTlB4aytRU0owd0o1TCtTQWk2WGVka2FS?=
- =?utf-8?Q?LvwN1dCgX2BEQ5HTa+droSbfjCAPGhBcCpwLn?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d82f526-25a1-487f-f722-08dedc99c8a7
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 02:36:58.9074
+	8oZhG7HxMEJzegkI9/kQ+k3b+X5K44QoYv3u7161yaJazWoV9bLbwBPcUf33s6heL5gj37WDbRSZJDwc9zw/9agj5/ie69Gkg5eQc6uBV0Xosa1NryXlFnVHJON/PQ6kBZHHpepHs6Vv46bv5hJBO3xWU4ppj/qClvOiVLmc8itTDbhb1ujyZns29ZEVhtpf7u7X8bZam20vVHfj60JHWMY3IJ/KVFbe7spun+F15KtluVfP6cr2R8RbkpXkMnnzI8EFgXokkEiXWsPqGLkxYIwJUIt0mZor/5KCB8EkbOCo7mpG95HYgDereND0gk3H0F2oAL5jcZk7zEXjGYYCIrwkKM2Od1klQSWsj/4WIWfG1j+JznHwpcWApnQHNWuj24F9+sS6dIvdpz/htCndsEQgUei0zdfR6W0oUM76RhgwKbyPjVCIIU4tNd8qjPQl
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2026 04:52:36.0842
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WjtQ2+h3pQ1C67hYZ/v+qccBEc8nzPfsA30B/zApM/vuVLU11R9L28Lb6VkAqY3Y
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8778
-X-purgate-ID: tlsNG-c1860d/1783478227-40F2A3FC-80F73582/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 354d1e25-cfa8-4149-4105-08dedcacbae7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000148.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8528
+X-purgate-ID: tlsNG-bad1c0/1783486364-45922986-54951820/0/0
 X-purgate-type: clean
-X-purgate-size: 1902
+X-purgate-size: 7684
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-9.19 / 15.00];
-	WHITELIST_DMARC(-7.00)[nvidia.com:D:+];
+X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[nvidia.com,reject];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[Nvidia.com:s=selector2];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[alpha.franken.de,linux.ibm.com,ellerman.id.au,linux.intel.com,kernel.org,suse.de,gmail.com,ffwll.ch,pengutronix.de,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,redhat.com,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,broadcom.com,epam.com,gmx.de,kvack.org,zeniv.linux.org.uk,linux.dev,linux.alibaba.com,infradead.org,arm.com,google.com,suse.com,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[41];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:tsbogend@alpha.franken.de,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:zack.rusin@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:muchun.son
- g@linux.dev,m:osalvador@suse.de,m:david@kernel.org,m:baolin.wang@linux.alibaba.com,m:liam@infradead.org,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:hughd@google.com,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:jannh@google.com,m:pfalcato@suse.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:linux-mips@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fbdev@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger
- .kernel.org,m:linux-mm@kvack.org,m:linux-sound@vger.kernel.org,m:ljs@kernel.org,m:akpm@linux-foundation.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[Nvidia.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[Nvidia.com:dkim,nvidia.com:from_mime,nvidia.com:email,nvidia.com:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:corbet@lwn.net,m:pbonzini@redhat.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:kas@kernel.org,m:rick.p.edgecombe@intel.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:jstultz@google.com,m:skhan@linuxfoundation.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:linux-doc@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:thomas.lendacky@amd.com,m:dwmw@amazon.co.uk,m:dwmw2@infradead.org,m:mhklinux@outlook.com,m:tglx@linutroni
+ x.de,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[nikunj@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[linuxfoundation.org,zytor.com,redhat.com,broadcom.com,oracle.com,kernel.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org,amd.com,amazon.co.uk,infradead.org,outlook.com,linutronix.de];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_GT_50(0.00)[82];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[nikunj@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:from_mime,amd.com:email,amd.com:mid,amd.com:dkim]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C735A721355
+X-Rspamd-Queue-Id: DC41B721A51
 
-On Mon Jun 29, 2026 at 3:25 PM EDT, Lorenzo Stoakes wrote:
-> There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Ma=
-ke
-> life easier by introducing vma_get_page_prot() parameterised by the VMA.
->
-> This also makes converting vm_get_page_prot() to vma_flags_t easier.
->
-> Also update the userland VMA tests to reflect the change.
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+
+
+On 7/2/2026 1:01 AM, Sean Christopherson wrote:
+> As a first step towards dropping .calibrate_{cpu,tsc}() and explicitly
+> defining precedence/priority for "calibration" routines, pass the secure
+> TSC frequency obtained from SNP firmware directly to
+> determine_cpu_tsc_frequencies() instead of overriding the .calibrate_tsc()
+> hook.
+> 
+> Unlike the native calibration routines, all of the paravirtual overrides,
+> including SNP and TDX, are constant in the sense that the frequency
+> provided by the hypervisor or trusted firmware is fixed, known, and always
+> available during early boot.  More importantly, for CoCo (SNP and TDX) VMs,
+> it's imperative that the kernel uses the frequency provided by the trusted
+> firmware, not by the untrusted hypervisor.  Enforcing the priority between
+> sources by carefully ordering seemingly unrelated init calls, so that the
+> trusted override "wins", is brittle and all but impossible to follow.
+> 
+> Explicitly ignore tsc_early_khz if the exact TSC frequency was obtained
+> from trusted firmware, as per commit bd35c77e32e4 ("x86/tsc: Add
+> tsc_early_khz command line parameter"), the goal of the param is to play
+> nice with setups that provide partial frequency information in CPUID, i.e.
+> is NOT intended to be a hard override.  Neither SNP's secure TSC nor TDX
+> was supported when commit bd35c77e32e4 landed back in 2020, i.e. lack of
+> consideration for the interaction was purely due to oversight when SNP and
+> TDX support came along.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 > ---
->  drivers/gpu/drm/drm_gem.c                   |  2 +-
->  drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
->  drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
->  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
->  drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
->  drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
->  drivers/gpu/drm/msm/msm_gem.c               |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
->  drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
->  drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
->  drivers/gpu/drm/tegra/gem.c                 |  2 +-
->  drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
->  drivers/gpu/drm/xe/xe_device.c              |  2 +-
->  drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
->  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
->  drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
->  include/linux/mm.h                          | 10 +++++++++-
->  mm/vma.c                                    |  2 +-
->  mm/vma_exec.c                               |  2 +-
->  sound/core/memalloc.c                       |  2 +-
->  tools/testing/vma/include/dup.h             |  4 ++++
->  23 files changed, 43 insertions(+), 31 deletions(-)
->
+>  .../admin-guide/kernel-parameters.txt         |  4 +++
+>  arch/x86/coco/sev/core.c                      | 14 +++--------
+>  arch/x86/include/asm/sev.h                    |  4 +--
+>  arch/x86/kernel/tsc.c                         | 25 ++++++++++++++-----
+>  4 files changed, 29 insertions(+), 18 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index b5493a7f8f22..181149f633c3 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -7946,6 +7946,10 @@ Kernel parameters
+>  			with CPUID.16h support and partial CPUID.15h support.
+>  			Format: <unsigned int>
+>  
+> +			Note, tsc_early_khz is ignored if the TSC frequency is
+> +			provided by trusted firmware when running as an SNP
+> +			guest.
+> +
+>  	tsx=		[X86] Control Transactional Synchronization
+>  			Extensions (TSX) feature in Intel processors that
+>  			support TSX control.
+> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+> index 403dcea86452..bc5ae9ef74da 100644
+> --- a/arch/x86/coco/sev/core.c
+> +++ b/arch/x86/coco/sev/core.c
+> @@ -99,7 +99,6 @@ static const char * const sev_status_feat_names[] = {
+>   */
+>  static u64 snp_tsc_scale __ro_after_init;
+>  static u64 snp_tsc_offset __ro_after_init;
+> -static unsigned long snp_tsc_freq_khz __ro_after_init;
+>  
+>  DEFINE_PER_CPU(struct sev_es_runtime_data*, runtime_data);
+>  DEFINE_PER_CPU(struct sev_es_save_area *, sev_vmsa);
+> @@ -2014,15 +2013,10 @@ void __init snp_secure_tsc_prepare(void)
+>  	pr_debug("SecureTSC enabled");
+>  }
+>  
+> -static unsigned long securetsc_get_tsc_khz(void)
+> -{
+> -	return snp_tsc_freq_khz;
+> -}
+> -
+> -void __init snp_secure_tsc_init(void)
+> +unsigned int __init snp_secure_tsc_init(void)
+>  {
+> +	unsigned long snp_tsc_freq_khz, tsc_freq_mhz;
+>  	struct snp_secrets_page *secrets;
+> -	unsigned long tsc_freq_mhz;
+>  	void *mem;
+>  
+>  	mem = early_memremap_encrypted(sev_secrets_pa, PAGE_SIZE);
+> @@ -2043,7 +2037,7 @@ void __init snp_secure_tsc_init(void)
+>  
+>  	snp_tsc_freq_khz = SNP_SCALE_TSC_FREQ(tsc_freq_mhz * 1000, secrets->tsc_factor);
+>  
+> -	x86_platform.calibrate_tsc = securetsc_get_tsc_khz;
+> -
+>  	early_memunmap(mem, PAGE_SIZE);
+> +
+> +	return snp_tsc_freq_khz;
+>  }
+> diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+> index 594cfa19cbd4..05ebf0b73ef4 100644
+> --- a/arch/x86/include/asm/sev.h
+> +++ b/arch/x86/include/asm/sev.h
+> @@ -530,7 +530,7 @@ int snp_send_guest_request(struct snp_msg_desc *mdesc, struct snp_guest_req *req
+>  int snp_svsm_vtpm_send_command(u8 *buffer);
+>  
+>  void __init snp_secure_tsc_prepare(void);
+> -void __init snp_secure_tsc_init(void);
+> +unsigned int snp_secure_tsc_init(void);
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+It seems __init got dropped here accidentally?
 
---=20
-Best Regards,
-Yan, Zi
+Apart from this:
+
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+Tested-by: Nikunj A Dadhania <nikunj@amd.com>
+
+>  enum es_result savic_register_gpa(u64 gpa);
+>  enum es_result savic_unregister_gpa(u64 *gpa);
+>  u64 savic_ghcb_msr_read(u32 reg);
+> @@ -637,7 +637,7 @@ static inline int snp_send_guest_request(struct snp_msg_desc *mdesc,
+>  					 struct snp_guest_req *req) { return -ENODEV; }
+>  static inline int snp_svsm_vtpm_send_command(u8 *buffer) { return -ENODEV; }
+>  static inline void __init snp_secure_tsc_prepare(void) { }
+> -static inline void __init snp_secure_tsc_init(void) { }
+> +static inline unsigned int __init snp_secure_tsc_init(void) { return 0; }
+>  static inline void sev_evict_cache(void *va, int npages) {}
+>  static inline enum es_result savic_register_gpa(u64 gpa) { return ES_UNSUPPORTED; }
+>  static inline enum es_result savic_unregister_gpa(u64 *gpa) { return ES_UNSUPPORTED; }
+> diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+> index 8f1604ffe986..f049c126e47c 100644
+> --- a/arch/x86/kernel/tsc.c
+> +++ b/arch/x86/kernel/tsc.c
+> @@ -1440,15 +1440,16 @@ static int __init init_tsc_clocksource(void)
+>   */
+>  device_initcall(init_tsc_clocksource);
+>  
+> -static bool __init determine_cpu_tsc_frequencies(bool early)
+> +static bool __init determine_cpu_tsc_frequencies(bool early,
+> +						 unsigned int known_tsc_khz)
+>  {
+>  	/* Make sure that cpu and tsc are not already calibrated */
+>  	WARN_ON(cpu_khz || tsc_khz);
+>  
+>  	if (early) {
+>  		cpu_khz = x86_platform.calibrate_cpu();
+> -		if (tsc_early_khz)
+> -			tsc_khz = tsc_early_khz;
+> +		if (known_tsc_khz)
+> +			tsc_khz = known_tsc_khz;
+>  		else
+>  			tsc_khz = x86_platform.calibrate_tsc();
+>  	} else {
+> @@ -1503,6 +1504,8 @@ static void __init tsc_enable_sched_clock(void)
+>  
+>  void __init tsc_early_init(void)
+>  {
+> +	unsigned int known_tsc_khz = 0;
+> +
+>  	if (!boot_cpu_has(X86_FEATURE_TSC))
+>  		return;
+>  	/* Don't change UV TSC multi-chassis synchronization */
+> @@ -1510,9 +1513,19 @@ void __init tsc_early_init(void)
+>  		return;
+>  
+>  	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
+> -		snp_secure_tsc_init();
+> +		known_tsc_khz = snp_secure_tsc_init();
+>  
+> -	if (!determine_cpu_tsc_frequencies(true))
+> +	/*
+> +	 * Ignore the user-provided TSC frequency if the exact frequency was
+> +	 * obtained from trusted firmware, as the user-provided frequency is
+> +	 * intended as a "starting point", not a known, guaranteed frequency.
+> +	 */
+> +	if (!known_tsc_khz)
+> +		known_tsc_khz = tsc_early_khz;
+> +	else if (tsc_early_khz)
+> +		pr_err("Ignoring 'tsc_early_khz' in favor of trusted firmware.\n");
+> +
+> +	if (!determine_cpu_tsc_frequencies(true, known_tsc_khz))
+>  		return;
+>  	tsc_enable_sched_clock();
+>  }
+> @@ -1533,7 +1546,7 @@ void __init tsc_init(void)
+>  
+>  	if (!tsc_khz) {
+>  		/* We failed to determine frequencies earlier, try again */
+> -		if (!determine_cpu_tsc_frequencies(false)) {
+> +		if (!determine_cpu_tsc_frequencies(false, 0)) {
+>  			mark_tsc_unstable("could not calculate TSC khz");
+>  			setup_clear_cpu_cap(X86_FEATURE_TSC_DEADLINE_TIMER);
+>  			return;
 
 
