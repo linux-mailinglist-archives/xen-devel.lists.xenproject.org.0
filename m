@@ -2,49 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id XnV6DbFzT2odhAIAu9opvQ
+	id lVjOHMRzT2okhAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:10:57 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:11:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73FB772F6B0
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF94972F6C3
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:11:15 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=sq4IZiUE;
-	dmarc=pass (policy=none) header.from=gmail.com;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=gibgrAwJ;
+	dmarc=pass (policy=reject) header.from=citrix.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	arc=pass ("google.com:s=arc-20260327:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1357855.1612187 (Exim 4.92)
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1357859.1612196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whliO-0005lh-5V; Thu, 09 Jul 2026 10:10:44 +0000
+	id 1whlik-0006BI-DC; Thu, 09 Jul 2026 10:11:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357855.1612187; Thu, 09 Jul 2026 10:10:44 +0000
+Received: by outflank-mailman (output) from mailman id 1357859.1612196; Thu, 09 Jul 2026 10:11:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whliO-0005kE-2Z; Thu, 09 Jul 2026 10:10:44 +0000
-Received: by outflank-mailman (input) for mailman id 1357855;
- Thu, 09 Jul 2026 10:10:42 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1whlik-00068R-A5; Thu, 09 Jul 2026 10:11:06 +0000
+Received: by outflank-mailman (input) for mailman id 1357859;
+ Thu, 09 Jul 2026 10:11:04 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1whliM-0005k4-HR
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:10:42 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1whlii-00066t-EP
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:11:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whliL-00ET8e-UY
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:10:41 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1whlih-00D8V7-RM
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:11:03 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a4f73a1-5cb7-0a2a0a5109dd-0a2a4506ce22-2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:10:41 +0200
-Received: from [74.125.224.43] (helo=mail-yx1-f43.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a4f73a0-08de-0a2a45060019-4a7de02bc0b9-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:10:41 +0200
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-66628618509so1016727d50.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 03:10:41 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a4f73b7-e002-0a2a0a5209dd-0a2a4502ed7a-0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:11:03 +0200
+Received: from [40.107.208.63]
+ (helo=PH0PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a4f73b6-5a27-0a2a45020019-286bd03f6828-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:11:03 +0200
+Received: from IA1PR03MB8288.namprd03.prod.outlook.com (2603:10b6:208:59e::6)
+ by CH5PR03MB7983.namprd03.prod.outlook.com (2603:10b6:610:212::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 10:10:59 +0000
+Received: from IA1PR03MB8288.namprd03.prod.outlook.com
+ ([fe80::b5ee:28c6:e04b:5599]) by IA1PR03MB8288.namprd03.prod.outlook.com
+ ([fe80::b5ee:28c6:e04b:5599%3]) with mapi id 15.21.0181.012; Thu, 9 Jul 2026
+ 10:10:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,199 +63,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1783591840; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NLb2+Bvqm1uUiQDaQr8na6ZEv6cR3OpCSoQx1PAPWEhK0oZF+SEd7rW/EwMP/0eA96
-         RbhQzTqWECdLKyU/eOJWfZJKlBQwN16HIt7D4rperLI2u52E+H2qu8AENUOYUtBGEiQv
-         Bn30GySHrBkZeFUxEOoM6PF9fM+mYpxD1h6Bg2RV2eaK2ysRiiX2UxMZIsIFpTjeJm3f
-         filAwpsWcsqSnZ2adi29Xqy+Dcx63UrDnKbqyhl/EON+V0A7B9ShmpXZJgzDcCbSNlR0
-         Bt9Ho739Ax1DPg2DcjWp9dO96q7F7cYYiGmiXFMn7hzdJUWSYJXsP5HCixrfdLofjjQl
-         IP8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xOOevMuPe35Bv8U5POk91gB2d1Rxc6jExsFDjGRND5M=;
-        fh=hPm/vFa1sRt5uhzQFrp765rgrhqr4j+AMaChATfJNPw=;
-        b=RrVUQNoDWs4nbF8XciOgPl0jbLVeB7G+kB/qZpu+rwBrbOK7a+Q9uOCmxCnwSpl6vx
-         BwA3XXDnyNX16sxbOKeG8F9ZAWz3lShkiYXoInmX/TF9cMr+gwOcdLsJj5akQP25fz4l
-         NaWtJrREbzyvYRfet+iFdLax0aPjeDnpfzN9Tnx/u0bWGIqyg/7QhNjjtP2eexss5Tu2
-         IEXA7zCoNJwSCWQiC7ZUITyJL7a+g6gMS649tSfsinqnWmoWJ+cyoieHWQB8pteD/pt9
-         ns+I62+lempJ4TMvXjlIA+GONIHTvUn9QLiLP3t1QW33yuAvP9OyaLNP+Qhtjexle+HI
-         X+oA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783591840; x=1784196640; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xOOevMuPe35Bv8U5POk91gB2d1Rxc6jExsFDjGRND5M=;
-        b=sq4IZiUEDhlTEYsmLuw3BgsrHKN1sjyWLDWTMnU5QemppbSyCCK+LNjrPdB7XmGgTi
-         igei5XnOtuKj8JwM+uCRgq/M2SLkAxmV8jzGP+9eaM2XD4GQA485nojrtQFC/mGTQwsj
-         +o690tbuXi000G2iP7oAJm+klzToOgEc63TnkTYpcDhFhoaWfjWRYICIgewYelLEmpFl
-         MxeiT94S137ZWdq9d4LA9h2kWjkdjYZiQ87+SAeb1Q0AqockwozGHlmOB3+1H0GJBRfT
-         Bny8sLxHpet/P5qMaY8jzDnLDEEuTtGXLgytFQvRYBLkxirgeibAxLMGDpCK5jytP0Os
-         Jr3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783591840; x=1784196640;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xOOevMuPe35Bv8U5POk91gB2d1Rxc6jExsFDjGRND5M=;
-        b=F+IdSnw+w3a3dzpajBY1rENrmY+f+UOIrr6H+L9VhLNztoe0cdp5KEyzTphJbSJnHK
-         nTIyDYUUUwYcqf8Ac5of8KskwVIYL1YVOtpVpmC+xPVi1fE5bGgHf/ZxYeBG9CfN7+fL
-         xho/FngNyx1DSlNDVtJsal3MARb8TbdX9b8OBIB3oJOipvbwvuGduYwsjOxm7aWe6ViG
-         Y3jqfq7Ryqu9SYd+JuGf0kuTMPfJW5Vb4VuQfUT/5UtFOYtwc+t0yjZUMZRTxX4blCeC
-         S8UOS3/TUjTgX/if6Y7UGoivPSRzWJudArzcudEtFsCtxLK8Vox7iYiVJMnsnwujxDlW
-         c+/g==
-X-Gm-Message-State: AOJu0Yw+pnwN7LzK6loM+tSiT6O2hJxobEDzHGnS27JcQw3TWseTrMMM
-	UA+uV8u5vL+i3xqIo7NNavPo8A+stExIIyARhkXEVWLVoy668nesCr+WlyDzLWsPcz9wz5MrIX1
-	XteXqjNgNn7FYntlkfbrB+nW83dmioLbaligXhDAVkw==
-X-Gm-Gg: AfdE7clSEePkNCh5bfcY7R3tl4cmjPyOHDIi+tlatfg4PT34YCl0QwxVMsFO9hbvj1Y
-	JIIiLsmeghnzgFgRPRCQVVMMI6OUpHaPfN1X1D/K65bDpi+STuoT1S2FRhjgS+DAHn5FezQNLRQ
-	HhzLnIEhbKivIqG39kHOoiMDMq+I9m5ux5b/fHQJuDx0phNwzW6sHZWHkRq6NWOe+FsdYA0lR8z
-	NdOd3zFQZT4JLQ3tsmynTnFrxtB6G79SWFqD2rwD6o9Wnj84NbrPJjKAWKNQObC87wsrhjfyJez
-	In+KayOq4PPBcUCVpUhuU8lQewQ=
-X-Received: by 2002:a05:690e:4402:b0:664:ac71:be8f with SMTP id
- 956f58d0204a3-6679f0b0e80mr4121332d50.38.1783591839430; Thu, 09 Jul 2026
- 03:10:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QlzMDs+QSw+V9yBgYcA+QFsMlk28fKRZq6UbrEMcd9tGqPWdbLry6KseSkbIzoWmRoG3b4drpKpE0ygnGqrqmS/bgjxgGYYE0CUZ2GQXfubaPSPZVogisMd11O7IEVVWfrSIzEi+KoILwsH91liNHcCip82rR1exriuT1D6NdtlrHA2M7p6eAvza6gRwP0c4v/K9Ucix2ROFJtx4nDvji48JrOwbE+SdsiIFv1D78I3VIW1qy4ufnHvyxTX16HlJG431JqIRHp4Mb/5Pr96AqMj9q6FjMx0sO19HRi9Oy+el5H8sanhjIk6t7Y91nzracfqrYBrex/L8mtEZIEVagw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z//UiWk0wwQ7sqMhZ0vAqirxh9EQUYPXhuC9o9Cfdig=;
+ b=uuw8aGX24mKbnEESgo8sZlvjqz4luQLY02Bh5npo4MHOk+EcF0flUOdqhBCr5mmprf7suup1Kl6OG0s4Ne0u5QiHFfOcg+2JqhSXIhj4kuSe8puI8HValjjlhVRFdfloS+Xnzwj3Cq+FkIMGBD6KU1Qb4zeJ7/5fNLBhL1Q25PPah7hffTH7ji2TWCjZOk5F/R7rjFfDACNc5dXPFe/bwZvE7TYH8hFoGqS4n/r9vfmmcCg/GnjhwGlHvQuRwKA9B5yD+wzXyRhp8sjfRxzsAhHvaQI/YKQe9Ah/QcP4f3+dIXMw9TvbmTCj9hnQZ3Wp241yRQfbu2R1cySBz9WStA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z//UiWk0wwQ7sqMhZ0vAqirxh9EQUYPXhuC9o9Cfdig=;
+ b=gibgrAwJi5Ppu6TWjwx7IO55zqhHRdPbvJt1CMMz+rG2dPmU/jCH7u+vdtXXKh5i0EvCbto8SuVw4Hrypan1p6mQbx8RE96FEIUQsAEDZNW2V8B+DSDPu8onIPOPdFh8V7wKvCoxf6ovMPlBYhlUNcSaHAVoOhsona0/u2AUJ9U=
+Message-ID: <a6547b1d-286f-40cd-821d-0e5e4773cf58@citrix.com>
+Date: Thu, 9 Jul 2026 11:10:55 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.22 v3] dom0less: Prevent division by zero in
+ handle_passthrough_prop()
+To: Jan Beulich <jbeulich@suse.com>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+References: <500cc80a172570f7fdde3287185398dc49460b2b.1783590032.git.dmytro_prokopchuk1@epam.com>
+ <19771234-d108-4ddc-9517-ae420aa70e93@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <19771234-d108-4ddc-9517-ae420aa70e93@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO6P123CA0007.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:338::9) To IA1PR03MB8288.namprd03.prod.outlook.com
+ (2603:10b6:208:59e::6)
 MIME-Version: 1.0
-References: <20260709074358.256084-1-frediano.ziglio@citrix.com> <20260709074358.256084-5-frediano.ziglio@citrix.com>
-In-Reply-To: <20260709074358.256084-5-frediano.ziglio@citrix.com>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Thu, 9 Jul 2026 11:10:27 +0100
-X-Gm-Features: AVVi8CdRJj8y_1yRlr2KNNwPLmFx9viF0Gup3gt-ZtW-HhSduf6SWu8hAeG7xs8
-Message-ID: <CAHt6W4cXmaKEJaU=ZR2+uicN3=G3dFzbMK+_eCkMXiSZh7V2XA@mail.gmail.com>
-Subject: Re: [PATCH v7 4/6] libs/guest: move batch_pfns into a separate structure
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Teddy Astie <teddy.astie@vates.tech>, Anthony PERARD <anthony.perard@vates.tech>, 
-	Juergen Gross <jgross@suse.com>, Frediano Ziglio <frediano.ziglio@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-16d1c6/1783591841-43D2D68D-FF55E5B9/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR03MB8288:EE_|CH5PR03MB7983:EE_
+X-MS-Office365-Filtering-Correlation-Id: e89cc975-be87-445d-2625-08dedda25f55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|22082099003|18002099003|56012099006|11063799006|4143699003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	dXkp35Nc7Y8TIYvTWOiZUiz4koNPLNStkaNAZ0VoP8fAMPbelgl8klMkJlOYscyL/1TUiHhIkLyhybDtgxMe5QdVkTVoMmas9y55TsW1JfX2mvz6v0/rQhrQqPoiz7DtQvlyyxVJBnKAltorKAY/yHnEj2UAVQ2P/34MLygP2gCx3Y9zyRMYxrU9JRNsD9rVmyI5To/U+gkWD4gtwtN6mWFX9BfDA16GFvaQFD5Pz2ZzDuFFDOE6tdkAc57YnJUlUIeoKFmvO1WaXX2h4Dh8kvp61/WdA6V/1xnxEfyKjnvJav+OlKAtcWT8WY1+2m7w7Zl71Nc7iiEENlKA0DdwqHYFznJkdpfcnX6QutBMu2VGHr5ws8eY57gRVm/8gpnXniw+SV136uvKxwPGjVUWuhaYvrR3m8gwxk0zU+LSL7jPoiTjEmG9oIMmhAVdJVSesNK3iVd830KHjnHNBsOv3mcQPzaTSNyWrXeq+tu8FFR52CIIP9Rq9y0aQROY0kXxZWCvX5Aeg3P+0h5U1RYvcgMVMhwRNJH2L8J/ByJJ5z/drH2tWGYK5CQxw/Ioofm2mlE6BzdAC4UnceomQNy0BmefvtMmeElI0rw8EKaFpEmf0gGPY74YtaihtNW1F0dHS1cv+HVCAyAR4OTTiydvMbZnGgMRCD6mqgmHLgGyxkc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR03MB8288.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R1ozUzR6MUFJUGZSa1JEbnljWDV1NGJrcmNNRE93U1g3RXYzRXY1cTNNZHVF?=
+ =?utf-8?B?dGgyakIrN281SU9GbFlsZTBDOXk3VWNPZXhkR0tPNXlKWjNKN3VBZGU5YTFT?=
+ =?utf-8?B?UzhhbVpXbXZXdTZONUZjM2lYTkorZnplQXJrbTVXeUpxRjR4ZWMydjJxZS94?=
+ =?utf-8?B?cno5SWhkUWsrTG1GVnZZNmVqcmxEcldsam96dUM4eEMwdGxEMzE5bUg2emVq?=
+ =?utf-8?B?NlZtMFh2bVVDSzRkWUROTnNYdll5dkVvQ2lwbDFSSUpiTjlBTWZ6OWozclg3?=
+ =?utf-8?B?YlQ0MC9oUG9hdEd4RTR4c2RCSTJIaE5HNHR1SFczZVpjcjArQUpYN01LTFQz?=
+ =?utf-8?B?eXh0ZWx3M2FsdFJxZFpoczVMTnNuTWE3SzNFLzdwNlpFM0hsNG1tVjYxMGt4?=
+ =?utf-8?B?OFlDWmZ0cHRWT2h5QXNpSThBZ1A2Y1kybHFFUDkvbVlUT0NManduTHNadjVO?=
+ =?utf-8?B?MUtrWjhES21JQ1lsbXNXNlh3YU92aDZpMHFUTjFIMEl4YUNGOXZJdjBVay9W?=
+ =?utf-8?B?d3ZMQ2VGMS8wd3BVY3FRLzZUemJiRGRiQVFqdUY1aVBtOGhzTzVPVU8zZDFO?=
+ =?utf-8?B?UkhwOXZvZ2ZmVVVaeERlQWhRMnFCSlpVOGhJWlV1Q1dyQk9la3JnanROdWxH?=
+ =?utf-8?B?K2NOUzhVaGlHQk5NME4yOUl2WmptMmtNWmdLeUtSMDVlbVRkZ0NDaWhwWGQz?=
+ =?utf-8?B?V3NQVUZXMzJLQ3pSRkJGVXNYSWZoR0hBUGdWSUw5MVFCcFJ4aXJ1UUVSZXl5?=
+ =?utf-8?B?QUhNcDNnRVV1bHpDUWd4cTRtTVc2S2JLRXNaVDRkdmpSMXA5SG5PMkloRTA4?=
+ =?utf-8?B?dUs2dEJ5OW4yanloK3lHdGlCV0hQVFF4K3NxQ3M3MHB5SWNoTVNrSWxZbWxo?=
+ =?utf-8?B?eFhlWTVTaGRnL2xidnAvdFlkVkZ2dVdzNUxTZldZQVB5S0l1bU85WjRNV2VL?=
+ =?utf-8?B?TXZybnpSRTFCMTFROHI5NjdSekNTekV2ZDFGQTEwNEg0RHF5SlBzMXBYb2xo?=
+ =?utf-8?B?RVdxeHU3L2RLWHpGOTR6UGpveUFIQnlMRVczd3hFNTl4cE9OOTVxVXNxMVdG?=
+ =?utf-8?B?Q0praHJiVmtnWmszei9vRFNqNTJWMU9palM4SW9CRW1oOHpKbUF6SFpBZ2lw?=
+ =?utf-8?B?N0hKeXZubGI4Tmpya1BEcWUzTFZsMjlXbWFoRVFteGhMUXh4b0cwSm5ZSU5P?=
+ =?utf-8?B?aXdld2RsTzV2M0ZySCtLM0JtYStRR2YrVjExeUFPUDhlbWZSdDNrNGZhU01z?=
+ =?utf-8?B?d29FdHJzcXJ5blF4U0RlTkh3UnFTdnk1Y0JUYUpwZ1FHVE5uMDdMbE5RcnN4?=
+ =?utf-8?B?NHRBcTkreERPU3ZUdDUrSnoyMXJSODNGWldjRjFQR2FrUFZQTDQ0eWhSQ1V5?=
+ =?utf-8?B?bExWMEFGNG0wVys3djRvVDVZK1A1NWh3Vk9KVG9FajdZcGdOckhiSGxRalRa?=
+ =?utf-8?B?VWp4MHdRZ1RPVTFHb0pNcFcxd3BGTWNDMjVMMkhWb1IvVG1MNS9INGhIRVhL?=
+ =?utf-8?B?UE14S1pMQVBRNllyRTNyNVhERElsb29yVG5PRTdINVg1L01lZ0dXWEVrOC9r?=
+ =?utf-8?B?YTlsU1lYUnBLS285WGRTWW1pMDB5aVZpOGRobXFEaXNPVUI1QTFYWnozYm4y?=
+ =?utf-8?B?TVVOeE5hZjFQL3JMUzMvYWQvRk84L29RSWRkSGIyTC94SlcvQXBVYk9USmlY?=
+ =?utf-8?B?OTJCV2Z1NDZKMHkxa1ZKVVJDTGIya0RtZElqTUdka1p6c2R1V05BMitHTkkx?=
+ =?utf-8?B?OFhVTWpWb0JGRlUwdGx3ZHIyUGhkUHlQVUtaUHcwR1RBYVp5WjVURTh3RExS?=
+ =?utf-8?B?UjNsc2wwemRYSlFPeDVRL0NqSDhRd3NrZVJtT2pQYy9Va0Nrd1krYSt4Y1B2?=
+ =?utf-8?B?V1M0SEZTbnZzUU1pVmt0eUl0TjRjOElubjhsTFdEeTJHRDlReW90SGN5Umta?=
+ =?utf-8?B?RkRjbHdGbXhwdVRZdE9aWkJCQmFzN3pMQW03aUxBV2k2UXdmL25QTFpzMlhN?=
+ =?utf-8?B?ZW9jckh0MldaN1FEcUFxS2hDY3lKQWRETkhJRzd4M2Foa2pWR1hFUHBwUUJN?=
+ =?utf-8?B?aXk4QjNRU2NoMVZQY2VtN3ZJVC83ME9XMEZTckJQQzF5TlFzWDhuM1czMzRW?=
+ =?utf-8?B?VjVOdHgxRVlmOEZPT2Y5M25yNTJFdlNxNC8vOFh5eXRXSnBXWGNIejhIZE9Z?=
+ =?utf-8?B?RGZUQUlIZmE5Z2NwRVJtTlIzZ3REaVZKb1B6dCtlRjd2SHBQQmkxM3hNeTJ2?=
+ =?utf-8?B?TE9mQXFhUENmZGdTb2dhTnlaL1dza3FVMXVCWUJTK2g1WU00S2ZTSDhPcWhY?=
+ =?utf-8?B?bUpHbWh2L09VaFZ0ZDROcHBvSE80bXBadVFWYUhqbVQyMVlEUXhMQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e89cc975-be87-445d-2625-08dedda25f55
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR03MB8288.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 10:10:58.8274
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QMI8N76HOBJdF74xDWiNjXJYbZ8HO6k5KoMgk/lHF/geLuJwh45xmL/pO4JOxNJWYGA+0ndEJEaHQ5pgT/2uieEhynQK7qGolg/4x4ctwCY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR03MB7983
+X-purgate-ID: tlsNG-720697/1783591863-4D3037C5-3C3C69B3/0/0
 X-purgate-type: clean
-X-purgate-size: 2722
+X-purgate-size: 2471
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20260327:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:dmytro_prokopchuk1@epam.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:edwin.torok@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:frediano.ziglio@citrix.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 73FB772F6B0
+X-Rspamd-Queue-Id: AF94972F6C3
 
-On Thu, 9 Jul 2026 at 08:44, Frediano Ziglio <freddy77@gmail.com> wrote:
->
-> From: Edwin T=C3=B6r=C3=B6k <edwin.torok@citrix.com>
->
-> Prepare for following change.
->
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
-> ---
-> Changes since v6:
-> - split from "libs/guest: allocate various migration arrays just once".
-> ---
->  tools/libs/guest/xg_sr_common.h |  5 ++++-
->  tools/libs/guest/xg_sr_save.c   | 31 +++++++++++++++++--------------
->  2 files changed, 21 insertions(+), 15 deletions(-)
->
-> diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_com=
-mon.h
-> index f1573aefcb..7574c9f5b6 100644
-> --- a/tools/libs/guest/xg_sr_common.h
-> +++ b/tools/libs/guest/xg_sr_common.h
-> @@ -239,11 +239,14 @@ struct xc_sr_context
->
->              struct precopy_stats stats;
->
-> -            xen_pfn_t *batch_pfns;
->              unsigned int nr_batch_pfns;
->              unsigned long *deferred_pages;
->              unsigned long nr_deferred_pages;
->              xc_hypercall_buffer_t dirty_bitmap_hbuf;
-> +            struct xc_sr_context_save_buffers
-> +            {
-> +                xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
-> +            } *buffers;
->          } save;
->
->          struct /* Restore data. */
-> diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.=
-c
-> index 84fdbe4140..8956f4260d 100644
-> --- a/tools/libs/guest/xg_sr_save.c
-> +++ b/tools/libs/guest/xg_sr_save.c
-> @@ -75,7 +75,7 @@ static int write_checkpoint_record(struct xc_sr_context=
- *ctx)
->
->  /*
->   * Writes a batch of memory as a PAGE_DATA record into the stream.  The =
-batch
-> - * is constructed in ctx->save.batch_pfns.
-> + * is constructed in ctx->save.buffers->batch_pfns.
->   *
->   * This function:
->   * - gets the types for each pfn in the batch.
-> @@ -95,6 +95,7 @@ static int write_batch(struct xc_sr_context *ctx)
->      void *page, *orig_page;
->      uint64_t *rec_pfns =3D NULL;
->      struct iovec *iov =3D NULL; int iovcnt =3D 0;
-> +    xen_pfn_t *batch_pfns;
+On 09/07/2026 10:50 am, Jan Beulich wrote:
+> On 09.07.2026 11:44, Dmytro Prokopchuk1 wrote:
+>> A malformed partial DTB specifying both '#address-cells = <0>' and
+>> '#size-cells = <0>' causes '(address_cells * 2 + size_cells)' to
+>> evaluate to 0. This sum is subsequently used as a divisor when
+>> calculating the number of regions in the 'xen,reg' property inside
+>> handle_passthrough_prop():
+>>
+>>     len = fdt32_to_cpu(xen_reg->len) / ((address_cells * 2 + size_cells) *
+>>                                         sizeof(uint32_t));
+>>
+>> This leads to a division by zero exception in the Xen hypervisor during
+>> boot, causing a hypervisor panic/crash.
+>>
+>> Fix this by validating that both 'address_cells' and 'size_cells'
+>> are within the valid range of [1, 2] at the read side in scan_pfdt_node()
+>> immediately after they are parsed. Any invalid cell size combination is
+>> safely rejected early with an error message and return -EINVAL.
+>>
+>> Fixes: 9ce974c47588 ("xen/arm: assign devices to boot domains")
+>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+>> ---
+>> Changes in v3:
+>>  - use Michal's idea for placing that check into other place
+>>  - reword commit message
+>> ---
+>>  xen/common/device-tree/dom0less-build.c | 7 +++++++
+>>  1 file changed, 7 insertions(+)
+>>
+>> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+>> index eacfd93087..179a2b88aa 100644
+>> --- a/xen/common/device-tree/dom0less-build.c
+>> +++ b/xen/common/device-tree/dom0less-build.c
+>> @@ -341,6 +341,13 @@ static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+>>      size_cells = device_tree_get_u32(pfdt, nodeoff, "#size-cells",
+>>                                       DT_ROOT_NODE_SIZE_CELLS_DEFAULT);
+>>  
+>> +    if ( address_cells < 1 || address_cells > 2 ||
+>> +         size_cells < 1 || size_cells > 2 )
+>> +    {
+>> +        dprintk(XENLOG_ERR "Invalid address/size cells combination\n");
+> Perhaps just for my own education: Is it really "invalid", or merely
+> "unsupported" / "unrecognized"? (I can see 0 being possibly invalid, but
+> it looks less clear for values above 2.)
 
-What about a direct
+It's an encoding for variable length numbers.  3 would be 96-bit
+numbers, 4 would be 128-bit numbers.
 
-    xen_pfn_t *const batch_pfns =3D ctx->save.buffers->batch_pfns;
+64-bit numbers is plenty, and there are a whole bunch of fun bugs to be
+had if you believe that nr_cells=-1 describes a good number.
 
-here ?
-
->      struct {
->          struct xc_sr_rhdr rec;
->          struct xc_sr_rec_page_data_header page_data;
-> @@ -110,6 +111,10 @@ static int write_batch(struct xc_sr_context *ctx)
->      };
->
->      assert(nr_pfns !=3D 0);
-> +    assert(nr_pfns <=3D MAX_BATCH_SIZE);
-> +    assert(ctx->save.buffers);
-> +
-> +    batch_pfns =3D ctx->save.buffers->batch_pfns;
->
->      /* Mfns of the batch pfns. */
->      mfns =3D malloc(nr_pfns * sizeof(*mfns));
-> @@ -141,13 +146,12 @@ static int write_batch(struct xc_sr_context *ctx)
-
-...
-
-Frediano
+~Andrew
 
