@@ -2,50 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id IIlfEy7vT2qTqgIAu9opvQ
+	id zPdpGXH9T2pXrgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:57:50 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 21:58:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F39734A3E
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:57:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDE4735398
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 21:58:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=flVtDyBt;
-	dmarc=pass (policy=quarantine) header.from=kernel.org;
+	dkim=pass header.d=invisiblethingslab.com header.s=fm2 header.b=fHCtcn7d;
+	dkim=pass header.d=messagingengine.com header.s=fm2 header.b=qHomPqqV;
+	dmarc=pass (policy=none) header.from=invisiblethingslab.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1358504.1612592 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1358533.1612601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whtw9-0008CG-AM; Thu, 09 Jul 2026 18:57:29 +0000
+	id 1whusk-0007Gb-GM; Thu, 09 Jul 2026 19:58:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1358504.1612592; Thu, 09 Jul 2026 18:57:29 +0000
+Received: by outflank-mailman (output) from mailman id 1358533.1612601; Thu, 09 Jul 2026 19:58:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whtw9-00089Y-7Y; Thu, 09 Jul 2026 18:57:29 +0000
-Received: by outflank-mailman (input) for mailman id 1358504;
- Thu, 09 Jul 2026 18:57:27 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1whusk-0007EK-Cy; Thu, 09 Jul 2026 19:58:02 +0000
+Received: by outflank-mailman (input) for mailman id 1358533;
+ Thu, 09 Jul 2026 19:58:00 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sstabellini@kernel.org>) id 1whtw7-00089S-Oh
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 18:57:27 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1whusi-0007E3-94
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 19:58:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whtw6-0047LG-KH
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 20:57:26 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1whush-003wER-6S
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 21:57:59 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <sstabellini@kernel.org>)
- id 6a4fef09-5cb7-0a2a0a5109dd-0a2a4509ea7c-12
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:57:26 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <sstabellini@kernel.org>)
- id 6a4fef15-b440-0a2a45090019-ac6904fee87a-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:57:26 +0200
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7E1F6137D;
- Thu,  9 Jul 2026 18:57:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADEB1F000E9;
- Thu,  9 Jul 2026 18:57:23 +0000 (UTC)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a4ffce1-bab6-0a2a0a5309dd-0a2a450b9c58-48
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 21:57:59 +0200
+Received: from [103.168.172.154] (helo=fhigh-a3-smtp.messagingengine.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 6a4ffd45-b7da-0a2a450b0019-67a8ac9ab7ab-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 21:57:58 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id AD45614000CF;
+ Thu,  9 Jul 2026 15:57:57 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Thu, 09 Jul 2026 15:57:57 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 9 Jul 2026 15:57:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,111 +60,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783623444;
-	bh=8Qwe9Eb1EWMzqFxlc434ecVMDaK8l7iRxYDzMndfC5E=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=flVtDyBtbhd5T6+87FCiik0HiOoDbs1JfbuB+NANhQ2vTEeesN4upqVDIOpWiOMVH
-	 T4obYiKUosRb9bml5sFMsRmVKi+qFCInAUD8OHhLkvNgDZZMbGmYnHAJfZ30P8Kn/0
-	 PFMIaZJdL1Bmhwm7rRGoFZo01X1+1lyNZ9/1ujByiXZrCPlx3ZmoBQ+FEKI8HTtLYS
-	 WUuLNCL+djM9kz3/yMD0FKL1/3md/pRu/1wrBPlNA5ego75WppSBD9M3zg1Nrcqs5B
-	 GPdgYh12syFRidEApoOgiiFX+v9oTEY2AKv+op01jAwn+XB1xQkFea3JFtV/59FOmB
-	 GMSoi+1uTVmdw==
-Date: Thu, 9 Jul 2026 11:57:20 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "Halder, Ayan Kumar" <ayankuma@amd.com>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, ayan.kumar.halder@amd.com, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [for-4.22][PATCH v2] xen/arm: Fail domain construction if a
- secondary vCPU cannot be created
-In-Reply-To: <aab9fd35-6230-474c-8848-480c8cccc43c@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2607091157100.565858@ubuntu-linux-20-04-desktop>
-References: <20260709063643.11800-1-michal.orzel@amd.com> <aab9fd35-6230-474c-8848-480c8cccc43c@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
+	 t=1783627077; x=1783713477; bh=EarCEyvX9vi3viPPe/HLi3xofwqUarDW
+	AeZtIfvZI5w=; b=fHCtcn7dFhV310acO/V8GIod/1vcPA0yJRh7ULCDXKaabTt8
+	rNLtauLqXDJBl/9E2ktVwJZPOUYsnF/iJNSfdB98Q5gwYLcPFOYcGGCW5zuYI2nh
+	ptSCWpqzpN7H6v70ud7qmKaRpumoLAmarf86Lh2lnidid+GwqwJVmjtK3h5Nutfm
+	QFA/VooFu6pfKCloSXwuEfzXawCpGaZB2WQh07DQaTjE3ufAswteonmlaLuGJYdC
+	Wk9a/vbeMTKnGYQw8EmdHeQbD110t67UlX6blulRSMQOkEl07/8jp0enHGMtRwEO
+	tBTzJE5i6na+z7QozRYQE11EmCee/tJT0L1hew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1783627077; x=1783713477; bh=EarCEyvX9vi3viPPe/HLi3xofwqU
+	arDWAeZtIfvZI5w=; b=qHomPqqVfsKZttyhePjwyOsB+ylSwC+2zpLt1Nf6ssXw
+	Q8Q/wUgPu8KulBVJ/5lC9PrNgW7Pq5aNQoH9FgpHUiD3wiU+w+NMYARAjXCk0Sgd
+	+1PMjOgahXIvumEZvbo44/9XaWhOfh2hVr5S7oAkthPj3qIF4lIz68aV2xly9CPu
+	00BZXz8Fef9xyyJRacXimOOyaEayD3iQVumK9zANV8KLMSxeouuxcKYGExuDPq6+
+	d8WvNRk1xdbTtTVp347dhqdPbb4aHFBc2+Ucxyum0jaGZ4M5nalvPYuUWq3+8BMP
+	jYAmz8lxCihOi2tZO6ij3LOMOz51bxtku/dg81/I3g==
+X-ME-Sender: <xms:Rf1Pat_LrYEAvIxwnw0w8Bo-08YilEoIaHhIq56QJZzJvMQKEICVTw>
+    <xme:Rf1Paovo7BLHVdMzUMj5r_Woyujr6TvNzZ6dJSfPFCImsCc8YxuF6W0Ddi0S2X0un
+    p13tt1DLM8wxPkvDwqZasPCCB-N0PFkF4eJCZ6Z0Kj2942OQw>
+X-ME-Received: <xmr:Rf1PagDz2T9uwc8umrD5UIA7_bGLbAIosJaqoQK7vTYJ6-3y6oFO0Ov2t1rbrseINtizJoAceYmYV2YqRFS4fUnIjhmOZwGl1p5TlSnlPZU>
+X-ME-Proxy-Cause: dmFkZTFBeks9wKYCITwToWc7TKQMUrpR905dVAch7xTanG1aLKQBFjER8ANUJbgekYLXmR
+    eiIk2QRZkQMhRIrHGo/Oz54FVWTf54LrmQv9HCi+RQV9EXNAPadMHnx91e0bZjB1ZsPCz+
+    4E1aFsw+D9am8xj0Fj6uAluVJNEWYm9feIaf+jpZSD5Umid4UtPstZkDIWFCmBYlUcIhNO
+    5wx73Ogmw/1m5ViQ7KlDNMC+df6h+PfEUAKH0mZ/JbxcNhCW+kU9wlziPtjzYBqoxEZ/CP
+    cotq7lFE/GvcgTXShIipWNWXeMIBVXrpq3LezPzB8xn2z3YfSApl2ji6oBrvt974nxhsIY
+    rc7BbCEGJRRvXu5ajqmz4R+VBQ01s/ieQoDuNeOAZfC+hkE+m0DfYQZKCOEHeXbaOJRU4C
+    2iXW66vP1ZXTWjM75SpOuvFh1wl97DorGeKyilJxaZNCnj1wl42yoONAeY7zfo57NJY8ZT
+    gb9HZH+PnJQCoRFZ8n6ntaxZ6Sui/lE9+40PR4Ba69MVLqtvzBFOqW3PLMsOF8ttV0u3Xy
+    6dW6Zb0m/xEh9XWg6vSVL39lveMAFSbOIKLTzKtSDuxexzhd59Iyd/b1htNfFJcn64DtCN
+    DlJSrgWvT8S3Eo7D18UAHHpe8AiUo7aRzjuAgsNa6YBlke/6dlGwpK9cTSXg
+X-ME-Proxy: <xmx:Rf1PagWFPt2z-bWyE7d4ueoGcXCg5jezqqlEy8WScUvLSi7IsIbPbQ>
+    <xmx:Rf1PauBW_gKHJDfaBF-L8-hNN2MET_pZHpuqCgzPZN6DR-mmI0vaNw>
+    <xmx:Rf1Paj-Lbm0vQKDljgac7gATXHNuQJNX6yoomAsHr_Wsbdab1TBipQ>
+    <xmx:Rf1PalH3KnGw-G_X9Csc8roCgcpaDCF5KgISiRC08xTND7z1LgI_Lw>
+    <xmx:Rf1PalKMc_rftVkfgR7hskwx9nwypHwB-CN9_2RTRaOQIKk8qXPcN20N>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH 0/2] CI: new PTL runner
+Date: Thu,  9 Jul 2026 21:57:03 +0200
+Message-ID: <cover.2e3d53e8679d3686e3f6579df0c7acb781c92701.1783626895.git-series.marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-bad1c0/1783623446-64369A0B-CF7C005C/0/0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1783627079-A11D69ED-5C20ECCA/0/0
 X-purgate-type: clean
-X-purgate-size: 2098
+X-purgate-size: 900
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[amd.com,lists.xenproject.org,kernel.org,xen.org,arm.com,epam.com,gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ayankuma@amd.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:ayan.kumar.halder@amd.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,gitlab.com:url,invisiblethingslab.com:from_mime,invisiblethingslab.com:dkim,invisiblethingslab.com:mid];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D5F39734A3E
+X-Rspamd-Queue-Id: 0CDE4735398
 
-On Thu, 9 Jul 2026, Halder, Ayan Kumar wrote:
-> On 09/07/2026 07:36, Michal Orzel wrote:
-> > construct_domain() creates the secondary vCPUs in a loop, but on a
-> > vcpu_create() failure it only prints a message and breaks out of the
-> > loop returning success. As a result the domain can be partially
-> > constructed with fewer vCPUs than d->max_vcpus. This causes two contract
-> > violations:
-> >   - Xen-Guest: domain's FDT is generated before vCPU creation - Xen exposes
-> >     incorrect information (e.g. two vCPUs listed in a device tree while only
-> >     one is actually created),
-> >   - User-Xen: unlike x86, on Arm port we try to bail out as soon as
-> >     possible on unsatisfied user requests (e.g. user requested two vCPUs
-> >     for a domain but it was created with only one).
-> 
-> Unrelated, but just to add my 2 cents wearing a safety hat.
-> 
-> The user-xen contract comes from a system integrator. Xen should try to follow
-> the contract and if not panic or bail out.
-> 
-> The Xen-guest contract can be used to enforce the rule that guest should read
-> the contract before doing any safety critical task.
-> 
-> The most important thing is anything errors that are internal to Xen, should
-> be propagated to the external world (either as panic or return an error to the
-> guest or abort the guest). If there is a degradation is functionality (eg Xen
-> creating a guest with lesser number of vCPUS that what the system integrator
-> provided), then this is safety issue unless we put an assumption on guest to
-> read its device tree and know the final configuration (which may not be always
-> ok).
-> 
-> > 
-> > Return an error instead of breaking out of the loop. Both callers
-> > (construct_domU() and construct_hwdom()) already propagate a negative
-> > return value and fail domain construction.
-> > 
-> > Fixes: 6b0e8e43348a ("xen/arm: allocate secondaries dom0 vcpus")
-> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+It's a NUC 16 Pro, with Intel Core Ultra 5 325.
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+As mentioned on the last community call - the hardware is bought by the Xen
+Project, and then hosted together with qubes runners.
+
+Xen itself works pretty well here (except suspend, to be investigated later). I
+tried also Qubes installer, and there is some issue between Xorg and the
+xe display driver (screen remains blank when Xorg starts). Likely an
+issue on the Linux side. Also to be investigated later.
+
+Pipeline:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2662549936
+
+Marek Marczykowski-Górecki (2):
+  CI: add PTL runner
+  CI: enable FRED on PTL runner
+
+ automation/gitlab-ci/test.yaml     | 82 +++++++++++++++++++++++++++++++-
+ automation/scripts/qubes-x86_64.sh |  4 +-
+ 2 files changed, 84 insertions(+), 2 deletions(-)
+
+base-commit: ccde3773c1762d32fb5f6037d6b22780c30895d3
+-- 
+git-series 0.9.1
 
