@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id E83gOJN6T2oohwIAu9opvQ
+	id 1DLPJeF8T2oUiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:40:19 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:50:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A7D872FBBA
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:40:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2247472FDF1
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:50:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="kn/h4/2r";
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Zv8aUfeW;
 	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1357923.1612241 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357934.1612249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whmAc-0003fI-Fd; Thu, 09 Jul 2026 10:39:54 +0000
+	id 1whmKJ-0005Jb-8e; Thu, 09 Jul 2026 10:49:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357923.1612241; Thu, 09 Jul 2026 10:39:54 +0000
+Received: by outflank-mailman (output) from mailman id 1357934.1612249; Thu, 09 Jul 2026 10:49:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whmAc-0003dT-Bz; Thu, 09 Jul 2026 10:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 1357923;
- Thu, 09 Jul 2026 10:39:52 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <cody.zuschlag@gmail.com>) id 1whmAa-0003dN-11
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:39:52 +0000
+	id 1whmKJ-0005Hx-63; Thu, 09 Jul 2026 10:49:55 +0000
+Received: by outflank-mailman (input) for mailman id 1357934;
+ Thu, 09 Jul 2026 10:49:54 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1whmKI-0005Hr-4m
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:49:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whmAY-00BJvV-WF
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:39:51 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1whmKG-00BcZL-Vc
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:49:52 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <cody.zuschlag@gmail.com>)
- id 6a4f7a68-5cb7-0a2a0a5109dd-0a2a45068328-0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:39:36 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <cody.zuschlag@gmail.com>)
- id 6a4f7a68-08de-0a2a45060019-d155802cf156-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:39:36 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-493ba701891so12359015e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 03:39:36 -0700 (PDT)
-Received: from smtpclient.apple ([2a01:e0a:e14:c050:5caf:dc83:85fb:fe5a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493e580cc6asm105087635e9.1.2026.07.09.03.39.34
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 Jul 2026 03:39:34 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4f7cc8-2eae-0a2a0a5409dd-0a2a450adbca-20
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:49:52 +0200
+Received: from [209.85.208.178] (helo=mail-lj1-f178.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a4f7cd0-e40e-0a2a450a0019-d155d0b2a8f4-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:49:52 +0200
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-39c62764c7cso6908031fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 03:49:52 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b007f68765sm2293170e87.10.2026.07.09.03.49.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Jul 2026 03:49:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,127 +60,125 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783593576; x=1784198376; darn=lists.xenproject.org;
-        h=to:cc:date:message-id:subject:mime-version:content-type:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+xXH41JrLnk03HngbhUy9J7pdEE/JCYhdqqjsE2b8bA=;
-        b=kn/h4/2rgSMSoIyWnacf1diQYNt5O7brwiZ+mWm6n/sdSCgPSeA76wdgLmOgLFPLOQ
-         kUit5jWkmYZ91WRAfWRwO0FHBW6sM4o+85waGbxrXqfc736HaVwzY6asYGIS1J8cL/xT
-         j7IHkwUNw5E6GY068LLB5LbAcFp6at8bOL2vPhy+RuLWfFy7EwJthXpVzH+z333HhdPU
-         WD5QX2au6UO7B2Y1KscrFydrV9LYTd45La1ruckWIXgJewIZs6/PlH3wVrm9A/XCx5x3
-         2yDj+FzZcCgOG87SFUSeNM/PeomTmT1l9kaHyEpsIW8SYiGKNgtWOusmm0fwW1eMSY76
-         QwEg==
+        d=gmail.com; s=20251104; t=1783594192; x=1784198992; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zhWQNEAsdS01hIEuljmqZWiSFpvLV6INoFO1IuYSEcA=;
+        b=Zv8aUfeWp219kJ6mlOEsVylyNeBm1f2UdzznvzNFsu+r6s8JPz3SdMyuufFLQ2U4W5
+         36yZ4tMQJzW8stSI2guJIgdKng7VO0sd6XoLGDCoBra9aHAM/e9nmOgdodBxxAeFMUxp
+         A1xc7BkRaXo911bNB4zEJjBh9EeVJ5UdXlrmyQyDge4hkMu5b3lvtYeO52kqKMSqe+Fd
+         5jiXIpc/6q78LSUpQR8pqaCI4O8S0Jrj3pnlucLFtNidejbu1iZl1Kr4QKLAXbCeF6sU
+         ZqlKTICsc6xr5j4QnC0UX+l0uLXGJRmMW4jDOhvTEKrXn3wB2Qe6M+41jhO9a8cKH0Lk
+         oC8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783593576; x=1784198376;
-        h=to:cc:date:message-id:subject:mime-version:content-type:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+xXH41JrLnk03HngbhUy9J7pdEE/JCYhdqqjsE2b8bA=;
-        b=KMUVAG/TydoC9GXtpBInzIYAvUZHkLBkp+xD0rudnJIvmBsk3XW7YiRNuegDF0mQRG
-         7O+yio3ugPANHHl6WCmDFBKjjdPolIAdVyV6cjntvAhloM8CX9DntYdKwtnpRbhAAdKG
-         Y2PZP4GFcMvR16eS0I6p0lU1DwRLYbGwF2NsAejs3awbDN5By775CRz30cA4z7+H1EKE
-         FIGa8j/NFpuoFzJpzLC5awPU6B8HvOXCKpKjcq0/qoi2n2CJQ3/zJ97ELJlSPl16wyNW
-         pvhqTi9Le/crwWvc9Os+U+elVkQ/A//judzairyTCFEHc6BUVTvAHZnqyJU1HI9SSPcv
-         /Ilw==
-X-Forwarded-Encrypted: i=1; AHgh+RoL0G00JlSaPMSl0+NoTk8mvCJjpWsOtVD8seoeumGJ0NXeCA2j2e94QoS1WzUoaVj6IV7tZhgGWfA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxKBfDX7RJT7C3F0kyvF57GoLltZqA4r4DwUQEy3AVszn/kD4eD
-	3XS416dGBc6ANxzdz0ITTSN9JQYkn3CRxQHLDelemPuNuQWE6t2V4hnl
-X-Gm-Gg: AfdE7ckrIUwGkHGo1BYAYLeLd0wX8GbcSBxlc2Wj6DJzt6Qu/wSxkdieE/lK8XBE/mM
-	XpwuIAfl0IPB4qpGdvbQmZTvCop5eLeUd1/RnCgA3mPvHLG/5+SzaM7chMPHMutgM22foA8oZ8+
-	OJ0PgwzNyZo8jJBLwKAcC0iJ06KodUZegeUkulSo5CkKltkVpmzez+Cv9PnFaXuyPogq0YBcZW8
-	vuGUBLQvR0uW0aMgt+V3aV7HjlmiohensoHfrssysAHo2u/Q4uTpJPpkGzW6jPT2EDrF5cngz3X
-	tIbu574YBQqXhSgIBcdEHEjWHVXloteJ6Pa7qu+jmvAo8JrcbCMlcM8+ZyHynxAhm8uWDfFMQwC
-	WWrn93V7/Ow++jzWwxfn8Xwmt969DMi8d/Rzk8fjNew8k6XfCXAf98VKd+pJgv9oz3EX4UAjKGl
-	Se66RvnjB1ODWKGcw4flq4+LwByxGLeGldGuLRNkaPemRGqKE=
-X-Received: by 2002:a05:600c:4709:b0:490:b7e6:bd1d with SMTP id 5b1f17b1804b1-493e689c16dmr63400355e9.16.1783593575934;
-        Thu, 09 Jul 2026 03:39:35 -0700 (PDT)
-From: Cody Zuschlag <cody.zuschlag@gmail.com>
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_258BF3A5-1573-4559-B3E6-F7E92EF19905"
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] maintiners: promote to argo maintainer
-Message-Id: <3C86D388-54FE-435E-AD48-81204CBB8011@gmail.com>
-Date: Thu, 9 Jul 2026 12:39:23 +0200
-Cc: andrew.cooper3@citrix.com,
- anthony.perard@vates.tech,
- jbeulich@suse.com,
- julien@xen.org,
- michal.orzel@amd.com,
- roger.pau@citrix.com,
- sstabellini@kernel.org,
- xen-devel@lists.xenproject.org
-To: dpsmith@apertussolutions.com
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-purgate-ID: tlsNG-16d1c6/1783593576-C652168D-23962B6C/0/0
-X-purgate-type: clean
-X-purgate-size: 1416
+        d=1e100.net; s=20251104; t=1783594192; x=1784198992;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zhWQNEAsdS01hIEuljmqZWiSFpvLV6INoFO1IuYSEcA=;
+        b=gatGbW49R1wYKZJyLukiwrxG37pLvpC4dYXN4vxotRSo0z7T0JA8Y2ONWi4P4Czw6r
+         /+/soAQRwUC0P2/Fq97FgvxxtOmZ70NpZ+2edQzwsWjY4cEENaBJnl6hOnRkkg66MbbB
+         D8NGPJbEupRvHZl3xGfz8WGGX0rwdwVLJMS7CPj/HdPH4DxCBQJ3TPWVgSkXh9beKZvW
+         ZLymxfYl6+zoHViUlxeKdTC9PdtFp7W5Dldm+un3FiaFJZdALGxNQcbLODHnFtiM3JwA
+         rKpimBdZWIG06+t2xMMbOt9YuG5Co/HXDZf8F834SkQNEQJe5rz1JIOIyFmDqi/Dfxbv
+         /DiQ==
+X-Gm-Message-State: AOJu0Yzqm3V5nGLaS1kPdnzhhHbMt61JZJsxmQE+rGy6Nw9Uvye/OqMx
+	oYX3QLa0oVwGLgyU7QpJueU39V9YS4vx89AUcKcLq2+X7/tNZG7iSanW99vWBg==
+X-Gm-Gg: AfdE7cnzK6swWr//nkhVXuGnm3BuqQDKIsv0wn1Mz5jPIfHNkA8wioZaZlJg/mED6pS
+	Mpo0tXzzFXkxxDJmbuqunzkZQo9+l90HTOvAWwILOwtFO3Yu7zAaoQhe6Jm9FwukYVm5iqaZ3xC
+	d4iZFn1xL4KAtgCuk4FVts0CW8Fp+fyx6d/4hU0evG+4oH2kL9NYU1g/iyquwuX6NWC4xJSvb2n
+	oGRWVlMQMfB1Y+SmngCVvQ1OquKeWjUdEhS1XrH58nNBIDLKl3Ly/aOVvYty2MnuPU0gBQAWAJl
+	5Y4jT8oPmxVTEWQnuvHR4byTKZThQxCSHdZuqe+Jheirw9nnydqM2za6MXjXMv9pIqDdps1qWRY
+	ZraPHWD5OfVXVlxpI0bUtcjhh2AYNB3uEwJM4Sn8ACzZzY9XcL7otfl5ZpDwVl7/QI5UnVWqjbv
+	E7odj5MaxdvIXUgU+UZ/JpUkgpkG9KviBWuuEGo+aaqTGmD/DIgvU2MmkeSre8iEd6mdnlypUEk
+	SOsJg==
+X-Received: by 2002:a05:6512:3e0d:b0:5ae:b6cf:c745 with SMTP id 2adb3069b0e04-5b016d36f76mr446246e87.17.1783594191995;
+        Thu, 09 Jul 2026 03:49:51 -0700 (PDT)
+Message-ID: <89509e85-3345-41f8-a6dd-5dc4ba3619ac@gmail.com>
+Date: Thu, 9 Jul 2026 12:49:50 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Question regarding Locking in the MMIO Handling Framework on Arm
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-4011c0/1783594192-D653FDDE-88268D39/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 1332
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	FAKE_REPLY(1.00)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MV_CASE(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[codyzuschlag@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:Michal.Orzel@amd.com,m:bertrand.marquis@arm.com,m:julien@xen.org,s:lists@lfdr.de];
+	TO_DN_ALL(0.00)[];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[codyzuschlag@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8A7D872FBBA
+X-Rspamd-Queue-Id: 2247472FDF1
 
+Hello everyone,
 
---Apple-Mail=_258BF3A5-1573-4559-B3E6-F7E92EF19905
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
+I have a question regarding the locking in the MMIO handling framework 
+on Arm.
 
-Hi Daniel,
+Is it sufficient to have read_lock() only in find_mmio_handler()? If
+register_mmio_handler() is executed in parallel with find_mmio_handler() 
+(which I assume was the reason for introducing the rwlock), aren't we 
+still exposed to a race condition?
 
-Thanks for the patch.
+find_mmio_handler() returns a pointer to a handler, but the object it 
+points to could be changed by a subsequent call to register_mmio_handler().
+If register_mmio_handler() runs between find_mmio_handler() and 
+handle_{write,read}(), we could end up operating on a different handler 
+than the one that was originally found.
 
-After the recent discussions around Argo, we believe it is best to leave =
-it under "The Rest" for the time being rather than make maintainer =
-changes.
+In other words, shouldn't we acquire the read_lock() in 
+try_handle_mmio() and keep it held for the entire duration of 
+try_handle_mmio()?
 
-That said, we greatly appreciate your reviews and technical insight, and =
-we encourage you to continue reviewing and commenting on Argo-related =
-changes as they come up.
+It seems this is not an issue at the moment because 
+register_mmio_handler() is only called during domain creation. If that's 
+the case, do we really need the rwlock at all?
 
-Thanks,
+One more thing: it looks like
+   BUG_ON(vmmio->num_entries >= vmmio->max_num_entries);
+in register_mmio_handler() would be better placed inside the 
+write_lock() section. As again in the case if register_mmio_handler() 
+will start to be called in parallel we will have an issue.
 
-Cody Zuschlag
+Thanks in advance.
 
-Xen Project Community Manager=
-
---Apple-Mail=_258BF3A5-1573-4559-B3E6-F7E92EF19905
-Content-Transfer-Encoding: 7bit
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv="content-type" content="text/html; charset=us-ascii"></head><body style="overflow-wrap: break-word; -webkit-nbsp-mode: space; line-break: after-white-space;"><p>Hi Daniel,</p><p>Thanks for the patch.</p><p>After the recent discussions around Argo, we believe it is best to leave it under "The Rest" for the time being rather than make maintainer changes.</p><p>That said, we greatly appreciate your reviews and technical insight, and we encourage you to continue reviewing and commenting on Argo-related changes as they come up.</p><p>Thanks,</p><p>Cody Zuschlag</p><p>Xen Project Community Manager</p></body></html>
---Apple-Mail=_258BF3A5-1573-4559-B3E6-F7E92EF19905--
+~ Oleksii
 
