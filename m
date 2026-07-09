@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 5TtjGSstT2qUbgIAu9opvQ
+	id GDXLISstT2qVbgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 07:10:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55A0272CB35
+	by mail.lfdr.de (Postfix) with ESMTPS id 3416672CB34
 	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 07:10:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=aol.com header.s=a2048 header.b=FbvF4Bxm;
+	dkim=pass header.d=aol.com header.s=a2048 header.b=hGHrGkCZ;
 	dmarc=pass (policy=reject) header.from=aol.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1357502.1611899 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357504.1611910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whh0n-0007pA-B9; Thu, 09 Jul 2026 05:09:25 +0000
+	id 1whh0n-0007xm-Sj; Thu, 09 Jul 2026 05:09:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357502.1611899; Thu, 09 Jul 2026 05:09:25 +0000
+Received: by outflank-mailman (output) from mailman id 1357504.1611910; Thu, 09 Jul 2026 05:09:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whh0n-0007ms-7C; Thu, 09 Jul 2026 05:09:25 +0000
-Received: by outflank-mailman (input) for mailman id 1357502;
- Thu, 09 Jul 2026 05:09:23 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1whh0n-0007sh-M8; Thu, 09 Jul 2026 05:09:25 +0000
+Received: by outflank-mailman (input) for mailman id 1357504;
+ Thu, 09 Jul 2026 05:09:24 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <brchuckz@aol.com>) id 1whh0l-0007mK-Kc
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 05:09:23 +0000
+ (envelope-from <brchuckz@aol.com>) id 1whh0m-0007mL-6I
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 05:09:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whh0l-00C5RT-1K
+ id 1whh0l-00AI4q-74
  for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 07:09:23 +0200
-Received: from [10.42.69.3] (helo=localhost)
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <brchuckz@aol.com>)
- id 6a4f2ce5-5cb7-0a2a0a5109dd-0a2a45039e8e-16
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 07:09:22 +0200
-Received: from [98.137.69.206] (helo=sonic312-25.consmr.mail.gq1.yahoo.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4f2cff-bab6-0a2a0a5309dd-0a2a45079eaa-8
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 07:09:23 +0200
+Received: from [98.137.69.84] (helo=sonic314-21.consmr.mail.gq1.yahoo.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <brchuckz@aol.com>)
- id 6a4f2d01-ec1a-0a2a45030019-628945ceae8e-3
+ id 6a4f2d01-9c8e-0a2a45070019-62894554a526-3
  for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 07:09:22 +0200
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic312.consmr.mail.gq1.yahoo.com with HTTP; Thu, 9 Jul 2026 05:09:20 +0000
+ sonic314.consmr.mail.gq1.yahoo.com with HTTP; Thu, 9 Jul 2026 05:09:20 +0000
 Received: by hermes--production-ne1-7568ccb994-mqdhs (Yahoo Inc. Hermes SMTP
  Server) with ESMTPA ID da73cafa7d25cff72b3b6899257e7b9a; 
- Thu, 09 Jul 2026 05:09:15 +0000 (UTC)
+ Thu, 09 Jul 2026 05:09:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,58 +57,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1783573760; bh=m2Glp8wi3kwkb5QhxQq01xhDsLdInXw/WE9Th4YGj7w=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=FbvF4Bxmi4Ci6Hv5xb+vV9U71ad2my3dCMUodg1CzrUK0YkET7hCIqlBDdPU3pkDG/Iv5g/VussMG/VmAbVqCIcGPZC+JMvayAiXf5WDNJb2h4zgoM/ntZkK5O/AWYppIJPchITFOucd54cmEi/Cj1G//islK+0s/X4Yx3tlWLc41VdrCA4KBPDRm861hn4PzNOjPHkVxMrmTctlVAc0BDGtrdtbn42TrfQjiB6lsdiPT1cphgWH2kNQkhR3FKNMJPddS7h4ZxF+QRVVwaQJbiVk6vNpjf279ikqwrI7c5rKjVi7exCMIdurlvauzbBKDgjbs+xYMeBj7xf4IOEAUw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1783573760; bh=OHOrD+3w7dGTNtdsk72dzU4E9ANMJiTyFgbcK/ru5tX=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=OHuxLpznchqCXBF6RtQMf2NIwJ19nUIsa3CGjThqzYm7nPRJcYXYFpA2Z6KWU3kQpwuakhUlxS/ah/CzYWT4Tyg4SwFjQACG2RDnlk3Qw2DcqZbJtDSdE30RTGxP6Buymn/tP+LKDIb7g01Ky7moCG2WMtYeJWOljhtuykzlMqdg1navdJF1ewiHNGxRPfCc/ir7PKJJmKPUEYwVpg+MxR+wjcQZy+xgJCVv+QaRbZbdMliJfebMskt+c3ZYmi+wMkh1RHZuvWm/WH9e/4fNE5O+6hc99gbNErHv6okok+kl12ZVtr7C1+HmdzRvl1cRcb8dErMBmGrXesL19oXPSg==
-X-YMail-OSG: L5_GXkAVM1nr5wX1RW1uU2hcTkTL5jxrxlRzDHwzSHFq5_HwNoSPzHMb8STgzcV
- Yyd_gnqlenOiF1AY_3yYVjoQWQoZ_uNHJaR.nKgmQj.C19VGRrFcPDa5o1N3i3B_.KqzUYh2mHtX
- sAzhM03LHWV4aJ4vAnyR6ujvYXhSzrrFAFUuxt2cx_WFC05Okt49awJxOPfN_wazg.AdP94d8seO
- 8RSMVM7YJTLmfsr40dbLkpHx_D.tKNat5.SyWKckIuWn_umVtnfBrYERURZtzD.N0XdzH8sYwYzf
- sWhbMUIs7bWczklFk_UmC7.kpxhnlpabdrFkZHuHK5jMz8y5cgILVPzy9vtuK9lisoBCBlTjKGfn
- Gvi2WTQcVALyD_ptbvc3BMAOPgqmCqHadwN.Lbr7LMnkqja4jTAaWO5xNh9g7el.MjVBdWepBYo8
- gZRrWcBo_vIPjqUNtiJZ_EbmSi0qQwCsw6m62TOwAETg12oJN9ZSXr9pqzg6TKmjR_Z6y92ihN6V
- Ss9C.8XDLdv3p44a4gJLlWi7TCgV1vsbhaK2RGIh9HR1UNIN1TF94zWyMtgmeCKHjiRA6AEWkS8n
- QGaVwWN9uMd.kI29ZRFjxK216DRYLX_Qw.zj0a3shDbTjF.gxsTnOQ8H0Xe8BJGdmuCad6N_t9pG
- DF6l7ypmnCE3emzN9AVnLbbX.zv9dtEsGxiIFwcSlV8TduaFKooso8MG.qvKhX4J2JEO2JKsnfwa
- jLJfobfyjHgs7fXmlvYV5RDSXZJojuhaOU7iGejpk7ClVExPE8dXuBMnjuDwq.ysmSlV7qEWsOeH
- ok7YRUeItqjtjoCEeIo5nK8W4Nw1TvNpYil8.dyGCF0v14BeRQRdZkwguTWtmdIZLZp7jAgHgF9f
- pQCfEqeCxKBzfduyoJi8cnwdKX_LXspB_FpGmqaHfTKWFqy1K9MwedNzzQXY5Gd0ZQa_5AZsUrCt
- e7TcXGUEXSZORJiDctmy5mu3iLb33mY0N2t5e7t3Yo2yiYkbcTtJPXY7pHkMBnCFwRUW3JYdHvfQ
- SGz_JMwYSqXv_I5RbYcTU6XPP4IPLwfjkPVcKrQSnmWmR47JlUhgdLKaTgyfBc_IgIIWRbgHAW6J
- 8qFSy.w.HS5n.7QGSxFaVtj9aoVxQUEkG42H36aeetCAnuXi1Nk8YaOxDze6PJvQJSL38pNgXxJu
- nkKdjrxwU5ylYAY5fw6HghbfBdEIESP1KcwuDarYYDasevuC_FJHJDZHHEDblaBc1m9BQN1wpLuT
- UjgJ61wLo9IjPodH7i2rREGENSSwTLDECAaV9HAdzSlk3pf1doOKxvuzvybj5_16zKGHc1wGg.03
- 2qezvglC5gqQvS7HYl0AVSfeHOUptynWmRiZNO0R5GmpQEMxEd3LhCWDNR1PCnu64yYbUcfrkXD8
- 1rorrNdnIAGCj19eXyv01Pn0AqvoIkC7nTGc5zHlTx08LLs.rdeaqmWjmkq7QyJ5Y2PMVPbioXcb
- uE8BP7d.j3CJTCy6OVl1_oVjUfxSTNw9ByU_lRyOw_e_xVczdvCo48fv6Z4sbDxO2MDPafp_bOxP
- PiPvA5vcBxwt4IkBzs6E_IS.8nE8ng5qnegOTvGcUMFxKCDelcZCMWsrVWe2qyYVCgfA8OShayj4
- Lo_ms74hnzfofMLExuISnkcgTNpx7zArfeW8OumP16QT3325IXZ_UNXn0uU00ZVeJAfcei3LfTnP
- FaoV01zWVo_gdalXvsaJSVqoBVYGLAkuMmt6oNNlYzL31LGIM.o8Zliipn1_iWa8HD3zKS16EV6i
- Dk8ZMiJ.xSSdmVfY_j4YiURA3dO6u1enbkCdLlEAcwmK3bikBCdPTR97g0slJZfUevKLKTbUgY5e
- UWfaib2qa7p527R55cJ38hyjumN0KmViOGCek.s.8zNEIuZLvydXERedbQYYvA7u.abodpj.suYJ
- i22rgC0UQuO5W3sRaG__zjNtXkn1_vYvLI.9y5ENh12ySOqChsm1ApNRtokTUkGllqCJN0d3t0vw
- _XBF5Nz13Tfpby4u9UzO._q.Sp2ZH2HZCenixsqk0J_9N4sBhKSiZZdOUHMdWsrdmoRu28PpbUT.
- RxeXlXLOzTwn0hZGd7oCNO7bEVquusAPQ.CG_Yt5lhOA9Ms5w2.FNaccbpyTo5DP48J1rKSc_XSz
- pugRh8c2xQVdH6JSkAo6HpLvL2hnk2J9HXNT9bMcVD7HssN7KF4FxsIE_bLQeHV9D6HLoj8fwbxb
- icQFb6VHbn_uTiy74g3kcy5Hmb7L0QydR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1783573760; bh=UmUmWH59zwDkMLLGuuGvz0xwapBoT1O8sVu7oXOskMA=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=hGHrGkCZrQZCC7XLtuCMvJIdut61Pe/EmUDh0iLkCd/+jW65mcTW6JH0XjzA6jvabpZsVqk641YUUGNH39EU5YeFPCeapQB3t4JdY1Rct3CaNTqamO+JBrgBTNPbByTSaEnjnMgMObZZOa7xm2LDa3dN9QZikCwv8Kk7ACNiMQK9E4eO+DDeIh7+bH95LQ7C2splnR5CJp0YpkJNZ83ZoGhLS/cluKUChART3xYV63nJlVkoUkwGYWbX3q0duIpLgePeqZgdU57ZFJn19PHolewmNVHjTI+QdCnib38GOXoEEnS1MCf1lVpKyrNz+p2leiMb+TUPQF/HXHMdhJI1Qw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1783573760; bh=9xClvDzp3a1vB5OzI9ZBLOxM/ZtVUMYTi9D1WxSqNGH=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=s2wHTm8b6Q9HGZDmxBeolGQ2/STF0XVsaH9gI2V5oPJJRKskqgwrFrjhFcyEDEpejw4+bNvJuzeQ4a6RRW3x195EwNLiDx8JwH/r/QWF7ZxXfeAo8jfK410urEhyjsBx2FAm5VOJOiX04Hb4D6qEy2P9ukoaNaDdTUuV/Je4XzLD/lLKX8Ze5uJJp/y2ImG/jpIccVU4j+cT42PrvzPerlVq6Z/bXXZJL9YukN4hpTY0SbqVWdiYelS6OxpkftqFHl9IuZOkyqCrqmiWxrbqFJtJNv1uIHXD/Gd2t48K4dgU2WE7LcweqOqRZuH8DpqH9FKj0YqX/GHowV6RX+MLiA==
+X-YMail-OSG: M2AD1sEVM1n8ckvxeNh8b1S.UEC2tMUHrV5UUtXVp3HMLDkQ_7RGScJZvo1jjHS
+ EfcWrN1N7dnF3zCvb0zBX5GW7.LZj5aYUaEIZyHGnV0njwihcIXuu.jyzgD7NEXSrPHAwlSKauUe
+ dG8cvXDlYcAeDoIgiLLSfY6NKoUVPq9V9JsWcUOy_lZIPSGLufQm8QeOFTPE9RmKMv5j._GyKphp
+ af5KHl7DqDB9FCu3Dp9Da_729wBsZ7PqfF0w65WiQ6sh6X6K9IUNUR7_cgE52M1uzABiSf7xDQqo
+ Pw5ijPjRIukt.GOFWQdx_YcvTsPN_5194MdLclO3HW.XGKWXyA3A28.rw_0QjKcUOKH8omNK5GiW
+ pd2mpKldi.bsotvIlXHzJ2bUvoqk9MiKvF_QpIKJgYW7aOyPlBIQkF3OkDK.h4ajiU_8Cw9.RtgW
+ VFpYK6KZzIH3TQG9LM453gdE6wWL88B6S7pX5Wnwk1zxWzmGSg0gKy6wzMS9U2.bES_CPUEIvDJe
+ rdAsk9aH0MgUkvXgvYP4Quqm9LRqDW2o7lnuIMIYS2sfu42Xnglr7GSPzwuODhUDgUVYlP5x4yi8
+ Vc1e3wrbM9yDaZkrlx0qPgFbHSDwlk4p598CZaleRyybmMYfVQoYTvwb.fOk8PZMx0Ky0cUk8.YM
+ 4cSBPETMZLbNzzbuoTGRHaZ6qddca1yTh1J19z66PH4fBHTf3w7lrd5Zo.TmoUS07AKJnOpegRLE
+ 2zMfy3zxZn_0sRlXNl.b6V5Zdksk.D9dq9pCbw2EhHzEA4yx_yIXKvl3nrpjP8VNtJZHWOicVecG
+ 37g6pdMuM32l.fcpkzMqSVYWfGEMja1rP0gBOglfbKFK5w4AygzahleZQEsJxfVtLQ40B8kJtnQw
+ 6BqJLnkUnfKgUmNfz1W8kMxMDsJNYvI0LTZdTQQaWxhXYuyKHUaW4cFWlZiP5SDUxMnuU9NJ8es_
+ WSbVUAhZtVCpOaw1V3mFgCzH2gm7aS9mkFwBCHsW3r_q0DgRNJsZNE0lODZQS1z0AtAivHH48sJI
+ uwvE44Il5mV9EJ4bQXyb.9bSVH2ayQjGrpovFLJFanaWodUsWfUGSknEdJNCuTqKFeTw9IDSXSyJ
+ eO98oqiQRkt1TOk1q7RVVeGxO4Z22nUCAyZmH3ZsMS46hoIuUXpLy0JJeKW4w_lSZhyFUz.xjYp3
+ 8k0mNsWx5Y.rQNmoFoSBhiRwkg94xNIFxXzF48agN9Ag9xMVtnlY3HnSSLqNKEPCpoEJiFPN5iFo
+ AMojO0LOZit1N8FEVOsZ_HDUavMA6yWclKvBjp4pset97LUREWJXAvcsWNdD0y4BVybqWLDwuzs5
+ .JromwszZQRmswsj9DWt191vbBuwXIJwym9WLSUZcPAbqutg9R5m.i2XbJbvSQEWiUYsreM_zOvc
+ OaOLbsw9u0gUM_I0LJDKtJnMxTh7pmzDR0_Yvfoa1NvyzhJzTD0tL5XITV0qNizdZD03L.K7Ale7
+ jL.oNyBvsWh40_U.eodZVPzLbwgXPKopfvXzAQhi_geuMWOFxMaJAJaNLhvyZaIAerKHsGHXCd1I
+ rkSSuS3y7B1iKy06flwelHce0QrmujnOsN9zbLxSrboz9kbaxCCMrnhIwi7S3wqivwm.x.JPxOmV
+ YWWUHxZ3k7V0T57nxVZyUDCCLRfDJmSZzN78tNvR4eRro.6H90GadGypP9jDL4w4n2_qZ9w17LJW
+ Js8gKvxuZLC65uz8r.3q7fTjzc.8HaiH0FXy25ViX0v1EgS7Kcxe8vzJ63ceLS0dvBOgkaKechkl
+ FzJcsIONxOpVg_PzLRMykYuCYCAsYVCTemyxGIxutTHZUrYEmTSI4c3y_iTgJuPal4B81oDqwgqa
+ 0Dksj.wVwUiNCQ4_lJ0mzeiObB0sm6IHIVpeI5JiWuEgZRr244fsinTP79cfAZftm0lzy3MqscEv
+ jaVuTHPjX.c3jGEy5KsbPZQkkWj74g0.YrHFBEXDrY.HzSRhniqMpHpiyd_xQRq0Z3A7vt1QQe.H
+ klVQGSK91OCdctFkP.athI26.gnWQWufh6Qy5GyfRXp0709_J8EZxKspyE10UL.UW.U5Aa4v1Cpc
+ flIU0FlQVEU0Yut56zAl4E_WtMWG0mcmFYesn5oj9HM7_G2e27nxGw3JU4LTF.cVbAqpczSIdmm4
+ 1BWb7IfOOAUkQQorbZYYglwJS96nkZ._2ff3sWiB.hvxRftpxR2YpyZSDO0jzvh7hzDwX2byEShg
+ 5hhJ6zOmRP4t_x1s2jlkXQ8Fs5lCVL0LcAw--
 X-Sonic-MF: <brchuckz@aol.com>
-X-Sonic-ID: ed7a79c6-6a0d-46f1-b36a-b1ea89bd3ebf
+X-Sonic-ID: 95c2e078-b625-436e-bd84-c2e244a36491
 From: Chuck Zmudzinski <brchuckz@aol.com>
 To: qemu-devel@nongnu.org
 Cc: xen-devel@lists.xenproject.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony PERARD <anthony@xenproject.org>,
 	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>
-Subject: [PATCH 2/3] xen/igd: don't register rom bar twice
-Date: Thu,  9 Jul 2026 01:09:09 -0400
-Message-ID: <20260709050910.8217-3-brchuckz@aol.com>
+Subject: [PATCH 3/3] xen/igd: fixup device id before registering rom
+Date: Thu,  9 Jul 2026 01:09:10 -0400
+Message-ID: <20260709050910.8217-4-brchuckz@aol.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260709050910.8217-1-brchuckz@aol.com>
 References: <20260709050910.8217-1-brchuckz@aol.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1783573762-BD1BE5D1-2BDC9F9C/0/0
+X-purgate-ID: tlsNG-ef75cf/1783573763-7E93A25E-0E9C0C70/0/0
 X-purgate-type: clean
-X-purgate-size: 990
+X-purgate-size: 3201
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [1.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -146,34 +146,84 @@ X-Spamd-Result: default: False [1.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 55A0272CB35
+X-Rspamd-Queue-Id: 3416672CB34
 
-This also fixes a failed assertion in pci [1] for Qemu
-version 10 and higher when passing through an Intel
-IGD with an option ROM to the guest.
+With the current implementation, Seabios does not see the fixup of
+the device id done here and consequently Seabios does not load the
+VGA bios and the guest screen does not light up until the guest OS
+graphics driver is loaded. So there is no VGA output from the passed
+through Intel IGD from either Seabios or the guest bootloader with
+the current implementation in cases when the device id needs fixing.
 
-[1] f6fc01c ("hw/pci: Assert a bar is not registered multiple times")
+Fix this by waiting until after doing fixup of the device id before
+registering the option ROM. With this patch, Seabios sees the fixup
+done here and loads the VGA bios, and both Seabios and the guest
+bootloader light up the guest screen in cases when fixup of the
+device id is needed.
+
+Also, remove unused header hw/core/loader.h
 
 Fixes: 881213f ("xen, gfx passthrough: retrieve VGA BIOS to work")
 Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
 ---
- hw/xen/xen_pt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ hw/xen/xen_pt_graphics.c |  3 +++
+ hw/xen/xen_pt_load_rom.c | 18 ++++++++++++------
+ 2 files changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 474606e..c3b6c1e 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -495,7 +495,8 @@ static int xen_pt_register_regions(XenPCIPassthroughState *s, uint16_t *cmd)
+diff --git a/hw/xen/xen_pt_graphics.c b/hw/xen/xen_pt_graphics.c
+index 54f0d54..9e9ab55 100644
+--- a/hw/xen/xen_pt_graphics.c
++++ b/hw/xen/xen_pt_graphics.c
+@@ -222,6 +222,9 @@ void xen_pt_setup_vga(XenPCIPassthroughState *s, XenHostPCIDevice *dev,
+         }
      }
  
-     /* Register expansion ROM address */
--    if (d->rom.base_addr && d->rom.size) {
-+    PCIIORegion region = s->dev.io_regions[PCI_ROM_SLOT];
-+    if (!region.size && d->rom.base_addr && d->rom.size) {
-         uint32_t bar_data = 0;
++    pci_register_bar(&s->dev, PCI_ROM_SLOT, 0, &s->dev.rom);
++    s->dev.has_rom = true;
++
+     /* Currently we fixed this address as a primary for legacy BIOS. */
+     physical_memory_write(0xc0000, bios, bios_size);
+ }
+diff --git a/hw/xen/xen_pt_load_rom.c b/hw/xen/xen_pt_load_rom.c
+index 319efca..407b630 100644
+--- a/hw/xen/xen_pt_load_rom.c
++++ b/hw/xen/xen_pt_load_rom.c
+@@ -4,14 +4,22 @@
+ #include "qemu/osdep.h"
+ #include "qapi/error.h"
+ #include "qemu/error-report.h"
+-#include "hw/core/loader.h"
+ #include "hw/pci/pci.h"
+ #include "xen_pt.h"
  
-         /* Re-set BAR reported by OS, otherwise ROM can't be read. */
+ /*
+- * Scan the assigned devices for the devices that have an option ROM, and then
+- * load the corresponding ROM data to RAM. If an error occurs while loading an
+- * option ROM, we just ignore that option ROM and continue with the next one.
++ * Normally xen_pt_register_regions will handle loading the option ROM,
++ * but in some cases, such as for the Intel IGD, the option ROM might
++ * need to be modified.
++ *
++ * For such cases, use this function to get a pointer to the option ROM
++ * from sysfs. Caller has the responsibility to edit the option ROM as
++ * needed, call pci_register_bar to register the modified option ROM,
++ * and set has_rom to true for the PCI device.
++ *
++ * This function must be called before xen_pt_register_regions is called
++ * because if xen_pt_register_regions is called first, it will register
++ * the option ROM and any attempt to register it again will fail.
+  */
+ void *pci_assign_dev_load_option_rom(PCIDevice *dev,
+                                      int *size, unsigned int domain,
+@@ -76,8 +84,6 @@ void *pci_assign_dev_load_option_rom(PCIDevice *dev,
+         goto close_rom;
+     }
+ 
+-    pci_register_bar(dev, PCI_ROM_SLOT, 0, &dev->rom);
+-    dev->has_rom = true;
+     *size = st.st_size;
+ close_rom:
+     /* Write "0" to disable ROM */
 -- 
 2.52.0
 
