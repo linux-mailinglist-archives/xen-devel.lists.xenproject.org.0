@@ -2,49 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id jxCUGTNzT2rygwIAu9opvQ
+	id ++BbA0hzT2r4gwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:08:51 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:09:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 863CB72F633
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:08:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A1672F64B
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 12:09:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="qP/n5OlX";
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	arc=pass ("google.com:s=arc-20260327:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1357837.1612169 (Exim 4.92)
+	dkim=pass header.d=0sec.ai header.s=google header.b=voaj42SX;
+	dmarc=none;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1357844.1612178 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whlfm-0003mD-F7; Thu, 09 Jul 2026 10:08:02 +0000
+	id 1whlgh-0004Ed-Oi; Thu, 09 Jul 2026 10:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357837.1612169; Thu, 09 Jul 2026 10:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 1357844.1612178; Thu, 09 Jul 2026 10:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whlfm-0003kP-Bz; Thu, 09 Jul 2026 10:08:02 +0000
-Received: by outflank-mailman (input) for mailman id 1357837;
- Thu, 09 Jul 2026 10:08:01 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1whlgh-0004Bo-Ll; Thu, 09 Jul 2026 10:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 1357844;
+ Thu, 09 Jul 2026 10:08:58 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1whlfl-0003jB-6g
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:08:01 +0000
+ (envelope-from <doruk@0sec.ai>) id 1whlgg-0004Bc-2c
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 10:08:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whlfk-00D7IP-Jj
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:08:00 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1whlgf-00D3qJ-FK
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 12:08:57 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a4f72ff-5cb7-0a2a0a5109dd-0a2a45039f5a-8
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:08:00 +0200
-Received: from [74.125.224.41] (helo=mail-yx1-f41.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a4f72ff-ec1a-0a2a45030019-4a7de029d13a-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:08:00 +0200
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-664cdeab266so2465674d50.3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 03:08:00 -0700 (PDT)
+ (envelope-from <doruk@0sec.ai>)
+ id 6a4f7326-2eae-0a2a0a5409dd-0a2a4504d760-40
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:08:57 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <doruk@0sec.ai>)
+ id 6a4f7339-a01d-0a2a45040019-d155dd36e5fd-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 12:08:57 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-4759b4f0897so968921f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 03:08:57 -0700 (PDT)
+Received: from PeakBook-Mini.tail8e484.ts.net ([178.197.218.188])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47aa09608d4sm51513868f8f.25.2026.07.09.03.08.54
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 09 Jul 2026 03:08:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,166 +60,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1783591679; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sYd+aURMBUyEKFjLOnIdRhpaBye9K2UFrlm5uoY3fvLQln8U1qusGCKt8BYePL8riS
-         yoyNNHNgro/bnCXgAltMpSSk2+feI9XhJfHvHu13DaPrqdcz86ltSm8HAFtNrzbvbr4B
-         ofq3afrSm4Dpu1evR0ZPCwL+G6mNJdJUWOEJa8jc7E9Lpw2xfafKjjTNr4NrhaQj05K1
-         jVHo/T+loaVukT7aEUHWdCQCIfJv8cEeGTjYZT1Vm8BM9GS9DuVvpQo6K/PzTId1N9lW
-         H6qTWYOiEQ/EF3obPikaCz+hYtasjyO84qOMLiIp14VREG6I84jKuII8kt7z2tXnefwl
-         cHvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=vmLfQgiG1OKQw/Q65sHSdA5o0bfHAhfqA/NcY2EYuf0=;
-        fh=aU3/UpxH5Blg8M5NzH55q/XY8irYVWQMVJdPeFRWhhg=;
-        b=W4vxx+nSmXwvGCA4kLbQqSMx2hfzm71L+21h3hGRG5jux1gWVXGHurxicoIVrrjHUt
-         M7edx9GTdx6imrGM2GdcTVbVg2eRsHQzpn7RPcevleMCnstgwlix9WfCFrcPIGk8V9BF
-         UR+4XBOXcCmu+pRp1JJ4d1MOQ/Wt16rOt39YL7IIJMGPiqFUY+hWEH7ragomjw93SqhJ
-         P/9CFjNUNPXBWsAgt/6m+941tsbgWnDmfUawdc6FXRZ25aZ6Zi33s/vfpJdK77KUhHDJ
-         1SgXhYaF5i/wJFQ6VxvFgpRpPvsQNxxaDGDYZx9+so+RUkOm66fy7GHAZ0aWN0YH2dXo
-         MvUA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783591679; x=1784196479; darn=lists.xenproject.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vmLfQgiG1OKQw/Q65sHSdA5o0bfHAhfqA/NcY2EYuf0=;
-        b=qP/n5OlXD6sqNnfeIM+ZMwLevlBppo6NQ1tn8SsznihfKvR6MEPX8iYTUGUQUHEpIA
-         /EDI7B8c+w3cIl5fLa6XPUPu0m9IQYAE6CtEiKtew/J5bwhyQr161l4up41vX2bshsCf
-         RTBridqISkb8ZpvmQgSSNZSnbGxwSz2wWJTZlrkk/MhzIcsDTZ2PWPzoIiURB1RvhUPf
-         jHATVoHYtAOE18OuxeILRLLBxnmxT/eKUIF4I7UDOjIeXIxKKlajwgy9KNsklIdWqn8J
-         MOKe1Hkb2hKKcqvLkEE/Z5s7cPhf1K1m9pjULRblaHWA1GgQI4VchjQ8GBXVdQOB3i8L
-         CDkQ==
+        d=0sec.ai; s=google; t=1783591737; x=1784196537; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R38Rncr/E+UsAEWrPcumXybq6cXHOZxrmRPFJ81xA0g=;
+        b=voaj42SXHGofT9QS5QMm27wi/Cr/73yEo+WDdJcaLkhZmsvp63gNUGERYNHjsLW/Q1
+         ANdxGMlRo89M1Om4mrO7JitLhU98kvtTWTbQ+YWSSkHyjSMAje9bJrXCr919LBkHrxrx
+         wUR7aRD+pXomiAIUENak6CVedp5PGxZPw0kGClWTkQIjbw1/ehzGr8TQpp0Suxdu7jLQ
+         W8UoR5UkIb6K2Wy7KN7Vx5JG7tZ7oirhcdvRG9z3wwHzM6o4FlqZao/TfUZLxbq/76w2
+         rDq9JyTrGhb55sIDhEWrL85YoibJH5HJB52Eitl2pQZYONZQJ6X2cCt9Z00xvF1VTSGi
+         2A9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783591679; x=1784196479;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vmLfQgiG1OKQw/Q65sHSdA5o0bfHAhfqA/NcY2EYuf0=;
-        b=Up0ledIkPLxaGsdqH+cu+K4PbC7NAuuwk3qlUO1OGWg+/MDN91BfICcPKK8V1Ki76N
-         4CkOxHA54+GdnC7IU1BrNbgLfYxB5LesDwW7Y6N1z3klYiOi6465mzsK7q78T95BLo+4
-         mZDn+G4ZOoOdLjXKU75VpFZERR9CU1ioTqUCCebwGJ6Hkud8ohwsVlZecPxtDsEAvo4p
-         4lfqfP7eX1Pe48u2pvtrKAFoupBGzwFJP2W4A0OJ2VJlNJRvypUIcigmDMb9oRAmma5+
-         vZijJlBz3vBKZgywn/7qeWSGfLs2zYuf+CBBRO5UQBCK5lzGGgG2IIklr7rrawoHIU2U
-         lyrA==
-X-Gm-Message-State: AOJu0Yw0fGtuaIum4Gxz+h9H5mHTeIKEYXeorvc49jKRl3dodBfavyh1
-	sbwXgB4N4Bo4dR5lhBWPFUH6PMf+ndZipdgss0CqrltGqsaZwyfpjgHkIdJ7BNwxtHvzVPgd7RZ
-	xrPacO0aFNFXFjSWFOa0BAtviGG1TG2s=
-X-Gm-Gg: AfdE7ckR/fPOqFQg39mvSgBNlzAO3AXgMnPmN5eJztXFCtbHmUQQkQbJ3boMI4+ppuV
-	HBwFFonBtom1pZUdPdMrtIR+eSfN1cM8T6h7SFSXs3JM/V4/+mX2sd46mo6TaWM+yW/lrrxp1uY
-	XrvfViTzGNI6pWr3Ow54fwTLvM7xKOLsIYQyCiJRS+Vrz3bfPBU4u1GqzsFctCDATYcTbSo4bYk
-	BkhXlsCHchU8iSVmCOIdPM77LEJgOkfanj/33OEbhFDWk2OMMmAWQlbWW4z3DW4dt63XzUksHFr
-	gPRbL1oOiUFwzT+Yd7cVUIdRkBI=
-X-Received: by 2002:a05:690e:4502:20b0:667:8b90:3567 with SMTP id
- 956f58d0204a3-6679f25c153mr3553440d50.89.1783591679019; Thu, 09 Jul 2026
- 03:07:59 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1783591737; x=1784196537;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R38Rncr/E+UsAEWrPcumXybq6cXHOZxrmRPFJ81xA0g=;
+        b=cOACKKzZTvPNPue2laKqNmJDS60nmwKMIj40J5kTy2s7QqgiGR1Iz+EqzD/HDgYzbX
+         0W0X4j2NOveLAaWDsR/dn+0t1F7198PKYc7DhJPNQdnG3TnRPqOKNbb0yQ3+yVzUOcYY
+         fXQAc7fIIVHvYVBHYXKd2P5m6GTulxYj8c/fZIyTsBFxJ+IOkkxS8m+0w/sQSH4VTVaM
+         gBZR00DaGur5zFnj4Zf6heTEvEsTh0wMr/STE/RFvN2H3m4VWrrFXRWH3I8jjHgs2d38
+         dznANQpC4mIIySYZay36obn617IHAz64SCrtIP7tiOOuRl+RUyHE3iWS2ytM4SaXd9R9
+         EIdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RroqUkqK1CubJ2Lcv8luxVP94l2BH+drDEZCxA5jBIynmAjPEhO0McolR0sug6h6gCua4AulUXNBII=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+c3RIVKYo7ncZyvt5oEz0yWad8oHcuiG5Ll8ZNnq7ji8Mjd/I
+	LSk3N9WajkgK0ARIVJOh0XJF9ooYcEhILmgLh3VOTKBADRT/kiX/V8jjFaCahrIpU4FT
+X-Gm-Gg: AfdE7cm4hk6XQISMRqve6ntivbUFSIpBs7otqs2iNPvXH1UY31eVjK1NuBI+01c0o7T
+	ziqH2LbskEws1YKIXDWm+JOHu3hSlmMmd9N338zPpAzblHi5eMXlqJQQOSWpKdv3HxL8rr5QQ0y
+	QqDOcXxBi2wcu5df3bDX9KjXDf5+OAHyFXKX+2P9b7hRN+rxEmytRLSMEl4Y7sFDQcErFhFVYN2
+	ZA+UN7DE58I8LNHur87z3pxV6y/x15yVKcVZLPaHTmdaOkKylEN396SyB1GNIav4pBkydMSfXpn
+	eY5KIDrYXgKINBYvdgZ5Pf6qE16c72VA291ZEqK+DrGDSmbf7PlMzpfajXBX6flo+FzT5TyIuSS
+	U0kbg/iii3B2RAohZRCDVY+3YxLDnn+cJGfbpkyGMkwe6cxMOzxnklt79RLudJfYhzAAfFziI8f
+	kd80szsOHtuLqE2ajFZF/vQW1JQX5mg/a1n56YSbokOy+bgsRFTVu0WXHnbOo+6BLk/lNscUMIR
+	PFATAD7Z5SbqdHa1UcMHxFdkgRsU8fKpok=
+X-Received: by 2002:a5d:59c5:0:b0:475:f0f0:9ec8 with SMTP id ffacd0b85a97d-47df0813a82mr7441246f8f.51.1783591736321;
+        Thu, 09 Jul 2026 03:08:56 -0700 (PDT)
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Doruk Tan Ozturk <doruk@0sec.ai>
+Subject: [PATCH v2] xen-blkfront: fix double completion of split requests on resume
+Date: Thu,  9 Jul 2026 12:08:53 +0200
+Message-ID: <20260709100853.7489-1-doruk@0sec.ai>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
- <20260619130501.272832-11-frediano.ziglio@citrix.com> <1783517550.8631fc262581453bbf619ec5b2062170.19f41ee18a900080a8@vates.tech>
-In-Reply-To: <1783517550.8631fc262581453bbf619ec5b2062170.19f41ee18a900080a8@vates.tech>
-From: Frediano Ziglio <freddy77@gmail.com>
-Date: Thu, 9 Jul 2026 11:07:47 +0100
-X-Gm-Features: AVVi8Cf39DXngosu_ccvThZV3zuP7fArGTj_DXend0VH5IZDBd0Ytjfvlf2GXmM
-Message-ID: <CAHt6W4cw=R_50-dWevFJ_9gbaOjsdfHv9BZoVsvJ+7wiyhnXpw@mail.gmail.com>
-Subject: Re: [PATCH v6 10/16] libs/guest: add xg_foreignmemory_copy_{from,to}
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, 
-	Frediano Ziglio <frediano.ziglio@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Teddy Astie <teddy.astie@vates.tech>, Juergen Gross <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-33051d/1783591680-B59BA5D1-078C78A4/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ebf023/1783591737-ACB3B1CC-B920370C/0/0
 X-purgate-type: clean
-X-purgate-size: 2244
+X-purgate-size: 2238
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20260327:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[0sec.ai:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:axboe@kernel.dk,m:xen-devel@lists.xenproject.org,m:linux-block@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:doruk@0sec.ai,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,vates.tech:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[0sec.ai];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_SENDER(0.00)[doruk@0sec.ai,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[0sec.ai:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[doruk@0sec.ai,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 863CB72F633
+X-Rspamd-Queue-Id: 67A1672F64B
 
-On Wed, 8 Jul 2026 at 14:32, Anthony PERARD <anthony.perard@vates.tech> wrote:
->
-> On Fri, Jun 19, 2026 at 02:04:55PM +0100, Frediano Ziglio wrote:
-> > This change prepare code to use a new "foreign copy" hypercall.
-> > The new hypercall will copy memory from/to a foreign domain.
-> > The new hypercall can be emulated with a sequence of:
-> > - map foreign memory;
-> > - copy memory;
-> > - unmap foreign memory.
->
-> I don't understand the point of this patch. The hypercall doesn't exist
-> so there's nothing to emulate.
+When a block request is too large for a single ring entry and the
+backend does not support indirect descriptors, blkfront splits it across
+two ring requests. This only happens when the frontend runs on a
+64K-page kernel (e.g. arm64): there, even a single-page request may not
+fit in one ring slot and must be split. blkif_ring_get_request() is
+called twice and both shadow slots (shadow[id] and shadow[extra_id])
+point at the *same* struct request, linked through associated_id.
 
-I think that imitating something else is the definition of "emulate",
-we know what the hypercall should do so we emulate the wanted
-behavior.
+blkif_completion() collapses the pair on the normal completion path,
+recycling the second slot and completing the request once. The
+suspend/resume walk in blkfront_resume() does not: it visits every
+shadow slot with ->request set and calls blk_mq_end_request() or
+re-queues ->request. For an in-flight split request it therefore
+processes the shared struct request twice on resume/migration -- a
+double completion.
 
-> I've notice there's a patch later in the series which introduce a new
-> hypercall, but the changes to the library should come after the
-> hypercall is been introduced, only then can we check if the emulation is
-> correct, or even needed.
+Skip the secondary slot of a split request in the resume walk so each
+logical request is processed exactly once. The secondary slot is the
+linked one (associated_id != NO_ASSOCIATED_ID) that carries no
+scatter-gather list (num_sg == 0); the first slot always keeps the sg
+list. The bug is only reachable on suspend/resume or live migration of
+such a guest, so it has no local reproducer.
 
-There are other changes after the hypercall.
+Fixes: 6cc568339047 ("xen/blkfront: Handle non-indirect grant with 64KB pages")
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+---
+ drivers/block/xen-blkfront.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-In this case the new hypercall is to replace something that is already
-there. The base idea is that the new hypercall is able to do 3 steps
-together.
-The reason to introduce the emulation first is that you can refactor
-on the emulation without having to introduce the new hypercall.
-Introducing the hypercall first would make testing more complicated as
-bugs on the hypercall have to be taken into account and considered.
-Also it is easier that way to enable or disable new code. For instance
-you want to test for performance regression (in this case the code
-emulated should not perform worse).
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index f765970578f9..8dad7bf5f664 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -2079,6 +2079,15 @@ static int blkfront_resume(struct xenbus_device *dev)
+ 			if (!shadow[j].request)
+ 				continue;
+ 
++			/*
++			 * For requests split across multiple slots, process the
++			 * underlying request only once: skip the linked, sg-less
++			 * secondary slot.
++			 */
++			if (shadow[j].associated_id != NO_ASSOCIATED_ID &&
++			    shadow[j].num_sg == 0)
++				continue;
++
+ 			/*
+ 			 * Get the bios in the request so we can re-queue them.
+ 			 */
+-- 
+2.43.0
 
-In the beginning the PoC was much more hacky and it was more similar
-to the idea you have probably in mind. But a big part of the "hack"
-was removing code, in particular the entire support for PV and the
-verification code. Obviously that hacks could not be accepted so
-instead I decided to change the code in a more incremental way not
-removing things but instead changing to make it easier to use the
-future hypercall. So I was able to test all cases (like PV)
-incrementally and keep it working.
-
-You are however the second person (after Andrew) to ask this, so a big
-comment (probably in the commit message) is due.
-
->
-> Cheers,
->
-
-Frediano
 
