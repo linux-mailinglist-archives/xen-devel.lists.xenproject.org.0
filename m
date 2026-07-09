@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HGDeAIRrT2qjgQIAu9opvQ
+	id AoRWJe5rT2rZgQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 11:36:04 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 11:37:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C9072F027
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 11:36:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAC1972F07F
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 11:37:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=hTLqCtxS;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b="l2Xj+up/";
 	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	arc=pass ("google.com:s=arc-20260327:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1357716.1612060 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1357723.1612070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whlAh-00019v-9X; Thu, 09 Jul 2026 09:35:55 +0000
+	id 1whlCF-0001he-Jc; Thu, 09 Jul 2026 09:37:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1357716.1612060; Thu, 09 Jul 2026 09:35:55 +0000
+Received: by outflank-mailman (output) from mailman id 1357723.1612070; Thu, 09 Jul 2026 09:37:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whlAh-00017s-6O; Thu, 09 Jul 2026 09:35:55 +0000
-Received: by outflank-mailman (input) for mailman id 1357716;
- Thu, 09 Jul 2026 09:35:53 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1whlCF-0001fL-Gu; Thu, 09 Jul 2026 09:37:31 +0000
+Received: by outflank-mailman (input) for mailman id 1357723;
+ Thu, 09 Jul 2026 09:37:29 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1whlAf-00017l-1Z
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 09:35:53 +0000
+ (envelope-from <freddy77@gmail.com>) id 1whlCD-0001ce-NY
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 09:37:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whlAe-002aTK-6m
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 11:35:52 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1whlCD-00ELQn-0C
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 11:37:29 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a4f6b6f-e002-0a2a0a5209dd-0a2a4503aa16-22
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 11:35:52 +0200
-Received: from [74.125.224.41] (helo=mail-yx1-f41.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a4f6bd4-e002-0a2a0a5209dd-0a2a45019406-14
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 11:37:28 +0200
+Received: from [74.125.224.43] (helo=mail-yx1-f43.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a4f6b77-ec1a-0a2a45030019-4a7de029c4a2-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 11:35:52 +0200
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-664db84f074so2027877d50.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 02:35:51 -0700 (PDT)
+ id 6a4f6bd7-400f-0a2a45010019-4a7de02bf17a-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 11:37:28 +0200
+Received: by mail-yx1-f43.google.com with SMTP id
+ 956f58d0204a3-664dd23829eso1541310d50.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 02:37:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,83 +56,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; t=1783589750; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1783589847; cv=none;
         d=google.com; s=arc-20260327;
-        b=VUIfX9mPSAOhWIsiMh8RAhNwZi4r4B7atIOmlatwtMzm3pxTINUEdRhajuG+/z9tUp
-         RYMI93WQBox2eO1flU/oqpT9lMgoqqYPRoF27wdtTSQgsjrFk9f+7q4gGsVkF71rpRD1
-         xBGw4fz6OPL2yPRygBZAnaOs3o3/yTxbrSJefuLtp8155viq555QErxTEwf5VW1ACK8R
-         N2gGwiLrKebuydrwk+Qq9hcAR61oxBit64hLHBlNx+cBfrDxXRk6VRrAT+WQsRlRLC3B
-         Q6QnYFhm4VbmK6DxJStXObXKE5W512LBcWWMK6zNBUiAsXxbaWb4cW0Za7FzcWXaZH5O
-         y8Sg==
+        b=qTVTs0LY2BOKiBA+DpmkPqrvp8c/uWnP1ZyA9v2ZSz3kpc5VpHT/TvbkKrbPqg6QqV
+         9psJkD52TNkqx/tAnWnOZSEiiG1vAs5a3J4umga48xqRi6fFqHbUpbmaBfp7dGnJXN/l
+         Kshyk6kpYqsDOi4rz8j5pYmctG1Et5iNG+dc0Dpepe917OAwu3PBeNf3xxXhM3D0aWel
+         f3QNnxCzZzWRJIPSn9JgxRqdcxLvRYEwOiURCbW9Ng1MiZaDPCopnQDV1OAdpUxeOubK
+         eNRX7xH354tTjc3fcYiDjit45pfEOiLuYs9KeqN7TcQAFLsukHjHSBidaTgzCI9hUcJj
+         NZjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lqPoy7n3B/2r5nuw2Q1yV+Dn/OHkHAArlO16MqDXa6E=;
-        fh=/xIDEt21AoDgIoFrvXO7IQvdlvHF73QaNWBe25gcoZE=;
-        b=XkE5NZuQSdgZ3TcfZojMIiuAD9A1wFOSqd2vy/zAm1p9wLAdrbg45NNgMd0DIbF+/G
-         g01I8daOw0hZS/HGymUpwCv2P51O9winRD9u7X/cfNWtlZp/HHbsZuf+RNRK44FcGKU7
-         U96KTt1i0LIFVgXIyyXmSVPSUReA7/IiGoxqcWByKZuiFEqdBOSwE9m9XLuROjCXrrZZ
-         mwzeI1fSSomovmXbxi1BBnfF/ge8pjNFtOwEZKNapsbFzwVNF0SfqUhhM/EmQ7SAhqK6
-         POPpQckfIAVRY8GXTu3JG+aisJxGhwEs9oXjjD9nf+bQAQAFYBvfUl5ySeZF1/qA3WuU
-         EXlQ==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=30jgUe5zJKxXDZIxdybxxZTE0JIc8ztpbZM6GTUTIQ8=;
+        fh=aU3/UpxH5Blg8M5NzH55q/XY8irYVWQMVJdPeFRWhhg=;
+        b=K4eE+h6C7Z4uHl39stvRoXBn7QMHbnjEd7jyli29rqC0luVrl1xXWeLf59y+vVA6cx
+         xoxhKkE26yVMCz6D/TiYf1KKlNeXrqZjMlezEoVunDvVp9yCXwO4dCTJJ09pzIT7Efi7
+         EVd/BFQ234Dw8tmtEFkpHBJCw17u0Ddhl3i5MTBSbYsJGLJQ16xHvgdSG2h5lMSHySrX
+         Jgnl7TExGjvW5HS7yQcOCmpcYNIOTIgNPB8gQaGP+TK0fZtXap/VUJMCc0pvRSWFGbs2
+         6oAQKFAT/7rAr+ml0xDnWy+6sgefyo6l0BeAD2Y0volb2c9/3mH+XFpfXnLrE5nMqyv5
+         pE8A==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783589750; x=1784194550; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lqPoy7n3B/2r5nuw2Q1yV+Dn/OHkHAArlO16MqDXa6E=;
-        b=hTLqCtxSyLwgfglU+VXDV9dlcTyHfc9bE3Et7rFyuFIhbvTN3L5a+rj54fWAeiA5P9
-         Z0n0q0lr1+Yy6ID8rCoNMywBSRfy+f+CrTKUZt5u/UVveJK5q5QpxzRZ/OqrDNltZeq8
-         WhbKUOry3MwQN3BJeWXBMDz4/XYdJ1eQsNoAIQAzWTM74klikrIhJIcyHMLvj0HQfo9v
-         oQk4BI7i81yvy9CdF1607aXUvfcfoX5H6bX8pu+WiW070BzQ/3nYXiG03p9BjLBybIp+
-         kD+n+QpCwauO3fuUYdvfx6b7+EjT0iiDcUo9XRCEZvkzQGtXvuAVjH+ZNxr3qPdJGjEm
-         9B0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783589750; x=1784194550;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1783589847; x=1784194647; darn=lists.xenproject.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lqPoy7n3B/2r5nuw2Q1yV+Dn/OHkHAArlO16MqDXa6E=;
-        b=RQtLZlQjlZBXmJxBZIYQorj9q/mWMyRWFaawMckp46NXblEVbj7FcVzeebjom11OdX
-         aHka/eXaApaV5brOPO4nu0zlT4iNpTx2S7R00t+a5uQ4EdFoxi8gLZ2Unhhze6NL4eBN
-         SxCOScHcxfN3WIPgIhx1pZGOFKY+qu6B2KotvlYMwMdXxehSjxniK28zkblD8eMQvLmr
-         IpNpxMqcslA3DJOHCvqlISSYJ7zZil0s85as0zjcfRCZDatTj9xODJ9B09FQ9ASaG6IG
-         8jVxgBZX+5EmZWILhfh+T3q92xFJ2vW2pDJlPFkUFgExWQm3yX5AVsCOHHxiH32x5I3r
-         NX2w==
-X-Gm-Message-State: AOJu0YwI0vwZGwFHUuSGoJ6IyCdWkwsd0E8t8XXtmZblsEhafDbx9Bds
-	6KIO7C724oqb5ZyUqhYzYPyWs23klBd8Qbswa086fOSrFJGqrLsayNsEcraNExV2Lh0PXB2nN0l
-	CKRHdduTGpa2RuiIrI10S/ksSTKS/y84=
-X-Gm-Gg: AfdE7cnEQlDs3SKQKVpys4gqssLjA/h4p/av6+Gpl/kB+U4nUom5Pj28o/FdkqvCq4E
-	t+31/ybC18nEP1VeXhib1W6ejnB2txVBPO4eYEN+xcNmV9apbJCuVCpCgg1CTpVWP/+LObFjRXw
-	Kylc036o1n6ZxH5eWlwtd8rwVUNk6HQS4hThJ4sf0IgzuFZNWzisbhSmXmrscGepXsUkRe95iCW
-	pznbADZTcm4NkbWNkOqd9OIqW8+uOD0rhlhzGQQoa4b5q0bPbkauuQofoG+Y8O2dbhmGCEdOlxz
-	5noClD+W9W9AdTSOth7LY4dap2g=
-X-Received: by 2002:a05:690e:20d:b0:667:8b91:244b with SMTP id
- 956f58d0204a3-6679f2b20ccmr3766830d50.98.1783589750608; Thu, 09 Jul 2026
- 02:35:50 -0700 (PDT)
+        bh=30jgUe5zJKxXDZIxdybxxZTE0JIc8ztpbZM6GTUTIQ8=;
+        b=l2Xj+up/IUBjw0ElyOulfUt9BbcZn2AA+8ciVNPQD3OfPS4Stj8nY6Fz5vPKh4XVXc
+         YczGMnNcEqDWXhbq1niIUv68esgN8K/MCTnx2HNeEhlHlX48YgC+4xVMvYjAs6kWHvXV
+         aKDKi79yineQoVUEA8bEw0OD0HlRhbt7JQQ0Ickhs0d3LBUoZPcGDZRuAnmo7dPj56NY
+         oaPORtBxsYt10k3PfdDiebihAP1oRsLwb/URYcYzofc/N6BqyeLjaC+2ktnK9q/bnkmO
+         JFzRl8QQg8lNLgfxEq0jM7h6ZRFii+3Hb05lv9O09LuSGpKA0iAg10otWNkCjTmQ98xP
+         /ZvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783589847; x=1784194647;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=30jgUe5zJKxXDZIxdybxxZTE0JIc8ztpbZM6GTUTIQ8=;
+        b=mnQr6+c99Wc2bnBHWanSMsE/4pcJqM0WrVW6IeLp+fqHc1wfEf3UtTM597WSGnywzw
+         5lKW3kjC4VVWRuIfm2P9/UzS1N+U7Zsp2OY/rCVPahZ98P1R3dWm+bh7iY68VT5jbec+
+         LDwgPOPdeVxokY26qLzN+mbockT9Ta3c+GxUGNW7sry9aaO29mextgTsgqu+iV7Lo8qO
+         J/yydv2cpIgVBPTH/KWice6j/OK3h4QLWcmpBGwLPuOAlF04X8iIX4FlYKtrzyJpHwPw
+         r/eGTOg1HkfVwj/67Fr4MhcsF/yrYfyWRSjTwZxLZObh+HyYJR8qbjANZmpPVse4TLFn
+         1kNg==
+X-Gm-Message-State: AOJu0Yy4xPvPrwdbehu4cV08bGBTF6fMKVPZX64YaQf3zYgA8afr1zVx
+	63zFJS4UAS/Xfn/IECA0cl56YKJufdenR0ydPxpeOcd4mWaP7fcIprR+hIvwyw9XZWyzO/hq0H+
+	N5KYQ159SwB0z5qi9vSdtEfyeuzF10LI=
+X-Gm-Gg: AfdE7cmrOqG7LptmJI1h+9NW0aRU5LO6f63ct8kCZt1C5hphqtm2pjzPACDCX6Yy4Vh
+	z1E0mzkkAD0qmZXONkUgbK0MELYPb8zGci9pPRg9IMDdrRikYhVwUsxi1HDZMMcsPna0VRTd1r7
+	TNFhG5Gu4YzxtJpJvnQLNN3zP+AZd2pA2hMrUt69sq/HqyfukW2W0HAzpurOt2GmNhLSSWd7XXW
+	USvi2cuzYn/j0aqi61o3sqP1nGWaedxZntJUGQayYrb0BmpCD6iBYk8y5o1sHZu0R+3fAjfzSkM
+	xlPjwaHfjbi75fnyndVckYz2jdA=
+X-Received: by 2002:a05:690e:b4c:b0:667:aa57:686a with SMTP id
+ 956f58d0204a3-667aa5773b7mr3794473d50.60.1783589847462; Thu, 09 Jul 2026
+ 02:37:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260619130501.272832-1-frediano.ziglio@citrix.com>
- <20260619130501.272832-12-frediano.ziglio@citrix.com> <1783518933.8631fc262581453bbf619ec5b2062170.19f420331a900080a8@vates.tech>
-In-Reply-To: <1783518933.8631fc262581453bbf619ec5b2062170.19f420331a900080a8@vates.tech>
+ <20260619130501.272832-14-frediano.ziglio@citrix.com> <1783519155.8631fc262581453bbf619ec5b2062170.19f4206944f00080a8@vates.tech>
+In-Reply-To: <1783519155.8631fc262581453bbf619ec5b2062170.19f4206944f00080a8@vates.tech>
 From: Frediano Ziglio <freddy77@gmail.com>
-Date: Thu, 9 Jul 2026 10:35:39 +0100
-X-Gm-Features: AVVi8CekR3mQV0Nm25bT8MGuWQL9tgplakFi6i-6bmJgF0ekaloybntpx9WRceI
-Message-ID: <CAHt6W4dECmk-16oPt2kEr5tp9LPrZzCdAKFr-m6JFaj2FMCViA@mail.gmail.com>
-Subject: Re: [PATCH v6 11/16] PoC: libs/guest: use foreign copy during migration
+Date: Thu, 9 Jul 2026 10:37:14 +0100
+X-Gm-Features: AVVi8Cdis0fRnDTEPQdyLuzYm6PjmIW-UDJEZT57ID_YOK36X4gkbVTAEnEBXJ4
+Message-ID: <CAHt6W4dkCzf4u1Wr2yqxBdV8YpekbySxpm3Zz0TA+z2CKJ4nxw@mail.gmail.com>
+Subject: Re: [PATCH v6 13/16] privcmd: Add definition for new Linux privcmd to
+ access new Xen hypercall
 To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Teddy Astie <teddy.astie@vates.tech>, Juergen Gross <jgross@suse.com>, 
-	Frediano Ziglio <frediano.ziglio@citrix.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Frediano Ziglio <frediano.ziglio@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Teddy Astie <teddy.astie@vates.tech>, Juergen Gross <jgross@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-33051d/1783589752-BD1BE5D1-8884D4A2/0/0
+X-purgate-ID: tlsNG-d62444/1783589848-804D21E0-E2FFEC3A/0/0
 X-purgate-type: clean
-X-purgate-size: 1885
+X-purgate-size: 1813
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20260327:i=1];
@@ -143,9 +141,9 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:edwin.torok@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,m:frediano.ziglio@citrix.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,citrix.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,vates.tech:email];
 	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:+];
@@ -162,75 +160,52 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 50C9072F027
+X-Rspamd-Queue-Id: EAC1972F07F
 
-On Wed, 8 Jul 2026 at 14:55, Anthony PERARD <anthony.perard@vates.tech> wro=
-te:
+On Wed, 8 Jul 2026 at 14:59, Anthony PERARD <anthony.perard@vates.tech> wrote:
 >
->
-> A note about the subject, a "PoC" or Proof-of-concept to me isn't
-> a patch that can be accepted, especialy if is a patch to an existing
-> library.
->
-
-Yes, mainly it should be merged with the final "finalize PoC".
-Still nice for review at the moment.
-
-> On Fri, Jun 19, 2026 at 02:04:56PM +0100, Frediano Ziglio wrote:
-> > From: Edwin T=C3=B6r=C3=B6k <edwin.torok@citrix.com>
+> On Fri, Jun 19, 2026 at 02:04:58PM +0100, Frediano Ziglio wrote:
+> > diff --git a/tools/include/xen-sys/Linux/privcmd.h b/tools/include/xen-sys/Linux/privcmd.h
+> > index 607dfa2287..7a3c41308b 100644
+> > --- a/tools/include/xen-sys/Linux/privcmd.h
+> > +++ b/tools/include/xen-sys/Linux/privcmd.h
+> > @@ -100,6 +100,14 @@ typedef struct privcmd_pcidev_get_gsi {
+> >       __u32 gsi;
+> >  } privcmd_pcidev_get_gsi_t;
 > >
-> > ministat confirms the improvement:
+> > +typedef struct privcmd_foreigncopy {
+> > +     domid_t dom;          /* Foreign domain. */
+> > +     __u16 dir;            /* Direction,  0 from, 1 to. */
+> > +     __u32 num;            /* Number of pages to copy. */
+> > +     const xen_pfn_t __user *pfns; /* Array of pfns. */
+> > +     void __user *buffer;  /* Buffer to copy to/from. */
+> > +} privcmd_foreigncopy_t;
+> > +
+> >  /*
+> >   * @cmd: IOCTL_PRIVCMD_HYPERCALL
+> >   * @arg: &privcmd_hypercall_t
+> > @@ -121,6 +129,8 @@ typedef struct privcmd_pcidev_get_gsi {
+> >       _IOC(_IOC_NONE, 'P', 7, sizeof(privcmd_mmap_resource_t))
+> >  #define IOCTL_PRIVCMD_PCIDEV_GET_GSI                 \
+> >       _IOC(_IOC_NONE, 'P', 10, sizeof(privcmd_pcidev_get_gsi_t))
+> > +#define IOCTL_PRIVCMD_FOREIGNCOPY                            \
+> > +     _IOWR('P', 11, privcmd_foreigncopy_t)
+> >  #define IOCTL_PRIVCMD_UNIMPLEMENTED                          \
+> >       _IOC(_IOC_NONE, 'P', 0xFF, 0)
 > >
-> > ```
-> > x baseline
-> > + foreigncopy
-> >     N           Min           Max        Median           Avg        St=
-ddev
-> > x  20     1.1306997     1.1447931     1.1356569     1.1365742   0.00324=
-2175
-> > +  20     0.4311504    0.44180303    0.43616705    0.43600089  0.003109=
-4689
-> > Difference at 95.0% confidence
-> >       -0.700573 +/- 0.00203311
-> >       -61.639% +/- 0.133355%
-> >       (Student's t, pooled s =3D 0.00317652)
-> > ```
 >
-> There's been some comment about this stat in previous version of the
-> series, and the description is still the same. Could you describe how
-> the stat have been generated, and what the number mean?
+> I don't think I can accept this patch until the changes have been added
+> to Linux. Also, I think it would be fine to squash this
+> changes into the patch that start using this new hypercall.
 >
 
-We managed to ask the author but got not much clue. Mainly timing.
-Probably better to do new statistics.
-
-> Also, what's the different between "baseline" and "foreigncopy". I've
-> only had a glimpse at this patch, and it just looks like the code have
-> been moved to a different part of the library, with somehow less lines
-> of code.
->
-
-"baseline" I suppose without these changes, "foreigncopy" will the changes.
-
-> >
-> > The tests pass too, which means that it has correctly migrated all gues=
-t
-> > memory.
->
-> Which tests?
->
-
-Different migrations with multiple OSes and configuration (for
-instance PV and not PV, these from me).
-
-> Thanks,
->
->
+The last patch is for Linux, but I saw no comments on it.
+For the merge, yes, it can be done, not a big deal.
 
 Frediano
 
