@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ebmQMd2vT2oNmwIAu9opvQ
+	id D5roCSy6T2p6nQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 16:27:41 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 17:11:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6CD732381
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 16:27:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618B4732AB0
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 17:11:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=NC4dwvC8;
-	dmarc=pass (policy=none) header.from=gmail.com;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1358221.1612447 (Exim 4.92)
+	dkim=pass header.d=amd.com header.s=selector1 header.b=av8HIuss;
+	dmarc=pass (policy=quarantine) header.from=amd.com;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1358250.1612457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whpiY-0001ZT-QL; Thu, 09 Jul 2026 14:27:10 +0000
+	id 1whqOW-0007jw-Ty; Thu, 09 Jul 2026 15:10:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1358221.1612447; Thu, 09 Jul 2026 14:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 1358250.1612457; Thu, 09 Jul 2026 15:10:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whpiY-0001Wn-NI; Thu, 09 Jul 2026 14:27:10 +0000
-Received: by outflank-mailman (input) for mailman id 1358221;
- Thu, 09 Jul 2026 14:27:08 +0000
+	id 1whqOW-0007hx-QP; Thu, 09 Jul 2026 15:10:32 +0000
+Received: by outflank-mailman (input) for mailman id 1358250;
+ Thu, 09 Jul 2026 15:10:31 +0000
 Received: from mx.expurgate.net ([195.190.135.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1whpiW-0001Wh-Fs
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 14:27:08 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <Stewart.Hildebrand@amd.com>) id 1whqOV-0007hr-F5
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 15:10:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whpiV-00CLFo-St
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 16:27:07 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1whqOU-00CRjr-Rs
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 17:10:30 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4fafbb-bab6-0a2a0a5309dd-0a2a4509d454-4
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 16:27:07 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a4fafbb-b440-0a2a45090019-d1558030b468-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 16:27:07 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-493c733f15aso9619365e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 07:27:07 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
- [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-493eb6cccfdsm65341035e9.1.2026.07.09.07.27.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Jul 2026 07:27:06 -0700 (PDT)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 6a4fb9d9-e002-0a2a0a5209dd-0a2a450cd44a-36
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 17:10:30 +0200
+Received: from [52.101.56.15]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 6a4fb9e3-e897-0a2a450c0019-3465380fd9fa-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 17:10:30 +0200
+Received: from DM4PR12MB6472.namprd12.prod.outlook.com (2603:10b6:8:bc::7) by
+ CH3PR12MB8710.namprd12.prod.outlook.com (2603:10b6:610:173::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Thu, 9 Jul
+ 2026 15:10:25 +0000
+Received: from DM4PR12MB6472.namprd12.prod.outlook.com
+ ([fe80::4a4d:4208:3862:fb7a]) by DM4PR12MB6472.namprd12.prod.outlook.com
+ ([fe80::4a4d:4208:3862:fb7a%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
+ 15:10:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,301 +63,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783607227; x=1784212027; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MigA0hIdreQVCT7qpbPJCea6C7Q9Iz8yyiyEcCmO4lk=;
-        b=NC4dwvC8oMuONOeSSxsTjwLQpo8sqzcdxkuEYSPADsSZVlNEAYGetWb25Vb85Ne30c
-         7fxy9wJVnvUeX3shgf5MzqfbQNSion90kD+hkt9hTMcDkSL0no2q6yFAZA4UbSFXLUTi
-         HYdwCez4f9IoL4ZAl0vcbf2m+xiHUC2TNioGfZ8OGyPaUQ6knUmhsxF2FTT2CTGtyoz9
-         6fnh7nrHLF9bqvWf1kx7Bk4yVZMDjT/pwtx/o9WIj2FuLIbVO4FqVzD1kVPQvtOtZGOw
-         kKrCsHstcqFpJs3DsdnXEwnim7so1cZCwFCYAFnJILURrPItYIkqJfOJpZIx4SOHy49q
-         AvsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783607227; x=1784212027;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MigA0hIdreQVCT7qpbPJCea6C7Q9Iz8yyiyEcCmO4lk=;
-        b=XecXI5wy9ey9cDCVYLJ7n/Fe5gC0K8fRQ8A0NW6K8UB7mAbri7iZjKJLP5Lxj8MltR
-         Cz28HynyZoA4y+iuan75JVoBv7ZBhb6vfalBj9i+zCEMiUjlDqefcoDIOYsk7xgNBIc6
-         BOKOaAWxGnFxvLt6R9YtwmjBO1GIBWSE57SXyscQD5Xq1papsay0jAyVY0/CC9cyE74L
-         vXHooGX+E37UC25rptMZDN/1qtJdm7pn9FQ+2BaFhRPCWf19syku6z2xV5W7csD9rc34
-         wboyPZwPJEz0vj+o4HZZJl5xFN/CTLPVtCrCpZw3KGYNgA4dWDgJ55qwA15TziOhfqWz
-         syag==
-X-Forwarded-Encrypted: i=1; AHgh+RrWr42Zvfqhru0Lf+GInKxciYngBOqXgGdQuWCvH4CgAyu0bunpIvyYZWDRN1xUpsVEMCMvt4yDapI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrnPbIbJY+KhZghZUBskl7dvCj/qZyCEQv+MtY/s16sJ3KE5aD
-	r2g636o2mQ8k0JSs6IGydn1gXFY0cwhgtAXbdElrP9v1Kb7X9gjip0Y3
-X-Gm-Gg: AfdE7cnt7RZ2RAp5IHfxwbl3l4pPK0IcOd0/tN1yJZrGstXUs21FDrjB8/h+gbsLy5H
-	Su/5fGOEWqEckhOtqwGt3OmOEjAbe20K/btOmWWhZgYwi7687P2meyMrfz7/ZqCQhxxxZDZBLHJ
-	yL0DpLphUxvPbt+yd6tbNcpc/ZjC5DljQ5S6TI7V8RMZm+8Em3Nx4docAB9f6wpiZqC1E9Fc4xc
-	FyoeUSYuAMpbdMJtDItBB1M/pV7L1kcgtevG3DgF6PQvT92sYahr6bIXgqx8/GVEzAFSGv1Wx6I
-	pCL/aulibn+OzC0WZRYDi/cALWD6Eth0QEKs4wcYXLlWX7/QW76JZlJe89YykumQssedAwfRwdQ
-	XI1e+Mxp/eIwFcpmeSsSftjXPN4ilIBiFct9nBIo/nMJ0VK1Ly2gHOXcoEcFfr0pWnhcJqbcaKh
-	9aqdWGlg6p8DOZ6rxsSlJOyeBsktdhkRUCjISfMvbhkisMD2mgQm0kwuexsy2GhiJ7yh4=
-X-Received: by 2002:a05:600c:34c1:b0:492:7083:e5a with SMTP id 5b1f17b1804b1-493ee0fe824mr25661445e9.31.1783607226995;
-        Thu, 09 Jul 2026 07:27:06 -0700 (PDT)
-Message-ID: <cd78972e-88d5-471d-a201-5f9cd1392c73@gmail.com>
-Date: Thu, 9 Jul 2026 16:27:05 +0200
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pR0De8Uv1iSRu2VYz3UeA8o2UMOPiU7vMwkTgMq+4txZUdl1w9mdL7o3/QAZ5AxBtMbh1+MjPTut9c4yp8tTs9v8StTVAW53PMWfCG7IfNJJHOGYlFc548++a8zTp7ovSdkjmjWSNNrpz3nvVIpVALuFORKlPu6OsnzIeFaoiTKaAwZeQ8zGolTWvTfZX4tL169yF8DDkQI4bdaAVUPFRhcG7HnE/T3pn7RAqo1JwxH+rTq9pdRHB/q9NKNl9Sd4Ee6mjDH18zZselIhHbCwcYwq2GlUNRAWVu/taZx+eBTorifvVPV7RScklJeltoiq2oQzWQ1kSeMYaA6ktRxEaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7ZVzRQtnUTwP8wpKKwYeg5dC+kJgA+KulGGmLGXjpAc=;
+ b=NroDSzIj98MG/GIwPOzk672FN4RSqexYEbklB/BhTI7ECXQOTDitcFL4KAgCd9fcQtPqDu9rJL7PD4nDbVLidO8IW7WOH+rcJ/9+7A17AjmlVAmgCtRMVzxYFoU5YjAkuWjime5j8Z+kJJ2o4DUXiz3Lu6AiWR9OKYxzpGbmGQK/UgoBZnAApmv0fxprGwdat60m4pt0twy9pnQCKkV2pvQDSlugUkQiXEApMcZdZq7A6y8qSTs1Ssb3Sth5VPWrujoX3foj6pKXmS7YMiJnpQxvWYLd2lETaIAlohXfcX5vKnLgW5ggZRDpUmh4QRPpJ5nOKfVHKjJbwcQVuVvGiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7ZVzRQtnUTwP8wpKKwYeg5dC+kJgA+KulGGmLGXjpAc=;
+ b=av8HIussgLi/Qsxdkckf2e23TdH4Du15510tEDYnW9mO4/sU19OII9hYpNM2+DnN/QCLj7Y2n/rL5rI0VFGbL3WM57oO9h58pOeUtGxxyM4GJ/YZ7haPuil1hu5ISXEe5ix1W857Xfgn4NfzxM6sC15ec1s3uRfNNV94GM6vFAM=
+Message-ID: <ef345395-bbfe-48b2-85a5-31b8f43ac746@amd.com>
+Date: Thu, 9 Jul 2026 11:10:22 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: Question regarding Locking in the MMIO Handling Framework on Arm
-To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "Orzel, Michal" <Michal.Orzel@amd.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <89509e85-3345-41f8-a6dd-5dc4ba3619ac@gmail.com>
- <e540b651-f9dd-434f-bcb1-11f5198d1267@xen.org>
+Subject: Re: [PATCH v3 4/7] vpci: allow queueing of mapping operations
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1775742115.git.mykyta_poturai@epam.com>
+ <97e3323363ab442ccb21a00d5ed0488b6672870a.1775742115.git.mykyta_poturai@epam.com>
+ <aeizOTxvSXlLKGHX@macbook.local>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <e540b651-f9dd-434f-bcb1-11f5198d1267@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1783607227-5C77AA0B-75A0BBF2/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 7114
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <aeizOTxvSXlLKGHX@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: CH0PR04CA0113.namprd04.prod.outlook.com
+ (2603:10b6:610:75::28) To DM4PR12MB6472.namprd12.prod.outlook.com
+ (2603:10b6:8:bc::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6472:EE_|CH3PR12MB8710:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79dba1d8-c243-48b0-7ce9-08deddcc340d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	2NLHrE3x3e+1OnuP5wq7FPUVKykgcXytBBitcERPl9ElwPMMATQVubinufPKIiX1HwEZezOQPVVA83UeVvGJNTgIzKN2E2vMzS2eBOq+nCr3AC6SVTEGYT30rZojesG6ibkzhlhcRfvld6JwrD4qbZtpPFLz+W8UKxZBJ0TmzWttsmu5hBxAVsXnF4fKCiVkXgwZ7+IW1FHS5jixyWviAdBzbe6bWmEhZipRq5z5vt4leOKy+PQC25IbFD4nOdhtUwyxwbhhVt/ImXUXWOHoUduxW3Y6Wa27Er1g9wLbLF7pRwcxAWRyqkj0LXdmhw6Uv4tMD+ZTWswPNYJzB0LNY1Wssdcm/8TkqbMmvbuN/CgXXOGQ1zMxule1OuZe2//l4DmXjvU2LdNF+9QlwLczi4eUfpoX3tXINXdLPn/fDLkSTK0g+07MxHk/u9y7mP2hBO+UKtzUYn404oyby3g8nwFxlgK27R7tkt0Jf8ExU6fIKnOfGkDPh1fSXk+IcTDiz83nxA1xlsOjlSfPq464gSINgU7eKMx4HVBVxVG8AcUsUwYjkMO56NQTweNkctlr8Y9nCjLdkgcaXbY/xqFJcnk5LAClSIvcozQCeY7zbdgR/qjORE9cGhOkiNsAym4t8Xb8Zez8xTLaySTcyklNd1SCtsBxWV0+hw5h3++ZAg4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6472.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TXM0amloTTB4Zmk2Q3RMZzEvc00yT1czQWF6ckQvTExoazViUjYvc1EzQUsz?=
+ =?utf-8?B?NU9GMXVSVjd2YXU4QnlmM1pEdlQ4RGxVZ1RxdjNneHJZVmFLS3JlVHU2dUYy?=
+ =?utf-8?B?RExkcFZRZlQ5RERSbDV6blpUMGp2U2ZRczdISFQrbGVBcXo5RmtOZkRRRHpX?=
+ =?utf-8?B?QUE5Y0c3YTBIT1hTbnJuSThnL0xrYWQvQjVKTWt2b1pEZGE5UU1XL3V0MUNI?=
+ =?utf-8?B?ZzZ3MUxmcGtyR3ZOY0R1UjV3aFFUdzNqN0E5bmRuTzAzSVhwL002cmVNZ05J?=
+ =?utf-8?B?RmpEdEt0NjUvNUlnYVRPTFpwamFXekZtbEF1d01mN2tYU0JZVm80WUYrZ0VX?=
+ =?utf-8?B?ZjJZd2tJUDcrWmVRZVNBMjVjb1ZJMHl4RzN0enBTSGtHNDFsMyt4Y2RLRFlN?=
+ =?utf-8?B?WktUVWlSd25mK1pGTUg4azV0OEdNWEovWjNyaGFPWk5rK1ErLzRya2M5Lytt?=
+ =?utf-8?B?cEZPOEZodWVZa2JqOGxlaXhkUEJSbXVaS1puL0xuVlRtNXBLL09aZis3TENo?=
+ =?utf-8?B?a3FaNGFxUWorSkhxZE1CSzA1Yy9NZXlPL1p0ODRKRSs1c3Z5MXA1ZkhpclE5?=
+ =?utf-8?B?R05zZCtFUC9kaXBOM2ZqeGdKQ2dWandEc3c1L3ZEaHNsSlBQM01tNyt5bzFN?=
+ =?utf-8?B?TDR0aVFic1VWeXluazZnemt0RXRUam1ZQ2svM1pDdG1mWkZOUzBObC9tbTEw?=
+ =?utf-8?B?dHppaFJMd0NoQjRGM0Y1OFMvOHZKOU1nMm5JNlFYRVphZmlPam9aMEM1OXhS?=
+ =?utf-8?B?N0pMR3JCOVExWDZJaG5xUDZzcjVndThJUzZ5UVg5d3Uzc1Q0S0FscFR0YXJl?=
+ =?utf-8?B?Rm5aYktYbmdsL3F2dmc5UEp3NEpsVGlLTlVaSHo1Q3RQN1JxUHArVTZpMFcz?=
+ =?utf-8?B?WGJGL01iNUh6UEp2bWZzdWdVTmZtRUgyYTdoSjN4ZHZGcU9vdDlzYW5Eb1JG?=
+ =?utf-8?B?Y0xMb0xRYXRGYWFsMjJKUTNvK3VhOFhneUxiUXF3YW95cE51Ry84MUY5WkZl?=
+ =?utf-8?B?MGtsQ0JTZ2NwZitBQ0QySW1iSFZoWUo0RFZrU0ZzQzliMEl2ZW40Nzl0TTRD?=
+ =?utf-8?B?alhPcWtMdkFmQlJGZUdJajJDUjU4MTZsYWJYTC9XSm9oN3gzeFQ4ZnhUOTdm?=
+ =?utf-8?B?bzMrTkhGOU1jb0tqcVNzYkxVV2ZlRktBM1VSbTlrMllkbXk2cDhBdmdJTnFv?=
+ =?utf-8?B?aEZCV3grdk1Ea3BnejA0RWF5MENDeWdPeFJPYnpHb2toVXN1Tk10WndOYVRY?=
+ =?utf-8?B?NmU3M0tQdWV0dTNtaWtsTGJ1TjN4cTVUNlZDemtTWHZISnVCM0tPVTdyTGRr?=
+ =?utf-8?B?Qm5FOWFDVVpSTGQwN0NuWURMdnZ1ek5uaU5nMzhDMENRbDdXRktoSTg2SUJq?=
+ =?utf-8?B?Zmp6a2hSN0lBV3M3dUFHN0pDelg5alYvK21ZR1FFb1J1SURpc2lLUDVkT1VM?=
+ =?utf-8?B?MjNHa2FrZGd5bnhwQnJML2h4NC9nY2pmamhkZzRjUmdKYkJ1aWJKNm9XYmcz?=
+ =?utf-8?B?Rk4vN2tMTFhLNUhUb2ZKNlEwemxzQm13akpxNTJDNFhtTFRPd0g2b3hjZFlQ?=
+ =?utf-8?B?R1Fta1lCMmVYaWtpOEdPMXRJYUdMTzIxTkFXaFhCOTRiNGFNRDRmTDhZamM0?=
+ =?utf-8?B?VHF6ZUdLbnB1dHpQdFU4TGl0UlhtZ3VCTHVldWJkdVhWbFltNmdpZm1Wc1pz?=
+ =?utf-8?B?YkRNR1ZOMm5LcDJSWHlvM1YzdVY3M2VqRlJrVDFNWkV4OUZyekl2WmdpaEU0?=
+ =?utf-8?B?a21SQWVhM3MvV2czMEI2L3poSU5kV2dTanJGTWlnWVpReE9LbmpSR3l0ZWJV?=
+ =?utf-8?B?bTFGS0xYb0JTQTF6VXdOSWRPVEJlY3ViVEVsazQrRkJ0SGdqdkFmTlMxUkFO?=
+ =?utf-8?B?TFh0YVBUZWJxaDBKWnZScnFwVitmYmhZemh6QzdxQW56NkNvTHlnOEw2eGFG?=
+ =?utf-8?B?bmZCSjh0VGZPSDFUTzJkWG1Jbk1OWDRVd3ZEL1BqSlJFQ1RKSkJPQ1hOaXRn?=
+ =?utf-8?B?czZiaVVpcXFReWFlUGJNaE9IYlFGZTFLOTdZcDBaTS80ZHJYcmpRV0FmbEpE?=
+ =?utf-8?B?TnVtWlc0Q1BTVzlPTFZEdmpCYmtxNCtJQjlPNkZGSUZ5ZXZzbytWNGdwYVQw?=
+ =?utf-8?B?RHZMYnh0aHFkUkVyWDlZVlAxZXkya0JxeE5lTzlNRk5uR2duRzhZVHc0bmww?=
+ =?utf-8?B?UGppekpHcG5reE4zV21JeVR1c1BZekpFem1CbUdOcjIxU1FTczRFSVl4SHNh?=
+ =?utf-8?B?ejZHbExRb0xRdHI0MXpOQjJaUmxhem5FVDBUSzBoOWZFSUR0b2lUZVpLUGZK?=
+ =?utf-8?B?ZDg5Q2hXK0Zha2RhcWxES1FucUtnSW9Lckx2L3FIcHVmaWlMSE9zZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79dba1d8-c243-48b0-7ce9-08deddcc340d
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6472.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 15:10:25.2600
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qZrgbhaqQCg8M/XrohIE8SUcjlyyOCLeWwEhntCkPkd91eliMvOONVVt6yRIrBZ6AfbmOeU8s3vXN01Ke7aNJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8710
+X-purgate-ID: tlsNG-d25034/1783609830-D75666B2-8F9D28F8/0/0
+X-purgate-type: clean
+X-purgate-size: 2119
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:from_mime,amd.com:dkim,amd.com:mid];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:Michal.Orzel@amd.com,m:bertrand.marquis@arm.com,s:lists@lfdr.de];
-	TO_DN_ALL(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1E6CD732381
+X-Rspamd-Queue-Id: 618B4732AB0
 
-Hello Jullien,
-
-On 7/9/26 2:09 PM, Julien Grall wrote:
-> Hi Oleksii,
+On 4/22/26 07:38, Roger Pau Monné wrote:
+> On Thu, Apr 09, 2026 at 02:01:33PM +0000, Mykyta Poturai wrote:
+>> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+>> index b55bacbe6e..e34f7abe6d 100644
+>> --- a/xen/include/xen/vpci.h
+>> +++ b/xen/include/xen/vpci.h
+>> @@ -155,14 +154,23 @@ struct vpci {
+>>  };
+>>  
+>>  #ifdef __XEN__
+>> -struct vpci_vcpu {
+>> +struct vpci_map_task {
+>>      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
+>> -    const struct pci_dev *pdev;
+>> -    struct rangeset *mem[ARRAY_SIZE(((struct vpci_header *)NULL)->bars)];
+>> +    struct list_head next;
+>> +    struct vpci_bar_map {
+>> +        uint64_t addr;
+>> +        uint64_t guest_addr;
+>> +        struct rangeset *mem;
+>> +    } bars[ARRAY_SIZE(((struct vpci_header *)NULL)->bars)];
 > 
-> Thanks for the report.
-> 
-> On 09/07/2026 11:49, Oleksii Kurochko wrote:
->> I have a question regarding the locking in the MMIO handling framework 
->> on Arm.
->>
->> Is it sufficient to have read_lock() only in find_mmio_handler()? If
->> register_mmio_handler() is executed in parallel with 
->> find_mmio_handler() (which I assume was the reason for introducing the 
->> rwlock), aren't we still exposed to a race condition?
-> 
-> When the read-write lock was introduced, we didn't sort the entries. So 
-> it was fine at the time. This bug was introduced by commit 8047e090f4 
-> ("xen/arm: io: Use binary search for mmio handler lookup").
-> 
-> With this change, then we...
-> 
->>
->> find_mmio_handler() returns a pointer to a handler, but the object it 
->> points to could be changed by a subsequent call to 
->> register_mmio_handler().
->> If register_mmio_handler() runs between find_mmio_handler() and 
->> handle_{write,read}(), we could end up operating on a different 
->> handler than the one that was originally found.
->>
->> In other words, shouldn't we acquire the read_lock() in 
->> try_handle_mmio() and keep it held for the entire duration of 
->> try_handle_mmio()?
-> 
-> ... either need to keep the lock for longer
-
-I assume that register_mmio_handler() won't be called very often
-after domain creation so it looks to me that this fix is simpler then ...
-
-  or rework the code to
-> allocate the handler structure.
-
-... this. IIUC, you suggestion is to do something like:
-
-diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-index 9707cadcf80e..a587135a6907 100644
---- a/xen/arch/arm/io.c
-+++ b/xen/arch/arm/io.c
-@@ -238,24 +238,24 @@ void register_mmio_handler(struct domain *d,
-                             paddr_t addr, paddr_t size, void *priv)
-  {
-      struct vmmio *vmmio = &d->arch.vmmio;
--    struct mmio_handler *handler;
-+    struct mmio_handler *handler = xzalloc(struct mmio_handler);
-
--    BUG_ON(vmmio->num_entries >= vmmio->max_num_entries);
--
--    write_lock(&vmmio->lock);
--
--    handler = &vmmio->handlers[vmmio->num_entries];
-+    BUG_ON(!handler);
-
--    handler->ops = ops;
-+    /* Fully initialize *before* publishing. */
-+    handler->ops  = ops;
-      handler->addr = addr;
-      handler->size = size;
-      handler->priv = priv;
-
--    vmmio->num_entries++;
-+    write_lock(&vmmio->lock);
-+
-+    BUG_ON(vmmio->num_entries >= vmmio->max_num_entries);
-+
-+    vmmio->handlers[vmmio->num_entries++] = handler;
-
--    /* Sort mmio handlers in ascending order based on base address */
--    sort(vmmio->handlers, vmmio->num_entries, sizeof(struct mmio_handler),
--         cmp_mmio_handler, swap_mmio_handler);
-+    sort(vmmio->handlers, vmmio->num_entries, sizeof(*vmmio->handlers),
-+         cmp_mmio_handler, swap_mmio_handler /* now swaps pointers */);
-
-      write_unlock(&vmmio->lock);
-  }
-
-(of course, whith updating of handler field to "struct mmio_handler 
-**handlers;").
+> I'm a bit puzzled (possibly missing something), but why are you
+> keeping this vpci_bar_map array here?  AFAICT map tasks are allocated
+> on-demand after this change (by using {alloc,destroy}_map_task()).
 
 
+Currently, a single mapping operation encompasses all BARs, so it's less
+overhead. This is tied to the way modify_bars() populates and queues a mapping
+operation: it iterates over the BARs multiple times before queuing it up. I
+could see a point in perhaps allocating a map task per BAR. Indeed, in the next
+rev of the BAR-write-with-memory-decoding patch, I'm planning to introduce the
+ability to map/unmap a single BAR. If we allocate a map task per BAR, however,
+we'd have additional overhead with tracking 'const struct pci_dev *pdev' and
+'bool map' per BAR instead of per PCI device, along with refactoring of
+modify_bars(). Since mapping only a single BAR is still a rather uncommon corner
+case, my first thought is that it's not necessarily worth it to make struct
+map_task only hold information for a single BAR. You can see a preview of the
+next rev of the BAR-write-with-memory-decoding patch at [1] since I haven't yet
+sent it out.
 
-Also, I thought about just use local variable for handler (probably that 
-what you meant):
-
-diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-index 9707cadcf80e..393018e02a83 100644
---- a/xen/arch/arm/io.c
-+++ b/xen/arch/arm/io.c
-@@ -107,19 +107,33 @@ static void swap_mmio_handler(void *_a, void *_b)
-      SWAP(*a, *b);
-  }
-
--static const struct mmio_handler *find_mmio_handler(struct domain *d,
--                                                    paddr_t gpa)
-+static bool find_mmio_handler(struct domain *d, paddr_t gpa,
-+                              struct mmio_handler *out)
-  {
-      struct vmmio *vmmio = &d->arch.vmmio;
-      struct mmio_handler key = {.addr = gpa};
-      const struct mmio_handler *handler;
-+    bool found = false;
-
-      read_lock(&vmmio->lock);
-+
-      handler = bsearch(&key, vmmio->handlers, vmmio->num_entries,
-                        sizeof(*handler), cmp_mmio_handler);
-+    if ( handler )
-+    {
-+        /*
-+         * Copy the handler while holding the lock: a concurrent
-+         * register_mmio_handler() re-sorts the array in place, so the
-+         * entry pointed to by the bsearch() result may change once the
-+         * lock is released.
-+         */
-+        *out = *handler;
-+        found = true;
-+    }
-+
-      read_unlock(&vmmio->lock);
-
--    return handler;
-+    return found;
-  }
-
-  void try_decode_instruction(const struct cpu_user_regs *regs,
-@@ -187,7 +201,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs 
-*regs,
-                                mmio_info_t *info)
-  {
-      struct vcpu *v = current;
--    const struct mmio_handler *handler = NULL;
-+    struct mmio_handler handler;
-      int rc;
-
-      ASSERT(info->dabt.ec == HSR_EC_DATA_ABORT_LOWER_EL);
-@@ -198,8 +212,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs 
-*regs,
-          return IO_ABORT;
-      }
-
--    handler = find_mmio_handler(v->domain, info->gpa);
--    if ( !handler )
-+    if ( !find_mmio_handler(v->domain, info->gpa, &handler) )
-      {
-          bool trap_unmapped = v->domain->options &
-  
-XEN_DOMCTL_CDF_trap_unmapped_accesses;
-@@ -209,7 +222,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs 
-*regs,
-          else if ( rc == IO_UNHANDLED && !trap_unmapped )
-          {
-              /* Fallback to the unmapped handler. */
--            handler = &unmapped_handler;
-+            handler = unmapped_handler;
-          } else {
-              return rc;
-          }
-@@ -228,9 +241,9 @@ enum io_state try_handle_mmio(struct cpu_user_regs 
-*regs,
-       * instruction on the emulated MMIO region.
-       */
-      if ( info->dabt.write )
--        return handle_write(handler, v, info);
-+        return handle_write(&handler, v, info);
-      else
--        return handle_read(handler, v, info);
-+        return handle_read(&handler, v, info);
-  }
-
-
-What I am also thinking about if read-write lock is enough here. For 
-example, if we will have hypothetical MMIO unregistered (why we don't 
-have it now? Will we ever need it?) then we could be in a trouble:
-
-CPU0 (vCPU trapping MMIO)               CPU1 (hypothetical unregister)
-
-try_handle_mmio()
-   find_mmio_handler()
-     read_lock()
-     bsearch() -> finds handler H
-     read_unlock()          <-- protection ends here
-                                           unregister_mmio_handler()
-                                            write_lock()
-                                            remove H's pointer from array
-                                            write_unlock()
-                                          xfree(H)   <-- H's memory freed
-   handle_write(H, ...)
-     H->ops->write(...)     <-- use-after-free: reads freed memory,
-                                calls through a dangling ops pointer
-
-If we should care about that hypothetical unregister case then it is 
-better just to go with solution of "to keep the lock for longer" 
-basically while handler is found and used in try_handle_mmio().
-
-~ Oleksii
+[1] https://gitlab.com/xen-project/people/stewarthildebrand/xen/-/commit/d20f252670dff2d01c4c0c4b815abb2cae07062e
 
