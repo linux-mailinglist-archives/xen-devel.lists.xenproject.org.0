@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PQMsEB3qT2rFqAIAu9opvQ
+	id IIlfEy7vT2qTqgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:36:13 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:57:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA51F73452C
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:36:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5F39734A3E
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Jul 2026 20:57:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=aol.com header.s=a2048 header.b=DqdgcDyS;
-	dmarc=pass (policy=reject) header.from=aol.com;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=flVtDyBt;
+	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1358457.1612583 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1358504.1612592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whtat-0004Gh-KE; Thu, 09 Jul 2026 18:35:31 +0000
+	id 1whtw9-0008CG-AM; Thu, 09 Jul 2026 18:57:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1358457.1612583; Thu, 09 Jul 2026 18:35:31 +0000
+Received: by outflank-mailman (output) from mailman id 1358504.1612592; Thu, 09 Jul 2026 18:57:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1whtat-0004ET-H1; Thu, 09 Jul 2026 18:35:31 +0000
-Received: by outflank-mailman (input) for mailman id 1358457;
- Thu, 09 Jul 2026 18:35:30 +0000
-Received: from mx.expurgate.net ([194.145.224.10])
+	id 1whtw9-00089Y-7Y; Thu, 09 Jul 2026 18:57:29 +0000
+Received: by outflank-mailman (input) for mailman id 1358504;
+ Thu, 09 Jul 2026 18:57:27 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <brchuckz@aol.com>) id 1whtas-0003o1-DT
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 18:35:30 +0000
+ (envelope-from <sstabellini@kernel.org>) id 1whtw7-00089S-Oh
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 18:57:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1whtar-004bSK-Py
- for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 20:35:29 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1whtw6-0047LG-KH
+ for xen-devel@lists.xenproject.org; Thu, 09 Jul 2026 20:57:26 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <brchuckz@aol.com>)
- id 6a4fe9ee-5cb7-0a2a0a5109dd-0a2a450b9898-2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:35:26 +0200
-Received: from [98.137.68.31] (helo=sonic308-55.consmr.mail.gq1.yahoo.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <brchuckz@aol.com>)
- id 6a4fe9ed-b7da-0a2a450b0019-6289441fa20e-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:35:26 +0200
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic308.consmr.mail.gq1.yahoo.com with HTTP; Thu, 9 Jul 2026 18:35:24 +0000
-Received: by hermes--production-ne1-7568ccb994-fjmzg (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 910e3b4d72a347495c18993f77062a0e; 
- Thu, 09 Jul 2026 18:35:23 +0000 (UTC)
+ (envelope-from <sstabellini@kernel.org>)
+ id 6a4fef09-5cb7-0a2a0a5109dd-0a2a4509ea7c-12
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:57:26 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <sstabellini@kernel.org>)
+ id 6a4fef15-b440-0a2a45090019-ac6904fee87a-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Jul 2026 20:57:26 +0200
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C7E1F6137D;
+ Thu,  9 Jul 2026 18:57:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADEB1F000E9;
+ Thu,  9 Jul 2026 18:57:23 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,180 +57,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1783622124; bh=RWUWN1Khjj7dJNM0rQ3yGglWM1wDL1ijwxyNMLI6jYE=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=DqdgcDySsWQn3/hfhqx93w0tMHWTVlJYPc2ZhAOCQPfAMMIoP/uPvJ9TcMh1o2KSDl7zg5KTfN55CvOhskA0l1W7IEcOAJz5DV8P/EGSHkq2w1qAw5OJe5Lw3ZUgvhx1UbJh8oqXFLgz4NYWQvLpgeC6RKS6by8Ub6whBxQkXmc0SBrGsPJ9ep6IhsexQAtYmAhPCKuoWfc2CzvnBZNTCPBgRvyLRz/Kb+hFGsLLRg8F5Ex8oFeEnUTEllKyNFPdQthsMajmBPO4Tb/WF3IUx3X3qdBen7YVYEkZWMOHGWX779Uu5F8EdZ/X2SBmjFVQNO4Y5EEhOg1lyyB1MxZtgA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1783622124; bh=5qCBF6nm0C28qlJPoFBbn0E8KwxNV8yc5GrA4lxP5jX=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=oj6CFCXljEo5MSL5LpWL2CeqmwpowIrywm5/t97F5m1kSoATKqPVTPnz5n5X6DRxAqQ0yF49KB5OCDpZ/OHAONOqu1ZziIGhqsgB0RW9pWzs2dXbigBEDpZn1xvkyHkeV5WHpD6QpuNIDRKs20GxTqfSKGKggMDgS1Z92bH/7l1mj5dLu6/Wk5ADTzmKF5X/Qf49ZxsbqPEbVRlupr1v56fQiOO4RrP15pHynnZoFmt5I1UBm014shAbM1oJsTx1Fm3wW6L/qhNRJle2aaGRrXUc0TIkdp83FzghIiHcOEJSZYtNLi1I0zT4IwOLG5TORC54qUjLFffzJ3A4vQUrtQ==
-X-YMail-OSG: L4MJRXUVM1kVp8VEtv0TmQ7TiWZogcFrMIf7kJDDTJoc.aD3bGM_FLa_204FUAs
- B6Gv4cVOakoVX_sRf03Z04sQ6w2kvCp5NXTEbU_oHO4W6euyUAvHjLKobrhDr1Q_QibA7.fpvJAj
- gEpLw5RdHx5JWh2sOYrF4fUXje9aF47i8D0sYFqgyh3hZTZCDuQebcRk3xB3e8RyCeaHHdnH.qOU
- 5hzAGfD2M5.GXwf_hwklG7fi61plwdAMQcSMlmucxVWztU7CQ_cowAULQLSZmzITO3_G6a7MrszK
- fM4jjM1BVxvYLYb31eK992FJ3FLV1ctpaIFyA8oyZJnVir04xkEfcjjhHlzf32XW7XMG4ImtM.Gr
- mXnbiglz8tFkRFAn1tKPhOz1fdhloIrYSaNOipn18zjuTqZQxNvc9bYIwCuSGV0FcYDcQnqmYoxA
- BnUeWQYkdpEqHpMATznCq5OZwpuIZhFBvHAiiVhUbRwzKt4Azr0Qhi.pLaI3J_VRXtoaSwvv6lV0
- oSUmJvpGQUFFIvcuz2vVD3lhXYjXcf7P0oIcvyqwOk105ClfQb1k0eG.FWh.0qbZEnh9ODW2hdzk
- 3e01D1u0UA1pfMqJDWsYBMoInDV0n_BKKrv0H5Fpycryp.eEeE8_V0qg83Hwmz5WreHRH0ccPZXJ
- ViHMtu_EaE0H4EI1ORsQFcPyKCDeBmioqPJ.S7cR.9I_6QQY1B8Z.e0BxDE.KNVCN2gVC.DXtGdA
- h61qeUpjTbb2OUPDpjJUR4FrIwDV1lzT_u7qDuPkVct1Rdx3D8wIK1SNbuh4HF0u.AXy3Ii1xYVN
- Q71qn9gduPxtY4CQuGWZXyb.oDXA0H8FhdsRMiZqSilyl.WvbyRXNkJtU.qg6.HUJ6LHXje7aMHG
- jju8ZkaU97x5s56YSB0_JEX4lkA6mOJgr2Dbpq_WiiqaItO.UwFkP8SSVmeWimfIbqis8vOjYRji
- ZngT_5M49Lrlg5ZzC9lf2yv_aqwGwV6IjjpgFIYwqSmc5o5J9myfOPGKp1dg3wdhkcOXvzBg0i31
- ZX1ifnVptpN.HQ6qKt.OK69Ib3gqty4sBM69atbKU_jZ0S9mFtK_CznWwgr.O13ovieijJqCmRc.
- CtRct.vennLz2h2udlPffW6S63ljA9FGOKJ69syHmGp6ZwGWcsiziGDSBSh43rJntCKnj5wGJ5.s
- 8zzcpoT1pJMly_oearQMKEAftwYpQaBs4zCG_Sdksw5sjYgUFOAaOZGq0iFvs6XdJVO5hfOZ1Sel
- vccYSIxaZ42nVQBBGyQwaWl4Se2RRHQaXAgr21zNQqZfGcxLB6.Lugw9a2w6SSejA2RAvYAvUOPS
- YolWfFrFE4p3vjRhYrlGQJAilh_5mENmjeSmBw1i0M3qOgjJiB5YhVCGv2d2HceliK_OZyGgrewn
- H5jUxvtunbN97Lt1xyxr1hUAAcLXDtqaCBwaM1ZJwuTJQZjFs3RChHwZpcQ_4MVSsRzX9dJ0oKx9
- 8ExgHNAiaArvOWDBBxlRI5w421XWY.my2G2NaJcZzc1HyaWme3SdNFvQ8mmQpgGR9Asj3F6R42ig
- zDcjyXN.Lpadm92Gf0IW9UKDyetiZMwdQVSS_lUZb9JG4fIeCx_9BN.YUJJUD3qwOAhKipB5xlaa
- LsHeYsmTP7Bz7JMTt537YOjPtYohyxpRfrVxGivTy.wFRLEWBxzjRc1jaOQqWf6yaJuJSeTSEBxw
- GB9nEMlmYkqKWWFQhJQYEi.hksmUoaHcpMIPCHmQXQikx3A4g85vWWnm9vPx0ZCHVwsrMsrWbPxH
- QNFX9mH8jDSHo3R9r_8h.sojbcDL3Ie65MuLmu8hjYJSiiEazCesmFIfiTJUd7pdyUDPximjDfiF
- _f9ngMsZteF5jSMLbQty6vLEslG6DUdfVWKEaVyCupJlvmfm5UukyA80KQY.WGLlD8kgzLuLegfE
- 168HR46NsLD9x1.77_lOsXCAfKVJ3mdsv1SczGmXCNY2ifGbdmWfbAi_T7hHlzNHr77MbDYHjfHZ
- L1grRi8jhzl2zXyR4IeqPZyKijn4CjFOROUrCpef7ViO_3JmL9lx6FMUAUR8QEwd7D9e3B5m2a7o
- .pW26Q7WsiOkkWapCYMG5T0BsmP7OUX9ANCe_ZIL2BHPds2vUIE_MoAcWyU6nnE1FEpEf1OYDU5a
- o9b.ExeN.sS.grra_SWofdrAOZ0RDwZhan8NnNxgjnzDj0O54EFviAybg13DWxekJiYZQO9KLEsM
- VD7x1wllEcTAM1t7euqv6mh7p.cRSc1m8MkKZz.mY
-X-Sonic-MF: <brchuckz@aol.com>
-X-Sonic-ID: 5789bcb1-0729-48f7-807f-e36832099043
-From: Chuck Zmudzinski <brchuckz@aol.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-stable@nongnu.org,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>
-Subject: [PATCH v3 3/3] xen/igd: fixup device id before registering rom
-Date: Thu,  9 Jul 2026 14:35:16 -0400
-Message-ID: <20260709183517.25866-4-brchuckz@aol.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260709183517.25866-1-brchuckz@aol.com>
-References: <20260709183517.25866-1-brchuckz@aol.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1783623444;
+	bh=8Qwe9Eb1EWMzqFxlc434ecVMDaK8l7iRxYDzMndfC5E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=flVtDyBtbhd5T6+87FCiik0HiOoDbs1JfbuB+NANhQ2vTEeesN4upqVDIOpWiOMVH
+	 T4obYiKUosRb9bml5sFMsRmVKi+qFCInAUD8OHhLkvNgDZZMbGmYnHAJfZ30P8Kn/0
+	 PFMIaZJdL1Bmhwm7rRGoFZo01X1+1lyNZ9/1ujByiXZrCPlx3ZmoBQ+FEKI8HTtLYS
+	 WUuLNCL+djM9kz3/yMD0FKL1/3md/pRu/1wrBPlNA5ego75WppSBD9M3zg1Nrcqs5B
+	 GPdgYh12syFRidEApoOgiiFX+v9oTEY2AKv+op01jAwn+XB1xQkFea3JFtV/59FOmB
+	 GMSoi+1uTVmdw==
+Date: Thu, 9 Jul 2026 11:57:20 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Halder, Ayan Kumar" <ayankuma@amd.com>
+cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, ayan.kumar.halder@amd.com, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [for-4.22][PATCH v2] xen/arm: Fail domain construction if a
+ secondary vCPU cannot be created
+In-Reply-To: <aab9fd35-6230-474c-8848-480c8cccc43c@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2607091157100.565858@ubuntu-linux-20-04-desktop>
+References: <20260709063643.11800-1-michal.orzel@amd.com> <aab9fd35-6230-474c-8848-480c8cccc43c@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1783622126-4B36C9ED-BD7F74DB/0/0
+Content-Type: text/plain; charset=US-ASCII
+X-purgate-ID: tlsNG-bad1c0/1783623446-64369A0B-CF7C005C/0/0
 X-purgate-type: clean
-X-purgate-size: 3305
+X-purgate-size: 2098
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.81 / 15.00];
+X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[aol.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[aol.com:s=a2048];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:qemu-stable@nongnu.org,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_FROM(0.00)[aol.com];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[brchuckz@aol.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[amd.com,lists.xenproject.org,kernel.org,xen.org,arm.com,epam.com,gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[nongnu.org,lists.xenproject.org,kernel.org,xenproject.org,gmail.com];
-	FROM_NEQ_ENVFROM(0.00)[brchuckz@aol.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	ALIAS_RESOLVED(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ayankuma@amd.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:ayan.kumar.halder@amd.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[aol.com:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AA51F73452C
+X-Rspamd-Queue-Id: D5F39734A3E
 
-With the current implementation, Seabios does not see the fixup of
-the device id done here and consequently Seabios does not load the
-VGA bios and the guest screen does not light up until the guest OS
-graphics driver is loaded. So there is no VGA output from the passed
-through Intel IGD from either Seabios or the guest bootloader with
-the current implementation in cases when the device id needs fixing.
+On Thu, 9 Jul 2026, Halder, Ayan Kumar wrote:
+> On 09/07/2026 07:36, Michal Orzel wrote:
+> > construct_domain() creates the secondary vCPUs in a loop, but on a
+> > vcpu_create() failure it only prints a message and breaks out of the
+> > loop returning success. As a result the domain can be partially
+> > constructed with fewer vCPUs than d->max_vcpus. This causes two contract
+> > violations:
+> >   - Xen-Guest: domain's FDT is generated before vCPU creation - Xen exposes
+> >     incorrect information (e.g. two vCPUs listed in a device tree while only
+> >     one is actually created),
+> >   - User-Xen: unlike x86, on Arm port we try to bail out as soon as
+> >     possible on unsatisfied user requests (e.g. user requested two vCPUs
+> >     for a domain but it was created with only one).
+> 
+> Unrelated, but just to add my 2 cents wearing a safety hat.
+> 
+> The user-xen contract comes from a system integrator. Xen should try to follow
+> the contract and if not panic or bail out.
+> 
+> The Xen-guest contract can be used to enforce the rule that guest should read
+> the contract before doing any safety critical task.
+> 
+> The most important thing is anything errors that are internal to Xen, should
+> be propagated to the external world (either as panic or return an error to the
+> guest or abort the guest). If there is a degradation is functionality (eg Xen
+> creating a guest with lesser number of vCPUS that what the system integrator
+> provided), then this is safety issue unless we put an assumption on guest to
+> read its device tree and know the final configuration (which may not be always
+> ok).
+> 
+> > 
+> > Return an error instead of breaking out of the loop. Both callers
+> > (construct_domU() and construct_hwdom()) already propagate a negative
+> > return value and fail domain construction.
+> > 
+> > Fixes: 6b0e8e43348a ("xen/arm: allocate secondaries dom0 vcpus")
+> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
-Fix this by waiting until after doing fixup of the device id before
-registering the option ROM. With this patch, Seabios sees the fixup
-done here and loads the VGA bios, and both Seabios and the guest
-bootloader light up the guest screen in cases when fixup of the
-device id is needed.
-
-Also, remove unused header hw/core/loader.h.
-
-Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
----
-Changes in v2:
-  - add a period to the end of the last sentence of the commit message
-  - add stable to Cc list
-
-Changes in v3:
-  - fix Cc address for qemu-stable
-
- hw/xen/xen_pt_graphics.c |  3 +++
- hw/xen/xen_pt_load_rom.c | 18 ++++++++++++------
- 2 files changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/hw/xen/xen_pt_graphics.c b/hw/xen/xen_pt_graphics.c
-index 2ef941e..aface0b 100644
---- a/hw/xen/xen_pt_graphics.c
-+++ b/hw/xen/xen_pt_graphics.c
-@@ -222,6 +222,9 @@ void xen_pt_setup_vga(XenPCIPassthroughState *s, XenHostPCIDevice *dev,
-         }
-     }
- 
-+    pci_register_bar(&s->dev, PCI_ROM_SLOT, 0, &s->dev.rom);
-+    s->dev.has_rom = true;
-+
-     /* Currently we fixed this address as a primary for legacy BIOS. */
-     physical_memory_write(0xc0000, bios, bios_size);
- }
-diff --git a/hw/xen/xen_pt_load_rom.c b/hw/xen/xen_pt_load_rom.c
-index 319efca..407b630 100644
---- a/hw/xen/xen_pt_load_rom.c
-+++ b/hw/xen/xen_pt_load_rom.c
-@@ -4,14 +4,22 @@
- #include "qemu/osdep.h"
- #include "qapi/error.h"
- #include "qemu/error-report.h"
--#include "hw/core/loader.h"
- #include "hw/pci/pci.h"
- #include "xen_pt.h"
- 
- /*
-- * Scan the assigned devices for the devices that have an option ROM, and then
-- * load the corresponding ROM data to RAM. If an error occurs while loading an
-- * option ROM, we just ignore that option ROM and continue with the next one.
-+ * Normally xen_pt_register_regions will handle loading the option ROM,
-+ * but in some cases, such as for the Intel IGD, the option ROM might
-+ * need to be modified.
-+ *
-+ * For such cases, use this function to get a pointer to the option ROM
-+ * from sysfs. Caller has the responsibility to edit the option ROM as
-+ * needed, call pci_register_bar to register the modified option ROM,
-+ * and set has_rom to true for the PCI device.
-+ *
-+ * This function must be called before xen_pt_register_regions is called
-+ * because if xen_pt_register_regions is called first, it will register
-+ * the option ROM and any attempt to register it again will fail.
-  */
- void *pci_assign_dev_load_option_rom(PCIDevice *dev,
-                                      int *size, unsigned int domain,
-@@ -76,8 +84,6 @@ void *pci_assign_dev_load_option_rom(PCIDevice *dev,
-         goto close_rom;
-     }
- 
--    pci_register_bar(dev, PCI_ROM_SLOT, 0, &dev->rom);
--    dev->has_rom = true;
-     *size = st.st_size;
- close_rom:
-     /* Write "0" to disable ROM */
--- 
-2.52.0
-
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
