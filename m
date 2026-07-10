@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 81I7I/WUUGrZ1wIAu9opvQ
+	id PC50NqqdUGre2QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 08:45:09 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 09:22:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B69B737CBA
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 08:45:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A5273801F
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 09:22:18 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=ILWmgzAq;
-	dmarc=pass (policy=none) header.from=valinux.co.jp;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1358770.1612682 (Exim 4.92)
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=K2+zkbSk;
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1358795.1612690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wi4xx-0002K0-La; Fri, 10 Jul 2026 06:44:05 +0000
+	id 1wi5YN-0007Tp-D2; Fri, 10 Jul 2026 07:21:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1358770.1612682; Fri, 10 Jul 2026 06:44:05 +0000
+Received: by outflank-mailman (output) from mailman id 1358795.1612690; Fri, 10 Jul 2026 07:21:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wi4xx-0002HQ-Ik; Fri, 10 Jul 2026 06:44:05 +0000
-Received: by outflank-mailman (input) for mailman id 1358770;
- Fri, 10 Jul 2026 06:44:03 +0000
+	id 1wi5YN-0007RX-AU; Fri, 10 Jul 2026 07:21:43 +0000
+Received: by outflank-mailman (input) for mailman id 1358795;
+ Fri, 10 Jul 2026 07:21:42 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <okamoto@valinux.co.jp>) id 1wi4xu-0002HK-Px
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 06:44:03 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wi5YM-0007RR-0B
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 07:21:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wi4xt-00Dnqr-FT
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 08:44:01 +0200
+ id 1wi5YL-00FuXI-6I
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 09:21:41 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <okamoto@valinux.co.jp>)
- id 6a5094ae-bab6-0a2a0a5309dd-0a2a4507a810-4
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 08:44:00 +0200
-Received: from [52.101.125.90]
- (helo=TYVP286CU001.outbound.protection.outlook.com)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a509d81-5cb7-0a2a0a5109dd-0a2a45078e8c-4
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 09:21:41 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <okamoto@valinux.co.jp>)
- id 6a5094ad-ac46-0a2a45070019-34657d5ac550-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 08:43:59 +0200
-Received: from TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:af::12)
- by OS9P286MB4752.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2bd::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Fri, 10 Jul
- 2026 06:43:55 +0000
-Received: from TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2067:ff0e:4c3:ad0b]) by TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2067:ff0e:4c3:ad0b%4]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
- 06:43:54 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a509d84-ac46-0a2a45070019-d155802bb4bf-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 09:21:41 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-493c733f15aso5148035e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 00:21:40 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493eb6d5055sm115543975e9.5.2026.07.10.00.21.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Jul 2026 00:21:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,173 +59,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XGADxB7QiZnp4tM/W4F/BpyyDv00zXRXI5MqwfCGiyMyXpAQ+ajLPzEEsl8VO3b4wCmdZQ7GCrJUWiEvdKZsRB/RRc23vLDG16bEnM0f/yfkaTV2F/u3S2U4mMKe+0ParzNfrGEULwQqM07GW22Oqw/yKWoA72IYdOQqsuwDv+k1MqPWMgFjyepoJwa1l+Eb9FCMozNeNBzPrvN+oULwWNxb2rr8tMJYXAj2gxhpKIDmyzi0q4dQz6c54J5CWKl+44eV3Bv2tw95Obj82E8nj/SWk23FhEa0j+zJMDmbjv2nyjmzvjWWNkJ3VGRpZ9ioW24c5zu9Tk2pZThfKwNNFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VVDXLkxpt6u/yW1WmFhEIDOtImzXDVmeqqk5FhoINKs=;
- b=weSHeHZCH6eFtzg3cBMsGD3zA/Tm3bOt7v3FhzeBG5azT2A76KyOzuAten1SOJVLaWqBS14p1rEhEZQsFou7a6rI5+HoCbBI+Gee5NNJoJQ0Y/243AYUtE0Zs0zrNoAaqbgyVK7miPf8rUpRXzXFV/KMN1EbTKKbHVNmof+WDQ2Tnq+Yr17bbPXiQW5lweHVLXm6vsDkfUiP0XbKeUdeCYQsMPCMw/aI5aAHUCBf8rS/H0fo0SYEgn8LxX2VvCyNltqmbuxatMPw/A9/wDPqF1UR0nafm8k45wQMIT5V6d+VfaH4JX9nlvf1/tK24cRT46dzo1AToXDtQCHd88pQyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VVDXLkxpt6u/yW1WmFhEIDOtImzXDVmeqqk5FhoINKs=;
- b=ILWmgzAq4KUkFtn+NTvbuw6U/1HP9mAK7gfMbm62ey42MIJq9zQKK9lbsK9Ah5S/psDs5T/fpvgsMemMn3HRb5ht2fiArIw39UDwqtHORwlS325fbVdi67vsra99x5i07DZ5aim2MpaexsLAgqUqk1wFzYrpjDlJPmmK/giufAo=
-From: Ryoji Okamoto <okamoto@valinux.co.jp>
-To: xen-devel@lists.xenproject.org
-Cc: Ryo Takakura <takakura@valinux.co.jp>,
-	Hirokazu Takahashi <taka@valinux.co.jp>,
-	Jan Beulich <jbeulich@suse.com>,
-	Ryoji Okamoto <okamoto@valinux.co.jp>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v2] tools/xentrace: decode RTDS priority in repl_budget records
-Date: Fri, 10 Jul 2026 15:43:52 +0900
-Message-ID: <20260710064352.343914-1-okamoto@valinux.co.jp>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0177.jpnprd01.prod.outlook.com
- (2603:1096:400:2b2::16) To TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:af::12)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783668100; x=1784272900; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zx5hIUiN+aXUgw9YVOPJ2f4cALPKKalFaaf8nf0+O3E=;
+        b=K2+zkbSk20IG2hnxJN4eYe/qDPw7RpNOTkjsoD5As7+enrZ/alsdSGxzCS0bpW9Uka
+         9+nRlFenmkvx02VvvI8wZpfdvIuF96jOiv63bhwbCg3a5q00eDYN2tF1MSt3Wsoe4+FK
+         zosFZ8H2mq9cRH/KBhkNTm30LP1F7c93muTLLQr52EvSRdEfFGQVIy/HHrymd2EDjEOX
+         +DiqnK3vvVEMvvRXvaAo/DlxPWq18wvkabOofAzWKmKKyMo03/Nyp2zS3BBfHh1MdDpD
+         v4lQk7wivQVtKl4pUwEHuWqVb1xWw1l6h2XXLe+8xITnQ5WvNrW/vqHjDoLyMkpVEn9S
+         eTqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783668100; x=1784272900;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zx5hIUiN+aXUgw9YVOPJ2f4cALPKKalFaaf8nf0+O3E=;
+        b=h2COJ32zXpJknoXuuGHvWdiCVJwmYy86fAu7E35doqFKgUTSRJjQCBY2HFLKfatdg+
+         FDhWs6RYvVywnsIVni1CTdGAftL3WSzCPDhaq6ZIetyvBGzVw1DFLTY4KMVHFnp7Oqli
+         c7z72KGhRgSWlqEDWoQ5aWrYOsw4/JPS139j9aCvltoQ9NCuUlbgwQfFgRXKifW/7Q14
+         LLvWtTqpuh4HaaZ6RiezJ+EY9wqLo94jnUIYDdxS+B0V5UpOJ/VC0GU5oqwdXKIIWbRg
+         noIHOG+SP5E7+yfTsysh4qB4Yq3NSNPunC7sqdHNnyHBFzFKRkLCghyxh3hys60K6LzD
+         QK1w==
+X-Forwarded-Encrypted: i=1; AHgh+Rp2j9816sLVUyd0x4k4qSYNblA9DF7WhwoJgkwcoQPvCBJbgx23/DSBT81UmLDj5+YwNE9kEAFGhAg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzh0SVlL10/XoVVJAhUz9zJOxX5jHtg1himJOESspIz9kVVLN/n
+	n74104qH6TQWmxb6+mQdu3GvTOE4T1AEhtFEbp6gaPY3NlbiqcIQ+ckp
+X-Gm-Gg: AfdE7clcu8HnyYb6oKnjjB82i98SOydaNXplJTN0Tzk/oaKY/UqWfEA1AKM8FDVCT2V
+	jl7bamY881yN6KshvOdue+jeGhOVVbLyhiP+h+VBvkdJ0jEQ1iK7e27cuTOn721yOcQdST0Qhim
+	z3VCM1nWo+Pn3nK4Ls136rNt8uHeEiK0HMiHVqBeVXBIZmVNRjdRDmz+mmP9JYA1iFVsjpHghBK
+	7Q/Gm0lEHOMPl+QNlRM2Z7eKWan1SxtKVsYbKpjLrLvdbf+67tvTVSeVPulI/ZEM4XuZre7ZRqf
+	7UvLi/RC4NYqceSi1JGarIw2XpZVRw7aHhv5VrQqgV5VNR7K4wOKutXx3TAOkSWcG0mAWK51sJo
+	sLCH3gsSj5257b9FLxNreCwUrtp16qtLU/pn+aM6viehn3Iml6LZP6I8BmUd/W15HscQ5xz5ppI
+	X4ZunFBhNQQBcjRveOkQ6Qg8GGzt5dDVMSq6bQ2gHGuZT+c9AlbucsfJCaPZzYj2jY3wk=
+X-Received: by 2002:a05:600c:8b6a:b0:493:b55f:bca2 with SMTP id 5b1f17b1804b1-493e88760f3mr88290035e9.34.1783668100394;
+        Fri, 10 Jul 2026 00:21:40 -0700 (PDT)
+Message-ID: <a3fdd217-ede1-42e1-a382-480a4ea4ff80@gmail.com>
+Date: Fri, 10 Jul 2026 09:21:39 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCP286MB1053:EE_|OS9P286MB4752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 643c0af8-8f7a-45fe-725e-08dede4e9c31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|10070799003|23010399003|6133799003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	RjJwgEmU2fIr9+LccXA9wxIT3VFwA886BJBv2R9PqgTghBY5JK+SeSmyPRvsY5fYxXcvk+OQT+dVcDMQqdMxfbPauRK9aTF8p3pSRFw3GYB+HE7AxQTJCjjLQkGcLLPB0uy8D8ddZ66/NYHrj11mJ29JdW7rDfwi+K6fUrZNEfxEXEPMaDFv2D/Ly2GyLF141XXPBI7VhBW1GC2ViDYDnce//GDcqELj5kUYchIsuKPAnGiCAbUdrFvcORB3e3TWUx7fY8F8h6+YW7ut0FxGLTOwXfH1PttPhm811yWq6sVKH0PzYpVlLBi1v+k5q3VKisDkQXR9GrzqPtMOzfXaW1090G11PuARfxEhsE10DubA9b3oC6dy/t7O3H/rLXI72iOG5DQqwSb2D3Nk3p+zYlRzXgg45Zvqe1xdlYIcYkwZGZxlTDymgZT5yndHEkEND/QAiE++oJgVoHq6ytcLjOUk6QbbF+fXNEh9YBP49bPQO24QzeoNk3XlH3im5BO8UzjwsyP+hO4zcVK+V3p2huSf1VHGh+mVxEeH72EwfQTLONM7KYrlR4XOSyr1L2xrA8DDUIZOpkx5r4uppPdIsIEqYBWmzFFR6qJUza1qOdHed0Muxx1slqLxCbp3rv/nYpyIU5WKd+vlB5RY3CxxtGOMU9Yw1TjW9pmfMP5WTLA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(23010399003)(6133799003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?//DdluiC48F5aCbNbH4NL1tHOwKdzrWoP4LpYjL1PEKLPbMcdkertTkqTeZm?=
- =?us-ascii?Q?FxVnpoaithag70Y1VJUbCFHX9m529lH6gx674dto/o2OSagTCgLzjoGp1JPh?=
- =?us-ascii?Q?CeNFg8S1mwEpjXI3QQqOPvFKZPOiX9/hHqs3cf0HiU5Lazcc8dM/eqzEwyU9?=
- =?us-ascii?Q?mFM/+nKCdl3C3wlnOeC/81LMAowELaY0wFmEuOjdbNJZQgY9Pp1tf/Jlr4Qw?=
- =?us-ascii?Q?mzqI0dUUGfHkpwvMwhCJmDIRqERO25Zos27WwvjFLNXZqFdaP8Rd3CIwz8x+?=
- =?us-ascii?Q?I11wgTKUl9rmxUA6XBVM2EiLVMPx2ihx/UWafqgHD2Jsi75H1FvxhJuJ/dm3?=
- =?us-ascii?Q?g9wbrewnaw51/2Q+OjhfD3Jwgc/+a7ux+7ZQh5tNap+q3MqjNMmxrrr2M5VJ?=
- =?us-ascii?Q?OhdspEG6DOMlT+tdzettHK1hb780P8OddR29+P6kdfqfssICBurRn3DgE3Be?=
- =?us-ascii?Q?QnLhmWmSn5droB83UgIt+W/ydJUE6Q0ik/nyEHzhDpzT0ecIlmEsd8FI4Ek4?=
- =?us-ascii?Q?uII/fih5Wi6X+ezLHVPH1WoyHNAkJvUMVWXoSQoNvo0wWudetwHYgnArg9/w?=
- =?us-ascii?Q?fSg67q2TB8w7CgT3//cL1p4NAiPtuGxt6xHyciwboRKQHCoIVS4dLxdj/8wG?=
- =?us-ascii?Q?VHdCop9MUB0jxbdYYt8+OVVLWT3Wg9znnRL2OCOUUPDZgEKMxXJEijgx3Cnl?=
- =?us-ascii?Q?BvfoIZ2MrHWATMqEf819YgIRv3yF8p7KI40f+nfW4q1BU3gEzdVj0QhHDAUu?=
- =?us-ascii?Q?5k/YpCzvkeeIYnPicYY86OBqkKUBM+o52Ze+eaV44zGOxM5+czDvSCAUdj6w?=
- =?us-ascii?Q?O/1oYh0Y94wo7HKJv71lN5t1N+aytiwly8Rk1ZRm1pUZ1Lr3WOShA9t0PV0t?=
- =?us-ascii?Q?IAqBiabInnLEK/zPSvPQt+IEYifFjC/pZ0aRvyPed+RVN7OjTOCfkIPaI4NY?=
- =?us-ascii?Q?j8RknIQG2n0zQ5aaKI+YVmajxN8Xda4WtSmiJc3hwXu0Bn7+JGBcpwZUs0bL?=
- =?us-ascii?Q?XyGBY4a/aMuH5tCok1lRJZG04O3OmYZsHxvtPhpt002Sr2G8fe8NartNRIFw?=
- =?us-ascii?Q?nkkoVkaEvG/kESeJSuOzWwGEJTgMmrdI9V43nKXd9yFSh1Mh9FDcM1ugoaqY?=
- =?us-ascii?Q?OZI4K4ZpODoB/86fWvFRgOeZy4l3CARkpnMtIiwUNqH8ModM8mPuDXBGyw24?=
- =?us-ascii?Q?5mFufTVi3dlsSwJiWHSsGr7b6srsIGSYjTkVPKGhzJ21sWoQdy7edQGa7dIF?=
- =?us-ascii?Q?joHQg4QKyTWfOjE8A1f5cZLTgTUa2BIOHlYuzXS9p2xwxP/6AppRnFg/CFI+?=
- =?us-ascii?Q?0T4gKyf/ECtN8bKgfCzFaJkjku8b99ZdfSSAnIcClxynDnDqZheIx9mWjNqa?=
- =?us-ascii?Q?DxMtix/0fXUInfxGeakOz5l/OsSOW1adVVXhNx5lWlOS0jBiij6KsqWApiLP?=
- =?us-ascii?Q?cmpktSlvUI3nMtI4UZXjYol1kU2DTzFW6Q4og9i1wjcLh1G1SFKVe1EIORC8?=
- =?us-ascii?Q?grEUL1Ns3+yf2o2rEKSq1hyVZztAcQoM/DOwN832SRWBZdwxnTnuDCuQuBc5?=
- =?us-ascii?Q?zZf81XOUqtfRHF+XIkhdF+1tpq3BlwyX/cBQN79xAkO3zIH6WxR8Qmi8kgSS?=
- =?us-ascii?Q?t3uEQM3Jcmuc3u7q/elUt3eVqK6rBDL/225p4DfRc3XV+EXq84jF2ZwMw52B?=
- =?us-ascii?Q?ZZe3ET0MxSoXLS5IE+V5Lw81CAVwbb4KqKuvMetuKGX20xjGEqnTDzJtneH5?=
- =?us-ascii?Q?QMO73JzeqcqZGINdqM8Dxzalas/dMkuWc/fe8AvIwMacscwm31lLhXSCfK5I?=
-X-MS-Exchange-AntiSpam-MessageData-1: fsM5gR5ZU+oKxA==
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 643c0af8-8f7a-45fe-725e-08dede4e9c31
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB1053.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 06:43:54.8258
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U1eeKpnb0jy02RL+UqkIkIeWwDwDg9MMjR+6uaTExOFwVYt8K0HghkioThGOZ0i++4QbXAYIGX5Ey+fiVKBCSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4752
-X-purgate-ID: tlsNG-ef75cf/1783665840-D3B61201-C4C6775A/0/0
-X-purgate-type: clean
-X-purgate-size: 1797
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22 v5] dom0less: Prevent division by zero in
+ handle_passthrough_prop()
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <7a146536c13431933899ffffc93c85724dfbaf87.1783599357.git.dmytro_prokopchuk1@epam.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7a146536c13431933899ffffc93c85724dfbaf87.1783599357.git.dmytro_prokopchuk1@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1783668101-1F562201-FCA00531/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2362
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
-	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,epam.com:email];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[okamoto@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:takakura@valinux.co.jp,m:taka@valinux.co.jp,m:jbeulich@suse.com,m:okamoto@valinux.co.jp,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[valinux.co.jp:from_mime,valinux.co.jp:email,valinux.co.jp:mid,valinux.co.jp:dkim,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[okamoto@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[valinux.co.jp:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8B69B737CBA
+X-Rspamd-Queue-Id: 31A5273801F
 
-The RTDS repl_budget trace record now contains the vCPU priority
-level. Update xenalyze to account for the additional field and print
-it when dumping the trace event.
 
-Without this change, xenalyze interprets the record using the old
-layout, causing the deadline and budget fields to be decoded from the
-wrong offsets.
 
-Fixes: 463b95831778 ("xen:rtds: towards work conserving RTDS")
-Signed-off-by: Ryoji Okamoto <okamoto@valinux.co.jp>
----
-Changes in v2:
-- Add "Fixes" to point out the commit which introdued the priority in
-  trace in commit message
-- No code changes.
+On 7/9/26 2:31 PM, Dmytro Prokopchuk1 wrote:
+> A malformed partial DTB specifying both '#address-cells = <0>' and
+> '#size-cells = <0>' causes '(address_cells * 2 + size_cells)' to
+> evaluate to 0. This sum is subsequently used as a divisor when
+> calculating the number of regions in the 'xen,reg' property inside
+> handle_passthrough_prop():
+> 
+>      len = fdt32_to_cpu(xen_reg->len) / ((address_cells * 2 + size_cells) *
+>                                          sizeof(uint32_t));
+> 
+> This leads to a division by zero exception in the Xen hypervisor during
+> boot, causing a hypervisor panic/crash.
+> 
+> Fix this by validating that both 'address_cells' and 'size_cells'
+> are within the valid range of [1, 2] at the read side in scan_pfdt_node()
+> immediately after they are parsed. Any invalid cell size combination is
+> safely rejected early with an error message and return -EINVAL.
+> 
+> Fixes: 9ce974c47588 ("xen/arm: assign devices to boot domains")
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> ---
+> Changes in v5:
+> - fixed mistakes around dprintk()
+> Test CI pipeline:
+> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2664600678
+> ---
+>   xen/common/device-tree/dom0less-build.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index eacfd93087..c054ea4e2f 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -341,6 +341,14 @@ static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+>       size_cells = device_tree_get_u32(pfdt, nodeoff, "#size-cells",
+>                                        DT_ROOT_NODE_SIZE_CELLS_DEFAULT);
+>   
+> +    if ( (address_cells < 1) || (address_cells > 2) ||
+> +         (size_cells < 1) || (size_cells > 2) )
+> +    {
+> +        dprintk(XENLOG_ERR, "Invalid address_cells %u or size_cells %u\n",
+> +                address_cells, size_cells);
+> +        return -EINVAL;
+> +    }
+> +
+>       node_next = fdt_first_subnode(pfdt, nodeoff);
+>       while ( node_next > 0 )
+>       {
 
-And thanks to Jan for kindly pointing out the formatting issue in my very first patch submission.
+LGTM:
+  Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
- tools/xentrace/xenalyze.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
-index 42feeb282e..439066e352 100644
---- a/tools/xentrace/xenalyze.c
-+++ b/tools/xentrace/xenalyze.c
-@@ -8039,12 +8039,13 @@ void sched_process(struct pcpu_info *p)
-             if(opt.dump_all) {
-                 struct {
-                     unsigned int vcpuid:16, domid:16;
-+                    uint32_t priority_level;
-                     uint64_t cur_dl, cur_bg;
-                 } __attribute__((packed)) *r = (typeof(r))ri->d;
- 
-                 printf(" %s rtds:repl_budget d%uv%u, deadline = %"PRIu64", "
--                       "budget = %"PRIu64"\n", ri->dump_header,
--                       r->domid, r->vcpuid, r->cur_dl, r->cur_bg);
-+                       "budget = %"PRIu64", priority = %u\n", ri->dump_header,
-+                       r->domid, r->vcpuid, r->cur_dl, r->cur_bg, r->priority_level);
-             }
-             break;
-         case TRC_SCHED_CLASS_EVT(RTDS, 5): /* SCHED_TASKLET    */
--- 
-2.43.0
+Thanks.
 
+~ Oleksii
 
