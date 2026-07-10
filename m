@@ -2,56 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id TD12HQ2uUGpv3QIAu9opvQ
+	id g2wlGhm3UGqq3wIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 10:32:13 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 11:10:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE531738826
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 10:32:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958FD738E08
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 11:10:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=epam.com header.s=selector1 header.b=l+C3nnH1;
-	dmarc=pass (policy=quarantine) header.from=epam.com;
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1358899.1612763 (Exim 4.92)
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=k+QJoD0u;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="/4ehUeG0";
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tdA8pSdz;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=wxAgPYyM;
+	dmarc=pass (policy=none) header.from=suse.de;
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1358939.1612772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wi6eI-0003Gb-5A; Fri, 10 Jul 2026 08:31:54 +0000
+	id 1wi7Eu-0008Kk-VO; Fri, 10 Jul 2026 09:09:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1358899.1612763; Fri, 10 Jul 2026 08:31:54 +0000
+Received: by outflank-mailman (output) from mailman id 1358939.1612772; Fri, 10 Jul 2026 09:09:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wi6eI-0003El-0X; Fri, 10 Jul 2026 08:31:54 +0000
-Received: by outflank-mailman (input) for mailman id 1358899;
- Fri, 10 Jul 2026 08:31:53 +0000
+	id 1wi7Eu-0008Ik-Sn; Fri, 10 Jul 2026 09:09:44 +0000
+Received: by outflank-mailman (input) for mailman id 1358939;
+ Fri, 10 Jul 2026 09:09:43 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mykola_Kvach@epam.com>) id 1wi6eG-00031k-Uo
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 08:31:53 +0000
+ (envelope-from <tzimmermann@suse.de>) id 1wi7Es-0008Ie-6d
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 09:09:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wi6eF-00GHay-S5
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 10:31:51 +0200
+ id 1wi7Eq-005m4c-Nl
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 11:09:40 +0200
 Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Mykola_Kvach@epam.com>)
- id 6a50adf2-e002-0a2a0a5209dd-0a2a4502ab40-26
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 10:31:51 +0200
-Received: from [52.101.84.97]
- (helo=DB3PR0202CU003.outbound.protection.outlook.com)
+ (envelope-from <tzimmermann@suse.de>)
+ id 6a50b6cf-bab6-0a2a0a5309dd-0a2a450281be-18
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 11:09:40 +0200
+Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
  by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <Mykola_Kvach@epam.com>)
- id 6a50adf7-64c6-0a2a45020019-346554610d4f-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 10:31:51 +0200
-Received: from AS8PR03MB9746.eurprd03.prod.outlook.com (2603:10a6:20b:61d::18)
- by AS8PR03MB7367.eurprd03.prod.outlook.com (2603:10a6:20b:2ed::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.17; Fri, 10 Jul
- 2026 08:31:48 +0000
-Received: from AS8PR03MB9746.eurprd03.prod.outlook.com
- ([fe80::cf11:309:1384:58f7]) by AS8PR03MB9746.eurprd03.prod.outlook.com
- ([fe80::cf11:309:1384:58f7%4]) with mapi id 15.21.0181.016; Fri, 10 Jul 2026
- 08:31:48 +0000
+ (envelope-from <tzimmermann@suse.de>)
+ id 6a50b6d4-64c6-0a2a45020019-c387df82e574-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 11:09:40 +0200
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACC1076709;
+ Fri, 10 Jul 2026 09:09:38 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28604779BD;
+ Fri, 10 Jul 2026 09:09:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id LQdoCNK2UGouCgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 10 Jul 2026 09:09:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,206 +70,359 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x1fHHZ+yWsXY2qnifJWLwtVhcNUC4/FVOzKCHNMmQKvAs9x8Dlu9AvzicIVmTK/Sfvf2IFmmwuJGL4SaHOVQ1wdI/wOGduDydnxeqEft3CWGvbgxE6IMEyP6pPc9CzhxJYl4lqIMopx1syesX2/829xnt5GOhZto+JgY9PV6WSyS1lXnEjSuy0CsjxiJQk9XIAtnGpSF7bugnGUbSR2uUQh4ftlsfs+t/HyLM1WyNXm6TU2Stljl7I7nOVCCBZKv6vj97vlEj40v6ynJeSsT3sHWEBwX3lLefHtw56lh5UUayqwh0L1dskRKvLWRQ9CRK+GWZqrycKsucQe4Oc/8Ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=61GIlb6exJm425sHaT9cUAkX2wIriwZ7XFpSTPSlU5I=;
- b=rwMy2WpRNIsfeveJe1GcK/rmRm/NLw2Avv0btSSgcCulRytTkfv7Sc3nNN4YKtPw0KP0ey2oesA3o0ZP0RKx181vqtkOS1azCn6Klq+En/f5bcrZdFm6MyAsUCMA0fAi3QgojPi2bJfl+PGkA4M9qgVj/QYyU/y814jHaOexwleb4Fd5HgUAK1ZlKNOOticj/LKuCbFM4tLJecVhpxnbvz7+6QwzjIv4ffUCuJofVxHH0zRKKRFX+0ENbvzTXjzJVYV8vZTCsm2hBGV7GfON7GowzjDBsKkY2rovIYQywF0k0l0+ccLl9Bc6WAkvV7fd/st9/PNJZW4bjr85XHRweQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=61GIlb6exJm425sHaT9cUAkX2wIriwZ7XFpSTPSlU5I=;
- b=l+C3nnH1mifcwQs0GQZ9ZdQjkfWEP5zSnEULFcwx5jePIuvXYAaRXmD/nx3Dzt5T1OTofAOA0w1TMTWarJaCmTiL+8PeDwYVeEOHUaFvVF9Jgve39N4BZfIams0OLSQ68Ms0K1DBCM+mfUtRMIWVOms1NoPrG6s+zf5EqzhLXNv7oGxJPMtHcvr4ikNLkNzW0pzrbB/ietFzJglhAecLqWmatneaDMKX/cdUI8DTX5CwvMAGbKnlFDwfSPXvlxqbKqC8rZjrP1NkfqExSDVuRLAZoDRRfAEgDPwW/cw+uMV7OLSJyCoFNLO0D6wNUMSyFqzwOLbvN0HQvfhCDKIjXQ==
-From: Mykola Kvach <mykola_kvach@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH for-4.22 2/2] xen/arm: vgic: free eSPIs using the bitmap index
-Date: Fri, 10 Jul 2026 11:31:32 +0300
-Message-ID: <6d279de6db90c7e8b76fb4da93b8e451a9cf9874.1783671887.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1783671887.git.mykola_kvach@epam.com>
-References: <cover.1783671887.git.mykola_kvach@epam.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: WA1PEPF00005B93.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::631) To AS8PR03MB9746.eurprd03.prod.outlook.com
- (2603:10a6:20b:61d::18)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783674579; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+	b=k+QJoD0uzbelEsf++/2y4ND5oJjvieTzrZpGMXWCRRfUXGx2fLqKKwtRnDBmVJ/jGW1osR
+	hlgubkxEHUEPqz+AfK1Qps9dCT7D/75iaZrYsmT8tjZ6ATt16FDXVrrEttTRpwgfF5xCNL
+	vAnAqzrZYfeHfE/UYALEsYGi0PI529c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783674579;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+	b=/4ehUeG0YJTYcU44d+BOlXTzRC2uecfBMBB/SaVQ3viFmonS6/GNVlZbppLbE1TnpwpB5V
+	lXW5gABB7Mz1QDAg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1783674578; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+	b=tdA8pSdzfeXEKy7XND4BnIXo5St5lY0gIhoL7qSpcO/bthuvk33yRYAZNpOPn+HJc0pFxI
+	w1NHHP93n7QrQX2tdckcRPtoBEWzOCEA9ARHCYPYnjkajPYa51UGoj6lZF06ViKqQ3YRmb
+	vk7PbAICwF/5jD0ws6FZZzNwKLY79x4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1783674578;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=WYana5gcemuDvpyp9NIAbnx2PeGEB3xQn2SDg+e4dzQ=;
+	b=wxAgPYyMx2NxMJ213r8fL6XLneJbj6RlnBSqsYKUeEYgpkR5SmTFVVlqMiX17q112i7/nF
+	3kPPnn6rnKVefFAA==
+Message-ID: <e69b3cf5-9a9f-46ca-abc8-68c1375ef6ca@suse.de>
+Date: Fri, 10 Jul 2026 11:09:37 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8PR03MB9746:EE_|AS8PR03MB7367:EE_
-X-MS-Office365-Filtering-Correlation-Id: 12b2a379-7013-4f65-8552-08dede5daf3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Mgy3L0qnbUns0g1zG0Ygj5lMfzxMILFkrpJRs419Ca/W7hhe47V81Cc0YM7+slHBWtkLjNXorJz2U7em6YdGEJB4tmVvOTA1OTrx/GCQk+sFMMaoM3ZpGtKJ5JLthY+Zb5w8bcInQ4pXHIddSAO0M2zqxzpZIo7zxwVQ/cSxca5KUMtCjdngvIi8rQ8hitUxZZ3wkojr4fw1rEpv5kl733Q0OUnbJWTWvpneSZ9jeDFejfDg97SdhQvWxRKfi9jTpggWbIzpiwzOqo3q+Vj7k5R35khAL5ehIHJbBTUfBkuXRfj3t+ABym38aDbWRiZI65zaPW2dNiFYrNr9TTCu8Ip4oUcX65Wyrg41jLDkA0qY9GJLC601wmtTwROMP6lvGTyVUraRV5ZKcwu8XmHgWWO3t1yDSAexLh8n2EPd1CF4DintEPJf5T4UG6AYe/PxGaZ4dYheYtUC0amDUtE8F3no+reJjYFzPFuKF8wd0M5l6sf/rj/VHkw2jWfuCCQWmFOzAbF+WC5iP9/nL00EhnXgTK3fgxiMgZuYrkvuk8AF+5wWBw4daXdh1cVVFqZ7nQXGXXVsQDs5Aduukc1ke634GAEAl/s7ZaE7DGdQwjm/3qtjEBXyUlmPRzLxbPOY0xd+ni4mKFR25wyHE8SgjXlrrNqdqf5H+KAy2tsWPp8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9746.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TDZWlC7CrhTm+C9ev89LdpemmDOLhigwqLxEgfgQvl/rw3gXNTiKQTa7+hiK?=
- =?us-ascii?Q?eK5LDRGg3je1SKsw5ARyv2aQ++3g5zCJSMV+69l9MceRAgwCVNLor8D6hLQl?=
- =?us-ascii?Q?Ps7oZXzmpKesCtOZ9Pk1eIyY05Zpy6kMtJgkprQx8MxlrfVF5vQp2JZ0ctzz?=
- =?us-ascii?Q?KeypWcf8Ufbdr6if+SPfOLl/tb065LXAYNAE4KkfzctWLhdQVP+B5oiJfbk+?=
- =?us-ascii?Q?FY5Onr/XwQPzAXiOloCvWmuBaW44Q4BbJ6GsVC8mZziQKokpVhEnY3kQVfuD?=
- =?us-ascii?Q?JeMn4aEHXVGJRK7Q93UvKTY3efTujxMeTV+iuZJwQsytIE2PphrKGJjcNbLu?=
- =?us-ascii?Q?6z9KHpbQxzOhRuYe6wNXAdEMUCE8YDocCeiZRGg85Y4efkEyT67qZJ9x9fSY?=
- =?us-ascii?Q?lZ5tFOsB/BQSNyFbuH8MfccOwl+g78Jc9o08XshMQCh8VJVteGJ1eShAAbai?=
- =?us-ascii?Q?Ln7K0FANhMWHKNk+Gn4iJZMc+IoO8z78KxMTuMVISIKH2+WwxyCJ8wdxZ+6n?=
- =?us-ascii?Q?4wqC3UV97lTNv+bqr6xM29vE8f1xiVKP7+efi9OXD0YaIXCtXAZZDgW3oehV?=
- =?us-ascii?Q?mfv1jS5rrVKU6915mg+pB+pC9wNgpoMw+bkNI+R6boDyRuDjF/2E0pKm9gOW?=
- =?us-ascii?Q?Oq3LaFQ/vtcjZFWG37xc6B0XDzj3U6OxGznEsyIGICZ2KNS7QNjCg11r6XgC?=
- =?us-ascii?Q?BdQb5jSZH4gtaqxJgUHS+gVP0e+MF5gQCmhJfrOQpS/N7MUyrgvvCZAWC/Rf?=
- =?us-ascii?Q?z2uELRB3MRD+cU+oWpTqFhW5UcLKprxXSYs3vB6fOfDZApOxtAov7U75NF2M?=
- =?us-ascii?Q?2vRP4gXiqCej+pS+NAaUxf/FHbT+4O5utO54Csge/IrMukK5uSdU8TJ83Zbg?=
- =?us-ascii?Q?4D0ZhtPrz8gEQkOZl+8JlkYPDDzqhFCY2Uzp92yim5J5PxaZU0PAPWaga7Rg?=
- =?us-ascii?Q?LDt3YWqnzmC9Z6a75SJNoqhcrHAIPGsoNr0It9E8cEoy0RAp57X6/gxCbtnx?=
- =?us-ascii?Q?oltvC79HJDJAiyM5x7X0Xl7Nm7hFT/UuBZW6qKwP3Gprcy7pUNOTneKqPl3B?=
- =?us-ascii?Q?56eZlRS8GWUqMzI/5T8fPaJfQGHRGGfgDhSDGaiGofZBgmqND4uIC35VFPo7?=
- =?us-ascii?Q?7RDGnz2kCQ80M+aPaSLzcDlIefJvwRSu4uZFlMxia8bYtRAhm7TsBRfCEtPM?=
- =?us-ascii?Q?BMa3g/s2NXKSdpTS3Ycb/NSjC1mAQGghY32V+ZFYDegd03CNixPuMHMSG3uA?=
- =?us-ascii?Q?HoQ05htkBUYvoXjjuR6/RjyVc6mBV54lWfdviAJui8OQZNHVxXncFy720OhP?=
- =?us-ascii?Q?8m1NqGtVbax7Nj9QQ+N7ajLQ6yQ8YDRFsCo7zwzFmDOmtOWXLvZR6QOO2UYZ?=
- =?us-ascii?Q?oFf7c2MlZP0s8z8N3U7BOWEj6HF+rRiYL4mHr7tbcv1VLWFtEP5LmD/slxY1?=
- =?us-ascii?Q?bUirYR2y3aZgkBARjfh/ppZ0ftKvjvuWc/DvkuZ0xLp8AyzxYRsRlqPRuUph?=
- =?us-ascii?Q?ZE27+UHx9HqrINrCL9L2NoXSLEg7Ss7d9XC2N7Mi/UF5T9PTnqBcG9xDNBkK?=
- =?us-ascii?Q?wEwUiIL+S5YIeHRiWe18qLZT/S7M34b4wFcLQtFx+5HARSY0vhHolBZg7nra?=
- =?us-ascii?Q?zCBNMuI1lK7VUch9awc2fezKLzfoSwaauafZ6Ms6IA2W5x7ffNczLbayy318?=
- =?us-ascii?Q?VNaFmZTncBrqRR71nGYkB7ssMug6rJ5xF89rCRgTZeV+Du0dxrBEbHRGZOtu?=
- =?us-ascii?Q?Zh0VtgagQQ=3D=3D?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 12b2a379-7013-4f65-8552-08dede5daf3e
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9746.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 08:31:48.8073
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hEZX5vucRe9smMal2PkLwFu8kkVyAmdzPqjiHyTLmBPAHsh75NIIyaRM/loplRnsIPiWYwzqUkAUwtScCCYsVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7367
-X-purgate-ID: tlsNG-720697/1783672311-3C954A87-D6AF5F65/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/9] drm/gm12u320: replace struct drm_simple_display_pipe
+ with regular atomic helpers
+To: Ze Huang <ze.huang@oss.qualcomm.com>,
+ Alexey Brodkin <abrodkin@synopsys.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Alex Lanzano <lanzano.alex@gmail.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, xen-devel@lists.xenproject.org
+References: <20260705-drm-simple-kms-removal-v1-0-b4e1ca053623@oss.qualcomm.com>
+ <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260705-drm-simple-kms-removal-v1-6-b4e1ca053623@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spam-Score: -2.80
+X-purgate-ID: tlsNG-720697/1783674580-7D12AA87-52B5C566/0/0
 X-purgate-type: clean
-X-purgate-size: 2564
+X-purgate-size: 8433
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.de,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ze.huang@oss.qualcomm.com,m:abrodkin@synopsys.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:airlied@gmail.com,m:simona@ffwll.ch,m:joel@jms.id.au,m:andrew@codeconstruct.com.au,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:linusw@kernel.org,m:hansg@kernel.org,m:lanzano.alex@gmail.com,m:oleksandr_andrushchenko@epam.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-aspeed@lists.ozlabs.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:lanzanoalex@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[mykola_kvach@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,synopsys.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,jms.id.au,codeconstruct.com.au,nxp.com,pengutronix.de,epam.com];
+	FORGED_SENDER(0.00)[tzimmermann@suse.de,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:from_mime,epam.com:email,epam.com:mid,epam.com:dkim];
-	FROM_NEQ_ENVFROM(0.00)[mykola_kvach@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tzimmermann@suse.de,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AE531738826
+X-Rspamd-Queue-Id: 958FD738E08
 
-Classic vGIC stores eSPIs in allocated_irqs after the regular virtual
-interrupts. vgic_reserve_virq() therefore translates an eSPI INTID to a
-compressed bitmap index before test_and_set_bit().
+Hi
 
-vgic_free_virq() still used the raw virtual INTID. Freeing INTID 4096
-would clear bit 4096 instead of the first eSPI allocation bit, which is
-outside allocated_irqs for a domain with eSPI support. That can leave
-the eSPI reserved and may corrupt memory.
+Am 04.07.26 um 20:31 schrieb Ze Huang:
+> Convert gm12u320 to direct primary plane, CRTC and encoder setup.
+>
+> Keep shadow-plane helper state, framebuffer access helpers and
+> no-scaling plane-state check from simple-KMS path.
+>
+> Signed-off-by: Ze Huang <ze.huang@oss.qualcomm.com>
 
-Add the inverse of idx_to_virq() and use it in both reserve and free, so
-the allocation bitmap is indexed consistently. Also reject invalid
-virtual INTIDs before clearing the bitmap.
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-Fixes: bdde400c6e1b ("xen/arm: vgic: add resource management for extended SPIs")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
- xen/arch/arm/vgic.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
+And I also have this device. Works nicely with the patch
 
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index e5aca17dcb..b85710c6a7 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -33,6 +33,16 @@ static inline unsigned int idx_to_virq(struct domain *d, unsigned int idx)
-     return idx;
- }
- 
-+static inline unsigned int virq_to_idx(struct domain *d, unsigned int virq)
-+{
-+#ifdef CONFIG_GICV3_ESPI
-+    if ( is_espi(virq) )
-+        return espi_intid_to_idx(virq) + vgic_num_irqs(d);
-+#endif
-+
-+    return virq;
-+}
-+
- bool vgic_is_valid_line(struct domain *d, unsigned int virq)
- {
- #ifdef CONFIG_GICV3_ESPI
-@@ -848,19 +858,11 @@ bool vgic_emulate(struct cpu_user_regs *regs, union hsr hsr)
- 
- bool vgic_reserve_virq(struct domain *d, unsigned int virq)
- {
--    unsigned int idx = virq;
--
-     if ( !vgic_is_valid_line(d, virq) )
-         return false;
- 
--    if ( is_espi(virq) )
--    {
--        unsigned int num_regular_irqs = vgic_num_irqs(d);
--
--        idx = espi_intid_to_idx(virq) + num_regular_irqs;
--    }
--
--    return !test_and_set_bit(idx, d->arch.vgic.allocated_irqs);
-+    return !test_and_set_bit(virq_to_idx(d, virq),
-+                             d->arch.vgic.allocated_irqs);
- }
- 
- int vgic_allocate_virq(struct domain *d, bool spi)
-@@ -897,7 +899,10 @@ int vgic_allocate_virq(struct domain *d, bool spi)
- 
- void vgic_free_virq(struct domain *d, unsigned int virq)
- {
--    clear_bit(virq, d->arch.vgic.allocated_irqs);
-+    if ( !vgic_is_valid_line(d, virq) )
-+        return;
-+
-+    clear_bit(virq_to_idx(d, virq), d->arch.vgic.allocated_irqs);
- }
- 
- unsigned int vgic_max_vcpus(unsigned int domctl_vgic_version)
+Tested-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+> ---
+>   drivers/gpu/drm/tiny/gm12u320.c | 128 ++++++++++++++++++++++++++++++++--------
+>   1 file changed, 104 insertions(+), 24 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
+> index d73dfebb4353..992160ea794d 100644
+> --- a/drivers/gpu/drm/tiny/gm12u320.c
+> +++ b/drivers/gpu/drm/tiny/gm12u320.c
+> @@ -8,6 +8,7 @@
+>   #include <linux/usb.h>
+>   
+>   #include <drm/clients/drm_client_setup.h>
+> +#include <drm/drm_atomic.h>
+>   #include <drm/drm_atomic_helper.h>
+>   #include <drm/drm_atomic_state_helper.h>
+>   #include <drm/drm_connector.h>
+> @@ -27,7 +28,6 @@
+>   #include <drm/drm_modeset_helper_vtables.h>
+>   #include <drm/drm_print.h>
+>   #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+>   
+>   static bool eco_mode;
+>   module_param(eco_mode, bool, 0644);
+> @@ -87,7 +87,9 @@ MODULE_PARM_DESC(eco_mode, "Turn on Eco mode (less bright, more silent)");
+>   
+>   struct gm12u320_device {
+>   	struct drm_device	         dev;
+> -	struct drm_simple_display_pipe   pipe;
+> +	struct drm_plane	         plane;
+> +	struct drm_crtc		         crtc;
+> +	struct drm_encoder	         encoder;
+>   	struct drm_connector	         conn;
+>   	unsigned char                   *cmd_buf;
+>   	unsigned char                   *data_buf[GM12U320_BLOCK_COUNT];
+> @@ -554,31 +556,33 @@ static int gm12u320_conn_init(struct gm12u320_device *gm12u320)
+>   }
+>   
+>   /* ------------------------------------------------------------------ */
+> -/* gm12u320 (simple) display pipe				      */
+> +/* gm12u320 display pipe						      */
+>   
+> -static void gm12u320_pipe_enable(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_crtc_state *crtc_state,
+> -				 struct drm_plane_state *plane_state)
+> +static void gm12u320_crtc_helper_atomic_enable(struct drm_crtc *crtc,
+> +					       struct drm_atomic_commit *commit)
+>   {
+>   	struct drm_rect rect = { 0, 0, GM12U320_USER_WIDTH, GM12U320_HEIGHT };
+> -	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+> +	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+> +	struct drm_plane_state *plane_state = crtc->primary->state;
+>   	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
+>   
+>   	gm12u320->fb_update.draw_status_timeout = FIRST_FRAME_TIMEOUT;
+>   	gm12u320_fb_mark_dirty(plane_state->fb, &shadow_plane_state->data[0], &rect);
+>   }
+>   
+> -static void gm12u320_pipe_disable(struct drm_simple_display_pipe *pipe)
+> +static void gm12u320_crtc_helper_atomic_disable(struct drm_crtc *crtc,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct gm12u320_device *gm12u320 = to_gm12u320(pipe->crtc.dev);
+> +	struct gm12u320_device *gm12u320 = to_gm12u320(crtc->dev);
+>   
+>   	gm12u320_stop_fb_update(gm12u320);
+>   }
+>   
+> -static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
+> -				 struct drm_plane_state *old_state)
+> +static void gm12u320_plane_helper_atomic_update(struct drm_plane *plane,
+> +						struct drm_atomic_commit *commit)
+>   {
+> -	struct drm_plane_state *state = pipe->plane.state;
+> +	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(commit, plane);
+> +	struct drm_plane_state *state = plane->state;
+>   	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
+>   	struct drm_rect rect;
+>   
+> @@ -586,11 +590,71 @@ static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
+>   		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
+>   }
+>   
+> -static const struct drm_simple_display_pipe_funcs gm12u320_pipe_funcs = {
+> -	.enable	    = gm12u320_pipe_enable,
+> -	.disable    = gm12u320_pipe_disable,
+> -	.update	    = gm12u320_pipe_update,
+> -	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
+> +static const struct drm_plane_funcs gm12u320_plane_funcs = {
+> +	.update_plane	= drm_atomic_helper_update_plane,
+> +	.disable_plane	= drm_atomic_helper_disable_plane,
+> +	.destroy	= drm_plane_cleanup,
+> +	DRM_GEM_SHADOW_PLANE_FUNCS,
+> +};
+> +
+> +static int gm12u320_plane_helper_atomic_check(struct drm_plane *plane,
+> +					      struct drm_atomic_commit *state)
+> +{
+> +	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
+> +	struct drm_crtc *crtc = plane_state->crtc;
+> +	struct drm_crtc_state *crtc_state = NULL;
+> +	int ret;
+> +
+> +	if (crtc)
+> +		crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +
+> +	ret = drm_atomic_helper_check_plane_state(plane_state, crtc_state,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  DRM_PLANE_NO_SCALING,
+> +						  false, false);
+> +	return ret;
+
+Interestingly, this patch handled _check_plane_state() correctly.
+
+Best regards
+Thomas
+
+> +}
+> +
+> +static const struct drm_plane_helper_funcs gm12u320_plane_helper_funcs = {
+> +	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+> +	.atomic_check	= gm12u320_plane_helper_atomic_check,
+> +	.atomic_update	= gm12u320_plane_helper_atomic_update,
+> +};
+> +
+> +static int gm12u320_crtc_helper_atomic_check(struct drm_crtc *crtc,
+> +					     struct drm_atomic_commit *state)
+> +{
+> +	struct drm_crtc_state *crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
+> +	int ret;
+> +
+> +	if (!crtc_state->enable)
+> +		goto out;
+> +
+> +	ret = drm_atomic_helper_check_crtc_primary_plane(crtc_state);
+> +	if (ret)
+> +		return ret;
+> +
+> +out:
+> +	return drm_atomic_add_affected_planes(state, crtc);
+> +}
+> +
+> +static const struct drm_crtc_helper_funcs gm12u320_crtc_helper_funcs = {
+> +	.atomic_check	= gm12u320_crtc_helper_atomic_check,
+> +	.atomic_enable	= gm12u320_crtc_helper_atomic_enable,
+> +	.atomic_disable	= gm12u320_crtc_helper_atomic_disable,
+> +};
+> +
+> +static const struct drm_crtc_funcs gm12u320_crtc_funcs = {
+> +	.set_config		= drm_atomic_helper_set_config,
+> +	.page_flip		= drm_atomic_helper_page_flip,
+> +	.reset			= drm_atomic_helper_crtc_reset,
+> +	.destroy		= drm_crtc_cleanup,
+> +	.atomic_duplicate_state	= drm_atomic_helper_crtc_duplicate_state,
+> +	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
+> +};
+> +
+> +static const struct drm_encoder_funcs gm12u320_encoder_funcs = {
+> +	.destroy = drm_encoder_cleanup,
+>   };
+>   
+>   static const uint32_t gm12u320_pipe_formats[] = {
+> @@ -677,13 +741,29 @@ static int gm12u320_usb_probe(struct usb_interface *interface,
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = drm_simple_display_pipe_init(&gm12u320->dev,
+> -					   &gm12u320->pipe,
+> -					   &gm12u320_pipe_funcs,
+> -					   gm12u320_pipe_formats,
+> -					   ARRAY_SIZE(gm12u320_pipe_formats),
+> -					   gm12u320_pipe_modifiers,
+> -					   &gm12u320->conn);
+> +	ret = drm_universal_plane_init(dev, &gm12u320->plane, 0,
+> +				       &gm12u320_plane_funcs,
+> +				       gm12u320_pipe_formats,
+> +				       ARRAY_SIZE(gm12u320_pipe_formats),
+> +				       gm12u320_pipe_modifiers,
+> +				       DRM_PLANE_TYPE_PRIMARY, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_plane_helper_add(&gm12u320->plane, &gm12u320_plane_helper_funcs);
+> +
+> +	ret = drm_crtc_init_with_planes(dev, &gm12u320->crtc, &gm12u320->plane, NULL,
+> +					&gm12u320_crtc_funcs, NULL);
+> +	if (ret)
+> +		return ret;
+> +	drm_crtc_helper_add(&gm12u320->crtc, &gm12u320_crtc_helper_funcs);
+> +
+> +	ret = drm_encoder_init(dev, &gm12u320->encoder, &gm12u320_encoder_funcs,
+> +			       DRM_MODE_ENCODER_NONE, NULL);
+> +	if (ret)
+> +		return ret;
+> +	gm12u320->encoder.possible_crtcs = drm_crtc_mask(&gm12u320->crtc);
+> +
+> +	ret = drm_connector_attach_encoder(&gm12u320->conn, &gm12u320->encoder);
+>   	if (ret)
+>   		return ret;
+>   
+>
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
 
