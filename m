@@ -2,58 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id DLMeD2b6UGqD9QIAu9opvQ
+	id zFgJBmgJUWpS+QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 15:57:58 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 17:02:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97F5E73B82D
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 15:57:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ABB373C039
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jul 2026 17:01:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=Xq8mVtOZ;
-	dmarc=pass (policy=none) header.from=vates.tech;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Dl8WtNSw;
+	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1359418.1613032 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1359502.1613041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wiBji-0006Ev-43; Fri, 10 Jul 2026 13:57:50 +0000
+	id 1wiCir-0007du-Kd; Fri, 10 Jul 2026 15:01:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1359418.1613032; Fri, 10 Jul 2026 13:57:50 +0000
+Received: by outflank-mailman (output) from mailman id 1359502.1613041; Fri, 10 Jul 2026 15:01:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wiBji-0006DY-0U; Fri, 10 Jul 2026 13:57:50 +0000
-Received: by outflank-mailman (input) for mailman id 1359418;
- Fri, 10 Jul 2026 13:57:47 +0000
+	id 1wiCir-0007ba-Hy; Fri, 10 Jul 2026 15:01:01 +0000
+Received: by outflank-mailman (input) for mailman id 1359502;
+ Fri, 10 Jul 2026 15:01:00 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4c51a755000edb5@swg.vates.tech>)
- id 1wiBjf-00065k-PD
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 13:57:47 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wiCiq-0007bK-9l
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 15:01:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wiBjf-00HA2i-63
- for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 15:57:47 +0200
-Received: from [10.42.69.8] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4c51a755000edb5@swg.vates.tech>)
- id 6a50fa48-5cb7-0a2a0a5109dd-0a2a4508be1e-40
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 15:57:47 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f4c51a755000edb5@swg.vates.tech>)
- id 6a50fa5a-ee29-0a2a45080019-b9ff1c2281ff-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 15:57:47 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f4c51a755000edb5.00b for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 10 Jul 2026 13:57:27 +0000
-Received: from julian.home (lfbn-gre-1-197-6.w90-112.abo.wanadoo.fr
- [90.112.16.6]) (Authenticated sender: julian.vetter@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id BF391820B8;
- Fri, 10 Jul 2026 15:57:26 +0200 (CEST)
+ id 1wiCip-007Hbx-Md
+ for xen-devel@lists.xenproject.org; Fri, 10 Jul 2026 17:00:59 +0200
+Received: from [10.42.69.11] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a51092b-bab6-0a2a0a5309dd-0a2a450bd0aa-0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 17:00:59 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a51092b-b7da-0a2a450b0019-d155802abccf-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 17:00:59 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so9497045e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Jul 2026 08:00:59 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493f2d88698sm67298035e9.1.2026.07.10.08.00.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Jul 2026 08:00:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,331 +59,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=4V+Q9vdkovRX6sGJOqwhNxmobw30y8/EXlVoTNAgKmo=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=Xq8mVtOZOQwPp3RYv/FwAo+44NSrkgJAmiq76UuJC7Ixfu0vV8A+G2ds5KEfj7P2zVavNh4Wv
- hTy2hqdQNjHuqdmICm4TEqeKIx6kkzU1Du5HF9b+HvLOqPDaAPCo5Hw+uJadG8tFY4lf2jzMt0H
- antmbIrpYwHj4AHSZ9tBV85jMlxpFt0QPmhjFakq+aijUy1rqd17GMl5MaSKohcG83PFyEE6wpT
- AYouqH9mP/FOBLvvS3ONehHhYT09beQ0H8ZTENiXOkI5W1HbkR2eeiukhNL0fOIv1fPsPMBXei1
- FkaMTYdFqV2LlVF+hVFcnP84y4R+noayeveMzGvx63ZA==
-X-Zone-Loop: e5c301ef98df420aff81e1cac7d5e024b09f6bbb211e
-x-campaign-type: default
-x-transaction-id: 735a7bb5-08b5-4b08-bb22-c4bb9abfee64
-x-swg-uid: 01-5f9eee70-b623-49fe-a9ba-6a4957a256ae
-X-Mailer: Sweego
-Message-ID:
- <1783691847.8631fc262581453bbf619ec5b2062170.19f4c51a755000edb5@vates.tech>
-x-swg-bid: 1783691847.8631fc262581453bbf619ec5b2062170.19f4c51a755000edb5
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-From: Julian Vetter <julian.vetter@vates.tech>
-To: xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Andrii Sultanov <andriy.sultanov@vates.tech>,
-	Guillaume Thouvenin <guillaume.thouvenin@vates.tech>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksii Moisieiev <oleksii_moisieiev@epam.com>,
-	Timothy Pearson <tpearson@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Julian Vetter <julian.vetter@vates.tech>
-Subject: [PATCH v2 6/6] xen: make config argument const
-Date: Fri, 10 Jul 2026 15:57:11 +0200
-In-Reply-To: <20260710135711.301993-1-julian.vetter@vates.tech>
-References: <20260710135503.301746-1-julian.vetter@vates.tech>
- <20260710135711.301993-1-julian.vetter@vates.tech>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783695659; x=1784300459; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ASZFLEiCq3bS1od9JjrVbFlMmYuiu8FfWoiWG6rMDqk=;
+        b=Dl8WtNSw9gDONYFi3aF8OvcYIMZPWqryjd78QDfMBCHNOf6s5JZ3hJcQmBz6B3ckcC
+         Qf2hb0fnX/6g/PHnX1NFGAFhcgDUQXgDDGIjawO2TrXIfLutfY5Dk7BfGnMwjEt92Ger
+         fzKvHqIs+CyfbhHsauGGXodb8JWBLW9MMn1qzcrVfLJblq52yKOBuAupn5eB+mr4R/1E
+         8q4W2TEAOlAk+rqCOfiz7ilCSmQjfANlUYL1qwtCbmWGDy9YUFait5al8zy9zf1jA3Di
+         /r9JIbxE1oqy5GnLONCeRW/wnoelymbO1q9mapz210AlDrEoKS5UmFXIMfMHSR4ZIiPi
+         0zFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783695659; x=1784300459;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ASZFLEiCq3bS1od9JjrVbFlMmYuiu8FfWoiWG6rMDqk=;
+        b=X/MXVwnRiCTFntx6hdCgp8NisOp3VMd5riFgx+pYFU7qqJjKoMapQ03a0E2l2eDurs
+         5SPtzw57K0GZvH1d+l+MEhFAjSIY1GWfVrK2YmyvmSKi/MlS73XDpX/a/W3j054/Augi
+         F/P0/+vedd7yDivLPpmSBf1WTTrn28emT3bZ3ihwjPwDk3QKcdgjlvz1Gz3sEQEj0kUV
+         7D0UuL/4a56eERtolmhY9PxhHzMy8ThQvqRLGJaYEESnECSFt6kL1ztKdpVxY+/lkRHH
+         BoRco8t+DFyTBtyUqhT7jOlsODYAHiWEWE8swLCcJxZoP7TNfrPzimd+JYjMv/1cV2bi
+         vB8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpoKKfC/ZTy9PL9P4YgoK7EYl1pBALXVGuCbuzr9ye9SfFueXx8OwQRI/r9czWYpoukbVJBuA1/VmI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyqp4XNYZYeRAd4WfsSKdS8RlzznlJyTnVORJtD0Pb41O2Q2Pvt
+	OXvGav3SrKdZOOS6sVH7S4dFufD5cMS08k+7dgjv8xti6Ojmit2q1XSF
+X-Gm-Gg: AfdE7cls1KkLxUn+c7k976Wau8rPf3An0q5pzg6aIiYtxAvN5d+oqKfn5BgBSFh8EWk
+	zxvix/yjKrAfgEs5saQ+coTB0lN6bMHYJXuQXYx/aQs9/JpLT112Ie9TXAf7Hd3GunYCKOgxc37
+	v7HSXkEldAd0qgy42ZZ87T0HRe424e54pDC2dgwRqSSOIrn7WJin0O3oui8WFr0bZcV5JNRUPBA
+	KP3fKF6Xo1kVyK6HivaiXnnsHXsLb6tR8Ip3668wS2mbhASKJlLZrVxIsPuWoeQLlJO/ChXXaxA
+	1g6ovB/OcDcZhT+6H5sgBB63YYgK87SE9wF0ZZNKH6eDcoElcA1naNfRPiBx9yc+HdAKpwc3XIn
+	4hgmkRBB09tIgAC6jvGre/Gtnvb1sxoNddvc7deSe2dMihxIkRdwjAOUVZ4VosUV4i93y/T5bJ7
+	bqtoWJ28i2UBKxmdf+rLNdXdjPIQa+4HQTreAuXAF0CZovvojENNvsa9wnyTu8FMQAy54=
+X-Received: by 2002:a05:600c:4d98:b0:493:e583:7053 with SMTP id 5b1f17b1804b1-493e68f5905mr72897575e9.35.1783695658949;
+        Fri, 10 Jul 2026 08:00:58 -0700 (PDT)
+Message-ID: <79e5b29d-b107-4176-b8e8-bacf4c4059cd@gmail.com>
+Date: Fri, 10 Jul 2026 17:00:57 +0200
 MIME-Version: 1.0
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.638.6ff1eb3fb31b0ef8.19f4c51a5a9.b3c7760e02c28758=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1783691847082
-X-purgate-ID: tlsNG-c1860d/1783691867-1034101C-C2E3F44E/0/0
-X-purgate-type: clean
-X-purgate-size: 8335
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/26] xen/riscv: introduce guest riscv,isa string
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
+ <dc486923b5313c64cf383575d25c58c9af9e5eae.1783331040.git.oleksii.kurochko@gmail.com>
+ <2f26c623-e577-44bb-8163-f52b97496d05@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2f26c623-e577-44bb-8163-f52b97496d05@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1783695659-A21CE9ED-BF4BC9BE/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 6082
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [2.33 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	URI_COUNT_ODD(1.00)[1];
-	MIME_MA_MISSING_HTML(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:dkim,vates.tech:mid,vates.tech:from_mime,vates.tech:url,vates.tech:email];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:andriy.sultanov@vates.tech,m:guillaume.thouvenin@vates.tech,m:marmarek@invisiblethingslab.com,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:oleksii_moisieiev@epam.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:teddy.astie@vates.tech,m:julian.vetter@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[vates.tech,citrix.com,amd.com,suse.com,xen.org,kernel.org,invisiblethingslab.com,arm.com,epam.com,raptorengineering.com,wdc.com,gmail.com];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:query timed out];
+	RCVD_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ALIAS_RESOLVED(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 97F5E73B82D
-
----=Part.638.6ff1eb3fb31b0ef8.19f4c51a5a9.b3c7760e02c28758=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-arch_sanitise_domain_config() validates the configuration requested by
-the toolstack, and should not fill anything in=2E The config struct passed
-to createdomain is supposed to be pure input=2E ARM used to abuse this
-(GIC_NATIVE resolution, now removed) to smuggle output back to the
-toolstack=2E Making the parameter const stops that type of abuse from
-happening on any architecture=2E
-
-The x86 implementation turned out to have its own instance of the same
-issue=2E It set XEN_DOMCTL_CDF_oos_off into config->flags for non-HVM
-guests=2E Since The sanitisation runs before the function domain_create()
-copies config->flags into d->options, this relied on mutating the
-toolstack's config to take effect=2E Move the default onto d->options
-directly in arch_domain_create() (which runs after d->options is
-populated), where all the remaining domain options are resolved=2E This
-has the same effect and no mutation of the input config is required=2E
-
-ARM, PPC and RISC-V need no equivalent change, Their implementations
-were already read-only=2E
-
-Signed-off-by: Julian Vetter <julian=2Evetter@vates=2Etech>
----
-Changes in v2:
-- New patch
----
- xen/arch/arm/domain=2Ec                   |  2 +-
- xen/arch/arm/firmware/sci=2Ec             |  2 +-
- xen/arch/arm/firmware/scmi-smc=2Ec        |  2 +-
- xen/arch/arm/include/asm/firmware/sci=2Eh |  6 +++---
- xen/arch/ppc/stubs=2Ec                    |  2 +-
- xen/arch/riscv/domain=2Ec                 |  2 +-
- xen/arch/x86/domain=2Ec                   | 16 ++++++++--------
- xen/include/xen/sched=2Eh                 |  6 ++++--
- 8 files changed, 20 insertions(+), 18 deletions(-)
-
-diff --git a/xen/arch/arm/domain=2Ec b/xen/arch/arm/domain=2Ec
-index d6d80ac55d=2E=2Ef605446cc5 100644
---- a/xen/arch/arm/domain=2Ec
-+++ b/xen/arch/arm/domain=2Ec
-@@ -557,7 +557,7 @@ static bool v8r_el1_msa_domain_sanitise_config(
-     }
- }
-=20
--int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-+int arch_sanitise_domain_config(const struct xen_domctl_createdomain *con=
-fig)
- {
-     unsigned int max_vcpus;
-     unsigned int flags_required =3D (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_=
-hap);
-diff --git a/xen/arch/arm/firmware/sci=2Ec b/xen/arch/arm/firmware/sci=2Ec
-index aa93cda7f0=2E=2Ef73ed06092 100644
---- a/xen/arch/arm/firmware/sci=2Ec
-+++ b/xen/arch/arm/firmware/sci=2Ec
-@@ -45,7 +45,7 @@ int sci_domain_init(struct domain *d, struct xen_domctl_=
-createdomain *config)
-     return cur_mediator->domain_init(d, config);
- }
-=20
--int sci_domain_sanitise_config(struct xen_domctl_createdomain *config)
-+int sci_domain_sanitise_config(const struct xen_domctl_createdomain *conf=
-ig)
- {
-     if ( !cur_mediator )
-         return 0;
-diff --git a/xen/arch/arm/firmware/scmi-smc=2Ec b/xen/arch/arm/firmware/sc=
-mi-smc=2Ec
-index 0835ddeeec=2E=2Ea973679eaf 100644
---- a/xen/arch/arm/firmware/scmi-smc=2Ec
-+++ b/xen/arch/arm/firmware/scmi-smc=2Ec
-@@ -82,7 +82,7 @@ static bool scmi_handle_smc(struct cpu_user_regs *regs)
- }
-=20
- static int
--scmi_smc_domain_sanitise_config(struct xen_domctl_createdomain *config)
-+scmi_smc_domain_sanitise_config(const struct xen_domctl_createdomain *con=
-fig)
- {
-     if ( config->arch=2Earm_sci_type !=3D XEN_DOMCTL_CONFIG_ARM_SCI_NONE =
-&&
-          config->arch=2Earm_sci_type !=3D XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_=
-SMC )
-diff --git a/xen/arch/arm/include/asm/firmware/sci=2Eh b/xen/arch/arm/incl=
-ude/asm/firmware/sci=2Eh
-index 485ce211c9=2E=2E1d566be8e2 100644
---- a/xen/arch/arm/include/asm/firmware/sci=2Eh
-+++ b/xen/arch/arm/include/asm/firmware/sci=2Eh
-@@ -32,7 +32,7 @@ struct sci_mediator_ops {
-      * it to sanitize domain SCI configuration parameters=2E
-      * Optional=2E
-      */
--    int (*domain_sanitise_config)(struct xen_domctl_createdomain *config)=
-;
-+    int (*domain_sanitise_config)(const struct xen_domctl_createdomain *c=
-onfig);
-=20
-     /*
-      * Called during domain destruction, releases all resources, that
-@@ -101,7 +101,7 @@ int sci_domain_init(struct domain *d, struct xen_domct=
-l_createdomain *config);
-  * Sanitise domain configuration parameters=2E
-  *
-  */
--int sci_domain_sanitise_config(struct xen_domctl_createdomain *config);
-+int sci_domain_sanitise_config(const struct xen_domctl_createdomain *conf=
-ig);
-=20
- /*
-  * Destroy SCI domain instance=2E
-@@ -162,7 +162,7 @@ static inline int sci_domain_init(struct domain *d,
- }
-=20
- static inline int
--sci_domain_sanitise_config(struct xen_domctl_createdomain *config)
-+sci_domain_sanitise_config(const struct xen_domctl_createdomain *config)
- {
-     if ( config->arch=2Earm_sci_type !=3D XEN_DOMCTL_CONFIG_ARM_SCI_NONE =
-)
-         return -EINVAL;
-diff --git a/xen/arch/ppc/stubs=2Ec b/xen/arch/ppc/stubs=2Ec
-index a333f06119=2E=2E82a289af85 100644
---- a/xen/arch/ppc/stubs=2Ec
-+++ b/xen/arch/ppc/stubs=2Ec
-@@ -162,7 +162,7 @@ void arch_vcpu_destroy(struct vcpu *v)
-     BUG_ON("unimplemented");
- }
-=20
--int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-+int arch_sanitise_domain_config(const struct xen_domctl_createdomain *con=
-fig)
- {
-     BUG_ON("unimplemented");
- }
-diff --git a/xen/arch/riscv/domain=2Ec b/xen/arch/riscv/domain=2Ec
-index 2819ff4e7c=2E=2Ee096a53cb5 100644
---- a/xen/arch/riscv/domain=2Ec
-+++ b/xen/arch/riscv/domain=2Ec
-@@ -289,7 +289,7 @@ void sync_vcpu_execstate(struct vcpu *v)
-     /* Nothing to do -- no lazy switching */
- }
-=20
--int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-+int arch_sanitise_domain_config(const struct xen_domctl_createdomain *con=
-fig)
- {
-     return 0;
- }
-diff --git a/xen/arch/x86/domain=2Ec b/xen/arch/x86/domain=2Ec
-index 4252339978=2E=2E35f591ab5d 100644
---- a/xen/arch/x86/domain=2Ec
-+++ b/xen/arch/x86/domain=2Ec
-@@ -590,7 +590,7 @@ void arch_vcpu_destroy(struct vcpu *v)
-         ASSERT_UNREACHABLE();
- }
-=20
--int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-+int arch_sanitise_domain_config(const struct xen_domctl_createdomain *con=
-fig)
- {
-     bool hvm =3D config->flags & XEN_DOMCTL_CDF_hvm;
-     bool hap =3D config->flags & XEN_DOMCTL_CDF_hap;
-@@ -633,13 +633,6 @@ int arch_sanitise_domain_config(struct xen_domctl_cre=
-atedomain *config)
-         return -EINVAL;
-     }
-=20
--    if ( !hvm )
--        /*
--         * It is only meaningful for XEN_DOMCTL_CDF_oos_off to be clear
--         * for HVM guests=2E
--         */
--        config->flags |=3D XEN_DOMCTL_CDF_oos_off;
--
-     if ( nested_virt && !hvm_nested_virt_supported() )
-     {
-         dprintk(XENLOG_INFO, "Nested virt requested but not available\n")=
-;
-@@ -833,6 +826,13 @@ int arch_domain_create(struct domain *d,
-=20
-     spin_lock_init(&d->arch=2Ee820_lock);
-=20
-+    /*
-+     * It is only meaningful for XEN_DOMCTL_CDF_oos_off to be clear for H=
-VM
-+     * guests=2E
-+     */
-+    if ( !is_hvm_domain(d) )
-+        d->options |=3D XEN_DOMCTL_CDF_oos_off;
-+
-     if ( d->domain_id && cpu_has_amd_erratum(&boot_cpu_data, AMD_ERRATUM_=
-121) )
-     {
-         if ( !opt_allow_unsafe )
-diff --git a/xen/include/xen/sched=2Eh b/xen/include/xen/sched=2Eh
-index 011292e9f7=2E=2E66ed7454ba 100644
---- a/xen/include/xen/sched=2Eh
-+++ b/xen/include/xen/sched=2Eh
-@@ -756,9 +756,11 @@ static inline void domain_update_node_affinity(struct=
- domain *d)
-=20
- /*
-  * To be implemented by each architecture, sanity checking the configurat=
-ion
-- * and filling in any appropriate defaults=2E
-+ * requested by the toolstack=2E config is not modified: createdomain is
-+ * input-only, and the toolstack is expected to have already resolved any
-+ * defaults=2E
-  */
--int arch_sanitise_domain_config(struct xen_domctl_createdomain *config);
-+int arch_sanitise_domain_config(const struct xen_domctl_createdomain *con=
-fig);
-=20
- /*
-  * Create a domain: the configuration is only necessary for real domain
---=20
-2=2E53=2E0
+X-Rspamd-Queue-Id: 2ABB373C039
 
 
 
--- 
-Julian Vetter | Vates Hypervisor & Kernel Developer
+On 7/9/26 3:05 PM, Jan Beulich wrote:
+> On 06.07.2026 17:57, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/cpufeature.c
+>> +++ b/xen/arch/riscv/cpufeature.c
+>> @@ -14,6 +14,7 @@
+>>   #include <xen/errno.h>
+>>   #include <xen/init.h>
+>>   #include <xen/lib.h>
+>> +#include <xen/sched.h>
+>>   #include <xen/sections.h>
+>>   
+>>   #include <asm/cpufeature.h>
+>> @@ -34,6 +35,19 @@ struct riscv_isa_ext_data {
+>>       .name = #ext_name,                          \
+>>   }
+>>   
+>> +struct riscv_isa_ext_entry {
+>> +    unsigned int id;
+>> +    const char *name;
+>> +    bool guest_supported;
+>> +};
+>> +
+>> +#define RISCV_ISA_EXT_ENTRY(ext_name, guest_supp)       \
+>> +{                                                       \
+>> +    .id              = RISCV_ISA_EXT_ ## ext_name,      \
+>> +    .name            = #ext_name,                       \
+>> +    .guest_supported = guest_supp,                      \
+>> +}
+>> +
+>>   /* Host ISA bitmap */
+>>   static __ro_after_init DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX);
+>>   
+>> @@ -120,29 +134,30 @@ static int __init dt_get_cpuid_from_node(const struct dt_device_node *cpu,
+>>    * and strncmp() is used in match_isa_ext() to compare extension names instead
+>>    * of strncasecmp().
+>>    */
+>> -const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+> 
+> I realize it has been this way before, but ...
+> 
+>> -    RISCV_ISA_EXT_DATA(i),
+>> -    RISCV_ISA_EXT_DATA(m),
+>> -    RISCV_ISA_EXT_DATA(a),
+>> -    RISCV_ISA_EXT_DATA(f),
+>> -    RISCV_ISA_EXT_DATA(d),
+>> -    RISCV_ISA_EXT_DATA(q),
+>> -    RISCV_ISA_EXT_DATA(c),
+>> -    RISCV_ISA_EXT_DATA(h),
+>> -    RISCV_ISA_EXT_DATA(zicntr),
+>> -    RISCV_ISA_EXT_DATA(zicsr),
+>> -    RISCV_ISA_EXT_DATA(zifencei),
+>> -    RISCV_ISA_EXT_DATA(zihintpause),
+>> -    RISCV_ISA_EXT_DATA(zihpm),
+>> -    RISCV_ISA_EXT_DATA(zba),
+>> -    RISCV_ISA_EXT_DATA(zbb),
+>> -    RISCV_ISA_EXT_DATA(zbs),
+>> -    RISCV_ISA_EXT_DATA(smaia),
+>> -    RISCV_ISA_EXT_DATA(smstateen),
+>> -    RISCV_ISA_EXT_DATA(ssaia),
+>> -    RISCV_ISA_EXT_DATA(sstc),
+>> -    RISCV_ISA_EXT_DATA(svade),
+>> -    RISCV_ISA_EXT_DATA(svpbmt),
+>> +const struct riscv_isa_ext_entry riscv_isa_ext[] = {
+> 
+> ... is there a reason for this to be non-static? Its type (struct
+> riscv_isa_ext_entry) is local to this file, and I also can't spot any
+> declaration elsewhere.
 
-XCP-ng & Xen Orch=
-estra - Vates solutions
+I checked downstream changes and it also local to cpufeature.c file so 
+it should be static.
 
-web: https://vates=2Etech
----=Part.638.6ff1eb3fb31b0ef8.19f4c51a5a9.b3c7760e02c28758=---
+> 
+>> @@ -480,6 +495,74 @@ bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
+>>       return test_bit(id, isa_bitmap);
+>>   }
+>>   
+>> +int build_guest_isa_str(char *buf, size_t size,
+>> +                        const unsigned long *isa_bitmap)
+>> +{
+>> +    char *p = buf;
+>> +    size_t left = size;
+>> +    int total;
+>> +
+>> +#if defined(CONFIG_RISCV_32)
+>> +    total = snprintf(p, left, "rv32");
+>> +#elif defined(CONFIG_RISCV_64)
+>> +    total = snprintf(p, left, "rv64");
+>> +#else
+>> +# error "Unsupported RISC-V bitness"
+>> +#endif
+> 
+> For the longer-term future of this, passing in const struct domain * may
+> help.
+
+pointer to const struct domain looks really better I chnage prototype of 
+build_guest_isa_str().
+
+> 
+>> +    if ( total < 0 )
+>> +        return total;
+>> +
+>> +    if ( buf )
+>> +    {
+>> +        if ( (size_t)total >= left )
+>> +            return -ENOSPC;
+>> +
+>> +        p += total;
+>> +        left -= total;
+>> +    }
+>> +
+>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
+>> +    {
+>> +        const struct riscv_isa_ext_entry *ext = &riscv_isa_ext[i];
+>> +        int ret;
+>> +
+>> +        if ( !riscv_isa_extension_available(isa_bitmap, ext->id) )
+>> +            continue;
+>> +
+>> +        ret = snprintf(p, left, "%s%s",
+>> +                       ext->id >= RISCV_ISA_EXT_BASE ? "_" : "",
+>> +                       ext->name);
+>> +        if ( ret < 0 )
+>> +            return ret;
+>> +
+>> +        total += ret;
+>> +
+>> +        if ( buf )
+>> +        {
+>> +            if ( (size_t)ret >= left )
+>> +                return -ENOSPC;
+>> +
+>> +            p += ret;
+>> +            left -= ret;
+>> +        }
+>> +    }
+>> +
+>> +    return total;
+>> +}
+>> +
+>> +void init_guest_isa(struct domain *d)
+>> +{
+>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
+>> +    {
+>> +        const struct riscv_isa_ext_entry *ext = &riscv_isa_ext[i];
+>> +
+>> +        if ( ext->guest_supported &&
+>> +             riscv_isa_extension_available(NULL, ext->id) )
+>> +            __set_bit(ext->id, d->arch.isa);
+>> +    }
+>> +}
+> 
+> Right now what this function does is dependent on only global variables.
+> IOW each guest gets the same bitmap. Is this going to change soon?
+
+At the moment, we don't have a use case where domain has unique bitmap. 
+But IIRC correctly we agreed that generally it is good idea to have isa 
+bitmap per domain and let the use to chose.
+
+  Else
+> why not calculate that bitmap once, taking the same shortcut as you take
+> elsewhere for the time being?
+
+static __ro_after_init DECLARE_BITMAP(guest_isa, RISCV_ISA_EXT_MAX);
+
+/* called once from riscv_fill_hwcap() or similar */
+void __init init_guest_isa_mask(void)
+{
+     for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
+         if ( riscv_isa_ext[i].guest_supported &&
+              riscv_isa_extension_available(NULL, riscv_isa_ext[i].id) )
+             __set_bit(riscv_isa_ext[i].id, guest_isa);
+}
+
+void init_guest_isa(struct domain *d)   /* called per-domain */
+{
+     bitmap_copy(d->arch.isa, guest_isa, RISCV_ISA_EXT_MAX);
+}
+
+Do you mean something like that?
+
+  Then allowing riscv_isa_ext[] to remain
+> __initconst (should really have been __initconstrel).
+
+I think you explained me already why but I forgot. Could you please 
+remind me again why __initconstrel should be here? Is it because of 
+pointers used inside struct riscv_isa_ext_entry?
+
+Thanks.
+
+~ Oleksii
 
