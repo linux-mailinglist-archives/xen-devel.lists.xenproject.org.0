@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +Uk2MDsmU2oJYAMAu9opvQ
+	id A8cdMzsmU2oLYAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04DB1743EDA
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E25F743EDB
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=cWfdCojd;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=jgpXcvfv;
 	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1360574.1613465 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1360576.1613472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkI-0008KR-Lc; Sun, 12 Jul 2026 05:28:54 +0000
+	id 1wimkJ-0008PT-4V; Sun, 12 Jul 2026 05:28:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1360574.1613465; Sun, 12 Jul 2026 05:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 1360576.1613472; Sun, 12 Jul 2026 05:28:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkI-00087w-F7; Sun, 12 Jul 2026 05:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 1360574;
- Sat, 11 Jul 2026 18:47:51 +0000
+	id 1wimkI-0008L3-OZ; Sun, 12 Jul 2026 05:28:54 +0000
+Received: by outflank-mailman (input) for mailman id 1360576;
+ Sat, 11 Jul 2026 18:48:11 +0000
 Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wicju-0005Xq-TQ
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:47:51 +0000
+ (envelope-from <ljs@kernel.org>) id 1wickF-0005YO-Jx
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:48:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wicju-003keY-AS
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:47:50 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wickF-00ANVP-0l
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:48:11 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a528f9c-2eae-0a2a0a5409dd-0a2a45029662-18
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:47:50 +0200
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ id 6a528fa4-bab6-0a2a0a5309dd-0a2a4503ebce-26
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:48:11 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
  (envelope-from <ljs@kernel.org>)
- id 6a528fd4-64c6-0a2a45020019-aceafc1fce58-3
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:47:49 +0200
+ id 6a528fe9-f2d2-0a2a45030019-ac6904fece62-3
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:48:10 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3AAA141655;
+ by tor.source.kernel.org (Postfix) with ESMTP id 49C58601D9;
+ Sat, 11 Jul 2026 18:48:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E9F1F00A3A;
  Sat, 11 Jul 2026 18:47:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4801F000E9;
- Sat, 11 Jul 2026 18:47:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,23 +58,23 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783795668;
-	bh=mLC9P7bLR/Uoa69VZ1d0HzztKwzCdHVcxkdSF4M05FQ=;
+	s=k20260515; t=1783795689;
+	bh=QPt/8l9E60JoRhMjGZtDOkVB0VSnW+l2hm5OFyFrrO0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=cWfdCojd9BEVdJixJem5fW1yN2WMCBSqX49JBrY8VEVdZfJU2N7N3Nxjti2dd1PAY
-	 jHUCK8DxeZrKYnvyB+RT9x7Cp2M5SoYFjZcIsDmFeaH1lqF767UeNHIIBPY+Sng5Fp
-	 MK+9v3J7Qa9RSE25T4WS2oSi8fTCtKzWW6Odi2CaiQPPbEjTa8vRRaWJWdUuMUts4O
-	 cA9jeJjD4VBwS0DTGUMhgeHN9UmX28wOStoae3Af6e7oQlz0+Dgt1jAYXhFRrvXj3V
-	 aDj9iQonQd8MmaaAgMBdzyflHOa0sh1Ocs8CIFYwiYPnS5VCh7VghyS+RJDWLO0kSW
-	 ijUTjw6rx6hTw==
+	b=jgpXcvfv3gVBn7IsGBF1ebSBCDETWMhhmUgGYFu1KJSh6jDQWPcTX0Vq7whuKCVn4
+	 rBhFdMRmgxmdR8P0PcWxbkTlO8COzjvSFflXXXwYeV1HcoXi8sN68u8NJ26w+IOyUw
+	 R0sApERkImbfGC1PQUNQIDENSFzQep8HDEipIa0GQAQDHYmD1VBxVxmWBk3vGxNW/K
+	 4N9W61bIOsobxULyDZZV6QFTrlSEId1V48hblg2M8NWfCHnUNfV+Pr7EKw+8P7wBkV
+	 cuWci1FXthx0PZWUsCVBzadkDWBmiusvn/RlVjMBQh/ePtU/5mvkHHdKyTyd9zk3sK
+	 /EpfagqzUOOIA==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:03 +0100
-Subject: [PATCH v2 06/13] mm/vma: convert vm_pgprot_modify() to use
- vma_flags_t and rename
+Date: Sat, 11 Jul 2026 19:45:04 +0100
+Subject: [PATCH v2 07/13] mm/vma: rename vma_get_page_prot to
+ vma_flags_to_page_prot
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-6-0fa2357d5431@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-7-0fa2357d5431@kernel.org>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -146,27 +146,27 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4379; i=ljs@kernel.org;
- h=from:subject:message-id; bh=zyqVv3UzBLKq1hjuUUCPSl3cGoER1z2LvGWjiRKvzK0=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1XKLHOjEnRP75gpcyaV01nzvXnrX6+LO73lGlC/
- +aJsv8/0VHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJBNoyMuzw9q5WXt7gt/vl
- TK3NR7uCs2/mFnmo127Y8Mp28h/pyrmMDPe0ts0S3/2Ix3jO9zPB+xdkc/g3qqdk5hRZZBpk9Qb
- 58QMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2845; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Soud7SJAfopgWlkROt1dYPu535d7z0wbh0cd1bt/8n8=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1r+Lfnqbc90vrVGDSl+P4cT/kJqy/bTGI35c5dL
+ sXF8uhaRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACaSn8zwP+Tvx29OMZ4Olxy3
+ dh5LDd7V18X908Jec02jyvrfMTdLNRj+cLwPSWPNn3D00+v715gv/5eulHkbvKPiskGWQoG+s6U
+ EAwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-purgate-ID: tlsNG-720697/1783795670-3EF43A87-CDF4D48B/0/0
+X-purgate-ID: tlsNG-33051d/1783795690-CA152CF4-CAC3BF67/0/0
 X-purgate-type: clean
-X-purgate-size: 4381
+X-purgate-size: 2847
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,linux.dev:email];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:david@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:tsbogend@alpha.franken.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:hughd@google.com,m:baolin.wang@linux.alibaba.com,m:jannh@google.com,m:pfalcato@suse.de,m:muchun.song@linux.dev,m:osalvador@suse.de,m:ziy@nvidia.com,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:linux+etnaviv@armlinux.org.uk,m:christian.gmeiner@gmail.com,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:jani.ni
@@ -194,19 +194,13 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 04DB1743EDA
+X-Rspamd-Queue-Id: 2E25F743EDB
 
-Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
-rename to vma_pgprot_modify() accordingly.
+Having vma_get_page_prot() refer to VMA flags and vma_set_page_prot() refer
+to a VMA is confusing.
 
-This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
-order to eliminate the arbitrary limit of the number of bits in a system
-word on available VMA flags.
-
-Update VMA userland tests accordingly, updating vma_set_page_prot() to no
-longer inline vma_pgprot_modify(), rather we can simply define
-vma_pgprot_modify() as a static inline function and the tests will pick it
-up from vma.h.
+Rename vma_get_page_prot() to vma_flags_to_page_prot() to resolve this
+confusion.
 
 No functional change intended.
 
@@ -214,95 +208,73 @@ Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/mmap.c                       |  8 ++++----
- mm/vma.c                        |  2 +-
- mm/vma.h                        |  6 ++++--
- tools/testing/vma/include/dup.h | 12 +++++-------
- 4 files changed, 14 insertions(+), 14 deletions(-)
+ include/linux/mm.h              | 4 ++--
+ mm/vma.c                        | 2 +-
+ mm/vma.h                        | 2 +-
+ tools/testing/vma/include/dup.h | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/mm/mmap.c b/mm/mmap.c
-index ae9a5018e20e..2076c70e7700 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -80,13 +80,13 @@ core_param(ignore_rlimit_data, ignore_rlimit_data, bool, 0644);
- /* Update vma->vm_page_prot to reflect vma->vm_flags. */
- void vma_set_page_prot(struct vm_area_struct *vma)
- {
--	vm_flags_t vm_flags = vma->vm_flags;
-+	vma_flags_t vma_flags = vma->flags;
- 	pgprot_t vm_page_prot;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 5b3825fddf58..b8fe40f89d87 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4603,7 +4603,7 @@ static inline bool range_in_vma_desc(const struct vm_area_desc *desc,
+ #ifdef CONFIG_MMU
+ pgprot_t vm_get_page_prot(vm_flags_t vm_flags);
  
--	vm_page_prot = vm_pgprot_modify(vma->vm_page_prot, vm_flags);
-+	vm_page_prot = vma_pgprot_modify(vma->vm_page_prot, vma_flags);
- 	if (vma_wants_writenotify(vma, vm_page_prot)) {
--		vm_flags &= ~VM_SHARED;
--		vm_page_prot = vm_pgprot_modify(vm_page_prot, vm_flags);
-+		vma_flags_clear(&vma_flags, VMA_SHARED_BIT);
-+		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
- 	}
- 	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
- 	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
+ 
+@@ -4616,7 +4616,7 @@ static inline pgprot_t vm_get_page_prot(vm_flags_t vm_flags)
+ {
+ 	return __pgprot(0);
+ }
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	return __pgprot(0);
+ }
 diff --git a/mm/vma.c b/mm/vma.c
-index 1f443d979a7d..a74a0e467c63 100644
+index a74a0e467c63..38481aca7321 100644
 --- a/mm/vma.c
 +++ b/mm/vma.c
-@@ -2176,7 +2176,7 @@ bool vma_wants_writenotify(struct vm_area_struct *vma, pgprot_t vm_page_prot)
- 	/* The open routine did something to the protections that pgprot_modify
- 	 * won't preserve? */
- 	if (pgprot_val(vm_page_prot) !=
--	    pgprot_val(vm_pgprot_modify(vm_page_prot, vma->vm_flags)))
-+	    pgprot_val(vma_pgprot_modify(vm_page_prot, vma->flags)))
- 		return false;
+@@ -56,7 +56,7 @@ struct mmap_state {
+ 		.pglen = PHYS_PFN(len_),				\
+ 		.vma_flags = vma_flags_,				\
+ 		.file = file_,						\
+-		.page_prot = vma_get_page_prot(vma_flags_),		\
++		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
+ 	}
  
- 	/*
+ #define VMG_MMAP_STATE(name, map_, vma_)				\
 diff --git a/mm/vma.h b/mm/vma.h
-index 4eb85b4a6adc..8ca6e7e8ae28 100644
+index 8ca6e7e8ae28..0bc7d521e976 100644
 --- a/mm/vma.h
 +++ b/mm/vma.h
-@@ -541,9 +541,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
- }
- 
+@@ -543,7 +543,7 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
  #ifdef CONFIG_MMU
--static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
-+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+ static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
  {
--	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
-+	const pgprot_t prot = vma_get_page_prot(vma_flags);
-+
-+	return pgprot_modify(oldprot, prot);
- }
- #endif
+-	const pgprot_t prot = vma_get_page_prot(vma_flags);
++	const pgprot_t prot = vma_flags_to_page_prot(vma_flags);
  
+ 	return pgprot_modify(oldprot, prot);
+ }
 diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 773e23303e26..24955a1e318a 100644
+index 24955a1e318a..8621a7ae8980 100644
 --- a/tools/testing/vma/include/dup.h
 +++ b/tools/testing/vma/include/dup.h
-@@ -1424,20 +1424,18 @@ struct vm_area_struct *vma_iter_next_range(struct vma_iterator *vmi)
- }
+@@ -1545,7 +1545,7 @@ static inline int get_sysctl_max_map_count(void)
+ #define pgtable_supports_soft_dirty()	IS_ENABLED(CONFIG_MEM_SOFT_DIRTY)
+ #endif
  
- bool vma_wants_writenotify(struct vm_area_struct *vma, pgprot_t vm_page_prot);
-+static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags);
- 
- /* Update vma->vm_page_prot to reflect vma->vm_flags. */
- static inline void vma_set_page_prot(struct vm_area_struct *vma)
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
  {
--	vm_flags_t vm_flags = vma->vm_flags;
-+	vma_flags_t vma_flags = vma->flags;
- 	pgprot_t vm_page_prot;
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
  
--	/* testing: we inline vm_pgprot_modify() to avoid clash with vma.h. */
--	vm_page_prot = pgprot_modify(vma->vm_page_prot, vm_get_page_prot(vm_flags));
--
-+	vm_page_prot = vma_pgprot_modify(vma->vm_page_prot, vma_flags);
- 	if (vma_wants_writenotify(vma, vm_page_prot)) {
--		vm_flags &= ~VM_SHARED;
--		/* testing: we inline vm_pgprot_modify() to avoid clash with vma.h. */
--		vm_page_prot = pgprot_modify(vm_page_prot, vm_get_page_prot(vm_flags));
-+		vma_flags_clear(&vma_flags, VMA_SHARED_BIT);
-+		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
- 	}
- 	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
- 	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
 
 -- 
 2.55.0
