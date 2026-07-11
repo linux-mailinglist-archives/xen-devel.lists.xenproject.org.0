@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yIjQAD0mU2oUYAMAu9opvQ
+	id dtMzLDsmU2oGYAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:33 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84233743EF2
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D50743ED9
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b="YgX1w/cj";
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=KCh2Wp49;
 	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1360584.1613507 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1360586.1613515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkL-0000lj-4H; Sun, 12 Jul 2026 05:28:57 +0000
+	id 1wimkL-0000vE-Qe; Sun, 12 Jul 2026 05:28:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1360584.1613507; Sun, 12 Jul 2026 05:28:57 +0000
+Received: by outflank-mailman (output) from mailman id 1360586.1613515; Sun, 12 Jul 2026 05:28:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkK-0000a7-P7; Sun, 12 Jul 2026 05:28:56 +0000
-Received: by outflank-mailman (input) for mailman id 1360584;
- Sat, 11 Jul 2026 18:49:35 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wimkL-0000kZ-AX; Sun, 12 Jul 2026 05:28:57 +0000
+Received: by outflank-mailman (input) for mailman id 1360586;
+ Sat, 11 Jul 2026 18:49:56 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wiclb-0005bD-6R
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:49:35 +0000
+ (envelope-from <ljs@kernel.org>) id 1wiclw-0005c8-7h
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:49:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wicla-009O5O-Jl
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:49:34 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wiclv-00ANfV-Km
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:49:55 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a528fa6-e002-0a2a0a5209dd-0a2a450bc08c-46
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:49:34 +0200
+ id 6a52902c-bab6-0a2a0a5309dd-0a2a4502b338-16
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:49:55 +0200
 Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
  (envelope-from <ljs@kernel.org>)
- id 6a52903d-b7da-0a2a450b0019-ac6904fe91b2-3
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:49:34 +0200
+ id 6a529052-64c6-0a2a45020019-ac6904fe909e-3
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:49:55 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0EA7B60052;
+ by tor.source.kernel.org (Postfix) with ESMTP id EB33F601D9;
+ Sat, 11 Jul 2026 18:49:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE8B1F000E9;
  Sat, 11 Jul 2026 18:49:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABD01F00A3A;
- Sat, 11 Jul 2026 18:49:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,22 +58,23 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783795772;
-	bh=F7JbYfoR0cBo3rK9+sjl2GjH5zAlrFeYJDLZN+6KwQc=;
+	s=k20260515; t=1783795793;
+	bh=Fr9+W5ioGfovNH8dryM/kzP+up/ElY+Oy2uwfNl+UZQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YgX1w/cjR8WW7yAZK54+rQ0d90kWJBtvSsotwFoOsbT1jEjUv+GBeJk+emgMy+T1b
-	 4NmtgJa3KAaWfNdlVas+DLRld0NYlKD608QgNo3ayghduF02ZaZspWu7cFAVIEwmQT
-	 i/QMae1t1yCToyOSygT8AGwDD8ih5WV9TxgWALUrWKoKSlJDM32b/4wZb56F/MNqwa
-	 ibM6KyzyLmz+I9eMGK75CzcO/6KXshFhD90r8Nyp0a3VNBMw8MLH6TTnhDIiICXDCE
-	 qX519KpT+qQjZgiMubdoDozDvMvaNHUGSTjH3oTfJO/3AqH3CmZEAioli+P7/Fd/Gr
-	 Zw3fCwHDxMEWQ==
+	b=KCh2Wp49fergCiFPuJT2qu+NLRDa7tcNsKE68tr0X57/gxQeoxFEQALVKzPPGCBCs
+	 1S2aNlk++tT/2vIRKjYUsq8gWVO5hc3Pv8Wj7ehGz3ecvbnsQJtpGf+Z3pEmCQ5Zpb
+	 0G4kl6AsVgK7NukwvKxLJBKVBgW4cGFGkyDpvnIWMOL+cqs+XQ3maPfs9w3a7IE778
+	 VHeldKO9fd0SwC8Wj8f7RSPZ4Jk+y+nxR+cKOZdHbk7BShTL6YF9RcqJ6dbx/Ra7Fm
+	 TE7Z2bwnikCj/QtjUnOZ8uMRw3s/GTnG9x5fnIpGmsCUudhHKyJXYAWkomP4MG/RhR
+	 DQejuUUlKg3zw==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:08 +0100
-Subject: [PATCH v2 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Date: Sat, 11 Jul 2026 19:45:09 +0100
+Subject: [PATCH v2 12/13] mm/mprotect: convert mprotect code to use
+ vma_flags_t
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-11-0fa2357d5431@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -145,27 +146,27 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10659; i=ljs@kernel.org;
- h=from:subject:message-id; bh=12NkDtkZsgv4tumIZ1Li1kdvxPQKo0e0f0d/e5C85HE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q2U/t/Zc52rw7NtrciSmor9vhun7bDe9HnRAg7Ja
- cyqWbnrOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRpRwM/52KL+dGd2U+vcZ6
- 5VvA0uleV8Mu5Ck9uXaQ8eBm7fZnmj2MDN2eM1TPyd28I+kbcNei+mhv94Tzv59s1gvJ8+BYoHC
- ZkR0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2996; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=srWqnQOI/gzNhpzulQ661PMe2/Xdt3Viy9gVjyuNxVs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q08lh17/Pn9DO6GppTAjP7Fs7Y758nqdTXNm/9By
+ 2P20jvmHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIo6cM/6OUTKz3VR0/Kd/z
+ 9N+FX84lasa5MY7rRCqXPVqaO+Hv4qeMDLfOLP6RuO0wS2eR6YK62aGFcS/ctwjs0Qu2mW4r7s7
+ Dww8A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-purgate-ID: tlsNG-42698a/1783795774-4A3749ED-BF65E665/0/0
+X-purgate-ID: tlsNG-720697/1783795795-3E944A87-F23A9418/0/0
 X-purgate-type: clean
-X-purgate-size: 10661
+X-purgate-size: 2998
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,linux.dev:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:david@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:tsbogend@alpha.franken.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:hughd@google.com,m:baolin.wang@linux.alibaba.com,m:jannh@google.com,m:pfalcato@suse.de,m:muchun.song@linux.dev,m:osalvador@suse.de,m:ziy@nvidia.com,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:linux+etnaviv@armlinux.org.uk,m:christian.gmeiner@gmail.com,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:jani.ni
@@ -193,290 +194,93 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 84233743EF2
+X-Rspamd-Queue-Id: F1D50743ED9
 
 Replace use of the legacy vm_flags_t flags with vma_flags_t values
-throughout the mlock logic.
+throughout the mprotect logic.
+
+Note that we retain the legacy vm_flags_t bit shifting code in
+do_mprotect_pkey(), deferring a vma_flags_t approach to this for the time
+being.
 
 Additionally update comments to reflect the changes to be consistent.
 
 No functional change intended.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/mlock.c | 88 +++++++++++++++++++++++++++++++++-----------------------------
- 1 file changed, 47 insertions(+), 41 deletions(-)
+ mm/mprotect.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 34ffa954006f..efa6716e4dfb 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -329,7 +329,7 @@ static inline bool allow_mlock_munlock(struct folio *folio,
- 	 * be split. And the pages are not in VM_LOCKed VMA
- 	 * can be reclaimed.
- 	 */
--	if (!(vma->vm_flags & VM_LOCKED))
-+	if (!vma_test(vma, VMA_LOCKED_BIT))
- 		return true;
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index dc27bbc1712f..2888ee638d87 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -40,7 +40,7 @@
  
- 	/* folio_within_range() cannot take KSM, but any small folio is OK */
-@@ -368,7 +368,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		folio = pmd_folio(*pmd);
- 		if (folio_is_zone_device(folio))
+ static bool maybe_change_pte_writable(struct vm_area_struct *vma, pte_t pte)
+ {
+-	if (WARN_ON_ONCE(!(vma->vm_flags & VM_WRITE)))
++	if (WARN_ON_ONCE(!vma_test(vma, VMA_WRITE_BIT)))
+ 		return false;
+ 
+ 	/* Don't touch entries that are not even readable. */
+@@ -97,7 +97,7 @@ static bool can_change_shared_pte_writable(struct vm_area_struct *vma,
+ bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+ 			     pte_t pte)
+ {
+-	if (!(vma->vm_flags & VM_SHARED))
++	if (!vma_test(vma, VMA_SHARED_BIT))
+ 		return can_change_private_pte_writable(vma, addr, pte);
+ 
+ 	return can_change_shared_pte_writable(vma, pte);
+@@ -194,7 +194,7 @@ static __always_inline void set_write_prot_commit_flush_ptes(struct vm_area_stru
+ {
+ 	bool set_write;
+ 
+-	if (vma->vm_flags & VM_SHARED) {
++	if (vma_test(vma, VMA_SHARED_BIT)) {
+ 		set_write = can_change_shared_pte_writable(vma, ptent);
+ 		prot_commit_flush_ptes(vma, addr, ptep, oldpte, ptent, nr_ptes,
+ 				       /* idx = */ 0, set_write, tlb);
+@@ -846,8 +846,8 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
+ 		vm_unacct_memory(nrpages);
+ 
+ 	/*
+-	 * Private VM_LOCKED VMA becoming writable: trigger COW to avoid major
+-	 * fault on access.
++	 * Private VMA_LOCKED_BIT VMA becoming writable: trigger COW to avoid
++	 * major fault on access.
+ 	 */
+ 	if (vma_flags_test(&new_vma_flags, VMA_WRITE_BIT) &&
+ 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT) &&
+@@ -921,7 +921,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
  			goto out;
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -393,7 +393,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (!allow_mlock_munlock(folio, vma, start, end, step))
- 			goto next_entry;
- 
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -417,8 +417,8 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
-  * @end - end of range in @vma
-  * @new_vma_flags - the new set of flags for @vma.
-  *
-- * Called for mlock(), mlock2() and mlockall(), to set @vma VM_LOCKED;
-- * called for munlock() and munlockall(), to clear VM_LOCKED from @vma.
-+ * Called for mlock(), mlock2() and mlockall(), to set @vma VMA_LOCKED_BIT;
-+ * called for munlock() and munlockall(), to clear VMA_LOCKED_BIT from @vma.
-  */
- static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 	unsigned long start, unsigned long end,
-@@ -431,14 +431,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 
- 	/*
- 	 * There is a slight chance that concurrent page migration,
--	 * or page reclaim finding a page of this now-VM_LOCKED vma,
-+	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
- 	 * will call mlock_vma_folio() and raise page's mlock_count:
- 	 * double counting, leaving the page unevictable indefinitely.
--	 * Communicate this danger to mlock_vma_folio() with VM_IO,
--	 * which is a VM_SPECIAL flag not allowed on VM_LOCKED vmas.
-+	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
-+	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
- 	 * mmap_lock is held in write mode here, so this weird
- 	 * combination should not be visible to other mmap_lock users;
--	 * but WRITE_ONCE so rmap walkers must see VM_IO if VM_LOCKED.
-+	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
- 	 */
- 	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		vma_flags_set(new_vma_flags, VMA_IO_BIT);
-@@ -458,7 +458,7 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- /*
-  * mlock_fixup  - handle mlock[all]/munlock[all] requests.
-  *
-- * Filters out "special" vmas -- VM_LOCKED never gets set for these, and
-+ * Filters out "special" vmas -- VMA_LOCKED_BIT never gets set for these, and
-  * munlock is a no-op.  However, for some special vmas, we go ahead and
-  * populate the ptes.
-  *
-@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
-  */
- static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	       struct vm_area_struct **prev, unsigned long start,
--	       unsigned long end, vm_flags_t newflags)
-+	       unsigned long end, vma_flags_t *new_vma_flags)
- {
--	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
- 	const vma_flags_t old_vma_flags = vma->flags;
- 	struct mm_struct *mm = vma->vm_mm;
- 	int nr_pages;
- 	int ret = 0;
- 
--	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
-+	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
- 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
- 		/*
--		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
--		 * For secretmem, don't allow the memory to be unlocked.
-+		 * Don't set VMA_LOCKED_BIT or VMA_LOCKONFAULT_BIT and don't
-+		 * count.  For secretmem, don't allow the memory to be unlocked.
- 		 */
- 		goto out;
- 	}
- 
--	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
-+	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto out;
-@@ -493,7 +492,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	 * Keep track of amount of locked VM.
- 	 */
- 	nr_pages = (end - start) >> PAGE_SHIFT;
--	if (!vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT))
-+	if (!vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = -nr_pages;
- 	else if (vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = 0;
-@@ -502,15 +501,15 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	/*
- 	 * vm_flags is protected by the mmap_lock held in write mode.
- 	 * It's okay if try_to_unmap_one unmaps a page just after we
--	 * set VM_LOCKED, populate_vma_page_range will bring it back.
-+	 * set VMA_LOCKED_BIT, populate_vma_page_range will bring it back.
- 	 */
--	if (vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT) &&
-+	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT) &&
- 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
- 		/* No work to do, and mlocking twice would be wrong */
- 		vma_start_write(vma);
--		vma->flags = new_vma_flags;
-+		vma->flags = *new_vma_flags;
+ 		start = vma->vm_start;
+ 		error = -EINVAL;
+-		if (!(vma->vm_flags & VM_GROWSDOWN))
++		if (!vma_test(vma, VMA_GROWSDOWN_BIT))
+ 			goto out;
  	} else {
--		mlock_vma_pages_range(vma, start, end, &new_vma_flags);
-+		mlock_vma_pages_range(vma, start, end, new_vma_flags);
+ 		if (vma->vm_start > start)
+@@ -929,7 +929,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		if (unlikely(grows & PROT_GROWSUP)) {
+ 			end = vma->vm_end;
+ 			error = -EINVAL;
+-			if (!(vma->vm_flags & VM_GROWSUP))
++			if (!vma_test_single_mask(vma, VMA_GROWSUP))
+ 				goto out;
+ 		}
  	}
- out:
- 	*prev = vma;
-@@ -518,7 +517,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- }
+@@ -953,7 +953,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		}
  
- static int apply_vma_lock_flags(unsigned long start, size_t len,
--				vm_flags_t flags)
-+				const vma_flags_t *flags)
- {
- 	unsigned long nstart, end, tmp;
- 	struct vm_area_struct *vma, *prev;
-@@ -543,18 +542,20 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
- 	tmp = vma->vm_start;
- 	for_each_vma_range(vmi, vma, end) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags;
+ 		/* Does the application expect PROT_READ to imply PROT_EXEC */
+-		if (rier && (vma->vm_flags & VM_MAYEXEC))
++		if (rier && vma_test(vma, VMA_MAYEXEC_BIT))
+ 			prot |= PROT_EXEC;
  
- 		if (vma->vm_start != tmp)
- 			return -ENOMEM;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= flags;
-+		newflags = vma->flags;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, *flags);
-+
- 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
- 		tmp = vma->vm_end;
- 		if (tmp > end)
- 			tmp = end;
--		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, newflags);
-+		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
- 		if (error)
- 			return error;
- 		tmp = vma_iter_end(&vmi);
-@@ -589,7 +590,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
- 		end = start + len;
- 
- 	for_each_vma_range(vmi, vma, end) {
--		if (vma->vm_flags & VM_LOCKED) {
-+		if (vma_test(vma, VMA_LOCKED_BIT)) {
- 			if (start > vma->vm_start)
- 				count -= (start - vma->vm_start);
- 			if (end < vma->vm_end) {
-@@ -615,7 +616,8 @@ static int __mlock_posix_error_return(long retval)
- 	return retval;
- }
- 
--static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t flags)
-+static __must_check int do_mlock(unsigned long start, size_t len,
-+				 vma_flags_t *flags)
- {
- 	unsigned long locked;
- 	unsigned long lock_limit;
-@@ -664,24 +666,27 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
- 
- SYSCALL_DEFINE2(mlock, unsigned long, start, size_t, len)
- {
--	return do_mlock(start, len, VM_LOCKED);
-+	vma_flags_t flags = mk_vma_flags(VMA_LOCKED_BIT);
-+
-+	return do_mlock(start, len, &flags);
- }
- 
- SYSCALL_DEFINE3(mlock2, unsigned long, start, size_t, len, int, flags)
- {
--	vm_flags_t vm_flags = VM_LOCKED;
-+	vma_flags_t vma_flags = mk_vma_flags(VMA_LOCKED_BIT);
- 
- 	if (flags & ~MLOCK_ONFAULT)
- 		return -EINVAL;
- 
- 	if (flags & MLOCK_ONFAULT)
--		vm_flags |= VM_LOCKONFAULT;
-+		vma_flags_set(&vma_flags, VMA_LOCKONFAULT_BIT);
- 
--	return do_mlock(start, len, vm_flags);
-+	return do_mlock(start, len, &vma_flags);
- }
- 
- SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- {
-+	vma_flags_t flags = EMPTY_VMA_FLAGS;
- 	int ret;
- 
- 	start = untagged_addr(start);
-@@ -691,7 +696,7 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- 
- 	if (mmap_write_lock_killable(current->mm))
- 		return -EINTR;
--	ret = apply_vma_lock_flags(start, len, 0);
-+	ret = apply_vma_lock_flags(start, len, &flags);
- 	mmap_write_unlock(current->mm);
- 
- 	return ret;
-@@ -705,14 +710,15 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
-  * There are a couple of subtleties with this.  If mlockall() is called multiple
-  * times with different flags, the values do not necessarily stack.  If mlockall
-  * is called once including the MCL_FUTURE flag and then a second time without
-- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
-+ * it, VMA_LOCKED_BIT and VMA_LOCKONFAULT_BIT will be cleared from
-+ * mm->def_vma_flags.
-  */
- static int apply_mlockall_flags(int flags)
- {
- 	VMA_ITERATOR(vmi, current->mm, 0);
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma, *prev = NULL;
--	vm_flags_t to_add = 0;
-+	vma_flags_t to_add = EMPTY_VMA_FLAGS;
- 
- 	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
- 	if (flags & MCL_FUTURE) {
-@@ -726,20 +732,20 @@ static int apply_mlockall_flags(int flags)
- 	}
- 
- 	if (flags & MCL_CURRENT) {
--		to_add |= VM_LOCKED;
-+		vma_flags_set(&to_add, VMA_LOCKED_BIT);
- 		if (flags & MCL_ONFAULT)
--			to_add |= VM_LOCKONFAULT;
-+			vma_flags_set(&to_add, VMA_LOCKONFAULT_BIT);
- 	}
- 
- 	for_each_vma(vmi, vma) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags = vma->flags;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= to_add;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, to_add);
- 
- 		error = mlock_fixup(&vmi, vma, &prev, vma->vm_start, vma->vm_end,
--				    newflags);
-+				    &newflags);
- 		/* Ignore errors, but prev needs fixing up. */
- 		if (error)
- 			prev = vma;
+ 		/*
 
 -- 
 2.55.0
