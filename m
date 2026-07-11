@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id B6TsMTwmU2oTYAMAu9opvQ
+	id ovx5Gz4mU2oZYAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:32 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51C5B743EF1
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D802743F0B
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 07:29:34 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=kernel.org header.s=k20260515 header.b=HwBiHjyd;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=b3IJ5UKX;
 	dmarc=pass (policy=quarantine) header.from=kernel.org;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1360562.1613430 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1360564.1613431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkG-0007dQ-SW; Sun, 12 Jul 2026 05:28:52 +0000
+	id 1wimkG-0007em-VR; Sun, 12 Jul 2026 05:28:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1360562.1613430; Sun, 12 Jul 2026 05:28:52 +0000
+Received: by outflank-mailman (output) from mailman id 1360564.1613431; Sun, 12 Jul 2026 05:28:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wimkG-0007c9-Ib; Sun, 12 Jul 2026 05:28:52 +0000
-Received: by outflank-mailman (input) for mailman id 1360562;
- Sat, 11 Jul 2026 18:45:46 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wimkG-0007cZ-Pc; Sun, 12 Jul 2026 05:28:52 +0000
+Received: by outflank-mailman (input) for mailman id 1360564;
+ Sat, 11 Jul 2026 18:46:07 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ljs@kernel.org>) id 1wichu-0005G6-ED
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:45:46 +0000
+ (envelope-from <ljs@kernel.org>) id 1wiciE-0005H5-VG
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 18:46:07 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wicht-00A4vL-6P
- for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:45:45 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wiciD-003kRr-R3
+ for xen-devel@lists.xenproject.org; Sat, 11 Jul 2026 20:46:05 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ljs@kernel.org>)
- id 6a528ec8-5cb7-0a2a0a5109dd-0a2a4501eb4c-28
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:45:45 +0200
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ id 6a528f27-2eae-0a2a0a5409dd-0a2a4504e330-36
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:46:05 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
  (envelope-from <ljs@kernel.org>)
- id 6a528f57-3ea4-0a2a45010019-aceafc1fbcc6-3
- for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:45:44 +0200
+ id 6a528f6c-b1e5-0a2a45040019-ac6904fead5a-3
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Jul 2026 20:46:05 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE39341655;
+ by tor.source.kernel.org (Postfix) with ESMTP id EA6E6601D9;
+ Sat, 11 Jul 2026 18:46:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2428F1F00A3A;
  Sat, 11 Jul 2026 18:45:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF9E11F000E9;
- Sat, 11 Jul 2026 18:45:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,27 +58,25 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1783795542;
-	bh=6Gq4ADgsF216KVXDCQvsNulS1k0GIw7kWSrVwfWrShU=;
-	h=From:Subject:Date:To:Cc;
-	b=HwBiHjydO82LFji0UszYF+rut4yPEXSI9+yS+Eeji5ZCbyrT7X+W6u1SUhVQrniFh
-	 k7zXkJTLpkdkF17TCk/BE+KcBy5UxuqcCjXmdN5PS9ECGxuOXb2w3UmsQyrZZxq7/t
-	 c+KqnJP4WL+6PC8X11/5T9fjXKiXHAd7Xpt/IXxNiG+CVT7P4gTg2l4JBZQF5qRc7Q
-	 jPA9ta75uC74wIyT42vdmuOfCbRm4RxExyPtvpLAMrtRGgX9U5roby63Qt1Y3NlQfu
-	 ZTdoDsuPZHxU6x5M8BAHXT6+GUlCHjJtm0CqjR6W2GWRZYz7riaLxSYOABQQKBAl2z
-	 Lovf7UvBmWVMw==
+	s=k20260515; t=1783795563;
+	bh=4X8Clz3fd1owNiO9Pv6vUhPn41dQXdJma9VDgzp5GpU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=b3IJ5UKXJWHdstaNE7y5ot+/3k3QKa6AhRc7Wffa4hfZ305PVpEvaJKNGHLJ3wiys
+	 kqVIiX25qZVXJaTT+Qgjr5ODbLIA55N49hux0vbRs0et3au9LBQKwrVwghVFXrLl7E
+	 817VHGE33QrB50d5C1LscqS/7pNneUD0nYGcnWDai8gQyjsw4TcvH+fgmF1OwsvnN9
+	 2pvaWR1/mhz3yp4qVYs3qwET2uh7D30e/8XDBnKYPp1TnRGR39oxh4CFkY52uJlQ/8
+	 VseCL2NAhZF2r9D5qvydoKSBQPUnQ2/tkYhPSxvwJKQj0iFEdbJlYmSDUW8OLt0N5o
+	 c+59QXF0t/z1Q==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Subject: [PATCH v2 00/13] mm: convert more vm_flags_t users to vma_flags_t
-Date: Sat, 11 Jul 2026 19:44:57 +0100
-Message-Id: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+Date: Sat, 11 Jul 2026 19:44:58 +0100
+Subject: [PATCH v2 01/13] mm: introduce vma_flags_can_grow() and
+ vma_can_grow()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIACmPUmoC/yWNwQ6CMBAFf4Xs2TZtFYqe/A/DAcq2FIGaLTYaw
- r8LeJxk3rwFIpLHCLdsAcLkow/TBuqUgenqySHz7caghCqElpI1F5bGmtmhdpGNI2takZ/LvLV
- Xa2BbvQit/xzFR/Xn+G56NPOe2Y3OxznQ97hMcvfAhITEpS6VLkShBXd+5kMf70+kCQceyEG1r
- usP7sodQ68AAAA=
-X-Change-ID: 20260711-b4-vma-flags-mm-bd05385df9fc
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260711-b4-vma-flags-mm-v2-1-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
  David Hildenbrand <david@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
@@ -146,20 +144,19 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
  linux-tegra@vger.kernel.org, virtualization@lists.linux.dev, 
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, 
- Jani Nikula <jani.nikula@intel.com>
+ linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9041; i=ljs@kernel.org;
- h=from:subject:message-id; bh=LqsBGIOBz5PhtEm4kn0sretpylkcze+o2dhAS4zKBkg=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i02/1R97n5LZdUBvaNhKqyiTOKbuqcr+39vmCDrN
- C/ldFJnRykLgxgXg6yYIsvzL+L7g0TC5nVe8HeDmcPKBDKEgYtTACYy7TDDP8WyBX46r8L/TZLs
- cZaTWbaR54Fcv03k49BlKk/5xW3LKhkZ3pq+mhJ2N67ur3lDuMiZzJwFGnk8BsunfPLc6v+h6dI
- LDgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2177; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=oSsuzEZdPIZ+otSvvS1qpHgk2++YqmMZy2jJkjlchbs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1DpYuvr35hfGA9T/DrI/smfbvJXDzdl/eEd9+FF
+ xnT800OdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiZhoM/6xY7sV0KDJr3XKY
+ uPtiX7X4ZaX5Xemv3hiY8c63tfCt1WL4xXQgV6XZa8a6lMQPuqVRFwM4zMVNbzY+TJao67/8NWA
+ vKwA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-purgate-ID: tlsNG-d62444/1783795545-3C4E30A8-A1819E4E/0/0
+X-purgate-ID: tlsNG-ebf023/1783795565-7F9AEFE7-FFD1824F/0/0
 X-purgate-type: clean
-X-purgate-size: 9043
+X-purgate-size: 2179
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -169,7 +166,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,linux.dev:email];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:david@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:tsbogend@alpha.franken.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:hughd@google.com,m:baolin.wang@linux.alibaba.com,m:jannh@google.com,m:pfalcato@suse.de,m:muchun.song@linux.dev,m:osalvador@suse.de,m:ziy@nvidia.com,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:linux+etnaviv@armlinux.org.uk,m:christian.gmeiner@gmail.com,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:jani.ni
@@ -189,7 +186,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[101];
+	RCPT_COUNT_GT_50(0.00)[100];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
@@ -197,213 +194,75 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 51C5B743EF1
+X-Rspamd-Queue-Id: 1D802743F0B
 
-This series makes further progress in converting usage of the deprecated
-vm_flags_t type to its replacement, vma_flags_t.
+These test whether the VMA has stack semantics, i.e. is able to grow
+upwards or downwards depending on the architecture.
 
-It focuses on mm, though updates some users of mm APIs also.
+In order to account for arches which do not support upward-growing stacks,
+introduce VMA_GROWSUP whose definition depends on the architecture
+supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
+to account for this.
 
-It updates:
+No functional change intended.
 
-* The core do_mmap() code path for VMA mapping.
-* Unmapped area logic.
-* The usage of mm->def_vma_flags.
-* VMA page protection bit logic.
-* General usage of VMA flags in core mm code, mlock, mprotect, mremap.
-
-REVIEWER/MERGER NOTE: This is dependent on [0], which must be merged before
-this.
-
-[0]:https://lore.kernel.org/linux-mm/20260710-b4-pre-scalable-cow-v2-0-2a5aa403d977@kernel.org/
-
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
-Changes in v2:
-* Rebased on to mm-new that has the 33 patch rework dependency in it.
-* Distributed tags, thanks everybody!
-* Moved VMA_STACK_INCOMPLETE_SETUP and VMA_STACK_EARLY VMA userland test defines
-  from 1/13 to 9/13 as per Zi.
-* Fixed whitespace in 3/13 as per Zi.
-* Updated 5/13 to use %*pb formatter for VMA flags (to match mm flags formatter)
-  in dump_mm(), as per Lance.
-* Updated 8/13 to update panthor_gem.c to vma_get_page_prot() as per Lance.
-* Fixed up comment type in 11/13 as per Lance.
-* Fixed bug of using VMA_GROWSUP_BIT rather than VMA_GROWSUP as per Lance
-  in 12/13.
-* Added detail about when we are and are not required to open code
-  vma_write_lock() for VMA flag mutators in the commit message for 13/13 as
-  per Lance and Zi.
+ include/linux/mm.h | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-v1:
-https://patch.msgid.link/cover.1782760670.git.ljs@kernel.org
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 32bb723ffbb9..7a7f559b3df0 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -474,6 +474,7 @@ enum {
+ #define VM_SAO		INIT_VM_FLAG(SAO)
+ #elif defined(CONFIG_PARISC)
+ #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
++#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
+ #elif defined(CONFIG_SPARC64)
+ #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
+ #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
+@@ -485,6 +486,7 @@ enum {
+ #endif
+ #ifndef VM_GROWSUP
+ #define VM_GROWSUP	VM_NONE
++#define VMA_GROWSUP	EMPTY_VMA_FLAGS
+ #endif
+ #ifdef CONFIG_ARM64_MTE
+ #define VM_MTE		INIT_VM_FLAG(MTE)
+@@ -1578,11 +1580,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
+ 		vma->vm_end >= vma->vm_mm->start_stack;
+ }
+ 
+-static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++static inline bool vma_flags_can_grow(const vma_flags_t *flags)
+ {
+-	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
++	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
++		return true;
++	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
++		return true;
++
++	return false;
++}
+ 
+-	if (!maybe_stack)
++static inline bool vma_can_grow(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_grow(&vma->flags);
++}
++
++static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++{
++	if (!vma_can_grow(vma))
+ 		return false;
+ 
+ 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
 
-To: Andrew Morton <akpm@linux-foundation.org>
-To: David Hildenbrand <david@kernel.org>
-To: "Liam R. Howlett" <liam@infradead.org>
-To: Vlastimil Babka <vbabka@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-To: Michal Hocko <mhocko@suse.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Benjamin LaHaise <bcrl@kvack.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>
-To: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-To: Hugh Dickins <hughd@google.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-To: Jann Horn <jannh@google.com>
-To: Pedro Falcato <pfalcato@suse.de>
-To: Muchun Song <muchun.song@linux.dev>
-To: Oscar Salvador <osalvador@suse.de>
-To: Zi Yan <ziy@nvidia.com>
-To: Nico Pache <npache@redhat.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-To: Dev Jain <dev.jain@arm.com>
-To: Barry Song <baohua@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-To: Usama Arif <usama.arif@linux.dev>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Michael Ellerman <mpe@ellerman.id.au>
-To: Nicholas Piggin <npiggin@gmail.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Lucas Stach <l.stach@pengutronix.de>
-To: Russell King <linux+etnaviv@armlinux.org.uk>
-To: Christian Gmeiner <christian.gmeiner@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>
-To: Seung-Woo Kim <sw0312.kim@samsung.com>
-To: Kyungmin Park <kyungmin.park@samsung.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-To: Alim Akhtar <alim.akhtar@samsung.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Tvrtko Ursulin <tursulin@ursulin.net>
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Sean Paul <sean@poorly.run>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: Lyude Paul <lyude@redhat.com>
-To: Danilo Krummrich <dakr@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Sandy Huang <hjc@rock-chips.com>
-To: Heiko Stübner <heiko@sntech.de>
-To: Andy Yan <andy.yan@rock-chips.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-To: Mikko Perttunen <mperttunen@nvidia.com>
-To: Jonathan Hunter <jonathanh@nvidia.com>
-To: Gerd Hoffmann <kraxel@redhat.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-To: Gurchetan Singh <gurchetansingh@chromium.org>
-To: Chia-I Wu <olvaffe@gmail.com>
-To: Zack Rusin <zack.rusin@broadcom.com>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Matthew Brost <matthew.brost@intel.com>
-To: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-To: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-To: Helge Deller <deller@gmx.de>
-To: Kees Cook <kees@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: ljs@kernel.org
-Cc: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mips@vger.kernel.org
-Cc: linux-aio@kvack.org
-Cc: linux-fsdevel@vger.kernel.org
-Cc: linuxppc-dev@lists.ozlabs.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: etnaviv@lists.freedesktop.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-tegra@vger.kernel.org
-Cc: virtualization@lists.linux.dev
-Cc: intel-xe@lists.freedesktop.org
-Cc: xen-devel@lists.xenproject.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: linux-sound@vger.kernel.org
-
----
-Lorenzo Stoakes (13):
-      mm: introduce vma_flags_can_grow() and vma_can_grow()
-      mm/vma: update do_mmap() to use vma_flags_t
-      mm: convert __get_unmapped_area() to use vma_flags_t
-      mm: update generic_get_unmapped_area[_topdown]() to use vma_flags_t
-      mm: prefer mm->def_vma_flags in mm logic
-      mm/vma: convert vm_pgprot_modify() to use vma_flags_t and rename
-      mm/vma: rename vma_get_page_prot to vma_flags_to_page_prot
-      mm: introduce vma_get_page_prot() and use it
-      mm/vma: update create_init_stack_vma() to use vma_flags_t
-      mm/vma: convert miscellaneous uses of VMA flags in core mm
-      mm/mlock: convert mlock code to use vma_flags_t
-      mm/mprotect: convert mprotect code to use vma_flags_t
-      mm/mremap: convert mremap code to use vma_flags_t
-
- arch/mips/kernel/vdso.c                     |   4 +-
- arch/powerpc/mm/book3s64/slice.c            |   6 +-
- drivers/gpu/drm/drm_gem.c                   |   2 +-
- drivers/gpu/drm/drm_gem_dma_helper.c        |   2 +-
- drivers/gpu/drm/drm_gem_shmem_helper.c      |   2 +-
- drivers/gpu/drm/etnaviv/etnaviv_gem.c       |   2 +-
- drivers/gpu/drm/exynos/exynos_drm_gem.c     |   6 +-
- drivers/gpu/drm/i915/gem/i915_gem_mman.c    |  12 +-
- drivers/gpu/drm/msm/msm_gem.c               |   2 +-
- drivers/gpu/drm/nouveau/nouveau_gem.c       |   2 +-
- drivers/gpu/drm/omapdrm/omap_fbdev.c        |   2 +-
- drivers/gpu/drm/omapdrm/omap_gem.c          |   6 +-
- drivers/gpu/drm/panthor/panthor_gem.c       |   2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c |   2 +-
- drivers/gpu/drm/tegra/gem.c                 |   2 +-
- drivers/gpu/drm/virtio/virtgpu_vram.c       |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |   2 +-
- drivers/gpu/drm/xe/xe_device.c              |   2 +-
- drivers/gpu/drm/xe/xe_mmio_gem.c            |   2 +-
- drivers/gpu/drm/xen/xen_drm_front_gem.c     |   2 +-
- drivers/video/fbdev/core/fb_io_fops.c       |   2 +-
- fs/aio.c                                    |   2 +-
- fs/hugetlbfs/inode.c                        |   3 +-
- include/linux/huge_mm.h                     |  10 +-
- include/linux/memfd.h                       |   6 +-
- include/linux/mm.h                          |  52 +++++++--
- include/linux/sched/mm.h                    |  13 +--
- ipc/shm.c                                   |   3 +-
- mm/debug.c                                  |   5 +-
- mm/huge_memory.c                            |  21 ++--
- mm/memfd.c                                  |  15 +--
- mm/mlock.c                                  |  99 +++++++++--------
- mm/mmap.c                                   | 164 +++++++++++++++-------------
- mm/mprotect.c                               |  16 +--
- mm/mremap.c                                 |  38 ++++---
- mm/nommu.c                                  |   3 +-
- mm/util.c                                   |  10 +-
- mm/vma.c                                    |  26 +++--
- mm/vma.h                                    |   8 +-
- mm/vma_exec.c                               |  20 ++--
- sound/core/memalloc.c                       |   2 +-
- tools/testing/vma/include/dup.h             |  23 ++--
- 42 files changed, 341 insertions(+), 264 deletions(-)
----
-base-commit: 61cccb8363fcc282d4ae0555b8739dd227f5ad0b
-change-id: 20260711-b4-vma-flags-mm-bd05385df9fc
-
-Cheers,
 -- 
-Lorenzo Stoakes <ljs@kernel.org>
+2.55.0
 
 
