@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id MbvQNiifU2qkcQMAu9opvQ
+	id WwFJFyifU2qhcQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 16:05:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BED9744ED8
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 16:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA2E5744ED3
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Jul 2026 16:05:27 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=epam.com header.s=selector1 header.b=c5eFi0IE;
+	dkim=pass header.d=epam.com header.s=selector1 header.b=WFn1G+gN;
 	dmarc=pass (policy=quarantine) header.from=epam.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1361068.1613567 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1361069.1613580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wiunZ-00017n-T4; Sun, 12 Jul 2026 14:04:49 +0000
+	id 1wiunb-0001Sn-2Z; Sun, 12 Jul 2026 14:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1361068.1613567; Sun, 12 Jul 2026 14:04:49 +0000
+Received: by outflank-mailman (output) from mailman id 1361069.1613580; Sun, 12 Jul 2026 14:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wiunZ-00014J-Oh; Sun, 12 Jul 2026 14:04:49 +0000
-Received: by outflank-mailman (input) for mailman id 1361068;
- Sun, 12 Jul 2026 14:04:47 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wiuna-0001RP-VS; Sun, 12 Jul 2026 14:04:50 +0000
+Received: by outflank-mailman (input) for mailman id 1361069;
+ Sun, 12 Jul 2026 14:04:48 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wiunX-00011o-Kj
- for xen-devel@lists.xenproject.org; Sun, 12 Jul 2026 14:04:47 +0000
+ (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wiunY-00011z-Lm
+ for xen-devel@lists.xenproject.org; Sun, 12 Jul 2026 14:04:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wiunX-004b44-07
- for xen-devel@lists.xenproject.org; Sun, 12 Jul 2026 16:04:47 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wiunY-001wfr-2Q
+ for xen-devel@lists.xenproject.org; Sun, 12 Jul 2026 16:04:48 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <dmytro_prokopchuk1@epam.com>)
- id 6a539eb8-e002-0a2a0a5209dd-0a2a4506b1e8-38
- for <xen-devel@lists.xenproject.org>; Sun, 12 Jul 2026 16:04:46 +0200
-Received: from [52.101.83.95]
+ id 6a539ec5-bab6-0a2a0a5309dd-0a2a450cb914-28
+ for <xen-devel@lists.xenproject.org>; Sun, 12 Jul 2026 16:04:48 +0200
+Received: from [52.101.83.131]
  (helo=GVXPR05CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
  (envelope-from <dmytro_prokopchuk1@epam.com>)
- id 6a539efe-0835-0a2a45060019-3465535f2cc0-4
- for <xen-devel@lists.xenproject.org>; Sun, 12 Jul 2026 16:04:46 +0200
+ id 6a539eff-e897-0a2a450c0019-34655383bb6d-3
+ for <xen-devel@lists.xenproject.org>; Sun, 12 Jul 2026 16:04:47 +0200
 Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
  by AS2PR03MB9540.eurprd03.prod.outlook.com (2603:10a6:20b:597::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.23; Sun, 12 Jul
- 2026 14:04:45 +0000
+ 2026 14:04:46 +0000
 Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
  ([fe80::904d:5820:80e1:41ba]) by AM9PR03MB7526.eurprd03.prod.outlook.com
  ([fe80::904d:5820:80e1:41ba%5]) with mapi id 15.21.0181.019; Sun, 12 Jul 2026
- 14:04:44 +0000
+ 14:04:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,19 +64,19 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wZqb2QjNkYYs8YImGebgSvADWlIoN+xi/REvKo9fwqPa0blpX6wGjq4VJ7jc91VzJraANOBrtwrrwrjAMrCb4LH4nC1R/eqyc8rNJe0X/8flUPC5T2kpEMWxCBbZ3/th0V80VAbrzFUkP1rnHe/Rna6cj2iSFy5uruTSk6605lxDjV/Sxbh7tHWTJczTFlvCV7D9fEcLfkQUF8QXukTbo5Fu1aH+06o6+7DHhHqvl/Bnn8gnT3EQYLvn1Feju2376UMXD7DlJzEkXePxBgpEs4ddz9iIz9wpaIQRWb+T74K8sSRpeMMogTNc9Um3n+YQydiXVgkYV391P2EtS4H36w==
+ b=XIXYm8nLETFalaod7ahYh9tne8QIUChUnJIVG6wlGhZd4lR6+DU5esvhk01y+Zsa8Yc8DZeT2z/x7OfV8xKB9ciqZSXvd5R6Sni5ZFjt9e1Mk6ckB6fy5e0qGZnrqnvseufpgmhbhG4Uvauo4JOEQ1NCO6C+VITPBj4d/L80feH3xHKn48vXv/Ml/IjmhOIBSka3A6b3Tc8sxOYSPgL9NE2g/1XYAgu250tyKC/wGiM0sZRMCjggxy3AWEC6QkLXQ0grMEb+wz/Ewwdw9zD7ori8GuYhjGyqTil+ufS95kpoSxVB7pH7uCJg6EqJKBuz+h9NLhcCASDdM1oAHHzjAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Aikdj9hX9Ez/J0T4upRKLp62iT8tY2+jkV0GfNhHj3w=;
- b=PyPyy/DD7FaayYdCDyyjnCdItWAVNM/LCyyr2WM5VEQBbNNF6hK/D9gIyqqEpeX+7XmumtDPph9TcFC2aaUH37reVVpbgLbRESUWi24bLGgUVV4AEaGzuC/pHYrhGw1jNVS3m+BpNOClqCdSVo9UAB+j3GV+Zb9rS0fzpFbRTb0xoqYf8w5OaEu7T5AFRUW49q3OV791BKwB2naMal5b/jsYx76wbfo2ao0sJ/zaO4Dvlb4MUdEJYNkMQo1EVI4IyV4U/t/T/2jFnuUfF8DALEwJgSJQM0e07CMT14f2xcj/awFmHdtZDGp21yo0Fu/Rdf62WWNWIkZr7RR+7PvZSA==
+ bh=0pZ1BxC6Bi6p0st6xJAQ+Jaqgwg9JBDmWidIIVcm3DY=;
+ b=viqg/sZvTmdp3jX+qkR2dS0BXbIjXWfCSH2E2Ptpxfw7gZB+P4q5RhuRJoRE56MAWz8wuA8OJ8sz6UNZQ/qW4PEBbcVXCPrW6/EVNGnhyv+CKZHNXLMy+BgQvHaUmX4cX08JmIUmEv6aw2Go+jogfV/6CeV9Yj0aYTyIKwTG5ycb8PM3pKyJK3uedPeoJB6feSl3IOP+Pghm3XEudf9uM6yW53ZNmPvaucbSIMDAOPVPqPrV5ZWjOvG/vXzZsDBIgIZOpOktj3wEq00x1frAdqXrgcDz91z5N6UOts3b7iligbPIR8qg5PqHTF7ggpAqSPRj5VakFFFQzMju4rCa4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Aikdj9hX9Ez/J0T4upRKLp62iT8tY2+jkV0GfNhHj3w=;
- b=c5eFi0IE+V5FXJsSsdkxmWqwXBKps3dUM0j+UVcl0ac1InnDP1yUE4tn/qt6V3rx/SYZl6RNzTE/p0FMZm2/vJm8cFJGvgALeaM4V2UUIL2/PDXRI/Ouf+bhbfqYA2hvpVHAXzZQM+2Q/EQ6yct4bixGDT0k6WxE8k939pQL79nNoZwx1UdgZtQtON5aYuur2w3MyV0AJ+1UBzcMAQVMuQQeEEkil9Rpo6Du4+eWmL9mecJGv+JMOBpsUho6nmc3qCZ7ZunFoZenexND+W6ZYWEn/VHAQTLXAqfuNbhnPBvcZgIBG370DBGipoe5HL+x6+PuWIhy3xxIuxwEbY46+A==
+ bh=0pZ1BxC6Bi6p0st6xJAQ+Jaqgwg9JBDmWidIIVcm3DY=;
+ b=WFn1G+gNmwzD4cqHj7A4BNPGt39adXc5p4XRY8ZJtFeEo0dukSkXrFUenqBSuOhFDDq1J6XUyUGs+0sluQd/pVyVdpbZphUUYjIPBKi2q80mFh9ue8Y/1e0PGFPLN8MybWBaVnuNhlzM7GLmWyC1Tzr55qlTydn76ihWNd2Q0ir8NUIadpdpVF+2n6zkgVCSHfP3YCkYvcUhCgZYE5BBBeSZzmwsYVEin9YmTpmvNvDGxTOKw26tyDRb8s64r8YtdVnxBn5tr/+oCnMxAIFvuy6o4gib0V31kRVzm4HDqJsVbvWTkS/AxMZyKyvI5oBdPoAoXxr0kwnhIZhwLSLYEg==
 From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
@@ -86,14 +86,13 @@ CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
 	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
  Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
 	<roger.pau@citrix.com>
-Subject: [PATCH v2 1/3] misra: deviate MISRA C Rule 5.5 for
- 'hypfs_alloc_dyndata()'
-Thread-Topic: [PATCH v2 1/3] misra: deviate MISRA C Rule 5.5 for
- 'hypfs_alloc_dyndata()'
-Thread-Index: AQHdEgdk86c5ivEPyUWTFvlIOTPRVw==
-Date: Sun, 12 Jul 2026 14:04:44 +0000
+Subject: [PATCH v2 2/3] misra: deviate MISRA C Rule 5.5 for 'request_irq()'
+Thread-Topic: [PATCH v2 2/3] misra: deviate MISRA C Rule 5.5 for
+ 'request_irq()'
+Thread-Index: AQHdEgdlLv7TI7G6yke6ZZX0wGJbmw==
+Date: Sun, 12 Jul 2026 14:04:46 +0000
 Message-ID:
- <365f750cfbc626e763819da2604bfccab2ac80f8.1783864426.git.dmytro_prokopchuk1@epam.com>
+ <db38c988b728a52bd7a921201e44558e43c7ed2c.1783864426.git.dmytro_prokopchuk1@epam.com>
 References: <cover.1783864426.git.dmytro_prokopchuk1@epam.com>
 In-Reply-To: <cover.1783864426.git.dmytro_prokopchuk1@epam.com>
 Accept-Language: en-US, uk-UA, ru-RU
@@ -102,83 +101,83 @@ X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|AS2PR03MB9540:EE_
-x-ms-office365-filtering-correlation-id: 5732a9ca-9ca0-4a2a-143a-08dee01e86df
+x-ms-office365-filtering-correlation-id: 1921255b-fac5-4f2a-94be-08dee01e8798
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|42112799006|23010399003|1800799024|38070700021|6133799003|56012099006|11063799006|18002099003|22082099003|3023799007;
+ BCL:0;ARA:13230040|7416014|376014|366016|42112799006|23010399003|1800799024|38070700021|6133799003|56012099006|11063799006|18002099003|22082099003;
 x-microsoft-antispam-message-info:
- XQ+Kevlc3CthY0HZqBZ15qpJ5w/9eovsMr/6KXwnZF3UnPzb8FlgMttgm1LT+SkrE9NhsTpA/iNYlsEgjezwZMy+klFmMcRZWszYyGOc9fnK1gcKxEwxzKArfUWviYEBOZGrDV8sKmeHZYWds3Y7wIhzbv4hc3dY4cQin/Rix26uKedLOnUrpGOGFDsNNYqFakPlZsgGnghw31XxalQOUGNovdykwJfP4TyD59LonHbqHJqswqgEOUyqMwIijgm0ly99Xw1Baln+mpc1//1lmiVaXJcchHUnp+wkYlptYyhCqFOXIEeD5lh+Bno3Z07ABG9L0m/06yc6zdeZ8jFKDXoxtIi6mLzLqOswb4c4QyIoeDQLSyCVrAuHs/HjvMf3yXv61hHKvvOlza6j+bv43iXuCKyQbJBClzE3WyqLxzIowIUVJuyiUy/Pgq49MmCsL7OdyRvZIoaeEatbgXEtYJ+AncfVwn7M4CbhtGE4wYDf+MQ15ciKNRK0sjaktoSfGWd4tU1TVNlGNvUdsr9O5jJTZr50i8ZjT5vhDpgWWnTgJd1OvX892BMAiEikkSubqQvHgUi8O7yTn1nzmkPVI3orXJs2IpVoCkr7p8zXmeWNYiLjf0sHHI7rsloQS5TZZ2gNoxnERdrmjVcqkWhNmN5Re9RyX447PpkTxX8wFbDjdX1z6QgBywifg0wDtpO1m70lq4Usg/jz7rl/4WU53EaEDcweIDcoWefjcN4a7M4=
+ b9g93jowf4YkdNINRrEtZEbCpazx+LN0AYN9BJBt43pH/0RugH0VxJg6WGDVAWqePMYfu6Ir9+S7z+xemBmwjwvU+KJ1E5ui9j4fUjEJqfL7t1Ei6KQf03IxJpXnHmOrIYOcBEIWS1h56xSSgggUqr9ODArYGiQclacboc2juD80HBRwmfYsPHdgwEb7WW6+Ovr1uz0fx8h0X5W7C1xL9TxcMR2owrtL1OdGNxktAhb6j/K5L4U/OdD/2yU9BxlgC7sLiBNQHFf2zZWacWrNdfM9NSt5zFDLQuH0k6jPWYSWZsFpKQcm84fL7KzjhlIANvVWtn7uOcy1AfZ5qGTVs6G16J+jVCDe62yfU8+Yv0SmPOjaZiwkxLR49LnlF41DiZluYRKBE9n4twW5h9L12M5nIDlFkvvH53g0VHKwXF6Sa7AdoOLwnsRIn+uZk61W4ONyzWnYFL4d0W7K2UNzthWT/0G1Y3HfBx18GoUJWN5ZTIf1fJMENYA2RhdKKaQRev73FB1ObZwUTVojULUusCc5W3Uhk6jN7psIc4fSnIl/djngaOLF3Ez36ntWP4SOOiKgyZQtFED9yfnP6/7AGoLTOgKwe6SpoE6MHrg50/WmatgkyUvfI2lvXye1Chv4it8U+AeitHQ7z/mG+FdESu9/vMSpXQ7jdbf4GAu32FGaA+DAe6otJGGxxJwASHPBSgTNZusrmsI3OauRhe48eWSdxv4YKSVKP/ejo/idrHk=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(42112799006)(23010399003)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(42112799006)(23010399003)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?14q3TJ841CYSsPMCjNK51LyR7ntP3QgvEeBTXXbB95ztUIL1DTMds7zaw8?=
- =?iso-8859-1?Q?znYSztZn8Ek5C61xx+rJ8chkUTx8M4qMjZGTN2f+T19EEST1YywXOD9ZH1?=
- =?iso-8859-1?Q?kIeuUVkMTRKmmy8aSetf6i8w+xd7a5oeZBOjBG9DCf70cGSOeX/rWRyjsm?=
- =?iso-8859-1?Q?PKTVG9b6qXlu47m24kdyVQR6oiF1idOEpok7QXNvmoz9dVJbVKtlUo1VEH?=
- =?iso-8859-1?Q?lVSPxqo0+kWGEQd87rM74JyzNZm/9KaKHm4MyM6a7CgUul6t6AEBVEvkDN?=
- =?iso-8859-1?Q?+22WMGMw6FP0ZmbFmVLDxwDn3f7PNa90ZitAbuQPdSf5/6j9O7woEZG70S?=
- =?iso-8859-1?Q?56joIMo9YtTMh1VyZHYrBhVs2cQ3opwa0Q6pTZADNnc+q0k8LQI3o0O02p?=
- =?iso-8859-1?Q?hJpLw5u/r/vafV3nHW5QRvHGQeT5bzD5yarNAYtaahc5Jj2ILS2wIjiS3c?=
- =?iso-8859-1?Q?N5lWoyS2IzQPgNZU7VDGHq4jMgpPWjPwqztmzWWItiWo13qrrXTqgNsUNv?=
- =?iso-8859-1?Q?RBc2KDGMwRj1fw3HnORoOc90+0r4XHzDWFZswCkbuWl+MKQ1IALbSyzinx?=
- =?iso-8859-1?Q?XiiUhf9+yMevstOdZTA3q8iTGAKsLYPRRMez5QIKL1pFAlTaubc42SAm5Z?=
- =?iso-8859-1?Q?qB9tItlN3ykYRYo/NSSDn4cNIchK0GgGPwyYQSaPcUTl6lFa/lPSVrbenU?=
- =?iso-8859-1?Q?IAi7fZUx41NOh8yo5cepVJg5U9iTy2whafOY5AOwmwYvukVp5pIQT3z56T?=
- =?iso-8859-1?Q?KM1Qg1vRQcEzVCE/WJ7Tm2jBxyoN+jVQNz2juWAIqxz0sDExC4QJCIO/gB?=
- =?iso-8859-1?Q?E87WtDb5o64AIt8LPM0ZH99ZYe8jw2vVhgrXeOwfMHxYq1VNnMYo/kr3Bd?=
- =?iso-8859-1?Q?FUhqdv66Bs42UfprlAOBUhFJoRHgW88EnrcwRxK14PaHrKQpsTYh98FJFv?=
- =?iso-8859-1?Q?vJxsZWV1B7wamGWWJsCeDeICnuDXNJwJagDJvXOmdglH5tCgYJF/HfdsuY?=
- =?iso-8859-1?Q?8vnI7Enz58ZQNezAqN7H/IgZrp4zTIPz5RkwBGe1E/+QTzsAsQf0TjZ0SJ?=
- =?iso-8859-1?Q?v8sBzrc0apyEJVcTKK+tX5DT9rs6Pg5OKJHtGt38mD0aV9AshFnRgcsBYF?=
- =?iso-8859-1?Q?zgtdVYuOVsM7YZSeqLnQWsIYvKVSdWHjpTzk63mhZEi2sPRAffP1NJqSYV?=
- =?iso-8859-1?Q?JoT+pUe9Piu3r2TSmBuDebCK+TZ1Wn420Ix1ZxWSPMoTqoYh9d0kNUImmD?=
- =?iso-8859-1?Q?0uPzT+fOSAD1u0sDjVFt4WHGq76mJYcEKcpndAkuawHdkpTNzv93TTaiqn?=
- =?iso-8859-1?Q?TFSiMYRp5RvLbESZeLkmLRmG97R0MmZYzmHT1vCDohbCHyzILhi3lc+fi9?=
- =?iso-8859-1?Q?GwKfgvGDpKZJuyUxl461XcOJ3HObefVXEQjQnfUOjWHtVFVoh/QRT9hy4g?=
- =?iso-8859-1?Q?7Hp69u4HEae27p2x4h/hkwA9fwJcaoRSdjWhXthY40t6+MhdzggmDA+IcM?=
- =?iso-8859-1?Q?HlMIiZtfbfprT81+ym+Qq+/MXDNf3j0cfh6lhht5P5B74jwqGlgodAnHkd?=
- =?iso-8859-1?Q?fzmNf5IT9p3PYlswTMsexBrlPdjPxm287mOvnFwMo2xCfFKpNHdZdBE2mL?=
- =?iso-8859-1?Q?2kNCOSLqg9th1JvCyyFBWRQaVMf1qY80Z/z6LAD2a7GrETcfj3axiU3gHO?=
- =?iso-8859-1?Q?hq9mRLm4fHsoLSrmOC+xCC4IAwa4jVH2lSQMASwAN5yfq1CjZ8E1w6yqBA?=
- =?iso-8859-1?Q?jGiBjEe05fsbMB1FaqoU0lL2NQ1mmdMvoWV+yTnIxYze1RyrxJZ1445ZwZ?=
- =?iso-8859-1?Q?lgF9sVZMnc1WXjrDzHv2GfkYbzyxus4=3D?=
+ =?iso-8859-1?Q?lOVuiFzehkbcRSWNxKJL1taZNj8TVQKPGTGrmgWLGvkw1SxCmYKwZZLT/y?=
+ =?iso-8859-1?Q?HH80FG+V5n4ogoPAv5GsBAYRAHwtbhAMTNMr2TCMANeCJqZKmDx5nZr/1q?=
+ =?iso-8859-1?Q?ffHhdExcdxbNU+2grDy7z1D2uYrVzV5R+6Bu40jAol5oodpPRnVq+j5IDw?=
+ =?iso-8859-1?Q?p+2gGS6FJVgK4+oGx8g4yLVeicvo+wrpNBy+XhGFpzr0d0Y8xXVOPi+Pso?=
+ =?iso-8859-1?Q?Ex3PqBYt0neM5hCEA682NbNH93bFQUz6sgTRktKpq15gsXkNfOCQLnKTGD?=
+ =?iso-8859-1?Q?C/9CK8b/dtBGqgs9SVNluLsIZrjataNs+BdDBl8LdcU0pljf9+EdCnxP/F?=
+ =?iso-8859-1?Q?3mhF9NVfMkIchJvt4G3syduORSAoYsYCD/t1TEZQOd89OuhiNB+VVWfk4G?=
+ =?iso-8859-1?Q?bKc1FAYBZJGh9dUUlXXIYFdgJg24gLry62HdOrQx1523YsrupehT/lZB9H?=
+ =?iso-8859-1?Q?gp1BjvMpTkyWZMC/HouVrI07xVRxAO1F+xkjHDPj71zWHlnA66WHXKc4v2?=
+ =?iso-8859-1?Q?w0gDK9TUDMyGYfXmcvL6eFlMwUuhRcOj+EIlX7ryEn57dXWXk8PzWRD+9m?=
+ =?iso-8859-1?Q?m0Qx2o76mGTV06mQeRliokUOQqntm5Q4/LghyUE1st4S5Zp6QTqPe3+bqW?=
+ =?iso-8859-1?Q?Szr786quKJP5E+cyBN2/PP8lmzCHUxPHu5v4LWWoi3Eg/moUWhBz1hXOi1?=
+ =?iso-8859-1?Q?SFCgboNy7GSYkodJulZQT4ZzmWDDgGfoO0c29Jb5478rTuYwY082+8BbKz?=
+ =?iso-8859-1?Q?duiIc1Bkq8CPNUQIcvgoPv0k9YIwBj50i/Pe/V6e4utoiLLk4bPVAES3Ui?=
+ =?iso-8859-1?Q?Vdfgnxb6ZSrLbRN7qrTaikDW+OxLrMz/dxkYtCLuP5lSNzO8rkQQFoeKgB?=
+ =?iso-8859-1?Q?1mMtHXvGH9mZ3tZ/Osu4+HfDNuLqV+lZoIXs3qPpM4WI0T4QyynHCNqohV?=
+ =?iso-8859-1?Q?KXg4frwwg87rtG+WqNDmKnsd9gdiqzYitMYxMo4AZy5A8tqQR9grzL/n/K?=
+ =?iso-8859-1?Q?snsvi7e0E2yDFYtajOtSdKHjzhos7E63VRo7+jT8Y2N6lNtCh1vcnDLRpz?=
+ =?iso-8859-1?Q?7Xnwdht0OW1jDbHdyC1T/COE8dAMUsJunRrpfTOA2zRxI+sfp9oWFU7UE6?=
+ =?iso-8859-1?Q?uWp9FIQBLcVK4jwp0Ay/qheI/gI4LLy1FIZxh1J8cY8Wki1OegsQI8oeuH?=
+ =?iso-8859-1?Q?rdWCtqsm53qKLQNg+ms2MAC+tPm7PqO3i0KNVeRvEmXzTeeZ7MvzwVuZpJ?=
+ =?iso-8859-1?Q?gS+6n6+Sn+dE63ZxV1z+FcZcR91NPFHAT6eq/9IWKGz+7VndntW1bB3mF3?=
+ =?iso-8859-1?Q?XKJQRFjmrCVTObBdfdYQW0XeA3uugP19sjtK6yIQ8ewZb2ixnF/ivAhHQr?=
+ =?iso-8859-1?Q?bsR1zIKSEKmG6FkQ1ZJCdTaR+5NhlNQU3XpXdeE48CvHBhVRkrWG0C0b5e?=
+ =?iso-8859-1?Q?aJ+FHuMa5Gzx+4NOa8mXx1LDO6RXW/4tTunAwNBaRWAQJlgY9ypzwQmiZs?=
+ =?iso-8859-1?Q?5cQHLhdFkeawhzV37WZGm0WSwxIvGGK2rrv8yRM5NBpnS9wYF34goj6cxv?=
+ =?iso-8859-1?Q?psmFYLp1ooWGQQQ4JSWpGDtkyIs8QSa2pikfgzbwHgho9T0kHFp266Mzoy?=
+ =?iso-8859-1?Q?51uKUR2ECFYIBnE53gkoyhdjfpUbUbEsAQIEMRn/iEWiGm55zgOg2KQXCs?=
+ =?iso-8859-1?Q?FpRDIQ1GlIRgCcbe99NAIQ1c5yNnoSWt2N9iY3VL3GCr0Zq9e/hh1ZfTBr?=
+ =?iso-8859-1?Q?U16jfxJFqhEu6/PRA2poFuRYc0NpX7kKs1N/sPVV1dVnlyxthfc/9w2yl2?=
+ =?iso-8859-1?Q?4HCB6vDRT3lBBGlbZgXhx0Q9Ol/fpEc=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5732a9ca-9ca0-4a2a-143a-08dee01e86df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2026 14:04:44.9303
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1921255b-fac5-4f2a-94be-08dee01e8798
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jul 2026 14:04:46.1247
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 117NiS7hxS6lG42AHtVm03trps662ETqKIJcXLpmSo7eIQ+g6//yTV5XES+vbvlufhLgaut4eyOI/ae8vnJLbPyDXvCl89tHAm2NDHGcDJw=
+X-MS-Exchange-CrossTenant-userprincipalname: Qx4mbIYeN2Y27iyOqA/Y5XfGVae30gVtUPw+WGoM0gx2EYu/rPo1QBu+kiPCHQV/bGbc3AhuU5syrvkJwWOaUlrHVgtz/ZVKuZ5oPuzh3Rg=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9540
-X-purgate-ID: tlsNG-16d1c6/1783865086-FAF55617-69B895B7/0/0
+X-purgate-ID: tlsNG-d25034/1783865088-57F636B2-C4CD68A7/0/0
 X-purgate-type: clean
-X-purgate-size: 3525
+X-purgate-size: 3296
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:from_mime,epam.com:email,epam.com:mid,epam.com:dkim,gitlab.com:url];
-	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,epam.com:from_mime,epam.com:email,epam.com:mid,epam.com:dkim];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dmytro_prokopchuk1@epam.com,m:nicola.vetrini@bugseng.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[epam.com:+];
 	MISSING_XM_UA(0.00)[];
@@ -195,41 +194,41 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8BED9744ED8
+X-Rspamd-Queue-Id: AA2E5744ED3
 
 MISRA C Rule 5.5 states: "Identifiers shall be distinct from macro
 names".
 
 Update ECLAIR configuration to deviate identifier and macro name
 clashes by specifying the macros that should be ignored.
-This includes 'hypfs_alloc_dyndata()', where the real function takes
-an allocation size and the same-named macro is a typed convenience
-wrapper that expands calls using sizeof(type).
+This includes 'request_irq()', where the Xen function takes the IRQ
+flags before the handler argument, while the macro adapts ARM SMMU
+driver calls by reordering the arguments.
 
 Update deviations.rst and rules.rst accordingly.
 
 Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 ---
  automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
- docs/misra/deviations.rst                        | 9 +++++++++
+ docs/misra/deviations.rst                        | 7 +++++++
  docs/misra/rules.rst                             | 4 ++++
- 3 files changed, 17 insertions(+)
+ 3 files changed, 15 insertions(+)
 
 diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/=
 eclair_analysis/ECLAIR/deviations.ecl
-index 7d4b6f2948..7e743f7c5e 100644
+index 7e743f7c5e..f7ffd78a36 100644
 --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
 +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -132,6 +132,10 @@ These macros address differences in argument count dur=
+@@ -136,6 +136,10 @@ These macros address differences in argument count dur=
 ing compile-time, effectiv
- -config=3DMC3A2.R5.5,ignored_macros+=3D"name(update_gnttab_par||parse_gntt=
-ab_limit)&&loc(file(^xen/common/grant_table\\.c$))"
+ -config=3DMC3A2.R5.5,ignored_macros+=3D"name(hypfs_alloc_dyndata)&&loc(fil=
+e(^xen/include/xen/hypfs\\.h$))"
  -doc_end
 =20
-+-doc_begin=3D"Clash between 'hypfs_alloc_dyndata()' function and macro nam=
-e in 'xen/include/xen/hypfs.h' is deliberate."
-+-config=3DMC3A2.R5.5,ignored_macros+=3D"name(hypfs_alloc_dyndata)&&loc(fil=
-e(^xen/include/xen/hypfs\\.h$))"
++-doc_begin=3D"Clash between 'request_irq()' function and macro name in 'xe=
+n/drivers/passthrough/arm/smmu.c' is deliberate."
++-config=3DMC3A2.R5.5,ignored_macros+=3D"name(request_irq)&&loc(file(^xen/d=
+rivers/passthrough/arm/smmu\\.c$))"
 +-doc_end
 +
  -doc_begin=3D"The type \"ret_t\" is deliberately defined multiple times,
@@ -237,26 +236,21 @@ e(^xen/include/xen/hypfs\\.h$))"
  -config=3DMC3A2.R5.6,reports+=3D{deliberate,"any_area(any_loc(text(^.*ret_=
 t.*$)))"}
 diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index b048309596..ab80f01195 100644
+index ab80f01195..3eb9912c45 100644
 --- a/docs/misra/deviations.rst
 +++ b/docs/misra/deviations.rst
-@@ -176,6 +176,15 @@ Deviations related to MISRA C:2012 Rules:
-        unused 2nd and 3rd parameters to avoid warnings or errors related t=
-o them.
-      - ECLAIR has been configured to ignore these macros.
+@@ -185,6 +185,13 @@ Deviations related to MISRA C:2012 Rules:
+        function, so the name clash is controlled.
+      - ECLAIR has been configured to ignore this macro.
 =20
 +   * - R5.5
-+     - Clash between the 'hypfs_alloc_dyndata()' function and macro name i=
-s
-+       deliberate. The function is the allocator taking a size in bytes, w=
-hile
-+       the macro is a typed convenience wrapper used by dynamic hypfs node=
-s to
-+       allocate per-request traversal data with the correct size and retur=
-n type.
-+       The implementation explicitly undefines the macro before defining t=
-he real
-+       function, so the name clash is controlled.
++     - Clash between the 'request_irq()' function and macro name is delibe=
+rate.
++       The function uses the Xen 'request_irq()' argument order, while the=
+ macro
++       is a compatibility wrapper for the ARM SMMU driver that adapts call=
+s by
++       reordering the handler and flags arguments.
 +     - ECLAIR has been configured to ignore this macro.
 +
     * - R5.6
@@ -264,18 +258,19 @@ he real
 the
         type of guest to service.
 diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index b3e929307d..4f7b7fc848 100644
+index 4f7b7fc848..40aff97a07 100644
 --- a/docs/misra/rules.rst
 +++ b/docs/misra/rules.rst
-@@ -222,6 +222,10 @@ maintainers if you want to suggest a change.
-        Clashes between grant table functions and macro names are allowed
-        because they are used for discarding unused parameters.
-=20
-+       Clash between hypfs_alloc_dyndata() function and macro names is all=
-owed
-+       because the macro is a typed convenience wrapper around the size-ba=
+@@ -226,6 +226,10 @@ maintainers if you want to suggest a change.
+        because the macro is a typed convenience wrapper around the size-ba=
 sed
-+       allocation function.
+        allocation function.
+=20
++       Clash between request_irq() function and macro names is allowed bec=
+ause
++       the macro is a local compatibility wrapper that adapts ARM SMMU dri=
+ver
++       call to Xen's request_irq() argument order.
 +
     * - `Rule 5.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Su=
 ite/-/blob/master/R_05_06.c>`_
