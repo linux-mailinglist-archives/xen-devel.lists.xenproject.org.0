@@ -2,60 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 87J3FGe0VGobpwMAu9opvQ
+	id Z2jqF6u2VGqcpwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 11:48:23 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 11:58:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F324749758
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 11:48:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2716749867
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 11:58:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=redhat.com header.s=mimecast20190719 header.b=CBlv+yRp;
-	dmarc=pass (policy=quarantine) header.from=redhat.com;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=Ibbrl77G;
+	dmarc=pass (policy=none) header.from=gmail.com;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
-Received: from list by lists.xenproject.org with outflank-mailman.1361565.1613755 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1361576.1613765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjDGo-0005yv-9p; Mon, 13 Jul 2026 09:48:14 +0000
+	id 1wjDPz-0007dl-4y; Mon, 13 Jul 2026 09:57:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1361565.1613755; Mon, 13 Jul 2026 09:48:14 +0000
+Received: by outflank-mailman (output) from mailman id 1361576.1613765; Mon, 13 Jul 2026 09:57:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjDGo-0005wk-7I; Mon, 13 Jul 2026 09:48:14 +0000
-Received: by outflank-mailman (input) for mailman id 1361565;
- Mon, 13 Jul 2026 09:48:12 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <berrange@redhat.com>) id 1wjDGm-0005wd-DI
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 09:48:12 +0000
+	id 1wjDPz-0007bQ-22; Mon, 13 Jul 2026 09:57:43 +0000
+Received: by outflank-mailman (input) for mailman id 1361576;
+ Mon, 13 Jul 2026 09:57:41 +0000
+Received: from mx.expurgate.net ([195.190.135.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wjDPx-0007aB-84
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 09:57:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjDGl-006rcq-9D
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 11:48:11 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wjDPv-00DGit-7Y
+ for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 11:57:39 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <berrange@redhat.com>)
- id 6a54b459-5cb7-0a2a0a5109dd-0a2a450a82b8-10
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 11:48:10 +0200
-Received: from [170.10.133.124] (helo=us-smtp-delivery-124.mimecast.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <berrange@redhat.com>)
- id 6a54b459-ec7d-0a2a450a0019-aa0a857c6e07-3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 11:48:10 +0200
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-578-2WXUjvIHNqGIPGVhxRUOPw-1; Mon,
- 13 Jul 2026 05:48:05 -0400
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 79E7D18052F2; Mon, 13 Jul 2026 09:48:01 +0000 (UTC)
-Received: from redhat.com (unknown [10.44.50.22])
- by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CA4BC195604B; Mon, 13 Jul 2026 09:47:52 +0000 (UTC)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a54b68f-bab6-0a2a0a5309dd-0a2a4503e58a-16
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 11:57:39 +0200
+Received: from [209.85.208.171] (helo=mail-lj1-f171.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a54b692-f2d2-0a2a45030019-d155d0abc8da-3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 11:57:39 +0200
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-39ca300db70so13230001fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 02:57:39 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
+ [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b01ca55723sm2715221e87.35.2026.07.13.02.57.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2026 02:57:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -67,149 +59,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1783936089;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=f7npngFV1AQ2QwhoSPTXSrhzAwvyxpkZUaMlsdowmIw=;
-	b=CBlv+yRp05ZGGN6wXA1fiC5RkumfKNRNVmZhtpuVvbQtNRWeAU2jBTm4iYYd+YN/qHcKWD
-	Wm6OtDE0odcsfP1bjkZK+7pTnAa4na/PsLgqNZ3EmMrafXl5ddV99B93rB7KHXLZWwYYfW
-	A4ooRfQgybYxbXFpO85F2gdeXS7UbMM=
-X-MC-Unique: 2WXUjvIHNqGIPGVhxRUOPw-1
-X-Mimecast-MFC-AGG-ID: 2WXUjvIHNqGIPGVhxRUOPw_1783936083
-Date: Mon, 13 Jul 2026 10:47:49 +0100
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-Cc: Markus Armbruster <armbru@redhat.com>, jasowang@redhat.com,
-	mst@redhat.com, peterx@redhat.com, farosas@suse.de,
-	raphael.s.norwitz@gmail.com, bchaney@akamai.com,
-	qemu-devel@nongnu.org, pbonzini@redhat.com, yc-core@yandex-team.ru,
-	mark.caveayland@nutanix.com,
-	Pierrick Bouvier <pierrick.bouvier@oss.qualcomm.com>,
-	Sergio Lopez <slp@redhat.com>, Zhao Liu <zhao1.liu@intel.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Bernhard Beschow <shentey@gmail.com>,
-	Alistair Francis <Alistair.Francis@wdc.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Jason Wang <jasowangio@gmail.com>, Eric Blake <eblake@redhat.com>,
-	"open list:Incompatible changes" <devel@lists.libvirt.org>,
-	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
-	"open list:e500" <qemu-ppc@nongnu.org>,
-	"open list:Microchip PolarFi..." <qemu-riscv@nongnu.org>
-Subject: Re: [PATCH v18 03/14] net/tap: deprecate "no" as special value for
- script/downscript
-Message-ID: <alS0RZqeyEOVy6e8@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20260710191809.721154-1-vsementsov@yandex-team.ru>
- <20260710191809.721154-4-vsementsov@yandex-team.ru>
- <87ech7uycy.fsf@pond.sub.org>
- <d1ea2c42-7990-4529-b9f8-d0d9e35ffd51@yandex-team.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1783936658; x=1784541458; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E8ZFAs9qXx3g/86C5aQ3vsXA/85ozIDf5zoPqhpvTN4=;
+        b=Ibbrl77Gz1Hl6iZaMYIGVX7tFGBJdEZ5kVTLq3LnHX+Y9AptqFD3+ITVY4rBvX+i/Y
+         BfHlV2bET+PmVUEqcYqDATc5uNGVuER4+XATx7RhaEUO+kLUuA9UcGt1qK8xZDQW4f+X
+         1Bgy+H+jZPnN12aKeCRIMs0vARWAJiXaMpMZcIbHi0eU+xnX4wvtr9rR90nUTAkY4/TF
+         2Z2Z72xxPiiqP9x52Ws31GpBvFn0CpZ0k6F6trZGtl5Z9dxbf5Y1q7alz5xTAPm/ev1S
+         QZOUBbCvsQeuII+Nr1zCJY7t98R3mvr7jGjzj8qpvD2IpXrdh91ZsKH3ASwHn6/tRvXD
+         pDJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1783936658; x=1784541458;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E8ZFAs9qXx3g/86C5aQ3vsXA/85ozIDf5zoPqhpvTN4=;
+        b=DTf+C40FWfYOpCNvmlhW/LvZyo/o3n6ol1YvK/yqsJMH0sUCm7gosgT5jTdhYiseLQ
+         F7t6OA0OXRB6TaWLkm2h+iMusSPfMmtm5Lu4DfyeUySHII1+Qi/o2lUspK8SV2uGcQiC
+         +7yPKBIZwF4JPSo296AFo2KJrr7Ov9a8g+4T7DLGDG3Wdp6bVChMhSYObw8Atwmgccym
+         8t/6XNpG9dhpCFvDDx67MWUZkXetBpXVzCRFk5K8C27w38PjkvxQDC/uSq+65oNuVFaD
+         +nDtPGWuqGaWSO275kehTKnnunBTxMknajoH183wymRRe5NUASvn4i/oGlLKYJ8WobY0
+         eHww==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4P95Q2cE4bpGbPrtrmsgHi3Qsbm3FXpjZTT9OEjdtUkuRDDT18YYkhM0ndQ8Ene1RXkV5wZnB/6I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzq4O67YY4d3cvyHIep+5nEUSXxSlNKOSQ9vgkk835Eyb7DTxNJ
+	+O79UaFBYsWMSYPyRQMo28I5o1ZfakKHMe+FdAi6WJJfLhLL9edIQxYJ
+X-Gm-Gg: AfdE7cmOicQZSI2kDarqct3Gimt2WZoEzF+gRE+YvQ6WuM+PlullMJsSDw5S0JYA8Pg
+	6jO3rbCHeB1CL0XgFpBmN7VOFl7YQgV5hiJHe2qTUyx8egdislWeOHGdVGWlm3rmXgb7NtEVGQx
+	LXi0DkWGtZchtWGPMJs7tr/P5q3Ni6PzUgijrMSLa3fl5nf7vq3WftZtr2YWrStTU5NsVnX0dQy
+	ZIT1vXP6EKf6aMME8kbeKBMdSbhaS3BzTzWhyQJWcAovCGtoKhAJ+WcvajAmPaNvw+7/Wq2xsDl
+	ANUO1SGrkLMbaPL5JmJBGi3BP5MVvqmxeS2IL/0er6BisAk2iJSWWsYax9yXA7e6zaL/Ev9LaiY
+	w/TYvYlF4xKBy0kWVwXat3P+ByuTH0wRn6/BGM1el6aMKKaC10OHRR3FswdMlOPynXkMzeN3gKn
+	YcHJ3FX2NvOgzK0/6ySJHqlxnDJZnMCGrROcqQKNM5AwwFV1YgxQbLF6aW56x38YsmCmQvAn5wH
+	zZwEg==
+X-Received: by 2002:ac2:50d8:0:b0:5ae:b357:1d1a with SMTP id 2adb3069b0e04-5b02356ca07mr1111984e87.8.1783936658234;
+        Mon, 13 Jul 2026 02:57:38 -0700 (PDT)
+Message-ID: <2d0877f5-2fc1-4f53-b662-c377788e02ca@gmail.com>
+Date: Mon, 13 Jul 2026 11:57:36 +0200
 MIME-Version: 1.0
-In-Reply-To: <d1ea2c42-7990-4529-b9f8-d0d9e35ffd51@yandex-team.ru>
-User-Agent: Mutt/2.3.2 (2026-04-26)
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
-X-Mimecast-MFC-PROC-ID: 4MGFv6I-RVYQYNCIvjy7YZ4Egz7reOs-APgzJcpMw3k_1783936083
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-purgate-ID: tlsNG-4011c0/1783936090-3D777248-807E25F6/0/0
-X-purgate-type: clean
-X-purgate-size: 2111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 17/26] xen/riscv: introduce minimal virtual APLIC
+ (vAPLIC) infrastructure
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1783331040.git.oleksii.kurochko@gmail.com>
+ <1f51410c080599a5c80173398d9db837b8718356.1783331040.git.oleksii.kurochko@gmail.com>
+ <6a4adfa7-ec9a-4cbd-a9e2-571293cbb1ed@suse.com>
+ <69d18359-3fae-4618-b46a-ad52bcf1a027@gmail.com>
+ <d38333f3-0dd0-43ad-ab3d-c6366ae8c74f@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <d38333f3-0dd0-43ad-ab3d-c6366ae8c74f@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1783936659-C1359CF4-B2FCC63B/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 3742
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:vsementsov@yandex-team.ru,m:armbru@redhat.com,m:jasowang@redhat.com,m:mst@redhat.com,m:peterx@redhat.com,m:farosas@suse.de,m:raphael.s.norwitz@gmail.com,m:bchaney@akamai.com,m:qemu-devel@nongnu.org,m:pbonzini@redhat.com,m:yc-core@yandex-team.ru,m:mark.caveayland@nutanix.com,m:pierrick.bouvier@oss.qualcomm.com,m:slp@redhat.com,m:zhao1.liu@intel.com,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:shentey@gmail.com,m:Alistair.Francis@wdc.com,m:palmer@dabbelt.com,m:jasowangio@gmail.com,m:eblake@redhat.com,m:devel@lists.libvirt.org,m:xen-devel@lists.xenproject.org,m:qemu-ppc@nongnu.org,m:qemu-riscv@nongnu.org,m:raphaelsnorwitz@gmail.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[berrange@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[redhat.com,suse.de,gmail.com,akamai.com,nongnu.org,yandex-team.ru,nutanix.com,oss.qualcomm.com,intel.com,kernel.org,xenproject.org,wdc.com,dabbelt.com,lists.libvirt.org,lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[27];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FREEMAIL_CC(0.00)[microchip.com,vates.tech,wdc.com,gmail.com,citrix.com,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:baptiste.le-duc@vates.tech,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	MIME_TRACE(0.00)[0:+];
-	REPLYTO_EQ_FROM(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[berrange@redhat.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,entangle-photo.org:url,hachyderm.io:url,berrange.com:url,pixelfed.art:url];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[berrange@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9F324749758
+X-Rspamd-Queue-Id: A2716749867
 
-On Mon, Jul 13, 2026 at 12:37:54PM +0300, Vladimir Sementsov-Ogievskiy wrote:
-> On 13.07.26 10:45, Markus Armbruster wrote:
-> > Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru> writes:
-> > 
-> > > The interface is ambiguous, as "no" is valid file name. So,
-> > > using "no" as a special value to disable script is deprecated.
-> > > Use an empty string ("script=" / "downscript=") instead.
-> > > 
-> > > In a future version, "no" will be treated as a plain file name, just
-> > > like any other non-empty value.
-> > > 
-> > > Document the deprecation in docs/about/deprecated.rst, qapi/net.json,
-> > > and qemu-options.hx. Update other docs to use empty string instead of
-> > > "no". Add a warning.
-> > > 
-> > > Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
-> > 
-> > [...]
-> > 
-> > > diff --git a/net/tap.c b/net/tap.c
-> > > index fedd48c48d2..1ec9e5ebe6f 100644
-> > > --- a/net/tap.c
-> > > +++ b/net/tap.c
-> > > @@ -103,6 +103,8 @@ static bool tap_is_explicit_no_script(const char *script_arg)
-> > >       }
-> > >       if (strcmp(script_arg, "no") == 0) {
-> > > +        warn_report("script=no/downscript=no is deprecated; "
-> > > +                    "use script=/downscript= instead");
-> > 
-> > net_init_tap() could pass the parameter name for a simpler error
-> > message.  Probably not worth the bother.
-> > 
-> > >           return true;
-> > >       }
-> > 
-> > In net_init_tap_one():
-> > 
-> >             qemu_set_info_str(&s->nc, "ifname=%s,script=%s,downscript=%s", ifname,
-> >                               script ?: "no", downscript ?: "no");
-> > 
-> > This sets nc->info_str, which is shown by "info network".  Should we
-> > replace "no" by ""?
-> > 
+
+
+On 7/13/26 8:41 AM, Jan Beulich wrote:
+> On 10.07.2026 17:52, Oleksii Kurochko wrote:
+>> On 7/9/26 5:39 PM, Jan Beulich wrote:
+>>> On 06.07.2026 17:57, Oleksii Kurochko wrote:
+>>>> At the current development stage, only domain vINTC init and deinit
+>>>> operations are required, so implement those first.
+>>>>
+>>>> Initialize vAPLIC's domaincfg to with the interrupt-enable bit set and
+>>>> MSI delivery mode selected as the current solution is exepcted to have
+>>>> always IMSIC, and initialize vintc->ops.
+>>>
+>>> How would domaincfg be initialized on real hardware?
+>>
+>> Xen will initialize that in aplic_init_hw_interrupts():
+>> writel(APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM, &aplic.regs->domaincfg);
 > 
-> Agree, will do.
+> I.e. it is very much something the OS should do.
+> 
+>> I can see that maybe
+>>> firmware would have to set DM suitably (and you may mean to take firmware's
+>>> role here).
+>>
+>> I don't think that firmware will do that (and OpenSBI for example
+>> doesn't do that). If firmware can do that we for sure want to control in
+>> Xen what is written to ->domaincfg.
+>>
+>>> But isn't setting at least IE entirely the OSes responsibility?
+>>
+>> At least, Linux setups ->domaincfg once at the boot time:
+>>
+>> 	/* Setup APLIC domaincfg register */
+>> 	val = readl(priv->regs + APLIC_DOMAINCFG);
+>> 	val |= APLIC_DOMAINCFG_IE;
+>> 	if (msi_mode)
+>> 		val |= APLIC_DOMAINCFG_DM;
+>> 	writel(val, priv->regs + APLIC_DOMAINCFG);
+>> 	if (readl(priv->regs + APLIC_DOMAINCFG) != val)
+>> 		dev_warn(priv->dev, "unable to write 0x%x in domaincfg\n", val);
+>>
+>> And don't touch this register anymore, even for interrupt disablement it
+>> isn't used.
+>>
+>> So Xen can just does once:
+>> writel(APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM, &aplic.regs->domaincfg);
+>>
+>> and then just properly handle access of a guest to domaincfg.
+> 
+> Xen can do this for itself, sure. But shouldn't domaincfg as seen by guests
+> start out 0 then?
 
-Would it be better to not include the script/downscript parameters at
-all if they're disabled ?
+Now I think I understand your point.
 
-With regards,
-Daniel
--- 
-|: https://berrange.com       ~~        https://hachyderm.io/@berrange :|
-|: https://libvirt.org          ~~          https://entangle-photo.org :|
-|: https://pixelfed.art/berrange   ~~    https://fstop138.berrange.com :|
+I agree that it should start from 0 (or from 0x80000000, since bits 
+31:24 are read-only and fixed to 0x80). All other bits should be set or 
+cleared by the guest and written to vaplic->regs.domaincfg when the 
+guest accesses the vAPLIC domaincfg register.
 
+In that case, domain_vaplic_init() should initialize ->domaincfg as:
+   vaplic->regs.domaincfg = APLIC_DOMAINCFG_RO;
+
+instead of:
+   vaplic->regs.domaincfg = APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM |
+                          APLIC_DOMAINCFG_RO;
+
+> 
+>>>> --- a/xen/arch/riscv/include/asm/aplic.h
+>>>> +++ b/xen/arch/riscv/include/asm/aplic.h
+>>>> @@ -15,6 +15,8 @@
+>>>>    
+>>>>    #include <asm/imsic.h>
+>>>>    
+>>>> +/* domaincfg bits 31:24 are read-only 0x80 */
+>>>> +#define APLIC_DOMAINCFG_RO      (0x80U << 24)
+>>>
+>>> Bit 7 is also documented as read-only 0. Wouldn't the comment better reflect
+>>> that as well?
+>>
+>> Not sure, bits 31:24 are read-only *0x80* but bit 7 is read-only *0*.
+> 
+> And would it hurt if the comment said so, to avoid any ambiguity?
+
+Of course, it won't I will update the comment.
+
+> 
+>>>>    #define APLIC_DOMAINCFG_IE      BIT(8, U)
+>>>>    #define APLIC_DOMAINCFG_DM      BIT(2, U)
+>>>
+>>> Wouldn't you better spell out BE as well?
+>>
+>> I can add:
+>>     #define APLIC_DOMAINCFG_BE       BIT(0, U)
+>>
+>> But it isn't used at the moment (Linux also defines it but never
+>> actually using it). Do you want still to add that now?
+> 
+> Imo it would be better to have a complete set of definitions. If you
+> don't allow guests to set this bit, perhaps to emit a sufficiently
+> informative debug log messages you may want to use the #define?
+
+Agree, it make sense.
+
+Thanks.
+
+~ Oleksii
 
