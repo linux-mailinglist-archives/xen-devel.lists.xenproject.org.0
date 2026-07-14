@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xuh9LFUTVmpNywAAu9opvQ
+	id AsvEEGYTVmpQywAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 12:45:41 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 12:45:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD609753869
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 12:45:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A77A875387D
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 12:45:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=fvhwsYgD;
+	dkim=pass header.d=valinux.co.jp header.s=selector1 header.b=G2pToSkm;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=valinux.co.jp;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1362124.1614035 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1362129.1614044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjadb-0005Rv-BC; Tue, 14 Jul 2026 10:45:19 +0000
+	id 1wjae1-0005ou-JL; Tue, 14 Jul 2026 10:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1362124.1614035; Tue, 14 Jul 2026 10:45:19 +0000
+Received: by outflank-mailman (output) from mailman id 1362129.1614044; Tue, 14 Jul 2026 10:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjadb-0005QF-8Z; Tue, 14 Jul 2026 10:45:19 +0000
-Received: by outflank-mailman (input) for mailman id 1362124;
- Tue, 14 Jul 2026 10:45:18 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wjae1-0005mp-GL; Tue, 14 Jul 2026 10:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 1362129;
+ Tue, 14 Jul 2026 10:45:43 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wjadZ-0005Q9-8W
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 10:45:18 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wjadz-0005mR-Hm
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 10:45:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjadY-00AIjU-00
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 12:45:16 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wjady-00HHZm-Up
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 12:45:42 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a56132b-5cb7-0a2a0a5109dd-0a2a4504aef0-38
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 12:45:15 +0200
-Received: from [52.101.229.129]
- (helo=TY3P286CU002.outbound.protection.outlook.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ id 6a561351-2eae-0a2a0a5409dd-0a2a4509a954-6
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 12:45:39 +0200
+Received: from [52.101.125.100]
+ (helo=TYVP286CU001.outbound.protection.outlook.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a561338-b57f-0a2a45040019-3465e581e533-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 12:45:14 +0200
+ id 6a561350-be1a-0a2a45090019-34657d6404e0-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 12:45:38 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TY6P286MB7347.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:361::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.20; Tue, 14 Jul
- 2026 10:45:09 +0000
+ 2026 10:45:34 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0202.014; Tue, 14 Jul 2026
- 10:45:09 +0000
+ 10:45:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,92 +64,103 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VFJQkijTrVXfdLpvVBjdSs5Lq0wXXHyFswr3v4wK1uRPSPNzfFvDKKXjBVVxfGVHfaFw7M5XdsolSE4hl8spG6ZRBDh1ZRS1cG9ixgFXVPlXyP/5L8mGGw4sgZ7fV++c162RoIbGQKcFBZBoInxuOXCXqUmv472060+X/m/KK+U7ZVWI5kfyqCRWWPTcjJ1ARvKg3qRCjfzntYCYP3hSJJiOgJqwurvmnFDJdKPEr1vaJyrNh+bNGKauSyABQ73QEy59QTHyu/JD3/vtphZn8r0ZDlb+HQgNWnl9KAOvrLBL0pEi6efVIHHT/SsL9rrBfpurVPc/J/K7Sc1heG7dng==
+ b=xJTr6O8u3zxBDmTr3h6rx2n/qXpqyoBQOYvPdSmWMZ3OJjT7Lvc1e6aKrX0M1J6Bpb2ZgIDLrFWsETR0uvcir5IChFk1ePcgM2rOvmAiySnrIO9tmCI+ic32B0JRvPClZ4KWAPoaQkf6nO3SA4IXny8hWj6h9dGIZWAVcPHc3K/wGPncA6ZCvKlthLDnAUglM8YpnqYZ2FaoyyrZ5oApyyqoxnyMowlAaKrf6bLKt8RNKx0Q5TRAAIwyaNxlv02K2vNjX3LT8qvu8VHhT9qpOHwlyFjLhKxdTmnatAax7lURDRiGUqqhDTfylzHAKdrDhW7gKjF8k5pA2W9fGtvjZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efwH0gTVrUVp+UfbP7PWKyF+d/oXJQh0wkp3IWv4byk=;
- b=qj2XjJaDaQCMhXPdtwHwSMxhwRbTyyWnqNA8/xgyF3qxRbK/xH5yj45q5XIpK6u5F1XOL97K6TmJB57ooT6XUDexc3OwHLpsxIeAriaa6yfLYKHkcHKOjYi2UNsw/UZcoQNNIBRXHsC5vdHvpk5yH5q1h8XI8KwELaA6r6UetIG+i65UDXenFouansHPnHlO5Gh0odYcp+FqVbeB44YL1fn1psFs/iBICzGjXHuh/ag5Wwc1qxheLgI3uOtrioIJUab/RKeg5P8aWV3muLC0aNZ5IPBQnh0qXWNMMLDIa7EdQpZPjxP20WyJoylmbDzipXuXSNSiIzecZTuuyA9Q6g==
+ bh=NvwQZehxXB09vIZoJkUcftBlcMfxyVb3a3R+w/6waGc=;
+ b=pL9v6RT8hXfsZBXCwnFQ/vAA6z/wL3q+4Oi7vKJhZd+c+mhuAqoMaB9lXSof2zrtSF/EUhGYv/dPW8i5aHf67Ot3MSaN8S363WkRa6XzqqGWJ1b/seRpiSKBFTArH/lRaTqGh0flsiqgJhkQRnUA1fFyEp/WePvU1SYvgY79v/2326wnXSkZSJJsAJmIeQ4yK9YCc+LRewCqOSIu4SB5IBVgV5c3W57geekEs8/GRhTSs3VPD0wm6u4baz07DElYbdMLhfH4mBmOGgdSYWBnGcQfiuQRmv9s+i/mCG2CVRTt0MAlYMREXpKhwS81epD8JF7lwapboUI++S+rhoKxdA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efwH0gTVrUVp+UfbP7PWKyF+d/oXJQh0wkp3IWv4byk=;
- b=fvhwsYgDYNZF8j5NyHYa13NoltcbbngzmOMTUowGeHn/K0VRSXQHZU3eFsPuUwjB0UErfcJDmRZfAKddLKSFe4KAommg3rJBOZ+Zaf/wb4U1QvOfhO6dq8igWa8ZOPKI5mPuHOk40lwZLDkW+TRwrZ0dqly0D07Dynnm08Y09Og=
+ bh=NvwQZehxXB09vIZoJkUcftBlcMfxyVb3a3R+w/6waGc=;
+ b=G2pToSkmTgLr3HbeoLD1sDIZyBdyimawIHMpthn75mZfZpWrAbWfCyYvPak0DIO37VQhd7tMWZLjppcVE0yQViTnJx7ofEjAN19AFYPMejA+OSr50J50Fc9vc+o+BH5XuiPnCrMR8ZNYcGto1Tgphbnf0fIGJ80TfL4ykOIA+MI=
 From: Hirokazu Takahashi <taka@valinux.co.jp>
 To: xen-devel@lists.xenproject.org
 Cc: Mykyta_Poturai@epam.com,
-	Hirokazu Takahashi <taka@valinux.co.jp>
-Subject: [PATCH v6 0/5] xen/acpi,device-tree: Introduce generic CPU topology support for ACPI and DT
-Date: Tue, 14 Jul 2026 19:44:40 +0900
-Message-ID: <20260714104445.919830-1-taka@valinux.co.jp>
+	Hirokazu Takahashi <taka@valinux.co.jp>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v6 1/5] xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
+Date: Tue, 14 Jul 2026 19:44:41 +0900
+Message-ID: <20260714104445.919830-2-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714104445.919830-1-taka@valinux.co.jp>
+References: <20260714104445.919830-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0046.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36b::18) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P301CA0073.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36f::7) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TY6P286MB7347:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5edcf241-77ea-455d-017e-08dee194f9b2
+X-MS-Office365-Filtering-Correlation-Id: df01bb8f-2de9-46cf-e343-08dee195085c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10070799003|18002099003|25016099003|56012099006|3023799007|6133799003|29003799003;
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|10070799003|18002099003|22082099003|56012099006|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	dVcIB7hdmrmrOifpwxD+ufe2EjuD+bNkaPM7xXQurGUsTsft+Q3oxFGWxO/nHy5HJp5QaCG+4zDVZr/cVfAxxMc97byyzcn/irEAB4xFePoYNHwd9T6jYKwZHhonOUX4DIeWJ5p2z3vJ3sFP5P3M5bgCR2mHjflwoiohvREXsDNz7lsf9CieVMU/ieJ8CHGMVnjKHoHif1xnhphTuAcz+OqaHm8FtwcQNpCf3uqodc7c1yZrASZ5zvrxme8Ul9SPeLsGer+C1O53Rvi9jH5xtx2nX0wsd+TgdYL+TOVsfxmouR+9XMXgS7v4o4jCbim4Vw9dc3xfuGLzzldIqWSbTCyh7bkyQBHeO82DKBGY3rU8XXVf86D0nh8d38tjM4upWR7vrmAyuf6M1ZoPq1my8UZMnG7IDQkVSVmdrgqBC0FKyvqfkjYRwiISQ93W1XBsSops9mji0weEr2QRi/kOzgLfoK/2qCr02s76a7ZrhEHnxleL4r1H/UdCuFS2ER8dxougoniNNIgXI/UlVKWKQJzVehmC3+gIHGGEf02RblldCdroY6aAVqulLVZyN4qMDiMZxFkrJpxQuwRisLR3kf5uMhfCBFUgHfJQ/zm82QAz5Eqty/vecE+eUWym+GyYB+gvXCne9qq44zFqC0aTLh1iTTqJhJt6LD9FXbw406s=
+	QrgFVUVgxwSTLvb7y6tFWyNSVev1DKg9VP3adNJbmg8VL0CdZ00nnvRln+Vv8WGVE3IZ3wqQMViaBdr/yyLh+uzKIqBttJEw0woFt0qOgFq0HKOPBL0nLXfeFqVR7/Gnlrgpu1Y3WDB32TBZdzHN2dZkU0IMtPFly4vSMlTpXWNPOjzHEeE1ZUVm9CaFi7/CMmZz0sKR0fQYCobqWJy/0xWz3EvXjgdMP6Qd6SAPimDazf+m4xG22GRtQ5V9bUOrz4nriAXtOgby0qAcoDz8iahfetWCH2ZiJ2nZWmbOwOoP1Xk3rClsjmUeZG4a/sWYXqc5QzWnhfGRsMvXEqWqPmZ4VzESWEONcoU8V14g6nrgNjeKFHVzgAn0laQe43ewxN1DyWmJB+RoZTEkjnuCR73Zx65egdJQb+Tbi7JpXVoZrUkkbL3R10dWAoh8oYudgvw4sgWlmDuNdsFroy18O6QxsyszRGFMhLILMjpx47Zp1BuvWjGjL3Ka54E+57fYSaFxgrMa+xtdq5DTr8waLjV0e9/ah3xc4as4tXGQEd7bHfeR17q13kY2DEP+gWUXBf68Mh7MXR8oSOGlTMFxrB8mCui1V3tL4iJCGEwlH1SqcJBPdn3+s5tA0rDr3It5dzVYGeu8ZSQhjSfQRMrPx8fFWI83wxxf3LUf4CvW9tk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10070799003)(18002099003)(25016099003)(56012099006)(3023799007)(6133799003)(29003799003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(10070799003)(18002099003)(22082099003)(56012099006)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jokSrhbKUbyzS+8VZOp88uUNO2F5hVY2ctiFKR34TKP8EdH73HbQklVmo1bT?=
- =?us-ascii?Q?4wP0L7czFXBtftmrnj/RAZ7DfI3AOB6MBRuLXSDDxy7Vv/55QnO/7p74gFE3?=
- =?us-ascii?Q?Z2cPwyganUBIBfzfgreSvmyr9gGlqk2MPDJM+1RX9uk2eAws0glH+2139RFI?=
- =?us-ascii?Q?4OjLQbmlG8vk3EYFLenqebgJuc4Bn5c8nsdAouoDoAAcjhl67E8eY354ggD3?=
- =?us-ascii?Q?h32LsGi95rBd6JCvClxxCxtYhRDmBRyLccYhpUpIIBnXKEdhTqpJSgzDOth5?=
- =?us-ascii?Q?mLPfpVvfx/3WoTGGSdDLKhAGJTeAe+YMoBCtkJzi0Q9seSFz8/FMx93N91wQ?=
- =?us-ascii?Q?Visz0g2Zmimq3DOnOq0ANS1fAoRDt0wJ754TlSqUKDTtrcWWmnNXSD3Z/hvF?=
- =?us-ascii?Q?U84NOBcr9caM/dLolm06PR6zr6SYl5ehr6I7x+lkffAJSRIlWTFaStFtVpAz?=
- =?us-ascii?Q?gJWz2dJ1Hbw8Qd8pqTr6gVIaXGuLQs9wxFQUBuzEQQl/Sa2ZlpZormmitE5A?=
- =?us-ascii?Q?9AGYcUAQ0nr3MEBTzEz+rJZijkFiacOu8ofU0Dmd04gXq9Lr61eXzVuMVdVo?=
- =?us-ascii?Q?VETiMfrfBSIE45Yr0h6jgCSSlFaY0k8FowMH/Obt/hxBuJIBcsxADXUG495i?=
- =?us-ascii?Q?N3HGa/O+C2uTlTBnc624+lASERm9Te/fqXV90FoeetrV10IKMK0XuJANc5wc?=
- =?us-ascii?Q?1CS3HHZerJ64xAS9qL/9QVrRFhBmexSgH8yaCJbprc4z+Mm6OjuzF1ELBk6U?=
- =?us-ascii?Q?r8BJP3w5aDlmc7xYSild7EwLCZ/ql7c/2e2lzD/aCAnyrBgVCUSU+RGfsut4?=
- =?us-ascii?Q?ZRGzEBWuFqC2pDbmPXexYXzcdN2kHtAfxYMMKvWjRKn3mMNusn/43/+cM9w5?=
- =?us-ascii?Q?OozBPYB4azXqQ8kXDzcJMxWIAYxwkiobhXQBcz/5zMaqX9kkhNV4r9/idqD1?=
- =?us-ascii?Q?Y0hLH1fa0V8z8dUQBofZZWwugTYeHfSUllh30yhw3bREcgXwditzu7Cn26uH?=
- =?us-ascii?Q?zdyBEAVnTEpplAb0YlkQlrLXZ2sAOYrzjdyR4AhucGBzqMYKWfLR2Q5Lfrav?=
- =?us-ascii?Q?67okVdbjLC9P+i+jKLW63OekDl2RiMr+9R3XccBFi/ZOWOuK1J3WN6+utReX?=
- =?us-ascii?Q?UXdlgRti7O7XyAK3Ads81oyZNv4XHyQ3iM4ZGS5oR3SilviUjSW6x9kieamH?=
- =?us-ascii?Q?Cu3MVG5Wq/BgPUfw/yPy+1PCvKFH6UvGNzIJXHmZK+iKGWJYeCdjaZ0PRdg7?=
- =?us-ascii?Q?IEL/0WRZ+fOI0r5TONH+wVR6uFbdSxeJJ2nFPkBs3gjtYfbBdotUdMWUzQtB?=
- =?us-ascii?Q?b33PHq6R/ahG0BfLhrNO6tOeZk1Q1tnrsgVebdgQEvDtYsMxvjwBHX2Uuwlw?=
- =?us-ascii?Q?NIQbf8OdvhXKOYRcSxquSzc0mymmmFyjEEwNyij+djzc7u57eYBTrcM6UacK?=
- =?us-ascii?Q?x68bFkbqEom96XBqOqEaOjzklVRnEXA9eZhebKTTnq/RwQwJUWaEaubYTG//?=
- =?us-ascii?Q?4MXmP2shgAzYgu/HnLFpEEb1taQfaJXE8ilBwymzrVPJaC3hQU6Xb6iBAidl?=
- =?us-ascii?Q?hiDyLac0P/6GNz6PUFzaCELuCHW+7KuXqv/rSxDzBahr6GltSFLOdZlZdODj?=
- =?us-ascii?Q?866ojFU93RwEUTlcIaMyPJTO4f8YiHZiIaAxvILFOy2soI3Z71ptqlczvGbF?=
- =?us-ascii?Q?IIzO7fuIT0akY7OqpekxxHo9KYX72rvHn8HqWWmEssBrur+vMQpP2+IqEy/5?=
- =?us-ascii?Q?zxJXFNIAuBIKbIyZUAs1J23h93+Shf5FjZQApqGiQpNw4155432JkFc7Viy8?=
-X-MS-Exchange-AntiSpam-MessageData-1: 0yqHNtw5Q3oaug==
+	=?us-ascii?Q?HGBYhjz1qFA4B+Fi4ockFMrHmN8pmtdWOKjRqnExMYrGjrpJJ9dLRlHvyQ04?=
+ =?us-ascii?Q?J31PNEXFCT/hj9X+MeqW7Fzqy+MbNvTMu/3q9v25oe0eU3oO5WECRx+Az9Q7?=
+ =?us-ascii?Q?NAsvjdZZm+ajaNQM7qAxnz3aXl3bXARtRDFTWxzEzu8N37EpyCHlxFA3ujE0?=
+ =?us-ascii?Q?vhlw2VmX5OsbvrNs5uinRYj8M9IyKtWj9VvQoX+GCKqib4WioAUAMBCar4TR?=
+ =?us-ascii?Q?lolukV4yP+7JHIXkj9c53De/AsljwLdwh3MDDJjE3aqTaBxk6GQm2u01o0xM?=
+ =?us-ascii?Q?IPgeORqFt5eTX/0rLs4f2J9Ns8aN2rIUBoEKlSgBMM3Iv+EaHhck7JDPp9eW?=
+ =?us-ascii?Q?1x3ujksdzU/vvsYcFSREO3MXi5r59RNwIp+luGYs+xQ0GOmqQ1u4NWstQSs/?=
+ =?us-ascii?Q?jdDtX7V4RINeZ+VMmblFlunjYxS5GxyXw7Udu3JjzFNqI+Crs6dnp6XfKbw/?=
+ =?us-ascii?Q?hUVb4WNFwm/PGvZ2vBRnh90W/aN3c5uQ6wCT0Y4Su11cVAGTPAIcUSmlapDY?=
+ =?us-ascii?Q?crfOYdzCT1zdlmTzuj9uFuIOha5XYiDFmbT557fjF4vzPvbsc9/MjsFi7ATl?=
+ =?us-ascii?Q?sE6HEucqhasWOPb8V57LBPIkeDrqOfLBJhq4qUHBaTfit/+NF1f9xINzyQgz?=
+ =?us-ascii?Q?k0r2FDk4+dWRg/dAZsTNs8TZL5SCmYkk6zH1P/vblFYbOgeqiJDaCZKg5hH7?=
+ =?us-ascii?Q?Sqc59gEF5PBijFX25/X7wOrJOMn68UTv3jty8oEpgEojxdW+idzwqkO1KuCd?=
+ =?us-ascii?Q?but4tQYhmmc6D2V1hxQ5NgNIoMtJ5QqliytLVWrFm2rQlxrHub3IU+nhMj1A?=
+ =?us-ascii?Q?mfPpGEy54CA6el5l6lKyC/CzfHCeXhYQnpMtvv0P1NeZt4hM9mQ1UIvQ87gO?=
+ =?us-ascii?Q?2SwmKZ0Z4jfuXZ02njg5jvTB24NUh26x9GIBtVFPRrpR0tEwUG5qHDGiUm9h?=
+ =?us-ascii?Q?iFnAtU2nmG9OCq9p31VHJG/paOFtG0WKpnWk+odcEaorjc1o5HiPJTub+y1w?=
+ =?us-ascii?Q?pSUAsvaY9MsIqtZQSCazFcwthkDwZWXrSEStFPzAxxN3Bs988ixS7tWfj7iz?=
+ =?us-ascii?Q?lTcpNueHpXmxvQcMpTrU8+EAh4SLRWn5GwWK/R4gIfkE+lfngLdpXDfvH2Ih?=
+ =?us-ascii?Q?1h6ILzYoWuIFrdg9rByjkYkh7+PUeBieJHlFcC/rikD0Xs4qRY2/pzoEiC3f?=
+ =?us-ascii?Q?h3JpkLbIcvnHlvfQjNfh3BTUB7xRVom0Nt2SHFgnNwwEwcxTANu6VoU+oPJn?=
+ =?us-ascii?Q?L9hsd2vqYMUi4GKUy490mhmnon0iluH55hL/qLBI19ra3xNoVTS+4vcUjL3+?=
+ =?us-ascii?Q?3nqzuGlUtJFCmLR+lebjLtPUHwHazVuxD52oHIwqDnhhl8WtiPuEE7EhWdKm?=
+ =?us-ascii?Q?hoBTwOFjj3O54xFfeTFjQqpCeuezNwxaW4ptaqtKI/QqgIZkI5JK9O/8G6Md?=
+ =?us-ascii?Q?mOxYMwYt0scd8Pss0uUszW+G5tFCZReFf0evW90bmKuzFRU6yI6bzdgptI9f?=
+ =?us-ascii?Q?ZicrzY/dR/hXCbsC/YbRpJxGAQnXlqHtF+gLS0bbEtlEardBDDeEpgeyZzhZ?=
+ =?us-ascii?Q?sUU4KDcrCbmP6prQyJBXSQJQw3sAu5zis1HQc1UDZHujSEgm+l5zk3pHeIK6?=
+ =?us-ascii?Q?eu0kOneNvjPnkd9+PZJs+a5H6DkGD7tP4/+Ozr1cY3trphUGBmycfZlB7Zrh?=
+ =?us-ascii?Q?hBFti14nvdu6eGcvPlUxVDlJVkiCjx10BldP5ZlzWOwKlgesuzbPfHbqdfi1?=
+ =?us-ascii?Q?8sjGJNw7Q3MGQm/BM+9S3ePoZYdS8vfARCF53VDmQzbI2Zqi4eE3iSSykE2Y?=
+X-MS-Exchange-AntiSpam-MessageData-1: XfooPvzFYSocoQ==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5edcf241-77ea-455d-017e-08dee194f9b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: df01bb8f-2de9-46cf-e343-08dee195085c
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 10:45:09.4457
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 10:45:34.0612
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2Hjme5Be8unO8QoJi7t1Y4l4pMDiVjbvArwgpic1aUN6/NJWUnpdBgDEyVJOEWhKDgLW+rQlkweCI1uNkeNG9Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7FlmHVx3mFyDb9AsfW9AKTWc/dYb9ZURQG9wGMAD7P+t1H4a9Ok5TpaL0toEKoDdWj/dG18z8j6azXKs/jV8Dw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6P286MB7347
-X-purgate-ID: tlsNG-ebf023/1784025915-C22D4B50-B7AFF815/0/0
+X-purgate-ID: tlsNG-bad1c0/1784025939-BC2F4034-866769C7/0/0
 X-purgate-type: clean
-X-purgate-size: 8895
+X-purgate-size: 22679
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -157,22 +168,22 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
 	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:taka@valinux.co.jp,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[valinux.co.jp:from_mime,valinux.co.jp:dkim,valinux.co.jp:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,valinux.co.jp:from_mime,valinux.co.jp:mid,valinux.co.jp:email,valinux.co.jp:dkim];
 	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[valinux.co.jp:+];
@@ -183,184 +194,775 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CD609753869
+X-Rspamd-Queue-Id: A77A875387D
 
-Hello,
+Parse the 'cpu-map' node in the Device Tree to extract CPU topology
+information. If the 'cpu-map' node is absent, fall back to
+generating the topology data from the NUMA information. This
+generation assumes exactly one socket per NUMA node and that SMT
+is unsupported.
 
-This patch series integrates CPU topology discovery into the Xen hypervisor
-for both ACPI and Device Tree platforms. The primary goal is to make
-accurate threading and socket information available to the Xen scheduler.
-
+Signed-off-by: Hirokazu Takahashi <taka@valinux.co.jp>
+---
 Changes in v6:
- - Renamed the series subject from "xen/arm: Device Tree based CPU topology
-   support" to reflect the inclusion of generic ACPI PPTT topology parsing.
-
- - Infrastructure & Kconfig:
    * Updated Kconfig to make both DT_CPU_TOPOLOGY and ACPI_CPU_TOPOLOGY
      select GENERIC_CPU_TOPOLOGY.
    * Ensured that if topology parsing from either DT or ACPI PPTT fails, the
      CPU topology table is freed to fall back to the non-topology behavior.
    * Moved the `cpu_topology` definition to `cpu.c` so that variables and
      functions in `cpu-topology.c` can be completely freed after Xen init.
-
- - Topology Logic (DT / ACPI):
-   * Set the cluster ID to 0 when the cluster definition is missing from the
-     Device Tree `cpu-map` node.
-   * Handled cases where cluster info is missing upon reaching a physical
-     package in the PPTT parser by assuming one cluster per socket.
-   * Split out the import of ACPI PPTT definitions from the Linux kernel
-     (including unused definitions) into a separate standalone patch.
-
- - Robustness & Safety:
-   * Avoided assuming `np` becomes NULL after exiting `dt_for_each_child_node()`;
-     explicitly return NULL instead.
-   * Added bounds-checking `ASSERT`s for values returned by `cpumask_first()`.
-   * Added explicit braces `{}` to nested `if` statements to clarify `else`
-     scoping and maintain style symmetry.
-   * Enforced an upper limit on the PPTT parsing loop iterations to prevent
-     infinite loops on corrupted tables.
-   * Treat the absence of a physical package node definition in PPTT as a
-     parsing error.
-
- - Optimization & Efficiency:
+   * Avoided assuming `np` becomes NULL after exiting
+     `dt_for_each_child_node()`; explicitly return NULL instead.
    * Optimized `setup_siblings_masks()` to eliminate redundant loop iterations.
-   * Dynamically allocate the temporary data storage used during ACPI PPTT
-     parsing.
-
- - Code Cleanup & Refactoring:
    * Replaced the `invalid_topo_id` constant with the `INVALID_TOPO_ID` macro.
    * Initialized all members of the `cpu_map` array with `INVALID_TOPO_ID`.
-   * Added a blank line between `<xen/...>` and `<asm/...>` header groups.
-   * Reordered `#ifdef` blocks to prioritize generic logic over architecture-
-     specific ones.
-   * Corrected code indentation.
    * Applied the `static` specifier to file-local data structures and functions.
-   * Minimized the use of fixed-width `uint32_t` types, restricting its use only
-     where strictly required by the 32-bit ACPI ID specification.
-   * Declared `map_cpu_acpiid[]` as static and introduced the helper function
-     `acpi_map_cpu_acpiid()` for managed access.
    * Renamed local variables to more intuitive names.
-   * Simplified the implementation of `get_logical_id()`.
-   * Refactored PPTT parsing to reduce type casting by using `container_of()`
-     and switching from `char *` to `void *` pointers.
-   * Removed redundant error checks.
-   * Cleaned up unused variables and eliminated debug print statements.
 
-Changes in v5:
- - Extracted CPU topology information from the ACPI PPTT.
- - Corrected the erroneous use of CONFIG_CPU_TOPOLOGY to
-   CONFIG_GENERIC_CPU_TOPOLOGY.
-
-Changes in v4:
- - Only display the CPU topology configuration prompt in common/Kconfig
-   if the architecture defines HAS_GENERIC_CPU_TOPOLOGY.
- - Move the definition of the global 'cpu_topology' pointer to
-   common/cpu-topology.c.
- - Update the Makefile to explicitly build objects as .init.o when all
-   functions and data within a file are annotated with __init/__initdata,
-   ensuring their memory is reclaimed after system initialization.
- - Add an error log in the CPU-to-node mapping function for out-of-bounds
-   cases.
- - Use ARRAY_SIZE() instead of raw macros when guarding array accesses.
- - Rename variables and functions to avoid ambiguous or misleading terms:
-   - Avoid 'cpuid' to prevent confusion with x86 CPUID features/instructions.
-   - Avoid 'node' where it could be confused with a NUMA node, explicitly
-     renaming them to clarify they refer to a Device Tree node.
- - Move local variable declarations into the narrowest possible scope.
- - Replace the unsupported "%pOF" printk format specifier with "%s" and
-   explicit node name retrieval.
- - Remove #include <dt-cpu-topology.h> from cpu-topology.h, and ensure
-   the header directly includes only what its definitions require.
- - Remove #include <xen/device_tree.h> from dt-cpu-topology.h, replacing
-   it with a forward declaration of 'struct dt_device_node'.
- - Use 'const' qualifiers for pointer declarations where the pointed-to
-   structure is not modified.
- - Explicitly #include <asm/processor.h> in cpu-topology.h to guarantee
-   that arch-specific definitions of cpu_to_core() and cpu_to_socket()
-   take precedence over the generic fallbacks.
- - Introduce inline initialization functions for cpu_sibling_mask and
-   cpu_core_mask in cpu-topology.h, providing separate variants for both
-   when CONFIG_GENERIC_CPU_TOPOLOGY is enabled and disabled.
-
-Changes in v3:
- - Use (nr_cpu_ids - 1) as the maximum CPU ID here. The fix for the sparse
-   map mismatch issue on ARM Xen has been split out into a separate patch.
- - Switch topology sibling masks to cpumask_var_t for dynamic allocation.
- - Allow the system to keep running with a degraded fallback even if
-   the topology table allocation fails.
- - Remove the temporary definitions of cpu_to_core() and cpu_to_socket()
-   from RISC-V and PPC processor.h.
- - Minimize the use of #ifdef blocks, leveraging compiler Dead Code
-   Elimination (DCE) where possible.
- - Clean up the code to follow the Xen coding style. Please let me know
-   if I missed any style nits!
- - Verify successful builds across x86, RISC-V, and PPC environments.
-
-Changes in v2:
- - Generate topology information even when ACPI is enabled. Note that
-   this is a temporary implementation and doesn't yet parse the PPTT
-   (Processor Properties Topology Table).
- - Added support for cpu-map node in Device Tree that doesn't contain
-   explicit cluster node definitions.
-
-Changes in v1 from the previous series "Introduce Device Tree based NUMA
-support for ARM Xen":
-
-1. Optimized Memory Allocation:
-   The series now allocates only the minimum required memory area to manage
-   the essential data for the CPUs.
-
-2. Flexible Device Tree Parsing:
-   The parsing logic no longer depends on the definition order of the 'cpu'
-   nodes and 'cpu-map' nodes in the Device Tree. They can now be read
-   correctly even if their orders do not match.
-
-3. CPU Hotplug Readiness:
-   To support future CPU hotplug, the system assumes that inactive CPUs are
-   also described in the Device Tree. Xen will pre-load and generate the
-   topology information for these inactive CPUs during the boot phase so
-   it stays available in memory.
-
-Thank you,
-Hirokazu Takahashi
-
-Hirokazu Takahashi (5):
-  xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
-  xen/sched: Link CPU topology to scheduler
-  xen/sched: Make cpu_nr_siblings() architecture-specific
-  xen/acpi: Import PPTT definitions from Linux
-  xen/acpi: Parse PPTT to initialize CPU topology
-
- xen/arch/arm/Kconfig                   |   1 +
- xen/arch/arm/acpi/boot.c               |   2 +
- xen/arch/arm/include/asm/acpi.h        |   2 +
- xen/arch/arm/include/asm/processor.h   |   4 -
- xen/arch/arm/smpboot.c                 |  15 +-
- xen/arch/ppc/include/asm/processor.h   |   4 -
- xen/arch/riscv/include/asm/processor.h |   4 -
- xen/arch/x86/include/asm/processor.h   |   1 +
- xen/common/Kconfig                     |  22 ++
- xen/common/Makefile                    |   1 +
- xen/common/cpu-topology.c              |  65 ++++
- xen/common/cpu.c                       |   5 +
- xen/common/device-tree/Makefile        |   1 +
- xen/common/device-tree/cpu-topology.c  | 408 +++++++++++++++++++++++++
- xen/common/sched/credit2.c             |  21 +-
- xen/common/sysctl.c                    |   1 +
- xen/drivers/acpi/Kconfig               |   3 +
- xen/drivers/acpi/Makefile              |   1 +
- xen/drivers/acpi/topology.c            | 269 ++++++++++++++++
- xen/include/acpi/actbl2.h              | 113 +++++++
- xen/include/xen/acpi.h                 |  15 +
- xen/include/xen/cpu-topology.h         |  83 +++++
- xen/include/xen/dt-cpu-topology.h      |  35 +++
- 23 files changed, 1040 insertions(+), 36 deletions(-)
+ xen/arch/arm/Kconfig                  |   1 +
+ xen/arch/arm/smpboot.c                |   7 +
+ xen/common/Kconfig                    |  22 ++
+ xen/common/Makefile                   |   1 +
+ xen/common/cpu-topology.c             |  65 +++++
+ xen/common/cpu.c                      |   5 +
+ xen/common/device-tree/Makefile       |   1 +
+ xen/common/device-tree/cpu-topology.c | 343 ++++++++++++++++++++++++++
+ xen/drivers/acpi/Kconfig              |   3 +
+ xen/drivers/acpi/Makefile             |   1 +
+ xen/drivers/acpi/topology.c           |  41 +++
+ xen/include/xen/acpi.h                |  13 +
+ xen/include/xen/cpu-topology.h        |  34 +++
+ xen/include/xen/dt-cpu-topology.h     |  35 +++
+ 14 files changed, 572 insertions(+)
  create mode 100644 xen/common/cpu-topology.c
  create mode 100644 xen/common/device-tree/cpu-topology.c
  create mode 100644 xen/drivers/acpi/topology.c
  create mode 100644 xen/include/xen/cpu-topology.h
  create mode 100644 xen/include/xen/dt-cpu-topology.h
 
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 843a43897e..1e0fd4957e 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -19,6 +19,7 @@ config ARM
+ 	select HAS_ALTERNATIVE if HAS_VMAP
+ 	select HAS_DEVICE_TREE_DISCOVERY
+ 	select HAS_DOM0LESS
++	select HAS_GENERIC_CPU_TOPOLOGY
+ 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
+ 	select HAS_STACK_PROTECTOR
+ 	select HAS_STATIC_MEMORY
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index ba5fd2dd52..d957553a44 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -9,10 +9,12 @@
+ 
+ #include <xen/acpi.h>
+ #include <xen/cpu.h>
++#include <xen/cpu-topology.h>
+ #include <xen/cpumask.h>
+ #include <xen/delay.h>
+ #include <xen/device_tree.h>
+ #include <xen/domain_page.h>
++#include <xen/dt-cpu-topology.h>
+ #include <xen/errno.h>
+ #include <xen/init.h>
+ #include <xen/mm.h>
+@@ -244,6 +246,9 @@ static void __init dt_smp_init_cpus(void)
+         }
+         else
+             tmp_map[i] = hwid;
++
++        /* Pass the info to dt_init_cpu_topology() */
++        map_cpu_to_dt_node(i, cpu);
+     }
+ 
+     if ( !bootcpu_valid )
+@@ -280,6 +285,8 @@ void __init smp_init_cpus(void)
+     else
+         acpi_smp_init_cpus();
+ 
++    init_cpu_topology();
++
+     if ( opt_hmp_unsafe )
+         warning_add("WARNING: HMP COMPUTING HAS BEEN ENABLED.\n"
+                     "It has implications on the security and stability of the system,\n"
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index da80fdba84..8e64b58739 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -140,6 +140,9 @@ config HAS_EX_TABLE
+ config HAS_FAST_MULTIPLY
+ 	bool
+ 
++config HAS_GENERIC_CPU_TOPOLOGY
++	bool
++
+ config HAS_IOPORTS
+ 	bool
+ 
+@@ -191,6 +194,25 @@ config VM_EVENT
+ config NEEDS_LIBELF
+ 	bool
+ 
++config GENERIC_CPU_TOPOLOGY
++	bool
++
++config DT_CPU_TOPOLOGY
++    bool "Device tree based CPU topology support (UNSUPPORTED)" if UNSUPPORTED
++    depends on HAS_GENERIC_CPU_TOPOLOGY && DEVICE_TREE_PARSE
++    select GENERIC_CPU_TOPOLOGY
++    help
++      Retrieve CPU topology information from the device tree to optimize
++      virtual CPU scheduling.
++
++config ACPI_CPU_TOPOLOGY
++    bool "ACPI based CPU topology support (UNSUPPORTED)" if UNSUPPORTED
++    depends on HAS_GENERIC_CPU_TOPOLOGY && ACPI
++    select GENERIC_CPU_TOPOLOGY
++    help
++      Retrieve CPU topology information from the ACPI PPTT to optimize
++      virtual CPU scheduling.
++
+ config NUMA
+ 	bool
+ 
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 6018e25614..901bb37925 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -5,6 +5,7 @@ obj-$(CONFIG_GENERIC_BUG_FRAME) += bug.o
+ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
+ obj-$(CONFIG_CORE_PARKING) += core_parking.o
+ obj-y += cpu.o
++obj-$(CONFIG_GENERIC_CPU_TOPOLOGY) += cpu-topology.init.o
+ obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
+ obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
+ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
+diff --git a/xen/common/cpu-topology.c b/xen/common/cpu-topology.c
+new file mode 100644
+index 0000000000..374b3fce1b
+--- /dev/null
++++ b/xen/common/cpu-topology.c
+@@ -0,0 +1,65 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#include <xen/acpi.h>
++#include <xen/cpu-topology.h>
++#include <xen/cpumask.h>
++#include <xen/dt-cpu-topology.h>
++#include <xen/init.h>
++
++static void __init free_topology_table(void)
++{
++    unsigned int cpu;
++
++    for ( cpu = 0; cpu < nr_cpu_ids; cpu++ )
++    {
++        free_cpumask_var(cpu_topology[cpu].thread_sibling);
++        free_cpumask_var(cpu_topology[cpu].core_sibling);
++        free_cpumask_var(cpu_topology[cpu].cluster_sibling);
++    }
++
++    XFREE(cpu_topology);
++}
++
++void __init init_cpu_topology(void)
++{
++    unsigned int cpu;
++    int ret;
++
++    cpu_topology = xzalloc_array(struct cpu_topology, nr_cpu_ids);
++    if ( !cpu_topology )
++    {
++        printk(XENLOG_ERR "Failed to allocate memory for cpu_topology table\n");
++        return;
++    }
++
++    for ( cpu = 0; cpu < nr_cpu_ids; cpu++ )
++    {
++        if ( !zalloc_cpumask_var(&cpu_topology[cpu].thread_sibling) ||
++             !zalloc_cpumask_var(&cpu_topology[cpu].core_sibling) ||
++             !zalloc_cpumask_var(&cpu_topology[cpu].cluster_sibling) )
++        {
++            free_topology_table();
++            printk(XENLOG_ERR "Failed to allocate memory for cpu_topology table\n");
++            return;
++        }
++    }
++
++    if ( acpi_disabled )
++        ret = dt_init_cpu_topology();
++    else
++        ret = acpi_init_cpu_topology();
++
++    /* Free the CPU topology table if initialization fails. */
++    if ( ret != 0 )
++        free_topology_table();
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/common/cpu.c b/xen/common/cpu.c
+index f09af0444b..3242adb6f0 100644
+--- a/xen/common/cpu.c
++++ b/xen/common/cpu.c
+@@ -46,6 +46,11 @@ const unsigned long cpu_bit_bitmap[BITS_PER_LONG+1][BITS_TO_LONGS(NR_CPUS)] = {
+ #undef MASK_DECLARE_2
+ #undef MASK_DECLARE_1
+ 
++#ifdef CONFIG_GENERIC_CPU_TOPOLOGY
++struct cpu_topology;
++struct cpu_topology *__ro_after_init cpu_topology;
++#endif /* CONFIG_GENERIC_CPU_TOPOLOGY */
++
+ static DEFINE_RWLOCK(cpu_add_remove_lock);
+ 
+ bool get_cpu_maps(void)
+diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
+index 9036e455d6..6ee670b5f4 100644
+--- a/xen/common/device-tree/Makefile
++++ b/xen/common/device-tree/Makefile
+@@ -1,6 +1,7 @@
+ obj-y += bootfdt.init.o
+ obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo-fdt.init.o
+ obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo.init.o
++obj-$(CONFIG_DT_CPU_TOPOLOGY) += cpu-topology.init.o
+ obj-y += device-tree.o
+ obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
+ obj-$(filter $(CONFIG_DOM0LESS_BOOT),$(CONFIG_HAS_DEVICE_TREE_DISCOVERY)) += dom0less-build.init.o
+diff --git a/xen/common/device-tree/cpu-topology.c b/xen/common/device-tree/cpu-topology.c
+new file mode 100644
+index 0000000000..be82272c14
+--- /dev/null
++++ b/xen/common/device-tree/cpu-topology.c
+@@ -0,0 +1,343 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Derived from Linux kernel 7.0's $drivers/base/arch_topology.c
++ * Parse cpu topology information.
++ */
++
++#include <xen/acpi.h>
++#include <xen/cpu-topology.h>
++#include <xen/cpumask.h>
++#include <xen/device_tree.h>
++#include <xen/errno.h>
++#include <xen/init.h>
++
++#define INVALID_TOPO_ID (~0U)
++
++struct cpu_map {
++    unsigned int thread_id;
++    unsigned int core_id;
++    unsigned int cluster_id;
++    unsigned int package_id;
++};
++
++static struct cpu_map __initdata cpu_map[NR_CPUS] = {
++    [0 ... NR_CPUS - 1] = {INVALID_TOPO_ID, INVALID_TOPO_ID,
++                           INVALID_TOPO_ID, INVALID_TOPO_ID}
++};
++static struct dt_device_node *__initdata dt_cpu_table[NR_CPUS];
++
++static void __init setup_siblings_masks(unsigned int target_cpu)
++{
++    const struct cpu_topology *target_topo = &cpu_topology[target_cpu];
++    const struct cpu_map *target_map = &cpu_map[target_cpu];
++    unsigned int cpu;
++
++    /* Update cluster, core and thread sibling masks */
++    for_each_possible_cpu(cpu)
++    {
++        const struct cpu_topology *cpu_topo = &cpu_topology[cpu];
++        const struct cpu_map *map = &cpu_map[cpu];
++
++        if ( target_cpu > cpu )
++            continue;
++
++        if ( target_map->package_id != map->package_id )
++            continue;
++
++        cpumask_set_cpu(target_cpu, cpu_topo->core_sibling);
++        cpumask_set_cpu(cpu, target_topo->core_sibling);
++
++        if ( target_map->cluster_id != map->cluster_id )
++            continue;
++
++        if ( target_map->cluster_id != INVALID_TOPO_ID )
++        {
++            cpumask_set_cpu(target_cpu, cpu_topo->cluster_sibling);
++            cpumask_set_cpu(cpu, target_topo->cluster_sibling);
++        }
++
++        if ( target_map->core_id != map->core_id )
++            continue;
++
++        cpumask_set_cpu(target_cpu, cpu_topo->thread_sibling);
++        cpumask_set_cpu(cpu, target_topo->thread_sibling);
++    }
++}
++
++static struct dt_device_node *__init dt_find_child_node_by_name(
++    const struct dt_device_node *dt,
++    const char *name)
++{
++    struct dt_device_node *np;
++
++    dt_for_each_child_node(dt, np)
++        if ( np->name && (dt_node_cmp(np->name, name) == 0) )
++            return np;
++
++    return NULL;
++}
++
++void __init map_cpu_to_dt_node(unsigned int cpu,
++                               struct dt_device_node *cpu_node)
++{
++    if ( cpu < ARRAY_SIZE(dt_cpu_table) )
++        dt_cpu_table[cpu] = cpu_node;
++    else
++        printk(XENLOG_WARNING
++               "cpu %u exceeds the max cpus %zu\n",
++               cpu, ARRAY_SIZE(dt_cpu_table));
++}
++
++static unsigned int __init cpu_node_to_id(
++    const struct dt_device_node *cpu_node)
++{
++    unsigned int cpu;
++
++    for_each_possible_cpu(cpu)
++        if ( cpu_node == dt_cpu_table[cpu] )
++            return cpu;
++
++    return INVALID_TOPO_ID;
++}
++
++/*
++ * This function returns the Xen cpu number of the DT node.
++ */
++static unsigned int __init get_cpu_for_node(
++    const struct dt_device_node *dt_node)
++{
++    const struct dt_device_node *cpu_node =
++        dt_parse_phandle(dt_node, "cpu", 0);
++
++    if ( !cpu_node )
++        return INVALID_TOPO_ID;
++
++    return cpu_node_to_id(cpu_node);
++}
++
++static int __init parse_core(const struct dt_device_node *core,
++                             unsigned int package_id,
++                             unsigned int cluster_id,
++                             unsigned int core_id)
++{
++    bool leaf = true;
++    unsigned int thread_id;
++    unsigned int cpu;
++
++    for ( thread_id = 0; ; thread_id++ )
++    {
++        const struct dt_device_node *thread;
++        char name[20];
++
++        snprintf(name, sizeof(name), "thread%u", thread_id);
++        thread = dt_find_child_node_by_name(core, name);
++
++        if ( !thread )
++            break;
++
++        leaf = false;
++        cpu = get_cpu_for_node(thread);
++
++        if ( cpu == INVALID_TOPO_ID )
++        {
++            printk(XENLOG_ERR
++                   "ERROR: %s: Can't get CPU for thread\n", dt_node_name(thread));
++            return -EINVAL;
++        }
++
++        ASSERT(cpu_map[cpu].package_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].cluster_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].core_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].thread_id == INVALID_TOPO_ID);
++
++        cpu_map[cpu].package_id = package_id;
++        cpu_map[cpu].cluster_id = cluster_id;
++        cpu_map[cpu].core_id = core_id;
++        cpu_map[cpu].thread_id = thread_id;
++    }
++
++    cpu = get_cpu_for_node(core);
++
++    if ( cpu != INVALID_TOPO_ID )
++    {
++        if ( !leaf )
++        {
++            printk(XENLOG_ERR "ERROR: %s: Core has both threads and CPU\n",
++                   dt_node_name(core));
++            return -EINVAL;
++        }
++
++        ASSERT(cpu_map[cpu].package_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].cluster_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].core_id == INVALID_TOPO_ID);
++        ASSERT(cpu_map[cpu].thread_id == INVALID_TOPO_ID);
++
++        cpu_map[cpu].package_id = package_id;
++        cpu_map[cpu].cluster_id = cluster_id;
++        cpu_map[cpu].core_id = core_id;
++        cpu_map[cpu].thread_id = 0;
++    }
++    else if ( leaf )
++    {
++        printk(XENLOG_ERR
++               "ERROR: %s: Can't get CPU for leaf core\n", dt_node_name(core));
++        return -EINVAL;
++    }
++
++    return 0;
++}
++
++static int __init parse_cluster(const struct dt_device_node *cluster,
++                                unsigned int package_id,
++                                unsigned int cluster_id,
++                                unsigned int depth)
++{
++    bool leaf = true;
++    bool has_cores = false;
++    unsigned int core_id;
++    unsigned int child_cluster_id;
++
++    /*
++     * First check for child clusters; we currently ignore any
++     * information about the nesting of clusters and present the
++     * scheduler with a flat list of them.
++     */
++    for ( child_cluster_id = 0; ; child_cluster_id++ )
++    {
++        const struct dt_device_node *child_cluster;
++        char name[20];
++        int ret;
++
++        snprintf(name, sizeof(name), "cluster%u", child_cluster_id);
++        child_cluster = dt_find_child_node_by_name(cluster, name);
++
++        if ( !child_cluster )
++            break;
++
++        leaf = false;
++        ret = parse_cluster(child_cluster, package_id, child_cluster_id,
++                            depth + 1);
++        if ( depth > 0 )
++            printk(XENLOG_WARNING
++                   "WARNING: Topology for clusters of clusters not yet supported\n");
++        if ( ret != 0 )
++            return ret;
++    }
++
++    /* Now check for cores */
++    for ( core_id = 0; ; core_id++ )
++    {
++        const struct dt_device_node *core;
++        char name[20];
++        int ret;
++
++        snprintf(name, sizeof(name), "core%u", core_id);
++        core = dt_find_child_node_by_name(cluster, name);
++
++        if ( !core )
++            break;
++
++        has_cores = true;
++
++        if ( depth == 0 )
++        {
++            printk(XENLOG_ERR
++                   "ERROR: %s: cpu-map children should be clusters\n",
++                   dt_node_name(core));
++            return -EINVAL;
++        }
++
++        if ( leaf )
++        {
++            ret = parse_core(core, package_id, cluster_id, core_id);
++            if ( ret != 0 )
++                return ret;
++        }
++        else
++        {
++            printk(XENLOG_ERR "ERROR: %s: Non-leaf cluster with core %s\n",
++                   dt_node_name(cluster), name);
++            return -EINVAL;
++        }
++    }
++
++    if ( leaf && !has_cores )
++        printk(XENLOG_WARNING "WARNING: %s: empty cluster\n",
++               dt_node_name(cluster));
++
++    return 0;
++}
++
++static int __init parse_socket(const struct dt_device_node *socket)
++{
++    bool has_socket = false;
++    unsigned int package_id;
++    int ret;
++
++    for ( package_id = 0; ; package_id++ )
++    {
++        const struct dt_device_node *cluster;
++        char name[20];
++
++        snprintf(name, sizeof(name), "socket%u", package_id);
++        cluster = dt_find_child_node_by_name(socket, name);
++
++        if ( !cluster )
++            break;
++
++        has_socket = true;
++        ret = parse_cluster(cluster, package_id, INVALID_TOPO_ID, 0);
++        if ( ret != 0 )
++            return ret;
++    }
++
++    if ( !has_socket )
++        ret = parse_cluster(socket, 0, INVALID_TOPO_ID, 0);
++
++    return ret;
++}
++
++static int __init parse_dt_topology(void)
++{
++    const struct dt_device_node *cpus;
++    const struct dt_device_node *map;
++
++    cpus = dt_find_node_by_path("/cpus");
++    if ( !cpus )
++    {
++        printk(XENLOG_ERR "ERROR: No CPU information found in DT\n");
++        return -EINVAL;
++    }
++
++    map = dt_find_child_node_by_name(cpus, "cpu-map");
++    if ( !map )
++        return -ENOENT;
++
++    return parse_socket(map);
++}
++
++int __init dt_init_cpu_topology(void)
++{
++    unsigned int cpu;
++    int ret;
++
++    BUG_ON(!acpi_disabled);
++    BUG_ON(!cpu_topology);
++
++    ret = parse_dt_topology();
++    if ( ret == 0 )
++        for_each_possible_cpu(cpu)
++            setup_siblings_masks(cpu);
++
++    return ret;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/drivers/acpi/Kconfig b/xen/drivers/acpi/Kconfig
+index e3f3d8f4b1..ef0b9a4502 100644
+--- a/xen/drivers/acpi/Kconfig
++++ b/xen/drivers/acpi/Kconfig
+@@ -2,6 +2,9 @@
+ config ACPI
+ 	bool
+ 
++config ACPI_CPU_TOPOLOGY
++	bool
++
+ config ACPI_LEGACY_TABLES_LOOKUP
+ 	bool
+ 
+diff --git a/xen/drivers/acpi/Makefile b/xen/drivers/acpi/Makefile
+index 477408afbe..bcdb1b5e1b 100644
+--- a/xen/drivers/acpi/Makefile
++++ b/xen/drivers/acpi/Makefile
+@@ -10,3 +10,4 @@ obj-$(CONFIG_PM_OP) += pm-op.o
+ 
+ obj-$(CONFIG_X86) += hwregs.o
+ obj-$(CONFIG_X86) += reboot.o
++obj-$(CONFIG_ACPI_CPU_TOPOLOGY) += topology.init.o
+diff --git a/xen/drivers/acpi/topology.c b/xen/drivers/acpi/topology.c
+new file mode 100644
+index 0000000000..45d1f2c5be
+--- /dev/null
++++ b/xen/drivers/acpi/topology.c
+@@ -0,0 +1,41 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#include <xen/acpi.h>
++#include <xen/cpu-topology.h>
++#include <xen/cpumask.h>
++#include <xen/init.h>
++
++/*
++ * TODO: Populate the topology information by scanning the ACPI
++ *       PPTT (Processor Properties Topology Table).
++ */
++int __init acpi_init_cpu_topology(void)
++{
++    unsigned int cpu;
++
++    /*
++     * Generate temporary cpu topology information for now.
++     * It assumes that the cpu doesn't have SMT and all CPUs
++     * belong to the same socket.
++     */
++    for_each_possible_cpu(cpu)
++    {
++        struct cpu_topology *topo = &cpu_topology[cpu];
++
++        cpumask_set_cpu(cpu, topo->thread_sibling);
++        cpumask_copy(topo->core_sibling, &cpu_possible_map);
++        cpumask_copy(topo->cluster_sibling, &cpu_possible_map);
++    }
++
++    return 0;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
+index 2fdf38cf74..cbb02e0f35 100644
+--- a/xen/include/xen/acpi.h
++++ b/xen/include/xen/acpi.h
+@@ -135,6 +135,19 @@ static inline int acpi_boot_table_init(void)
+ 
+ #endif 	/*!CONFIG_ACPI*/
+ 
++#ifdef CONFIG_ACPI_CPU_TOPOLOGY
++
++int acpi_init_cpu_topology(void);
++
++#else /* CONFIG_ACPI_CPU_TOPOLOGY */
++
++static inline int acpi_init_cpu_topology(void)
++{
++    return -EOPNOTSUPP;
++}
++
++#endif /* CONFIG_ACPI_CPU_TOPOLOGY */
++
+ int get_cpu_id(u32 acpi_id);
+ 
+ unsigned int acpi_register_gsi (u32 gsi, int edge_level, int active_high_low);
+diff --git a/xen/include/xen/cpu-topology.h b/xen/include/xen/cpu-topology.h
+new file mode 100644
+index 0000000000..7cfe3752cd
+--- /dev/null
++++ b/xen/include/xen/cpu-topology.h
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef XEN_CPU_TOPOLOGY_H
++#define XEN_CPU_TOPOLOGY_H
++
++#include <xen/cpumask.h>
++
++#ifdef CONFIG_GENERIC_CPU_TOPOLOGY
++
++struct cpu_topology {
++    cpumask_var_t thread_sibling;
++    cpumask_var_t core_sibling;
++    cpumask_var_t cluster_sibling;
++};
++
++extern struct cpu_topology *cpu_topology;
++void init_cpu_topology(void);
++
++#else /* CONFIG_GENERIC_CPU_TOPOLOGY */
++
++static inline void init_cpu_topology(void) {}
++
++#endif /* CONFIG_GENERIC_CPU_TOPOLOGY */
++
++#endif /* XEN_CPU_TOPOLOGY_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/include/xen/dt-cpu-topology.h b/xen/include/xen/dt-cpu-topology.h
+new file mode 100644
+index 0000000000..72b35b3cf2
+--- /dev/null
++++ b/xen/include/xen/dt-cpu-topology.h
+@@ -0,0 +1,35 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef XEN_DT_CPU_TOPOLOGY_H
++#define XEN_DT_CPU_TOPOLOGY_H
++
++#include <xen/errno.h>
++
++struct dt_device_node;
++
++#ifdef CONFIG_DT_CPU_TOPOLOGY
++
++void map_cpu_to_dt_node(unsigned int cpu, struct dt_device_node *cpu_node);
++int dt_init_cpu_topology(void);
++
++#else /* CONFIG_DT_CPU_TOPOLOGY */
++
++static inline void map_cpu_to_dt_node(unsigned int cpu,
++                                      struct dt_device_node *cpu_node) {}
++static inline int dt_init_cpu_topology(void)
++{
++    return -EOPNOTSUPP;
++}
++
++#endif /* CONFIG_DT_CPU_TOPOLOGY */
++
++#endif /* XEN_DT_CPU_TOPOLOGY_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.43.0
 
