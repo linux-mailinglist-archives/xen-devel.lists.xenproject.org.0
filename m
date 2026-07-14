@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +P4oCYJAVmri2AAAu9opvQ
+	id DIEPH0NZVmoc3wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 15:58:26 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 17:44:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792027556A2
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 15:58:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF5197568D4
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 17:44:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=JmDCzoYn;
+	dkim=pass header.d=yandex-team.ru header.s=default header.b=OD8W5Yad;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1362408.1614235 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=yandex-team.ru
+Received: from list by lists.xenproject.org with outflank-mailman.1362425.1614244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjdeE-0004UN-8G; Tue, 14 Jul 2026 13:58:10 +0000
+	id 1wjfHe-0001Im-B6; Tue, 14 Jul 2026 15:42:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1362408.1614235; Tue, 14 Jul 2026 13:58:10 +0000
+Received: by outflank-mailman (output) from mailman id 1362425.1614244; Tue, 14 Jul 2026 15:42:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjdeE-0004SD-4L; Tue, 14 Jul 2026 13:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 1362408;
- Tue, 14 Jul 2026 13:58:09 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wjfHe-0001GB-69; Tue, 14 Jul 2026 15:42:58 +0000
+Received: by outflank-mailman (input) for mailman id 1362425;
+ Tue, 14 Jul 2026 15:42:57 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wjdeD-0004S7-1j
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 13:58:09 +0000
+ (envelope-from <vsementsov@yandex-team.ru>) id 1wjfHc-0001G5-BR
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 15:42:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjdeC-00816r-7U
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 15:58:08 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wjfHb-00Bzoz-3d
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 17:42:55 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a564069-bab6-0a2a0a5309dd-0a2a4503da38-10
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 15:58:08 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a56406f-fae8-0a2a45030019-d1558029d1f7-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 15:58:08 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-493f60208a5so37370245e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 06:58:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49506a1fbcesm80087315e9.0.2026.07.14.06.58.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jul 2026 06:58:07 -0700 (PDT)
+ (envelope-from <vsementsov@yandex-team.ru>)
+ id 6a5658df-bab6-0a2a0a5309dd-0a2a4507c830-46
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 17:42:54 +0200
+Received: from [178.154.239.136] (helo=forwardcorp1b.mail.yandex.net)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <vsementsov@yandex-team.ru>)
+ id 6a5658fc-b4ea-0a2a45070019-b29aef8883a0-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 17:42:53 +0200
+Received: from mail-nwsmtp-smtp-corp-canary-81.sas.yp-c.yandex.net
+ (mail-nwsmtp-smtp-corp-canary-81.sas.yp-c.yandex.net
+ [IPv6:2a02:6b8:c1b:16:0:640:bc52:0])
+ by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id 7553980B02;
+ Tue, 14 Jul 2026 18:42:52 +0300 (MSK)
+Received: from i115954770.yandex-team.ru (unknown [2a02:6bf:8080:c5a::1:8])
+ by mail-nwsmtp-smtp-corp-canary-81.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA
+ id lgRdV71YDKo0-yjZTDoCd; Tue, 14 Jul 2026 18:42:51 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,320 +58,367 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1784037487; x=1784642287; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XEf/AOPqS32wm5P7jaCi4Hz1U6Z2kQuPSSiw08HTP4A=;
-        b=JmDCzoYnnUIg7BmgSP0YGXEcWKVY5ywH7pSwrZmpO2j+azb/QaoMeNxTeYFgxHg9bq
-         +UhCp+vbFc3QQ7ok+WtFCZ2TP8ze1stdZQN/948qNkjjIm60X4RF0tLsiep7kKEPenff
-         P9Tsu74bUeTwORFVevhD5mhlD3yUfN5oQH+kU4zxAhPo9UfZwiHhMAUcrlKioDVMcYBk
-         ipcibQsHTPHBD7xMfjmMjX3E5Kb1BGjWNrRPbQu4N1FcWb0c7bmbR/LKrTsF9oZJ7eCK
-         YB5FnHYMoZ53oxPBfdwUdUGqfIrpteUN7nCF0VHgF3u0dKNlR3kfF05kzp/sswCObW4j
-         B+Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784037487; x=1784642287;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:references:cc:to:subject:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XEf/AOPqS32wm5P7jaCi4Hz1U6Z2kQuPSSiw08HTP4A=;
-        b=CVFkePoYKKNnpPZTAfAO+4JeNI51hV2LbyJrh6mxLESC4Nu3Lh0gYct1nVPD7fFr5z
-         Tpgu/Qb+UKmxjC/L5xGNvlVrZPMzcXe0cIoczSMpk0qjKjOY5Lu6Ry02+/tHFDg7zhJL
-         LEM7BlotB+eUAGWZ5QqtQmFyNHUxv4L3Be5AkuQ8WYQCN0L3gMB4S4fMs+A75IgDQ9+j
-         9k5ajVwWdarxhrUHmxHhf2VemcZBMmtVGEbHjwmbgQ02YBcqTRo0siCLZHb/N4GxnufR
-         PH52VbDxYKGmdsRLrNmpIjViaAax46LSKqGU8yNp4Dd9b6FncquwcggRNRinXsz9qRVZ
-         Kilg==
-X-Gm-Message-State: AOJu0YzVYzZpWXYRCVpYV5H4iVumsxlcP9SCoHTi2YdIB5nexhH5wrPR
-	Yob6pQo4KjO8tPGUdysynVSiy41cwayuz4RN26wqmbauadK1ZhaRgYf4xbBRSCmu+8rMJYGSGGV
-	6WunGSQ==
-X-Gm-Gg: AfdE7cmew4TCSD6Tu85YbJxu9PDeW/YtOemXHd4tp2ak1iYOuJRCBgjbH0DFhjB9DLN
-	dh617r8NyX3XAHvmOUNQzt3qPmgGBqXu3ichb9FuZTvSr3+xREFU6MEl7mSF2ARuGzZSo56Zf4Y
-	2aTweeo/IVomrKwvkXwJ8z9qLWkuK9acTArEV19m3P1aMuThF9BMENksW+xyuFot/E7C8Vjdy+f
-	BG5iSElHeuPTP0JfYVnOJeLdnreCSCPVeEr0XSHAYgI9z9YNlJOYjvUd+JFkpGrcrKeGSfrugos
-	GnXnUYY1XL0RwzL05tyLNjWT66Y9ZDTunL0ywKSd8u9UvaFr3mCDvIUCaXOIrHEjc73z2pdsAit
-	6mbXY0L7NgUBOAeutCAWJARRMKLzOz0h9RTEF8ino+TSjMA/+0YpijtJ7NGApke87XolJ/pu+ip
-	FcHn6v+2dylFXXQUppK4ndJaaii7Zj19nWIel0nwElsbfbVSwMJ4tSalg+ll54UM24MuQSF/2du
-	0+d
-X-Received: by 2002:a05:600c:1386:b0:490:5057:f5f7 with SMTP id 5b1f17b1804b1-493f87e5164mr143200715e9.11.1784037487417;
-        Tue, 14 Jul 2026 06:58:07 -0700 (PDT)
-Message-ID: <e482f2b5-382c-4fbb-b030-5cdaba362599@suse.com>
-Date: Tue, 14 Jul 2026 15:58:06 +0200
+Precedence: bulk
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+	s=default; t=1784043771;
+	bh=8IBno91zziUb/fdDS9K9Wa1s/YUk+db4puIIa61K9LM=;
+	h=Cc:Message-ID:References:Date:In-Reply-To:Subject:To:From;
+	b=OD8W5Yad/qB98ASEgLzXI4OGC/Ofal7KTdsGtoMKbIVzXm4YWRfpAp97Q8dm6ZYJU
+	 I8B1yuvzZv6GdYn22Jd3+wzMdVJZwHJvaCXcyrWSkiAgutwIMuqjM9xkjpc9A0cnY8
+	 fb+6SJ3Y9B6Ii0b0Uj6UNwM/nmci6FM5RSwtbTa0=
+From: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+To: jasowang@redhat.com,
+	mst@redhat.com
+Cc: armbru@redhat.com,
+	peterx@redhat.com,
+	farosas@suse.de,
+	raphael.s.norwitz@gmail.com,
+	bchaney@akamai.com,
+	vsementsov@yandex-team.ru,
+	qemu-devel@nongnu.org,
+	berrange@redhat.com,
+	pbonzini@redhat.com,
+	yc-core@yandex-team.ru,
+	mark.caveayland@nutanix.com,
+	Pierrick Bouvier <pierrick.bouvier@oss.qualcomm.com>,
+	Sergio Lopez <slp@redhat.com>,
+	Zhao Liu <zhao1.liu@intel.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Bernhard Beschow <shentey@gmail.com>,
+	Alistair Francis <Alistair.Francis@wdc.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eric Blake <eblake@redhat.com>,
+	devel@lists.libvirt.org (open list:Incompatible changes),
+	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs),
+	qemu-ppc@nongnu.org (open list:e500),
+	qemu-riscv@nongnu.org (open list:Microchip PolarFi...)
+Subject: [PATCH v19 03/15] net/tap: deprecate "no" as special value for script/downscript
+Date: Tue, 14 Jul 2026 18:42:31 +0300
+Message-ID: <20260714154246.1242856-4-vsementsov@yandex-team.ru>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260714154246.1242856-1-vsementsov@yandex-team.ru>
+References: <20260714154246.1242856-1-vsementsov@yandex-team.ru>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v1.1 1/2] x86emul: drop wrapper C file
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>
-References: <8a3ee9c3-489a-4dbf-b61b-cd078322b786@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8a3ee9c3-489a-4dbf-b61b-cd078322b786@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1784037488-6D2D84E9-51A897E4/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ef75cf/1784043773-374D3AE4-C4AF2963/0/0
 X-purgate-type: clean
-X-purgate-size: 6048
+X-purgate-size: 12601
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-5.69 / 15.00];
+	WHITELIST_DMARC(-7.00)[yandex-team.ru:D:+];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[yandex-team.ru,none];
+	R_DKIM_ALLOW(-0.20)[yandex-team.ru:s=default];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_CC(0.00)[redhat.com,suse.de,gmail.com,akamai.com,yandex-team.ru,nongnu.org,nutanix.com,oss.qualcomm.com,intel.com,kernel.org,xenproject.org,wdc.com,dabbelt.com,lists.libvirt.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:mid,suse.com:email,suse.com:dkim,gitlab.com:url,xen.org:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[vsementsov@yandex-team.ru,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[28];
+	FORGED_RECIPIENTS(0.00)[m:jasowang@redhat.com,m:mst@redhat.com,m:armbru@redhat.com,m:peterx@redhat.com,m:farosas@suse.de,m:raphael.s.norwitz@gmail.com,m:bchaney@akamai.com,m:vsementsov@yandex-team.ru,m:qemu-devel@nongnu.org,m:berrange@redhat.com,m:pbonzini@redhat.com,m:yc-core@yandex-team.ru,m:mark.caveayland@nutanix.com,m:pierrick.bouvier@oss.qualcomm.com,m:slp@redhat.com,m:zhao1.liu@intel.com,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:shentey@gmail.com,m:Alistair.Francis@wdc.com,m:palmer@dabbelt.com,m:jasowangio@gmail.com,m:eblake@redhat.com,m:devel@lists.libvirt.org,m:xen-devel@lists.xenproject.org,m:qemu-ppc@nongnu.org,m:qemu-riscv@nongnu.org,m:raphaelsnorwitz@gmail.com,m:edgariglesias@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[yandex-team.ru:from_mime,yandex-team.ru:mid,yandex-team.ru:email,yandex-team.ru:dkim];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	PRECEDENCE_BULK(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FROM_NEQ_ENVFROM(0.00)[vsementsov@yandex-team.ru,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[yandex-team.ru:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 792027556A2
+X-Rspamd-Queue-Id: BF5197568D4
 
-Move the little bit that's still left in x86/x86_emulate.c into a __XEN__
-conditional in x86/x86_emulate/x86_emulate.c. Move what are roughly the
-test/fuzzing harness counterparts from there into the corresponding #else.
+The interface is ambiguous, as "no" is valid file name. So,
+using "no" as a special value to disable script is deprecated.
+Use an empty string ("script=" / "downscript=") instead.
 
-Interestingly more recent gcc takes issue with three static const arrays
-which are unused when HVM=n (noticeable in particule in the shim build).
-Apparently such are diagnosed only when present in the top-level file, but
-not when living in an #include-d one.
+In a future version, "no" will be treated as a plain file name, just
+like any other non-empty value.
 
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Document the deprecation in docs/about/deprecated.rst, qapi/net.json,
+and qemu-options.hx. Update other docs to use empty string instead of
+"no". Add a warning.
+
+Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
 ---
-v1.1: Address HVM=n build issues. See
-      https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2674985992.
+ docs/about/deprecated.rst                  | 18 ++++++++++++++
+ docs/system/i386/microvm.rst               |  4 +--
+ docs/system/i386/xenpvh.rst                |  2 +-
+ docs/system/ppc/ppce500.rst                |  4 +--
+ docs/system/riscv/microchip-icicle-kit.rst |  2 +-
+ docs/system/riscv/sifive_u.rst             |  2 +-
+ net/tap.c                                  | 29 ++++++++++++++--------
+ qapi/net.json                              | 12 ++++++---
+ qemu-options.hx                            |  7 ++++--
+ 9 files changed, 56 insertions(+), 24 deletions(-)
 
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -3,27 +3,6 @@
- #include <errno.h>
- #include <sys/mman.h>
+diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
+index 0c656a968fc..c4929317e3a 100644
+--- a/docs/about/deprecated.rst
++++ b/docs/about/deprecated.rst
+@@ -71,6 +71,15 @@ flexible enough. The monitor objects have been converted to QOM, so
+ ``-mon mode=control`` is replaced by ``-object monitor-qmp``. The
+ short convenience options are not deprecated, only ``-mon``.
  
--/* See gcc bug 100680, but here don't bother making this version dependent. */
--#define gcc11_wrap(x) ({                  \
--    unsigned long x_;                     \
--    __asm__ ( "" : "=g" (x_) : "0" (x) ); \
--    (typeof(x))x_;                        \
--})
--
--#define cpu_has_amd_erratum(nr) 0
--#define cpu_has_mpx false
--#define read_bndcfgu() 0
--#define xstate_set_init(what)
--
--/* For generic assembly code: use macros to define operation/operand sizes. */
--#ifdef __i386__
--# define __OS          "l"  /* Operation Suffix */
--# define __OP          "e"  /* Operand Prefix */
--#else
--# define __OS          "q"  /* Operation Suffix */
--# define __OP          "r"  /* Operand Prefix */
--#endif
--
- uint32_t mxcsr_mask = 0x0000ffbf;
- struct cpu_policy cpu_policy;
++``script=no`` and ``downscript=no`` for ``-netdev tap`` (since 11.2)
++'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
++
++The special value ``"no"`` for the ``script`` and ``downscript``
++parameters of ``-netdev tap`` disables script execution.  This special
++treatment of ``"no"`` is deprecated.  Use an empty string (``script=``
++or ``downscript=``) to disable script execution instead.  In a future
++version, ``"no"`` will be treated as a plain file name.
++
+ QEMU Machine Protocol (QMP) commands
+ ------------------------------------
  
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -69,7 +69,6 @@ obj-y += traps-setup.o
- obj-y += traps.o
- obj-$(CONFIG_INTEL) += tsx.o
- obj-$(CONFIG_VM_EVENT) += vm_event.o
--obj-y += x86_emulate.o
- obj-y += xstate.o
+@@ -164,6 +173,15 @@ Use ``job-finalize`` instead.
  
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
-@@ -86,13 +85,6 @@ hostprogs-y += efi/mkreloc
+ Use ``query-accelerators`` instead.
  
- $(obj)/efi/mkreloc: HOSTCFLAGS += -I$(srctree)/include
++``"no"`` as value of ``script``/``downscript`` for tap in ``netdev_add`` (since 11.2)
++'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
++
++The special value ``"no"`` for the ``script`` and ``downscript``
++parameters of ``netdev_add`` with ``type=tap`` disables script
++execution.  This special treatment of ``"no"`` is deprecated.  Use an
++empty string instead.  In a future version, ``"no"`` will be treated as
++a plain file name.
++
+ Human Machine Protocol (HMP) commands
+ -------------------------------------
  
--ifneq ($(CONFIG_HVM),y)
--$(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
--endif
--ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
--$(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
--endif
--
- efi-y := $(shell if [ ! -r $(objtree)/include/xen/compile.h -o \
-                       -O $(objtree)/include/xen/compile.h ]; then \
-                          echo '$(TARGET).efi'; fi) \
---- a/xen/arch/x86/x86_emulate.c
-+++ /dev/null
-@@ -1,37 +0,0 @@
--/******************************************************************************
-- * x86_emulate.c
-- * 
-- * Wrapper for generic x86 instruction decoder and emulator.
-- * 
-- * Copyright (c) 2008, Citrix Systems, Inc.
-- * 
-- * Authors:
-- *    Keir Fraser <keir@xen.org>
-- */
--
--#include <xen/event.h>
--
--#include <asm/x86_emulate.h>
--#include <asm/processor.h> /* current_cpu_info */
--#include <asm/xstate.h>
--#include <asm/amd.h> /* cpu_has_amd_erratum() */
--
--/* Avoid namespace pollution. */
--#undef cmpxchg
--#undef cpuid
--#undef wbinvd
--
--#define cpu_has_amd_erratum(nr) \
--        cpu_has_amd_erratum(&current_cpu_data, AMD_ERRATUM_##nr)
--
--#include "x86_emulate/x86_emulate.c"
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * tab-width: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
---- a/xen/arch/x86/x86_emulate/Makefile
-+++ b/xen/arch/x86/x86_emulate/Makefile
-@@ -1,3 +1,14 @@
-+# Put this ahead of the sorted list below, as it takes long to build and hence
-+# we'd like parallel make to schedule its building early.
-+obj-y += x86_emulate.o
-+
-+ifneq ($(CONFIG_HVM),y)
-+$(obj)/x86_emulate.o: CFLAGS-y += -Wno-unused-label
-+endif
-+ifeq ($(CONFIG_CONDITION_COVERAGE)$(CONFIG_CC_IS_GCC),yy)
-+$(obj)/x86_emulate.o: CFLAGS-y += -Wno-error=coverage-too-many-conditions
-+endif
-+
- obj-y += 0f01.o
- obj-y += 0fae.o
- obj-y += 0fc7.o
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -8,8 +8,52 @@
-  * Copyright (c) 2005-2007 XenSource Inc.
-  */
+diff --git a/docs/system/i386/microvm.rst b/docs/system/i386/microvm.rst
+index 1675e37d3e7..077ea15751e 100644
+--- a/docs/system/i386/microvm.rst
++++ b/docs/system/i386/microvm.rst
+@@ -79,7 +79,7 @@ legacy ``ISA serial`` device as console::
+      -serial stdio \
+      -drive id=test,file=test.img,format=raw,if=none \
+      -device virtio-blk-device,drive=test \
+-     -netdev tap,id=tap0,script=no,downscript=no \
++     -netdev tap,id=tap0,script=,downscript= \
+      -device virtio-net-device,netdev=tap0
  
-+#ifdef __XEN__
-+
-+# include <xen/event.h>
-+
-+# include <asm/amd.h> /* cpu_has_amd_erratum() */
-+# include <asm/processor.h> /* current_cpu_info */
-+# include <asm/x86_emulate.h>
-+# include <asm/xstate.h>
-+
-+/* Avoid namespace pollution. */
-+# undef cmpxchg
-+# undef cpuid
-+# undef wbinvd
-+
-+# define cpu_has_amd_erratum(nr) \
-+         cpu_has_amd_erratum(&current_cpu_data, AMD_ERRATUM_##nr)
-+
-+#else /* !__XEN__ */
-+
-+/* See gcc bug 100680, but here don't bother making this version dependent. */
-+# define gcc11_wrap(x) ({                  \
-+     unsigned long x_;                     \
-+     __asm__ ( "" : "=g" (x_) : "0" (x) ); \
-+     (typeof(x))x_;                        \
-+})
-+
-+# define cpu_has_amd_erratum(nr) 0
-+# define cpu_has_mpx false
-+# define read_bndcfgu() 0
-+# define xstate_set_init(what)
-+
-+/* For generic assembly code: use macros to define operation/operand sizes. */
-+# ifdef __i386__
-+#  define __OS          "l"  /* Operation Suffix */
-+#  define __OP          "e"  /* Operand Prefix */
-+# else
-+#  define __OS          "q"  /* Operation Suffix */
-+#  define __OP          "r"  /* Operand Prefix */
-+# endif
-+
-+#endif /* __XEN__ */
-+
- #include "private.h"
+ While the example above works, you might be interested in reducing the
+@@ -103,7 +103,7 @@ disabled::
+      -device virtconsole,chardev=virtiocon0 \
+      -drive id=test,file=test.img,format=raw,if=none \
+      -device virtio-blk-device,drive=test \
+-     -netdev tap,id=tap0,script=no,downscript=no \
++     -netdev tap,id=tap0,script=,downscript= \
+      -device virtio-net-device,netdev=tap0
  
-+#ifndef X86EMUL_NO_MMX
-+
- /*
-  * The next two tables are indexed by high opcode extension byte (the one
-  * that's encoded like an immediate) nibble, with each table element then
-@@ -45,9 +89,15 @@ static const uint16_t _3dnow_ext_table[1
-     [0xb] = (1 << 0xb) /* pswapd */,
- };
  
-+#endif /* !X86EMUL_NO_MMX */
-+
-+#ifndef X86EMUL_NO_SIMD
-+
- /* Shift values between src and dst sizes of pmov{s,z}x{b,w,d}{w,d,q}. */
- static const uint8_t pmov_convert_delta[] = { 1, 2, 3, 1, 2, 1 };
+diff --git a/docs/system/i386/xenpvh.rst b/docs/system/i386/xenpvh.rst
+index 904778e3f5c..862f38830b1 100644
+--- a/docs/system/i386/xenpvh.rst
++++ b/docs/system/i386/xenpvh.rst
+@@ -42,7 +42,7 @@ case you need to construct one manually:
+       -vnc none                                       \
+       -display none                                   \
+       -device virtio-net-pci,id=nic0,netdev=net0,mac=00:16:3e:5c:81:78 \
+-      -netdev type=tap,id=net0,ifname=vif3.0-emu,br=xenbr0,script=no,downscript=no \
++      -netdev type=tap,id=net0,ifname=vif3.0-emu,br=xenbr0,script=,downscript= \
+       -smp 4,maxcpus=4                                \
+       -nographic                                      \
+       -machine xenpvh,ram-low-base=0,ram-low-size=2147483648,ram-high-base=4294967296,ram-high-size=2147483648,pci-ecam-base=824633720832,pci-ecam-size=268435456,pci-mmio-base=4026531840,pci-mmio-size=33554432,pci-mmio-high-base=824902156288,pci-mmio-high-size=68719476736 \
+diff --git a/docs/system/ppc/ppce500.rst b/docs/system/ppc/ppce500.rst
+index c9fe0915dc5..ec5aaf14fd9 100644
+--- a/docs/system/ppc/ppce500.rst
++++ b/docs/system/ppc/ppce500.rst
+@@ -158,14 +158,14 @@ interface at PCI address 0.1.0, but we can switch that to an e1000 NIC by:
+   $ qemu-system-ppc64 -M ppce500 -smp 4 -m 2G \
+                       -display none -serial stdio \
+                       -bios u-boot \
+-                      -nic tap,ifname=tap0,script=no,downscript=no,model=e1000
++                      -nic tap,ifname=tap0,script=,downscript=,model=e1000
  
-+#endif /* !X86EMUL_NO_SIMD */
-+
- static const uint8_t sse_prefix[] = { 0x66, 0xf3, 0xf2 };
+ The QEMU ``ppce500`` machine can also dynamically instantiate an eTSEC device
+ if “-device eTSEC” is given to QEMU:
  
- #ifdef __x86_64__
+ .. code-block:: bash
+ 
+-  -netdev tap,ifname=tap0,script=no,downscript=no,id=net0 -device eTSEC,netdev=net0
++  -netdev tap,ifname=tap0,script=,downscript=,id=net0 -device eTSEC,netdev=net0
+ 
+ Root file system on flash drive
+ -------------------------------
+diff --git a/docs/system/riscv/microchip-icicle-kit.rst b/docs/system/riscv/microchip-icicle-kit.rst
+index 9809e94b84b..7fdb96601ad 100644
+--- a/docs/system/riscv/microchip-icicle-kit.rst
++++ b/docs/system/riscv/microchip-icicle-kit.rst
+@@ -84,7 +84,7 @@ Then we can boot the machine by:
+   $ qemu-system-riscv64 -M microchip-icicle-kit -smp 5 -m 2G \
+       -sd path/to/sdcard.img \
+       -nic user,model=cadence_gem \
+-      -nic tap,ifname=tap,model=cadence_gem,script=no \
++      -nic tap,ifname=tap,model=cadence_gem,script= \
+       -display none -serial stdio \
+       -kernel path/to/u-boot/build/dir/u-boot.bin \
+       -dtb path/to/u-boot/build/dir/u-boot.dtb
+diff --git a/docs/system/riscv/sifive_u.rst b/docs/system/riscv/sifive_u.rst
+index 8f55ae8e313..0e4dcf3e70c 100644
+--- a/docs/system/riscv/sifive_u.rst
++++ b/docs/system/riscv/sifive_u.rst
+@@ -199,7 +199,7 @@ To boot the VxWorks kernel in QEMU with the ``sifive_u`` machine, use:
+ 
+   $ qemu-system-riscv64 -M sifive_u -smp 5 -m 2G \
+       -display none -serial stdio \
+-      -nic tap,ifname=tap0,script=no,downscript=no \
++      -nic tap,ifname=tap0,script=,downscript= \
+       -kernel /path/to/vxWorks \
+       -append "gem(0,0)host:vxWorks h=192.168.200.1 e=192.168.200.2:ffffff00 u=target pw=vxTarget f=0x01"
+ 
+diff --git a/net/tap.c b/net/tap.c
+index fedd48c48d2..2e94b4015f6 100644
+--- a/net/tap.c
++++ b/net/tap.c
+@@ -92,34 +92,40 @@ static void launch_script(const char *setup_script, const char *ifname,
+ static void tap_send(void *opaque);
+ static void tap_writable(void *opaque);
+ 
+-static bool tap_is_explicit_no_script(const char *script_arg)
++static bool tap_is_explicit_no_script(const char *script_arg_name,
++                                      const char *script_arg_value)
+ {
+-    if (!script_arg) {
++    if (!script_arg_value) {
+         return false;
+     }
+ 
+-    if (script_arg[0] == '\0') {
++    if (script_arg_value[0] == '\0') {
+         return true;
+     }
+ 
+-    if (strcmp(script_arg, "no") == 0) {
++    if (strcmp(script_arg_value, "no") == 0) {
++        warn_report("%s=no is deprecated; use %s= instead "
++                    "(empty string instead of 'no')",
++                    script_arg_name, script_arg_name);
+         return true;
+     }
+ 
+     return false;
+ }
+ 
+-static char *tap_parse_script(const char *script_arg, const char *default_path)
++static char *tap_parse_script(const char *script_arg_name,
++                              const char *script_arg_value,
++                              const char *default_path)
+ {
+-    if (tap_is_explicit_no_script(script_arg)) {
++    if (tap_is_explicit_no_script(script_arg_name, script_arg_value)) {
+         return NULL;
+     }
+ 
+-    if (!script_arg) {
++    if (!script_arg_value) {
+         return get_relocated_path(default_path);
+     }
+ 
+-    return g_strdup(script_arg);
++    return g_strdup(script_arg_value);
+ }
+ 
+ static void tap_update_fd_handler(TAPState *s)
+@@ -740,7 +746,7 @@ static bool net_init_tap_one(const NetdevTapOptions *tap, NetClientState *peer,
+         qemu_set_info_str(&s->nc, "helper=%s", tap->helper);
+     } else {
+         qemu_set_info_str(&s->nc, "ifname=%s,script=%s,downscript=%s", ifname,
+-                          script ?: "no", downscript ?: "no");
++                          script ?: "", downscript ?: "");
+ 
+         if (downscript) {
+             snprintf(s->down_script, sizeof(s->down_script), "%s", downscript);
+@@ -946,9 +952,10 @@ int net_init_tap(const Netdev *netdev, const char *name,
+         }
+     } else {
+         g_autofree char *script =
+-            tap_parse_script(tap->script, DEFAULT_NETWORK_SCRIPT);
++            tap_parse_script("script", tap->script, DEFAULT_NETWORK_SCRIPT);
+         g_autofree char *downscript =
+-            tap_parse_script(tap->downscript, DEFAULT_NETWORK_DOWN_SCRIPT);
++            tap_parse_script("downscript", tap->downscript,
++                             DEFAULT_NETWORK_DOWN_SCRIPT);
+ 
+         if (tap->ifname) {
+             pstrcpy(ifname, sizeof ifname, tap->ifname);
+diff --git a/qapi/net.json b/qapi/net.json
+index 8f0915c4d86..ada0329ef9d 100644
+--- a/qapi/net.json
++++ b/qapi/net.json
+@@ -399,15 +399,19 @@
+ # @fds: multiple file descriptors of already opened multiqueue capable
+ #     tap
+ #
+-# @script: script to initialize the interface.  An empty string or
+-#     "no" disables script execution.  Defaults to
++# @script: script to initialize the interface.  An empty string
++#     disables script execution.  Defaults to
+ #     ``<sysconfdir>/qemu-ifup``, where ``<sysconfdir>`` is the
+ #     system configuration directory at build time (typically /etc).
++#     Using "no" to disable script execution is deprecated (since
++#     11.2); use an empty string instead.
+ #
+-# @downscript: script to shut down the interface.  An empty string or
+-#     "no" disables script execution.  Defaults to
++# @downscript: script to shut down the interface.  An empty string
++#     disables script execution.  Defaults to
+ #     ``<sysconfdir>/qemu-ifdown``, where ``<sysconfdir>`` is the
+ #     system configuration directory at build time (typically /etc).
++#     Using "no" to disable script execution is deprecated (since
++#     11.2); use an empty string instead.
+ #
+ # @br: bridge name (since 2.8)
+ #
+diff --git a/qemu-options.hx b/qemu-options.hx
+index 200949655ea..7b9a14f5b38 100644
+--- a/qemu-options.hx
++++ b/qemu-options.hx
+@@ -3014,7 +3014,8 @@ DEF("netdev", HAS_ARG, QEMU_OPTION_netdev,
+     "                use network scripts 'file' (default=" DEFAULT_NETWORK_SCRIPT ")\n"
+     "                to configure it and 'dfile' (default=" DEFAULT_NETWORK_DOWN_SCRIPT ")\n"
+     "                to deconfigure it\n"
+-    "                use '[down]script=no' or '[down]script=' to disable script execution\n"
++    "                use '[down]script=' to disable script execution\n"
++    "                ('[down]script=no' is deprecated and will be treated as a file name in future)\n"
+     "                use network helper 'helper' (default=" DEFAULT_BRIDGE_HELPER ") to\n"
+     "                configure it\n"
+     "                use 'fd=h' to connect to an already opened TAP interface\n"
+@@ -3553,7 +3554,9 @@ SRST
+     ``<sysconfdir>/qemu-ifup`` and the default network deconfigure script is
+     ``<sysconfdir>/qemu-ifdown``, where ``<sysconfdir>`` is the system
+     configuration directory at build time (typically ``/etc``).
+-    Use ``[down]script=no`` or ``[down]script=`` to disable script execution.
++    Use ``[down]script=`` to disable script execution.
++    Using ``[down]script=no`` is deprecated; in a future version it will
++    be treated as a plain file name.
+ 
+     If running QEMU as an unprivileged user, use the network helper
+     to configure the TAP interface and attach it to the bridge.
+-- 
+2.43.0
+
 
