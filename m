@@ -2,56 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id uqpTLXOjVWojrQAAu9opvQ
+	id IXMXALzSVWoIuAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 04:48:19 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 08:10:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1254175078A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 04:48:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F0C7515B1
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 08:10:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=Nvidia.com header.s=selector2 header.b=cOUZIdER;
+	dkim=pass header.d=suse.com header.s=google header.b=fAfnCzA5;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=nvidia.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1362013.1613999 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1362027.1614009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjTAm-0006oi-MV; Tue, 14 Jul 2026 02:47:04 +0000
+	id 1wjWKC-0005Iz-Tg; Tue, 14 Jul 2026 06:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1362013.1613999; Tue, 14 Jul 2026 02:47:04 +0000
+Received: by outflank-mailman (output) from mailman id 1362027.1614009; Tue, 14 Jul 2026 06:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjTAm-0006m4-GG; Tue, 14 Jul 2026 02:47:04 +0000
-Received: by outflank-mailman (input) for mailman id 1362013;
- Tue, 14 Jul 2026 02:47:03 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wjWKC-0005GI-QC; Tue, 14 Jul 2026 06:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 1362027;
+ Tue, 14 Jul 2026 06:08:59 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ziy@nvidia.com>) id 1wjTAl-0006ly-0O
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 02:47:03 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wjWKB-0005GC-Ig
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 06:08:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjTAj-006XiE-Nd
- for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 04:47:01 +0200
+ id 1wjWK9-00FxXW-78
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 08:08:57 +0200
 Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ziy@nvidia.com>)
- id 6a55a2b2-e002-0a2a0a5209dd-0a2a4504c6c4-44
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 04:47:01 +0200
-Received: from [52.101.201.55]
- (helo=PH7PR06CU001.outbound.protection.outlook.com)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a55d266-5cb7-0a2a0a5109dd-0a2a4504eca6-4
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 08:08:57 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
  by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <ziy@nvidia.com>)
- id 6a55a323-b1e5-0a2a45040019-3465c937cf7b-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 04:47:01 +0200
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH8PR12MB7136.namprd12.prod.outlook.com (2603:10b6:510:22b::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.18; Tue, 14 Jul
- 2026 02:46:48 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0181.019; Tue, 14 Jul 2026
- 02:46:48 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 6a55d267-b1e5-0a2a45040019-d1558030b4d4-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 08:08:39 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-493c733f15aso36083575e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 23:08:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-493f2e77c2esm269267155e9.2.2026.07.13.23.08.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jul 2026 23:08:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,219 +60,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zE7+KsZQQV1iRbogED6kqqSbDBxNJ9jxwKu6XWPkG0GSZpmms0KWPis52BtvJqzhNm3aVdPulkpKsoPHUa3sDTle/ffziZX5Tzvp2fjYbQ8QogoLbiKfaqLC4C+3omLaXUbL1ULP/Cd6/F97Wc2yhMwuYSOgRusDfJQ63oHxXg+1xLcV20CGNSVgiBYwWqJGkiRg+F5xIedh++c8CtdW1tD0j4dnjjP1677QRkrTAWgaraxePJ/n5W9c9xEImb1G+mjIR78zqQrSxknpkgB2Lb6N38UkoWwqzfG1D1iczM/Q+RhTEg5IKwBh5I/K8YvAEoZdl3VzUKix5yCBQKR7Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=feoIft/TLZO5dAhIHPg4039QYB9mwrIWxTuA8pa59uw=;
- b=TNhPwswseZss5Gych3ttTHKSW12ot+F8D8thV0U87mPrelQWF29y4bKvaQrTeHlqH4bsW7V1FSO7LOVymiqo3jvA1gCOsddKoFgpne2EBdNX5k6ZA/R5xv5OWJr7nHOjjqlzyYFk2fJuhh2Zxc0UZsl0YloQNYYDwBV9m/G0mhxRf99ksaT9vVNiYHhMRniWNfXRxkC9VTZ6VimMnvKKWeq2361+pHdRa2T3Ra3j7biDVZXAX5ikfxjUyodDWcit31WlMdKD0iORbie28nhbE+OZIA2f1Qq3GmlNowFIBgwjEZ8hKVJOgUwnSCh/JJXA3AxBvxvcdij21UZEq0iCjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=feoIft/TLZO5dAhIHPg4039QYB9mwrIWxTuA8pa59uw=;
- b=cOUZIdERf22OunYxGqRWV0nEc5kxavp7gwUfCeG0vobu5aBFf74lQYoucZmsfnAGgzhISe+WUE4j8bv2KJVSxSVdTAiZ+XUDBar7iVDqZHYFgULe1wlG/+IJUwdxYx8DO5Og2GP98TaOXI3hcH9AJWVUeWiTk7v8n0TWq+8E64MTfW6HNB99hA9/VCDvtzCwgPAHFQqK6jri8k5D1xlfQNyG2umuf/mJJHitSR8nzGK60xO5LTp6ZHdtzTY6wkPNOKWCwRTvBOdC+p32lzC9cOa+7CEM4fBZePtZTMIouAnuRqZ/J1CStrJEfX1TyglwiCT2JarokvOS6rk1JSkMBQ==
-From: Zi Yan <ziy@nvidia.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>,
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 12/13] mm/mprotect: convert mprotect code to use
- vma_flags_t
-Date: Mon, 13 Jul 2026 22:46:45 -0400
-X-Mailer: MailMate (3.0r7017)
-Message-ID: <E797FDEC-48B6-4D64-BEA1-3A15D5379652@nvidia.com>
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BL1PR13CA0280.namprd13.prod.outlook.com
- (2603:10b6:208:2bc::15) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1784009319; x=1784614119; darn=lists.xenproject.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I4/KHBBQI5iS3VrM25O0/xUrlp9kYHI+wwEbVlZDuZ0=;
+        b=fAfnCzA5AYzLwhRYa3qoEQf7FkQFaKuEngZND0MQLl3+GprE7KriT26bBG6bNDYjuo
+         BLK9mFP78q3IRHKafG0e1J25XJE+qly7QAPIuiOI7hSlrAKXa8qjGWHGyWwweQIfXOKa
+         YuN1M/RPYDe7mMbpJYuvRrUOe1hilXguY316OnNtYn4wJWuViMbrOx6Mb3uD2ZZTPJnv
+         pxSCnBGrOj09MsDviz5dJgENRB4dqyrcZaf0ArXGuk9H0P5LOXlJVoRFc6/9dth2KOwU
+         LejD3V0Pxn8MJVT0DKx/+Kwxu8/MIycb0VjSXYXGDtpur1tM0pEJheUoktmAXRyMpxvE
+         hM7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784009319; x=1784614119;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I4/KHBBQI5iS3VrM25O0/xUrlp9kYHI+wwEbVlZDuZ0=;
+        b=pv1sVvoGzDmeWJz8F0s0qDXtUSiln0YMvZ+WhDHmuu3J2hHmGwPahY7fVxik1Ohpw3
+         p0o63tankX1HT2ySpC04VyYeJuwTR4CK8xRYlzzf1C5lmMaP0RpJsMr/+YVoUCmxUd1L
+         K552S52DuyU8EdGISpdtsgtu7Xgt4YmCU9XP1TbPwC9TYmlhox03mes2br23xjhV3NWt
+         jHJtkLR44jvTO6asfpjpCjxRUb+nLRJR+BGQ4Ssxv2l6jRxI8oGDiRzyfB0LoJnceWv7
+         jDfy8ypXaMdq5xqV2C5x4N903G4k1X+kl9Ux5zJTj5PiSVM7J554KPQR0a1ODwYZXd82
+         zUkg==
+X-Forwarded-Encrypted: i=1; AHgh+RocgC2R7eVS14wUKNhIN4JwR9qt659YloiIxp8/PSYVJWL6G9gYP+0BW26HMmeCFVTuJjsCH8SdCzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQ3EDQxpLXdZ/cnuuuj2p/X7hZlMFscmrquxJWbiLwVh7mpxNT
+	9OeUIzE3HYiyAd5RyxuDXztAJUMOtLC6mDOHwIOg8tOZPJz4qtvcdss6NcaxqDEsLA==
+X-Gm-Gg: AfdE7ckcrbAf0j9tCyhp+PnQXM9RjTd1pQ5cpQ7+Jd6v8n3v8Yv+NwP3X1NX59Qb1/U
+	9HkkEo5jwxEvVm6WYPI8+bay+pU8/anoNRFHVGLrLd+V76eQFAoYWm3hO9HsoHMBHBrl/GhIpDn
+	6GTsHXx0rYcWXq+mTwpvhXvb8kt3AvoFVhXyEivvoskSF/iT8bbWPlG0pPJdj4j/JEDhdBJG7gG
+	IfqSaE47o+E57sbG7FImrBffC/mOc8bvgYG4U7bnduSJGCqGeOIx0PK1A22hjWy6Xh3ZniAyma0
+	VbhAWDaOTsnr4gWXQ8yBE1CxTFuOCGwFEp3pP1o6bxKrDhrCUSF8mBIjkhA5pya87JWAZmlI8aM
+	O9Vuf6jIXknn3IgJjlPrHJE9HWsngcT1cCgUCLiohANHPXDEqRnsnLhi2QWTr/y5DjwTlR0knEV
+	TejDUmbSfqZKo6BlX3Ktn6lwlfalg2m7ORhMg6fIXDO3jpmYjnLqnPQz9gwecH/0H500j6ZnzyM
+	n2Z
+X-Received: by 2002:a05:600c:3e0f:b0:493:b8d9:f28b with SMTP id 5b1f17b1804b1-49538a02529mr8158395e9.23.1784009319428;
+        Mon, 13 Jul 2026 23:08:39 -0700 (PDT)
+Message-ID: <93763802-ae88-48ce-ac3f-2b0ab79b4431@suse.com>
+Date: Tue, 14 Jul 2026 08:08:37 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH8PR12MB7136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98d9eb02-44c9-41a4-6336-08dee15226a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|18002099003|56012099006|4143699003|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	g+UbA5RRGDxSjnEBQGbFA5Nzzl9skoKxx2Ji+Y63lvF4XNPGle/YwlqvU87ExSpIfBBaroYHg6lwNRb+5FCqrRqLVDR4t9PoC9WMLwUdLRWqGyDFmicU8MjQI5dj0efQlbPBN1wzsk84ZWFx3o3fv3AyLSQbPXCx6h/lKFHvSfJh+Ck88TCsk83Exfr/eIp0PcomRtd4IHCU2LDQhOgyMSTJNV7cmlhpglZIYp+CgjD98xGL48CaSIbbiXTfr98jdRv809b8lJeGCGsyLM0pkdLobMewUTSaTjEPhKJig8rbhQHuc7Rpf2Wru0+5MAk1nfANNL14YOXM9/0Dldugd/2kROMLLgi17TvpwM85cjxorQ2nz6tOWxtG0I/XrGoT0hz//aR68s+aA7JaFASLTzJbMJI+JdHPdCKVKAS+jrxTMWXNNyzBK3hZuYJxkvbS2M6OMTMOJQMbArU56BU4IDYjBZOSFYUqbE8OeDtX+3HYm+9ANCBEat87DXmbxpAXKqewMRPrioM7q1OVYfIsCqjzB1gXX8Mnk48PtCsFhgdsd6e2ZCgxR+13ebcXjRaVn9FcANGXXwfea0VikL3pjLFdOK32EMb4nYEbn3S9SeHG8twJ3+2lCzOKnUkhlDNqG5P8wh7BvMcN/VwZx76N5NMrEJ646i4OPLrXe7Hs0ig=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(18002099003)(56012099006)(4143699003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?vbCWyyx2FA82sXVNPKB4JfuJPnluc8V5q7vTn2rk1np1pMisQ32P4fICD6IT?=
- =?us-ascii?Q?kT7J1blQ86FTj8QsK1YzTa1LVrY4sTJ7zO7uaj+Fwko08P5G6oY0BQo2yd/D?=
- =?us-ascii?Q?86QyOmE6aGFVbsYcLRYea2MG8seNkNkfd1pNaJca9hy2nk8pOtxqybMpLoBk?=
- =?us-ascii?Q?XSOGei0I+fqqhMDaJl0E9I5QvWs3RKynjdueNGlm5ipdo278MEaNzckZiNf4?=
- =?us-ascii?Q?8jtv2IJd0BMb8aOkXurh3K8c2Mk/yQYDBEpQnR5b0QSxTA1zZ2ad74k718Z0?=
- =?us-ascii?Q?QiHLiT+8Ac4rikcXSUXVRNPllSxDmHZfTUnnWIiF7eF16kDx6RcfAZ1khrGP?=
- =?us-ascii?Q?+DYZfqcfdKr0iIZvfXqq8XLQTcW7LA14SZTl4tUCpIGqTXQc+ooGD2yWdqtD?=
- =?us-ascii?Q?uMlM79iQPCMxwoYSWvqQcyBJNPYzO4npwa+4ROdFtRaviwrQnLSR83RHCCYQ?=
- =?us-ascii?Q?ReOEI4nN8CW5nscd0F2nXoBVpjTvKU9ZZbn8Zs8L/nBUKboPVca/kMoScLaI?=
- =?us-ascii?Q?og6X/ilIrb+dqldrr7x2uz180DmriJXMafQjuQs67TICNF2crG7lsEIrxywj?=
- =?us-ascii?Q?fw0vMBAXddMjgECGOQ2wHCKgoaPKNaEZlhdWX16ZGXTCQISzQ2b0wBbShW87?=
- =?us-ascii?Q?7SLNOs+rDcNZqzRDlBXaS44ZTizjlzzIerNhRFLSCxC1j0V7RwU4gJrWZcil?=
- =?us-ascii?Q?PapVxG+LFW9ITOm9YNTnqzai7nfl4oE4/oU1mCEe2HH0Gql/1UVM0oBFNlUy?=
- =?us-ascii?Q?AaT1MR8xCYznZphoXZ/lQ5F4fCJAr3pfGPP/W1bsc6SSFmcQnHMA0BCBy40u?=
- =?us-ascii?Q?uagioAk/r8buuFRdvBc/lIndPfRWSWZlZ+RtupQ3NlVBPQiJriDgmXUkHRla?=
- =?us-ascii?Q?3oqlfHERHZ0oOYfSXbUyfQsBgu8ihE+QnsmW3Yk1lhf0im7PW060Gq/K171T?=
- =?us-ascii?Q?Jam47U2XbImLlFkDaF5xqvdkVu8qjuePtYbaFLni/ot9ke9dOVwhKAEpN1HO?=
- =?us-ascii?Q?hN5+dDC8CyKXuq0ebVz7UrLcusBTHWp9Tc3I2kft5CNz/o3JMuBx7QGfzZU6?=
- =?us-ascii?Q?AH0rXEdeBaEadZakzs71dO3Pf6U8pCpmN3RQM3LM6TACQxOgal9wgR2osEM5?=
- =?us-ascii?Q?kW63q0DqjF//S0CM+p8wimC6BoujtnjB6NUoUHcfnBUdUbsBaXPzO/D3p+F9?=
- =?us-ascii?Q?/7kJ7kq7VzL4Z/Kk8YWPwiXAnYbuBFca5lKQQchHTQzp6MR59B6jd1Y/tiuW?=
- =?us-ascii?Q?qT5PJy/v/awW88y1hEKabOlLdl2yYkm2mW2YoFxOiLK/zfufgl7qUuhuN/P2?=
- =?us-ascii?Q?JB6N01+w8hGVjNrQvir77M56la4FC31hAEfv6ESNd3ClOkMBZ/6WoIxSdQmG?=
- =?us-ascii?Q?nswstxJC8yQZKEd4JetK9nisacGAzjQAYb1xRxZGfRpujPVBCgo5NwbraYNi?=
- =?us-ascii?Q?bJ07R5kxdI4Ry3tfeSA9d5CwtWkWbguGr5zMA+9rDuFcvWhHCW34Ub83A5Sc?=
- =?us-ascii?Q?kMK/qMa7G0DD8+I6fhqW8TlyzLtp28m+16x+SebPd8PSIQeNJteD2HEc3eR6?=
- =?us-ascii?Q?byJb05MwIgM9eI5Wx7ko1UcvBAl2AaRXPH3WlvO9qJ89bsJBh4b/lYWYZ9aA?=
- =?us-ascii?Q?We1RsTwRCiH0tB0yq4Ah2NxIvNAqyp2Q6NIZbhjBfe5vjIYIOyZvMSsWS0nf?=
- =?us-ascii?Q?L7UeJ0+jSXn5FYXakjzK0aA4WT7zLlUu7EBFT5kv/NvBy/T/oqlTBCRFt5aV?=
- =?us-ascii?Q?+LnaLHJPaw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98d9eb02-44c9-41a4-6336-08dee15226a7
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jul 2026 02:46:48.6918
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W7pmpah1sUuBVKsr1lh5nsapbyM94r/p/x7AVSFyuwMEnfxfSNJnSrS1SOk6gabX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7136
-X-purgate-ID: tlsNG-ebf023/1783997221-7F1AAFE7-CC14293F/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/7] xen/console: promote conring{,_size} to
+ __ro_after_init
+To: dmukhin@ford.com
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20260713181619.672176-1-dmukhin@ford.com>
+ <20260713181619.672176-2-dmukhin@ford.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260713181619.672176-2-dmukhin@ford.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ebf023/1784009320-6FD57FE7-2A980895/0/0
 X-purgate-type: clean
-X-purgate-size: 656
+X-purgate-size: 506
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-7.19 / 15.00];
-	WHITELIST_DMARC(-7.00)[nvidia.com:D:+];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[nvidia.com,reject];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[Nvidia.com:s=selector2];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:from_mime,suse.com:dkim,suse.com:mid,ford.com:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:david@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:tsbogend@alpha.franken.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:hughd@google.com,m:baolin.wang@linux.alibaba.com,m:jannh@google.com,m:pfalcato@suse.de,m:muchun.song@linux.dev,m:osalvador@suse.de,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:linux+etnaviv@armlinux.org.uk,m:christian.gmeiner@gmail.com,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:jani.ni
- kula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:gurchetansingh@chromium.org,m:olvaffe@gmail.com,m:zack.rusin@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:boris.brezillon@collabora.com,m:steven.price@arm.com,m:liviu.dudau@arm.com,m:linux-mm@kvack.org,m:linux-kernel@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger
- .kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fbdev@vger.kernel.org,m:linux-sound@vger.kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[linux-foundation.org,kernel.org,infradead.org,google.com,suse.com,alpha.franken.de,kvack.org,zeniv.linux.org.uk,suse.cz,linux.alibaba.com,suse.de,linux.dev,redhat.com,arm.com,linux.ibm.com,ellerman.id.au,gmail.com,linux.intel.com,ffwll.ch,pengutronix.de,armlinux.org.uk,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,poorly.run,somainline.org,ideasonboard.com,rock-chips.com,sntech.de,nvidia.com,collabora.com,chromium.org,broadcom.com,epam.com,gmx.de,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
-	DKIM_TRACE(0.00)[Nvidia.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[99];
-	FROM_NEQ_ENVFROM(0.00)[ziy@nvidia.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel,etnaviv];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1254175078A
+X-Rspamd-Queue-Id: 19F0C7515B1
 
-On 11 Jul 2026, at 14:45, Lorenzo Stoakes wrote:
-
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the mprotect logic.
->
-> Note that we retain the legacy vm_flags_t bit shifting code in
-> do_mprotect_pkey(), deferring a vma_flags_t approach to this for the time
-> being.
->
-> Additionally update comments to reflect the changes to be consistent.
->
-> No functional change intended.
->
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+On 13.07.2026 20:16, dmukhin@ford.com wrote:
+> From: Denis Mukhin <dmukhin@ford.com> 
+> 
+> Both conring{,_size} should be RO after initialization is completed.
+> 
+> Change the conring integer parameters type to `unsigned int` as required
+> by CODING_STYLE.
+> 
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > ---
->  mm/mprotect.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
->
-LGTM.
+> Changes since v6:
+> - rebased
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+With no changes, where did my A-b go (offered on v5 with the types adjusted)?
 
-
-Best Regards,
-Yan, Zi
+Jan
 
