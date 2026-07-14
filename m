@@ -2,53 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id JgyKMTRPVWqKmgAAu9opvQ
+	id GIKMCkTmVWqIvAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 22:48:52 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 09:33:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 714E774F213
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jul 2026 22:48:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BE20751E87
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jul 2026 09:33:23 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=DoFUHvUv;
+	dkim=pass header.d=linux-foundation.org header.s=korg header.b=b48cJk93;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1361931.1613985 (Exim 4.92)
+	dmarc=none
+Received: from list by lists.xenproject.org with outflank-mailman.1362011.1614018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjNZX-000619-CM; Mon, 13 Jul 2026 20:48:15 +0000
+	id 1wjXcm-0007V9-LG; Tue, 14 Jul 2026 07:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1361931.1613985; Mon, 13 Jul 2026 20:48:15 +0000
+Received: by outflank-mailman (output) from mailman id 1362011.1614018; Tue, 14 Jul 2026 07:32:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjNZX-0005zo-97; Mon, 13 Jul 2026 20:48:15 +0000
-Received: by outflank-mailman (input) for mailman id 1361931;
- Mon, 13 Jul 2026 20:48:13 +0000
-Received: from mx.expurgate.net ([195.190.135.20])
+	id 1wjXcm-0007SR-Hy; Tue, 14 Jul 2026 07:32:16 +0000
+Received: by outflank-mailman (input) for mailman id 1362011;
+ Tue, 14 Jul 2026 02:25:27 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wjNZV-0005P5-LY
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 20:48:13 +0000
+ (envelope-from <akpm@linux-foundation.org>) id 1wjSpq-0004WD-RK
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 02:25:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjNZV-00EnAW-2c
- for xen-devel@lists.xenproject.org; Mon, 13 Jul 2026 22:48:13 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wjSpq-008ZYB-4d
+ for xen-devel@lists.xenproject.org; Tue, 14 Jul 2026 04:25:26 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a554ea5-2eae-0a2a0a5409dd-0a2a4509816e-38
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 22:48:13 +0200
-Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
- (envelope-from <freddy77@gmail.com>)
- id 6a554f0c-b440-0a2a45090019-d155802dcc88-3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 22:48:13 +0200
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-493ec555a26so23344225e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 13 Jul 2026 13:48:12 -0700 (PDT)
-Received: from localhost.localdomain (2.115.147.147.dyn.plus.net.
- [147.147.115.2]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49508724786sm23924255e9.3.2026.07.13.13.48.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 13:48:11 -0700 (PDT)
+ (envelope-from <akpm@linux-foundation.org>)
+ id 6a559dab-bab6-0a2a0a5309dd-0a2a4502ae2e-34
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 04:25:25 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.2)
+ (envelope-from <akpm@linux-foundation.org>)
+ id 6a559e13-64c6-0a2a45020019-aceafc1fadea-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Jul 2026 04:25:24 +0200
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 821A641877;
+ Tue, 14 Jul 2026 02:25:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93DE31F000E9;
+ Tue, 14 Jul 2026 02:25:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,186 +58,144 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1783975692; x=1784580492; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ch0w6GZSKmn/pD177LTY+dgX+ATbp49+AP+ziJtpRo4=;
-        b=DoFUHvUv1Yz8IcnR9ua60g+CflresRB9sgbfkNas20lzhd9mkT9Xn2VEOJUIiOlFzH
-         abMhEZNJ2W7oSJJJ2FjEKYFpcSoYGN1JWRtk3ajti3hrKgCHDm/gMAVd+saMkj6WtDhF
-         lMj/V6ysFtCmaNNb8SWgPpzFenxeo3jdXAsX3QqavyiFminLkq9JMQ4Eqj3oP7odcKqV
-         lLK9+owhZ5BZ4QBqHLA+NHc6kuTy7i8pKdunok49i+kKEKOyn0JTa+EoGm1Yn3Ku669C
-         xizzUyw2sP9/6xFVadVJ+mXxV9KvOqVlpCv9ZzkZkgXwnGnc03a60aFAMWEgRKPF4NPJ
-         rbVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783975692; x=1784580492;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ch0w6GZSKmn/pD177LTY+dgX+ATbp49+AP+ziJtpRo4=;
-        b=OPMWRTYd/339HaxE/uvA6uTj0WyBPFMo/5GqxWG29oSZ8wBDSdWm+6ZCZUA8Uvtu+B
-         UVRVz7qcwBqGjrV+EteSnZRGrvDA9Zx+z3Uu7nRQV2JVL3lla7wyfrIpEJhk5K4kuPJK
-         XrFWvJ/Ja/t/hveO2RR78Dz3vu/xWLYEjIBXBBvQijbIlidOerL4hmIgWLFajwbYTLpJ
-         Vjw+fuYemNFjj8+5Mzg7A3NZJZK+gHSRPUVWsCw/ljy70XF2H/+7VZ9fJ8Lzp/dI3dxd
-         fUYXRrb8hVqCfdHGDiDixFw8eRNZSlwqynRrpGma1fwGGvXeu2kLrimwd5Fi9ykw8lMU
-         15Hw==
-X-Gm-Message-State: AOJu0Yy6du0chR8NcYjCQt67QhJZuaMKgRkZazHevD+EZvskygnaf4C1
-	yJ9Rg8vjj427VRp5rGSqRA9PmiMapGvlChOWd0XKEuiyPjSzbtkNNmClB7vXmqbzbjLrLQ==
-X-Gm-Gg: AfdE7cmUpYizt1XYz5Eu2SlTKiHQscCi5Uaz1/yx+ji7rRpLiNsMUGxO6aP5zKv9xwP
-	Sg8fjr2FCRD/HUF5QJFj8f86/gn0rsnT/kI1VhimAM1vZlyHe6GsRSvn02V4uJZjYMSM2U8IW00
-	D/5D0cKpCxAeB9fXuXxTDBw+vHIIFpzH6+OD+a6LwQOeAtdyUJ3lXA9KBJv0KldLeeIWDOfa/Up
-	Qak9STBV5W0vzIjzjMBjdW5LrbZTv/KjMibY92hfFJr8fDImOqQ9Yhs5i+zh2Dv7aNSa2p041NK
-	Wh0KaT60mD/PR5gN8AA2FhmLTn0ywbacXorXoRxrvi33fEtR/J1AUYKYkwunveTTxt379jIqc8S
-	SFiTvI8hGD/3KQ5aFECl7a5nAIbESwjh6OGHeRWRskHPA3XwI5qJYtHdowvWTNiRGO8bRTKTMrf
-	TNlNUAfr9uqxd5DRo/9FDVJkxV18+NXbhyd+OjM84QW38/BcxU/NwxDGGruSMEVJVReqpLMxzRj
-	p7uG1d8yW5Z5z8H7Ss=
-X-Received: by 2002:a05:600c:1f91:b0:493:e79e:daa6 with SMTP id 5b1f17b1804b1-493f8826e69mr103268785e9.33.1783975692202;
-        Mon, 13 Jul 2026 13:48:12 -0700 (PDT)
-From: Frediano Ziglio <freddy77@gmail.com>
-X-Google-Original-From: Frediano Ziglio <frediano.ziglio@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v9 4/4] libs/guest: use Valgrind to detect various buffer overflows
-Date: Mon, 13 Jul 2026 21:48:02 +0100
-Message-ID: <20260713204802.105115-5-frediano.ziglio@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260713204802.105115-1-frediano.ziglio@citrix.com>
-References: <20260713204802.105115-1-frediano.ziglio@citrix.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1783975693-55971A0B-242463AA/0/0
+	d=linux-foundation.org; s=korg; t=1783995922;
+	bh=dxhqIlF4Nmwz7Dc6V0zHplATkq8zPUSt2q/Zds9EZa8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b48cJk93FtKmn41eVdolAVE/uzQX6EHo01Pnkn0OgnY1vIvJtpHyTyl3C+S0onbuL
+	 GGMGjmfE2JKefejiLP1J3PzT6MIi/Ch6j4XkBShkTRk15H8PEW9ZSYVvQQ/3WhTIGU
+	 P9nMjGwkFSOLhnsQCjHUwc7HZ389d5X722tVvR6w=
+Date: Mon, 13 Jul 2026 19:25:19 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Lorenzo Stoakes <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
+ <jack@suse.cz>, Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>, Pedro
+ Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>, Nico Pache
+ <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
+ <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Madhavan
+ Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>, Inki Dae <inki.dae@samsung.com>, Seung-Woo
+ Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Jani
+ Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten
+ <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Sandy Huang <hjc@rock-chips.com>, Heiko
+ =?ISO-8859-1?Q?St=FCbner?= <heiko@sntech.de>, Andy Yan
+ <andy.yan@rock-chips.com>, Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter
+ <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>, Dmitry Osipenko
+ <dmitry.osipenko@collabora.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Matthew Brost
+ <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Oleksandr Andrushchenko
+ <oleksandr_andrushchenko@epam.com>, Helge Deller <deller@gmx.de>, Kees Cook
+ <kees@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, Boris Brezillon <boris.brezillon@collabora.com>, Steven
+ Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
+ linux-sound@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>
+Subject: Re: [PATCH v2 00/13] mm: convert more vm_flags_t users to
+ vma_flags_t
+Message-Id: <20260713192519.58113fa69c169d3f5f82e453@linux-foundation.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-720697/1783995925-3CF53A87-16AC031A/0/0
 X-purgate-type: clean
-X-purgate-size: 3522
+X-purgate-size: 689
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MV_CASE(0.50)[];
+	R_DKIM_ALLOW(-0.20)[linux-foundation.org:s=korg];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:david@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:tsbogend@alpha.franken.de,m:bcrl@kvack.org,m:viro@zeniv.linux.org.uk,m:brauner@kernel.org,m:jack@suse.cz,m:hughd@google.com,m:baolin.wang@linux.alibaba.com,m:jannh@google.com,m:pfalcato@suse.de,m:muchun.song@linux.dev,m:osalvador@suse.de,m:ziy@nvidia.com,m:npache@redhat.com,m:ryan.roberts@arm.com,m:dev.jain@arm.com,m:baohua@kernel.org,m:lance.yang@linux.dev,m:usama.arif@linux.dev,m:maddy@linux.ibm.com,m:mpe@ellerman.id.au,m:npiggin@gmail.com,m:chleroy@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:l.stach@pengutronix.de,m:linux+etnaviv@armlinux.org.uk,m:christian.gmeiner@gmail.com,m:inki.dae@samsung.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:jani.nikula@linux.
+ intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:robin.clark@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:sean@poorly.run,m:marijn.suijten@somainline.org,m:lyude@redhat.com,m:dakr@kernel.org,m:tomi.valkeinen@ideasonboard.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:kraxel@redhat.com,m:dmitry.osipenko@collabora.com,m:gurchetansingh@chromium.org,m:olvaffe@gmail.com,m:zack.rusin@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:matthew.brost@intel.com,m:thomas.hellstrom@linux.intel.com,m:oleksandr_andrushchenko@epam.com,m:deller@gmx.de,m:kees@kernel.org,m:perex@perex.cz,m:tiwai@suse.com,m:boris.brezillon@collabora.com,m:steven.price@arm.com,m:liviu.dudau@arm.com,m:linux-mm@kvack.org,m:linux-kernel@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-aio@kvack.org,m:linux-fsdevel@vger.kernel.org
+ ,m:linuxppc-dev@lists.ozlabs.org,m:dri-devel@lists.freedesktop.org,m:etnaviv@lists.freedesktop.org,m:linux-arm-kernel@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:linux-arm-msm@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:nouveau@lists.freedesktop.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:virtualization@lists.linux.dev,m:intel-xe@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-fbdev@vger.kernel.org,m:linux-sound@vger.kernel.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux-foundation.org:from_mime,linux-foundation.org:dkim,linux-foundation.org:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns,sashiko.dev:url];
+	DMARC_NA(0.00)[linux-foundation.org];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,infradead.org,google.com,suse.com,alpha.franken.de,kvack.org,zeniv.linux.org.uk,suse.cz,linux.alibaba.com,suse.de,linux.dev,nvidia.com,redhat.com,arm.com,linux.ibm.com,ellerman.id.au,gmail.com,linux.intel.com,ffwll.ch,pengutronix.de,armlinux.org.uk,samsung.com,linaro.org,intel.com,ursulin.net,oss.qualcomm.com,poorly.run,somainline.org,ideasonboard.com,rock-chips.com,sntech.de,collabora.com,chromium.org,broadcom.com,epam.com,gmx.de,perex.cz,vger.kernel.org,lists.ozlabs.org,lists.freedesktop.org,lists.infradead.org,lists.linux.dev,lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[akpm@linux-foundation.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[linux-foundation.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,citrix.com:mid,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[akpm@linux-foundation.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_GT_50(0.00)[100];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TAGGED_RCPT(0.00)[xen-devel,etnaviv];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 714E774F213
+X-Rspamd-Queue-Id: 6BE20751E87
 
-Previously this was done as buffers were allocated separately.
+On Sat, 11 Jul 2026 19:44:57 +0100 Lorenzo Stoakes <ljs@kernel.org> wrote:
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
----
- tools/libs/ctrl/xc_private.h    |  8 ++++++++
- tools/libs/guest/xg_sr_common.h |  8 ++++++++
- tools/libs/guest/xg_sr_save.c   | 13 +++++++++++++
- 3 files changed, 29 insertions(+)
+> This series makes further progress in converting usage of the deprecated
+> vm_flags_t type to its replacement, vma_flags_t.
+> 
+> It focuses on mm, though updates some users of mm APIs also.
+> 
+> It updates:
+> 
+> * The core do_mmap() code path for VMA mapping.
+> * Unmapped area logic.
+> * The usage of mm->def_vma_flags.
+> * VMA page protection bit logic.
+> * General usage of VMA flags in core mm code, mlock, mprotect, mremap.
 
-diff --git a/tools/libs/ctrl/xc_private.h b/tools/libs/ctrl/xc_private.h
-index 8a325c17b0..bef96521c3 100644
---- a/tools/libs/ctrl/xc_private.h
-+++ b/tools/libs/ctrl/xc_private.h
-@@ -45,8 +45,16 @@
- #if defined(HAVE_VALGRIND_MEMCHECK_H) && !defined(NDEBUG) && !defined(__MINIOS__)
- /* Compile in Valgrind client requests? */
- #include <valgrind/memcheck.h>
-+#define MEM_NOACCESS_BUFFER(name, size) uint8_t name[size];
-+#define MEM_NOACCESS_INIT(field) \
-+    VALGRIND_MAKE_MEM_NOACCESS(field, sizeof(field))
-+#define MEM_UNDEFINED_INIT(field) \
-+    VALGRIND_MAKE_MEM_UNDEFINED(field, sizeof(field))
- #else
- #define VALGRIND_MAKE_MEM_UNDEFINED(addr, len) /* addr, len */
-+#define MEM_NOACCESS_BUFFER(name, size)
-+#define MEM_NOACCESS_INIT(field) do {} while(0)
-+#define MEM_UNDEFINED_INIT(field) do {} while(0)
- #endif
- 
- #if defined(__MINIOS__)
-diff --git a/tools/libs/guest/xg_sr_common.h b/tools/libs/guest/xg_sr_common.h
-index c07c6db59e..d3fc7f363e 100644
---- a/tools/libs/guest/xg_sr_common.h
-+++ b/tools/libs/guest/xg_sr_common.h
-@@ -245,13 +245,21 @@ struct xc_sr_context
-             xc_hypercall_buffer_t dirty_bitmap_hbuf;
-             struct xc_sr_context_save_buffers
-             {
-+                MEM_NOACCESS_BUFFER(na0, 16);
-                 xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na1, 16);
-                 xen_pfn_t mfns[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na2, 16);
-                 xen_pfn_t types[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na3, 16);
-                 void *local_pages[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na4, 16);
-                 struct iovec iov[MAX_BATCH_SIZE + 2]; /* Headers + data. */
-+                MEM_NOACCESS_BUFFER(na5, 16);
-                 uint64_t rec_pfns[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na6, 16);
-                 int errors[MAX_BATCH_SIZE];
-+                MEM_NOACCESS_BUFFER(na7, 16);
-             } *buffers;
-         } save;
- 
-diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
-index 6a77e33a47..25561e369f 100644
---- a/tools/libs/guest/xg_sr_save.c
-+++ b/tools/libs/guest/xg_sr_save.c
-@@ -123,6 +123,11 @@ static int write_batch(struct xc_sr_context *ctx)
-     assert(nr_pfns != 0);
-     assert(nr_pfns <= MAX_BATCH_SIZE);
- 
-+    MEM_UNDEFINED_INIT(ctx->save.buffers->mfns);
-+    MEM_UNDEFINED_INIT(ctx->save.buffers->types);
-+    MEM_UNDEFINED_INIT(ctx->save.buffers->iov);
-+    MEM_UNDEFINED_INIT(ctx->save.buffers->rec_pfns);
-+
-     iov[0].iov_base = &hdrs;
-     iov[0].iov_len = sizeof(hdrs);
- 
-@@ -783,6 +788,14 @@ static int setup(struct xc_sr_context *ctx)
-         errno = ENOMEM;
-         goto err;
-     }
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na0);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na1);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na2);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na3);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na4);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na5);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na6);
-+    MEM_NOACCESS_INIT(ctx->save.buffers->na7);
- 
-     rc = 0;
- 
--- 
-2.43.0
+Added to mm-new, thanks.
+
+And oh my, what a lot of pre-existing issues:
+	https://sashiko.dev/#/patchset/20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org
+
 
 
