@@ -2,58 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id KKA+AHWAV2rvTQAAu9opvQ
+	id 20NdESmMV2rKWgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 14:43:33 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:33:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5393475E4BA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 14:43:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF3975EB94
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:33:28 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b=adKe2hVA;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b="LbVCv/pa";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1363059.1614901 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1363079.1614909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjyxR-0007Ab-4i; Wed, 15 Jul 2026 12:43:25 +0000
+	id 1wjzit-00054U-KM; Wed, 15 Jul 2026 13:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1363059.1614901; Wed, 15 Jul 2026 12:43:25 +0000
+Received: by outflank-mailman (output) from mailman id 1363079.1614909; Wed, 15 Jul 2026 13:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjyxR-000795-0y; Wed, 15 Jul 2026 12:43:25 +0000
-Received: by outflank-mailman (input) for mailman id 1363059;
- Wed, 15 Jul 2026 12:43:23 +0000
+	id 1wjzit-00052E-HG; Wed, 15 Jul 2026 13:32:27 +0000
+Received: by outflank-mailman (input) for mailman id 1363079;
+ Wed, 15 Jul 2026 13:32:26 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65cd991f000edb5@swg.vates.tech>)
- id 1wjyxP-00078x-Am
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 12:43:23 +0000
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
+ id 1wjzir-000528-H8
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 13:32:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjyxO-00Duhb-Nq
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 14:43:22 +0200
+ id 1wjziq-0039RC-Lm
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 15:32:24 +0200
 Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65cd991f000edb5@swg.vates.tech>)
- id 6a578069-2eae-0a2a0a5409dd-0a2a4501b170-2
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 14:43:22 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13-01.swg-srv.net)
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
+ id 6a578bd9-5cb7-0a2a0a5109dd-0a2a4501a052-44
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:32:24 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65cd991f000edb5@swg.vates.tech>)
- id 6a57806a-5984-0a2a45010019-b9ff1c228c63-3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 14:43:22 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
+ id 6a578be8-5984-0a2a45010019-b9ff1c12a039-3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:32:24 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13-01.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f65cd991f000edb5.003 for <xen-devel@lists.xenproject.org>
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19f65fa7df1000edb5.005 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Wed, 15 Jul 2026 12:43:20 +0000
-Received: from [192.168.1.18] (88-188-240-210.subs.proxad.net [88.188.240.210])
- (Authenticated sender: teddy.astie)
- by mail2.vates.fr (Postfix) with ESMTPSA id 267BC8118B;
- Wed, 15 Jul 2026 14:43:20 +0200 (CEST)
+ Wed, 15 Jul 2026 13:32:22 +0000
+Received: from l14 (areims-651-1-80-194.w90-18.abo.wanadoo.fr [90.18.187.194])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 2C03A82227;
+ Wed, 15 Jul 2026 15:32:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,229 +66,187 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=5dxMK+YgW3HQIvPcNXSmva41mMtAplVJu5Ecxr1/7R4=;
+ q=dns/txt; s=selector1; bh=BEtayOb+VvUwy9P6LoGVuc4PhAut7kLpQMxrozWQyeM=;
  h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=adKe2hVAUxoHoy531S9i+0TxOcMs+72JNqK/KJVlkb6vdOh7D60uO+S6XVZXWnhNLgF7V/5/e
- w61p3af+XvDfLTQjs9ebhuluYqG/9ifvoEopHtVILFJ2y9s7wGVdNIavIRF85xHJZb+/8vtmixw
- 21zlIegsHXNqtFtabUMjZ+uImHRLot5W/Rl3TFhXuKp24K0huExpb1Ojp3FQgXbzfm3hZTF7k5o
- hGjpqXLmAEbbxT0VPHqQwF8VhBEXmtNaV/CsQiIzrj4QXwIKYMeHkeeD7MNeV+JliI5BRA1JoHA
- bEqEXR4mCsMS6Sgh8KpZw/CM5HJpHs/Cit3l1izZRI/g==
-X-Zone-Loop: 7d4ed7e8283e1b0ddc854181765c5bbe0dd7b8880916
+ b=LbVCv/paijkzsmvtDpJQMuKcUymSh3ON7cnDEl5bh+MQfq0+8SDL4pvAAkREGS+99+qmfHuh0
+ buI5VbmKfCgmL88C8cVd0rzg1DG+wQ0dZs8ocQs9KWt4tw7/1JG5POJIDTaGeTEcVGFTYQ2CNod
+ fHb8cB0RQ65DdOvEZvfeVtl2GNJi8+t/hhKSEXSYYC4hwUbyZThGv0kEwI42jPf2TMLlWgT2Qqm
+ 4cBv47g6dSsAlsoOLaj3j9yl/bqAryvbMhuU/yPhKSd5O9UzBcMUN2RUK7ciYmN8QJ9f6lFmN5e
+ Upr5OkPM5e2J2xHOBhpxvnPDn2pxHcBsU7QMcesYC3KQ==
+X-Zone-Loop: 6bffdd597665c395f4d5f789d6ac4ad77bf78e30eb08
 x-campaign-type: default
-x-transaction-id: 7729a3bd-d137-4e45-8855-9a7901cb9a77
-x-swg-uid: 01-e2314736-f6d5-4912-a360-4cded665a236
+x-transaction-id: 9c80ce74-408b-4c0e-b7e4-7ca891a73572
+x-swg-uid: 01-74635579-f788-4c0f-b564-c9fe9ac50c36
 X-Mailer: Sweego
 Message-ID:
- <1784119400.8631fc262581453bbf619ec5b2062170.19f65cd991f000edb5@vates.tech>
-x-swg-bid: 1784119400.8631fc262581453bbf619ec5b2062170.19f65cd991f000edb5
+ <1784122342.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@vates.tech>
+x-swg-bid: 1784122342.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
 X-Originating-IP: [37.26.189.201]
-Date: Wed, 15 Jul 2026 14:43:19 +0200
+Date: Wed, 15 Jul 2026 15:32:21 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Frediano Ziglio <frediano.ziglio@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v9 4/4] libs/guest: use Valgrind to detect various buffer
+ overflows
+References: <20260713204802.105115-1-frediano.ziglio@citrix.com>
+ <20260713204802.105115-5-frediano.ziglio@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86: put x86_emulate/ early in $(obj-y)
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <8a3ee9c3-489a-4dbf-b61b-cd078322b786@suse.com>
- <898091b0-0c73-4829-a3b4-c8da6026a40c@suse.com>
-Content-Language: en-US
-From: Teddy Astie <teddy.astie@vates.tech>
-Autocrypt: addr=teddy.astie@vates.tech; keydata=
- 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
- x9fhaZEsniw8/bYgC3igkk5YJiOa
-In-Reply-To: <898091b0-0c73-4829-a3b4-c8da6026a40c@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ttqtow8KSe3CHk5B6cO4lSms"
+Content-Disposition: inline
+In-Reply-To: <20260713204802.105115-5-frediano.ziglio@citrix.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1784119400257
-X-purgate-ID: tlsNG-d62444/1784119402-C475B757-5CA8E507/0/0
+X-Bm-Transport-Timestamp: 1784122342312
+X-purgate-ID: tlsNG-d62444/1784122344-1EE60757-FB16FEBC/0/0
 X-purgate-type: clean
-X-purgate-size: 5838
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_HAS_CURRENCY(1.00)[];
+X-purgate-size: 3663
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_MUA_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	ARC_NA(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	RCPT_COUNT_THREE(0.00)[4];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:from_mime,vates.tech:mid,vates.tech:url];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
+	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5393475E4BA
+X-Rspamd-Queue-Id: 8EF3975EB94
 X-Rspamd-Action: no action
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ttqtow8KSe3CHk5B6cO4lSms
-Content-Type: multipart/mixed; boundary="------------INRN0CwkcCjjtZGhuVhdjc30";
- protected-headers="v1"
-From: Teddy Astie <teddy.astie@vates.tech>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Message-ID: <b741a78c-88ac-41c6-adb6-d707a209b1e8@vates.tech>
-Subject: Re: [PATCH 2/2] x86: put x86_emulate/ early in $(obj-y)
-References: <8a3ee9c3-489a-4dbf-b61b-cd078322b786@suse.com>
- <898091b0-0c73-4829-a3b4-c8da6026a40c@suse.com>
-In-Reply-To: <898091b0-0c73-4829-a3b4-c8da6026a40c@suse.com>
-
---------------INRN0CwkcCjjtZGhuVhdjc30
-Content-Type: multipart/mixed; boundary="------------09Hows03yfZ6nsJFTOaoWD9R"
-
---------------09Hows03yfZ6nsJFTOaoWD9R
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-TGUgMDkvMDcvMjAyNiDDoCAxNDowMCwgSmFuIEJldWxpY2ggYSDDqWNyaXTCoDoNCj4gLi4u
-IHN1Y2ggdGhhdCBpbiBwYXJhbGxlbCBidWlsZHMgbWFrZSB3b3VsZCBzY2hlZHVsZSBpdCBl
-YXJseS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4NCj4gDQo+IC0tLSBhL3hlbi9hcmNoL3g4Ni9NYWtlZmlsZQ0KPiArKysgYi94ZW4v
-YXJjaC94ODYvTWFrZWZpbGUNCj4gQEAgLTEsMyArMSw3IEBADQo+ICsjIFB1dCB0aGlzIGFo
-ZWFkIG9mIHRoZSBzb3J0ZWQgbGlzdCBiZWxvdywgYXMgaXQgdGFrZXMgbG9uZyB0byBidWls
-ZCBhbmQgaGVuY2UNCj4gKyMgd2UnZCBsaWtlIHBhcmFsbGVsIG1ha2UgdG8gc2NoZWR1bGUg
-aXRzIGJ1aWxkaW5nIGVhcmx5Lg0KPiArb2JqLXkgKz0geDg2X2VtdWxhdGUvDQo+ICsNCj4g
-ICBvYmoteSArPSBhY3BpLw0KPiAgIG9iai15ICs9IGJvb3QvDQo+ICAgb2JqLXkgKz0gY3B1
-Lw0KPiBAQCAtOSw3ICsxMyw2IEBAIG9iai15ICs9IGxpYi8NCj4gICBvYmoteSArPSBtbS8N
-Cj4gICBvYmotJChDT05GSUdfUFYpICs9IHB2Lw0KPiAgIG9iai15ICs9IHg4Nl82NC8NCj4g
-LW9iai15ICs9IHg4Nl9lbXVsYXRlLw0KPiAgIA0KPiAgIG9iai15ICs9IGFsdGVybmF0aXZl
-Lm8NCj4gICBvYmoteSArPSBhcGljLm8NCj4gDQo+IA0KDQpSZXZpZXdlZC1ieTogVGVkZHkg
-QXN0aWUgPHRlZGR5LmFzdGllQHZhdGVzLnRlY2g+DQo=
---------------09Hows03yfZ6nsJFTOaoWD9R
-Content-Type: application/pgp-keys; name="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Description: OpenPGP public key
+---=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=-
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Mon, Jul 13, 2026 at 09:48:02PM +0100, Frediano Ziglio wrote:
+> --- a/tools/libs/ctrl/xc_private=2Eh
+> +++ b/tools/libs/ctrl/xc_private=2Eh
+> @@ -45,8 +45,16 @@
+>  #if defined(HAVE_VALGRIND_MEMCHECK_H) && !defined(NDEBUG) && !defined(_=
+_MINIOS__)
+>  /* Compile in Valgrind client requests? */
+>  #include <valgrind/memcheck=2Eh>
+> +#define MEM_NOACCESS_BUFFER(name, size) uint8_t name[size];
+> +#define MEM_NOACCESS_INIT(field) \
+> +    VALGRIND_MAKE_MEM_NOACCESS(field, sizeof(field))
+> +#define MEM_UNDEFINED_INIT(field) \
+> +    VALGRIND_MAKE_MEM_UNDEFINED(field, sizeof(field))
+>  #else
+>  #define VALGRIND_MAKE_MEM_UNDEFINED(addr, len) /* addr, len */
+> +#define MEM_NOACCESS_BUFFER(name, size)
+> +#define MEM_NOACCESS_INIT(field) do {} while(0)
+> +#define MEM_UNDEFINED_INIT(field) do {} while(0)
 
-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
-x9fhaZEsniw8/bYgC3igkk5YJiOa
-=3DlUIA
------END PGP PUBLIC KEY BLOCK-----
+Why the _INIT suffix in the macros? It looks like something is
+initialised, but that's not the case=2E
 
---------------09Hows03yfZ6nsJFTOaoWD9R--
+We could follow the valgrind naming and do, while using something
+different than "mem" to say we don't need a size:
+make_buffer_noaccess and make_buffer_undefined
 
---------------INRN0CwkcCjjtZGhuVhdjc30--
+Or
+mark_buffer_as_noaccess
+mark_buffer_as_undefined
 
---------------ttqtow8KSe3CHk5B6cO4lSms
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
+>  #endif
+> =20
+>  #if defined(__MINIOS__)
+> diff --git a/tools/libs/guest/xg_sr_common=2Eh b/tools/libs/guest/xg_sr_=
+common=2Eh
+> index c07c6db59e=2E=2Ed3fc7f363e 100644
+> --- a/tools/libs/guest/xg_sr_common=2Eh
+> +++ b/tools/libs/guest/xg_sr_common=2Eh
+> @@ -245,13 +245,21 @@ struct xc_sr_context
+>              xc_hypercall_buffer_t dirty_bitmap_hbuf;
+>              struct xc_sr_context_save_buffers
+>              {
+> +                MEM_NOACCESS_BUFFER(na0, 16);
 
-wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmpXgGcFAwAAAAAACgkQZg+p0QLLz9DU
-TAv/TsdvvASQ8Bc0pCLa0F8TvEVj2rFkqvAP+oV6DsBhBa5xZan/7zpBwdrOQ7MANcvbD8NVlOmT
-p+gLQ1h0SUUe4iN9dS9kVuTC0VftIMWOPYf3G+vm2kiDYiXyPBdQco6Sac3D1/XqkaGm2PijK1o9
-9GHHW+l9fZC1kkroi3XWtAx0IRarV6UZPrEbRLoPH5cThowjfRG8iIFn0oPmzutV2bXgCEc1Bghc
-M2xoBQGXbVQRuHt118/WqslZbTvseKa7g4ufpBuFZhF9QyVg+0hkAcIWgg/g3RF7eSEV/2MrqpwQ
-pzVg9q9q+d3jyVync+u08mQthuaFo9hZV53EHLf+eD7c92JLYJXyVxbSRV943evKt055J/CiXMhW
-vXDdfYMZtV5xZb+hrGKP0gshy+GlPT7L6L+R5ztfLMSDscblmqFj/5tyMDidgmhu7Nk6nrwOLoDx
-/8DQ7qLrHXzIqdspcoOe7d9LSjXOcqm3uxdW29XKnmyQloT10WaTnbJ4jNQ8
-=ISeI
------END PGP SIGNATURE-----
+This first redzone buffer and the last (na7) one looks unnecessary, as
+they are before the beginning of the buffer, and after the end=2E
 
---------------ttqtow8KSe3CHk5B6cO4lSms--
+>                  xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na1, 16);
+>                  xen_pfn_t mfns[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na2, 16);
+>                  xen_pfn_t types[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na3, 16);
+>                  void *local_pages[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na4, 16);
+>                  struct iovec iov[MAX_BATCH_SIZE + 2]; /* Headers + data=
+=2E */
+> +                MEM_NOACCESS_BUFFER(na5, 16);
+>                  uint64_t rec_pfns[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na6, 16);
+>                  int errors[MAX_BATCH_SIZE];
+> +                MEM_NOACCESS_BUFFER(na7, 16);
+>              } *buffers;
+>          } save;
+> =20
+> diff --git a/tools/libs/guest/xg_sr_save=2Ec b/tools/libs/guest/xg_sr_sa=
+ve=2Ec
+> index 6a77e33a47=2E=2E25561e369f 100644
+> --- a/tools/libs/guest/xg_sr_save=2Ec
+> +++ b/tools/libs/guest/xg_sr_save=2Ec
+> @@ -123,6 +123,11 @@ static int write_batch(struct xc_sr_context *ctx)
+>      assert(nr_pfns !=3D 0);
+>      assert(nr_pfns <=3D MAX_BATCH_SIZE);
+> =20
+> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->mfns);
+> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->types);
+> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->iov);
+> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->rec_pfns);
+
+Why is errors not also marked as undefined?
+
+To bad we can't really test this patch, beside check that it build=2E
+
+Thanks,
+
+
+-- 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=---
 
