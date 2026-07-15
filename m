@@ -2,52 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id X1KcN9I1V2qgHQEAu9opvQ
+	id AD5dEWVRV2rOJAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 09:25:06 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 11:22:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8917075B67A
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 09:25:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD6A975C6D1
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 11:22:44 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=fSes+lcF;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=GUokjIQR;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1362785.1614533 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1362837.1614549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjtzC-0004xn-5C; Wed, 15 Jul 2026 07:24:54 +0000
+	id 1wjvo7-0003Ak-R4; Wed, 15 Jul 2026 09:21:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1362785.1614533; Wed, 15 Jul 2026 07:24:54 +0000
+Received: by outflank-mailman (output) from mailman id 1362837.1614549; Wed, 15 Jul 2026 09:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjtzC-0004w9-22; Wed, 15 Jul 2026 07:24:54 +0000
-Received: by outflank-mailman (input) for mailman id 1362785;
- Wed, 15 Jul 2026 07:24:52 +0000
+	id 1wjvo7-00038x-OK; Wed, 15 Jul 2026 09:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 1362837;
+ Wed, 15 Jul 2026 09:21:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wjtzA-0004w3-Gu
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 07:24:52 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f6514cc99000edb5@swg.vates.tech>)
+ id 1wjvo5-00038r-5X
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 09:21:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjtz9-002GcI-Tg
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 09:24:51 +0200
+ id 1wjvo4-00ARlL-As
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 11:21:32 +0200
 Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a5735b1-2eae-0a2a0a5409dd-0a2a4503b4cc-44
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 09:24:51 +0200
-Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f6514cc99000edb5@swg.vates.tech>)
+ id 6a575111-5cb7-0a2a0a5109dd-0a2a4503a18e-48
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 11:21:32 +0200
+Received: from [185.255.28.35] (helo=prod-mta-13-02.swg-srv.net)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a5735c3-fae8-0a2a45030019-d155dd35e48f-3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 09:24:51 +0200
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-470174001a0so916713f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 00:24:51 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-144-234.play-internet.pl.
- [109.243.144.234]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f464d6fa7sm13890315f8f.37.2026.07.15.00.24.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Jul 2026 00:24:50 -0700 (PDT)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f6514cc99000edb5@swg.vates.tech>)
+ id 6a57511b-fae8-0a2a45030019-b9ff1c23abb3-3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 11:21:31 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13-02.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19f6514cc99000edb5.006 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Wed, 15 Jul 2026 09:21:29 +0000
+Received: from l14 (areims-651-1-80-194.w90-18.abo.wanadoo.fr [90.18.187.194])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id EAD98822DC;
+ Wed, 15 Jul 2026 11:21:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,104 +65,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784100291; x=1784705091; darn=lists.xenproject.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=h8G81wEFX++uMuj4xtPbL7BBy8MBUfXYEBGWYEtIBVY=;
-        b=fSes+lcFjTIa36hYi0I1LmoQOLvHJ6YUt/VIkEs9Ml568a/VCkP3m4cyHjipTAIBcr
-         MCfgpbBcWsUZoCaexQwi9TPtWHAfcOFWWJ6kUPYL/htPJW/coYKWPKSqT1GYljE1hXob
-         gKyJB9tIZUiSsOvYpk3FSMI1cUhQufAPyfkxEsPkf6UEsHkxJCfTu/xp8K/rWZk1NdyT
-         lgUIQe1RVulyyTdZxOwxs4IUijP397/LOjroFXvCHTP5wmJENifbDI4lPkuyhfZtYKyp
-         AmRWUZq3sk342F/dC+xf4WCPTBiKgYW0tsGGuDl00Ww2q3MXjjaQ3A/ICqEQLfZ7gNlO
-         p/dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784100291; x=1784705091;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h8G81wEFX++uMuj4xtPbL7BBy8MBUfXYEBGWYEtIBVY=;
-        b=Rmu5Mk9CF2iTPVnxD2wR9q9ax9uhYj7unXtfSjZaZvm7loHC9LWHPC1k+Di7d/O+Tn
-         BRdWQ2FP0R/eGi4IWQnnzS9dreX1UsFXBrbQZmRPCWhSOdhnLFKroXXJAoHYxc8ON0EN
-         X6TZHK2GMFjV+ll5Srb5pNWbrUzWhqF+MT0Zu3XXdXG6EV3z1c9JJRkHrlH4vgg3KZ0+
-         gu4UTfd4fGzwmWNvqk2AXlC/7DSi6+1BgFqqO9Nsb60XpiGY4RAZwAmITUGxLb/4kpEI
-         CF62cM5nD03j6HyfYvN78PIipol7v4uGFAABJ2z4ZKy/+pq8Yd7glUm+cHtyNMJYXaAV
-         CqZQ==
-X-Gm-Message-State: AOJu0YwJrILZI++FJLAXPGMLQsOAwzYlAuHVmkb8BEkuRUQ9V7mSe6J8
-	x5QkMJs1ZuhVJg9VR0Rv1r4Ar+S3VQXKCYPDvUkN56axw2fSRvwn7BX2oCrhbg==
-X-Gm-Gg: AfdE7cka/nRunfyPFqJzov3no/n6trAsEF7qP+pnQ1wWBD+11ghG2KFyf3Xa+EB14bV
-	16/Qj/PCdPZqQFYVOW8Bb1wSbnwVqvrRCga07v3Rl2gi8e1Mq0DNFQvgYT57lT/pHa+uV7gqcKt
-	w0EtWfY6srVBZ7X5zgmrpbTf0+cSkA6uLFmG2pW845vl+uDQw9ckOwK0xH/gPLD+oL6egESZRdC
-	0AEGdY5eyZ74z2goQz2o8UrjM3OvsJ6ZSW4pOlEGSpwwmf7u9+oAHorrmANcQHp0xSOriefRvPg
-	clm7D08LMQoS+tciOOYwq8HgQNljnpm0mpglTa+nKM3OfTYst2xQik8905OU2I0dksGol1BENPw
-	2Mol5K+btUuVVcHtj1YzQnKyGgARzFKX+Qb7SscvPCFzxnxfm9fx3OZyno78vxVsm+jyqSaVQeD
-	tCwdugKnCKX/5Mb1kWsTxSSYF115oxcUuRFlS4ox5s/OyJ8iGDMs7M734Zv6Okorc+DII=
-X-Received: by 2002:a05:6000:471c:b0:479:e6a8:c0f1 with SMTP id ffacd0b85a97d-47f2dc8d79fmr16470155f8f.9.1784100291178;
-        Wed, 15 Jul 2026 00:24:51 -0700 (PDT)
-Message-ID: <e88d25a6-8d2e-49a6-9cac-702251bb8df2@gmail.com>
-Date: Wed, 15 Jul 2026 09:24:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=WDh/ttfnnuz5C/DyzqJRGD6ci8fLLIEcwOWx+8a+02s=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=GUokjIQR6q9CDURRGLmkPvTCkXFMbW2k/9f5hbnP8hHpsBfqn4YjUY+ddpz8XpVi0gQXY3n8z
+ 56e2zOFppy9NAYSLk9JroNgidIt9xjbG5cjyvXMrf0boPOdxX2fvtka+lqpPvGEMHnuWlRq2BBx
+ q+v3yAPRiynfPPMFKjpRyDHFAcAkubpQgOC1CXQSRCOMsyT0YnyMgX5CcMniKLYGuVcCgxqeZqG
+ KxftQUa2e3RBwuzsVsknXHLBCcO53WM9ilreXu02yfXMU4io4M8MmpskgcxtNn6qgz1RpYSSbP8
+ hn+qGdHaMsTLo7wiPgbdEoyCd+q2UdgOliFOY4BWiCxQ==
+X-Zone-Loop: 684d33fdfb6e01cf5e3e5cb62ba883bbb2098b5b8eea
+x-campaign-type: default
+x-transaction-id: c751403d-7fec-41dd-b11d-f36e5204321e
+x-swg-uid: 01-0a8b20cb-c121-4581-882c-762fe9ac08ce
+X-Mailer: Sweego
+Message-ID:
+ <1784107289.8631fc262581453bbf619ec5b2062170.19f6514cc99000edb5@vates.tech>
+x-swg-bid: 1784107289.8631fc262581453bbf619ec5b2062170.19f6514cc99000edb5
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Wed, 15 Jul 2026 11:21:28 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Edwin =?iso-8859-1?B?VPZy9ms=?= <edwin.torok@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	Frediano Ziglio <frediano.ziglio@citrix.com>
+Subject: Re: [PATCH v9 3/4] libs/guest: allocate various migration arrays
+ just once
+References: <20260713204802.105115-1-frediano.ziglio@citrix.com>
+ <20260713204802.105115-4-frediano.ziglio@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Community Manager <community.manager@xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Xen 4.22 Release Postponed to 30 July
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1784100291-6F4C74E9-95783E1E/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 431
+Content-Disposition: inline
+In-Reply-To: <20260713204802.105115-4-frediano.ziglio@citrix.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.81d.ddc5bc79ec70dd0a.19f6514ca0f.342b20155e628d32=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1784107289103
+X-purgate-ID: tlsNG-33051d/1784107292-754844E9-53CABF43/0/0
+X-purgate-type: clean
+X-purgate-size: 810
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:community.manager@xenproject.org,m:committers@xenproject.org,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,m:edwin.torok@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,m:frediano.ziglio@citrix.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:from_smtp,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8917075B67A
+X-Rspamd-Queue-Id: AD6A975C6D1
 
-Hello everyone,
+---=Part.81d.ddc5bc79ec70dd0a.19f6514ca0f.342b20155e628d32=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The Xen 4.22 release has been postponed to 30 July.
+On Mon, Jul 13, 2026 at 09:48:01PM +0100, Frediano Ziglio wrote:
+> From: Edwin T=C3=B6r=C3=B6k <edwin=2Etorok@citrix=2Ecom>
+>=20
+> Allocate these array just once at the start of migration,
+> using the maximum batch size, and free them at the end=2E
+>=20
+> Signed-off-by: Edwin T=C3=B6r=C3=B6k <edwin=2Etorok@citrix=2Ecom>
+> Signed-off-by: Frediano Ziglio <frediano=2Eziglio@citrix=2Ecom>
 
-The reason for the delay is that a set of Xen Security Advisories (XSAs) 
-has been pre-disclosed under the standard two-week embargo. To ensure 
-that the security fixes are included in the public release and become 
-available at the same time the embargo expires, the Xen 4.22 release 
-date has been moved accordingly.
+Reviewed-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
 
-Have a good day.
+Thanks,
 
-~ Oleksii
+
+-- 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.81d.ddc5bc79ec70dd0a.19f6514ca0f.342b20155e628d32=---
 
