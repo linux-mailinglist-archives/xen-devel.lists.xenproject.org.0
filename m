@@ -2,58 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 20NdESmMV2rKWgAAu9opvQ
+	id 22FvKzWNV2oVWwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:33:29 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:37:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF3975EB94
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3728B75EC1D
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jul 2026 15:37:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=vates.tech header.s=selector1 header.b="LbVCv/pa";
-	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=vates.tech
-Received: from list by lists.xenproject.org with outflank-mailman.1363079.1614909 (Exim 4.92)
+	dkim=none;
+	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=citrix.com (policy=reject);
+	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1363090.1614919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjzit-00054U-KM; Wed, 15 Jul 2026 13:32:27 +0000
+	id 1wjzo5-0005hL-6H; Wed, 15 Jul 2026 13:37:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1363079.1614909; Wed, 15 Jul 2026 13:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 1363090.1614919; Wed, 15 Jul 2026 13:37:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wjzit-00052E-HG; Wed, 15 Jul 2026 13:32:27 +0000
-Received: by outflank-mailman (input) for mailman id 1363079;
- Wed, 15 Jul 2026 13:32:26 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
- id 1wjzir-000528-H8
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 13:32:25 +0000
+	id 1wjzo5-0005ew-2j; Wed, 15 Jul 2026 13:37:49 +0000
+Received: by outflank-mailman (input) for mailman id 1363090;
+ Wed, 15 Jul 2026 13:37:47 +0000
+Received: from mx.expurgate.net ([194.145.224.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <abdelkareem.abdelsaamad@citrix.com>)
+ id 1wjzo3-0005ea-L1
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 13:37:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wjziq-0039RC-Lm
- for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 15:32:24 +0200
-Received: from [10.42.69.1] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
- id 6a578bd9-5cb7-0a2a0a5109dd-0a2a4501a052-44
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:32:24 +0200
-Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@swg.vates.tech>)
- id 6a578be8-5984-0a2a45010019-b9ff1c12a039-3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:32:24 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19f65fa7df1000edb5.005 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Wed, 15 Jul 2026 13:32:22 +0000
-Received: from l14 (areims-651-1-80-194.w90-18.abo.wanadoo.fr [90.18.187.194])
- (Authenticated sender: anthony.perard)
- by mail2.vates.fr (Postfix) with ESMTPSA id 2C03A82227;
- Wed, 15 Jul 2026 15:32:22 +0200 (CEST)
+ id 1wjzo2-004YDq-Qr
+ for xen-devel@lists.xenproject.org; Wed, 15 Jul 2026 15:37:46 +0200
+Received: from [10.42.69.11] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <abdelkareem.abdelsaamad@citrix.com>)
+ id 6a578d16-bab6-0a2a0a5309dd-0a2a450b8150-36
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:37:46 +0200
+Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.57.1)
+ (envelope-from <abdelkareem.abdelsaamad@citrix.com>)
+ id 6a578d29-b7e8-0a2a450b0019-a0658309e43a-3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Jul 2026 15:37:46 +0200
+Received: from fedora.eng.citrite.net (unknown [10.113.40.46])
+ by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 6A1F682CD4A3;
+ Wed, 15 Jul 2026 09:36:07 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,188 +56,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=BEtayOb+VvUwy9P6LoGVuc4PhAut7kLpQMxrozWQyeM=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=LbVCv/paijkzsmvtDpJQMuKcUymSh3ON7cnDEl5bh+MQfq0+8SDL4pvAAkREGS+99+qmfHuh0
- buI5VbmKfCgmL88C8cVd0rzg1DG+wQ0dZs8ocQs9KWt4tw7/1JG5POJIDTaGeTEcVGFTYQ2CNod
- fHb8cB0RQ65DdOvEZvfeVtl2GNJi8+t/hhKSEXSYYC4hwUbyZThGv0kEwI42jPf2TMLlWgT2Qqm
- 4cBv47g6dSsAlsoOLaj3j9yl/bqAryvbMhuU/yPhKSd5O9UzBcMUN2RUK7ciYmN8QJ9f6lFmN5e
- Upr5OkPM5e2J2xHOBhpxvnPDn2pxHcBsU7QMcesYC3KQ==
-X-Zone-Loop: 6bffdd597665c395f4d5f789d6ac4ad77bf78e30eb08
-x-campaign-type: default
-x-transaction-id: 9c80ce74-408b-4c0e-b7e4-7ca891a73572
-x-swg-uid: 01-74635579-f788-4c0f-b564-c9fe9ac50c36
-X-Mailer: Sweego
-Message-ID:
- <1784122342.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5@vates.tech>
-x-swg-bid: 1784122342.8631fc262581453bbf619ec5b2062170.19f65fa7df1000edb5
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Wed, 15 Jul 2026 15:32:21 +0200
-From: Anthony PERARD <anthony.perard@vates.tech>
-To: Frediano Ziglio <freddy77@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-	Frediano Ziglio <frediano.ziglio@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v9 4/4] libs/guest: use Valgrind to detect various buffer
- overflows
-References: <20260713204802.105115-1-frediano.ziglio@citrix.com>
- <20260713204802.105115-5-frediano.ziglio@citrix.com>
+From: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	jason.andryuk@amd.com,
+	teddy.astie@vates.tech,
+	Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+Subject: [PATCH v1] nSVM: Check injected event consistency
+Date: Wed, 15 Jul 2026 14:35:36 +0100
+Message-ID: <d01b3d5327ace27ca9d81244a168ba2ab6ed094d.1784121738.git.abdelkareem.abdelsaamad@citrix.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260713204802.105115-5-frediano.ziglio@citrix.com>
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1784122342312
-X-purgate-ID: tlsNG-d62444/1784122344-1EE60757-FB16FEBC/0/0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1784122666-18AC89EA-374C2853/0/0
 X-purgate-type: clean
-X-purgate-size: 3663
-X-Spamd-Result: default: False [0.82 / 15.00];
-	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[1];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 4965
+X-Spamd-Result: default: False [2.51 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
+	MID_CONTAINS_FROM(1.00)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:from_mime,vates.tech:mid,vates.tech:url];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:abdelkareem.abdelsaamad@citrix.com,s:lists@lfdr.de];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ALIAS_RESOLVED(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCVD_COUNT_SEVEN(0.00)[9];
+	FROM_NEQ_ENVFROM(0.00)[abdelkareem.abdelsaamad@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	R_DKIM_NA(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,amd.com:url,lists.xenproject.org:helo,lists.xenproject.org:from_smtp,lists.xenproject.org:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8EF3975EB94
+X-Rspamd-Queue-Id: 3728B75EC1D
 X-Rspamd-Action: no action
 
----=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On the AMD platforms, allowing a VMRUN instruction with a malformed VMCB has
+debugging complications, security and performance implications. The APM volume
+2 15.20 [1] states two possibilities that result in a VMRUN exit with
+VMEXIT_INVALID due to injected events. These are either
+• Reserved values of TYPE have been specified.
+• TYPE = 3 (exception) has been specified with a vector that does not
+  correspond to an exception (this includes vector 2, which is an NMI, not
+  an exception).
+Extend the VMCB checks to check for such inconsistency.
 
-On Mon, Jul 13, 2026 at 09:48:02PM +0100, Frediano Ziglio wrote:
-> --- a/tools/libs/ctrl/xc_private=2Eh
-> +++ b/tools/libs/ctrl/xc_private=2Eh
-> @@ -45,8 +45,16 @@
->  #if defined(HAVE_VALGRIND_MEMCHECK_H) && !defined(NDEBUG) && !defined(_=
-_MINIOS__)
->  /* Compile in Valgrind client requests? */
->  #include <valgrind/memcheck=2Eh>
-> +#define MEM_NOACCESS_BUFFER(name, size) uint8_t name[size];
-> +#define MEM_NOACCESS_INIT(field) \
-> +    VALGRIND_MAKE_MEM_NOACCESS(field, sizeof(field))
-> +#define MEM_UNDEFINED_INIT(field) \
-> +    VALGRIND_MAKE_MEM_UNDEFINED(field, sizeof(field))
->  #else
->  #define VALGRIND_MAKE_MEM_UNDEFINED(addr, len) /* addr, len */
-> +#define MEM_NOACCESS_BUFFER(name, size)
-> +#define MEM_NOACCESS_INIT(field) do {} while(0)
-> +#define MEM_UNDEFINED_INIT(field) do {} while(0)
+The collection of the invalid exception vectors are picked from the upstream KVM
+commit ("7e79f71bca5c" KVM: nSVM: Add missing consistency check for EVENTINJ).
 
-Why the _INIT suffix in the macros? It looks like something is
-initialised, but that's not the case=2E
+[1] https://docs.amd.com/v/u/en-US/24593_3.44_APM_Vol2
 
-We could follow the valgrind naming and do, while using something
-different than "mem" to say we don't need a size:
-make_buffer_noaccess and make_buffer_undefined
+Signed-off-by: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+---
+Testing:
+ - Using a locally developed XTF nested virt setup, I manually tested VMRUN
+   instruction handling with a malformed VMCB:
+   1) Inject event with the type (7). 
+      The hypervisor logs show the message
+      (XEN) [  645.155609] d2v0[nsvm_vmcb_prepare4vmrun]: eventinj: Invalid Injected
+            Event Type: (0x7)
+   2) Inject event with the exception value (3) and the vector value (2) for NMI.
+      The hypervisor logs show the message
+      (XEN) [  645.157277] d2v0[nsvm_vmcb_prepare4vmrun]: eventinj: Invalid Injected Event.
+             Exception type: (0x3), with a vector: (0x2) does not belong to an exception
 
-Or
-mark_buffer_as_noaccess
-mark_buffer_as_undefined
+ - CI tests:
+https://gitlab.com/xen-project/people/aabdelsa/xen/-/pipelines/2678629270
+---
+ xen/arch/x86/hvm/svm/vmcb.c | 36 ++++++++++++++++++++++++++++++++++++
+ xen/arch/x86/hvm/svm/vmcb.h |  3 +++
+ 2 files changed, 39 insertions(+)
 
-
->  #endif
-> =20
->  #if defined(__MINIOS__)
-> diff --git a/tools/libs/guest/xg_sr_common=2Eh b/tools/libs/guest/xg_sr_=
-common=2Eh
-> index c07c6db59e=2E=2Ed3fc7f363e 100644
-> --- a/tools/libs/guest/xg_sr_common=2Eh
-> +++ b/tools/libs/guest/xg_sr_common=2Eh
-> @@ -245,13 +245,21 @@ struct xc_sr_context
->              xc_hypercall_buffer_t dirty_bitmap_hbuf;
->              struct xc_sr_context_save_buffers
->              {
-> +                MEM_NOACCESS_BUFFER(na0, 16);
-
-This first redzone buffer and the last (na7) one looks unnecessary, as
-they are before the beginning of the buffer, and after the end=2E
-
->                  xen_pfn_t batch_pfns[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na1, 16);
->                  xen_pfn_t mfns[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na2, 16);
->                  xen_pfn_t types[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na3, 16);
->                  void *local_pages[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na4, 16);
->                  struct iovec iov[MAX_BATCH_SIZE + 2]; /* Headers + data=
-=2E */
-> +                MEM_NOACCESS_BUFFER(na5, 16);
->                  uint64_t rec_pfns[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na6, 16);
->                  int errors[MAX_BATCH_SIZE];
-> +                MEM_NOACCESS_BUFFER(na7, 16);
->              } *buffers;
->          } save;
-> =20
-> diff --git a/tools/libs/guest/xg_sr_save=2Ec b/tools/libs/guest/xg_sr_sa=
-ve=2Ec
-> index 6a77e33a47=2E=2E25561e369f 100644
-> --- a/tools/libs/guest/xg_sr_save=2Ec
-> +++ b/tools/libs/guest/xg_sr_save=2Ec
-> @@ -123,6 +123,11 @@ static int write_batch(struct xc_sr_context *ctx)
->      assert(nr_pfns !=3D 0);
->      assert(nr_pfns <=3D MAX_BATCH_SIZE);
-> =20
-> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->mfns);
-> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->types);
-> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->iov);
-> +    MEM_UNDEFINED_INIT(ctx->save=2Ebuffers->rec_pfns);
-
-Why is errors not also marked as undefined?
-
-To bad we can't really test this patch, beside check that it build=2E
-
-Thanks,
-
-
+diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
+index 975a1eaef8..1ca8474958 100644
+--- a/xen/arch/x86/hvm/svm/vmcb.c
++++ b/xen/arch/x86/hvm/svm/vmcb.c
+@@ -320,6 +320,31 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
+     svm_dump_sel("  TR", &vmcb->tr);
+ }
+ 
++static bool is_valid_svm_vmcb_injected_exception_vector(
++    const struct vmcb_struct *vmcb, uint8_t vmcb_injected_vector)
++{
++    return ( (vmcb_injected_vector == X86_EXC_DE) ||
++             (vmcb_injected_vector == X86_EXC_DB) ||
++             (vmcb_injected_vector == X86_EXC_BP) ||
++             (vmcb_injected_vector == X86_EXC_OF) ||
++             (vmcb_injected_vector == X86_EXC_BR) ||
++             (vmcb_injected_vector == X86_EXC_UD) ||
++             (vmcb_injected_vector == X86_EXC_NM) ||
++             (vmcb_injected_vector == X86_EXC_DF) ||
++             (vmcb_injected_vector == X86_EXC_TS) ||
++             (vmcb_injected_vector == X86_EXC_NP) ||
++             (vmcb_injected_vector == X86_EXC_SS) ||
++             (vmcb_injected_vector == X86_EXC_GP) ||
++             (vmcb_injected_vector == X86_EXC_PF) ||
++             (vmcb_injected_vector == X86_EXC_MF) ||
++             (vmcb_injected_vector == X86_EXC_AC) ||
++             (vmcb_injected_vector == X86_EXC_MC) ||
++             (vmcb_injected_vector == X86_EXC_XM) ||
++             (vmcb_injected_vector == X86_EXC_HV) ||
++             (vmcb_injected_vector == X86_EXC_SX) ||
++             (vmcb_get_sev_es(vmcb) && vmcb_injected_vector == X86_EXC_VC) );
++}
++
+ bool svm_vmcb_isvalid(
+     const char *from, const struct vmcb_struct *vmcb, const struct vcpu *v,
+     bool verbose)
+@@ -330,6 +355,8 @@ bool svm_vmcb_isvalid(
+     unsigned long cr4 = vmcb_get_cr4(vmcb);
+     unsigned long valid;
+     uint64_t efer = vmcb_get_efer(vmcb);
++    uint8_t vmcb_injected_type = vmcb->event_inj.type & SVM_EVENT_INJ_TYPE_MASK;
++    uint8_t vmcb_injected_vector = vmcb->event_inj.vector & SVM_EVENT_INJ_VEC_MASK;
+ 
+ #define PRINTF(fmt, args...) do { \
+     if ( !verbose ) return true; \
+@@ -392,6 +419,15 @@ bool svm_vmcb_isvalid(
+         PRINTF("eventinj: MBZ bits are set (%#"PRIx64")\n",
+                vmcb->event_inj.raw);
+ 
++    if ( vmcb_injected_type > X86_ET_SW_INT )
++        PRINTF("eventinj: Invalid Injected Event Type: (%#"PRIx8")\n",
++               vmcb_injected_type);
++
++    if ( (vmcb_injected_type == X86_ET_HW_EXC) &&
++         !is_valid_svm_vmcb_injected_exception_vector(vmcb, vmcb_injected_vector) )
++        PRINTF("eventinj: Invalid Injected Event. Exception type: (%#"PRIx8"),"
++               " with a vector: (%#"PRIx8") does not belong to an exception\n",
++               vmcb_injected_type, vmcb_injected_vector);
+ #undef PRINTF
+     return ret;
+ }
+diff --git a/xen/arch/x86/hvm/svm/vmcb.h b/xen/arch/x86/hvm/svm/vmcb.h
+index 13ccfd3ff9..3c22095db1 100644
+--- a/xen/arch/x86/hvm/svm/vmcb.h
++++ b/xen/arch/x86/hvm/svm/vmcb.h
+@@ -306,6 +306,9 @@ enum
+     TLB_CTRL_FLUSH_ASID_NONGLOBAL = 7,
+ };
+ 
++#define SVM_EVENT_INJ_VEC_MASK     0xff
++#define SVM_EVENT_INJ_TYPE_MASK    0x7
++
+ typedef union
+ {
+     struct
 -- 
-Anthony Perard | Vates XCP-ng Developer
+2.53.0
 
-XCP-ng & Xen Orchestra - Vate=
-s solutions
-
-web: https://vates=2Etech
----=Part.887.b73258ecbeb7d5db.19f65fa7ba7.8ef4226bdd5936ec=---
 
